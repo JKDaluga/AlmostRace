@@ -123,14 +123,14 @@ public class Vehicle : MonoBehaviour
                 wheel.collider.brakeTorque = brakeTorqueToApply;
             }
 
-            /*if (GetComponentInParent<Rigidbody>().velocity.magnitude > 5.0f)
+            if (GetComponentInParent<Rigidbody>().velocity.magnitude > 5.0f)
             {
                 wheel.collider.sidewaysFriction = moving;
             }
             else
             {
                 wheel.collider.sidewaysFriction = atRest;
-            }*/
+            }
         }
 
 
