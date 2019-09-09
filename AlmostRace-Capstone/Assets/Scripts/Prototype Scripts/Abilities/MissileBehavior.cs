@@ -39,7 +39,6 @@ public class MissileBehavior : MonoBehaviour
         if(collision.gameObject != immunePlayer)
         {
             ExplodeMissile();
-            
         }
     }
 

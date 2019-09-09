@@ -71669,6 +71669,7 @@ GameObject:
   - component: {fileID: 8829525318004773030}
   - component: {fileID: 8829525318004773049}
   - component: {fileID: 8829525318004773052}
+  - component: {fileID: 8829525318004773053}
   m_Layer: 0
   m_Name: Player1(8_22_2019)
   m_TagString: Vehicle
@@ -71688,16 +71689,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ceda1c616fee4c0abcad4bdc27e75ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicAbilityObject: {fileID: 3082248129000263785, guid: 7a0b92a15c61c2944a0cb86f5f6bdfe3,
-    type: 3}
+  basicAbility: {fileID: 8829525318004773053}
   basicAbilityInput: Fire4
-  signatureAbilityObject: {fileID: 7767361534630531352, guid: 0e08a5e41159fca45b8b80a57b658299,
-    type: 3}
+  signatureAbility: {fileID: 0}
   abilityRecharge: 5
   signatureAbilityInput: Fire5
-  pickupObject: {fileID: 7767361534630531352, guid: 0e08a5e41159fca45b8b80a57b658299,
-    type: 3}
+  pickup: {fileID: 0}
   pickupInput: Fire6
+--- !u!114 &8829525318004773053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8829525318004773051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71660e3052d8c404f8c4a04bc4fad529, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missile: {fileID: 3082248129000263785, guid: 7a0b92a15c61c2944a0cb86f5f6bdfe3, type: 3}
+  spawnLocation: {fileID: 8829525317761408932}
 --- !u!1 &8830235056384948066
 GameObject:
   m_ObjectHideFlags: 0

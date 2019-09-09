@@ -5,17 +5,17 @@ using UnityEngine;
 public class VehicleAbilityBehavior : MonoBehaviour
 {
     [Header ("Basic Ability")]
-    [Tooltip("Basic Ability Prefab Slot")] public Ability basicAbility;
+    [Tooltip("Basic Ability Script Slot")] public Ability basicAbility;
     [Tooltip("The Button for using a Basic Ability")] public string basicAbilityInput;
     private bool canUseBasic = true;
 
-    [Header ("Signature Ability")]
-    [Tooltip("Signature Ability Prefab Slot")] public Ability signatureAbility;
+    [Header ("Signature Ability Script Slot")]
+    [Tooltip("Signature Ability Script")] public Ability signatureAbility;
     [Tooltip("Length of ability cooldown in seconds.")] public float abilityRecharge = 5f;
     [Tooltip("The Button for using a Signature Ability")] public string signatureAbilityInput;
     private bool canUseSignature = true;
     
-    [Header ("Pickup Ability")]
+    [Header ("Pickup Ability Script Slot")]
     [Tooltip("Pickup Ability Slot")] public Ability pickup;
     [Tooltip("The Button for using Pickups")] public string pickupInput;
 
