@@ -20,11 +20,11 @@ public class CarHeatManager : MonoBehaviour
         {
             heatCurrent = 110f;
         }
-        else if (Input.GetKeyDown(KeyCode.C)) // for testing, cools down car
+        else if (Input.GetKeyDown(KeyCode.N)) // for testing, cools down car
         {
             heatCurrent = 0f;
         }
-        else if(Input.GetKeyDown(KeyCode.E))
+        else if(Input.GetKeyDown(KeyCode.Y))
         {
             heatCurrent = 120f;
         }

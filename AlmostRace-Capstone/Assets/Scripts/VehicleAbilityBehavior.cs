@@ -7,12 +7,14 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Header ("Basic Ability")]
     [Tooltip("Basic Ability Script Slot")] public Ability basicAbility;
     [Tooltip("The Button for using a Basic Ability")] public string basicAbilityInput;
+    [Tooltip("Determines if the basic ability input can be held down")] public bool canHoldBasic;
     private bool canUseBasic = true;
 
     [Header ("Signature Ability")]
     [Tooltip("Signature Ability Script Slot")] public Ability signatureAbility;
     [Tooltip("Length of ability cooldown in seconds.")] public float abilityRecharge = 5f;
     [Tooltip("The Button for using a Signature Ability")] public string signatureAbilityInput;
+    [Tooltip("Determines if the signature ability input can be held down")]public bool canHoldSignature;
     private bool canUseSignature = true;
     
     [Header ("Pickup Ability")]
@@ -25,21 +27,17 @@ public class VehicleAbilityBehavior : MonoBehaviour
     }
 
     // Update is called once per frame
-    void FixedUpdate()
+    void Update()
     {
-        if (Input.GetButtonDown(basicAbilityInput) && canUseBasic && basicAbility != null)
-        {
-            basicAbility.Fire();
-        }
+        checkFireAbility(basicAbility, basicAbilityInput, canUseBasic, canHoldBasic);
 
-        if (Input.GetButtonDown(signatureAbilityInput) && canUseSignature && signatureAbility != null)
+        if (checkFireAbility(signatureAbility, signatureAbilityInput, canUseSignature, canHoldSignature))
         {
-            signatureAbility.Fire();
             canUseSignature = false;
-            StartCoroutine(AbilityCooldown()); 
+            StartCoroutine(AbilityCooldown());
         }
 
-        if(Input.GetButtonDown(pickupInput) && pickup != null)
+        if (Input.GetButtonDown(pickupInput) && pickup != null)
         {
             pickup.Fire();
             pickup = null;
@@ -47,9 +45,29 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     }
 
+    private bool checkFireAbility(Ability ability, string abiltyInput, bool canFire, bool canHoldInput)
+    {
+        if (canHoldInput)
+        {
+            if (Input.GetButton(abiltyInput) && canFire && ability != null)
+            {
+                ability.Fire();
+                return true;
+            }
+        }
+        else
+        {
+            if (Input.GetButtonDown(abiltyInput) && canFire && ability != null)
+            {
+                ability.Fire();
+                return true;
+            }
+        }
+        return false;
+    }
+
     private IEnumerator AbilityCooldown()
     {
-
         float tempTime = abilityRecharge;
 
         while (tempTime > 0)
@@ -59,6 +77,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
             Mathf.Lerp(0, 1, tempTime);
             yield return null;
         }
-
+        canUseSignature = true;
     }
 }
