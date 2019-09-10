@@ -29,22 +29,25 @@ public class VehicleAbilityBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Basic Ability Call
         checkFireAbility(basicAbility, basicAbilityInput, canUseBasic, canHoldBasic);
-
+        
+        // Signature Ability Call
         if (checkFireAbility(signatureAbility, signatureAbilityInput, canUseSignature, canHoldSignature))
         {
             canUseSignature = false;
             StartCoroutine(AbilityCooldown());
         }
 
+        // Pickup Ability Call
         if (Input.GetButtonDown(pickupInput) && pickup != null)
         {
             pickup.Fire();
             pickup = null;
         }
-
     }
 
+    // Handles the ability call, on what input it is, if it can be used, and if it can be held down
     private bool checkFireAbility(Ability ability, string abiltyInput, bool canFire, bool canHoldInput)
     {
         if (canHoldInput)
