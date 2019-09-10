@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 3614913734630322759}
   - component: {fileID: 489336081}
   m_Layer: 0
-  m_Name: speedy Car
+  m_Name: WheelCar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -188,26 +188,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _wheels:
   - collider: {fileID: 3614913734614259810}
-    powered: 1
-    steerable: 1
+    isPowered: 1
+    isSteerable: 1
     hasBrakes: 1
   - collider: {fileID: 3614913736380671820}
-    powered: 1
-    steerable: 1
+    isPowered: 1
+    isSteerable: 1
     hasBrakes: 1
   - collider: {fileID: 3614913734274782527}
-    powered: 1
-    steerable: 0
+    isPowered: 1
+    isSteerable: 0
     hasBrakes: 1
   - collider: {fileID: 3614913734864905069}
-    powered: 1
-    steerable: 0
+    isPowered: 1
+    isSteerable: 0
     hasBrakes: 1
   _centerOfMassOffset: {x: 0, y: -1, z: 0}
   _maxSteerAngle: 20
   _steerHelper: 1
   _tractionControl: 1
-  _fullTorqueOverAllWheels: 20000
+  _fullTorqueOverAllWheels: 5000
   _downForce: 100
   _topSpeed: 70
   _slipLimit: 0.9

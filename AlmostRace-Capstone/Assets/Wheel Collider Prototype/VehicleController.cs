@@ -8,34 +8,51 @@ using UnityEngine.SceneManagement;
 public class Wheel
 {
     //The collider this wheel uses
+    [Tooltip("The collider of the wheel")]
     public WheelCollider collider;
 
-    //Whether this wheel should be powered by the engine
-    public bool powered;
+    //Whether this wheel should be Powered by the engine
+    [Tooltip("Is this wheel effected by motorTorque")]
+    public bool isPowered;
 
-    //Whether this wheel is steerable
-    public bool steerable;
+    //Whether this wheel is Steerable
+    [Tooltip("Does this wheel control the vehicle's steering")]
+    public bool isSteerable;
 
     //Whether this wheel can apply brakes
+    [Tooltip("Is this wheel able to apply brakes")]
     public bool hasBrakes;
 }
 
 public class VehicleController : MonoBehaviour
 {
+    [Tooltip("List holding the vehicle's wheels")]
     [SerializeField] private Wheel[] _wheels;
+    [Tooltip("How far from the center of the vehicle the center of mass is set, Negative Y sets it below the car")]
     [SerializeField] private Vector3 _centerOfMassOffset;
     [SerializeField] private float _maxSteerAngle;
+    [Tooltip("Value from 0-1, 0 doing nothing, 1 being full override")]
     [Range(0, 1)] [SerializeField] private float _steerHelper;
+    [Tooltip("Value from 0-1, 0 is regular physics, 1 is full override")]
     [Range(0, 1)] [SerializeField] private float _tractionControl;
+    [Tooltip("Base Torque across all powered wheels. Value affects acceleration and top speed")]
     [SerializeField] private float _fullTorqueOverAllWheels;
+    [Tooltip("Force applied to keep car stable and grounded")]
     [SerializeField] private float _downForce;
+    [Tooltip("Highest velocity car will reach. It will stop accelerating at this point")]
     [SerializeField] private float _topSpeed;
+    [Tooltip("How much the tires can slip before traction control kicks in")]
     [SerializeField] private float _slipLimit;
+    [Header("Force used for each behavior")]
     [SerializeField] private float _brakeTorque;
     [SerializeField] private float _handBrakeTorque;
     [SerializeField] private float _reverseTorque;
+
+    [Tooltip("The Heat value at which the car would die")]
     [SerializeField] private float _maxHeat;
+    [Tooltip("Multiplier for acceleration rate, best kept at low numbers")]
     [SerializeField] private float _acceleration;
+    [Tooltip("Multiplier for the vehicle's handling. Best kept at low numbers")]
     [SerializeField] private float _handling;
 
     private Rigidbody _rigidbody;
@@ -54,25 +71,33 @@ public class VehicleController : MonoBehaviour
 
     private void Start()
     {
+        //Assigns the given acceleration and handling values to the forward
+        //and sideways stiffness values respectively
         WheelFrictionCurve fFriction = _wheels[0].collider.forwardFriction;
         fFriction.stiffness = _acceleration;
 
         WheelFrictionCurve sFriction = _wheels[0].collider.sidewaysFriction;
         sFriction.stiffness = _handling;
-
+        
         _wheels[0].collider.attachedRigidbody.centerOfMass = _centerOfMassOffset;
+
+        //calculates how many wheels are powered for later use, and assigns
+        //appropriate friction curves
         for(int i = 0; i < _wheels.Length; i++)
         {
-            if (_wheels[i].powered) poweredWheels++;
+            if (_wheels[i].isPowered) poweredWheels++;
             _wheels[i].collider.forwardFriction = fFriction;
             _wheels[i].collider.sidewaysFriction = sFriction;
         }
         _handBrakeTorque = float.MaxValue;
 
         _rigidbody = GetComponent<Rigidbody>();
+
+        //Assigns a base torque value depending on how much traction control is in use.
         _currentTorque = _fullTorqueOverAllWheels - (_tractionControl * _fullTorqueOverAllWheels);
     }
 
+    //Takes user input from the VehicleInput script and uses it here
     public void Move(float steer, float accel, float brake, float handbrake)
     {
         //clamp input values
@@ -81,19 +106,26 @@ public class VehicleController : MonoBehaviour
         brakeInput = brake = -1 * Mathf.Clamp(brake, -1, 0);
         handbrake = Mathf.Clamp(handbrake, 0, 1);
 
+        //Gets the current steering input and assigns it to the
+        //steerable wheels
         _steerAngle = steer * _maxSteerAngle;
         for(int i = 0; i < _wheels.Length; i++)
         {
-            if (_wheels[i].steerable)
+            if (_wheels[i].isSteerable)
             {
                 _wheels[i].collider.steerAngle = _steerAngle;
             }
         }
 
+        //Calls methods to stabilize the car to prevent spin outs, 
+        //apply any forward or backward forces from the user, and
+        //to cap the vehicle's velocity if necessary
         SteerControl();
         ApplyDrive(accel, brake);
         CapSpeed();
 
+        //Checks if the handbrake is being pressed, and if so,
+        //applies the appropriate force
         if(handbrake > 0f)
         {
             var hbTorque = handbrake * _handBrakeTorque;
@@ -108,11 +140,13 @@ public class VehicleController : MonoBehaviour
 
         Debug.Log(_rigidbody.velocity.magnitude);
 
+        //Forces are applied to keep the car from spinning out,
+        //And to keep the car grounded
         AddDownForce();
         TractionControl();
     }
 
-
+    //This method prevents the car from shaking wildly and from turning uncontrollably
     public void SteerControl()
     {
         for (int i = 0; i < 4; i++)
@@ -133,12 +167,14 @@ public class VehicleController : MonoBehaviour
         _oldRotation = transform.eulerAngles.y;
     }
 
+    //This method is used to apply the motor and braking torques
+    //to the appropriate wheels
     public void ApplyDrive(float accel, float brake)
     {
         float thrust = accel * (_currentTorque/poweredWheels);
         for(int i = 0; i < _wheels.Length; i++)
         {
-            if (_wheels[i].powered)
+            if (_wheels[i].isPowered)
             {
                 _wheels[i].collider.motorTorque = thrust;
             }
@@ -155,6 +191,8 @@ public class VehicleController : MonoBehaviour
         
     }
 
+    //Checks if the user would surpass the speed cap, and lowers
+    //their speed to the cap if so.
     public void CapSpeed()
     {
         float speed = _rigidbody.velocity.magnitude;
@@ -164,17 +202,22 @@ public class VehicleController : MonoBehaviour
         }
     }
 
+    //Applies a downward force to the car that increases with the
+    //car's speed
     public void AddDownForce()
     {
         _rigidbody.AddForce(-transform.up * _downForce * _rigidbody.velocity.magnitude);
     }
 
+    //Checks which wheels are both powered and on the ground
+    //And uses that info to adjust the torque applied to each
+    //wheel
     public void TractionControl()
     {
         WheelHit hit;
         for(int i = 0; i < _wheels.Length; i++)
         {
-            if (_wheels[i].powered)
+            if (_wheels[i].isPowered)
             {
                 _wheels[i].collider.GetGroundHit(out hit);
 
@@ -183,6 +226,8 @@ public class VehicleController : MonoBehaviour
         }
     }
 
+    //Checks if the wheel is slipping too much, or if the torque is
+    //too high, and adjusts the torque values appropriately.
     public void AdjustTorque(float slip)
     {
         if(slip > _slipLimit && _currentTorque >= 0)
