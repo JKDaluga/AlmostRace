@@ -9,14 +9,14 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Tooltip("The Button for using a Basic Ability")] public string basicAbilityInput;
     private bool canUseBasic = true;
 
-    [Header ("Signature Ability Script Slot")]
-    [Tooltip("Signature Ability Script")] public Ability signatureAbility;
+    [Header ("Signature Ability")]
+    [Tooltip("Signature Ability Script Slot")] public Ability signatureAbility;
     [Tooltip("Length of ability cooldown in seconds.")] public float abilityRecharge = 5f;
     [Tooltip("The Button for using a Signature Ability")] public string signatureAbilityInput;
     private bool canUseSignature = true;
     
-    [Header ("Pickup Ability Script Slot")]
-    [Tooltip("Pickup Ability Slot")] public Ability pickup;
+    [Header ("Pickup Ability")]
+    [Tooltip("Pickup Ability Script Slot")] public Ability pickup;
     [Tooltip("The Button for using Pickups")] public string pickupInput;
 
     public void Start()

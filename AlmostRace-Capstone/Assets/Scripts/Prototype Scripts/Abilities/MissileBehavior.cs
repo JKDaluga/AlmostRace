@@ -22,7 +22,7 @@ public class MissileBehavior : MonoBehaviour
 
     public void ExplodeMissile()
     {
-      GameObject spawnedExplosion = Instantiate(explosionPrefab, transform.position, transform.rotation);
+        GameObject spawnedExplosion = Instantiate(explosionPrefab, transform.position, transform.rotation);
         spawnedExplosion.GetComponent<MissileExplosionBehavior>().SetImmunePlayer(immunePlayer);
         spawnedExplosion.GetComponent<MissileExplosionBehavior>().SetExplosionDamage(missileDamage);
 
@@ -41,7 +41,5 @@ public class MissileBehavior : MonoBehaviour
             ExplodeMissile();
         }
     }
-
-
 
 }
