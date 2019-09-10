@@ -49,17 +49,17 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 1
-    m_ExtremumValue: 300
-    m_AsymptoteSlip: 2
-    m_AsymptoteValue: 150
-    m_Stiffness: 1.5
+    m_ExtremumSlip: 0.4
+    m_ExtremumValue: 1
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &3614913734614259820
 GameObject:
@@ -110,17 +110,17 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 1
-    m_ExtremumValue: 300
-    m_AsymptoteSlip: 2
-    m_AsymptoteValue: 150
-    m_Stiffness: 1.5
+    m_ExtremumSlip: 0.4
+    m_ExtremumValue: 1
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &3614913734630322758
 GameObject:
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 3614913734630322757}
   - component: {fileID: 3614913734630322756}
   - component: {fileID: 3614913734630322759}
-  - component: {fileID: 3614913734630322778}
+  - component: {fileID: 489336081}
   m_Layer: 0
   m_Name: speedy Car
   m_TagString: Untagged
@@ -186,7 +186,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a73c3cc1cf4824d8e7ec7c1abf5db2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wheels:
+  _wheels:
   - collider: {fileID: 3614913734614259810}
     powered: 1
     steerable: 1
@@ -203,11 +203,21 @@ MonoBehaviour:
     powered: 1
     steerable: 0
     hasBrakes: 1
-  motorTorque: 1000
-  brakeTorque: 4000
-  steeringAngle: 45
-  trueSteeringAngle: 0
---- !u!114 &3614913734630322778
+  _centerOfMassOffset: {x: 0, y: -1, z: 0}
+  _maxSteerAngle: 20
+  _steerHelper: 1
+  _tractionControl: 1
+  _fullTorqueOverAllWheels: 20000
+  _downForce: 100
+  _topSpeed: 70
+  _slipLimit: 0.9
+  _brakeTorque: 20000
+  _handBrakeTorque: 1e+16
+  _reverseTorque: 100
+  _maxHeat: 0
+  _acceleration: 1.5
+  _handling: 2
+--- !u!114 &489336081
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -216,10 +226,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3614913734630322758}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fec003b2822c9f34b97992e9c7e3bcdb, type: 3}
+  m_Script: {fileID: 11500000, guid: 372f0d48ef2ad3347acac5b6130cb13f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  centerOfMass: {x: 0, y: -1, z: 0}
 --- !u!1 &3614913734691012539
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,17 +396,17 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 1
-    m_ExtremumValue: 300
-    m_AsymptoteSlip: 2
-    m_AsymptoteValue: 150
-    m_Stiffness: 1.5
+    m_ExtremumSlip: 0.4
+    m_ExtremumValue: 1
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 1
   m_Enabled: 1
 --- !u!1 &3614913735064856735
 GameObject:
@@ -570,15 +579,15 @@ WheelCollider:
   m_Mass: 20
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
-    m_ExtremumSlip: 1
-    m_ExtremumValue: 300
-    m_AsymptoteSlip: 2
-    m_AsymptoteValue: 150
-    m_Stiffness: 1.5
+    m_ExtremumSlip: 0.4
+    m_ExtremumValue: 1
+    m_AsymptoteSlip: 0.8
+    m_AsymptoteValue: 0.5
+    m_Stiffness: 1
   m_SidewaysFriction:
     m_ExtremumSlip: 0.2
     m_ExtremumValue: 1
     m_AsymptoteSlip: 0.5
     m_AsymptoteValue: 0.75
-    m_Stiffness: 2
+    m_Stiffness: 1
   m_Enabled: 1
