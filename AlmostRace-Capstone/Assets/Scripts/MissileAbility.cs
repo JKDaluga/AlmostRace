@@ -7,11 +7,6 @@ public class MissileAbility : Ability
     public GameObject missile;
     public Transform spawnLocation;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     public override void Fire()
     {
