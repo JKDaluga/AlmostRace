@@ -7,15 +7,14 @@ public class MissileAbility : Ability
     public GameObject missile;
     public Transform spawnLocation;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    public override void Fire()
+    public override void ActivateAbility()
     {
         GameObject missileInstance = Instantiate(missile, spawnLocation.position, spawnLocation.rotation);
         missileInstance.GetComponent<MissileBehavior>().SetImmunePlayer(gameObject);
+    }
+    public override void DeactivateAbility()
+    {
+        //not used
     }
 }

@@ -42,27 +42,32 @@ public class VehicleAbilityBehavior : MonoBehaviour
         // Pickup Ability Call
         if (Input.GetButtonDown(pickupInput) && pickup != null)
         {
-            pickup.Fire();
+            pickup.ActivateAbility();
             pickup = null;
         }
     }
 
     // Handles the ability call, on what input it is, if it can be used, and if it can be held down
-    private bool checkFireAbility(Ability ability, string abiltyInput, bool canFire, bool canHoldInput)
+    private bool checkFireAbility(Ability ability, string abilityInput, bool canFire, bool canHoldInput)
     {
         if (canHoldInput)
         {
-            if (Input.GetButton(abiltyInput) && canFire && ability != null)
+            if (Input.GetButton(abilityInput) && canFire && ability != null)
             {
-                ability.Fire();
+                ability.ActivateAbility();
                 return true;
+            }
+            else if(Input.GetButtonUp(abilityInput) && ability != null)
+            {
+                ability.DeactivateAbility();
+                return false; 
             }
         }
         else
         {
-            if (Input.GetButtonDown(abiltyInput) && canFire && ability != null)
+            if (Input.GetButtonDown(abilityInput) && canFire && ability != null)
             {
-                ability.Fire();
+                ability.ActivateAbility();
                 return true;
             }
         }
