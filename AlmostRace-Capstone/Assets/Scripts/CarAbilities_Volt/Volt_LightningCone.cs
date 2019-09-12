@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Volt_LightningCone : MonoBehaviour
 {
-    //DONT FORGET TO ADD A RigidBody
-
     /*
      Damage value and frequency values are sent from the ability script,
      that way designers only need to set those values in one script that is on the car,
@@ -25,7 +23,6 @@ public class Volt_LightningCone : MonoBehaviour
         _carsBeingDamagedList = new List<CarHeatManager>();
     }
 
-
     public void SetImmunePlayer(GameObject player)
     {
         _immunePlayer = player;
@@ -37,7 +34,6 @@ public class Volt_LightningCone : MonoBehaviour
         _damageFrequency = frequency;
         _selfDamage = selfDamage;
     }
-
 
     private void DamageEnemies()
     {
@@ -55,12 +51,14 @@ public class Volt_LightningCone : MonoBehaviour
             isDamagingPlayers = false;
             CancelInvoke("DamageEnemies");
         }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject != _immunePlayer) //Prevents self damage.
         {
+            Debug.Log(other.gameObject.name + " was hit by the lightning!");
             if(other.gameObject.GetComponent<CarHeatManager>() != null) //makes sure attack is hitting a car. Separated IFs for readability.
             {
                 //Might have to add additional checks to allow environments to be damaged, not just cars.
@@ -68,8 +66,7 @@ public class Volt_LightningCone : MonoBehaviour
                 if(!isDamagingPlayers)
                 {
                     InvokeRepeating("DamageEnemies", 0, _damageFrequency);
-                }
-              
+                } 
             }
         }
     }
@@ -89,7 +86,6 @@ public class Volt_LightningCone : MonoBehaviour
     {
         _carsBeingDamagedList.Clear();
         CancelInvoke();
-
     }
 
 }

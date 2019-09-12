@@ -12,23 +12,23 @@ using UnityEngine;
 
 
 
-public class Volt_BasicAbility : Ability
+public class Volt_BasicAbility : BasicAbility
 {
 
     public GameObject lightningCone;
     private Volt_LightningCone _voltLightningConeInfo;
 
     [Header("Ability Values")]
-    [Tooltip("How much damage is done per lightning bolt every X seconds")] public float lightningDamage;
-    [Tooltip("How much damage this ability does to its own car every X seconds")] public float selfDamage;
+    [Tooltip("How much damage is done per lightning bolt every X seconds")] public float lightningDamage; 
     [Tooltip("How often enemy cars within range are hit with lightning. Lower number means more frequent!")] public float lightningFrequency;
 
 
     private void Start()
     {
+        carHeatInfo = gameObject.GetComponent<CarHeatManager>();
         _voltLightningConeInfo = lightningCone.GetComponent<Volt_LightningCone>();
         _voltLightningConeInfo.SetImmunePlayer(gameObject);
-        _voltLightningConeInfo.SetLightningDamageAndFrequency(lightningDamage, selfDamage, lightningFrequency);
+        _voltLightningConeInfo.SetLightningDamageAndFrequency(lightningDamage, selfHeatDamage, lightningFrequency);
         lightningCone.SetActive(false); // Off at the start of the game.
     }
 
@@ -36,6 +36,7 @@ public class Volt_BasicAbility : Ability
     {
         if (lightningCone.activeSelf == false)
         {
+            InvokeRepeating("AddHeat", 0, lightningFrequency);
             lightningCone.SetActive(true);
         }
     }
@@ -44,9 +45,13 @@ public class Volt_BasicAbility : Ability
     {
         if(lightningCone.activeSelf == true)
         {
+            CancelInvoke("AddHeat");
             lightningCone.SetActive(false);
         }
     }
 
-
+    protected override void AddHeat()
+    {
+        carHeatInfo.heatCurrent += selfHeatDamage;
+    }
 }
