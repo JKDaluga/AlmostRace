@@ -47,7 +47,7 @@ public class VehicleController : MonoBehaviour
     [SerializeField] private float _brakeTorque;
     [SerializeField] private float _handBrakeTorque;
     [SerializeField] private float _reverseTorque;
-
+    [Header("")]
     [Tooltip("The Heat value at which the car would die")]
     [SerializeField] private float _maxHeat;
     [Tooltip("Multiplier for acceleration rate, best kept at low numbers")]
@@ -117,6 +117,11 @@ public class VehicleController : MonoBehaviour
             }
         }
 
+        if(Mathf.Abs(_steerAngle) > 1.0f && currentSpeed > 25.0f && handbrake == 0)
+        {
+            accel = 0;
+        }
+
         //Calls methods to stabilize the car to prevent spin outs, 
         //apply any forward or backward forces from the user, and
         //to cap the vehicle's velocity if necessary
@@ -134,6 +139,22 @@ public class VehicleController : MonoBehaviour
                 if (_wheels[i].hasBrakes)
                 {
                     _wheels[i].collider.brakeTorque = hbTorque;
+
+                }
+                if (_wheels[i].isPowered && accel == 0)
+                {
+                    _wheels[i].collider.motorTorque = 0;
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < _wheels.Length; i++)
+            {
+                if (_wheels[i].hasBrakes)
+                {
+                    _wheels[i].collider.brakeTorque = 0;
+
                 }
             }
         }
@@ -174,6 +195,7 @@ public class VehicleController : MonoBehaviour
         float thrust = accel * (_currentTorque/poweredWheels);
         for(int i = 0; i < _wheels.Length; i++)
         {
+
             if (_wheels[i].isPowered)
             {
                 _wheels[i].collider.motorTorque = thrust;
@@ -206,7 +228,7 @@ public class VehicleController : MonoBehaviour
     //car's speed
     public void AddDownForce()
     {
-        _rigidbody.AddForce(-transform.up * _downForce * _rigidbody.velocity.magnitude);
+        _rigidbody.AddForce(Physics.gravity.normalized * _downForce * _rigidbody.velocity.magnitude);
     }
 
     //Checks which wheels are both powered and on the ground
