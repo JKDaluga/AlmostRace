@@ -158,8 +158,7 @@ public class VehicleController : MonoBehaviour
                 }
             }
         }
-
-        Debug.Log(_rigidbody.velocity.magnitude);
+        
 
         //Forces are applied to keep the car from spinning out,
         //And to keep the car grounded
