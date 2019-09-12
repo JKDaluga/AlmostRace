@@ -21,10 +21,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Tooltip("Pickup Ability Script Slot")] public Ability pickup;
     [Tooltip("The Button for using Pickups")] public string pickupInput;
 
-    public void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
