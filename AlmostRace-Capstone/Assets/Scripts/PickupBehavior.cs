@@ -4,13 +4,12 @@ using UnityEngine;
 
 public class PickupBehavior : MonoBehaviour
 {
-    public enum PickUps{misslePickUp };
+    public enum PickUps{misslePickUp};
     public PickUps chosenPickUp;
-    private GameObject pickUp;
-
     public MeshRenderer mesh;
-    public BoxCollider collide;
-    public int secs;
+    public BoxCollider theCollider;
+    public int respawnSeconds;
+    private GameObject pickUp;
 
     private void OnTriggerEnter(Collider collision)
     {
@@ -31,9 +30,9 @@ public class PickupBehavior : MonoBehaviour
     private IEnumerator coolDown()
     {
         mesh.enabled = false;
-        collide.enabled = false;
-        yield return new WaitForSeconds(secs);
+        theCollider.enabled = false;
+        yield return new WaitForSeconds(respawnSeconds);
         mesh.enabled = true;
-        collide.enabled = true;
+        theCollider.enabled = true;
     }
 }
