@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class Volt_LightningMissile : MonoBehaviour
 {
+
+    public GameObject missileExplosion;
+    public GameObject lightningCloud;
+
     private Rigidbody _rigidBody;
     private GameObject _immunePlayer;
-    public GameObject lightningCloud;
+  
+
     private float _missileExplosionDamage;
     private float _missileSpeed;
     private float _lightningCloudDuration;
@@ -19,6 +24,16 @@ public class Volt_LightningMissile : MonoBehaviour
         Invoke("ExplodeMissile", _missileFuseLength);
     }
 
+    public void ExplodeMissile()
+    {
+        GameObject spawnedExplosion = Instantiate(missileExplosion, transform.position, transform.rotation);
+        GameObject spawnedLightningCloud = Instantiate(lightningCloud, transform.position, transform.rotation);
+        spawnedExplosion.GetComponent<MissileExplosionBehavior>().SetImmunePlayer(_immunePlayer);
+        spawnedExplosion.GetComponent<MissileExplosionBehavior>().SetExplosionDamage(_missileExplosionDamage);
+
+        Destroy(gameObject);
+    }
+
     public void SetMissileInfo(float missileExplosionDamage, float missileFuseLength, float missileSpeed, float lightningCloudDuration, GameObject immunePlayer)
     {
         _immunePlayer = immunePlayer;
@@ -26,4 +41,14 @@ public class Volt_LightningMissile : MonoBehaviour
         _missileFuseLength = missileFuseLength;
         _lightningCloudDuration = lightningCloudDuration;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<Volt_LightningMissile>() == null)
+        {//Checks if the object is neither the immunePlayer nor another missile, as they spawn in the same spot.
+            ExplodeMissile();
+        }
+    }
+
+
 }
