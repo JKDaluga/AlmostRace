@@ -41,6 +41,7 @@ public class Volt_LightningCone : MonoBehaviour
 
     private void DamageEnemies()
     {
+        
         if(_carsBeingDamagedList.Count != 0)
         {
             isDamagingPlayers = true;
@@ -64,7 +65,11 @@ public class Volt_LightningCone : MonoBehaviour
             {
                 //Might have to add additional checks to allow environments to be damaged, not just cars.
                 _carsBeingDamagedList.Add(other.gameObject.GetComponent<CarHeatManager>());
-                InvokeRepeating("DamageEnemies", 0, _damageFrequency);
+                if(!isDamagingPlayers)
+                {
+                    InvokeRepeating("DamageEnemies", 0, _damageFrequency);
+                }
+              
             }
         }
     }
@@ -78,6 +83,13 @@ public class Volt_LightningCone : MonoBehaviour
                 _carsBeingDamagedList.Remove(other.gameObject.GetComponent<CarHeatManager>());
             }
         }
+    }
+
+    public void EndAbility()
+    {
+        _carsBeingDamagedList.Clear();
+        CancelInvoke();
+
     }
 
 }

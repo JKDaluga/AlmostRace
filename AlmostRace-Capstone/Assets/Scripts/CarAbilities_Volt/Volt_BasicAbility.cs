@@ -32,7 +32,7 @@ public class Volt_BasicAbility : Ability
         lightningCone.SetActive(false); // Off at the start of the game.
     }
 
-    public override void Fire()
+    public override void ActivateAbility()
     {
         if (lightningCone.activeSelf == false)
         {

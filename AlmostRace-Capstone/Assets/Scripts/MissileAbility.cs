@@ -8,9 +8,13 @@ public class MissileAbility : Ability
     public Transform spawnLocation;
 
 
-    public override void Fire()
+    public override void ActivateAbility()
     {
         GameObject missileInstance = Instantiate(missile, spawnLocation.position, spawnLocation.rotation);
         missileInstance.GetComponent<MissileBehavior>().SetImmunePlayer(gameObject);
+    }
+    public override void DeactivateAbility()
+    {
+        //not used
     }
 }

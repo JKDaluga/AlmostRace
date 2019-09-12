@@ -42,7 +42,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         // Pickup Ability Call
         if (Input.GetButtonDown(pickupInput) && pickup != null)
         {
-            pickup.Fire();
+            pickup.ActivateAbility();
             pickup = null;
         }
     }
@@ -54,20 +54,20 @@ public class VehicleAbilityBehavior : MonoBehaviour
         {
             if (Input.GetButton(abilityInput) && canFire && ability != null)
             {
-                ability.Fire();
+                ability.ActivateAbility();
                 return true;
             }
             else if(Input.GetButtonUp(abilityInput) && ability != null)
             {
                 ability.DeactivateAbility();
-                return false; // Maybe this needs to be true, Jason pls help.
+                return false; 
             }
         }
         else
         {
             if (Input.GetButtonDown(abilityInput) && canFire && ability != null)
             {
-                ability.Fire();
+                ability.ActivateAbility();
                 return true;
             }
         }
