@@ -87,4 +87,21 @@ public class VehicleAbilityBehavior : MonoBehaviour
         }
         canUseSignature = true;
     }
+
+    public bool hasPickup()
+    {
+        if (pickup != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void assignPickup(Ability givenPickup)
+    {
+        pickup = givenPickup;
+    }
 }
