@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class WeaponSystemsManager : MonoBehaviour
 {
-
     [Tooltip("Length of ability cooldown in seconds.")] public float abilityRecharge = 5f;
     [Tooltip("Ability Prefab Slot")] public GameObject abilityObject;
     [Tooltip("Missle Spawn Location")] public Transform missileSpawnLocation;
@@ -90,7 +89,6 @@ public class WeaponSystemsManager : MonoBehaviour
 
         while (tempTime > 0)
         {
-            Debug.Log(tempTime);
             tempTime -= Time.deltaTime;
             Mathf.Lerp(0, 1, tempTime);
             abilityCooldownUI.fillAmount = tempTime / abilityRecharge; 
