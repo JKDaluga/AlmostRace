@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class Volt_ExplosionMissile : MonoBehaviour
 {
+    /*
+     Edouard Borissov
+
+        This simple script handles the growth of an explosion, as well as who it damages and how much.
+         
+         */
     public float growthRate = 0.01f;
     public float growthAmount = 0.1f;
     public float explosionLifeLength = 0.5f;

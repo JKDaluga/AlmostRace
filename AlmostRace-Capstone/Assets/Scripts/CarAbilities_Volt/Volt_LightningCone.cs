@@ -5,6 +5,8 @@ using UnityEngine;
 public class Volt_LightningCone : MonoBehaviour
 {
     /*
+     * Edouard Borissov
+     * 
      Damage value and frequency values are sent from the ability script,
      that way designers only need to set those values in one script that is on the car,
      as opposed to an external object like the Lightning Cone.

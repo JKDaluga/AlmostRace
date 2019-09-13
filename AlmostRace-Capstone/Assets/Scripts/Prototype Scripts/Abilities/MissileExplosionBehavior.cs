@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class MissileExplosionBehavior : MonoBehaviour
 {
+    /*
+     * OLD PROTOTYPE CODE, MARKED FOR REMOVAL!
+     
+         */
     public float growthRate = 0.01f;
     public float growthAmount = 0.1f;
     public float explosionLifeLength = 0.5f;
