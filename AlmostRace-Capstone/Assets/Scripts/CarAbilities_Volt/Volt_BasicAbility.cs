@@ -46,6 +46,7 @@ public class Volt_BasicAbility : BasicAbility
         if(lightningCone.activeSelf == true)
         {
             CancelInvoke("AddHeat");
+            _voltLightningConeInfo.EndAbility();//ensures list of enemies kept by the cone gets cleared.
             lightningCone.SetActive(false);
         }
     }

@@ -21,10 +21,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Tooltip("Pickup Ability Script Slot")] public Ability pickup;
     [Tooltip("The Button for using Pickups")] public string pickupInput;
 
-    public void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -80,7 +76,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
         while (tempTime > 0)
         {
-            Debug.Log(tempTime);
+          //  Debug.Log(tempTime);
             tempTime -= Time.deltaTime;
             Mathf.Lerp(0, 1, tempTime);
             yield return null;
