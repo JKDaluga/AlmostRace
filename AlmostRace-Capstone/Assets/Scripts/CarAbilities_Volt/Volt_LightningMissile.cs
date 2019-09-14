@@ -12,6 +12,7 @@ using UnityEngine;
     a handful of seconds.
      */
 
+    //JASON HELP!
 
 public class Volt_LightningMissile : MonoBehaviour
 {
@@ -39,7 +40,9 @@ public class Volt_LightningMissile : MonoBehaviour
     private void Start()
     {
         _rigidBody = gameObject.GetComponent<Rigidbody>();
-        _rigidBody.velocity = transform.TransformDirection(Vector3.up * _missileSpeed);
+        _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _missileSpeed );
+       // _rigidBody.velocity = transform.TransformDirection(0,0, 1 + _immunePlayer.GetComponent<Rigidbody>().velocity.z) * _missileSpeed;
+//JASWEEN HELP! ^^
         Invoke("ExplodeMissile", _missileFuseLength);
     }
 
@@ -47,13 +50,14 @@ public class Volt_LightningMissile : MonoBehaviour
     {
         GameObject spawnedExplosion = Instantiate(missileExplosion, transform.position, transform.rotation);
         GameObject spawnedLightningCloud = Instantiate(lightningCloud, transform.position, transform.rotation);
-        spawnedExplosion.GetComponent<MissileExplosionBehavior>().SetImmunePlayer(_immunePlayer);
-        spawnedExplosion.GetComponent<MissileExplosionBehavior>().SetExplosionDamage(_missileExplosionDamage);
+        spawnedExplosion.GetComponent<Volt_ExplosionMissile>().SetImmunePlayer(_immunePlayer);
+        spawnedExplosion.GetComponent<Volt_ExplosionMissile>().SetExplosionDamage(_missileExplosionDamage);
 
         spawnedLightningCloud.GetComponent<Volt_LightningCloud>().SetImmunePlayer(_immunePlayer);
         spawnedLightningCloud.GetComponent<Volt_LightningCloud>().SetCloudInfo(_lightningCloudDuration, _lightningCloudGrowthRate, _lightningCloudGrowthAmount, _lightningCloudMaxSize);
 
         Destroy(gameObject);
+        Debug.Log("Missile should have been destroyed!!");
     }
 
     public void SetMissileInfo(float missileExplosionDamage, float missileFuseLength, float missileSpeed, GameObject immunePlayer)
@@ -61,6 +65,7 @@ public class Volt_LightningMissile : MonoBehaviour
         _immunePlayer = immunePlayer;
         _missileExplosionDamage = missileExplosionDamage;
         _missileFuseLength = missileFuseLength;
+        _missileSpeed = missileSpeed;
        
     }
 
@@ -74,9 +79,10 @@ public class Volt_LightningMissile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<Volt_LightningMissile>() == null)
+        if (other.gameObject != _immunePlayer && other.gameObject.tag != "missileTest")
         {//Checks if the object is neither the immunePlayer nor another missile, as they spawn in the same spot.
             ExplodeMissile();
+            Destroy(gameObject);
         }
     }
 

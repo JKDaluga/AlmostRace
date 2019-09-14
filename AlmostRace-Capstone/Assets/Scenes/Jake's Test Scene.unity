@@ -77364,13 +77364,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8829525317761408935}
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.049999952, z: 1.689}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0.874}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1509677761}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8829525317761408935
 GameObject:
   m_ObjectHideFlags: 0
@@ -77610,9 +77610,8 @@ GameObject:
   - component: {fileID: 8829525318004773052}
   - component: {fileID: 8829525318004773055}
   - component: {fileID: 8829525318004773054}
-  - component: {fileID: 8829525318004773053}
   m_Layer: 0
-  m_Name: Player1(8_22_2019)
+  m_Name: Car_Volt
   m_TagString: Vehicle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77637,22 +77636,8 @@ MonoBehaviour:
   abilityRecharge: 5
   signatureAbilityInput: RightMouseClick
   canHoldSignature: 0
-  pickup: {fileID: 8829525318004773053}
+  pickup: {fileID: 8829525318004773054}
   pickupInput: Fire6
---- !u!114 &8829525318004773053
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8829525318004773051}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71660e3052d8c404f8c4a04bc4fad529, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  missile: {fileID: 3082248129000263785, guid: 7a0b92a15c61c2944a0cb86f5f6bdfe3, type: 3}
-  spawnLocation: {fileID: 8829525317761408932}
 --- !u!114 &8829525318004773054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77684,10 +77669,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightningMissile: {fileID: 811526844473782882, guid: 80bf7a689c486bc489b0fc99f8d7fea9,
     type: 3}
-  sideMissileOffset: 15
-  missileSpeed: 400
+  sideMissileOffset: 2
+  missileSpeed: 300
   missileExplosionDamage: 75
-  missileFuseLength: 3
+  missileFuseLength: 1.5
   missileSpawnLocation: {fileID: 8829525317761408932}
   lightningCloudDuration: 3
   lightningCloudGrowthRate: 0.001
