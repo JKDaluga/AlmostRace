@@ -11,6 +11,8 @@ using UnityEngine.SceneManagement;
 /// </summary>
 namespace Console
 {
+    //The Generic Base class for Console Commands
+    //Change at your own risk
     public abstract class ConsoleCommand
     {
         public abstract string Name { get; protected set; }
