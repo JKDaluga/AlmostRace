@@ -4,37 +4,35 @@ using UnityEngine;
 
 public class PickupBehavior : MonoBehaviour
 {
-    public enum PickUps{misslePickUp };
+    public enum PickUps{misslePickUp};
     public PickUps chosenPickUp;
-    private Ability pickUp;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-        
-    }
+    public MeshRenderer mesh;
+    public BoxCollider theCollider;
+    public int respawnSeconds;
+    private GameObject pickUp;
 
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider collision)
     {
-        
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        
-
         if (collision.gameObject.CompareTag("Vehicle"))
         {
+            StartCoroutine(coolDown());
             if(collision.gameObject.GetComponent<VehicleAbilityBehavior>().hasPickup() == false)
             {
                 if (chosenPickUp == PickUps.misslePickUp)
                 {
-                    pickUp = Resources.Load<Ability>("MissileAbility");
+                    pickUp = Resources.Load<GameObject>("MissileAbilityContainer");
                     collision.gameObject.GetComponent<VehicleAbilityBehavior>().assignPickup(pickUp);
                 }
-                
             }
         }
+    }
+
+    private IEnumerator coolDown()
+    {
+        mesh.enabled = false;
+        theCollider.enabled = false;
+        yield return new WaitForSeconds(respawnSeconds);
+        mesh.enabled = true;
+        theCollider.enabled = true;
     }
 }

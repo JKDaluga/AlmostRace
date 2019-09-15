@@ -5,7 +5,7 @@ using UnityEngine;
 public class VehicleAbilityBehavior : MonoBehaviour
 {
     [Header ("Basic Ability")]
-    [Tooltip("Basic Ability Script Slot")] public Ability basicAbility;
+    [Tooltip("Basic Ability Script Slot")] public BasicAbility basicAbility;
     [Tooltip("The Button for using a Basic Ability")] public string basicAbilityInput;
     [Tooltip("Determines if the basic ability input can be held down")] public bool canHoldBasic;
     private bool canUseBasic = true;
@@ -21,10 +21,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Tooltip("Pickup Ability Script Slot")] public Ability pickup;
     [Tooltip("The Button for using Pickups")] public string pickupInput;
 
-    public void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -80,7 +76,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
         while (tempTime > 0)
         {
-            Debug.Log(tempTime);
+          //  Debug.Log(tempTime);
             tempTime -= Time.deltaTime;
             Mathf.Lerp(0, 1, tempTime);
             yield return null;
@@ -100,8 +96,8 @@ public class VehicleAbilityBehavior : MonoBehaviour
         }
     }
 
-    public void assignPickup(Ability givenPickup)
+    public void assignPickup(GameObject givenPickup)
     {
-        pickup = givenPickup;
+        pickup = givenPickup.GetComponent<Ability>();
     }
 }
