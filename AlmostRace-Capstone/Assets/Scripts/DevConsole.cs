@@ -4,6 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// DevConsole is for inputting console commands. It is already set up to take in console commands but can't take parameters, yet.
+/// Questions? Ask Jason!
+/// </summary>
+
 namespace Console
 {
         public class DevConsole : MonoBehaviour

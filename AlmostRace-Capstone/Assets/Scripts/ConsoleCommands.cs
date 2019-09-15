@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+/// <summary>
+/// ConsoleCommands are commands we want to be able to run in the DevConsole
+/// 
+/// Questions? Ask Jason!
+/// </summary>
 namespace Console
 {
     public abstract class ConsoleCommand
