@@ -19,8 +19,10 @@ public class Volt_BasicAbility : BasicAbility
     private Volt_LightningCone _voltLightningConeInfo;
 
     [Header("Ability Values")]
-    [Tooltip("How much damage is done per lightning bolt every X seconds")] public float lightningDamage; 
-    [Tooltip("How often enemy cars within range are hit with lightning. Lower number means more frequent!")] public float lightningFrequency;
+    [Tooltip("How much damage is done per lightning bolt every X seconds")]
+    public float lightningDamage; 
+    [Tooltip("How often enemy cars within range are hit with lightning. Lower number means more frequent!")]
+    public float lightningFrequency;
 
 
     private void Start()
