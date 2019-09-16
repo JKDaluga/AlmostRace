@@ -1,40 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-[System.Serializable]
-
-public class Wheel
-{
-    //The collider this wheel uses
-    [Tooltip("The collider of the wheel")]
-    public WheelCollider collider;
-
-    //Whether this wheel should be Powered by the engine
-    [Tooltip("Is this wheel effected by motorTorque")]
-    public bool isPowered;
-
-    //Whether this wheel is Steerable
-    [Tooltip("Does this wheel control the vehicle's steering")]
-    public bool isSteerable;
-
-    //Whether this wheel can apply brakes
-    [Tooltip("Is this wheel able to apply brakes")]
-    public bool hasBrakes;
-}
-
-public class VehicleController : MonoBehaviour
+public class VehicleController2 : MonoBehaviour
 {
     [Tooltip("List holding the vehicle's wheels")]
     [SerializeField] private Wheel[] _wheels;
     [Tooltip("How far from the center of the vehicle the center of mass is set, Negative Y sets it below the car")]
     [SerializeField] private Vector3 _centerOfMassOffset;
     [SerializeField] private float _maxSteerAngle;
-    [Tooltip("Value from 0-1, 0 doing nothing, 1 being full override")]
-    [Range(0, 1)] [SerializeField] private float _steerHelper;
-    [Tooltip("Value from 0-1, 0 is regular physics, 1 is full override")]
-    [Range(0, 1)] [SerializeField] private float _tractionControl;
     [Tooltip("Base Torque across all powered wheels. Value affects acceleration and top speed")]
     [SerializeField] private float _acceleration;
     [Tooltip("Force applied to keep car stable and grounded")]
@@ -47,9 +21,9 @@ public class VehicleController : MonoBehaviour
     [SerializeField] private float _brakeTorque;
     [SerializeField] private float _handBrakeTorque;
     [SerializeField] private float _reverseTorque;
-    [Header("")]
-    [SerializeField] private float _accelerationMultiplier = 4;
-    [SerializeField] private float _handling = 2.5f;
+
+    private float _accelerationMultiplier = 2;
+    private float _handling = 1;
 
     private Rigidbody _rigidbody;
     private float _currentTorque;
@@ -71,15 +45,15 @@ public class VehicleController : MonoBehaviour
         //and sideways stiffness values respectively
         WheelFrictionCurve fFriction = _wheels[0].collider.forwardFriction;
         fFriction.stiffness = _accelerationMultiplier;
-        
+
         WheelFrictionCurve sFriction = _wheels[0].collider.sidewaysFriction;
         sFriction.stiffness = _handling;
-        
+
         _wheels[0].collider.attachedRigidbody.centerOfMass = _centerOfMassOffset;
 
         //calculates how many wheels are powered for later use, and assigns
         //appropriate friction curves
-        for(int i = 0; i < _wheels.Length; i++)
+        for (int i = 0; i < _wheels.Length; i++)
         {
             if (_wheels[i].isPowered) poweredWheels++;
             _wheels[i].collider.forwardFriction = fFriction;
@@ -87,9 +61,6 @@ public class VehicleController : MonoBehaviour
         }
 
         _rigidbody = GetComponent<Rigidbody>();
-
-        //Assigns a base torque value depending on how much traction control is in use.
-        _currentTorque = _acceleration - (_tractionControl * _acceleration);
     }
 
     //Takes user input from the VehicleInput script and uses it here
@@ -111,7 +82,7 @@ public class VehicleController : MonoBehaviour
         //Gets the current steering input and assigns it to the
         //steerable wheels
         _steerAngle = steer * _maxSteerAngle;
-        for(int i = 0; i < _wheels.Length; i++)
+        for (int i = 0; i < _wheels.Length; i++)
         {
             if (_wheels[i].isSteerable)
             {
@@ -119,8 +90,9 @@ public class VehicleController : MonoBehaviour
             }
         }
 
-        if(Mathf.Abs(_steerAngle) > 1.0f && currentSpeed > _topSpeed && handbrake == 0)
+        if (Mathf.Abs(_steerAngle) > 1.0f && currentSpeed > _topSpeed && handbrake == 0)
         {
+            print(currentSpeed);
             accel = 0;
         }
 
@@ -133,10 +105,10 @@ public class VehicleController : MonoBehaviour
 
         //Checks if the handbrake is being pressed, and if so,
         //applies the appropriate force
-        if(handbrake > 0f)
+        if (handbrake > 0f)
         {
             var hbTorque = handbrake * _handBrakeTorque;
-            for(int i = 0; i < _wheels.Length; i++)
+            for (int i = 0; i < _wheels.Length; i++)
             {
                 if (_wheels[i].hasBrakes)
                 {
@@ -176,14 +148,6 @@ public class VehicleController : MonoBehaviour
             if (wheelhit.normal == Vector3.zero)
                 return; // wheels arent on the ground so dont realign the rigidbody velocity
         }
-
-        // this if is needed to avoid gimbal lock problems that will make the car suddenly shift direction
-        if (Mathf.Abs(_oldRotation - transform.eulerAngles.y) < 10f)
-        {
-            var turnadjust = (transform.eulerAngles.y - _oldRotation) * _steerHelper;
-            Quaternion velRotation = Quaternion.AngleAxis(turnadjust, Vector3.up);
-            _rigidbody.velocity = velRotation * _rigidbody.velocity;
-        }
         _oldRotation = transform.eulerAngles.y;
     }
 
@@ -191,8 +155,8 @@ public class VehicleController : MonoBehaviour
     //to the appropriate wheels
     public void ApplyDrive(float accel, float brake)
     {
-        float thrust = accel * (_currentTorque/poweredWheels);
-        for(int i = 0; i < _wheels.Length; i++)
+        float thrust = accel * (_currentTorque / poweredWheels);
+        for (int i = 0; i < _wheels.Length; i++)
         {
 
             if (_wheels[i].isPowered)
@@ -200,16 +164,17 @@ public class VehicleController : MonoBehaviour
                 _wheels[i].collider.motorTorque = thrust;
             }
 
-            if(currentSpeed > 5 && Vector3.Angle(transform.forward,_rigidbody.velocity) < 50f)
+            if (currentSpeed > 5 && Vector3.Angle(transform.forward, _rigidbody.velocity) < 50f)
             {
                 _wheels[i].collider.brakeTorque = _brakeTorque * brake;
-            } else if (brake > 0)
+            }
+            else if (brake > 0)
             {
                 _wheels[i].collider.brakeTorque = 0f;
                 _wheels[i].collider.motorTorque = -_reverseTorque * brake;
             }
         }
-        
+
     }
 
     //Checks if the user would surpass the speed cap, and lowers
@@ -217,7 +182,7 @@ public class VehicleController : MonoBehaviour
     public void CapSpeed()
     {
         float speed = _rigidbody.velocity.magnitude;
-        if(speed > _topSpeed)
+        if (speed > _topSpeed)
         {
             _rigidbody.velocity = _topSpeed * _rigidbody.velocity.normalized;
         }
@@ -236,33 +201,16 @@ public class VehicleController : MonoBehaviour
     public void TractionControl()
     {
         WheelHit hit;
-        for(int i = 0; i < _wheels.Length; i++)
+        for (int i = 0; i < _wheels.Length; i++)
         {
             if (_wheels[i].isPowered)
             {
                 _wheels[i].collider.GetGroundHit(out hit);
 
-                AdjustTorque(hit.forwardSlip);
             }
         }
     }
 
     //Checks if the wheel is slipping too much, or if the torque is
-    //too high, and adjusts the torque values appropriately.
-    public void AdjustTorque(float slip)
-    {
-        if(slip > _slipLimit && _currentTorque >= 0)
-        {
-            _currentTorque -= 10 * _tractionControl;
-        }
-        else
-        {
-            _currentTorque += 10 * _tractionControl;
-            if(_currentTorque > _acceleration)
-            {
-                _currentTorque = _acceleration;
-            }
-        }
-    }
-}
 
+}

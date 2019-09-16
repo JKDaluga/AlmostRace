@@ -10,12 +10,7 @@ PrefabInstance:
     - target: {fileID: 3614913734630322758, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: m_Name
-      value: VoidWasp Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 3614913734630322758, guid: 8215aef975b1d4645b2324ea8d213196,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: VoidWasp
       objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322757, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
@@ -25,7 +20,7 @@ PrefabInstance:
     - target: {fileID: 3614913734630322757, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.67999923
+      value: 1.59
       objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322757, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
@@ -72,25 +67,45 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3614913734630322756, guid: 8215aef975b1d4645b2324ea8d213196,
+    - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
-      propertyPath: m_Mass
-      value: 900
-      objectReference: {fileID: 0}
-    - target: {fileID: 3614913734630322756, guid: 8215aef975b1d4645b2324ea8d213196,
-        type: 3}
-      propertyPath: m_UseGravity
-      value: 1
+      propertyPath: _centerOfMassOffset.z
+      value: 0.24
       objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: _acceleration
+      value: 2e+9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: _downForce
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: _topSpeed
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: _handBrakeTorque
       value: 20000
       objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
-      propertyPath: _steerHelper
-      value: 0
+      propertyPath: _accelerationMultiplier
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: _handling
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322756, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: m_Mass
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 3614913735064856733, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}

@@ -9801,6 +9801,20 @@ MonoBehaviour:
   canHoldSignature: 0
   pickup: {fileID: 0}
   pickupInput: Fire4
+--- !u!136 &1713146019
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7284405589136245253}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.0762644
+  m_Height: 5.131317
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.25, z: 0.26856995}
 --- !u!1001 &6286366104541419271
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9893,7 +9907,7 @@ PrefabInstance:
     - target: {fileID: 3614913734630322758, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: m_Name
-      value: Volt Variant
+      value: Volt
       objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322757, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
@@ -9903,7 +9917,7 @@ PrefabInstance:
     - target: {fileID: 3614913734630322757, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.67999923
+      value: 1.41
       objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322757, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
@@ -9950,35 +9964,54 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3614913734630322756, guid: 8215aef975b1d4645b2324ea8d213196,
+    - target: {fileID: 5430366037163698712, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
-      propertyPath: m_UseGravity
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 489336081, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}
+      propertyPath: isPlayer1
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: _centerOfMassOffset.z
+      value: 0.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: _maxSteerAngle
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: _acceleration
-      value: 20000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
-        type: 3}
-      propertyPath: _steerHelper
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
-        type: 3}
-      propertyPath: _tractionControl
-      value: 1
+      value: 2e+11
       objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: _downForce
-      value: 500
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
-      propertyPath: _fullTorqueOverAllWheels
+      propertyPath: _topSpeed
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: _handBrakeTorque
       value: 20000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: _accelerationMultiplier
+      value: 4.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322756, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: m_Mass
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 3614913735064856733, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3614913734274782526}
   - component: {fileID: 3614913734274782527}
-  - component: {fileID: 8600047290703021176}
   m_Layer: 9
   m_Name: Wheel Rear Left
   m_TagString: Untagged
@@ -42,12 +41,12 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.5
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
+    spring: 3500
+    damper: 450
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 2
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -62,20 +61,6 @@ WheelCollider:
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_Enabled: 1
---- !u!136 &8600047290703021176
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3614913734274782521}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 0
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3614913734614259820
 GameObject:
   m_ObjectHideFlags: 0
@@ -86,7 +71,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3614913734614259821}
   - component: {fileID: 3614913734614259810}
-  - component: {fileID: 2808699877707555355}
   m_Layer: 9
   m_Name: Wheel Front Left
   m_TagString: Untagged
@@ -118,12 +102,12 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.5
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
+    spring: 3500
+    damper: 450
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 2
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -138,20 +122,6 @@ WheelCollider:
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_Enabled: 1
---- !u!136 &2808699877707555355
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3614913734614259820}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 0
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3614913734630322758
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,16 +197,16 @@ MonoBehaviour:
     isSteerable: 1
     hasBrakes: 1
   - collider: {fileID: 3614913734274782527}
-    isPowered: 1
+    isPowered: 0
     isSteerable: 0
     hasBrakes: 1
   - collider: {fileID: 3614913734864905069}
-    isPowered: 1
+    isPowered: 0
     isSteerable: 0
     hasBrakes: 1
   _centerOfMassOffset: {x: 0, y: -1, z: 0}
-  _maxSteerAngle: 10
-  _steerHelper: 1
+  _maxSteerAngle: 5
+  _steerHelper: 0
   _tractionControl: 1
   _acceleration: 20000
   _downForce: 300
@@ -245,6 +215,8 @@ MonoBehaviour:
   _brakeTorque: 20000
   _handBrakeTorque: 1e+16
   _reverseTorque: 2000
+  _accelerationMultiplier: 4
+  _handling: 2.5
 --- !u!114 &489336081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +303,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3614913734864905058}
   - component: {fileID: 3614913734864905069}
-  - component: {fileID: 6747512383190743024}
   m_Layer: 9
   m_Name: Wheel Rear Right
   m_TagString: Untagged
@@ -363,12 +334,12 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.5
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
+    spring: 3500
+    damper: 450
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 2
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -383,20 +354,6 @@ WheelCollider:
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_Enabled: 1
---- !u!136 &6747512383190743024
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3614913734864905068}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 0
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3614913735064856735
 GameObject:
   m_ObjectHideFlags: 0
@@ -485,7 +442,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3614913736380671823}
   - component: {fileID: 3614913736380671820}
-  - component: {fileID: 2426071637978560432}
   m_Layer: 9
   m_Name: Wheel Front Right
   m_TagString: Untagged
@@ -517,12 +473,12 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.5
   m_SuspensionSpring:
-    spring: 35000
-    damper: 4500
+    spring: 3500
+    damper: 450
     targetPosition: 0.5
   m_SuspensionDistance: 0.3
   m_ForceAppPointDistance: 0
-  m_Mass: 20
+  m_Mass: 2
   m_WheelDampingRate: 0.25
   m_ForwardFriction:
     m_ExtremumSlip: 0.4
@@ -537,17 +493,3 @@ WheelCollider:
     m_AsymptoteValue: 0.75
     m_Stiffness: 1
   m_Enabled: 1
---- !u!136 &2426071637978560432
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3614913736380671822}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 0
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
