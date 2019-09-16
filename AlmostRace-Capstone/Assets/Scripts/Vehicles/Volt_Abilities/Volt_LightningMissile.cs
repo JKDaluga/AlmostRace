@@ -57,7 +57,7 @@ public class Volt_LightningMissile : MonoBehaviour
         spawnedLightningCloud.GetComponent<Volt_LightningCloud>().SetCloudInfo(_lightningCloudDuration, _lightningCloudGrowthRate, _lightningCloudGrowthAmount, _lightningCloudMaxSize);
 
         Destroy(gameObject);
-        Debug.Log("Missile should have been destroyed!!");
+      //  Debug.Log("Missile should have been destroyed!!");
     }
 
     public void SetMissileInfo(float missileExplosionDamage, float missileFuseLength, float missileSpeed, GameObject immunePlayer)
