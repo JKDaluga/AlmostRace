@@ -56,7 +56,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1436199102}
   m_LocalRotation: {x: -0, y: -0, z: 0.00052356714, w: 0.9999999}
-  m_LocalPosition: {x: 0, y: 0, z: 0.7339999}
+  m_LocalPosition: {x: 0, y: 0, z: 0.06}
   m_LocalScale: {x: 1, y: 1, z: 12.710001}
   m_Children: []
   m_Father: {fileID: 6283538900937374383}
@@ -671,9 +671,9 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 0
+    type: 8
     angle: 25
-    length: 5
+    length: 2.25
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
@@ -758,7 +758,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1.5
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
@@ -2758,7 +2758,7 @@ ParticleSystem:
     strength:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 12.12
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3137,7 +3137,7 @@ ParticleSystem:
     positionAmount:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.25
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -3243,7 +3243,7 @@ ParticleSystem:
     sizeAmount:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3.24
+      scalar: 3.25
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4065,7 +4065,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    minVertexDistance: 0.2
+    minVertexDistance: 0.5
     textureMode: 0
     ribbonCount: 1
     shadowBias: 0.5
@@ -4911,7 +4911,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1496181568}
   m_LocalRotation: {x: 0, y: 0, z: 0.00052356074, w: 0.9999999}
-  m_LocalPosition: {x: 0, y: -0, z: 0.734}
+  m_LocalPosition: {x: 0, y: -0, z: 0.06}
   m_LocalScale: {x: 1, y: 1, z: 12.71}
   m_Children: []
   m_Father: {fileID: 6283538900937374383}
@@ -5526,9 +5526,9 @@ ParticleSystem:
   ShapeModule:
     serializedVersion: 6
     enabled: 1
-    type: 0
+    type: 8
     angle: 25
-    length: 5
+    length: 2.25
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
@@ -5613,7 +5613,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 1.5
+      value: 0.0001
       mode: 0
       spread: 0
       speed:
@@ -7613,7 +7613,7 @@ ParticleSystem:
     strength:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 10
+      scalar: 12.12
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -7992,7 +7992,7 @@ ParticleSystem:
     positionAmount:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.5
+      scalar: 0.25
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -8098,7 +8098,7 @@ ParticleSystem:
     sizeAmount:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3.24
+      scalar: 3.25
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -8920,7 +8920,7 @@ ParticleSystem:
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-    minVertexDistance: 0.2
+    minVertexDistance: 0.5
     textureMode: 0
     ribbonCount: 1
     shadowBias: 0.5
@@ -9740,6 +9740,20 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!136 &1713146019
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7284405589136245253}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.0762644
+  m_Height: 5.131317
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.25, z: 0.26856995}
 --- !u!114 &1003889097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9801,20 +9815,6 @@ MonoBehaviour:
   canHoldSignature: 0
   pickup: {fileID: 0}
   pickupInput: Fire4
---- !u!136 &1713146019
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7284405589136245253}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 1.0762644
-  m_Height: 5.131317
-  m_Direction: 2
-  m_Center: {x: 0, y: 0.25, z: 0.26856995}
 --- !u!1001 &6286366104541419271
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9876,7 +9876,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010006375848, guid: 7f4da31f4e02df649a68847e35b2bb90, type: 3}
       propertyPath: m_LocalScale.z
-      value: 8
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 23000013628143836, guid: 7f4da31f4e02df649a68847e35b2bb90,
         type: 3}
@@ -9907,7 +9907,16 @@ PrefabInstance:
     - target: {fileID: 3614913734630322758, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: m_Name
-      value: Volt
+      value: Volt Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 489336081, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}
+      propertyPath: isPlayer1
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322756, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: m_Mass
+      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322757, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
@@ -9964,15 +9973,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5430366037163698712, guid: 8215aef975b1d4645b2324ea8d213196,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 489336081, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}
-      propertyPath: isPlayer1
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: _centerOfMassOffset.z
@@ -10008,16 +10008,16 @@ PrefabInstance:
       propertyPath: _accelerationMultiplier
       value: 4.2
       objectReference: {fileID: 0}
-    - target: {fileID: 3614913734630322756, guid: 8215aef975b1d4645b2324ea8d213196,
-        type: 3}
-      propertyPath: m_Mass
-      value: 75
-      objectReference: {fileID: 0}
     - target: {fileID: 3614913735064856733, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f9f80255c4b452646be8696eea6166ab, type: 2}
+    - target: {fileID: 5430366037163698712, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}
 --- !u!1 &7284405589136245253 stripped
