@@ -45,7 +45,7 @@ public class Volt_LightningCone : MonoBehaviour
             isDamagingPlayers = true;
             foreach (CarHeatManager carHeat in _carsBeingDamagedList)
             {
-                carHeat.heatCurrent -= _damagePerTick;
+                carHeat.heatCurrent += _damagePerTick;
             }
         }
         else if(_carsBeingDamagedList.Count == 0)
@@ -87,6 +87,7 @@ public class Volt_LightningCone : MonoBehaviour
     public void EndAbility()
     {
         _carsBeingDamagedList.Clear();
+        isDamagingPlayers = false;
         CancelInvoke();
     }
 
