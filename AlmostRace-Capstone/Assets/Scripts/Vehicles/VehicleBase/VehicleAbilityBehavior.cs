@@ -76,7 +76,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
         while (tempTime > 0)
         {
-          //  Debug.Log(tempTime);
             tempTime -= Time.deltaTime;
             Mathf.Lerp(0, 1, tempTime);
             yield return null;

@@ -192,7 +192,7 @@ public class VehicleController : MonoBehaviour
     public void ApplyDrive(float accel, float brake)
     {
         float thrust = accel * (_currentTorque/poweredWheels);
-        if(currentSpeed > 1f && (_direction && accel < 0))
+        if(currentSpeed > 1f && ((_direction && accel < 0) || (!_direction && accel > 0)))
         {
             brake = 1;
         }
@@ -211,7 +211,7 @@ public class VehicleController : MonoBehaviour
             {
                 _wheels[i].collider.brakeTorque = 0f;
                 int _dir = (_direction) ? -1 : 1;
-                _wheels[i].collider.motorTorque = _dir * _reverseTorque * brake;
+                _wheels[i].collider.motorTorque = _dir * _brakeTorque * brake;
             }
         }
     }

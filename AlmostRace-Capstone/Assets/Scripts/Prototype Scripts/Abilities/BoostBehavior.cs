@@ -21,7 +21,7 @@ public class BoostBehavior : MonoBehaviour
     public string boostAxis;
 
     //gameObject to access specific camera for each player
-    public Camera camera;
+    public Camera Carcamera;
 
     //temporary object enabled/disabled based on boost state
     public GameObject boostParticleEffect;
@@ -52,12 +52,12 @@ public class BoostBehavior : MonoBehaviour
         if (canBoost == false)
         {
             // Lerps the camera follow speed to be slower
-            camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 90, 0.1f);
+            Carcamera.fieldOfView = Mathf.Lerp(Carcamera.fieldOfView, 90, 0.1f);
         }
         if (canBoost == true)
         {
             // Lerps the camera follow speed to be faster
-            camera.fieldOfView = Mathf.Lerp(camera.fieldOfView, 60, 0.1f);
+            Carcamera.fieldOfView = Mathf.Lerp(Carcamera.fieldOfView, 60, 0.1f);
         }
     }
     
