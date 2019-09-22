@@ -11,9 +11,11 @@ public class MissileAbility : Ability
     {
         if (spawnLocation == null)
         {
-            spawnLocation = GameObject.Find("MissileSpawnLocation").transform;
+            spawnLocation = GameObject.Find("MissleFireTransform").transform;
         }
-        GameObject missileInstance = Instantiate(missile, spawnLocation.position, spawnLocation.rotation);
+        GameObject missileInstance = Instantiate(missile,
+            new Vector3(spawnLocation.position.x, spawnLocation.position.y + 2, spawnLocation.position.z + 5),
+            Quaternion.Euler(spawnLocation.rotation.x + 90, spawnLocation.rotation.y, spawnLocation.rotation.z));
         missileInstance.GetComponent<MissileBehavior>().SetImmunePlayer(gameObject);
     }
     public override void DeactivateAbility()

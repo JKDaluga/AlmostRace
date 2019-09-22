@@ -9822,14 +9822,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7284405589136245254}
     m_Modifications:
-    - target: {fileID: 1000011667858834, guid: 7f4da31f4e02df649a68847e35b2bb90, type: 3}
-      propertyPath: m_Name
-      value: LightningCone
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000011667858834, guid: 7f4da31f4e02df649a68847e35b2bb90, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 4000010006375848, guid: 7f4da31f4e02df649a68847e35b2bb90, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -9877,6 +9869,14 @@ PrefabInstance:
     - target: {fileID: 4000010006375848, guid: 7f4da31f4e02df649a68847e35b2bb90, type: 3}
       propertyPath: m_LocalScale.z
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011667858834, guid: 7f4da31f4e02df649a68847e35b2bb90, type: 3}
+      propertyPath: m_Name
+      value: LightningCone
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011667858834, guid: 7f4da31f4e02df649a68847e35b2bb90, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 23000013628143836, guid: 7f4da31f4e02df649a68847e35b2bb90,
         type: 3}
@@ -10018,7 +10018,8 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5430366037163698712, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}
 --- !u!1 &7284405589136245253 stripped
 GameObject:

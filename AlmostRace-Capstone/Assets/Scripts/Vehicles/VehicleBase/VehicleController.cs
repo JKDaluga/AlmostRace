@@ -47,6 +47,7 @@ public class VehicleController : MonoBehaviour
     [SerializeField] private float _brakeTorque;
     [SerializeField] private float _handBrakeTorque;
     [SerializeField] private float _reverseTorque;
+    [SerializeField] private float _decelerationTorque;
     [Header("")]
     [SerializeField] private float _accelerationMultiplier = 4;
     [SerializeField] private float _handling = 2.5f;
@@ -61,6 +62,7 @@ public class VehicleController : MonoBehaviour
     public float brakeInput { get; private set; }
     public float currentSteerAngle { get { return _steerAngle; } }
     public float currentSpeed { get { return _rigidbody.velocity.magnitude; } }
+    private bool _direction { get { return _rigidbody.velocity.z >= 0; } }
     public float maxSpeed { get { return _topSpeed; } }
     public float heat { get { return _heat; } }
     public float accelInput { get; private set; }
@@ -93,19 +95,13 @@ public class VehicleController : MonoBehaviour
     }
 
     //Takes user input from the VehicleInput script and uses it here
-    public void Move(float steer, float accel, float brake, float handbrake)
+    public void Move(float steer, float accel, float reverse, float handbrake)
     {
-        if (currentSpeed >= 100)
-        {
-            if (true)
-            {
-
-            }
-        }
+        float _brake = 0;
         //clamp input values
         steer = Mathf.Clamp(steer, -1, 1);
-        accelInput = accel = Mathf.Clamp(accel, 0, 1);
-        brakeInput = brake = -1 * Mathf.Clamp(brake, -1, 0);
+        brakeInput = _brake = -1 * Mathf.Clamp(accel, -1, 0);
+        accelInput = accel = Mathf.Clamp(accel, 0, 1) - Mathf.Clamp(reverse, 0, 1);
         handbrake = Mathf.Clamp(handbrake, 0, 1);
 
         //Gets the current steering input and assigns it to the
@@ -128,7 +124,7 @@ public class VehicleController : MonoBehaviour
         //apply any forward or backward forces from the user, and
         //to cap the vehicle's velocity if necessary
         SteerControl();
-        ApplyDrive(accel, brake);
+        ApplyDrive(accel, _brake);
         CapSpeed();
 
         //Checks if the handbrake is being pressed, and if so,
@@ -163,6 +159,10 @@ public class VehicleController : MonoBehaviour
         //Forces are applied to keep the car from spinning out,
         //And to keep the car grounded
         AddDownForce();
+        if(accel == 0 && handbrake == 0)
+        {
+            Decelerate();
+        }
         TractionControl();
     }
 
@@ -192,6 +192,10 @@ public class VehicleController : MonoBehaviour
     public void ApplyDrive(float accel, float brake)
     {
         float thrust = accel * (_currentTorque/poweredWheels);
+        if(currentSpeed > 1f && (_direction && accel < 0))
+        {
+            brake = 1;
+        }
         for(int i = 0; i < _wheels.Length; i++)
         {
 
@@ -206,10 +210,10 @@ public class VehicleController : MonoBehaviour
             } else if (brake > 0)
             {
                 _wheels[i].collider.brakeTorque = 0f;
-                _wheels[i].collider.motorTorque = -_reverseTorque * brake;
+                int _dir = (_direction) ? -1 : 1;
+                _wheels[i].collider.motorTorque = _dir * _reverseTorque * brake;
             }
         }
-        
     }
 
     //Checks if the user would surpass the speed cap, and lowers
@@ -261,6 +265,19 @@ public class VehicleController : MonoBehaviour
             if(_currentTorque > _acceleration)
             {
                 _currentTorque = _acceleration;
+            }
+        }
+    }
+
+    //Slows the car down
+    public void Decelerate()
+    {
+        for (int i = 0; i < _wheels.Length; i++)
+        {
+            if (_wheels[i].hasBrakes)
+            {
+                _wheels[i].collider.brakeTorque = _decelerationTorque;
+
             }
         }
     }

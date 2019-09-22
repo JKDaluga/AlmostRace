@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!136 &3351955476370134448
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1442161955656569017}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.076264
+  m_Height: 4.609024
+  m_Direction: 2
+  m_Center: {x: 0, y: 0.25, z: 0.2685699}
 --- !u!1001 &2749823931722244863
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10,7 +24,12 @@ PrefabInstance:
     - target: {fileID: 3614913734630322758, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: m_Name
-      value: VoidWasp
+      value: VoidWasp Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322756, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: m_Mass
+      value: 120
       objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322757, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
@@ -102,15 +121,32 @@ PrefabInstance:
       propertyPath: _handling
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 3614913734630322756, guid: 8215aef975b1d4645b2324ea8d213196,
+    - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
-      propertyPath: m_Mass
-      value: 120
+      propertyPath: _wheels.Array.data[3].hasBrakes
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: _wheels.Array.data[2].hasBrakes
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3614913735064856733, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a313a5a61b258c54bb5161bcabd22582, type: 2}
-    m_RemovedComponents: []
+    - target: {fileID: 5430366037163698712, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 5430366037163698712, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}
+--- !u!1 &1442161955656569017 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3614913734630322758, guid: 8215aef975b1d4645b2324ea8d213196,
+    type: 3}
+  m_PrefabInstance: {fileID: 2749823931722244863}
+  m_PrefabAsset: {fileID: 0}
