@@ -8,14 +8,14 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Tooltip("Basic Ability Script Slot")] public BasicAbility basicAbility;
     [Tooltip("The Button for using a Basic Ability")] public string basicAbilityInput;
     [Tooltip("Determines if the basic ability input can be held down")] public bool canHoldBasic;
-    private bool canUseBasic = true;
+    private bool _canUseBasic = true;
 
     [Header ("Signature Ability")]
     [Tooltip("Signature Ability Script Slot")] public Ability signatureAbility;
     [Tooltip("Length of ability cooldown in seconds.")] public float abilityRecharge = 5f;
     [Tooltip("The Button for using a Signature Ability")] public string signatureAbilityInput;
-    [Tooltip("Determines if the signature ability input can be held down")]public bool canHoldSignature;
-    private bool canUseSignature = true;
+    [Tooltip("Determines if the signature ability input can be held down")] public bool canHoldSignature;
+    private bool _canUseSignature = true;
     
     [Header ("Pickup Ability")]
     [Tooltip("Pickup Ability Script Slot")] public Ability pickup;
@@ -26,12 +26,12 @@ public class VehicleAbilityBehavior : MonoBehaviour
     void Update()
     {
         // Basic Ability Call
-        checkFireAbility(basicAbility, basicAbilityInput, canUseBasic, canHoldBasic);
+        checkFireAbility(basicAbility, basicAbilityInput, _canUseBasic, canHoldBasic);
         
         // Signature Ability Call
-        if (checkFireAbility(signatureAbility, signatureAbilityInput, canUseSignature, canHoldSignature))
+        if (checkFireAbility(signatureAbility, signatureAbilityInput, _canUseSignature, canHoldSignature))
         {
-            canUseSignature = false;
+            _canUseSignature = false;
             StartCoroutine(AbilityCooldown());
         }
 
@@ -39,7 +39,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
         if (Input.GetButtonDown(pickupInput) && pickup != null)
         {
             pickup.ActivateAbility();
-            pickup = null;
         }
     }
 
@@ -53,10 +52,10 @@ public class VehicleAbilityBehavior : MonoBehaviour
                 ability.ActivateAbility();
                 return true;
             }
-            else if(Input.GetButtonUp(abilityInput) && ability != null)
+            else if (Input.GetButtonUp(abilityInput) && ability != null)
             {
                 ability.DeactivateAbility();
-                return false; 
+                return false;
             }
         }
         else
@@ -70,6 +69,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         return false;
     }
 
+    // Countdown timer until reuse allowed for abilites that need a cooldown
     private IEnumerator AbilityCooldown()
     {
         float tempTime = abilityRecharge;
@@ -80,9 +80,10 @@ public class VehicleAbilityBehavior : MonoBehaviour
             Mathf.Lerp(0, 1, tempTime);
             yield return null;
         }
-        canUseSignature = true;
+        _canUseSignature = true;
     }
 
+    // Returns if the pickup slot is vacant or occupied
     public bool hasPickup()
     {
         if (pickup != null)
@@ -95,6 +96,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         }
     }
 
+    // Assigns the pickup slot with a given pickup
     public void assignPickup(GameObject givenPickup)
     {
         pickup = givenPickup.GetComponent<Ability>();

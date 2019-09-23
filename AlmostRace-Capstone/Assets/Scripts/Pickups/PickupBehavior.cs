@@ -9,19 +9,22 @@ public class PickupBehavior : MonoBehaviour
     public MeshRenderer mesh;
     public BoxCollider theCollider;
     public int respawnSeconds;
-    private GameObject pickUp;
+    private GameObject _pickUp;
 
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Vehicle"))
         {
+            // Calls the cooldown on this pickup opject
             StartCoroutine(coolDown());
+
+            // If the vehicle pickup slot is open assign a pickup
             if(collision.gameObject.GetComponent<VehicleAbilityBehavior>().hasPickup() == false)
             {
                 if (chosenPickUp == PickUps.misslePickUp)
                 {
-                    pickUp = Resources.Load<GameObject>("MissileAbilityContainer");
-                    collision.gameObject.GetComponent<VehicleAbilityBehavior>().assignPickup(pickUp);
+                    _pickUp = Resources.Load<GameObject>("MissileAbilityContainer");
+                    collision.gameObject.GetComponent<VehicleAbilityBehavior>().assignPickup(_pickUp);
                 }
             }
         }
