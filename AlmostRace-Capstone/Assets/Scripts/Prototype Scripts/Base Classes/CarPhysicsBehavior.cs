@@ -97,10 +97,10 @@ public class CarPhysicsBehavior : MonoBehaviour
 
        // Debug.Log("Current Drive Force: " + currentDriveForce);
         // driveInput = brakeInput = Input.GetAxis(verticalAxis);
-        turnInput = Input.GetAxis(horizontalAxis);
+        turnInput = Input.GetAxis("HorizontalP1");
 
-        forwardInput = Input.GetAxis(verticalForwardAxis);
-        backwardInput = Input.GetAxis(verticalBackwardAxis);
+        forwardInput = Input.GetAxis("VerticalForwardP1");
+        backwardInput = Input.GetAxis("VerticalBackwardsP1");
 
 
         //clamps braking and throttle inputs to needed values
@@ -213,14 +213,14 @@ public class CarPhysicsBehavior : MonoBehaviour
         }
         carRB.AddForce(flatFwd * currentDriveForce); //used for W and S and arrow keys
        
-        if(gameObject.GetComponent<BoostBehavior>().canBoost == false)
+       /* if(gameObject.GetComponent<BoostBehavior>().canBoost == false)
         {
             carSpeedUI.fillAmount = 1;
         }
         else
         {
             carSpeedUI.fillAmount = (forwardInput * 58) / 100;
-        }
+        }*/
     }
 
     //applies backward force based on inputs

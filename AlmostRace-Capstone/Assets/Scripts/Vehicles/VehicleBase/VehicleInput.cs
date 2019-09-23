@@ -22,7 +22,7 @@ public class VehicleInput : MonoBehaviour
             _horizontalName = "Horizontal";
             _vertForwardName = "VerticalForward";
             _vertBackwardName = "VerticalBackwards";
-            _brakeName = "Brake"
+        _brakeName = "Brake";
         #endif
 
         #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
