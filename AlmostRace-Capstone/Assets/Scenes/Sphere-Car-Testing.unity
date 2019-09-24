@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1538,7 +1538,7 @@ PrefabInstance:
     - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
       propertyPath: followSpeed
-      value: 30
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54d86e26683fd49ceb879a39ae5231ef, type: 3}
@@ -2045,7 +2045,7 @@ Transform:
   m_GameObject: {fileID: 822637556}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 10, y: 2, z: 5}
+  m_LocalScale: {x: 5, y: 1, z: 2.5}
   m_Children: []
   m_Father: {fileID: 1619852317}
   m_RootOrder: 0
@@ -3140,7 +3140,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1394583507
 GameObject:
@@ -5103,9 +5103,10 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 3891
-  acceleration: 300
-  steering: 15
-  gravity: 200
+  acceleration: 800
+  steering: 4
+  gravity: 450
+  driftStrength: 0.6
 --- !u!1 &2088346563
 GameObject:
   m_ObjectHideFlags: 0

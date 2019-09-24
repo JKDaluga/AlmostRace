@@ -15,33 +15,48 @@ public class SphereCarController : MonoBehaviour
     public float acceleration = 30f;
     public float steering = 80f;
     public float gravity = 10f;
+    public float driftStrength = 1f;
 
-    bool drifting;
-    
+    private bool _drifting;
+    private int _driftDirection = 1;
 
     // Update is called once per frame
     void Update()
     {
         speed = acceleration * Input.GetAxis("VerticalForwardP1");
-
-        if(Input.GetAxis("HorizontalP1") != 0)
+        if (Input.GetButtonUp("BrakeP1"))
+        {
+            _drifting = false;
+        }
+        if (Input.GetAxis("HorizontalP1") != 0)
         {
             int dir = Input.GetAxis("HorizontalP1") > 0 ? 1 : -1;
             float amount = Mathf.Abs(Input.GetAxis("HorizontalP1"));
-            Steer(dir, amount);
+            if (Input.GetButtonDown("BrakeP1") && !_drifting && Input.GetAxis("HorizontalP1") != 0)
+            {
+                _drifting = true;
+                _driftDirection = Input.GetAxis("HorizontalP1") > 0 ? 1 : -1;
+            }
+            if (_drifting)
+            {
+                amount = (_driftDirection == 1) ? ExtensionMethods.Remap(Input.GetAxis("HorizontalP1"), -1, 1, 0, 1 + driftStrength) : ExtensionMethods.Remap(Input.GetAxis("HorizontalP1"), -1, 1, 1 + driftStrength, 0);
+                //Steer(_driftDirection, control);
+            }
+            if(_drifting)
+                Steer(_driftDirection, amount);
+            else
+                Steer(dir, amount);
         }
 
         transform.position = sphere.transform.position - new Vector3(0, 0.4f, 0);
 
         currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * 12f); speed = 0f;
         currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f); rotate = 0f;
-
-        
     }
 
     private void FixedUpdate()
     {
-        if (!drifting)
+        if (!_drifting)
         {
             sphere.AddForce(-kartModel.transform.right * currentSpeed, ForceMode.Acceleration);
         }
