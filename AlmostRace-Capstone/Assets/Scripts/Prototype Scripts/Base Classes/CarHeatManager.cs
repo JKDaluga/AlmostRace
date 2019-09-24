@@ -11,6 +11,7 @@ public class CarHeatManager : MonoBehaviour
     public float heatStallLimit = 100f;
     public float heatExplodeLimit = 120f;
     public float cooldownRate = 1f;
+    public float respawnSecs = 3f;
 
 
     // Update is called once per frame
@@ -24,25 +25,60 @@ public class CarHeatManager : MonoBehaviour
         {
             heatCurrent = 0f;
         }
-        else if(Input.GetKeyDown(KeyCode.Y))
+        else if (Input.GetKeyDown(KeyCode.Y))
         {
             heatCurrent = 120f;
-        }
-
-        if(heatCurrent > 0)
-        {
-            heatCurrent -=  cooldownRate * Time.deltaTime;
-        }
-        else if(heatCurrent < 0)
-        {
-            heatCurrent = 0;
         }
 
         if (heatCurrent > heatExplodeLimit)
         {
             heatCurrent = heatExplodeLimit;
         }
-       
-        heatImage.fillAmount = ((heatCurrent * 100) / 120) /100;
+
+        if (heatCurrent == heatExplodeLimit)
+        {
+            respawn();
+        }
+
+
+        if (heatCurrent > 0)
+        {
+            heatCurrent -= cooldownRate * Time.deltaTime;
+        }
+        else if (heatCurrent < 0)
+        {
+            heatCurrent = 0;
+        }
+
+
+        if (heatCurrent == 0 && gameObject.activeSelf == false)
+        {
+            gameObject.SetActive(true);
+        }
+
+ 
+
+        heatImage.fillAmount = ((heatCurrent * 100) / 120) / 100;
+
+
     }
+
+    
+    void respawn()
+    {
+
+        if(gameObject.activeSelf == true)
+        {
+            gameObject.SetActive(false);
+            Invoke("respawn", respawnSecs);
+        }
+        else if(gameObject.activeSelf == false)
+        {
+            heatCurrent = 0;
+            gameObject.SetActive(true);
+        }
+        
+    }
+    
 }
+
