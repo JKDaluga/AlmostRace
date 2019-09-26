@@ -9807,14 +9807,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicAbility: {fileID: 1003889098}
-  basicAbilityInput: LeftMouseClick
+  basicAbilityInput: BasicAbilityP1
   canHoldBasic: 1
   signatureAbility: {fileID: 1003889097}
   abilityRecharge: 10
-  signatureAbilityInput: RightMouseClick
+  signatureAbilityInput: SignitureAbilityP1
   canHoldSignature: 0
   pickup: {fileID: 0}
-  pickupInput: Fire4
+  pickupInput: LeftMouseClick
 --- !u!1001 &6286366104541419271
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9908,10 +9908,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Volt Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 489336081, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}
-      propertyPath: isPlayer1
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322756, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
@@ -10017,6 +10013,10 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 489336081, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}
+      propertyPath: isPlayer1
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5430366037163698712, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}
