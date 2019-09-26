@@ -16,6 +16,7 @@ public class SphereCarController : MonoBehaviour
     public float steering = 80f;
     public float gravity = 10f;
     public float driftStrength = 1f;
+    public float reverseSpeed = 1f;
 
     private bool _drifting;
     private int _driftDirection = 1;
@@ -23,7 +24,11 @@ public class SphereCarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        speed = acceleration * Input.GetAxis("VerticalForwardP1");
+        speed = acceleration * (Input.GetAxis("VerticalForwardP1") - Input.GetAxis("VerticalBackwardsP1"));
+        if(speed < 0)
+        {
+            speed *= reverseSpeed;
+        }
         if (Input.GetButtonUp("BrakeP1"))
         {
             _drifting = false;
