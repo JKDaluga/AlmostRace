@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class VehicleHypeBehavior : MonoBehaviour
 {
-    public int playerNumber;
+    public float hypeAmount;
+    [Tooltip("They are either player 1, 2, 3, or 4?")] public int playerNumber;
     private HypeSystem hypeSystem;
     private int _placeInRace;
     private int _positionInRace;
@@ -15,13 +16,28 @@ public class VehicleHypeBehavior : MonoBehaviour
         if(GameObject.FindGameObjectWithTag("GameManager") != null)
         {
             hypeSystem = GameObject.FindGameObjectWithTag("GameManager").GetComponent<HypeSystem>();
-            hypeSystem.AssignVehicleSlot(this.gameObject, playerNumber);
+            //hypeSystem.AssignVehicleSlot(this.gameObject, playerNumber);
+            hypeSystem.VehicleAssign(this.gameObject);
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            AddHype(5);
+        }
     }
+
+    void AddHype(float hypeToAdd)
+    {
+        hypeSystem.AssignHype(gameObject, hypeToAdd);
+    }
+
+    void SubtractHype(float hypeToSubtract)
+    {
+        hypeSystem.AssignHype(gameObject, hypeToSubtract);
+    }
+
 }
