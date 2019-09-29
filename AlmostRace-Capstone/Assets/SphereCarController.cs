@@ -12,7 +12,8 @@ public class SphereCarController : MonoBehaviour
     float rotate, currentRotate;
 
     public LayerMask layerMask;
-    public float acceleration = 30f;
+    public float topSpeed = 30f;
+    public float acceleration = 12f;
     public float steering = 80f;
     public float gravity = 10f;
     public float driftStrength = 1f;
@@ -20,11 +21,11 @@ public class SphereCarController : MonoBehaviour
 
     private bool _drifting;
     private int _driftDirection = 1;
-
+    //private float _
     // Update is called once per frame
     void Update()
     {
-        speed = acceleration * (Input.GetAxis("VerticalForwardP1") - Input.GetAxis("VerticalBackwardsP1"));
+        speed = topSpeed * (Input.GetAxis("VerticalForwardP1") - Input.GetAxis("VerticalBackwardsP1"));
         if(speed < 0)
         {
             speed *= reverseSpeed;
@@ -55,7 +56,7 @@ public class SphereCarController : MonoBehaviour
 
         transform.position = sphere.transform.position - new Vector3(0, 0.4f, 0);
 
-        currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * 12f); speed = 0f;
+        currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * acceleration); speed = 0f;
         currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f); rotate = 0f;
     }
 
