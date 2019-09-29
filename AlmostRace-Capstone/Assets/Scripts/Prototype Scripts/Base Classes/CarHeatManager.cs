@@ -13,6 +13,13 @@ public class CarHeatManager : MonoBehaviour
     public float cooldownRate = 1f;
     public float respawnSecs = 3f;
 
+    public GameObject explosion;
+
+
+    private void Start()
+    {
+        explosion.SetActive(false);
+    }
 
     // Update is called once per frame
     void Update()
@@ -37,7 +44,9 @@ public class CarHeatManager : MonoBehaviour
 
         if (heatCurrent == heatExplodeLimit)
         {
+            
             respawn();
+
         }
 
 
@@ -67,15 +76,23 @@ public class CarHeatManager : MonoBehaviour
     void respawn()
     {
 
-        if(gameObject.activeSelf == true)
+        if(GetComponent<VehicleAbilityBehavior>().isActiveAndEnabled)
         {
-            gameObject.SetActive(false);
+            GetComponent<BasicAbility>().DeactivateAbility();
+            GetComponent<VehicleAbilityBehavior>().enabled = false;
+            transform.GetChild(0).gameObject.SetActive(false);
+            transform.GetChild(1).gameObject.SetActive(false);
+            transform.GetChild(4).gameObject.SetActive(true);
             Invoke("respawn", respawnSecs);
         }
-        else if(gameObject.activeSelf == false)
+        else if(GetComponent<VehicleAbilityBehavior>().isActiveAndEnabled != true)
         {
             heatCurrent = 0;
-            gameObject.SetActive(true);
+            
+            GetComponent<VehicleAbilityBehavior>().enabled = true;
+            transform.GetChild(0).gameObject.SetActive(true);
+            transform.GetChild(1).gameObject.SetActive(true);
+            transform.GetChild(4).gameObject.SetActive(false);
         }
         
     }
