@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(VehicleInput))]
 public class SphereCarController : MonoBehaviour
 {
     public Transform kartModel;
     public Transform kartNormal;
     public Rigidbody sphere;
+    private VehicleInput _vehicleInput;
 
     float speed, currentSpeed;
     float rotate, currentRotate;
@@ -21,33 +23,38 @@ public class SphereCarController : MonoBehaviour
 
     private bool _drifting;
     private int _driftDirection = 1;
-    //private float _
+
+    private void Start()
+    {
+        _vehicleInput = GetComponent<VehicleInput>();
+    }
+
     // Update is called once per frame
     void Update()
     {
-        speed = topSpeed * (Input.GetAxis("VerticalForwardP1") - Input.GetAxis("VerticalBackwardsP1"));
+        speed = topSpeed * (Input.GetAxis(_vehicleInput.verticalForward) - Input.GetAxis(_vehicleInput.verticalBackward));
         if(speed < 0)
         {
             speed *= reverseSpeed;
         }
-        if (Input.GetButtonUp("BrakeP1"))
+        if (Input.GetButtonUp(_vehicleInput.brake))
         {
             _drifting = false;
         }
-        if (Input.GetAxis("HorizontalP1") != 0)
+        if (Input.GetAxis(_vehicleInput.horizontal) != 0)
         {
-            int dir = Input.GetAxis("HorizontalP1") > 0 ? 1 : -1;
-            float amount = Mathf.Abs(Input.GetAxis("HorizontalP1"));
-            if (Input.GetButtonDown("BrakeP1") && !_drifting && Input.GetAxis("HorizontalP1") != 0)
+            int dir = Input.GetAxis(_vehicleInput.horizontal) > 0 ? 1 : -1;
+            float amount = Mathf.Abs(Input.GetAxis(_vehicleInput.horizontal));
+            if (Input.GetButtonDown(_vehicleInput.brake) && !_drifting && Input.GetAxis(_vehicleInput.horizontal) != 0)
             {
                 _drifting = true;
-                _driftDirection = Input.GetAxis("HorizontalP1") > 0 ? 1 : -1;
+                _driftDirection = Input.GetAxis(_vehicleInput.horizontal) > 0 ? 1 : -1;
             }
             if (_drifting)
             {
-                amount = (_driftDirection == 1) ? ExtensionMethods.Remap(Input.GetAxis("HorizontalP1"), -1, 1, 0, 1 + driftStrength) : ExtensionMethods.Remap(Input.GetAxis("HorizontalP1"), -1, 1, 1 + driftStrength, 0);
-                //Steer(_driftDirection, control);
+                amount = (_driftDirection == 1) ? ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 0, 1 + driftStrength) : ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 1 + driftStrength, 0);
             }
+
             if(_drifting)
                 Steer(_driftDirection, amount);
             else
