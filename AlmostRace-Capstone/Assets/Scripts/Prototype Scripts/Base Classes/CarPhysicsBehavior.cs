@@ -150,7 +150,7 @@ public class CarPhysicsBehavior : MonoBehaviour
         }
         else
         {
-            carRB.drag = 0.1f;
+            carRB.drag = groundedDrag;
         }
 
 
