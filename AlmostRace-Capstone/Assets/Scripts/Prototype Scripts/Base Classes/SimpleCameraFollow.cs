@@ -7,6 +7,7 @@ public class SimpleCameraFollow : MonoBehaviour
 
     public Transform objectToFollow;
     public Vector3 offest;
+    public float rotationOffset = 25f;
     public float followSpeed;
     public float lookSpeed;
 
@@ -28,7 +29,7 @@ public class SimpleCameraFollow : MonoBehaviour
         Vector3 lookDirection = objectToFollow.position - transform.position;
         Quaternion rot = Quaternion.LookRotation(lookDirection, Vector3.up);
         Vector3 vec = rot.eulerAngles;
-        rot = Quaternion.Euler(vec.x - 25f, vec.y, vec.z);
+        rot = Quaternion.Euler(vec.x - rotationOffset, vec.y, vec.z);
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, lookSpeed * Time.fixedDeltaTime);
     }
 
