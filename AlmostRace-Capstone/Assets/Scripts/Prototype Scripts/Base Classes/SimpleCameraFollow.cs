@@ -19,15 +19,17 @@ public class SimpleCameraFollow : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        LookAtTarget();
         MoveToTarget();
+        LookAtTarget();
     }
 
     public void LookAtTarget() {
 
         Vector3 lookDirection = objectToFollow.position - transform.position;
         Quaternion rot = Quaternion.LookRotation(lookDirection, Vector3.up);
-        transform.rotation = Quaternion.Lerp(transform.rotation, rot, lookSpeed * Time.deltaTime);
+        Vector3 vec = rot.eulerAngles;
+        rot = Quaternion.Euler(vec.x - 25f, vec.y, vec.z);
+        transform.rotation = Quaternion.Lerp(transform.rotation, rot, lookSpeed * Time.fixedDeltaTime);
     }
 
     public void MoveToTarget() {
@@ -37,6 +39,6 @@ public class SimpleCameraFollow : MonoBehaviour
                             objectToFollow.right * offest.x +
                             objectToFollow.up * offest.y;
 
-        transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.deltaTime);
+        transform.position = Vector3.Lerp(transform.position, targetPos, followSpeed * Time.fixedDeltaTime);
     }
 }

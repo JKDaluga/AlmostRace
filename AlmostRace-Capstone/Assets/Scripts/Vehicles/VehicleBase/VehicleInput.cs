@@ -2,41 +2,37 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(VehicleController))]
 public class VehicleInput : MonoBehaviour
 {
-    public bool isPlayer1;
-    private VehicleController _veh;
+    public bool isPlayer1 = true;
+
     private string _playerNum;
+
+    public string horizontal { get { return _horizontalName; } }
     private string _horizontalName;
+
+    public string verticalForward { get { return _vertForwardName; } }
     private string _vertForwardName;
+
+    public string verticalBackward { get { return _vertBackwardName; } }
     private string _vertBackwardName;
+
+    public string brake { get { return _brakeName; } }
     private string _brakeName;
 
     private void Awake()
     {
-        _veh = GetComponent<VehicleController>();
         _playerNum = (isPlayer1) ? "P1" : "P2";
 
         #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-            _horizontalName = "Horizontal";
-            _vertForwardName = "VerticalForward";
-            _vertBackwardName = "VerticalBackwards";
-            _brakeName = "Brake";
+            _horizontalName = "Horizontal" + _playerNum;
+            _vertForwardName = "VerticalForward" + _playerNum;
+            _vertBackwardName = "VerticalBackwards" + _playerNum;
+            _brakeName = "Brake" + _playerNum;
         #endif
 
         #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
             
         #endif
-    }
-
-    private void FixedUpdate()
-    {
-
-        float steering = Input.GetAxis("Horizontal" + _playerNum);
-        float drive = Input.GetAxis("VerticalForward" + _playerNum);
-        float reverse = Input.GetAxis("VerticalBackwards" + _playerNum);
-        float handbrake = Input.GetAxis("Brake" + _playerNum);
-        _veh.Move(steering, drive, reverse, handbrake);
     }
 }

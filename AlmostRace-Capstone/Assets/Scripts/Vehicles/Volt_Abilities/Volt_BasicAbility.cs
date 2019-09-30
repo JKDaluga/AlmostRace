@@ -41,6 +41,7 @@ public class Volt_BasicAbility : BasicAbility
             InvokeRepeating("AddHeat", 0, lightningFrequency);
             lightningCone.SetActive(true);
         }
+      
     }
 
     public override void DeactivateAbility()
