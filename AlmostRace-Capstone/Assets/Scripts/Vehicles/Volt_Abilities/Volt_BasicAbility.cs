@@ -19,8 +19,13 @@ public class Volt_BasicAbility : BasicAbility
     private Volt_LightningCone _voltLightningConeInfo;
 
     [Header("Ability Values")]
+
+    [Tooltip("How much Hype is given per lightning bolt every X seconds")]
+    public float lightningHypeToGain; 
+
     [Tooltip("How much damage is done per lightning bolt every X seconds")]
-    public float lightningDamage; 
+    public float lightningDamage;
+
     [Tooltip("How often enemy cars within range are hit with lightning. Lower number means more frequent!")]
     public float lightningFrequency;
 
@@ -30,7 +35,7 @@ public class Volt_BasicAbility : BasicAbility
         carHeatInfo = gameObject.GetComponent<CarHeatManager>();
         _voltLightningConeInfo = lightningCone.GetComponent<Volt_LightningCone>();
         _voltLightningConeInfo.SetImmunePlayer(gameObject);
-        _voltLightningConeInfo.SetLightningDamageAndFrequency(lightningDamage, selfHeatDamage, lightningFrequency);
+        _voltLightningConeInfo.SetLightningDamageAndFrequency(lightningDamage, selfHeatDamage, lightningFrequency, lightningHypeToGain);
         lightningCone.SetActive(false); // Off at the start of the game.
     }
 

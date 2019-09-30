@@ -26,6 +26,7 @@ public class Volt_LightningMissile : MonoBehaviour
     private float _missileExplosionDamage;
     private float _missileSpeed;
     private float _missileFuseLength;
+    private float _missileHypeToGain;
 
     //Cloud Variables
     private float _lightningCloudDuration;
@@ -35,6 +36,8 @@ public class Volt_LightningMissile : MonoBehaviour
     private float _lightningCloudGrowthAmount;
 
     private float _lightningCloudMaxSize;
+
+    private float _lightningHypeToGain;
 
 
     private void Start()
@@ -50,31 +53,37 @@ public class Volt_LightningMissile : MonoBehaviour
     {
         GameObject spawnedExplosion = Instantiate(missileExplosion, transform.position, transform.rotation);
         GameObject spawnedLightningCloud = Instantiate(lightningCloud, transform.position, transform.rotation);
+        
         spawnedExplosion.GetComponent<Volt_ExplosionMissile>().SetImmunePlayer(_immunePlayer);
         spawnedExplosion.GetComponent<Volt_ExplosionMissile>().SetExplosionDamage(_missileExplosionDamage);
+        spawnedExplosion.GetComponent<Volt_ExplosionMissile>().SetHypeAmount(_missileHypeToGain);
 
         spawnedLightningCloud.GetComponent<Volt_LightningCloud>().SetImmunePlayer(_immunePlayer);
         spawnedLightningCloud.GetComponent<Volt_LightningCloud>().SetCloudInfo(_lightningCloudDuration, _lightningCloudGrowthRate, _lightningCloudGrowthAmount, _lightningCloudMaxSize);
+        spawnedLightningCloud.GetComponent<Volt_LightningCloud>().SetHypeAmount(_lightningHypeToGain);
+
 
         Destroy(gameObject);
       //  Debug.Log("Missile should have been destroyed!!");
     }
 
-    public void SetMissileInfo(float missileExplosionDamage, float missileFuseLength, float missileSpeed, GameObject immunePlayer)
+    public void SetMissileInfo(float missileExplosionDamage, float missileFuseLength, float missileSpeed, GameObject immunePlayer, float hypeToGain)
     {
         _immunePlayer = immunePlayer;
         _missileExplosionDamage = missileExplosionDamage;
         _missileFuseLength = missileFuseLength;
         _missileSpeed = missileSpeed;
+        _missileHypeToGain = hypeToGain;
        
     }
 
-    public void SetMissileCloudInfo(float cloudDuration, float cloudGrowthRate, float cloudGrowthAmount, float cloudMaxSize)
+    public void SetMissileCloudInfo(float cloudDuration, float cloudGrowthRate, float cloudGrowthAmount, float cloudMaxSize, float hypeToGain)
     {
         _lightningCloudDuration = cloudDuration;
         _lightningCloudGrowthRate = cloudGrowthRate;
         _lightningCloudGrowthAmount = cloudGrowthAmount;
         _lightningCloudMaxSize = cloudMaxSize;
+        _lightningHypeToGain = hypeToGain;
     }
 
     private void OnTriggerEnter(Collider other)

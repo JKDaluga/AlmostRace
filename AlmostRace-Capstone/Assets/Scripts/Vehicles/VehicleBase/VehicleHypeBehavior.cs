@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class VehicleHypeBehavior : MonoBehaviour
 {
+    /*
+    Author: Jake Velicer
+    Purpose: Stores the hype for individual car and reports
+    newly gained hype to the HypeSystem script on the Game Manager.
+    */
+
     [Tooltip("They are either player 1, 2, 3, or 4? etc.")] public int playerNumber;
     private HypeSystem _hypeSystem;
     private float _hypeAmount;
@@ -17,37 +23,13 @@ public class VehicleHypeBehavior : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            if (playerNumber == 1)
-            {
-                AddHype(5);
-            }
-            else if (playerNumber == 2)
-            {
-                AddHype(4);
-            }
-            else if (playerNumber == 3)
-            {
-                AddHype(3);
-            }
-            else if (playerNumber == 4)
-            {
-                AddHype(2);
-            }
-        }
-    }
-
-    private void AddHype(float hypeToAdd)
+    public void AddHype(float hypeToAdd)
     {
         _hypeAmount += hypeToAdd;
         _hypeSystem.VehicleSort();
     }
 
-    private void SubtractHype(float hypeToSubtract)
+    public void SubtractHype(float hypeToSubtract)
     {
         _hypeAmount -= hypeToSubtract;
         _hypeSystem.VehicleSort();

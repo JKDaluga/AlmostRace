@@ -14,6 +14,7 @@ public class Volt_LightningCloud : MonoBehaviour
     private float _growthAmount;
     private float _cloudDuration;
     private float _cloudMaxSize;
+    private float hypeAmount;
     private GameObject _immunePlayer;
 
 
@@ -40,6 +41,11 @@ public class Volt_LightningCloud : MonoBehaviour
         _immunePlayer = newImmunePlayer;
     }
 
+    public void SetHypeAmount(float hype)
+    {
+        hypeAmount = hype;
+    }
+
     public void SetCloudInfo(float cloudDuration, float growthRate, float growthAmount, float cloudMaxSize)
     {
         _cloudDuration = cloudDuration;
@@ -57,6 +63,11 @@ public class Volt_LightningCloud : MonoBehaviour
             {
                 collision.GetComponent<CarHeatManager>().heatCurrent = collision.GetComponent<CarHeatManager>().heatExplodeLimit;
                 //CURRENTLY DEDICATED CODE FOR STALLING ENGINE DOESN'T EXIST. MAKE THIS CODE AND REPLACE THE LINE ABOVE!!!
+
+                if (_immunePlayer.GetComponent<VehicleHypeBehavior>() != null)
+                {
+                    _immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(hypeAmount);
+                }
             }
         }
         else if (collision.gameObject == _immunePlayer)

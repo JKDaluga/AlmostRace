@@ -14,6 +14,7 @@ public class Volt_ExplosionMissile : MonoBehaviour
     private float growthAmount = 0.1f;
     private float explosionLifeLength = 0.5f;
     private float explosionDamage;
+    private float hypeAmount;
     private GameObject immunePlayer;
 
 
@@ -38,14 +39,23 @@ public class Volt_ExplosionMissile : MonoBehaviour
         explosionDamage = damage;
     }
 
+    public void SetHypeAmount(float hype)
+    {
+        hypeAmount = hype;
+    }
+
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject != immunePlayer)
         {
-              Debug.Log(explosionDamage + " damage was dealt to: " + collision.gameObject.name + " by a lightning missile explosion!");
+            Debug.Log(explosionDamage + " damage was dealt to: " + collision.gameObject.name + " by a lightning missile explosion!");
             if (collision.GetComponent<CarHeatManager>() != null)
             {
                 collision.GetComponent<CarHeatManager>().heatCurrent += explosionDamage;
+                if (immunePlayer.GetComponent<VehicleHypeBehavior>() != null)
+                {
+                    immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(hypeAmount);
+                }
             }
         }
         else if (collision.gameObject == immunePlayer)

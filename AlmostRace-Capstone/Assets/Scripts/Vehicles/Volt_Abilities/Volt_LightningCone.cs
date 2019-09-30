@@ -17,7 +17,9 @@ public class Volt_LightningCone : MonoBehaviour
     private float _damagePerTick;
     private float _damageFrequency;
     private float _selfDamage;
+    private float _hypeAmount;
     private GameObject _immunePlayer;
+    private VehicleHypeBehavior _immunePlayerScript;
 
 
     private void Start()
@@ -28,13 +30,15 @@ public class Volt_LightningCone : MonoBehaviour
     public void SetImmunePlayer(GameObject player)
     {
         _immunePlayer = player;
+        _immunePlayerScript = _immunePlayer.GetComponent<VehicleHypeBehavior>();
     }
 
-    public void SetLightningDamageAndFrequency(float damage, float selfDamage, float frequency)
+    public void SetLightningDamageAndFrequency(float damage, float selfDamage, float frequency, float hype)
     {
         _damagePerTick = damage;
         _damageFrequency = frequency;
         _selfDamage = selfDamage;
+        _hypeAmount = hype;
     }
 
     private void DamageEnemies()
@@ -43,6 +47,7 @@ public class Volt_LightningCone : MonoBehaviour
         if(_carsBeingDamagedList.Count != 0)
         {
             isDamagingPlayers = true;
+            _immunePlayerScript.AddHype(_hypeAmount);
             foreach (CarHeatManager carHeat in _carsBeingDamagedList)
             {
                 carHeat.heatCurrent += _damagePerTick;

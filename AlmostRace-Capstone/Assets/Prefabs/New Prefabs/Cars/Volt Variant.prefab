@@ -9768,11 +9768,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightningMissile: {fileID: 811526844473782882, guid: 80bf7a689c486bc489b0fc99f8d7fea9,
     type: 3}
+  missileHypeToGain: 20
   sideMissileOffset: 2
   missileSpeed: 300
   missileExplosionDamage: 75
   missileFuseLength: 1.5
   missileSpawnLocation: {fileID: 1268035574}
+  lightningCloudHypeToGain: 10
   lightningCloudDuration: 3
   lightningCloudGrowthRate: 0.001
   lightningCloudGrowthAmount: 1
@@ -9789,9 +9791,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5955f5b1b5fcb264ea8bccb24780d8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carHeatInfo: {fileID: 0}
   selfHeatDamage: 0.2
   lightningCone: {fileID: 6286502996486697621}
+  lightningHypeToGain: 0.1
   lightningDamage: 0.5
   lightningFrequency: 0.01
 --- !u!114 &1003889099
@@ -9822,6 +9824,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7284405589136245254}
     m_Modifications:
+    - target: {fileID: 1000011667858834, guid: 7f4da31f4e02df649a68847e35b2bb90, type: 3}
+      propertyPath: m_Name
+      value: LightningCone
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011667858834, guid: 7f4da31f4e02df649a68847e35b2bb90, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4000010006375848, guid: 7f4da31f4e02df649a68847e35b2bb90, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -9870,14 +9880,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 1000011667858834, guid: 7f4da31f4e02df649a68847e35b2bb90, type: 3}
-      propertyPath: m_Name
-      value: LightningCone
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000011667858834, guid: 7f4da31f4e02df649a68847e35b2bb90, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
     - target: {fileID: 23000013628143836, guid: 7f4da31f4e02df649a68847e35b2bb90,
         type: 3}
       propertyPath: m_Enabled
@@ -9908,11 +9910,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Volt Variant
-      objectReference: {fileID: 0}
-    - target: {fileID: 3614913734630322756, guid: 8215aef975b1d4645b2324ea8d213196,
-        type: 3}
-      propertyPath: m_Mass
-      value: 75
       objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322757, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
@@ -9969,6 +9966,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 489336081, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}
+      propertyPath: isPlayer1
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3614913734630322759, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: _centerOfMassOffset.z
@@ -10004,6 +10005,11 @@ PrefabInstance:
       propertyPath: _accelerationMultiplier
       value: 4.2
       objectReference: {fileID: 0}
+    - target: {fileID: 3614913734630322756, guid: 8215aef975b1d4645b2324ea8d213196,
+        type: 3}
+      propertyPath: m_Mass
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 3614913735064856733, guid: 8215aef975b1d4645b2324ea8d213196,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -10013,10 +10019,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Enabled
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 489336081, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}
-      propertyPath: isPlayer1
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5430366037163698712, guid: 8215aef975b1d4645b2324ea8d213196, type: 3}

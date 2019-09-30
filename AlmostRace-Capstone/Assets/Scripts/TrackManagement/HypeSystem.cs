@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using UnityEngine.UI;
 
 public class HypeSystem : MonoBehaviour
 {
-    //public Dictionary<GameObject, float> dictionary = new Dictionary<GameObject, float>();
+    /*
+    Author: Jake Velicer
+    Purpose: Stores each vehicle object in a list,
+    called to keep that list ordered by the vehicles with the most hype,
+    updates the UI accordingly.
+    */
+
     private List<GameObject> _vehicleList = new List<GameObject>();
     private Text[] _hypeAmountDisplay;
 
@@ -19,17 +24,19 @@ public class HypeSystem : MonoBehaviour
         {
             _hypeAmountDisplay[i] = GameObject.Find("HypeDisplay" + (i + 1)).GetComponent<Text>();
         }
-        UIupdate();
+
+        BeginningVehicleSort();
     }
 
+    // Called to add the given vehicle to the vehicle list
     public void VehicleAssign(GameObject player)
     {
         _vehicleList.Add(player);
     }
 
+    // Sorts the list based upon which game object has the most hype in their VehicleHypeBehavior script
     public void VehicleSort()
     {
-        // Order by values
         _vehicleList.Sort(
             delegate(GameObject p1, GameObject p2)
             {
@@ -37,7 +44,24 @@ public class HypeSystem : MonoBehaviour
                 .CompareTo(p2.GetComponent<VehicleHypeBehavior>().GiveHypeAmount());
             }
         );
+
+        // Put in descending order
         _vehicleList.Reverse();
+
+        UIupdate();
+    }
+
+    // Sorts the list at the beginning of the game based on player number rather than hype amount
+    private void BeginningVehicleSort()
+    {
+        _vehicleList.Sort(
+            delegate(GameObject p1, GameObject p2)
+            {
+                return p1.GetComponent<VehicleHypeBehavior>().playerNumber
+                .CompareTo(p2.GetComponent<VehicleHypeBehavior>().playerNumber);
+            }
+        );
+
         UIupdate();
     }
 

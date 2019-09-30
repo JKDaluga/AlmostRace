@@ -15,6 +15,9 @@ public class Volt_SignatureAbility : Ability
     [Tooltip("Put missile here.")]
     public GameObject lightningMissile;
 
+    [Tooltip("Hype the player recieves for hiting someone with missile.")]
+    public float missileHypeToGain;
+
     [Tooltip("The angle amount that each side missile is rotated when fired.")]
     public float sideMissileOffset;
 
@@ -31,6 +34,9 @@ public class Volt_SignatureAbility : Ability
     public Transform missileSpawnLocation;
 
     [Header("Lightning Cloud Info")]
+
+    [Tooltip("Hype the player recieves for hiting someone with cloud.")]
+    public float lightningCloudHypeToGain;
 
     [Tooltip("How long lightning clouds persist in scene.")]
     public float lightningCloudDuration;
@@ -54,14 +60,14 @@ public class Volt_SignatureAbility : Ability
         GameObject spawnedMissile3 = Instantiate(lightningMissile, missileSpawnLocation.transform.position, missileSpawnLocation.transform.rotation);
 
         //give each missile its Missile Info
-        spawnedMissile1.GetComponent<Volt_LightningMissile>().SetMissileInfo(missileExplosionDamage, missileFuseLength, missileSpeed, gameObject);
-        spawnedMissile2.GetComponent<Volt_LightningMissile>().SetMissileInfo(missileExplosionDamage, missileFuseLength, missileSpeed, gameObject);
-        spawnedMissile3.GetComponent<Volt_LightningMissile>().SetMissileInfo(missileExplosionDamage, missileFuseLength, missileSpeed, gameObject);
+        spawnedMissile1.GetComponent<Volt_LightningMissile>().SetMissileInfo(missileExplosionDamage, missileFuseLength, missileSpeed, gameObject, missileHypeToGain);
+        spawnedMissile2.GetComponent<Volt_LightningMissile>().SetMissileInfo(missileExplosionDamage, missileFuseLength, missileSpeed, gameObject, missileHypeToGain);
+        spawnedMissile3.GetComponent<Volt_LightningMissile>().SetMissileInfo(missileExplosionDamage, missileFuseLength, missileSpeed, gameObject, missileHypeToGain);
 
         //give each missile its Lightning Cloud info
-        spawnedMissile1.GetComponent<Volt_LightningMissile>().SetMissileCloudInfo(lightningCloudDuration, lightningCloudGrowthRate, lightningCloudGrowthAmount, lightningCloudMaxSize);
-        spawnedMissile2.GetComponent<Volt_LightningMissile>().SetMissileCloudInfo(lightningCloudDuration, lightningCloudGrowthRate, lightningCloudGrowthAmount, lightningCloudMaxSize);
-        spawnedMissile3.GetComponent<Volt_LightningMissile>().SetMissileCloudInfo(lightningCloudDuration, lightningCloudGrowthRate, lightningCloudGrowthAmount, lightningCloudMaxSize);
+        spawnedMissile1.GetComponent<Volt_LightningMissile>().SetMissileCloudInfo(lightningCloudDuration, lightningCloudGrowthRate, lightningCloudGrowthAmount, lightningCloudMaxSize, lightningCloudHypeToGain);
+        spawnedMissile2.GetComponent<Volt_LightningMissile>().SetMissileCloudInfo(lightningCloudDuration, lightningCloudGrowthRate, lightningCloudGrowthAmount, lightningCloudMaxSize, lightningCloudHypeToGain);
+        spawnedMissile3.GetComponent<Volt_LightningMissile>().SetMissileCloudInfo(lightningCloudDuration, lightningCloudGrowthRate, lightningCloudGrowthAmount, lightningCloudMaxSize, lightningCloudHypeToGain);
 
         //rotate missile 2 and 3 to form a fan attack.
         spawnedMissile2.transform.Rotate(0, sideMissileOffset, 0);
