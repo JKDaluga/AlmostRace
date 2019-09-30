@@ -78,7 +78,6 @@ namespace Console
             Command = "restart";
             Description = "Restarts the application";
             Help = "Use this command with no arguments to restart the scene";
-
             AddCommandToConsole();
         }
 

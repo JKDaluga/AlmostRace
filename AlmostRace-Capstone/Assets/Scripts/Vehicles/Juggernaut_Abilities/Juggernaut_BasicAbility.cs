@@ -8,7 +8,7 @@ using UnityEngine;
 public class Juggernaut_BasicAbility : BasicAbility
 {
     [Header("Movement Variables Affected")]
-    private SphereCarController sphereCarScript;
+    public SphereCarController sphereCarScript;
     private float _originalTopSpeed;
     private float _originalAcceleration;
     private float _originalSteering;
@@ -28,7 +28,7 @@ public class Juggernaut_BasicAbility : BasicAbility
 
     public void Start()
     {
-        sphereCarScript = gameObject.GetComponent<SphereCarController>();
+    
         SetDrillMovementInfo();
         carHeatInfo = gameObject.GetComponent<CarHeatManager>();
         drillScript.SetDrillInfo(drillDamage, drillFrequency, _immunePlayer);

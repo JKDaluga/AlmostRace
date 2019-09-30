@@ -16,6 +16,8 @@ public class Juggernaut_Drill : MonoBehaviour
     private float _drillFrequency;
     private GameObject _immunePlayer;
 
+    private bool _isDrilling = false; //This is to prevent the InvokeRepeating in OnCollisionStay from happening multipleTimes
+
     public Material drillOffMaterial;
     public Material drillOnMaterial;
 
@@ -86,10 +88,11 @@ public class Juggernaut_Drill : MonoBehaviour
 
     #region Collision Methods
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-        if (_isSpinning && collision.gameObject != _immunePlayer) //Makes sure the drill is spinning
+        if (_isSpinning && collision.gameObject != _immunePlayer && !_isDrilling) //Makes sure the drill is spinning
         {
+            _isDrilling = true;
             if (collision.gameObject.GetComponent<CarHeatManager>() != null && damagedCarScript == null) //Makes sure we don't hit multiple cars at once
             {
                 damagedCarScript = collision.gameObject.GetComponent<CarHeatManager>();
@@ -106,6 +109,7 @@ public class Juggernaut_Drill : MonoBehaviour
     {
         if(collision.gameObject.GetComponent<CarHeatManager>() != null == damagedCarScript)
         {
+            _isDrilling = false;
             Debug.Log("Collision with :" + collision.gameObject.name + " STOPPED!");
             damagedCarScript = null;
         }

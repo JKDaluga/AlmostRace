@@ -28,12 +28,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1310389898}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.059000015, z: 4.52}
-  m_LocalScale: {x: 1, y: 2.0394943, z: 1}
+  m_LocalPosition: {x: 0, y: -0.059000015, z: 4.5200005}
+  m_LocalScale: {x: 1, y: 2.0394938, z: 1}
   m_Children: []
-  m_Father: {fileID: 2404477489982420315}
+  m_Father: {fileID: 2404477490426340256}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 90, z: 90}
 --- !u!33 &1310389902
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: f9f80255c4b452646be8696eea6166ab, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -106,7 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11dac318a10aa714caf09469b4d7951e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &102357659
+  drillOffMaterial: {fileID: 2100000, guid: f9f80255c4b452646be8696eea6166ab, type: 2}
+  drillOnMaterial: {fileID: 2100000, guid: 42e26e838cb21e944aa7de2aae4edefc, type: 2}
+--- !u!114 &2404477489982420314
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,10 +117,81 @@ MonoBehaviour:
   m_GameObject: {fileID: 2404477489982420312}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c844316b806f1468dfad85932ad574, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  kartModel: {fileID: 2404477491223489608}
+  kartNormal: {fileID: 2404477490426340256}
+  sphere: {fileID: 2404477489596703736}
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 3891
+  topSpeed: 800
+  acceleration: 800
+  steering: 4
+  gravity: 450
+  driftStrength: 0.6
+  reverseSpeed: 1
+--- !u!114 &8741811813584089559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404477489982420312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372f0d48ef2ad3347acac5b6130cb13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer1: 1
+--- !u!114 &1917193756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404477489596703742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372f0d48ef2ad3347acac5b6130cb13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer1: 1
+--- !u!114 &1917193757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404477489596703742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f2d55d2a927334b879291d44bbc2bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfHeatDamage: 0.1
+  sphereCarScript: {fileID: 2404477489982420314}
+  drillNewTopSpeed: 1000
+  drillNewAcceleration: 600
+  drillNewSteering: 2
+  drillScript: {fileID: 1310389903}
+  drillDamage: 10
+  drillFrequency: 1
+  selfDamageFrequency: 0.1
+--- !u!114 &1917193758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404477489596703742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ceda1c616fee4c0abcad4bdc27e75ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicAbility: {fileID: 102357660}
+  basicAbility: {fileID: 1917193757}
   basicAbilityInput: LeftMouseClick
   canHoldBasic: 1
   signatureAbility: {fileID: 0}
@@ -127,23 +200,26 @@ MonoBehaviour:
   canHoldSignature: 0
   pickup: {fileID: 0}
   pickupInput: PickupP1
---- !u!114 &102357660
+--- !u!114 &1917193759
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2404477489982420312}
+  m_GameObject: {fileID: 2404477489596703742}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f2d55d2a927334b879291d44bbc2bc, type: 3}
+  m_Script: {fileID: 11500000, guid: 0d8d037ec5c1e0a4593acd6e589a3ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selfHeatDamage: 0.1
-  drillScript: {fileID: 1310389903}
-  drillDamage: 10
-  drillFrequency: 1
-  selfDamageFrequency: 0.01
+  heatImage: {fileID: 0}
+  heatCurrent: 0
+  heatStallLimit: 100
+  heatExplodeLimit: 120
+  cooldownRate: 1
+  respawnSecs: 3
+  explosion: {fileID: 2676687516381986671, guid: 1cf3137a925c83147aeb00d5b87ddd22,
+    type: 3}
 --- !u!1001 &2878120363204388087
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -154,7 +230,7 @@ PrefabInstance:
     - target: {fileID: 481683610635278084, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_Name
-      value: Vehicle_Juggernaut
+      value: Vehicle_Juggernaut Variant
       objectReference: {fileID: 0}
     - target: {fileID: 481683610635278085, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
@@ -174,17 +250,17 @@ PrefabInstance:
     - target: {fileID: 481683610635278085, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 481683610635278085, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 481683610635278085, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 481683610635278085, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
@@ -219,9 +295,31 @@ PrefabInstance:
     - target: {fileID: 481683610514310999, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 481683610739934985, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: m_Name
+      value: Vehicle_Physical
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345297507684376634, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345297507684376634, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.height
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345297507684376634, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.5
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 481683610354487725, guid: 032019f499ece314bbf7b2b05ab0f65e, type: 3}
+    - {fileID: 6818455058190144800, guid: 032019f499ece314bbf7b2b05ab0f65e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 032019f499ece314bbf7b2b05ab0f65e, type: 3}
 --- !u!1 &2404477489982420312 stripped
 GameObject:
@@ -229,9 +327,27 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2878120363204388087}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &2404477489982420315 stripped
+--- !u!4 &2404477490426340256 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 481683610354487724, guid: 032019f499ece314bbf7b2b05ab0f65e,
+  m_CorrespondingSourceObject: {fileID: 481683610514310999, guid: 032019f499ece314bbf7b2b05ab0f65e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2878120363204388087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2404477491223489608 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 481683611327776959, guid: 032019f499ece314bbf7b2b05ab0f65e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2878120363204388087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2404477489596703742 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 481683610739934985, guid: 032019f499ece314bbf7b2b05ab0f65e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2878120363204388087}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &2404477489596703736 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 481683610739934991, guid: 032019f499ece314bbf7b2b05ab0f65e,
     type: 3}
   m_PrefabInstance: {fileID: 2878120363204388087}
   m_PrefabAsset: {fileID: 0}
