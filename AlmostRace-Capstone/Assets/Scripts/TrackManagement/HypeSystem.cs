@@ -2,59 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class HypeSystem : MonoBehaviour
 {
-    public GameObject[] playerVehicle = new GameObject[4];
-    public Dictionary<GameObject, float> dictionary = new Dictionary<GameObject, float>(4);
+    //public Dictionary<GameObject, float> dictionary = new Dictionary<GameObject, float>();
+    private List<GameObject> _vehicleList = new List<GameObject>();
+    private Text[] _hypeAmountDisplay;
 
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
+        _hypeAmountDisplay = new Text[_vehicleList.Count];
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void AssignVehicleSlot(GameObject player, int playerNumber)
-    {
-        for (int i = 0; i < playerVehicle.Length; i++)
+        for(int i = 0; i < _hypeAmountDisplay.Length; i++)
         {
-            if (i == playerNumber - 1)
-            {
-                playerVehicle[i] = player;
-                break;
-            }
+            _hypeAmountDisplay[i] = GameObject.Find("HypeDisplay" + (i + 1)).GetComponent<Text>();
         }
+        UIupdate();
     }
 
     public void VehicleAssign(GameObject player)
     {
-        dictionary.Add(player, 0);
-        VehicleSort();
+        _vehicleList.Add(player);
     }
 
-    public void AssignHype(GameObject player, float hypeAmount)
-    {
-        dictionary[player] += hypeAmount;
-        VehicleSort();
-    }
-
-    public void SubtractHype(GameObject player, float hypeAmount)
-    {
-        dictionary[player] -= hypeAmount;
-        VehicleSort();
-    }
-
-    private void VehicleSort()
+    public void VehicleSort()
     {
         // Order by values
-        var items = from pair in dictionary
-                    orderby pair.Value ascending
-                    select pair;
+        _vehicleList.Sort(
+            delegate(GameObject p1, GameObject p2)
+            {
+                return p1.GetComponent<VehicleHypeBehavior>().GiveHypeAmount()
+                .CompareTo(p2.GetComponent<VehicleHypeBehavior>().GiveHypeAmount());
+            }
+        );
+        _vehicleList.Reverse();
+        UIupdate();
+    }
+
+    private void UIupdate()
+    {
+        int i = 0;
+        foreach(GameObject entry in _vehicleList)
+        {
+            _hypeAmountDisplay[i].text = entry.name.ToString() + ": " +
+            entry.GetComponent<VehicleHypeBehavior>().GiveHypeAmount().ToString();
+            i++;
+        }
     }
 }

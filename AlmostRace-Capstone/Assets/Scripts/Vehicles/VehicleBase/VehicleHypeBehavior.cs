@@ -4,20 +4,16 @@ using UnityEngine;
 
 public class VehicleHypeBehavior : MonoBehaviour
 {
-    public float hypeAmount;
-    [Tooltip("They are either player 1, 2, 3, or 4?")] public int playerNumber;
-    private HypeSystem hypeSystem;
-    private int _placeInRace;
-    private int _positionInRace;
+    [Tooltip("They are either player 1, 2, 3, or 4? etc.")] public int playerNumber;
+    private HypeSystem _hypeSystem;
+    private float _hypeAmount;
 
-    // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         if(GameObject.FindGameObjectWithTag("GameManager") != null)
         {
-            hypeSystem = GameObject.FindGameObjectWithTag("GameManager").GetComponent<HypeSystem>();
-            //hypeSystem.AssignVehicleSlot(this.gameObject, playerNumber);
-            hypeSystem.VehicleAssign(this.gameObject);
+            _hypeSystem = GameObject.FindGameObjectWithTag("GameManager").GetComponent<HypeSystem>();
+            _hypeSystem.VehicleAssign(this.gameObject);
         }
     }
 
@@ -26,18 +22,40 @@ public class VehicleHypeBehavior : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.U))
         {
-            AddHype(5);
+            if (playerNumber == 1)
+            {
+                AddHype(5);
+            }
+            else if (playerNumber == 2)
+            {
+                AddHype(4);
+            }
+            else if (playerNumber == 3)
+            {
+                AddHype(3);
+            }
+            else if (playerNumber == 4)
+            {
+                AddHype(2);
+            }
         }
     }
 
-    void AddHype(float hypeToAdd)
+    private void AddHype(float hypeToAdd)
     {
-        hypeSystem.AssignHype(gameObject, hypeToAdd);
+        _hypeAmount += hypeToAdd;
+        _hypeSystem.VehicleSort();
     }
 
-    void SubtractHype(float hypeToSubtract)
+    private void SubtractHype(float hypeToSubtract)
     {
-        hypeSystem.AssignHype(gameObject, hypeToSubtract);
+        _hypeAmount -= hypeToSubtract;
+        _hypeSystem.VehicleSort();
+    }
+
+    public float GiveHypeAmount()
+    {
+        return _hypeAmount;
     }
 
 }
