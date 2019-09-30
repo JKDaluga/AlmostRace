@@ -44,16 +44,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6c844316b806f1468dfad85932ad574, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   kartModel: {fileID: 481683611327776959}
   kartNormal: {fileID: 481683610514310999}
   sphere: {fileID: 481683610739934991}
+  tiltShift: {fileID: 7928416573925588224}
+  MaxMotionBlur: 0.5
   layerMask:
     serializedVersion: 2
     m_Bits: 3891
   topSpeed: 800
-  acceleration: 800
+  acceleration: 12
   steering: 4
   gravity: 450
   driftStrength: 0.6
@@ -68,8 +70,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 372f0d48ef2ad3347acac5b6130cb13f, type: 3}
-  m_Name:
-  m_EditorClassIdentifier:
+  m_Name: 
+  m_EditorClassIdentifier: 
   isPlayer1: 1
 --- !u!1 &481683610514310998
 GameObject:
@@ -273,6 +275,24 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &7928416573925588224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6345297507684376632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22b3a7095a744a428c134b5e26ad68e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mode: 1
+  quality: 1
+  blurArea: 7
+  maxBlurSize: 25
+  downsample: 0
+  tiltShiftShader: {fileID: 4800000, guid: bf34d2a25450349699e8ae6456fa7ca9, type: 3}
 --- !u!1001 &5966363089907305255
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -343,7 +363,7 @@ PrefabInstance:
     - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
       propertyPath: objectToFollow
-      value:
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
@@ -368,6 +388,12 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 54d86e26683fd49ceb879a39ae5231ef, type: 3}
+--- !u!1 &6345297507684376632 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 775676765654723359, guid: 54d86e26683fd49ceb879a39ae5231ef,
+    type: 3}
+  m_PrefabInstance: {fileID: 5966363089907305255}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6345297507684376637 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 775676765654723354, guid: 54d86e26683fd49ceb879a39ae5231ef,

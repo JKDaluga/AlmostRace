@@ -9,6 +9,9 @@ public class SphereCarController : MonoBehaviour
     public Transform kartNormal;
     public Rigidbody sphere;
     private VehicleInput _vehicleInput;
+    public UnityStandardAssets.ImageEffects.TiltShift tiltShift;
+    private float _maxBlurArea = 7f;
+    private float _blurScaling = 10f;
 
     float speed, currentSpeed;
     float rotate, currentRotate;
@@ -65,6 +68,9 @@ public class SphereCarController : MonoBehaviour
 
         currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * acceleration); speed = 0f;
         currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f); rotate = 0f;
+        
+        //Motion Blur for car speed right now 7 and 10 are the magic numbers for the effect we are looking for
+        tiltShift.blurArea = _maxBlurArea * (Mathf.Pow(currentSpeed, _blurScaling) / Mathf.Pow(topSpeed, _blurScaling));
     }
 
     private void FixedUpdate()
