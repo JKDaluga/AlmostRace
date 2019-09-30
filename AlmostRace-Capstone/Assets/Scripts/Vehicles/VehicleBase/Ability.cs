@@ -10,7 +10,7 @@ public abstract class Ability : MonoBehaviour
 
 public abstract class BasicAbility : Ability
 {
-    public CarHeatManager carHeatInfo;
+    protected CarHeatManager carHeatInfo;
     [Tooltip("How much damage is done to the player every X seconds")] public float selfHeatDamage;
     protected abstract void AddHeat();
 }

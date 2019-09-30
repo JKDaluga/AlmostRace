@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Eddie B. && Leo C.
+ * This script handles behavior specific to the drill of the Juggernaut
+ */
+
 public class Juggernaut_Drill : MonoBehaviour
 {
     private CarHeatManager damagedCarScript;
@@ -9,16 +14,12 @@ public class Juggernaut_Drill : MonoBehaviour
     private bool _isSpinning = false;
     private float _drillDamage;
     private float _drillFrequency;
+    private GameObject _immunePlayer;
+
+    public Material drillOffMaterial;
+    public Material drillOnMaterial;
 
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.GetComponent<CarHeatManager>() != null)
-        {
-            damagedCarScript = collision.gameObject.GetComponent<CarHeatManager>();
-
-        }
-    }
 
     private void DamageCar()
     {
@@ -28,15 +29,26 @@ public class Juggernaut_Drill : MonoBehaviour
             {
                 damagedCarScript = null;
                 CancelInvoke("DamageCar");
+                //mulch car into new train car.
             }
             else
             {
                 damagedCarScript.heatCurrent += _drillDamage;
-
             }
+        }
+        else
+        {
+            CancelInvoke("DamageCar");
         }
     }
 
+    #region Getters and Setters
+    public void SetDrillInfo(float drillDamage, float drillFrequency, GameObject immunePlayer)
+    {
+        _drillDamage = drillDamage;
+        _drillFrequency = drillFrequency;
+        _immunePlayer = immunePlayer;
+    }
 
     public void SetIsSpinning(bool spun)
     {
@@ -47,5 +59,57 @@ public class Juggernaut_Drill : MonoBehaviour
     {
         return _isSpinning;
     }
+
+    #endregion
+
+
+    #region Visuals
+    private void SpinDrill()
+    {
+        //gameObject.transform.Rotate(.1f,0,0);
+        
+    }
+
+    public void StartSpinVisuals()
+    {
+        gameObject.GetComponent<MeshRenderer>().material = drillOnMaterial;
+        //InvokeRepeating("SpinDrill", 0, .1f);
+        //Will probably want to do this with an animation in the future.
+    }
+
+    public void StopSpinVisuals()
+    {
+        gameObject.GetComponent<MeshRenderer>().material = drillOffMaterial;
+        //CancelInvoke("SpinDrill");
+    }
+    #endregion
+
+    #region Collision Methods
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (_isSpinning && collision.gameObject != _immunePlayer) //Makes sure the drill is spinning
+        {
+            if (collision.gameObject.GetComponent<CarHeatManager>() != null && damagedCarScript == null) //Makes sure we don't hit multiple cars at once
+            {
+                damagedCarScript = collision.gameObject.GetComponent<CarHeatManager>();
+                InvokeRepeating("DamageCar", 0, _drillDamage);
+            }
+            else if (collision.gameObject.GetComponent<PickupBehavior>() != null)
+            {
+                //mulch the pickup an create a train car.
+            }
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if(collision.gameObject.GetComponent<CarHeatManager>() != null == damagedCarScript)
+        {
+            Debug.Log("Collision with :" + collision.gameObject.name + " STOPPED!");
+            damagedCarScript = null;
+        }
+    }
+    #endregion
 
 }
