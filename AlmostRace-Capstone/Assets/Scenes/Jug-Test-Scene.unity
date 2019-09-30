@@ -608,73 +608,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117561139}
   m_Mesh: {fileID: -3375530776318130408, guid: 3293fa2b5def1034da548609fb6e8105, type: 3}
---- !u!1 &118534265 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2404477489596703742, guid: a172e26dc7d24d84ba72d3151f81d12c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1320454346}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &118534269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 118534265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f2d55d2a927334b879291d44bbc2bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selfHeatDamage: 0.1
-  drillNewTopSpeed: 0
-  drillNewAcceleration: 0
-  drillNewSteering: 0
-  drillScript: {fileID: 940016072}
-  drillDamage: 10
-  drillFrequency: 1
-  selfDamageFrequency: 0.01
---- !u!114 &118534270
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 118534265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ceda1c616fee4c0abcad4bdc27e75ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basicAbility: {fileID: 0}
-  basicAbilityInput: PickupP1
-  canHoldBasic: 1
-  signatureAbility: {fileID: 0}
-  abilityRecharge: 5
-  signatureAbilityInput: PickupP1
-  canHoldSignature: 0
-  pickup: {fileID: 0}
-  pickupInput: PickupP1
---- !u!114 &118534271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 118534265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d8d037ec5c1e0a4593acd6e589a3ad5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heatImage: {fileID: 1647816693}
-  heatCurrent: 0
-  heatStallLimit: 100
-  heatExplodeLimit: 120
-  cooldownRate: 1
-  respawnSecs: 3
-  explosion: {fileID: 2676687516381986671, guid: 1cf3137a925c83147aeb00d5b87ddd22,
-    type: 3}
 --- !u!1 &130293702
 GameObject:
   m_ObjectHideFlags: 0
@@ -1990,7 +1923,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 610908876}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 815570671}
@@ -2439,18 +2372,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 839990402}
   m_Mesh: {fileID: -4921798496361452742, guid: eb5e351a0e78d3742a7c2a9a5d50fe38, type: 3}
---- !u!114 &863651286 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1310389903, guid: a172e26dc7d24d84ba72d3151f81d12c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2878120363081536744}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11dac318a10aa714caf09469b4d7951e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &916142916
 GameObject:
   m_ObjectHideFlags: 0
@@ -2546,18 +2467,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 916142916}
   m_Mesh: {fileID: 8262833186550602150, guid: 6a64d91719e3f1b47ab126b818fd2af9, type: 3}
---- !u!114 &940016072 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1310389903, guid: a172e26dc7d24d84ba72d3151f81d12c,
-    type: 3}
-  m_PrefabInstance: {fileID: 1320454346}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 11dac318a10aa714caf09469b4d7951e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &966676190
 GameObject:
   m_ObjectHideFlags: 0
@@ -3644,12 +3553,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1238990482}
   m_Mesh: {fileID: -4921798496361452742, guid: eb5e351a0e78d3742a7c2a9a5d50fe38, type: 3}
---- !u!4 &1277245655 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2404477491223489608, guid: a172e26dc7d24d84ba72d3151f81d12c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2878120363081536744}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1320454346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3661,6 +3564,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Vehicle_Juggernaut
+      objectReference: {fileID: 0}
+    - target: {fileID: 2404477490297222131, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2404477490297222130, guid: a172e26dc7d24d84ba72d3151f81d12c,
         type: 3}
@@ -3755,6 +3663,11 @@ PrefabInstance:
       propertyPath: m_NormalizedViewPortRect.height
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 9222850105150751949, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: m_NormalizedViewPortRect.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1310389899, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.70710677
@@ -3791,6 +3704,11 @@ PrefabInstance:
       propertyPath: drillOnMaterial
       value: 
       objectReference: {fileID: 2100000, guid: 42e26e838cb21e944aa7de2aae4edefc, type: 2}
+    - target: {fileID: 2404477489596703736, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 3063982093914982873, guid: a172e26dc7d24d84ba72d3151f81d12c,
         type: 3}
       propertyPath: heatImage
@@ -3802,11 +3720,27 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2676687516381986671, guid: 1cf3137a925c83147aeb00d5b87ddd22,
         type: 3}
+    - target: {fileID: 1917193758, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+      propertyPath: basicAbilityInput
+      value: PickupP1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917193758, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+      propertyPath: signatureAbilityInput
+      value: PickupP1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917193759, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+      propertyPath: heatImage
+      value: 
+      objectReference: {fileID: 1647816693}
     m_RemovedComponents:
     - {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
     - {fileID: 102357659, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
     - {fileID: 102357660, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
     - {fileID: 3063982093914982873, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+    - {fileID: 8741811813584089559, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+    - {fileID: 1917193757, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+    - {fileID: 1917193758, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+    - {fileID: 1917193756, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
 --- !u!1 &1344015210
 GameObject:
@@ -4204,12 +4138,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1463038315}
   m_CullTransparentMesh: 0
---- !u!4 &1467728561 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2404477490426340256, guid: a172e26dc7d24d84ba72d3151f81d12c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2878120363081536744}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1534142383
 GameObject:
   m_ObjectHideFlags: 0
@@ -5523,136 +5451,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830332632}
   m_Mesh: {fileID: 1148026248238146814, guid: 12981525962d8b24c8124a9dc9667f09, type: 3}
---- !u!1 &1917193753 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2404477489596703742, guid: a172e26dc7d24d84ba72d3151f81d12c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2878120363081536744}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1917193754
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917193753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c844316b806f1468dfad85932ad574, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  kartModel: {fileID: 1277245655}
-  kartNormal: {fileID: 1467728561}
-  sphere: {fileID: 1917193755}
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 3891
-  topSpeed: 800
-  acceleration: 800
-  steering: 4
-  gravity: 450
-  driftStrength: 0.6
-  reverseSpeed: 1
---- !u!54 &1917193755 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 2404477489596703736, guid: a172e26dc7d24d84ba72d3151f81d12c,
-    type: 3}
-  m_PrefabInstance: {fileID: 2878120363081536744}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1917193756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917193753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 372f0d48ef2ad3347acac5b6130cb13f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPlayer1: 1
---- !u!114 &1917193757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917193753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f2d55d2a927334b879291d44bbc2bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selfHeatDamage: 1
-  drillNewTopSpeed: 0
-  drillNewAcceleration: 0
-  drillNewSteering: 0
-  drillScript: {fileID: 863651286}
-  drillDamage: 10
-  drillFrequency: 1
-  selfDamageFrequency: 0.01
---- !u!114 &1917193758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917193753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ceda1c616fee4c0abcad4bdc27e75ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basicAbility: {fileID: 1917193760}
-  basicAbilityInput: LeftMouseClick
-  canHoldBasic: 1
-  signatureAbility: {fileID: 0}
-  abilityRecharge: 5
-  signatureAbilityInput: RightMouseClick
-  canHoldSignature: 0
-  pickup: {fileID: 0}
-  pickupInput: PickupP1
---- !u!114 &1917193759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917193753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d8d037ec5c1e0a4593acd6e589a3ad5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heatImage: {fileID: 1069695642}
-  heatCurrent: 0
-  heatStallLimit: 100
-  heatExplodeLimit: 120
-  cooldownRate: 1
-  respawnSecs: 3
-  explosion: {fileID: 2676687516381986671, guid: 1cf3137a925c83147aeb00d5b87ddd22,
-    type: 3}
---- !u!114 &1917193760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1917193753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5f2d55d2a927334b879291d44bbc2bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selfHeatDamage: 1
-  drillNewTopSpeed: 0
-  drillNewAcceleration: 0
-  drillNewSteering: 0
-  drillScript: {fileID: 863651286}
-  drillDamage: 10
-  drillFrequency: 1
-  selfDamageFrequency: 0.1
 --- !u!1 &1925388302
 GameObject:
   m_ObjectHideFlags: 0
@@ -6479,7 +6277,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 147.79999, y: 186.60004}
+  m_AnchoredPosition: {x: 147.7998, y: 186.6001}
   m_SizeDelta: {x: 58.400024, y: 267.90002}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &2124517554
@@ -6679,25 +6477,57 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9222850105150751949, guid: a172e26dc7d24d84ba72d3151f81d12c,
+    - target: {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c,
         type: 3}
-      propertyPath: m_NormalizedViewPortRect.width
+      propertyPath: acceleration
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222850105150751946, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222850105150751946, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9961947
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222850105150751946, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.08715578
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222850105150751946, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222850105150751946, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222850105150751946, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9222850105150751946, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.82
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310389898, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 9222850105150751949, guid: a172e26dc7d24d84ba72d3151f81d12c,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.y
-      value: 0.5
+    - target: {fileID: 1310389898, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 9222850105150751949, guid: a172e26dc7d24d84ba72d3151f81d12c,
-        type: 3}
-      propertyPath: m_NormalizedViewPortRect.height
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 9222850105150751949, guid: a172e26dc7d24d84ba72d3151f81d12c,
-        type: 3}
-      propertyPath: near clip plane
-      value: 0.5
+    - target: {fileID: 1310389899, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4.59
       objectReference: {fileID: 0}
     - target: {fileID: 1310389899, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
       propertyPath: m_LocalRotation.x
@@ -6720,41 +6550,45 @@ PrefabInstance:
       value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 1310389899, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1310389899, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
       objectReference: {fileID: 0}
-    - target: {fileID: 1310389901, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f9f80255c4b452646be8696eea6166ab, type: 2}
-    - target: {fileID: 1310389903, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
-      propertyPath: drillOffMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: f9f80255c4b452646be8696eea6166ab, type: 2}
-    - target: {fileID: 1310389903, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
-      propertyPath: drillOnMaterial
-      value: 
-      objectReference: {fileID: 2100000, guid: 42e26e838cb21e944aa7de2aae4edefc, type: 2}
     - target: {fileID: 2404477489596703742, guid: a172e26dc7d24d84ba72d3151f81d12c,
         type: 3}
-      propertyPath: m_Name
-      value: Vehicle_Physical
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 3063982093914982873, guid: a172e26dc7d24d84ba72d3151f81d12c,
-        type: 3}
+    - target: {fileID: 1917193757, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+      propertyPath: drillNewTopSpeed
+      value: 1200
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917193757, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+      propertyPath: drillNewAcceleration
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917193757, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+      propertyPath: selfHeatDamage
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917193757, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+      propertyPath: drillFrequency
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917193757, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+      propertyPath: drillDamage
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917193758, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+      propertyPath: basicAbilityInput
+      value: BasicAbilityP1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1917193759, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
       propertyPath: heatImage
       value: 
       objectReference: {fileID: 1069695642}
-    - target: {fileID: 3063982093914982873, guid: a172e26dc7d24d84ba72d3151f81d12c,
-        type: 3}
-      propertyPath: explosion
-      value: 
-      objectReference: {fileID: 2676687516381986671, guid: 1cf3137a925c83147aeb00d5b87ddd22,
-        type: 3}
-    m_RemovedComponents:
-    - {fileID: 3063982093914982873, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
-    - {fileID: 102357659, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
-    - {fileID: 102357660, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
-    - {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
-    - {fileID: 8741811813584089559, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
