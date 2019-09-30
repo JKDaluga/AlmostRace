@@ -823,7 +823,7 @@ PrefabInstance:
     - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
       propertyPath: followSpeed
-      value: 40
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
@@ -2921,6 +2921,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8829525317950555298, guid: 94b20b19c7095ea4dab2f55de8f7d12b,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: -9117483709511198939, guid: d88d458bfaba21a4598ae4ec99a7242a,
+        type: 3}
     - target: {fileID: 8829525317950555297, guid: 94b20b19c7095ea4dab2f55de8f7d12b,
         type: 3}
       propertyPath: verticalForwardAxis
@@ -2936,8 +2942,17 @@ PrefabInstance:
       propertyPath: horizontalAxis
       value: HorizontalP1
       objectReference: {fileID: 0}
+    - target: {fileID: 8829525317950555297, guid: 94b20b19c7095ea4dab2f55de8f7d12b,
+        type: 3}
+      propertyPath: turnForce
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 8829525316943991964, guid: 94b20b19c7095ea4dab2f55de8f7d12b,
         type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1237122790, guid: 94b20b19c7095ea4dab2f55de8f7d12b, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -9853,7 +9868,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &610908877
 Transform:
   m_ObjectHideFlags: 0
@@ -12653,6 +12668,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.x
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 481683611327776956, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f9f80255c4b452646be8696eea6166ab, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 032019f499ece314bbf7b2b05ab0f65e, type: 3}
 --- !u!4 &837980474 stripped
