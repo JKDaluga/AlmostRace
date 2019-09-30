@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 481683610354487724}
   - component: {fileID: 481683610354487725}
-  - component: {fileID: 969488071645490478}
+  - component: {fileID: 6818455058190144800}
   m_Layer: 0
-  m_Name: Vehicle_Actual
+  m_Name: Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,8 +44,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6c844316b806f1468dfad85932ad574, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   kartModel: {fileID: 481683611327776959}
   kartNormal: {fileID: 481683610514310999}
   sphere: {fileID: 481683610739934991}
@@ -58,7 +58,7 @@ MonoBehaviour:
   gravity: 450
   driftStrength: 0.6
   reverseSpeed: 1
---- !u!114 &969488071645490478
+--- !u!114 &6818455058190144800
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,16 +67,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 481683610354487727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d8d037ec5c1e0a4593acd6e589a3ad5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heatImage: {fileID: 0}
-  heatCurrent: 0
-  heatStallLimit: 100
-  heatExplodeLimit: 120
-  cooldownRate: 1
-  respawnSecs: 3
-  explosion: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 372f0d48ef2ad3347acac5b6130cb13f, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  isPlayer1: 1
 --- !u!1 &481683610514310998
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +146,7 @@ GameObject:
   - component: {fileID: 481683610739934988}
   - component: {fileID: 481683610739934991}
   m_Layer: 0
-  m_Name: collider
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -213,7 +207,7 @@ GameObject:
   - component: {fileID: 481683611327776957}
   - component: {fileID: 481683611327776956}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -349,7 +343,7 @@ PrefabInstance:
     - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
       propertyPath: objectToFollow
-      value: 
+      value:
       objectReference: {fileID: 0}
     - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
