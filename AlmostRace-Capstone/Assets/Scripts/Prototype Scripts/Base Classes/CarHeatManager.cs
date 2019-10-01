@@ -12,7 +12,6 @@ public class CarHeatManager : MonoBehaviour
     public float heatExplodeLimit = 120f;
     public float cooldownRate = 1f;
     public float respawnSecs = 3f;
-
     public GameObject explosion;
 
 
@@ -42,9 +41,9 @@ public class CarHeatManager : MonoBehaviour
             heatCurrent = heatExplodeLimit;
         }
 
-        if (heatCurrent == heatExplodeLimit)
+        if (heatCurrent >= heatExplodeLimit)
         {
-            
+
             respawn();
 
         }
@@ -65,37 +64,55 @@ public class CarHeatManager : MonoBehaviour
             gameObject.SetActive(true);
         }
 
- 
-
         heatImage.fillAmount = ((heatCurrent * 100) / 120) / 100;
-
 
     }
 
-    
-    void respawn()
+
+    private void respawn()
     {
 
-        if(GetComponent<VehicleAbilityBehavior>().isActiveAndEnabled)
+        if (GetComponent<VehicleAbilityBehavior>().isActiveAndEnabled)
         {
             GetComponent<BasicAbility>().DeactivateAbility();
             GetComponent<VehicleAbilityBehavior>().enabled = false;
-            transform.GetChild(0).gameObject.SetActive(false);
-            transform.GetChild(1).gameObject.SetActive(false);
-            transform.GetChild(4).gameObject.SetActive(true);
+
+            childCare(true, "Explosion");
+
             Invoke("respawn", respawnSecs);
         }
-        else if(GetComponent<VehicleAbilityBehavior>().isActiveAndEnabled != true)
+        else if (GetComponent<VehicleAbilityBehavior>().isActiveAndEnabled != true)
         {
             heatCurrent = 0;
-            
+
             GetComponent<VehicleAbilityBehavior>().enabled = true;
-            transform.GetChild(0).gameObject.SetActive(true);
-            transform.GetChild(1).gameObject.SetActive(true);
-            transform.GetChild(4).gameObject.SetActive(false);
+
+            childCare(false, "Explosion");
+
+            GetComponent<BasicAbility>().DeactivateAbility();
         }
-        
+
     }
-    
+
+
+    //Change name pls
+    public void childCare(bool onOff, string childName)
+    {
+
+        for (int i = 0; i < gameObject.transform.childCount; i++)
+        {
+            var child = gameObject.transform.GetChild(i).gameObject;
+            if (transform.Find(childName).gameObject.Equals(child))
+            {
+                child.SetActive(onOff);
+            }
+            else if (child != null)
+            {
+                child.SetActive(!onOff);
+            }
+
+        }
+
+    }
 }
 
