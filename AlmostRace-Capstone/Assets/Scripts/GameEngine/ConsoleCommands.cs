@@ -91,4 +91,31 @@ namespace Console
             return new RestartCommand();
         }
     }
+
+    public class BackToMainCommand : ConsoleCommand
+    {
+        public override string Name { get; protected set; }
+        public override string Command { get; protected set; }
+        public override string Description { get; protected set; }
+        public override string Help { get; protected set; }
+
+        public BackToMainCommand()
+        {
+            Name = "BackToMainCommand";
+            Command = "backtomain";
+            Description = "Sends you back to the Start Menu";
+            Help = "Use this command with no arguments send you back to the start menu";
+            AddCommandToConsole();
+        }
+
+        public override void RunCommand()
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
+
+        public static BackToMainCommand CreateCommand()
+        {
+            return new BackToMainCommand();
+        }
+    }
 }

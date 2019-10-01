@@ -59,6 +59,7 @@ namespace Console
         {
             CommandQuit.CreateCommand();
             RestartCommand.CreateCommand();
+            BackToMainCommand.CreateCommand();
         }
 
         public static void AddCommandsToConsole(string _name, ConsoleCommand _command)
