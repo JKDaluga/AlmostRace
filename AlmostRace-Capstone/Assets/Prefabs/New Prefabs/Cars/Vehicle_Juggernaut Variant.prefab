@@ -123,6 +123,7 @@ MonoBehaviour:
   kartModel: {fileID: 2404477491223489608}
   kartNormal: {fileID: 2404477490426340256}
   sphere: {fileID: 2404477489596703736}
+  tiltShift: {fileID: 0}
   layerMask:
     serializedVersion: 2
     m_Bits: 3891
@@ -192,11 +193,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicAbility: {fileID: 1917193757}
-  basicAbilityInput: LeftMouseClick
+  basicAbilityInput: BasicAbilityP1
   canHoldBasic: 1
-  signatureAbility: {fileID: 0}
+  signatureAbility: {fileID: 1733859501118701816}
   abilityRecharge: 5
-  signatureAbilityInput: RightMouseClick
+  signatureAbilityInput: SignatureAbilityP1
   canHoldSignature: 0
   pickup: {fileID: 0}
   pickupInput: PickupP1
@@ -220,6 +221,21 @@ MonoBehaviour:
   respawnSecs: 3
   explosion: {fileID: 2676687516381986671, guid: 1cf3137a925c83147aeb00d5b87ddd22,
     type: 3}
+--- !u!114 &1733859501118701816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2404477489596703742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07a63b11d3cf73c4faaeabc8aa2a1836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphereCarScript: {fileID: 0}
+  boostSpeed: 0
+  boostDuration: 0
 --- !u!1001 &2878120363204388087
 PrefabInstance:
   m_ObjectHideFlags: 0
