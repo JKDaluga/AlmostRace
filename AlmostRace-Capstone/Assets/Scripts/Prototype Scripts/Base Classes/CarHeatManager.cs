@@ -12,12 +12,10 @@ public class CarHeatManager : MonoBehaviour
     public float heatExplodeLimit = 120f;
     public float cooldownRate = 1f;
     public float respawnSecs = 3f;
-    public GameObject explosion;
 
 
     private void Start()
     {
-        explosion.SetActive(false);
     }
 
     // Update is called once per frame
@@ -48,7 +46,6 @@ public class CarHeatManager : MonoBehaviour
 
         }
 
-
         if (heatCurrent > 0)
         {
             heatCurrent -= cooldownRate * Time.deltaTime;
@@ -74,43 +71,16 @@ public class CarHeatManager : MonoBehaviour
 
         if (GetComponent<VehicleAbilityBehavior>().isActiveAndEnabled)
         {
-            GetComponent<BasicAbility>().DeactivateAbility();
-            GetComponent<VehicleAbilityBehavior>().enabled = false;
-
-            childCare(true, "Explosion");
+            GetComponent<ExplosionEffect>().respawnEffect();
+            gameObject.SetActive(false);
 
             Invoke("respawn", respawnSecs);
         }
-        else if (GetComponent<VehicleAbilityBehavior>().isActiveAndEnabled != true)
+        else if (gameObject.activeSelf != true)
         {
             heatCurrent = 0;
-
-            GetComponent<VehicleAbilityBehavior>().enabled = true;
-
-            childCare(false, "Explosion");
-
+            gameObject.SetActive(true);
             GetComponent<BasicAbility>().DeactivateAbility();
-        }
-
-    }
-
-
-    //Change name pls
-    public void childCare(bool onOff, string childName)
-    {
-
-        for (int i = 0; i < gameObject.transform.childCount; i++)
-        {
-            var child = gameObject.transform.GetChild(i).gameObject;
-            if (transform.Find(childName).gameObject.Equals(child))
-            {
-                child.SetActive(onOff);
-            }
-            else if (child != null)
-            {
-                child.SetActive(!onOff);
-            }
-
         }
 
     }
