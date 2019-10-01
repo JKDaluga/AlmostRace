@@ -27,6 +27,9 @@ public class SphereCarController : MonoBehaviour
     private bool _drifting;
     private int _driftDirection = 1;
 
+    private bool _isBoosting = false;
+    private float _boostSpeed;
+
     private void Start()
     {
         _vehicleInput = GetComponent<VehicleInput>();
@@ -35,8 +38,15 @@ public class SphereCarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         speed = topSpeed * (Input.GetAxis(_vehicleInput.verticalForward) - Input.GetAxis(_vehicleInput.verticalBackward));
-        if(speed < 0)
+        if (_isBoosting)
+        {
+            speed = _boostSpeed;
+        }
+
+
+        if (speed < 0)
         {
             speed *= reverseSpeed;
         }
@@ -58,7 +68,7 @@ public class SphereCarController : MonoBehaviour
                 amount = (_driftDirection == 1) ? ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 0, 1 + driftStrength) : ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 1 + driftStrength, 0);
             }
 
-            if(_drifting)
+            if (_drifting)
                 Steer(_driftDirection, amount);
             else
                 Steer(dir, amount);
@@ -68,7 +78,7 @@ public class SphereCarController : MonoBehaviour
 
         currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * acceleration); speed = 0f;
         currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f); rotate = 0f;
-        
+
         //Motion Blur for car speed right now 7 and 10 are the magic numbers for the effect we are looking for
         tiltShift.blurArea = _maxBlurArea * (Mathf.Pow(currentSpeed, _blurScaling) / Mathf.Pow(topSpeed, _blurScaling));
     }
@@ -112,5 +122,16 @@ public class SphereCarController : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position + transform.up, transform.position - (transform.up * 2));
+    }
+
+
+    public void SetIsBoosting(bool ToF)
+    {
+        _isBoosting = ToF;
+    }
+
+    public void SetBoostSpeed(float boostSpeed)
+    {
+        _boostSpeed = boostSpeed;
     }
 }
