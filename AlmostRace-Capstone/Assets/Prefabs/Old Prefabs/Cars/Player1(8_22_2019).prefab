@@ -61842,6 +61842,7 @@ GameObject:
   - component: {fileID: 8139073901085731}
   - component: {fileID: 8829525317950555297}
   - component: {fileID: 8829525317950555326}
+  - component: {fileID: 4959069176658822736}
   m_Layer: 0
   m_Name: Player1(8_22_2019)
   m_TagString: Vehicle
@@ -61968,6 +61969,8 @@ MonoBehaviour:
   heatStallLimit: 100
   heatExplodeLimit: 120
   cooldownRate: 3.5
+  respawnSecs: 3
+  explosion: {fileID: 0}
 --- !u!114 &8829525317950555297
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62026,6 +62029,19 @@ MonoBehaviour:
   boostAxis: AButtonP1
   Carcamera: {fileID: 0}
   boostParticleEffect: {fileID: 8829525316943991964}
+--- !u!114 &4959069176658822736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8829525317950555324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372f0d48ef2ad3347acac5b6130cb13f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPlayer1: 1
 --- !u!1 &8829525318040068594
 GameObject:
   m_ObjectHideFlags: 0

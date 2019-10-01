@@ -5,10 +5,6 @@ using UnityEngine.UI;
 
 public class CarPhysicsBehavior : MonoBehaviour
 {
-    //list of suspension points and driving points, not currently used, but could be useful for checking if the car is making a jump
-    //or for making frontwheel vs rearwheel drive vehicles later
-    //public List<SuspensionPoint> suspension;
-    //public List<SuspensionPoint> drivingPoints;
     private CarHeatManager carHeatInfo;
     public Image carSpeedUI;
     //Downward force applied to vehicle to keep it on the ground
@@ -16,7 +12,6 @@ public class CarPhysicsBehavior : MonoBehaviour
 
     //Call for the rigidbody of the car
     private Rigidbody carRB;
-
 
     //The transform position where driving and braking forces are applies
     public Transform drivePos;
@@ -41,20 +36,18 @@ public class CarPhysicsBehavior : MonoBehaviour
     public float reverseSpeed = 0.25f;
 
     //the input fields for each action
-    private float driveInput, brakeInput, turnInput;
+    private float _driveInput, _brakeInput, _turnInput;
 
     //the grip value that controls how much the car slides when turning
     public float carGrip;
 
     //current speed
-    float currSpeed;
-
+    private float _currSpeed;
 
     //checks how "compressed" each point is, 0 for fully extended, 1 for fully compressed
-    private float compression;
+    private float _compression;
 
-
-    GameObject suspensionPoint;
+    private GameObject _suspensionPoint;
 
     //value for how long each suspension point should be
     public float suspensionLength = 3;
@@ -62,27 +55,26 @@ public class CarPhysicsBehavior : MonoBehaviour
     //how much force is applied to keep vehicle lifted
     public float suspensionForce = 50;
 
-
     public bool grounded;
 
     public float maxSpeed = 500.0f;
 
     //The forward value without the upward component
-    Vector3 flatFwd;
+    private Vector3 _flatFwd;
 
     //Input Axis for controller support
     public string horizontalAxis; //left stick
-    //public string verticalAxis;// W and S
     public string verticalForwardAxis;//right trigger
     public string verticalBackwardAxis;//left trigger
     public float forwardInput;
     public float backwardInput;
+    private VehicleInput _vehicleInput;
 
     private void Awake()
     {
         //stores the rigidbody value of the car
         carRB = GetComponent<Rigidbody>();
-
+        _vehicleInput = GetComponent<VehicleInput>();
     }
 
     private void Start()
@@ -94,51 +86,42 @@ public class CarPhysicsBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
+        _turnInput = Input.GetAxis(_vehicleInput.horizontal);
 
-       // Debug.Log("Current Drive Force: " + currentDriveForce);
-        // driveInput = brakeInput = Input.GetAxis(verticalAxis);
-        turnInput = Input.GetAxis("HorizontalP1");
-
-        forwardInput = Input.GetAxis("VerticalForwardP1");
-        backwardInput = Input.GetAxis("VerticalBackwardsP1");
-
+        forwardInput = Input.GetAxis(_vehicleInput.verticalForward);
+        backwardInput = Input.GetAxis(_vehicleInput.verticalBackward);
 
         //clamps braking and throttle inputs to needed values
-        driveInput = Mathf.Clamp(driveInput, -reverseSpeed, 1);
+        _driveInput = Mathf.Clamp(_driveInput, -reverseSpeed, 1);
 
-    
-
-        brakeInput = Mathf.Clamp(brakeInput, -1, 0);
-        //clamping for controller triggers, probably isn't needed.
-        //forwardInput = Mathf.Clamp(forwardInput, -reverseSpeed, 1);
-        // backwardInput = Mathf.Clamp(backwardInput, 0, 1);
+        _brakeInput = Mathf.Clamp(_brakeInput, -1, 0);
 
         //Consolidated suspension system into this script. Draws a downward raycast at each point to check for collisions and applies an upward force if one is found.
         for (int i = 0; i < hoverPoints.Length; i++)
         {
-            suspensionPoint = hoverPoints[i];
+            _suspensionPoint = hoverPoints[i];
 
-            Ray ray = new Ray(suspensionPoint.transform.position, -transform.up);
+            Ray ray = new Ray(_suspensionPoint.transform.position, -transform.up);
             RaycastHit hit;
 
-            Debug.DrawRay(suspensionPoint.transform.position, -transform.up, Color.red);
+            Debug.DrawRay(_suspensionPoint.transform.position, -transform.up, Color.red);
 
 
             //Checks if the car is touching the ground at all positions
             if (Physics.Raycast(ray, out hit, suspensionLength))
             {
-                compression = (suspensionLength - hit.distance) / suspensionLength;
+                _compression = (suspensionLength - hit.distance) / suspensionLength;
                 grounded = true;
             }
             else
             {
-                compression = 0;
+                _compression = 0;
                 grounded = false;
             }
 
-            if (compression > 0)
+            if (_compression > 0)
             {
-                Vector3 force = Vector3.up * compression * suspensionForce;
+                Vector3 force = Vector3.up * _compression * suspensionForce;
                 carRB.AddForceAtPosition(force, transform.position, ForceMode.Acceleration);
             }
         }
@@ -161,7 +144,7 @@ public class CarPhysicsBehavior : MonoBehaviour
         Vector3 carFwd = transform.TransformDirection(Vector3.forward);
         Vector3 tempFwd = new Vector3(carFwd.x, 0, carFwd.z);
 
-        flatFwd = Vector3.Normalize(tempFwd);
+        _flatFwd = Vector3.Normalize(tempFwd);
 
         throttle();
         brake();
@@ -179,20 +162,6 @@ public class CarPhysicsBehavior : MonoBehaviour
     //applies forward force based on inputs
     public void throttle()
     {
-        /*if(forwardInput > 0f)
-        {
-            Debug.Log("Right Trigger was pressed!");
-            carRB.AddForceAtPosition(flatFwd * driveForce * forwardInput * Time.deltaTime, drivePos.position); // Right Trigger
-        }
-        else if(backwardInput > 0f)
-        {
-            Debug.Log("Left Trigger was pressed!");
-            carRB.AddForceAtPosition(flatFwd * driveForce * (-backwardInput * reverseSpeed) * Time.deltaTime, drivePos.position); // Left Trigger
-
-        }*/
-        // carRB.AddForceAtPosition(flatFwd * driveForce * driveInput * Time.deltaTime, drivePos.position); //used for W and S
-
-
         if (forwardInput > deadZone && (carHeatInfo.heatCurrent < carHeatInfo.heatStallLimit))
         {
             currentDriveForce += acceleration * Time.fixedDeltaTime;
@@ -211,16 +180,7 @@ public class CarPhysicsBehavior : MonoBehaviour
             }
             currentDriveForce = Mathf.Clamp (currentDriveForce, 0, driveForce);
         }
-        carRB.AddForce(flatFwd * currentDriveForce); //used for W and S and arrow keys
-       
-       /* if(gameObject.GetComponent<BoostBehavior>().canBoost == false)
-        {
-            carSpeedUI.fillAmount = 1;
-        }
-        else
-        {
-            carSpeedUI.fillAmount = (forwardInput * 58) / 100;
-        }*/
+        carRB.AddForce(_flatFwd * currentDriveForce); //used for W and S and arrow keys
     }
 
     //applies backward force based on inputs
@@ -228,21 +188,16 @@ public class CarPhysicsBehavior : MonoBehaviour
     {
         if (carRB.velocity.z > 0 && grounded)
         {
-            carRB.AddForceAtPosition(flatFwd * brakeForce * brakeInput, drivePos.position);
-            //carRB.AddRelativeForce(Vector3.down * brakeForce * brakeInput * Time.deltaTime);
+            carRB.AddForceAtPosition(_flatFwd * brakeForce * _brakeInput, drivePos.position);
         }
     }
 
     //applies a torque to rotate the vehicle the appropriate amount
     public void turn()
     {
-        //appliedTurnForce = turnForce * (currentDriveForce / 300);
-        //Vector3 turnVec = ((transform.up * turnForce) * turnInput) * 800.0f;
-
-        //carRB.AddTorque(turnVec);
-        if (turnInput != 0)
+        if (_turnInput != 0)
         {
-            carRB.AddRelativeTorque(Vector3.up * turnInput * turnForce);
+            carRB.AddRelativeTorque(Vector3.up * _turnInput * turnForce);
         }
     }
 
@@ -254,11 +209,11 @@ public class CarPhysicsBehavior : MonoBehaviour
         Vector3 tempVel = new Vector3(carRB.velocity.x, 0, carRB.velocity.z);
         Vector3 flatVel = Vector3.Normalize(tempVel);
 
-        currSpeed = flatVel.magnitude;
+        _currSpeed = flatVel.magnitude;
 
         float sliding = Vector3.Dot(transform.right, flatVel);
 
-        float slideAmount = Mathf.Lerp(100, carGrip, currSpeed * .02f);
+        float slideAmount = Mathf.Lerp(100, carGrip, _currSpeed * .02f);
 
         Vector3 slideControl = transform.right * (-sliding * slideAmount);
     }
