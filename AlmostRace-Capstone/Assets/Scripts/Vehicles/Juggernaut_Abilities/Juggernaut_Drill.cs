@@ -96,7 +96,7 @@ public class Juggernaut_Drill : MonoBehaviour
             if (collision.gameObject.GetComponent<CarHeatManager>() != null && damagedCarScript == null) //Makes sure we don't hit multiple cars at once
             {
                 damagedCarScript = collision.gameObject.GetComponent<CarHeatManager>();
-                InvokeRepeating("DamageCar", 0, _drillDamage);
+                InvokeRepeating("DamageCar", 0, _drillFrequency);
             }
             else if (collision.gameObject.GetComponent<PickupBehavior>() != null)
             {

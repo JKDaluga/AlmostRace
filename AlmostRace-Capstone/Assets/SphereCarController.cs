@@ -19,6 +19,7 @@ public class SphereCarController : MonoBehaviour
     public LayerMask layerMask;
     public float topSpeed = 30f;
     public float acceleration = 12f;
+    public float deceleration = 12f;
     public float steering = 80f;
     public float gravity = 10f;
     public float driftStrength = 1f;
@@ -75,12 +76,18 @@ public class SphereCarController : MonoBehaviour
         }
 
         transform.position = sphere.transform.position - new Vector3(0, 0.4f, 0);
-
-        currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * acceleration); speed = 0f;
+        if(speed >= currentSpeed)
+        {
+            currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * acceleration); speed = 0f;
+        }
+        else
+        {
+            currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * deceleration); speed = 0f;
+        }
         currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f); rotate = 0f;
 
         //Motion Blur for car speed right now 7 and 10 are the magic numbers for the effect we are looking for
-        tiltShift.blurArea = _maxBlurArea * (Mathf.Pow(currentSpeed, _blurScaling) / Mathf.Pow(topSpeed, _blurScaling));
+        tiltShift.blurArea = Mathf.Min(_maxBlurArea * (Mathf.Pow(currentSpeed, _blurScaling) / Mathf.Pow(topSpeed, _blurScaling)), 1);
     }
 
     private void FixedUpdate()
