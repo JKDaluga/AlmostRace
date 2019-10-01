@@ -23,15 +23,17 @@ public class Juggernaut_BasicAbility : BasicAbility
     public float drillDamage;
     public float drillFrequency;
     public float selfDamageFrequency;
+    public float hypeGained;
 
     private GameObject _immunePlayer;
+ 
 
     public void Start()
     {
-    
+        base.Initialize();
         SetDrillMovementInfo();
         carHeatInfo = gameObject.GetComponent<CarHeatManager>();
-        drillScript.SetDrillInfo(drillDamage, drillFrequency, _immunePlayer);
+        drillScript.SetDrillInfo(drillDamage, drillFrequency, hypeGained, vehicleHypeScript, _immunePlayer);
     }
 
     private void SetDrillMovementInfo()

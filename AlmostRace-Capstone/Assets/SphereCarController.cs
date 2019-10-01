@@ -76,7 +76,7 @@ public class SphereCarController : MonoBehaviour
         }
 
         transform.position = sphere.transform.position - new Vector3(0, 0.4f, 0);
-        if(speed >= currentSpeed)
+        if(Mathf.Abs(speed) >= Mathf.Abs(currentSpeed) || speed * currentSpeed > 0)
         {
             currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * acceleration); speed = 0f;
         }

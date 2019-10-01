@@ -15,11 +15,15 @@ public class Juggernaut_Drill : MonoBehaviour
     private float _drillDamage;
     private float _drillFrequency;
     private GameObject _immunePlayer;
+    private float _hypeGained;
+    private VehicleHypeBehavior _hypeScript;
 
     private bool _isDrilling = false; //This is to prevent the InvokeRepeating in OnCollisionStay from happening multipleTimes
 
     public Material drillOffMaterial;
     public Material drillOnMaterial;
+
+
 
 
 
@@ -36,6 +40,7 @@ public class Juggernaut_Drill : MonoBehaviour
             else
             {
                 damagedCarScript.heatCurrent += _drillDamage;
+                _hypeScript.AddHype(_hypeGained);
             }
         }
         else
@@ -45,10 +50,12 @@ public class Juggernaut_Drill : MonoBehaviour
     }
 
     #region Getters and Setters
-    public void SetDrillInfo(float drillDamage, float drillFrequency, GameObject immunePlayer)
+    public void SetDrillInfo(float drillDamage, float drillFrequency, float hypeGained, VehicleHypeBehavior hypeScript, GameObject immunePlayer)
     {
         _drillDamage = drillDamage;
         _drillFrequency = drillFrequency;
+        _hypeScript = hypeScript;
+        _hypeGained = hypeGained;
         _immunePlayer = immunePlayer;
     }
 
