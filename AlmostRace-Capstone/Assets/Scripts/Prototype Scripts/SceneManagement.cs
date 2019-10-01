@@ -6,14 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagement : MonoBehaviour
 {
-	// private void Start()
-	// {
-	// 	DontDestroyOnLoad(gameObject);
-	// }
 
-    public void LoadSpecificScene(int i)
+    public void LoadSpecificScene(string sceneName)
     {
-    	SceneManager.LoadScene(i);
+    	SceneManager.LoadScene(sceneName);
 
     	Time.timeScale = 1;
     }
