@@ -114,6 +114,19 @@ public class SphereCarController : MonoBehaviour
         Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitNear, 5.0f, layerMask);
 
 
+        Vector3 flatVel = new Vector3(sphere.velocity.x, 0, sphere.velocity.z);
+
+
+        RaycastHit colliding;
+
+        Physics.Raycast(sphere.transform.position, flatVel, out colliding, 6.0f);
+
+        if (colliding.collider != null)
+        {
+            sphere.velocity = Vector3.ProjectOnPlane(sphere.velocity, colliding.normal);
+        }
+
+
         //Normal Rotation
         kartNormal.up = Vector3.Lerp(kartNormal.up, hitNear.normal, Time.deltaTime * 8.0f);
         kartNormal.Rotate(0, transform.eulerAngles.y, 0);
