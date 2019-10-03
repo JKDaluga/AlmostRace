@@ -9,8 +9,7 @@ public class VehicleHypeBehavior : MonoBehaviour
     Purpose: Stores the hype for individual car and reports
     newly gained hype to the HypeSystem script on the Game Manager.
     */
-
-    [Tooltip("They are either player 1, 2, 3, or 4? etc.")] public int playerNumber;
+    
     private HypeSystem _hypeSystem;
     private float _hypeAmount;
 

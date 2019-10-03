@@ -57,8 +57,8 @@ public class HypeSystem : MonoBehaviour
         _vehicleList.Sort(
             delegate(GameObject p1, GameObject p2)
             {
-                return p1.GetComponent<VehicleHypeBehavior>().playerNumber
-                .CompareTo(p2.GetComponent<VehicleHypeBehavior>().playerNumber);
+                return p1.GetComponent<VehicleInput>().playerNumber
+                .CompareTo(p2.GetComponent<VehicleInput>().playerNumber);
             }
         );
 

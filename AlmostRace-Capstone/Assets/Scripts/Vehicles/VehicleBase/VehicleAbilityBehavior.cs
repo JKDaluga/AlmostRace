@@ -6,37 +6,41 @@ public class VehicleAbilityBehavior : MonoBehaviour
 {
     [Header ("Basic Ability")]
     [Tooltip("Basic Ability Script Slot")] public BasicAbility basicAbility;
-    [Tooltip("The Button for using a Basic Ability")] public string basicAbilityInput;
     [Tooltip("Determines if the basic ability input can be held down")] public bool canHoldBasic;
     private bool _canUseBasic = true;
 
     [Header ("Signature Ability")]
     [Tooltip("Signature Ability Script Slot")] public Ability signatureAbility;
     [Tooltip("Length of ability cooldown in seconds.")] public float abilityRecharge = 5f;
-    [Tooltip("The Button for using a Signature Ability")] public string signatureAbilityInput;
     [Tooltip("Determines if the signature ability input can be held down")] public bool canHoldSignature;
     private bool _canUseSignature = true;
     
     [Header ("Pickup Ability")]
     [Tooltip("Pickup Ability Script Slot")] public Ability pickup;
-    [Tooltip("The Button for using Pickups")] public string pickupInput;
+
+    private VehicleInput _vehicleInput;
+
+    private void Awake()
+    {
+        _vehicleInput = GetComponent<VehicleInput>();
+    }
 
 
     // Update is called once per frame
     void Update()
     {
         // Basic Ability Call
-        checkFireAbility(basicAbility, basicAbilityInput, _canUseBasic, canHoldBasic);
+        checkFireAbility(basicAbility, _vehicleInput.basicAbilityInput, _canUseBasic, canHoldBasic);
         
         // Signature Ability Call
-        if (checkFireAbility(signatureAbility, signatureAbilityInput, _canUseSignature, canHoldSignature))
+        if (checkFireAbility(signatureAbility, _vehicleInput.signatureAbilityInput, _canUseSignature, canHoldSignature))
         {
             _canUseSignature = false;
             StartCoroutine(AbilityCooldown());
         }
 
         // Pickup Ability Call
-        if (Input.GetButtonDown(pickupInput) && pickup != null)
+        if (Input.GetButtonDown(_vehicleInput.pickupInput) && pickup != null)
         {
             pickup.ActivateAbility();
         }
