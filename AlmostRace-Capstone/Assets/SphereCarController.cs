@@ -119,11 +119,20 @@ public class SphereCarController : MonoBehaviour
 
         RaycastHit colliding;
 
-        Physics.Raycast(sphere.transform.position, flatVel, out colliding, 6.0f);
+        Physics.Raycast(sphere.transform.position, flatVel, out colliding, 5.0f);
+
+        
 
         if (colliding.collider != null)
         {
-            sphere.velocity = Vector3.ProjectOnPlane(sphere.velocity, colliding.normal);
+            if (Physics.Raycast(sphere.transform.position, Vector3.ProjectOnPlane(sphere.velocity, colliding.normal)))
+            {
+                sphere.velocity = Vector3.zero;
+            }
+            else
+            {
+                sphere.velocity = Vector3.ProjectOnPlane(sphere.velocity, colliding.normal);
+            }
         }
 
 
@@ -141,7 +150,7 @@ public class SphereCarController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + transform.up, transform.position - (transform.up * 2));
+        Gizmos.DrawRay(sphere.transform.position, sphere.velocity);
     }
 
 
