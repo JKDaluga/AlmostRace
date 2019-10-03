@@ -12,6 +12,8 @@ public class CarHeatManager : MonoBehaviour
     public float heatExplodeLimit = 120f;
     public float cooldownRate = 1f;
     public float respawnSecs = 3f;
+    public float cooldownTime = 0f;
+    public float cooldownFrequency = 2f;
 
 
     private void Start()
@@ -41,14 +43,12 @@ public class CarHeatManager : MonoBehaviour
 
         if (heatCurrent >= heatExplodeLimit)
         {
-
             respawn();
-
         }
 
         if (heatCurrent > 0)
         {
-            heatCurrent -= cooldownRate * Time.deltaTime;
+            InvokeRepeating("healthCooldown", cooldownTime, cooldownFrequency);
         }
         else if (heatCurrent < 0)
         {
@@ -69,9 +69,9 @@ public class CarHeatManager : MonoBehaviour
     private void respawn()
     {
 
-        if (GetComponent<VehicleAbilityBehavior>().isActiveAndEnabled)
+        if (gameObject.activeSelf == true)
         {
-            GetComponent<ExplosionEffect>().respawnEffect();
+            Instantiate(Resources.Load("explosion"), gameObject.transform.position, gameObject.transform.rotation);
             gameObject.SetActive(false);
 
             Invoke("respawn", respawnSecs);
@@ -80,9 +80,18 @@ public class CarHeatManager : MonoBehaviour
         {
             heatCurrent = 0;
             gameObject.SetActive(true);
-            GetComponent<BasicAbility>().DeactivateAbility();
+            BasicAbility bAbility = GetComponent<BasicAbility>();
+            if (bAbility != null) {
+                bAbility.DeactivateAbility();
+            }
         }
 
     }
+
+    private void healthCooldown()
+    {
+        heatCurrent -= cooldownRate;
+    }
+
 }
 
