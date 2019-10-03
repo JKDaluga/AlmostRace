@@ -117,21 +117,24 @@ public class SphereCarController : MonoBehaviour
         Vector3 flatVel = new Vector3(sphere.velocity.x, 0, sphere.velocity.z);
 
 
-        RaycastHit colliding;
+        RaycastHit colliding1, colliding2;
 
-        Physics.Raycast(sphere.transform.position, flatVel, out colliding, 5.0f);
+        Physics.Raycast(sphere.transform.position, flatVel, out colliding1, 5.0f);
 
         
 
-        if (colliding.collider != null)
+        if (colliding1.collider != null)
         {
-            if (Physics.Raycast(sphere.transform.position, Vector3.ProjectOnPlane(sphere.velocity, colliding.normal)))
+            if (Physics.Raycast(sphere.transform.position, Vector3.ProjectOnPlane(sphere.velocity, colliding1.normal), out colliding2, 4.0f))
             {
-                sphere.velocity = Vector3.zero;
+                if(Physics.Raycast(sphere.transform.position, Vector3.ProjectOnPlane(sphere.velocity, colliding2.normal)))
+                {
+                    sphere.velocity = Vector3.zero;
+                }
             }
             else
             {
-                sphere.velocity = Vector3.ProjectOnPlane(sphere.velocity, colliding.normal);
+                sphere.velocity = Vector3.ProjectOnPlane(sphere.velocity, colliding1.normal);
             }
         }
 
