@@ -12,12 +12,12 @@ public class CarHeatManager : MonoBehaviour
     public float heatExplodeLimit = 120f;
     public float cooldownRate = 1f;
     public float respawnSecs = 3f;
-    public GameObject explosion;
+    public float cooldownTime = 0f;
+    public float cooldownFrequency = 2f;
 
 
     private void Start()
     {
-        explosion.SetActive(false);
     }
 
     // Update is called once per frame
@@ -43,15 +43,12 @@ public class CarHeatManager : MonoBehaviour
 
         if (heatCurrent >= heatExplodeLimit)
         {
-
             respawn();
-
         }
-
 
         if (heatCurrent > 0)
         {
-            heatCurrent -= cooldownRate * Time.deltaTime;
+            InvokeRepeating("healthCooldown", cooldownTime, cooldownFrequency);
         }
         else if (heatCurrent < 0)
         {
@@ -72,47 +69,29 @@ public class CarHeatManager : MonoBehaviour
     private void respawn()
     {
 
-        if (GetComponent<VehicleAbilityBehavior>().isActiveAndEnabled)
+        if (gameObject.activeSelf == true)
         {
-            GetComponent<BasicAbility>().DeactivateAbility();
-            GetComponent<VehicleAbilityBehavior>().enabled = false;
-
-            childCare(true, "Explosion");
+            Instantiate(Resources.Load("explosion"), gameObject.transform.position, gameObject.transform.rotation);
+            gameObject.SetActive(false);
 
             Invoke("respawn", respawnSecs);
         }
-        else if (GetComponent<VehicleAbilityBehavior>().isActiveAndEnabled != true)
+        else if (gameObject.activeSelf != true)
         {
             heatCurrent = 0;
-
-            GetComponent<VehicleAbilityBehavior>().enabled = true;
-
-            childCare(false, "Explosion");
-
-            GetComponent<BasicAbility>().DeactivateAbility();
+            gameObject.SetActive(true);
+            BasicAbility bAbility = GetComponent<BasicAbility>();
+            if (bAbility != null) {
+                bAbility.DeactivateAbility();
+            }
         }
 
     }
 
-
-    //Change name pls
-    public void childCare(bool onOff, string childName)
+    private void healthCooldown()
     {
-
-        for (int i = 0; i < gameObject.transform.childCount; i++)
-        {
-            var child = gameObject.transform.GetChild(i).gameObject;
-            if (transform.Find(childName).gameObject.Equals(child))
-            {
-                child.SetActive(onOff);
-            }
-            else if (child != null)
-            {
-                child.SetActive(!onOff);
-            }
-
-        }
-
+        heatCurrent -= cooldownRate;
     }
+
 }
 
