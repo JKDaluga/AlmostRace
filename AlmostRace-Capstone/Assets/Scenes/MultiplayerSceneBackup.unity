@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964127, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12136,11 +12136,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
-        type: 3}
-      propertyPath: objectToFollow
-      value: 
-      objectReference: {fileID: 1003889096}
     - target: {fileID: 775676765654723357, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
       propertyPath: m_NormalizedViewPortRect.height
@@ -12156,6 +12151,11 @@ PrefabInstance:
       propertyPath: m_NormalizedViewPortRect.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
+        type: 3}
+      propertyPath: objectToFollow
+      value: 
+      objectReference: {fileID: 1003889096}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54d86e26683fd49ceb879a39ae5231ef, type: 3}
 --- !u!20 &734809687 stripped
@@ -19069,18 +19069,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2749823931774188180}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &967889695 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6559004136702433539, guid: 0cb670e4de5f33b45af1ae4efcd604db,
-    type: 3}
-  m_PrefabInstance: {fileID: 2749823931774188180}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 967889693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d8d037ec5c1e0a4593acd6e589a3ad5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &967889699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19094,14 +19082,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   basicAbility: {fileID: 967889700}
-  basicAbilityInput: BasicAbilityP2
   canHoldBasic: 1
   signatureAbility: {fileID: 1077710383}
   abilityRecharge: 10
-  signatureAbilityInput: SignitureAbilityP2
   canHoldSignature: 0
   pickup: {fileID: 0}
-  pickupInput: LeftMouseClick
 --- !u!114 &967889700
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19114,9 +19099,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5955f5b1b5fcb264ea8bccb24780d8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  carHeatInfo: {fileID: 967889695}
   selfHeatDamage: 0.2
   lightningCone: {fileID: 1291712479}
+  lightningHypeToGain: 0
   lightningDamage: 0.5
   lightningFrequency: 0.01
 --- !u!114 &967889701
@@ -19133,11 +19118,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lightningMissile: {fileID: 811526844473782882, guid: 80bf7a689c486bc489b0fc99f8d7fea9,
     type: 3}
+  missileHypeToGain: 0
   sideMissileOffset: 2
   missileSpeed: 300
   missileExplosionDamage: 75
   missileFuseLength: 1.5
   missileSpawnLocation: {fileID: 1942034523}
+  lightningCloudHypeToGain: 0
   lightningCloudDuration: 3
   lightningCloudGrowthRate: 0.001
   lightningCloudGrowthAmount: 1
@@ -28318,11 +28305,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
-        type: 3}
-      propertyPath: objectToFollow
-      value: 
-      objectReference: {fileID: 1343662817}
     - target: {fileID: 775676765654723357, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
       propertyPath: m_NormalizedViewPortRect.height
@@ -28338,6 +28320,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
+        type: 3}
+      propertyPath: objectToFollow
+      value: 
+      objectReference: {fileID: 1343662817}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54d86e26683fd49ceb879a39ae5231ef, type: 3}
 --- !u!20 &1213711162 stripped
@@ -29859,10 +29846,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: HorizontalP1
-  m_VerticalAxis: VerticalForwardP1
-  m_SubmitButton: AButtonP1
-  m_CancelButton: AbilityP1
+  m_HorizontalAxis: HorizontalUI
+  m_VerticalAxis: VerticalUI
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
@@ -32427,6 +32414,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8229113543464555319, guid: f9a54c3a3d8483a4e9d539860230061a,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 331.9
+      objectReference: {fileID: 0}
     - target: {fileID: 8229113544361228420, guid: f9a54c3a3d8483a4e9d539860230061a,
         type: 3}
       propertyPath: m_textInfo.characterCount
@@ -32472,6 +32464,11 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8229113543486007550, guid: f9a54c3a3d8483a4e9d539860230061a,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 282.9949
+      objectReference: {fileID: 0}
     - target: {fileID: 8229113544104126091, guid: f9a54c3a3d8483a4e9d539860230061a,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -32486,16 +32483,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMin.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8229113543486007550, guid: f9a54c3a3d8483a4e9d539860230061a,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 282.9941
-      objectReference: {fileID: 0}
-    - target: {fileID: 8229113543464555319, guid: f9a54c3a3d8483a4e9d539860230061a,
-        type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 331.9
       objectReference: {fileID: 0}
     - target: {fileID: 8229113544207092057, guid: f9a54c3a3d8483a4e9d539860230061a,
         type: 3}

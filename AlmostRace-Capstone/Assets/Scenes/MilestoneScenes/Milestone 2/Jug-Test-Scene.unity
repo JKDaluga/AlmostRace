@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964127, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3313,8 +3313,8 @@ MonoBehaviour:
   heatExplodeLimit: 120
   cooldownRate: 1
   respawnSecs: 3
-  explosion: {fileID: 2676687516381986671, guid: 1cf3137a925c83147aeb00d5b87ddd22,
-    type: 3}
+  cooldownTime: 0
+  cooldownFrequency: 2
 --- !u!65 &241722817
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12858,10 +12858,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: HorizontalP1
-  m_VerticalAxis: VerticalForwardP1
-  m_SubmitButton: AbilityP1
-  m_CancelButton: AbilityP1
+  m_HorizontalAxis: HorizontalUI
+  m_VerticalAxis: VerticalUI
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
@@ -27573,7 +27573,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5f17f286ddc4c29845b30cc5051567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerNumber: 1
 --- !u!1 &1752419313
 GameObject:
   m_ObjectHideFlags: 0
@@ -34011,6 +34010,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: acceleration
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: topSpeed
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: layerMask.m_Bits
+      value: 1843
+      objectReference: {fileID: 0}
+    - target: {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: tiltShift
+      value: 
+      objectReference: {fileID: 2067346040}
+    - target: {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: deceleration
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c,
+        type: 3}
+      propertyPath: reverseSpeed
+      value: 0.25
+      objectReference: {fileID: 0}
     - target: {fileID: 2404477489596703742, guid: a172e26dc7d24d84ba72d3151f81d12c,
         type: 3}
       propertyPath: m_Layer
@@ -34109,36 +34138,6 @@ PrefabInstance:
     - target: {fileID: 1917193759, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
       propertyPath: cooldownRate
       value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c,
-        type: 3}
-      propertyPath: acceleration
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c,
-        type: 3}
-      propertyPath: topSpeed
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c,
-        type: 3}
-      propertyPath: layerMask.m_Bits
-      value: 1843
-      objectReference: {fileID: 0}
-    - target: {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c,
-        type: 3}
-      propertyPath: tiltShift
-      value: 
-      objectReference: {fileID: 2067346040}
-    - target: {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c,
-        type: 3}
-      propertyPath: deceleration
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 2404477489982420314, guid: a172e26dc7d24d84ba72d3151f81d12c,
-        type: 3}
-      propertyPath: reverseSpeed
-      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1310389899, guid: a172e26dc7d24d84ba72d3151f81d12c, type: 3}
       propertyPath: m_LocalPosition.z
