@@ -38,8 +38,8 @@ public class HotSpotBotBehavior : MonoBehaviour
 
     private List<VehicleHypeBehavior> vehiclesInRange; // vehicles to give hype to.
 
-    private float startTime;
-    private float journeyLength;
+    private float startTime = 0f;
+    private float journeyLength = 1f;
 
     // Start is called before the first frame update
     void Start()
