@@ -1,22 +1,35 @@
-﻿using System.Collections;
+﻿//Script made by Robyn
+//Last Edit Robyn 10/7
+//Script is used to control the sphere collider based car. Takes inputs and applies collision physics
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(VehicleInput))]
 public class SphereCarController : MonoBehaviour
 {
+
+    [Header("Car Object Holders")]
     public Transform kartModel;
     public Transform kartNormal;
     public Rigidbody sphere;
+
+
     private VehicleInput _vehicleInput;
     public UnityStandardAssets.ImageEffects.TiltShift tiltShift;
     private float _maxBlurArea = 7f;
     private float _blurScaling = 10f;
 
+
+    //Input values and values passed to values
     float speed, currentSpeed;
     float rotate, currentRotate;
 
+    //What physics layers the collision raycasts can hit
     public LayerMask layerMask;
+
+    //values passed in to the various functions
     public float topSpeed = 30f;
     public float acceleration = 12f;
     public float deceleration = 12f;
@@ -31,6 +44,7 @@ public class SphereCarController : MonoBehaviour
     private bool _isBoosting = false;
     private float _boostSpeed;
 
+    //Call allowing vehicle to take input from player
     private void Start()
     {
         _vehicleInput = GetComponent<VehicleInput>();
@@ -40,6 +54,7 @@ public class SphereCarController : MonoBehaviour
     void Update()
     {
 
+        //Takes input for forward and reverse movement
         speed = topSpeed * (Input.GetAxis(_vehicleInput.verticalForward) - Input.GetAxis(_vehicleInput.verticalBackward));
         if (_isBoosting)
         {
@@ -47,6 +62,7 @@ public class SphereCarController : MonoBehaviour
         }
 
 
+        //Allows for vehicle to back up and break
         if (speed < 0)
         {
             speed *= reverseSpeed;
@@ -55,10 +71,15 @@ public class SphereCarController : MonoBehaviour
         {
             _drifting = false;
         }
+
+        //Drifting mechanics
         if (Input.GetAxis(_vehicleInput.horizontal) != 0)
         {
+            //values are clamped to a specific usable range
             int dir = Input.GetAxis(_vehicleInput.horizontal) > 0 ? 1 : -1;
             float amount = Mathf.Abs(Input.GetAxis(_vehicleInput.horizontal));
+
+            //Checks necessary conditions for drifting to happen
             if (Input.GetButtonDown(_vehicleInput.brake) && !_drifting && Input.GetAxis(_vehicleInput.horizontal) != 0)
             {
                 _drifting = true;
@@ -66,16 +87,22 @@ public class SphereCarController : MonoBehaviour
             }
             if (_drifting)
             {
+                //Remaps the user input values to appropriate amounts to allow drifting
                 amount = (_driftDirection == 1) ? ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 0, 1 + driftStrength) : ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 1 + driftStrength, 0);
             }
 
+            //passes in appropriate turning values based on drifting bool
             if (_drifting)
                 Steer(_driftDirection, amount);
             else
                 Steer(dir, amount);
         }
 
+
+        //Ties the vehicle body to the sphere collider
         transform.position = sphere.transform.position - new Vector3(0, 0.4f, 0);
+
+        //Checks if the vehicle should be reversing or not, and evenly increases speed based on that.
         if(Mathf.Abs(speed) >= Mathf.Abs(currentSpeed) || speed * currentSpeed > 0)
         {
             currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * acceleration); speed = 0f;
@@ -84,6 +111,8 @@ public class SphereCarController : MonoBehaviour
         {
             currentSpeed = Mathf.SmoothStep(currentSpeed, speed, Time.deltaTime * deceleration); speed = 0f;
         }
+
+        //Smoothly changes the vehicle's rotation
         currentRotate = Mathf.Lerp(currentRotate, rotate, Time.deltaTime * 4f); rotate = 0f;
 
         //Motion Blur for car speed right now 7 and 10 are the magic numbers for the effect we are looking for
@@ -92,6 +121,7 @@ public class SphereCarController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Applies force in appropriate direction based on drifting
         if (!_drifting)
         {
             sphere.AddForce(-kartModel.transform.right * currentSpeed, ForceMode.Acceleration);
@@ -101,30 +131,32 @@ public class SphereCarController : MonoBehaviour
             sphere.AddForce(transform.forward * currentSpeed, ForceMode.Acceleration);
         }
 
+        //Adds a multiplier to gravity to keep the car grounded
         sphere.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
 
-
+        //Smoothly turns the vehicle
         transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 12.5f);
 
-
+        //hitOn/hitNear check and rotate the vehicle body up and down based on direction of the track
         RaycastHit hitOn;
         RaycastHit hitNear;
 
         Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitOn, 1.1f, layerMask);
         Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitNear, 5.0f, layerMask);
 
-
+        //gets the vehicle's velocity without upward and downward directions
         Vector3 flatVel = new Vector3(sphere.velocity.x, 0, sphere.velocity.z);
 
 
         RaycastHit colliding1, colliding2;
 
+        //Raycasts in the direction of the vehicle's velocity to check for collisions
         Physics.Raycast(sphere.transform.position, flatVel, out colliding1, 5.0f);
-
         
 
         if (colliding1.collider != null)
         {
+            //checks if the vehicle will be redirected into another wall, and stops the vehicle if it will
             if (Physics.Raycast(sphere.transform.position, Vector3.ProjectOnPlane(sphere.velocity, colliding1.normal), out colliding2, 4.0f))
             {
                 if(Physics.Raycast(sphere.transform.position, Vector3.ProjectOnPlane(sphere.velocity, colliding2.normal)))
@@ -134,21 +166,25 @@ public class SphereCarController : MonoBehaviour
             }
             else
             {
+                //redirects the vehicle based on collision direction
                 sphere.velocity = Vector3.ProjectOnPlane(sphere.velocity, colliding1.normal);
             }
-        }
 
+        }
+        
 
         //Normal Rotation
+        //Rotates the vehicle model to be parallel to the ground
         kartNormal.up = Vector3.Lerp(kartNormal.up, hitNear.normal, Time.deltaTime * 8.0f);
         kartNormal.Rotate(0, transform.eulerAngles.y, 0);
     }
 
+    //Takes input for turning, which will be passed to smoothly rotate
     public void Steer(int direction, float amount)
     {
         rotate = (steering * direction) * amount;
     }
-
+    
 
     private void OnDrawGizmos()
     {
