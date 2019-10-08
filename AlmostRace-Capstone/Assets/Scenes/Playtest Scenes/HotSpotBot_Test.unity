@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -832,6 +832,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 998084986}
     m_Modifications:
+    - target: {fileID: 775676765654723359, guid: 54d86e26683fd49ceb879a39ae5231ef,
+        type: 3}
+      propertyPath: m_Name
+      value: Main Camera
+      objectReference: {fileID: 0}
     - target: {fileID: 775676765654723354, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -901,11 +906,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 1.5915633
-      objectReference: {fileID: 0}
-    - target: {fileID: 775676765654723359, guid: 54d86e26683fd49ceb879a39ae5231ef,
-        type: 3}
-      propertyPath: m_Name
-      value: Main Camera
       objectReference: {fileID: 0}
     - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
@@ -11261,7 +11261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 779a905648f68fa408d0e582b2b19cb9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2000
+  moveSpeed: 1
   isOnLinearMap: 1
   destinationNodes:
   - {fileID: 1573554892}

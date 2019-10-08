@@ -38,6 +38,9 @@ public class HotSpotBotBehavior : MonoBehaviour
 
     private List<VehicleHypeBehavior> vehiclesInRange; // vehicles to give hype to.
 
+    private float startTime;
+    private float journeyLength;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -47,8 +50,12 @@ public class HotSpotBotBehavior : MonoBehaviour
 
     // Update is called once per frame
     void FixedUpdate()
-    {   
-        if(Vector3.Distance(transform.position, nextNode.position) <= .5)
+    {
+        float distCovered = (Time.time - startTime) * moveSpeed;
+        // Fraction of journey completed = current distance divided by total distance.
+        float fracJourney = distCovered / journeyLength;
+        transform.position = Vector3.Lerp(previousNode.position, nextNode.position, fracJourney);
+        if(transform.position == nextNode.position)
         {
             SelectNextNode();
         }
@@ -57,12 +64,13 @@ public class HotSpotBotBehavior : MonoBehaviour
 
     private void SelectFirstNode()
     {
-            previousNode = destinationNodes[0];
-            previousNodeIndex = 0;
-            nextNode = destinationNodes[0];
-            nextNodeIndex = 0;     
+        previousNode = gameObject.transform;
+        previousNodeIndex = 0;
+        nextNode = destinationNodes[0];
+        nextNodeIndex = 0;     
         gameObject.transform.LookAt(previousNode); //Placed here to avoid it happening in Update
-        objectRigidbody.velocity = (transform.forward * moveSpeed * Time.deltaTime);
+        startTime = Time.time;
+        journeyLength = Vector3.Distance(previousNode.position, nextNode.position);
     }
 
     private void SelectNextNode()
@@ -82,7 +90,8 @@ public class HotSpotBotBehavior : MonoBehaviour
                 //Haven't reached the end of the list yet.
                 nextNode = destinationNodes[previousNodeIndex + 1];
                 nextNodeIndex = previousNodeIndex + 1;
-            }       
+            }
+            
         }
         else
         {
@@ -93,7 +102,9 @@ public class HotSpotBotBehavior : MonoBehaviour
             SelectRandomNextNode(randNum); //Recursively finds a suitable random next node.          
         }
         gameObject.transform.LookAt(nextNode); //Placed here to avoid it happening in Update
-        objectRigidbody.velocity = (transform.forward * moveSpeed * Time.deltaTime);
+        startTime = Time.time;
+        journeyLength = Vector3.Distance(previousNode.position, nextNode.position);
+        //objectRigidbody.velocity = (transform.forward * moveSpeed * Time.deltaTime);
     }
 
     private void SelectRandomNextNode(int nodeIndex)//Recursive function that ensures the hotspot bot doesn't go back and forth between nodes.
