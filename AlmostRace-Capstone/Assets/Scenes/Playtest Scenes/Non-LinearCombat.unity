@@ -40910,6 +40910,7 @@ GameObject:
   - component: {fileID: 6370727618211698940}
   - component: {fileID: 237355650147512085}
   - component: {fileID: 2117310073570590986}
+  - component: {fileID: 4809457716349274621}
   m_Layer: 0
   m_Name: TopDisk
   m_TagString: Untagged
@@ -40917,6 +40918,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!64 &4809457716349274621
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4809457716349274620}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 6296371372632347453, guid: 720bd62cfe96e9d489f929764d731e23, type: 3}
 --- !u!33 &4918954626186315200
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -41020,6 +41035,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5006512734882045900}
+  - component: {fileID: 8296172669109005792}
   m_Layer: 0
   m_Name: Geometry_Level
   m_TagString: Untagged
@@ -41027,3 +41043,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8296172669109005792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296172669109005791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 164e3fd1417fb964b969ae5b59e61974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bouldersSpawnLocation: {fileID: 415562269}
+  xOffset: 5
+  zOffset: 5
+  boulder: {fileID: 6026462769726353624, guid: d17a918e7963e7345ad2f38edc5f7d6f, type: 3}
