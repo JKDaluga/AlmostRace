@@ -120,4 +120,14 @@ public class HotSpotBotBehavior : MonoBehaviour
             nextNodeIndex = nodeIndex;
         }     
     }
+
+    public Transform GetPreviousNode()
+    {
+        return previousNode;
+    }
+
+    public Transform GetNextNode()
+    {
+        return nextNode;
+    }
 }
