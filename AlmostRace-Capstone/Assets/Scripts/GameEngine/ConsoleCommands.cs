@@ -102,7 +102,7 @@ namespace Console
         public BackToMainCommand()
         {
             Name = "BackToMainCommand";
-            Command = "backtomain";
+            Command = "menu";
             Description = "Sends you back to the Start Menu";
             Help = "Use this command with no arguments send you back to the start menu";
             AddCommandToConsole();
