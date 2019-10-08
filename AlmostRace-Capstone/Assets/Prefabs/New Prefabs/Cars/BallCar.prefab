@@ -35,9 +35,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6345297507684376637}
-  - {fileID: 481683610514310999}
   m_Father: {fileID: 481683610635278085}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &481683610354487725
 MonoBehaviour:
@@ -167,7 +166,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 481683610514310999}
-  m_Layer: 0
+  - component: {fileID: 5583171174086461527}
+  m_Layer: 12
   m_Name: ModelHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,14 +181,27 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 481683610514310998}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 481683611327776959}
-  m_Father: {fileID: 481683610354487724}
-  m_RootOrder: 1
+  m_Father: {fileID: 481683610635278085}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5583171174086461527
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481683610514310998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ea9ab4e34bb8d348a4ec34fb94df3c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphere: {fileID: 481683610739934990}
 --- !u!1 &481683610635278084
 GameObject:
   m_ObjectHideFlags: 0
@@ -216,6 +229,7 @@ Transform:
   m_LocalPosition: {x: 28.26, y: 16.18, z: -3.5708566}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 481683610514310999}
   - {fileID: 481683610354487724}
   - {fileID: 481683610739934990}
   - {fileID: 8294435247345180143}
@@ -252,7 +266,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 481683610635278085}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &481683610739934988
 SphereCollider:
@@ -515,7 +529,7 @@ PrefabInstance:
     - target: {fileID: 2974660095456141519, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2974660095456141519, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
         type: 3}

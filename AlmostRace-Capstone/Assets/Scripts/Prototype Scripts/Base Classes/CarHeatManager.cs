@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class CarHeatManager : MonoBehaviour
 {
     public Image heatImage;
+    public GameObject respawnPlatform;
+    public GameObject sphereCollider;
     public float heatCurrent = 0f;
     public float heatStallLimit = 100f;
     public float heatExplodeLimit = 120f;
@@ -43,7 +45,7 @@ public class CarHeatManager : MonoBehaviour
 
         if (heatCurrent >= heatExplodeLimit)
         {
-            respawn();
+            Kill();
         }
 
         if (heatCurrent > 0)
@@ -61,27 +63,34 @@ public class CarHeatManager : MonoBehaviour
             gameObject.SetActive(true);
         }
 
-        heatImage.fillAmount = ((heatCurrent * 100) / 120) / 100;
+        if (heatImage != null)
+        {
+            heatImage.fillAmount = ((heatCurrent * 100) / 120) / 100;
+        }
 
     }
 
 
-    private void respawn()
+    private void Kill()
     {
-
         if (gameObject.activeSelf == true)
         {
             Instantiate(Resources.Load("explosion"), gameObject.transform.position, gameObject.transform.rotation);
             gameObject.SetActive(false);
-
-            Invoke("respawn", respawnSecs);
+            GameObject respawnInstance = Instantiate(respawnPlatform);
+            respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject);
         }
-        else if (gameObject.activeSelf != true)
+    }
+
+    public void Respawn()
+    {
+        if (gameObject.activeSelf != true)
         {
             heatCurrent = 0;
             gameObject.SetActive(true);
             BasicAbility bAbility = GetComponent<BasicAbility>();
-            if (bAbility != null) {
+            if (bAbility != null)
+            {
                 bAbility.DeactivateAbility();
             }
         }
