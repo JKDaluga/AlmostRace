@@ -51,6 +51,7 @@ public class Volt_LightningMissile : MonoBehaviour
 
     public void ExplodeMissile()
     {
+
         GameObject spawnedExplosion = Instantiate(missileExplosion, transform.position, transform.rotation);
         GameObject spawnedLightningCloud = Instantiate(lightningCloud, transform.position, transform.rotation);
         
@@ -64,6 +65,7 @@ public class Volt_LightningMissile : MonoBehaviour
 
 
         Destroy(gameObject);
+        Destroy(spawnedExplosion);
       //  Debug.Log("Missile should have been destroyed!!");
     }
 
