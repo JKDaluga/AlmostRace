@@ -16,7 +16,7 @@ public class BoulderSpawning : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating("SpawnRock", 0, 1);
+        InvokeRepeating("SpawnRock", 0, 10);
     }
 
     private void SpawnRock()
@@ -24,7 +24,7 @@ public class BoulderSpawning : MonoBehaviour
         //_randOffset = new Vector3(Random.Range(-xOffset, xOffset), 0, Random.Range(-xOffset, xOffset));
         _randOffset = new Vector3(-110, 200, -25);
 
-        GameObject spawnedBoulder= Instantiate(boulder, _randOffset, Quaternion.identity);
+        GameObject spawnedBoulder= Instantiate(boulder, bouldersSpawnLocation.position/*+_randOffset*/, bouldersSpawnLocation.rotation);
 
         //Instantiate(lightningMissile, missileSpawnLocation.transform.position + _randOffset, missileSpawnLocation.transform.rotation);
     }
