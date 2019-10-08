@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VehicleHypeBehavior : MonoBehaviour
-{
     /*
     Author: Jake Velicer
     Purpose: Stores the hype for individual car and reports
     newly gained hype to the HypeSystem script on the Game Manager.
     */
+    
+public class VehicleHypeBehavior : MonoBehaviour
+{
     
     private HypeSystem _hypeSystem;
     private float _hypeAmount;

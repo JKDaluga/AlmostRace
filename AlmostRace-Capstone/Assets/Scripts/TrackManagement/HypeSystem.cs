@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HypeSystem : MonoBehaviour
-{
     /*
     Author: Jake Velicer
     Purpose: Stores each vehicle object in a list,
     called to keep that list ordered by the vehicles with the most hype,
     updates the UI accordingly.
     */
+    
+public class HypeSystem : MonoBehaviour
+{
 
     private List<GameObject> _vehicleList = new List<GameObject>();
     private Text[] _hypeAmountDisplay;

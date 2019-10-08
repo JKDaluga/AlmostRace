@@ -2,6 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+    /*
+    Author: Jake Velicer
+    Purpose: Takes the plugged in scripts of the basic ability, signature ability,
+    and runtime pickup abilites. Activates and deactivates those abilities based on user input.
+    Controls when those abilities can be used.
+    */
+
 public class VehicleAbilityBehavior : MonoBehaviour
 {
     [Header ("Basic Ability")]

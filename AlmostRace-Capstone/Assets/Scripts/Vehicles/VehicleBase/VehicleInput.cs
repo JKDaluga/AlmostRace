@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+    /*
+    Author: Jason Daluga & Jake Velicer
+    Purpose: Assigns multiple input variables based on which platform the game is running on.
+    Multiple scripts obtain input from these variables based on getters.
+    */
+
 public class VehicleInput : MonoBehaviour
 {
 
