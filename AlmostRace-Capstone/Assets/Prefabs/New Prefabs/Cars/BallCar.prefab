@@ -14,8 +14,6 @@ GameObject:
   - component: {fileID: 6818455058190144800}
   - component: {fileID: 641384620}
   - component: {fileID: 641384622}
-  - component: {fileID: 6221302342117136962}
-  - component: {fileID: 515074373970787340}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -77,6 +75,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heatImage: {fileID: 8294435247090855352}
+  respawnPlatform: {fileID: 6421155629415652471, guid: 2e9cdd11d776b456abab6ffde9561b65,
+    type: 3}
+  sphereCollider: {fileID: 481683610739934985}
   heatCurrent: 0
   heatStallLimit: 100
   heatExplodeLimit: 120
@@ -110,36 +111,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &641384622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 481683610354487727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ceda1c616fee4c0abcad4bdc27e75ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  basicAbility: {fileID: 0}
-  canHoldBasic: 0
-  signatureAbility: {fileID: 0}
-  abilityRecharge: 5
-  canHoldSignature: 0
-  pickup: {fileID: 0}
---- !u!114 &6221302342117136962
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 481683610354487727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff5f17f286ddc4c29845b30cc5051567, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &515074373970787340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

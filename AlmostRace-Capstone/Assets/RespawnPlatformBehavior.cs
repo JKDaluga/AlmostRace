@@ -35,7 +35,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
     {
         yield return new WaitForSeconds(respawnSeconds);
         _playerObject.GetComponent<CarHeatManager>().Respawn();
-        //_moving = false;
+        _moving = false;
     }
 
     public void SetPlayer(GameObject givenPlayer)
