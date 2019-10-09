@@ -7,40 +7,65 @@ public class RespawnPlatformBehavior : MonoBehaviour
     public int respawnSeconds;
     private HotSpotBotBehavior _hotSpotBotScript;
     private GameObject _playerObject;
+    private GameObject _ballCollider;
+    private GameObject _carMesh;
     private Transform _previousNode;
     private Transform _nextNode;
-    private bool _moving = true;
+    private bool _movingCollider;
+    private bool _movingCar;
 
     // Start is called before the first frame update
     void Start()
     {
-        _hotSpotBotScript = GameObject.FindGameObjectWithTag("HotSpot").GetComponent<HotSpotBotBehavior>();
-        transform.position = _hotSpotBotScript.GetPreviousNode().position;
-        transform.position = new Vector3(_hotSpotBotScript.GetPreviousNode().position.x,
-            _hotSpotBotScript.GetPreviousNode().position.y + 7, _hotSpotBotScript.GetPreviousNode().position.z);
-        StartCoroutine(GuideVehicle());
+        if (GameObject.FindGameObjectWithTag("HotSpot"))
+        {
+            _hotSpotBotScript = GameObject.FindGameObjectWithTag("HotSpot").GetComponent<HotSpotBotBehavior>();
+            transform.position = new Vector3(_hotSpotBotScript.GetPreviousNode().position.x,
+                _hotSpotBotScript.GetPreviousNode().position.y + 10,
+                _hotSpotBotScript.GetPreviousNode().position.z);
+        }
+        else
+        {
+            transform.position = new Vector3(_playerObject.transform.position.x,
+                _playerObject.transform.position.y + 10, _playerObject.transform.position.z);
+        }
+        StartCoroutine(RespawnSequence());
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_moving)
+        if (_movingCollider)
         {
-            _playerObject.transform.position = transform.position;
+            _ballCollider.transform.position = new Vector3
+                (transform.position.x, transform.position.y + 2, transform.position.z);
+            _ballCollider.transform.rotation = transform.rotation;
+            _carMesh.transform.rotation = transform.rotation;
         }
-        Debug.Log(_moving);
+        if (_movingCar)
+        {
+            _playerObject.transform.position = new Vector3
+                (transform.position.x, transform.position.y + 2, transform.position.z);
+            _playerObject.transform.rotation = transform.rotation;
+        }
     }
 
-    private IEnumerator GuideVehicle()
+    private IEnumerator RespawnSequence()
     {
-        yield return new WaitForSeconds(respawnSeconds);
+        _movingCollider = true;
+        yield return new WaitForSeconds(respawnSeconds / 2f);
+        _movingCar = true;
+        yield return new WaitForSeconds(respawnSeconds / 5f);
         _playerObject.GetComponent<CarHeatManager>().Respawn();
-        _moving = false;
+        _movingCar = false;
+        _movingCollider = false;
     }
 
-    public void SetPlayer(GameObject givenPlayer)
+    public void SetPlayer(GameObject givenPlayer, GameObject givenColldier, GameObject givenModel)
     {
         _playerObject = givenPlayer;
+        _ballCollider = givenColldier;
+        _carMesh = givenModel;
     }
 
     private void OnTriggerExit(Collider other)

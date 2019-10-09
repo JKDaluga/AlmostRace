@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 641384622}
   m_Layer: 0
   m_Name: Car
-  m_TagString: Untagged
+  m_TagString: Vehicle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -77,6 +77,7 @@ MonoBehaviour:
   heatImage: {fileID: 8294435247090855352}
   respawnPlatform: {fileID: 6421155629415652471, guid: 2e9cdd11d776b456abab6ffde9561b65,
     type: 3}
+  modelHolder: {fileID: 481683610514310998}
   sphereCollider: {fileID: 481683610739934985}
   heatCurrent: 0
   heatStallLimit: 100
@@ -220,7 +221,7 @@ GameObject:
   - component: {fileID: 481683610739934991}
   m_Layer: 0
   m_Name: Collider
-  m_TagString: Untagged
+  m_TagString: Vehicle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -566,6 +567,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974660096388028817, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 227.51953
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974660094815424650, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 147.80078
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974660094815424650, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 186.60059
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae, type: 3}

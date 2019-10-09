@@ -8,6 +8,7 @@ public class CarHeatManager : MonoBehaviour
 {
     public Image heatImage;
     public GameObject respawnPlatform;
+    public GameObject modelHolder;
     public GameObject sphereCollider;
     public float heatCurrent = 0f;
     public float heatStallLimit = 100f;
@@ -73,26 +74,26 @@ public class CarHeatManager : MonoBehaviour
 
     private void Kill()
     {
-        if (gameObject.activeSelf == true)
-        {
-            Instantiate(Resources.Load("explosion"), gameObject.transform.position, gameObject.transform.rotation);
-            gameObject.SetActive(false);
-            GameObject respawnInstance = Instantiate(respawnPlatform);
-            respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject);
-        }
+        Instantiate(Resources.Load("explosion"), gameObject.transform.position, gameObject.transform.rotation);
+        GetComponent<SphereCarController>().enabled = false;
+        GetComponent<VehicleAbilityBehavior>().enabled = false;
+        GameObject respawnInstance = Instantiate(respawnPlatform);
+        respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, sphereCollider, modelHolder);
+        sphereCollider.GetComponent<Rigidbody>().useGravity = false;
+        sphereCollider.GetComponent<Rigidbody>().isKinematic = true;
     }
 
     public void Respawn()
     {
-        if (gameObject.activeSelf != true)
+        heatCurrent = 0;
+        GetComponent<SphereCarController>().enabled = true;
+        GetComponent<VehicleAbilityBehavior>().enabled = true;
+        sphereCollider.GetComponent<Rigidbody>().useGravity = true;
+        sphereCollider.GetComponent<Rigidbody>().isKinematic = false;
+        BasicAbility bAbility = GetComponent<BasicAbility>();
+        if (bAbility != null)
         {
-            heatCurrent = 0;
-            gameObject.SetActive(true);
-            BasicAbility bAbility = GetComponent<BasicAbility>();
-            if (bAbility != null)
-            {
-                bAbility.DeactivateAbility();
-            }
+            bAbility.DeactivateAbility();
         }
 
     }
