@@ -151,15 +151,15 @@ public class SphereCarController : MonoBehaviour
         RaycastHit colliding1, colliding2;
 
         //Raycasts in the direction of the vehicle's velocity to check for collisions
-        Physics.Raycast(sphere.transform.position, flatVel, out colliding1, 5.0f);
+        Physics.Raycast(sphere.transform.position, flatVel, out colliding1, 5.0f, layerMask);
         
 
         if (colliding1.collider != null)
         {
             //checks if the vehicle will be redirected into another wall, and stops the vehicle if it will
-            if (Physics.Raycast(sphere.transform.position, Vector3.ProjectOnPlane(sphere.velocity, colliding1.normal), out colliding2, 4.0f))
+            if (Physics.Raycast(sphere.transform.position, Vector3.ProjectOnPlane(sphere.velocity, colliding1.normal), out colliding2, 4.0f, layerMask))
             {
-                if(Physics.Raycast(sphere.transform.position, Vector3.ProjectOnPlane(sphere.velocity, colliding2.normal)))
+                if(Physics.Raycast(sphere.transform.position, Vector3.ProjectOnPlane(sphere.velocity, colliding2.normal), layerMask))
                 {
                     sphere.velocity = Vector3.zero;
                 }
