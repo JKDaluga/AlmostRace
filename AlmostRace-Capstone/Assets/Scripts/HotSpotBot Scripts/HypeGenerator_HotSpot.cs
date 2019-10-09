@@ -11,6 +11,7 @@ public class HypeGenerator_HotSpot : MonoBehaviour
 
     private void Start()
     {
+        _vehiclesHyped = new List<VehicleHypeBehavior>();
         InvokeRepeating("GiveHype", 0, hypeRate);
     }
 
@@ -31,16 +32,20 @@ public class HypeGenerator_HotSpot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.GetComponent<VehicleHypeBehavior>() != null)
+        Debug.Log("Collided with: " + other.gameObject.name);
+        if (other.gameObject.GetComponent<VehicleHypeBehavior>() != null)
         {
+            Debug.Log("Hype Car Found!");
             _vehiclesHyped.Add(other.gameObject.GetComponent<VehicleHypeBehavior>());
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.GetComponent<VehicleHypeBehavior>() != null)
+        Debug.Log("UNCollided with: " + other.gameObject.name);
+        if (other.gameObject.GetComponent<VehicleHypeBehavior>() != null)
         {
+            Debug.Log("Hype Car Lost!");
             _vehiclesHyped.Remove(other.gameObject.GetComponent<VehicleHypeBehavior>());
         }
     }
