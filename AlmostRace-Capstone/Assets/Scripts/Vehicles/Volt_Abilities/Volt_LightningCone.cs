@@ -65,7 +65,7 @@ public class Volt_LightningCone : MonoBehaviour
     {
         if(other.gameObject != _immunePlayer) //Prevents self damage.
         {
-            Debug.Log(other.gameObject.name + " was hit by the lightning!");
+            //Debug.Log(other.gameObject.name + " was hit by the lightning!");
             if(other.gameObject.GetComponent<CarHeatManager>() != null) //makes sure attack is hitting a car. Separated IFs for readability.
             {
                 //Might have to add additional checks to allow environments to be damaged, not just cars.

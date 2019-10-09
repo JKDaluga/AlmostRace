@@ -15,6 +15,7 @@ public class HypeSystem : MonoBehaviour
 
     private List<GameObject> _vehicleList = new List<GameObject>();
     private Text[] _hypeAmountDisplay;
+    public float maxHype; //Essentially a win condition
 
     // Start is called before the first frame update
     void Start()

@@ -12,7 +12,7 @@ public class VehicleHypeBehavior : MonoBehaviour
 {
     
     private HypeSystem _hypeSystem;
-    private float _hypeAmount;
+    public float _hypeAmount;
 
     void Start()
     {
