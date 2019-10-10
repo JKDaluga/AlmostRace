@@ -14,16 +14,14 @@ public class CarHeatManager : MonoBehaviour
     public float heatCurrent = 0f;
     public float heatStallLimit = 100f;
     public float heatExplodeLimit = 120f;
-    public float cooldownRate = 1f;
+    public float cooldownAmount = 1f;
     public float respawnSecs = 3f;
-    public float cooldownTime = 0f;
     public float cooldownFrequency = 2f;
-
 
     private void Start()
     {
+        InvokeRepeating("healthCooldown", 0, cooldownFrequency);
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -50,11 +48,7 @@ public class CarHeatManager : MonoBehaviour
             Kill();
         }
 
-        if (heatCurrent > 0)
-        {
-            InvokeRepeating("healthCooldown", cooldownTime, cooldownFrequency);
-        }
-        else if (heatCurrent < 0)
+        if (heatCurrent < 0)
         {
             heatCurrent = 0;
         }
@@ -103,8 +97,20 @@ public class CarHeatManager : MonoBehaviour
 
     private void healthCooldown()
     {
-        heatCurrent -= cooldownRate;
+        heatCurrent -= cooldownAmount;
     }
 
+    public void AddHeat(float heat)
+    {
+        heatCurrent += heat;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("KillBox"))
+        {
+            Kill();
+        }
+    }
 }
 

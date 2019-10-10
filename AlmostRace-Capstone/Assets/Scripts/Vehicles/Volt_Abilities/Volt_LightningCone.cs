@@ -46,11 +46,13 @@ public class Volt_LightningCone : MonoBehaviour
         
         if(_carsBeingDamagedList.Count != 0)
         {
+            Debug.Log("There are cars to damage!");
             isDamagingPlayers = true;
             _immunePlayerScript.AddHype(_hypeAmount);
             foreach (CarHeatManager carHeat in _carsBeingDamagedList)
             {
-                carHeat.heatCurrent += _damagePerTick;
+                Debug.Log("Car was damaged");
+                carHeat.AddHeat(_damagePerTick);
             }
         }
         else if(_carsBeingDamagedList.Count == 0)

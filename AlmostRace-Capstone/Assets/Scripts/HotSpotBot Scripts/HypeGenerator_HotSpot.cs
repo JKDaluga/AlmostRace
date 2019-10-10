@@ -32,20 +32,20 @@ public class HypeGenerator_HotSpot : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Collided with: " + other.gameObject.name);
+        //Debug.Log("Collided with: " + other.gameObject.name);
         if (other.gameObject.GetComponent<VehicleHypeBehavior>() != null)
         {
-            Debug.Log("Hype Car Found!");
+            //Debug.Log("Hype Car Found!");
             _vehiclesHyped.Add(other.gameObject.GetComponent<VehicleHypeBehavior>());
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        Debug.Log("UNCollided with: " + other.gameObject.name);
+       // Debug.Log("UNCollided with: " + other.gameObject.name);
         if (other.gameObject.GetComponent<VehicleHypeBehavior>() != null)
         {
-            Debug.Log("Hype Car Lost!");
+          //  Debug.Log("Hype Car Lost!");
             _vehiclesHyped.Remove(other.gameObject.GetComponent<VehicleHypeBehavior>());
         }
     }
