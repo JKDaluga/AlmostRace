@@ -80,6 +80,7 @@ MonoBehaviour:
     type: 3}
   modelHolder: {fileID: 481683610514310998}
   sphereCollider: {fileID: 481683610739934985}
+  DeathFade: {fileID: 283642549622744750}
   heatCurrent: 0
   heatStallLimit: 100
   heatExplodeLimit: 120
@@ -591,12 +592,17 @@ PrefabInstance:
     - target: {fileID: 2974660094815424650, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 51.7
+      value: 51.69995
       objectReference: {fileID: 0}
     - target: {fileID: 2974660094815424650, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 983
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974660095655276422, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 11.560059
       objectReference: {fileID: 0}
     - target: {fileID: 2974660095169269912, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
         type: 3}
@@ -618,11 +624,6 @@ PrefabInstance:
       propertyPath: m_FillAmount
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2974660095655276422, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 11.560059
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae, type: 3}
 --- !u!224 &8294435247345180143 stripped
@@ -643,3 +644,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &283642549622744750 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6466164200031869838, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 6508789367359438112}
+  m_PrefabAsset: {fileID: 0}
