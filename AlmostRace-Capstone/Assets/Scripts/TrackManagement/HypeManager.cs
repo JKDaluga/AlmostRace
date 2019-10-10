@@ -13,13 +13,20 @@ using UnityEngine.UI;
 public class HypeManager : MonoBehaviour
 {
 
+    public static HypeManager HM;
+
     private List<GameObject> _vehicleList = new List<GameObject>();
     private Text[] _hypeAmountDisplay;
     public float maxHype; //Essentially a win condition
 
+    private void Awake()
+    {
+        HM = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
+       
         _hypeAmountDisplay = new Text[_vehicleList.Count];
 
         for(int i = 0; i < _hypeAmountDisplay.Length; i++)
