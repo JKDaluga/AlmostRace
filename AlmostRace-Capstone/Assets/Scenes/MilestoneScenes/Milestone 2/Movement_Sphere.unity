@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964127, b: 0.5748172, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12330,10 +12330,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BallCar
       objectReference: {fileID: 0}
-    - target: {fileID: 481683610635278084, guid: 032019f499ece314bbf7b2b05ab0f65e,
+    - target: {fileID: 8294435247345180143, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 481683610635278085, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
@@ -12390,60 +12390,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6345297507684376637, guid: 032019f499ece314bbf7b2b05ab0f65e,
+    - target: {fileID: 481683610354487725, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.4
+      propertyPath: layerMask.m_Bits
+      value: 1587
       objectReference: {fileID: 0}
-    - target: {fileID: 6345297507684376637, guid: 032019f499ece314bbf7b2b05ab0f65e,
+    - target: {fileID: 173855934912772194, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -9.97
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6345297507684376637, guid: 032019f499ece314bbf7b2b05ab0f65e,
+    - target: {fileID: 173855934912772194, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.08715578
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345297507684376637, guid: 032019f499ece314bbf7b2b05ab0f65e,
-        type: 3}
-      propertyPath: m_LocalRotation.y
+      propertyPath: m_IsTrigger
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345297507684376637, guid: 032019f499ece314bbf7b2b05ab0f65e,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345297507684376637, guid: 032019f499ece314bbf7b2b05ab0f65e,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.9961947
-      objectReference: {fileID: 0}
-    - target: {fileID: 6345297507684376637, guid: 032019f499ece314bbf7b2b05ab0f65e,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 481683611327776956, guid: 032019f499ece314bbf7b2b05ab0f65e,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: f9f80255c4b452646be8696eea6166ab, type: 2}
-    - target: {fileID: 481683610354487725, guid: 032019f499ece314bbf7b2b05ab0f65e,
-        type: 3}
-      propertyPath: acceleration
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 481683610354487725, guid: 032019f499ece314bbf7b2b05ab0f65e,
-        type: 3}
-      propertyPath: deceleration
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 481683610354487725, guid: 032019f499ece314bbf7b2b05ab0f65e,
-        type: 3}
-      propertyPath: steering
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 032019f499ece314bbf7b2b05ab0f65e, type: 3}
@@ -23787,7 +23747,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 1e-45, y: 1.49e-43, z: 0, w: 2.2e-44}
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
