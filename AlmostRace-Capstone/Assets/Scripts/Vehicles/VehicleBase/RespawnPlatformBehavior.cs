@@ -17,9 +17,9 @@ public class RespawnPlatformBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (GameObject.FindGameObjectWithTag("HotSpot"))
+        if (HotSpotBotBehavior.instance != null)
         {
-            _hotSpotBotScript = GameObject.FindGameObjectWithTag("HotSpot").GetComponent<HotSpotBotBehavior>();
+            _hotSpotBotScript = HotSpotBotBehavior.instance;
             transform.position = new Vector3(_hotSpotBotScript.GetPreviousNode().position.x,
                 _hotSpotBotScript.GetPreviousNode().position.y + 10,
                 _hotSpotBotScript.GetPreviousNode().position.z);

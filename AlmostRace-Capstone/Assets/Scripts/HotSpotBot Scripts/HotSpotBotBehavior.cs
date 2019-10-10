@@ -21,6 +21,8 @@ using UnityEngine;
 public class HotSpotBotBehavior : MonoBehaviour
 {
 
+    public static HotSpotBotBehavior instance;
+
     public float moveSpeed = 10; // How fast the bot moves
     public bool isOnLinearMap = true;
 
@@ -41,9 +43,15 @@ public class HotSpotBotBehavior : MonoBehaviour
     private float _startTime = 0f;
     private float _journeyLength = 1f;
 
+    private void Awake()
+    {
+        instance = this;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+
         _objectRigidbody = gameObject.GetComponent<Rigidbody>();
         SelectFirstNode();
     }
