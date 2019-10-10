@@ -152,14 +152,14 @@ public class SphereCarController : MonoBehaviour
 
         //Raycasts in the direction of the vehicle's velocity to check for collisions
         Physics.Raycast(sphere.transform.position, flatVel, out colliding1, 5.0f, layerMask);
-        
+
 
         if (colliding1.collider != null)
         {
             //checks if the vehicle will be redirected into another wall, and stops the vehicle if it will
             if (Physics.Raycast(sphere.transform.position, Vector3.ProjectOnPlane(sphere.velocity, colliding1.normal), out colliding2, 4.0f, layerMask))
             {
-                if(Physics.Raycast(sphere.transform.position, Vector3.ProjectOnPlane(sphere.velocity, colliding2.normal), layerMask))
+                if (Physics.Raycast(sphere.transform.position, Vector3.ProjectOnPlane(sphere.velocity, colliding2.normal), layerMask))
                 {
                     sphere.velocity = Vector3.zero;
                 }
@@ -171,12 +171,20 @@ public class SphereCarController : MonoBehaviour
             }
 
         }
-        
+
+
 
         //Normal Rotation
         //Rotates the vehicle model to be parallel to the ground
-        kartNormal.up = Vector3.Lerp(kartNormal.up, hitNear.normal, Time.deltaTime * 8.0f);
-        kartNormal.Rotate(0, transform.eulerAngles.y, 0);
+        if (hitNear.collider != null)
+        {
+            kartNormal.up = Vector3.Lerp(kartNormal.up, hitNear.normal, Time.deltaTime * 8.0f);
+            kartNormal.Rotate(0, transform.eulerAngles.y, 0);
+        } else
+        {
+            kartNormal.up = Vector3.Lerp(kartNormal.up, sphere.velocity.normalized/2, Time.deltaTime);
+            kartNormal.Rotate(0, transform.eulerAngles.y, 0);
+        }
     }
 
     //Takes input for turning, which will be passed to smoothly rotate
