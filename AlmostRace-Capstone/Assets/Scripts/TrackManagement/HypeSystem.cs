@@ -20,6 +20,7 @@ public class HypeSystem : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
         _hypeAmountDisplay = new Text[_vehicleList.Count];
 
         for(int i = 0; i < _hypeAmountDisplay.Length; i++)
