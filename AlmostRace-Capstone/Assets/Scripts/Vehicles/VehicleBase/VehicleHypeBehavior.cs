@@ -16,9 +16,9 @@ public class VehicleHypeBehavior : MonoBehaviour
 
     void Start()
     {
-        if(GameObject.FindGameObjectWithTag("GameManager") != null)
+        if(HypeManager.HM != null)
         {
-            _hypeManagerScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<HypeManager>();
+            _hypeManagerScript = HypeManager.HM;
             _hypeManagerScript.VehicleAssign(this.gameObject);
         }
     }
