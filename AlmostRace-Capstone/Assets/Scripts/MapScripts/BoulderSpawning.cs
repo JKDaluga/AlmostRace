@@ -1,6 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+/*
+ Author: Mike Romeo
+ Purpose: 
+     
+     */
 
 public class BoulderSpawning : MonoBehaviour
 {
@@ -8,24 +13,21 @@ public class BoulderSpawning : MonoBehaviour
 
     public Transform bouldersSpawnLocation;
 
-    public float xOffset = 5;
-    public float zOffset = 5;
+    public float offset = 160;
 
     [Tooltip("Put Boulder here.")]
     public GameObject boulder;
 
     private void Start()
     {
-        InvokeRepeating("SpawnRock", 0, 10);
+        InvokeRepeating("SpawnRock", 0, 4);
     }
 
     private void SpawnRock()
     {
-        //_randOffset = new Vector3(Random.Range(-xOffset, xOffset), 0, Random.Range(-xOffset, xOffset));
-        _randOffset = new Vector3(-110, 200, -25);
-
-        GameObject spawnedBoulder= Instantiate(boulder, bouldersSpawnLocation.position/*+_randOffset*/, bouldersSpawnLocation.rotation);
-
-        //Instantiate(lightningMissile, missileSpawnLocation.transform.position + _randOffset, missileSpawnLocation.transform.rotation);
+        _randOffset = new Vector3(Random.Range(-offset, offset), 0, Random.Range(-offset, offset));
+        print(_randOffset);
+  
+        GameObject spawnedBoulder= Instantiate(boulder, bouldersSpawnLocation.position+_randOffset, bouldersSpawnLocation.rotation);
     }
 }
