@@ -10,6 +10,7 @@ public class CarHeatManager : MonoBehaviour
     public GameObject respawnPlatform;
     public GameObject modelHolder;
     public GameObject sphereCollider;
+    public GameObject DeathFade;
     public float heatCurrent = 0f;
     public float heatStallLimit = 100f;
     public float heatExplodeLimit = 120f;
@@ -69,6 +70,7 @@ public class CarHeatManager : MonoBehaviour
     private void Kill()
     {
         Instantiate(Resources.Load("explosion"), gameObject.transform.position, gameObject.transform.rotation);
+        DeathFade.GetComponent<Animator>().Play("DeathFadeIn");
         GetComponent<SphereCarController>().enabled = false;
         GetComponent<VehicleAbilityBehavior>().enabled = false;
         GameObject respawnInstance = Instantiate(respawnPlatform);
@@ -80,6 +82,7 @@ public class CarHeatManager : MonoBehaviour
     public void Respawn()
     {
         heatCurrent = 0;
+        DeathFade.GetComponent<Animator>().Play("DeathFadeOut");
         GetComponent<SphereCarController>().enabled = true;
         GetComponent<VehicleAbilityBehavior>().enabled = true;
         sphereCollider.GetComponent<Rigidbody>().useGravity = true;

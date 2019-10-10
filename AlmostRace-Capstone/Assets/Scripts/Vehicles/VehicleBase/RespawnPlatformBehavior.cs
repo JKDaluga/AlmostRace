@@ -50,6 +50,13 @@ public class RespawnPlatformBehavior : MonoBehaviour
         }
     }
 
+    public void SetPlayer(GameObject givenPlayer, GameObject givenColldier, GameObject givenModel)
+    {
+        _playerObject = givenPlayer;
+        _ballCollider = givenColldier;
+        _carMesh = givenModel;
+    }
+
     private IEnumerator RespawnSequence()
     {
         _movingCollider = true;
@@ -59,13 +66,6 @@ public class RespawnPlatformBehavior : MonoBehaviour
         _playerObject.GetComponent<CarHeatManager>().Respawn();
         _movingCar = false;
         _movingCollider = false;
-    }
-
-    public void SetPlayer(GameObject givenPlayer, GameObject givenColldier, GameObject givenModel)
-    {
-        _playerObject = givenPlayer;
-        _ballCollider = givenColldier;
-        _carMesh = givenModel;
     }
 
     private void OnTriggerExit(Collider other)
