@@ -32,7 +32,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
         _vehicleInput = GetComponent<VehicleInput>();
     }
 
-
     // Update is called once per frame
     void Update()
     {
