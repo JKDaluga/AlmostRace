@@ -17,6 +17,7 @@ public class CarHeatManager : MonoBehaviour
     public float cooldownAmount = 1f;
     public float respawnSecs = 3f;
     public float cooldownFrequency = 2f;
+    private bool _isDead;
 
     private void Start()
     {
@@ -38,30 +39,32 @@ public class CarHeatManager : MonoBehaviour
             heatCurrent = 120f;
         }
 
-        if (heatCurrent > heatExplodeLimit)
+        if (!_isDead)
         {
-            heatCurrent = heatExplodeLimit;
-        }
+            if (heatCurrent > heatExplodeLimit)
+            {
+                heatCurrent = heatExplodeLimit;
+            }
 
-        if (heatCurrent >= heatExplodeLimit)
-        {
-            Kill();
-        }
+            if (heatCurrent >= heatExplodeLimit)
+            {
+                Kill();
+            }
 
-        if (heatCurrent < 0)
-        {
-            heatCurrent = 0;
-        }
+            if (heatCurrent < 0)
+            {
+                heatCurrent = 0;
+            }
 
+            if (heatCurrent == 0 && gameObject.activeSelf == false)
+            {
+                gameObject.SetActive(true);
+            }
 
-        if (heatCurrent == 0 && gameObject.activeSelf == false)
-        {
-            gameObject.SetActive(true);
-        }
-
-        if (heatImage != null)
-        {
-            heatImage.fillAmount = ((heatCurrent * 100) / 120) / 100;
+            if (heatImage != null)
+            {
+                heatImage.fillAmount = ((heatCurrent * 100) / 120) / 100;
+            }
         }
 
     }
@@ -69,6 +72,7 @@ public class CarHeatManager : MonoBehaviour
 
     private void Kill()
     {
+        _isDead = true;
         Instantiate(Resources.Load("explosion"), gameObject.transform.position, gameObject.transform.rotation);
         DeathFade.GetComponent<Animator>().Play("DeathFadeIn");
         GetComponent<SphereCarController>().enabled = false;
@@ -82,6 +86,7 @@ public class CarHeatManager : MonoBehaviour
     public void Respawn()
     {
         heatCurrent = 0;
+        _isDead = false;
         DeathFade.GetComponent<Animator>().Play("DeathFadeOut");
         GetComponent<SphereCarController>().enabled = true;
         GetComponent<VehicleAbilityBehavior>().enabled = true;
