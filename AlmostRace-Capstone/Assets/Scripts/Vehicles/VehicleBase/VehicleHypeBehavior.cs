@@ -11,28 +11,28 @@ using UnityEngine;
 public class VehicleHypeBehavior : MonoBehaviour
 {
     
-    private HypeSystem _hypeSystem;
+    private HypeManager _hypeManagerScript;
     public float _hypeAmount;
 
     void Start()
     {
         if(GameObject.FindGameObjectWithTag("GameManager") != null)
         {
-            _hypeSystem = GameObject.FindGameObjectWithTag("GameManager").GetComponent<HypeSystem>();
-            _hypeSystem.VehicleAssign(this.gameObject);
+            _hypeManagerScript = GameObject.FindGameObjectWithTag("GameManager").GetComponent<HypeManager>();
+            _hypeManagerScript.VehicleAssign(this.gameObject);
         }
     }
 
     public void AddHype(float hypeToAdd)
     {
         _hypeAmount += hypeToAdd;
-        _hypeSystem.VehicleSort();
+        _hypeManagerScript.VehicleSort();
     }
 
     public void SubtractHype(float hypeToSubtract)
     {
         _hypeAmount -= hypeToSubtract;
-        _hypeSystem.VehicleSort();
+        _hypeManagerScript.VehicleSort();
     }
 
     public float GiveHypeAmount()
