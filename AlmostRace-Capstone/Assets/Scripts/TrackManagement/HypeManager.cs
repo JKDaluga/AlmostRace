@@ -10,7 +10,7 @@ using UnityEngine.UI;
     updates the UI accordingly.
     */
     
-public class HypeSystem : MonoBehaviour
+public class HypeManager : MonoBehaviour
 {
 
     private List<GameObject> _vehicleList = new List<GameObject>();
