@@ -49,6 +49,25 @@ public class Volt_LightningMissile : MonoBehaviour
         Invoke("ExplodeMissile", _missileFuseLength);
     }
 
+    public void FixedUpdate()
+    {
+        RaycastHit hitNear;
+        Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitNear, 5.0f);
+        //Normal Rotation
+        //Rotates the vehicle model to be parallel to the ground
+        if (hitNear.collider != null)
+        {
+            gameObject.transform.up = Vector3.Lerp(gameObject.transform.up, hitNear.normal, 8.0f);
+            gameObject.transform.Rotate(0, transform.eulerAngles.y, 0);
+            _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _missileSpeed);
+
+        }
+        else
+        {
+
+        }
+    }
+
     public void ExplodeMissile()
     {
 

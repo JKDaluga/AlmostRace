@@ -24,6 +24,23 @@ public class Volt_ExplosionMissile : MonoBehaviour
         Destroy(gameObject, explosionLifeLength);
     }
 
+    public void FixedUpdate()
+    {
+        RaycastHit hitNear;
+        Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitNear, 5.0f);
+        //Normal Rotation
+        //Rotates the vehicle model to be parallel to the ground
+        if (hitNear.collider != null)
+        {
+            gameObject.transform.up = Vector3.Lerp(gameObject.transform.up, hitNear.normal, Time.deltaTime * 8.0f);
+            gameObject.transform.Rotate(0, transform.eulerAngles.y, 0);
+        }
+        else
+        {
+           
+        }
+    }
+
     public void Grow()
     {
         transform.localScale += new Vector3(growthAmount, growthAmount, growthAmount);
