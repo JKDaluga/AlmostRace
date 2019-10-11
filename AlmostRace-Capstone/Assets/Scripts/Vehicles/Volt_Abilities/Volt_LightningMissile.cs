@@ -59,7 +59,7 @@ public class Volt_LightningMissile : MonoBehaviour
         {
             gameObject.transform.up = Vector3.Lerp(gameObject.transform.up, hitNear.normal, 8.0f);
             gameObject.transform.Rotate(0, transform.eulerAngles.y, 0);
-            _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _missileSpeed);
+          //  _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _missileSpeed);
 
         }
         else
