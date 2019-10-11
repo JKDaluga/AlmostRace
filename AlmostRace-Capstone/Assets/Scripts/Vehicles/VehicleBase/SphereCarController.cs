@@ -5,6 +5,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(VehicleInput))]
 public class SphereCarController : MonoBehaviour
@@ -43,6 +44,11 @@ public class SphereCarController : MonoBehaviour
 
     private bool _isBoosting = false;
     private float _boostSpeed;
+
+    [Header("Drift Ability")]
+    public Image driftButton;
+    public Sprite driftSpriteUp;
+    public Sprite driftSpriteDown;
 
     //Call allowing vehicle to take input from player
     private void Start()
@@ -87,6 +93,7 @@ public class SphereCarController : MonoBehaviour
             }
             if (_drifting)
             {
+                driftButton.sprite = driftSpriteDown;
                 //Remaps the user input values to appropriate amounts to allow drifting
                 amount = (_driftDirection == 1) ? ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 0, 1 + driftStrength) : ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 1 + driftStrength, 0);
             }
@@ -124,6 +131,7 @@ public class SphereCarController : MonoBehaviour
         //Applies force in appropriate direction based on drifting
         if (!_drifting)
         {
+            driftButton.sprite = driftSpriteUp;
             sphere.AddForce(-kartModel.transform.right * currentSpeed, ForceMode.Acceleration);
         }
         else
