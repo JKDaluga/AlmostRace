@@ -15,7 +15,7 @@ public class HypeManager : MonoBehaviour
 
     public static HypeManager HM;
 
-    private List<GameObject> _vehicleList = new List<GameObject>();
+    public List<GameObject> _vehicleList = new List<GameObject>();
     private Text[] _hypeAmountDisplay;
     public float maxHype; //Essentially a win condition
 
@@ -84,4 +84,5 @@ public class HypeManager : MonoBehaviour
             i++;
         }
     }
+
 }
