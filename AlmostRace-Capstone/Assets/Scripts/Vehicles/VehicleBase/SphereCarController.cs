@@ -2,6 +2,11 @@
 //Last Edit Robyn 10/7
 //Script is used to control the sphere collider based car. Takes inputs and applies collision physics
 
+/*
+ Eddie Borissov
+ Edit 10/15/2019 added code for the speedometer UI and for Drifting UI and particle effects.
+ */
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -49,13 +54,22 @@ public class SphereCarController : MonoBehaviour
     public Image driftButton;
     public Sprite driftSpriteUp;
     public Sprite driftSpriteDown;
+
+    [Header("Drift Particles")]
+    public GameObject leftDriftParticles;
+    public GameObject rightDriftParticles;
+
     [Header("Speedometer")]
     public Image speedometerImage;
+
+
 
     //Call allowing vehicle to take input from player
     private void Start()
     {
         _vehicleInput = GetComponent<VehicleInput>();
+        leftDriftParticles.SetActive(false);
+        rightDriftParticles.SetActive(false);
     }
 
     // Update is called once per frame
@@ -92,6 +106,14 @@ public class SphereCarController : MonoBehaviour
             {
                 _drifting = true;
                 _driftDirection = Input.GetAxis(_vehicleInput.horizontal) > 0 ? 1 : -1;
+                if(_driftDirection == 1)
+                {
+                    leftDriftParticles.SetActive(true);
+                }
+                else if(_driftDirection == -1)
+                {
+                    rightDriftParticles.SetActive(true);
+                }
             }
             if (_drifting)
             {
@@ -104,7 +126,13 @@ public class SphereCarController : MonoBehaviour
             if (_drifting)
                 Steer(_driftDirection, amount);
             else
+            {
+                driftButton.sprite = driftSpriteUp;
+                leftDriftParticles.SetActive(false);
+                rightDriftParticles.SetActive(false);
                 Steer(dir, amount);
+            }
+                
         }
 
 
@@ -127,7 +155,7 @@ public class SphereCarController : MonoBehaviour
         //Motion Blur for car speed right now 7 and 10 are the magic numbers for the effect we are looking for
         tiltShift.blurArea = Mathf.Min(_maxBlurArea * (Mathf.Pow(currentSpeed, _blurScaling) / Mathf.Pow(topSpeed, _blurScaling)), 1);
 
-        speedometerImage.fillAmount = currentSpeed / topSpeed;
+        speedometerImage.fillAmount = currentSpeed / topSpeed; //Speedometer code
     }
 
     private void FixedUpdate()
@@ -135,7 +163,7 @@ public class SphereCarController : MonoBehaviour
         //Applies force in appropriate direction based on drifting
         if (!_drifting)
         {
-            driftButton.sprite = driftSpriteUp;
+          
             sphere.AddForce(-kartModel.transform.right * currentSpeed, ForceMode.Acceleration);
         }
         else
