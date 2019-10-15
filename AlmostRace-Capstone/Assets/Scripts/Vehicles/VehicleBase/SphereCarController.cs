@@ -49,6 +49,8 @@ public class SphereCarController : MonoBehaviour
     public Image driftButton;
     public Sprite driftSpriteUp;
     public Sprite driftSpriteDown;
+    [Header("Speedometer")]
+    public Image speedometerImage;
 
     //Call allowing vehicle to take input from player
     private void Start()
@@ -124,6 +126,8 @@ public class SphereCarController : MonoBehaviour
 
         //Motion Blur for car speed right now 7 and 10 are the magic numbers for the effect we are looking for
         tiltShift.blurArea = Mathf.Min(_maxBlurArea * (Mathf.Pow(currentSpeed, _blurScaling) / Mathf.Pow(topSpeed, _blurScaling)), 1);
+
+        speedometerImage.fillAmount = currentSpeed / topSpeed;
     }
 
     private void FixedUpdate()
