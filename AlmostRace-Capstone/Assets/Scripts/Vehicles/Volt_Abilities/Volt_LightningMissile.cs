@@ -44,8 +44,7 @@ public class Volt_LightningMissile : MonoBehaviour
     {
         _rigidBody = gameObject.GetComponent<Rigidbody>();
         _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _missileSpeed );
-       // _rigidBody.velocity = transform.TransformDirection(0,0, 1 + _immunePlayer.GetComponent<Rigidbody>().velocity.z) * _missileSpeed;
-//JASWEEN HELP! ^^
+        _rigidBody.velocity += _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
         Invoke("ExplodeMissile", _missileFuseLength);
     }
 

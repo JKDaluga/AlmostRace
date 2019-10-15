@@ -29,7 +29,7 @@ public class SphereCarController : MonoBehaviour
 
 
     //Input values and values passed to values
-    float speed, currentSpeed;
+   public float speed, currentSpeed;
     float rotate, currentRotate;
 
     //What physics layers the collision raycasts can hit

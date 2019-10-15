@@ -111,7 +111,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
         while (tempTime > 0)
         {        
             tempTime -= Time.deltaTime;
-            Mathf.Lerp(0, 1, tempTime);
             signatureAbilityCooldown.fillAmount = tempTime/abilityRecharge;
             yield return null;
         }
