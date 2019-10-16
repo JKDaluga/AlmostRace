@@ -34,6 +34,9 @@ public class VehicleInput : MonoBehaviour
     public string pickupInput { get {return _pickupAbilityName; } }
     private string _pickupAbilityName;
 
+    public string respawn { get { return _respawn; } }
+    private string _respawn;
+
     private string[] _inputNum = new string[4] { "P1", "P2", "P3", "P4"};
 
     private void Awake()
@@ -47,9 +50,10 @@ public class VehicleInput : MonoBehaviour
             _basicAbilityName = "BasicAbility" + _inputNum[playerNumber - 1];
             _signatureAbilityName = "SignatureAbility" + _inputNum[playerNumber - 1];
             _pickupAbilityName = "Pickup" + _inputNum[playerNumber - 1];
-        #endif
+            _respawn = "Respawn" + _inputNum[playerNumber - 1];
+#endif
 
-        #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
             _horizontalName = "Horizontal" + _inputNum[playerNumber - 1];
             _vertForwardName = "VerticalForwards" + _inputNum[playerNumber - 1] + "Mac";
             _vertBackwardName = "VerticalBackwards" + _inputNum[playerNumber - 1] + "Mac";
@@ -57,6 +61,7 @@ public class VehicleInput : MonoBehaviour
             _basicAbilityName = "BasicAbility" + _inputNum[playerNumber - 1] + "Mac";
             _signatureAbilityName = "SignatureAbility" + _inputNum[playerNumber - 1] + "Mac";
             _pickupAbilityName = "Pickup" + _inputNum[playerNumber - 1] + "Mac";
-        #endif
+            _respawn = "Respawn" +  _inputNum[playerNumber - 1] + "Mac";
+#endif
     }
 }

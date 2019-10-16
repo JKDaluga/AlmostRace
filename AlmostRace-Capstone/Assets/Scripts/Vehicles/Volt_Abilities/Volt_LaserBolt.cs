@@ -43,7 +43,7 @@ public class Volt_LaserBolt : MonoBehaviour
         if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHeatManager>() != null)
         {//Checks if the object isn't the immunePlayer and if they are a car.
             other.gameObject.GetComponent<CarHeatManager>().AddHeat(_laserDamage);
-            _immunePlayerScript.AddHype(_laserHype);
+           _immunePlayerScript.AddHype(_laserHype);
             Destroy(gameObject);
         }
         else if(other.gameObject != _immunePlayer)

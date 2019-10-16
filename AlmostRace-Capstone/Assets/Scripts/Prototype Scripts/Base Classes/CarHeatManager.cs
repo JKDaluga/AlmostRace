@@ -18,9 +18,12 @@ public class CarHeatManager : MonoBehaviour
     public float respawnSecs = 3f;
     public float cooldownFrequency = 2f;
     private bool _isDead;
+    private VehicleInput _vehicleInput;
+    private bool _canTeleport = true;
 
     private void Start()
     {
+        _vehicleInput = GetComponent<VehicleInput>();
         InvokeRepeating("healthCooldown", 0, cooldownFrequency);
     }
     // Update is called once per frame
@@ -37,6 +40,12 @@ public class CarHeatManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Y))
         {
             heatCurrent = 120f;
+        }
+
+        if(Input.GetAxis(_vehicleInput.respawn) > 0)
+        {
+            Debug.Log("Respawn should have happened");
+            Teleport();
         }
 
         if (!_isDead)
@@ -85,6 +94,7 @@ public class CarHeatManager : MonoBehaviour
 
     public void Respawn()
     {
+        _canTeleport = true;
         heatCurrent = 0;
         _isDead = false;
         DeathFade.GetComponent<Animator>().Play("DeathFadeOut");
@@ -98,6 +108,24 @@ public class CarHeatManager : MonoBehaviour
             bAbility.DeactivateAbility();
         }
 
+    }
+
+    public void Teleport()
+    {
+        if(_canTeleport)
+        {
+            _canTeleport = false;
+            _isDead = true;
+            Instantiate(Resources.Load("Teleport"), gameObject.transform.position, gameObject.transform.rotation);
+            DeathFade.GetComponent<Animator>().Play("DeathFadeIn");
+            GetComponent<SphereCarController>().enabled = false;
+            GetComponent<VehicleAbilityBehavior>().enabled = false;
+            GameObject respawnInstance = Instantiate(respawnPlatform);
+            respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, sphereCollider, modelHolder);
+            sphereCollider.GetComponent<Rigidbody>().useGravity = false;
+            sphereCollider.GetComponent<Rigidbody>().isKinematic = true;
+        }
+  
     }
 
     private void healthCooldown()
