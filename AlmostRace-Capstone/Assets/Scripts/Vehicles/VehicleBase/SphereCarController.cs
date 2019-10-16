@@ -70,6 +70,8 @@ public class SphereCarController : MonoBehaviour
         _vehicleInput = GetComponent<VehicleInput>();
         leftDriftParticles.SetActive(false);
         rightDriftParticles.SetActive(false);
+       // AudioManager.instance.Play("Engine");
+       // AudioManager.instance.SetSoundPitchAndVolume("Engine", currentSpeed / topSpeed, currentSpeed / topSpeed);
     }
 
     // Update is called once per frame
@@ -156,6 +158,7 @@ public class SphereCarController : MonoBehaviour
         tiltShift.blurArea = Mathf.Min(_maxBlurArea * (Mathf.Pow(currentSpeed, _blurScaling) / Mathf.Pow(topSpeed, _blurScaling)), 1);
 
         speedometerImage.fillAmount = currentSpeed / topSpeed; //Speedometer code
+        AudioManager.instance.SetSoundPitchAndVolume("Engine", currentSpeed / topSpeed, currentSpeed / topSpeed);
     }
 
     private void FixedUpdate()
