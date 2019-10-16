@@ -29,7 +29,7 @@ public class SphereCarController : MonoBehaviour
 
 
     //Input values and values passed to values
-   public float speed, currentSpeed;
+    public float speed, currentSpeed;
     float rotate, currentRotate;
 
     //What physics layers the collision raycasts can hit
@@ -62,16 +62,21 @@ public class SphereCarController : MonoBehaviour
     [Header("Speedometer")]
     public Image speedometerImage;
 
+    [Header("Temporary Sound Stuff")]
+    public AudioSource driftSound;
+
+    
+
 
 
     //Call allowing vehicle to take input from player
     private void Start()
     {
+        AudioManager.instance.Play("Engine");
         _vehicleInput = GetComponent<VehicleInput>();
         leftDriftParticles.SetActive(false);
         rightDriftParticles.SetActive(false);
-       // AudioManager.instance.Play("Engine");
-       // AudioManager.instance.SetSoundPitchAndVolume("Engine", currentSpeed / topSpeed, currentSpeed / topSpeed);
+
     }
 
     // Update is called once per frame
@@ -106,6 +111,7 @@ public class SphereCarController : MonoBehaviour
             //Checks necessary conditions for drifting to happen
             if (Input.GetButtonDown(_vehicleInput.brake) && !_drifting && Input.GetAxis(_vehicleInput.horizontal) != 0)
             {
+                driftSound.Play();
                 _drifting = true;
                 _driftDirection = Input.GetAxis(_vehicleInput.horizontal) > 0 ? 1 : -1;
                 if(_driftDirection == 1)
@@ -126,9 +132,13 @@ public class SphereCarController : MonoBehaviour
 
             //passes in appropriate turning values based on drifting bool
             if (_drifting)
+            {
                 Steer(_driftDirection, amount);
+             
+            }          
             else
             {
+                driftSound.Stop();
                 driftButton.sprite = driftSpriteUp;
                 leftDriftParticles.SetActive(false);
                 rightDriftParticles.SetActive(false);
@@ -158,15 +168,13 @@ public class SphereCarController : MonoBehaviour
         tiltShift.blurArea = Mathf.Min(_maxBlurArea * (Mathf.Pow(currentSpeed, _blurScaling) / Mathf.Pow(topSpeed, _blurScaling)), 1);
 
         speedometerImage.fillAmount = currentSpeed / topSpeed; //Speedometer code
-        AudioManager.instance.SetSoundPitchAndVolume("Engine", currentSpeed / topSpeed, currentSpeed / topSpeed);
     }
 
     private void FixedUpdate()
     {
         //Applies force in appropriate direction based on drifting
         if (!_drifting)
-        {
-          
+        { 
             sphere.AddForce(-kartModel.transform.right * currentSpeed, ForceMode.Acceleration);
         }
         else
@@ -212,10 +220,7 @@ public class SphereCarController : MonoBehaviour
                 //redirects the vehicle based on collision direction
                 sphere.velocity = Vector3.ProjectOnPlane(sphere.velocity, colliding1.normal);
             }
-
         }
-
-
 
         //Normal Rotation
         //Rotates the vehicle model to be parallel to the ground
@@ -242,7 +247,6 @@ public class SphereCarController : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawRay(sphere.transform.position, sphere.velocity);
     }
-
 
     public void SetIsBoosting(bool ToF)
     {

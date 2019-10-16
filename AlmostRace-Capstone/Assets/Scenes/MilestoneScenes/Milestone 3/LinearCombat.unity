@@ -715,7 +715,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 487cae07aca4278468953b4f112aaffe, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.2
+  m_Volume: 0.07
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -874,27 +874,27 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Engine
     clip: {fileID: 8300000, guid: 963383b1ff7e2dd489b6de695942ddc8, type: 3}
-    volume: 1
+    volume: 0.05
     volumeVariance: 0
-    pitch: 3
+    pitch: 0.94
     pitchVariance: 0
     loop: 1
     source: {fileID: 0}
-  - name: MissileLaunch
-    clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
+  - name: Teleport
+    clip: {fileID: 8300000, guid: 5b3f7f9cb9a526d43aaa1d38b30f6dea, type: 3}
     volume: 1
     volumeVariance: 0
-    pitch: 3
+    pitch: 1
     pitchVariance: 0
     loop: 0
     source: {fileID: 0}
-  - name: MissileLaunch
-    clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
-    volume: 1
+  - name: Drift
+    clip: {fileID: 8300000, guid: 1a2db1d8f2d213b48984494e7309eb45, type: 3}
+    volume: 0.1
     volumeVariance: 0
-    pitch: 3
+    pitch: 1
     pitchVariance: 0
-    loop: 0
+    loop: 1
     source: {fileID: 0}
   - name: MissileLaunch
     clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
@@ -32021,38 +32021,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7059085581183484722, guid: 547ddc3cbf01def43b563e92bbf92185,
-        type: 3}
-      propertyPath: cooldownFrequency
-      value: 0.03
-      objectReference: {fileID: 0}
-    - target: {fileID: 7073485183042927646, guid: 547ddc3cbf01def43b563e92bbf92185,
-        type: 3}
-      propertyPath: missileFuseLength
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7073485183042927646, guid: 547ddc3cbf01def43b563e92bbf92185,
-        type: 3}
-      propertyPath: missileHypeToGain
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 7073485184813564283, guid: 547ddc3cbf01def43b563e92bbf92185,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 5.45
-      objectReference: {fileID: 0}
-    - target: {fileID: 1615002725, guid: 547ddc3cbf01def43b563e92bbf92185, type: 3}
-      propertyPath: laserDamage
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1615002725, guid: 547ddc3cbf01def43b563e92bbf92185, type: 3}
-      propertyPath: laserSpeed
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 1615002725, guid: 547ddc3cbf01def43b563e92bbf92185, type: 3}
-      propertyPath: laserHypeToGain
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 547ddc3cbf01def43b563e92bbf92185, type: 3}

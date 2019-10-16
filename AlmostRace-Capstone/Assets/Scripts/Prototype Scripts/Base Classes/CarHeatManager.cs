@@ -95,6 +95,7 @@ public class CarHeatManager : MonoBehaviour
 
     public void Respawn()
     {
+
         _canTeleport = true;
         heatCurrent = 0;
         _isDead = false;
@@ -113,8 +114,10 @@ public class CarHeatManager : MonoBehaviour
 
     public void Teleport()
     {
-        if(_canTeleport)
+      
+        if (_canTeleport)
         {
+            AudioManager.instance.Play("Teleport");
             _canTeleport = false;
             _isDead = true;
             Instantiate(Resources.Load("Teleport"), gameObject.transform.position, gameObject.transform.rotation);
