@@ -6,7 +6,7 @@ using UnityEngine.UI;
 /*
  * Eddie B
  * 
- * Based on the first minute and a half of https://www.youtube.com/watch?v=oBkfujKPZw8.
+ * Based on the first minute and a half of tutorial at: https://www.youtube.com/watch?v=oBkfujKPZw8.
  * Currently only supports 1v1 mode though, as it doesn't account for multiple cameras.
  
      */
