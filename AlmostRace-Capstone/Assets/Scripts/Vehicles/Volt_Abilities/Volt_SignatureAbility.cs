@@ -73,6 +73,7 @@ public class Volt_SignatureAbility : Ability
         spawnedMissile2.transform.Rotate(0, sideMissileOffset, 0);
         spawnedMissile3.transform.Rotate(0, -sideMissileOffset, 0);
 
+        AudioManager.instance.Play("MissileLaunch");
     }
 
     public override void DeactivateAbility()

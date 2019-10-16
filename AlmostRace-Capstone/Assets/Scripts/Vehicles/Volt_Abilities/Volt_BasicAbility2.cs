@@ -87,6 +87,7 @@ public class Volt_BasicAbility2 : BasicAbility
     {
         if(_canFireLaser)
         {
+            AudioManager.instance.Play("Blaster1");
             GameObject laser = Instantiate(laserBolt, laserMuzzles[_currentMuzzle].position, laserMuzzles[_currentMuzzle].rotation);
             _voltLaserBoltInfo = laser.GetComponent<Volt_LaserBolt>();
             _voltLaserBoltInfo.SetImmunePlayer(gameObject);

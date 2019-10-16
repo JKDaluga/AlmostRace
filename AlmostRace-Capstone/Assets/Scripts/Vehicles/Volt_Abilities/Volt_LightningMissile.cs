@@ -69,7 +69,7 @@ public class Volt_LightningMissile : MonoBehaviour
 
     public void ExplodeMissile()
     {
-
+        AudioManager.instance.Play("MissileExplode");
         GameObject spawnedExplosion = Instantiate(missileExplosion, transform.position, transform.rotation);
         GameObject spawnedLightningCloud = Instantiate(lightningCloud, transform.position, transform.rotation);
         
