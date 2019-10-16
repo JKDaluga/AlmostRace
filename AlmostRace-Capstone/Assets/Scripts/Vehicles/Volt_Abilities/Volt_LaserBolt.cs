@@ -25,6 +25,12 @@ public class Volt_LaserBolt : MonoBehaviour
 
     }
 
+    public void FixedUpdate()
+    {
+        _rigidBody.velocity = transform.forward * _laserSpeed;
+        _rigidBody.velocity += _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
+    }
+
     public void SetImmunePlayer(GameObject immunePlayer)
     {
         _immunePlayer = immunePlayer;
