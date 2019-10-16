@@ -57,7 +57,7 @@ public class HypeManager : MonoBehaviour
         // Put in descending order
         _vehicleList.Reverse();
 
-        UIupdate();
+      //  UIupdate();
     }
 
     // Sorts the list at the beginning of the game based on player number rather than hype amount
@@ -71,7 +71,7 @@ public class HypeManager : MonoBehaviour
             }
         );
 
-        UIupdate();
+        //UIupdate();
     }
 
     private void UIupdate()
@@ -80,6 +80,7 @@ public class HypeManager : MonoBehaviour
         foreach(GameObject entry in _vehicleList)
         {
             _hypeAmountDisplay[i].text = entry.name.ToString() + ": " +
+           // _hypeAmountDisplay[i].text = "Hype: " +
             entry.GetComponent<VehicleHypeBehavior>().GiveHypeAmount().ToString();
             i++;
         }

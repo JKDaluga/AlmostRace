@@ -1,18 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
     /*
     Author: Jake Velicer
     Purpose: Stores the hype for individual car and reports
     newly gained hype to the HypeSystem script on the Game Manager.
     */
+
+    /*
+     Eddie B.
+     Edit : 10/16/2019
+     Because of a bug where the players' hype text locations are being flipped around based on who's in first, I'm going 
+     to update the hype text locally for now.
+     
+     */
     
 public class VehicleHypeBehavior : MonoBehaviour
 {
     
     private HypeManager _hypeManagerScript;
-    private float _hypeAmount;
+    public float _hypeAmount;
+    public Text hypeText;
 
     void Start()
     {
@@ -21,6 +31,16 @@ public class VehicleHypeBehavior : MonoBehaviour
             _hypeManagerScript = HypeManager.HM;
             _hypeManagerScript.VehicleAssign(this.gameObject);
         }
+    }
+
+    private void Update()
+    {
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        hypeText.text = "Hype: " + _hypeAmount;
     }
 
     public void AddHype(float hypeToAdd)
