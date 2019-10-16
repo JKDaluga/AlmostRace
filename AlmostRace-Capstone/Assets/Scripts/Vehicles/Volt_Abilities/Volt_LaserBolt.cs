@@ -6,6 +6,8 @@ using UnityEngine;
 public class Volt_LaserBolt : MonoBehaviour
 {
     private GameObject _immunePlayer;
+    private Vector3 _immunePlayerVelocity;
+    private float _speed;
     private VehicleHypeBehavior _immunePlayerScript;
     private Rigidbody _rigidBody;
 
@@ -19,16 +21,16 @@ public class Volt_LaserBolt : MonoBehaviour
     void Start()
     {
         _rigidBody = gameObject.GetComponent<Rigidbody>();
-        _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _laserSpeed);
-        _rigidBody.velocity += _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
+        _immunePlayerVelocity = _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
 
-
+        _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _laserSpeed) + _immunePlayerVelocity;
+        _speed = _rigidBody.velocity.magnitude;
     }
 
     public void FixedUpdate()
     {
-        _rigidBody.velocity = transform.forward * _laserSpeed;
-        _rigidBody.velocity += _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
+        _rigidBody.velocity = transform.forward * _speed;
+        //_rigidBody.velocity += _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
     }
 
     public void SetImmunePlayer(GameObject immunePlayer)
