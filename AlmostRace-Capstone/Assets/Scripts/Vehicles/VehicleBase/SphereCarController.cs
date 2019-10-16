@@ -72,7 +72,7 @@ public class SphereCarController : MonoBehaviour
     //Call allowing vehicle to take input from player
     private void Start()
     {
-        AudioManager.instance.Play("Engine");
+        //AudioManager.instance.Play("Engine");
         _vehicleInput = GetComponent<VehicleInput>();
         leftDriftParticles.SetActive(false);
         rightDriftParticles.SetActive(false);

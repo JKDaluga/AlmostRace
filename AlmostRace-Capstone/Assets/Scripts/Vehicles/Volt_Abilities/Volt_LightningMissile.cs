@@ -21,6 +21,8 @@ public class Volt_LightningMissile : MonoBehaviour
 
     private Rigidbody _rigidBody;
     private GameObject _immunePlayer;
+    private Vector3 _immunePlayerVelocity;
+    private float _speed;
   
     //Missile Variables
     private float _missileExplosionDamage;
@@ -43,33 +45,21 @@ public class Volt_LightningMissile : MonoBehaviour
     private void Start()
     {
         _rigidBody = gameObject.GetComponent<Rigidbody>();
-        _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _missileSpeed );
-        _rigidBody.velocity += _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
+        _immunePlayerVelocity = _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
+        
+        _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _missileSpeed) + _immunePlayerVelocity;
+        _speed = _rigidBody.velocity.magnitude;
         Invoke("ExplodeMissile", _missileFuseLength);
     }
 
     public void FixedUpdate()
     {
-        RaycastHit hitNear;
-        Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitNear, 5.0f);
-        //Normal Rotation
-        //Rotates the vehicle model to be parallel to the ground
-        if (hitNear.collider != null)
-        {
-            gameObject.transform.up = Vector3.Lerp(gameObject.transform.up, hitNear.normal, 8.0f);
-            gameObject.transform.Rotate(0, transform.eulerAngles.y, 0);
-          //  _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _missileSpeed);
-
-        }
-        else
-        {
-
-        }
+        _rigidBody.velocity = transform.forward * _speed;
     }
 
     public void ExplodeMissile()
     {
-        AudioManager.instance.Play("MissileExplode");
+        //AudioManager.instance.Play("MissileExplode");
         GameObject spawnedExplosion = Instantiate(missileExplosion, transform.position, transform.rotation);
         GameObject spawnedLightningCloud = Instantiate(lightningCloud, transform.position, transform.rotation);
         

@@ -26,8 +26,6 @@ public class BoulderSpawning : MonoBehaviour
     private void SpawnRock()
     {
         _randOffset = new Vector3(Random.Range(-offset, offset), 0, Random.Range(-offset, offset));
-        print(_randOffset);
-  
         GameObject spawnedBoulder= Instantiate(boulder, bouldersSpawnLocation.position+_randOffset, bouldersSpawnLocation.rotation);
     }
 }
