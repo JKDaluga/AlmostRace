@@ -94,6 +94,11 @@ public class RespawnPlatformBehavior : MonoBehaviour
         // Move the vehicle collider and the model to the platform position
         if (_movingCollider)
         {
+            if (spawnOnEnemy)
+            {
+                transform.LookAt(new Vector3(_otherVehicle.transform.position.x,
+                    transform.position.y, _otherVehicle.transform.position.z));
+            }
             _ballCollider.transform.position = new Vector3
                 (transform.position.x, transform.position.y + 2, transform.position.z);
             _ballCollider.transform.rotation = transform.rotation;
