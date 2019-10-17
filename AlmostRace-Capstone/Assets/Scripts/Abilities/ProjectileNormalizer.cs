@@ -16,8 +16,18 @@ public class ProjectileNormalizer : MonoBehaviour
         if (hitNear.collider != null)
         {
             float y = transform.eulerAngles.y;
-            transform.up = hitNear.normal;//Vector3.Lerp(transform.up, hitNear.normal, Time.deltaTime * 8.0f);
+            transform.up = hitNear.normal;
             transform.Rotate(0, y, 0);
+        }
+        else
+        {
+            Physics.Raycast(transform.position, Vector3.down, out hitNear, 5.0f, layerMask);
+            if (hitNear.collider != null)
+            {
+                float y = transform.eulerAngles.y;
+                transform.up = hitNear.normal;
+                transform.Rotate(0, y, 0);
+            }
         }
     }
 }
