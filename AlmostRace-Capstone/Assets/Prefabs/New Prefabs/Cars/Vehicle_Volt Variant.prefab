@@ -88,12 +88,12 @@ MonoBehaviour:
   respawnPlatform: {fileID: 0}
   modelHolder: {fileID: 0}
   sphereCollider: {fileID: 0}
+  DeathFade: {fileID: 0}
   heatCurrent: 0
   heatStallLimit: 100
   heatExplodeLimit: 120
-  cooldownRate: 1
+  cooldownAmount: 1
   respawnSecs: 3
-  cooldownTime: 0
   cooldownFrequency: 2
 --- !u!1001 &1920232593
 PrefabInstance:
@@ -181,10 +181,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 481683611327776959, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.23
+      objectReference: {fileID: 0}
     - target: {fileID: 481683610635278084, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_Name
-      value: Volt BallCar Variant
+      value: Vehicle_Volt Variant
       objectReference: {fileID: 0}
     - target: {fileID: 481683610635278085, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
@@ -241,11 +246,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 481683611327776959, guid: 032019f499ece314bbf7b2b05ab0f65e,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.23
-      objectReference: {fileID: 0}
     - target: {fileID: 8294435246905798058, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -267,6 +267,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.2699585
+      objectReference: {fileID: 0}
+    - target: {fileID: 1443822405799785145, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: weight
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7711789729176970095, guid: 032019f499ece314bbf7b2b05ab0f65e, type: 3}

@@ -53,6 +53,8 @@ MonoBehaviour:
   kartNormal: {fileID: 481683610514310999}
   sphere: {fileID: 481683610739934991}
   tiltShift: {fileID: 7928416573925588224}
+  speed: 0
+  currentSpeed: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 1587
@@ -63,6 +65,13 @@ MonoBehaviour:
   gravity: 450
   driftStrength: 0.6
   reverseSpeed: 1
+  driftButton: {fileID: 0}
+  driftSpriteUp: {fileID: 0}
+  driftSpriteDown: {fileID: 0}
+  leftDriftParticles: {fileID: 0}
+  rightDriftParticles: {fileID: 0}
+  speedometerImage: {fileID: 0}
+  driftSound: {fileID: 0}
 --- !u!114 &7711789729176970095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,9 +93,8 @@ MonoBehaviour:
   heatCurrent: 0
   heatStallLimit: 100
   heatExplodeLimit: 120
-  cooldownRate: 1
+  cooldownAmount: 1
   respawnSecs: 3
-  cooldownTime: 0
   cooldownFrequency: 2
 --- !u!114 &6818455058190144800
 MonoBehaviour:
@@ -114,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _hypeAmount: 0
+  hypeText: {fileID: 0}
 --- !u!114 &641384622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128,9 +137,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   basicAbility: {fileID: 0}
   canHoldBasic: 0
+  basicAbilityButtonUI: {fileID: 0}
+  basicAbilitySpriteReady: {fileID: 0}
+  basicAbilitySpritePressed: {fileID: 0}
   signatureAbility: {fileID: 0}
   abilityRecharge: 5
   canHoldSignature: 0
+  signatureAbilityCooldown: {fileID: 0}
   pickup: {fileID: 0}
 --- !u!65 &2048040180542796253
 BoxCollider:
@@ -235,6 +248,7 @@ GameObject:
   - component: {fileID: 481683610739934990}
   - component: {fileID: 481683610739934988}
   - component: {fileID: 481683610739934991}
+  - component: {fileID: 1443822405799785145}
   m_Layer: 9
   m_Name: Collider
   m_TagString: Vehicle
@@ -285,6 +299,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
+--- !u!114 &1443822405799785145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481683610739934985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 061a6638517380a49b6e2c6bbd274512, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  car: {fileID: 481683610354487725}
+  weight: 4.2
 --- !u!1 &481683611327776958
 GameObject:
   m_ObjectHideFlags: 0
