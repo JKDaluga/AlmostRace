@@ -37,7 +37,6 @@ public class CarCollision : MonoBehaviour
             {
                 float percentDamage = Vector3.Project(relativePosition.normalized, rb.velocity.normalized).magnitude;
                 float damage = percentDamage * weight * relativeVelocity.magnitude;
-                print("YA BOI " + damage);
                 otherCarHeat.heatCurrent += damage;
             }
         }
