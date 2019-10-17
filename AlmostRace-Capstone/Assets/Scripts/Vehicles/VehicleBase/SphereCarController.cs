@@ -65,10 +65,6 @@ public class SphereCarController : MonoBehaviour
     [Header("Temporary Sound Stuff")]
     public AudioSource driftSound;
 
-    
-
-
-
     //Call allowing vehicle to take input from player
     private void Start()
     {
@@ -76,7 +72,7 @@ public class SphereCarController : MonoBehaviour
         _vehicleInput = GetComponent<VehicleInput>();
         leftDriftParticles.SetActive(false);
         rightDriftParticles.SetActive(false);
-
+        
     }
 
     // Update is called once per frame
@@ -204,7 +200,6 @@ public class SphereCarController : MonoBehaviour
         //Raycasts in the direction of the vehicle's velocity to check for collisions
         Physics.Raycast(sphere.transform.position, flatVel, out colliding1, 5.0f, layerMask);
 
-
         if (colliding1.collider != null)
         {
             //checks if the vehicle will be redirected into another wall, and stops the vehicle if it will
@@ -245,7 +240,7 @@ public class SphereCarController : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(sphere.transform.position, sphere.velocity);
+        Gizmos.DrawRay(sphere.transform.position, sphere.velocity.normalized * 5.0f);
     }
 
     public void SetIsBoosting(bool ToF)
