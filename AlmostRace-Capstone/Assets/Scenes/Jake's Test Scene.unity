@@ -5726,12 +5726,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317149258}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &319957835 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 890700867069669873, guid: 547ddc3cbf01def43b563e92bbf92185,
-    type: 3}
-  m_PrefabInstance: {fileID: 1477041397}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &325180827
 GameObject:
   m_ObjectHideFlags: 0
@@ -14426,8 +14420,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 319957835}
-  m_Follow: {fileID: 319957835}
+  m_LookAt: {fileID: 1362690272}
+  m_Follow: {fileID: 1362690272}
   m_Lens:
     FieldOfView: 40
     OrthographicSize: 10
@@ -25418,6 +25412,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1361146845}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1362690272 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 890700867178211082, guid: 547ddc3cbf01def43b563e92bbf92185,
+    type: 3}
+  m_PrefabInstance: {fileID: 1477041397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1378294953
 GameObject:
   m_ObjectHideFlags: 0
@@ -27624,6 +27624,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: -2.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 890700866415716178, guid: 547ddc3cbf01def43b563e92bbf92185,
+        type: 3}
+      propertyPath: m_UseGravity
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1823669488777090051, guid: 547ddc3cbf01def43b563e92bbf92185,
         type: 3}
@@ -31087,14 +31092,14 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 10
   m_LookaheadIgnoreY: 0
-  m_HorizontalDamping: 1.3
-  m_VerticalDamping: 1.3
+  m_HorizontalDamping: 0.5
+  m_VerticalDamping: 0.5
   m_ScreenX: 0.5
   m_ScreenY: 0.5
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
-  m_SoftZoneWidth: 0.5
-  m_SoftZoneHeight: 0.5
+  m_SoftZoneWidth: 0.2
+  m_SoftZoneHeight: 0.2
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
