@@ -68,13 +68,12 @@ public class VehicleInput : MonoBehaviour
     }
 
 
-    bool getStatus()
+    public bool getStatus()
     {
         return activeStatus;
-        
     }
 
-    void setStatus(bool act)
+    public void setStatus(bool act)
     {
         activeStatus = act;
     }
