@@ -32,6 +32,7 @@ public class CarHeatManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.H))//for testing, heats up car
         {
             heatCurrent = 110f;
+            Time.timeScale = 0f;
         }
         else if (Input.GetKeyDown(KeyCode.N)) // for testing, cools down car
         {
@@ -40,6 +41,7 @@ public class CarHeatManager : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Y))
         {
             heatCurrent = 120f;
+            Time.timeScale = 1f;
         }
 
         if(Input.GetAxis(_vehicleInput.respawn) > 0)
