@@ -39,6 +39,8 @@ public class VehicleInput : MonoBehaviour
 
     private string[] _inputNum = new string[4] { "P1", "P2", "P3", "P4"};
 
+    private bool activeStatus = true;
+
     private void Awake()
     {
 
@@ -63,5 +65,17 @@ public class VehicleInput : MonoBehaviour
             _pickupAbilityName = "Pickup" + _inputNum[playerNumber - 1] + "Mac";
             _respawn = "Respawn" +  _inputNum[playerNumber - 1] + "Mac";
 #endif
+    }
+
+
+    bool getStatus()
+    {
+        return activeStatus;
+        
+    }
+
+    void setStatus(bool act)
+    {
+        activeStatus = act;
     }
 }
