@@ -72,29 +72,6 @@ MonoBehaviour:
   lightningCloudGrowthRate: 0.001
   lightningCloudGrowthAmount: 1
   lightningCloudMaxSize: 10
---- !u!114 &278371756581920087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7959680182133387159}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0d8d037ec5c1e0a4593acd6e589a3ad5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heatImage: {fileID: 0}
-  respawnPlatform: {fileID: 0}
-  modelHolder: {fileID: 0}
-  sphereCollider: {fileID: 0}
-  DeathFade: {fileID: 0}
-  heatCurrent: 0
-  heatStallLimit: 100
-  heatExplodeLimit: 120
-  cooldownAmount: 1
-  respawnSecs: 3
-  cooldownFrequency: 2
 --- !u!1001 &1920232593
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -268,8 +245,7 @@ PrefabInstance:
       propertyPath: signatureAbility
       value: 
       objectReference: {fileID: 810820219}
-    m_RemovedComponents:
-    - {fileID: 7711789729176970095, guid: 032019f499ece314bbf7b2b05ab0f65e, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 032019f499ece314bbf7b2b05ab0f65e, type: 3}
 --- !u!1 &7959680182133387159 stripped
 GameObject:
