@@ -262,4 +262,10 @@ public class SphereCarController : MonoBehaviour
     {
         _boostSpeed = boostSpeed;
     }
+
+
+    public bool getDrifting()
+    {
+        return _drifting;
+    }
 }

@@ -10764,6 +10764,7 @@ GameObject:
   - component: {fileID: 593377287}
   - component: {fileID: 593377286}
   - component: {fileID: 593377285}
+  - component: {fileID: 593377291}
   m_Layer: 0
   m_Name: HotSpotBot
   m_TagString: Untagged
@@ -10964,6 +10965,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: -74.79, z: 0}
+--- !u!114 &593377291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593377284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9c43b0ead7a47a04b8627fb634cc5109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gainTime: 4
 --- !u!1 &602355398
 GameObject:
   m_ObjectHideFlags: 0
@@ -12554,7 +12568,7 @@ PrefabInstance:
     - target: {fileID: 8229113543486007550, guid: f9a54c3a3d8483a4e9d539860230061a,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 150.99422
+      value: 150.99503
       objectReference: {fileID: 0}
     - target: {fileID: 8229113543372017479, guid: f9a54c3a3d8483a4e9d539860230061a,
         type: 3}
@@ -21037,6 +21051,21 @@ PrefabInstance:
       propertyPath: selfHeatDamage
       value: 0.2
       objectReference: {fileID: 0}
+    - target: {fileID: 890700867317299033, guid: 547ddc3cbf01def43b563e92bbf92185,
+        type: 3}
+      propertyPath: m_Name
+      value: Player_2
+      objectReference: {fileID: 0}
+    - target: {fileID: 789026075448811761, guid: 547ddc3cbf01def43b563e92bbf92185,
+        type: 3}
+      propertyPath: hypeText
+      value: 
+      objectReference: {fileID: 1692731284}
+    - target: {fileID: 4523779946775660979, guid: 547ddc3cbf01def43b563e92bbf92185,
+        type: 3}
+      propertyPath: m_FillAmount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1615002725, guid: 547ddc3cbf01def43b563e92bbf92185, type: 3}
       propertyPath: laserDamage
       value: 3
@@ -21049,11 +21078,6 @@ PrefabInstance:
       propertyPath: laserHypeToGain
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 789026075448811761, guid: 547ddc3cbf01def43b563e92bbf92185,
-        type: 3}
-      propertyPath: hypeText
-      value: 
-      objectReference: {fileID: 1692731284}
     - target: {fileID: 789026075448811763, guid: 547ddc3cbf01def43b563e92bbf92185,
         type: 3}
       propertyPath: basicAbilityButtonUI
@@ -21194,11 +21218,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 890700867317299033, guid: 547ddc3cbf01def43b563e92bbf92185,
-        type: 3}
-      propertyPath: m_Name
-      value: Player_2
       objectReference: {fileID: 0}
     - target: {fileID: 890700867975424225, guid: 547ddc3cbf01def43b563e92bbf92185,
         type: 3}
@@ -21410,11 +21429,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0.27744445
-      objectReference: {fileID: 0}
-    - target: {fileID: 4523779946775660979, guid: 547ddc3cbf01def43b563e92bbf92185,
-        type: 3}
-      propertyPath: m_FillAmount
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5439990493022599267, guid: 547ddc3cbf01def43b563e92bbf92185,
         type: 3}
@@ -32585,6 +32599,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 890700867317299033, guid: 547ddc3cbf01def43b563e92bbf92185,
+        type: 3}
+      propertyPath: m_Name
+      value: Player_1
+      objectReference: {fileID: 0}
     - target: {fileID: 890700867317299032, guid: 547ddc3cbf01def43b563e92bbf92185,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -32639,11 +32658,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 890700867317299033, guid: 547ddc3cbf01def43b563e92bbf92185,
-        type: 3}
-      propertyPath: m_Name
-      value: Player_1
       objectReference: {fileID: 0}
     - target: {fileID: 2232188774906680036, guid: 547ddc3cbf01def43b563e92bbf92185,
         type: 3}
@@ -32765,6 +32779,11 @@ PrefabInstance:
       propertyPath: CollisionModule.collidesWithDynamic
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8784534819710336434, guid: 547ddc3cbf01def43b563e92bbf92185,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6067487402872989588, guid: 547ddc3cbf01def43b563e92bbf92185,
         type: 3}
       propertyPath: m_RootOrder
@@ -32774,11 +32793,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8784534819710336434, guid: 547ddc3cbf01def43b563e92bbf92185,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 547ddc3cbf01def43b563e92bbf92185, type: 3}
@@ -33463,7 +33477,7 @@ MonoBehaviour:
   missable:
     serializedVersion: 2
     m_Bits: 2560
-  hype: {fileID: 47860722}
+  hype: {fileID: 1993863495}
 --- !u!1 &1823399904
 GameObject:
   m_ObjectHideFlags: 0
@@ -36582,6 +36596,18 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1991180610}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1993863495 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 789026075448811761, guid: 547ddc3cbf01def43b563e92bbf92185,
+    type: 3}
+  m_PrefabInstance: {fileID: 1173152327}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff5f17f286ddc4c29845b30cc5051567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1996493065
 GameObject:
   m_ObjectHideFlags: 0
