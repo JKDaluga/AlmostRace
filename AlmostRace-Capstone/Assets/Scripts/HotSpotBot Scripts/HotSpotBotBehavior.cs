@@ -40,21 +40,20 @@ public class HotSpotBotBehavior : MonoBehaviour
     public void SetPosition(Vector3 vehiclesPosition)
     {
         Node positionToPlace = branchNodes[0];
-        float distance = Vector3.Distance(branchNodes[0].Point.position, transform.position);
+        float distance = Vector3.Distance(branchNodes[0].Point.position, vehiclesPosition);
 
         for (int i = 0; i < branchNodes.Count; i++)
         {
-            if(distance > Vector3.Distance(branchNodes[i].Point.position, transform.position))
+            if(distance > Vector3.Distance(branchNodes[i].Point.position, vehiclesPosition))
             {
+                distance = Vector3.Distance(branchNodes[i].Point.position, vehiclesPosition);
                 positionToPlace = branchNodes[i];
             }
         }
-        //_splinePlusScript.SetProgress(positionToPlace.SpeedFactor);
+
+        Node pathPoint1 = SplinePlusAPI.CreateNode(_splinePlusScript.SPData, vehiclesPosition);
+        int branchKey = SplinePlusAPI.ConnectTwoNodes(_splinePlusScript.SPData, pathPoint1, positionToPlace);
+        _splinePlusScript.GoToNewBranch(branchKey);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
