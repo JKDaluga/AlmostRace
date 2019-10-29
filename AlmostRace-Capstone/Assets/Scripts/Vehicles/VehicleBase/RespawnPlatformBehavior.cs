@@ -53,8 +53,8 @@ public class RespawnPlatformBehavior : MonoBehaviour
     private void SpawnOnHotspot()
     {
         _hotSpotBotScript = HotSpotBotBehavior.instance;
-        _previousNode = _hotSpotBotScript.GetPreviousNode();
-        _nextNode = _hotSpotBotScript.GetNextNode();
+        //_previousNode = _hotSpotBotScript.GetPreviousNode();
+        //_nextNode = _hotSpotBotScript.GetNextNode();
 
         transform.position = new Vector3(_previousNode.position.x,
             _previousNode.position.y + spawnHeight, _previousNode.position.z);
