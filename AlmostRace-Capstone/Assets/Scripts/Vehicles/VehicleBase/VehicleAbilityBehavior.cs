@@ -55,6 +55,11 @@ public class VehicleAbilityBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!_vehicleInput.getStatus())
+        {
+            return;
+        }
+
         // Basic Ability Call
         checkFireAbility(basicAbility, _vehicleInput.basicAbilityInput, _canUseBasic, canHoldBasic);
         
