@@ -24,7 +24,18 @@ public class HotSpotBotBehavior : MonoBehaviour
 
         //SPData.Selection._BranchKey is the key of the currently selected branch in the editor,
         int n = _splinePlusScript.SPData.Selections._BranchKey;
-        branchNodes = _splinePlusScript.SPData.DictBranches[0].Nodes;
+        foreach (KeyValuePair<int, Branch> entry in _splinePlusScript.SPData.DictBranches)
+        {
+            // do something with entry.Value or entry.Key
+            for(int i = 0; i < entry.Value.Nodes.Count; i++)
+            {
+                if(!branchNodes.Contains(entry.Value.Nodes[i]))
+                {
+                    branchNodes.Add(entry.Value.Nodes[i]);
+                }
+            }
+        }
+       
     }
 
     public bool GetBeingHeld()
@@ -50,10 +61,11 @@ public class HotSpotBotBehavior : MonoBehaviour
                 positionToPlace = branchNodes[i];
             }
         }
-
-        Node pathPoint1 = SplinePlusAPI.CreateNode(_splinePlusScript.SPData, vehiclesPosition);
+        Node pathPoint1 = SplinePlusAPI.CreateNode(_splinePlusScript.SPData, vehiclesPosition + new Vector3(0,80,0));
         int branchKey = SplinePlusAPI.ConnectTwoNodes(_splinePlusScript.SPData, pathPoint1, positionToPlace);
+        
         _splinePlusScript.GoToNewBranch(branchKey);
+        _splinePlusScript.SPData.Followers[0].DistanceData.Index = branchKey;
     }
 
 }

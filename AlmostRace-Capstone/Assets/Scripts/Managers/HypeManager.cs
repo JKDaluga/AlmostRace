@@ -18,7 +18,7 @@ public class HypeManager : MonoBehaviour
     public List<GameObject> _vehicleList = new List<GameObject>();
     private Text[] _hypeAmountDisplay;
     public float maxHype; //Essentially a win condition
-
+    public Text winnerText;
     private void Awake()
     {
         HM = this;
@@ -83,6 +83,18 @@ public class HypeManager : MonoBehaviour
            // _hypeAmountDisplay[i].text = "Hype: " +
             entry.GetComponent<VehicleHypeBehavior>().GiveHypeAmount().ToString();
             i++;
+        }
+    }
+
+    private void checkWinCondition()
+    {
+        foreach(GameObject entry in _vehicleList)
+        {
+            if(entry.GetComponent<VehicleHypeBehavior>().GiveHypeAmount() >= maxHype)
+            {
+                Time.timeScale = 0.0f;
+                winnerText.text = "PLAYER " + entry.GetComponent<VehicleInput>().playerNumber + " WINS!";
+            }
         }
     }
 

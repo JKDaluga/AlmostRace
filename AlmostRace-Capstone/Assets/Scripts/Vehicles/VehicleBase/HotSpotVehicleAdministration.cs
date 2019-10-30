@@ -34,9 +34,9 @@ public class HotSpotVehicleAdministration : MonoBehaviour
     public void DropTheBot()
     {
         holdingTheBot = false;
-        HotSpotBotHeld.SetActive(true);
         HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetBeingHeld(false);
         HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetPosition(transform.position);
+        HotSpotBotHeld.SetActive(true);
         HotSpotBotHeld = null;
     }
 
