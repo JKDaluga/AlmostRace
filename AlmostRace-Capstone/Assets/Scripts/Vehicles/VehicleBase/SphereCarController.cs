@@ -81,6 +81,7 @@ public class SphereCarController : MonoBehaviour
         // If vehicle input is turned off don't listen to inputs
         if (!_vehicleInput.getStatus())
         {
+            tiltShift.blurArea = Mathf.Min(_maxBlurArea * (Mathf.Pow(currentSpeed, _blurScaling) / Mathf.Pow(topSpeed, _blurScaling)), 1);
             return;
         }
 
