@@ -38,6 +38,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     [Tooltip("Place UI element here.")]
     public Image signatureAbilityCooldown;
+    public GameObject signatureAbilityDark;
 
 
 
@@ -50,6 +51,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
     private void Awake()
     {
         _vehicleInput = GetComponent<VehicleInput>();
+        signatureAbilityDark.SetActive(false);
     }
 
     // Update is called once per frame
@@ -100,6 +102,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
             if (Input.GetButtonDown(abilityInput) && canFire && ability != null)
             {
                 signatureAbilityCooldown.fillAmount = 1;
+                signatureAbilityDark.SetActive(true);
                 ability.ActivateAbility();
                 return true;
             }
@@ -119,6 +122,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
             signatureAbilityCooldown.fillAmount = tempTime/abilityRecharge;
             yield return null;
         }
+        signatureAbilityDark.SetActive(false);
         _canUseSignature = true;
     }
 
