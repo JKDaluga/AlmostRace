@@ -9,6 +9,7 @@ public class Countdown : MonoBehaviour
     public int timeLeft = 3;
     private Text countText;
     private VehicleInput[] arrV;
+    private bool startStatus = true;
 
     void Start()    
     {
@@ -30,6 +31,7 @@ public class Countdown : MonoBehaviour
         }
 
         turnOff(true);
+        startStatus = false;
 
         gameObject.SetActive(false);
     }
