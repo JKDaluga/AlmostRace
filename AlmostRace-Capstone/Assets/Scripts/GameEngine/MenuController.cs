@@ -9,14 +9,13 @@ public class MenuController : MonoBehaviour
 {
     public GameObject pauseMenu;
     public Text winText;
-    //public GameObject countDown;
 
-    private VehicleInput[] arr;
+    private VehicleInput[] arrV;
 
 
     private void Start()
     {
-        arr = FindObjectsOfType<VehicleInput>();
+        arrV = FindObjectsOfType<VehicleInput>();
     }
 
     void Update()
@@ -57,7 +56,7 @@ public class MenuController : MonoBehaviour
 
     private void turnOff(bool stat)
     {
-        foreach (VehicleInput t in arr)
+        foreach (VehicleInput t in arrV)
         {
             t.setStatus(stat);
         }
