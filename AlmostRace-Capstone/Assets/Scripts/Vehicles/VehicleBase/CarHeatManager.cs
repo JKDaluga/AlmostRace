@@ -65,7 +65,10 @@ public class CarHeatManager : MonoBehaviour
     }
     private void Kill()
     {
-        GetComponent<HotSpotVehicleAdministration>().DropTheBot();
+        if (GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+        {
+            GetComponent<HotSpotVehicleAdministration>().DropTheBot();
+        }
         AudioManager.instance.Play("Death");
         _isDead = true;
         Instantiate(Resources.Load("explosion"), gameObject.transform.position, gameObject.transform.rotation);
