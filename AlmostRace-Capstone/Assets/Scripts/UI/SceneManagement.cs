@@ -14,16 +14,16 @@ public class SceneManagement : MonoBehaviour
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1f;
-        pauseMenu.SetActive(false);
-        winText.gameObject.SetActive(false);
+        if (pauseMenu != null) pauseMenu.SetActive(false);
+        if (winText != null) winText.gameObject.SetActive(false);
     }
 
     public void LoadSpecificScene(string sceneName)
     {
     	SceneManager.LoadScene(sceneName);
     	Time.timeScale = 1f;
-        pauseMenu.SetActive(false);
-        winText.gameObject.SetActive(false);
+        if(pauseMenu != null) pauseMenu.SetActive(false);
+        if (winText != null) winText.gameObject.SetActive(false);
     }
 
     public void Quit()
