@@ -6,6 +6,8 @@ public class HotSpotVehicleAdministration : MonoBehaviour
 {
     public bool holdingTheBot;
     private GameObject HotSpotBotHeld;
+    public float initialHypeGain, gradualHypeGain, hypeWaitTime;
+    private float hypeTimer;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +22,16 @@ public class HotSpotVehicleAdministration : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             DropTheBot();
+        }
+
+        if (holdingTheBot)
+        {
+            hypeTimer += Time.deltaTime;
+            if(hypeTimer >= hypeWaitTime)
+            {
+                HypeGain(gradualHypeGain);
+                hypeTimer = 0;
+            }
         }
     }
 
@@ -48,7 +60,15 @@ public class HotSpotVehicleAdministration : MonoBehaviour
             && !holdingTheBot && HotSpotBotHeld == null)
             {
                 HoldTheBot(other.gameObject);
+                GetComponent<CarHeatManager>().heatCurrent = 0;
+                HypeGain(initialHypeGain);
+                hypeTimer = 0;
             }
         }
+    }
+
+    void HypeGain(float added)
+    {
+        GetComponent<VehicleHypeBehavior>().AddHype(added);
     }
 }
