@@ -6,7 +6,7 @@ public class HotSpotBotBehavior : MonoBehaviour
 {
     public float moveSpeed;
     public static HotSpotBotBehavior instance;
-    public List<Node> branchNodes;
+    private List<Node> branchNodes;
     private SplinePlus _splinePlusScript;
     private bool _beingHeld;
 
@@ -21,9 +21,7 @@ public class HotSpotBotBehavior : MonoBehaviour
     {
         _splinePlusScript = GameObject.Find("HotSpotSpline").GetComponent<SplinePlus>();
         _splinePlusScript.SetSpeed(moveSpeed);
-
-        //SPData.Selection._BranchKey is the key of the currently selected branch in the editor,
-        int n = _splinePlusScript.SPData.Selections._BranchKey;
+        
         foreach (KeyValuePair<int, Branch> entry in _splinePlusScript.SPData.DictBranches)
         {
             // do something with entry.Value or entry.Key

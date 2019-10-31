@@ -14,7 +14,6 @@ public class RespawnPlatformBehavior : MonoBehaviour
 {
     [Tooltip("Amount of seconds it takes for the respawn cycle of the vehicle")] public int respawnSeconds;
     [Tooltip("Amount of height off the ground the platform spawns at")] public float spawnHeight;
-    [Tooltip("If on, ignore game mode and spawn above random enemy vehcile")] public bool spawnOnEnemy;
     private HotSpotBotBehavior _hotSpotBotScript;
     private HypeManager _hypeManagerScript;
     private GameObject _playerObject;
@@ -25,6 +24,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
     private Transform _nextNode;
     private bool _movingCollider;
     private bool _movingCar;
+    private bool _spawnOnEnemy;
 
     // Start is called before the first frame update
     void Start()
@@ -34,13 +34,17 @@ public class RespawnPlatformBehavior : MonoBehaviour
             _hypeManagerScript = HypeManager.HM;
         }
         
-        if (HotSpotBotBehavior.instance != null && !spawnOnEnemy)
+        if (HotSpotBotBehavior.instance != null)
         {
-            SpawnOnHotspot();
-        }
-        else if (spawnOnEnemy && _hypeManagerScript._vehicleList.Count > 1)
-        {
-            SpawnOnEnemies();
+            _hotSpotBotScript = HotSpotBotBehavior.instance;
+            if(_hotSpotBotScript.GetBeingHeld())
+            {
+                SpawnOnEnemy();
+            }
+            else
+            {
+                SpawnOnHotspot();
+            }
         }
         else
         {
@@ -49,39 +53,35 @@ public class RespawnPlatformBehavior : MonoBehaviour
         StartCoroutine(RespawnSequence());
     }
 
-    // If there is a hotspot in the map place the platform at the proper position and rotation behind the hotspot
+    // If no one has the hotspot in the map place the platform at the proper position and rotation behind the hotspot
     private void SpawnOnHotspot()
     {
-        _hotSpotBotScript = HotSpotBotBehavior.instance;
-        //_previousNode = _hotSpotBotScript.GetPreviousNode();
-        //_nextNode = _hotSpotBotScript.GetNextNode();
+        Transform bot = GameObject.Find("HotSpotBot").transform;
 
-        transform.position = new Vector3(_previousNode.position.x,
-            _previousNode.position.y + spawnHeight, _previousNode.position.z);
-
-        transform.LookAt(new Vector3(_nextNode.position.x,
-            transform.position.y, _nextNode.position.z));
+        transform.position = new Vector3(bot.position.x, bot.position.y + spawnHeight, bot.position.z);
+        transform.LookAt(new Vector3(bot.position.x, transform.position.y, bot.position.z));
     }
 
-    // If spawn on others place the platform at the proper position and rotation above an enemy
-    // For testing only?
-    private void SpawnOnEnemies()
+    // Place the platform at the proper position and rotation above the enemy with the hotspot
+    private void SpawnOnEnemy()
     {
-        do
+        for(int i = 0; i < _hypeManagerScript._vehicleList.Count; i++)
         {
-            _otherVehicle = _hypeManagerScript._vehicleList
-                [Random.Range(0,_hypeManagerScript._vehicleList.Count)];
+            if (_hypeManagerScript._vehicleList[i].GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+            {
+                _otherVehicle = _hypeManagerScript._vehicleList[i];
+            }
         }
-        while (_otherVehicle == _playerObject);
 
         transform.position = new Vector3(_otherVehicle.transform.position.x,
             _otherVehicle.transform.position.y + spawnHeight, _otherVehicle.transform.position.z);
 
+        _spawnOnEnemy = true;
         transform.LookAt(new Vector3(_otherVehicle.transform.position.x,
             transform.position.y, _otherVehicle.transform.position.z));
     }
 
-    // If there is no hotspot and not spawn on enemies spawn the vehicle at its death location
+    // If there is no hotspot spawn the vehicle at its death location
     private void SpawnOnSelf()
     {
         transform.position = new Vector3(_playerObject.transform.position.x,
@@ -94,7 +94,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
         // Move the vehicle collider and the model to the platform position
         if (_movingCollider)
         {
-            if (spawnOnEnemy)
+            if (_spawnOnEnemy)
             {
                 transform.LookAt(new Vector3(_otherVehicle.transform.position.x,
                     transform.position.y, _otherVehicle.transform.position.z));
