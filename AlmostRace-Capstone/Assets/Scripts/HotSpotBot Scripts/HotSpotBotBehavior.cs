@@ -19,7 +19,7 @@ public class HotSpotBotBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _splinePlusScript = GameObject.Find("Spline plus").GetComponent<SplinePlus>();
+        _splinePlusScript = GameObject.Find("HotSpotSpline").GetComponent<SplinePlus>();
         _splinePlusScript.SetSpeed(moveSpeed);
 
         //SPData.Selection._BranchKey is the key of the currently selected branch in the editor,
