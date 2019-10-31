@@ -369,8 +369,8 @@ GameObject:
   - component: {fileID: 8447175210821411510}
   - component: {fileID: 2323304361835896}
   - component: {fileID: 5524551858585904626}
-  - component: {fileID: 5461717865661419499}
   - component: {fileID: 6403223517959016241}
+  - component: {fileID: 2280357531516124063}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -598,19 +598,6 @@ MonoBehaviour:
     pitchVariance: 0
     loop: 0
     source: {fileID: 0}
---- !u!114 &5461717865661419499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8447175210821411507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e37e6c24f5304de2b916d3e3049dcb7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pausePanel: {fileID: 8204487031573093328}
 --- !u!114 &6403223517959016241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -623,6 +610,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f8dea6b84604c92aa101bb0ec39cab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 8204487031573093328}
+--- !u!114 &2280357531516124063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8447175210821411507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f4bd37862606d841819061d4532b4a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseMenu: {fileID: 8204487031573093328}
 --- !u!1001 &4889572372164296797
 PrefabInstance:
   m_ObjectHideFlags: 0

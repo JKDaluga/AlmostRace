@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour
 {
     public GameObject pauseMenu;
-    public GameObject gameOver;
     //public GameObject countDown;
 
     private VehicleInput[] arr;
@@ -16,8 +15,6 @@ public class MenuController : MonoBehaviour
     private void Start()
     {
         arr = FindObjectsOfType<VehicleInput>();
-        //Debug.Log(arr);        
-        StartCoroutine(countDown(3));
     }
 
     void Update()
@@ -44,11 +41,14 @@ public class MenuController : MonoBehaviour
     {
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
     }
 
     public void mainMenu()
     {
         SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
     }
 
     private void turnOff(bool stat)
@@ -56,25 +56,6 @@ public class MenuController : MonoBehaviour
         foreach (VehicleInput t in arr)
         {
             t.setStatus(stat);
-
         }
-    }
-
-    IEnumerator countDown(int seconds)
-    {
-        turnOff(false);
-        int count = seconds;
-
-        while (count > 0)
-        {
-            Debug.Log(count);
-            // display something...
-            yield return new WaitForSeconds(1);
-            count--;
-        }
-
-        // count down is finished...
-        //StartGame();
-        turnOff(true);  
     }
 }

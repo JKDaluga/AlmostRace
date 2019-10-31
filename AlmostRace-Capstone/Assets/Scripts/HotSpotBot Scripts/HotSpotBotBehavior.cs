@@ -6,14 +6,13 @@ public class HotSpotBotBehavior : MonoBehaviour
 {
     public float moveSpeed;
     public static HotSpotBotBehavior instance;
-    private List<Node> branchNodes;
+    private List<Node> branchNodes = new List<Node>();
     private SplinePlus _splinePlusScript;
     private bool _beingHeld;
 
     private void Awake()
     {
         instance = this;
-
     }
 
     // Start is called before the first frame update
