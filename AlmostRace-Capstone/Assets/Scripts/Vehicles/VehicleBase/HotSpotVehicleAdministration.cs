@@ -18,12 +18,6 @@ public class HotSpotVehicleAdministration : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // For testing
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            DropTheBot();
-        }
-
         if (holdingTheBot)
         {
             hypeTimer += Time.deltaTime;

@@ -28,7 +28,7 @@ public class DriftingBonus : MonoBehaviour
     //Holder for the multiplied hype amount
     float finalHype;
 
-    SphereCarController car;
+    public SphereCarController car;
 
     private void Start()
     {
@@ -62,7 +62,7 @@ public class DriftingBonus : MonoBehaviour
             startDrift = true;
             if (safeDrift)
             {
-                finalHype = hypeToAdd * hypeMultiplier;
+                finalHype =Mathf.Floor( hypeToAdd * hypeMultiplier);
                 car.gameObject.GetComponent<VehicleHypeBehavior>().AddHype(finalHype);
                 safeDrift = false;
             }

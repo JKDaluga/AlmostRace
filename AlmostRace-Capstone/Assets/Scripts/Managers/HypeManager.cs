@@ -56,7 +56,7 @@ public class HypeManager : MonoBehaviour
 
         // Put in descending order
         _vehicleList.Reverse();
-
+        checkWinCondition();
       //  UIupdate();
     }
 
@@ -94,6 +94,7 @@ public class HypeManager : MonoBehaviour
             {
                 Time.timeScale = 0.0f;
                 winnerText.text = "PLAYER " + entry.GetComponent<VehicleInput>().playerNumber + " WINS!";
+                winnerText.gameObject.SetActive(true);
             }
         }
     }

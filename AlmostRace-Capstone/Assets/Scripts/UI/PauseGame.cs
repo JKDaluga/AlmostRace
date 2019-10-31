@@ -21,13 +21,8 @@ public class PauseGame : MonoBehaviour
         	}
         	else
         	{
-        		Time.timeScale = 0;
+        		Time.timeScale = 0; 
         	}
-        }
-
-        if(pausePanel.activeSelf == false)
-        {
-        	Time.timeScale = 1;
         }
     }
 }

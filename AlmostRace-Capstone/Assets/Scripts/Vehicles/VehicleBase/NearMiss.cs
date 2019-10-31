@@ -35,8 +35,6 @@ public class NearMiss : MonoBehaviour
 
         closecall = Physics.SphereCastAll(transform.position, 5, transform.position, 10, missable);
 
-        Debug.Log(closecall.Length);
-
         //If the objects detected by "CloseCall" aren't in nearHits or Hits, add them to nearHits;
         for (int i = 0; i < closecall.Length; i++)
         {

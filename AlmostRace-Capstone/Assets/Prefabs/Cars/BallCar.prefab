@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 641384620}
   - component: {fileID: 641384622}
   - component: {fileID: 2048040180542796253}
+  - component: {fileID: 7391195651187390220}
   m_Layer: 8
   m_Name: Car
   m_TagString: Vehicle
@@ -158,6 +159,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5, y: 1, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7391195651187390220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481683610354487727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e71782f70c48043d7bb995e2d8ae2e5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdingTheBot: 0
+  initialHypeGain: 50
+  gradualHypeGain: 5
+  hypeWaitTime: 1
 --- !u!1 &481683610514310998
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,6 +266,8 @@ GameObject:
   - component: {fileID: 481683610739934988}
   - component: {fileID: 481683610739934991}
   - component: {fileID: 1443822405799785145}
+  - component: {fileID: 8489526172502105742}
+  - component: {fileID: 7595087966674669794}
   m_Layer: 9
   m_Name: Collider
   m_TagString: Vehicle
@@ -313,6 +332,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   car: {fileID: 481683610354487725}
   weight: 5
+  hypeToAdd: 5
+--- !u!114 &8489526172502105742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481683610739934985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82b894d3306a68d45b9d7f3eee97ca9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  safeDrift: 0
+  startDrift: 0
+  hypeToAdd: 10
+  hypeMultiplier: 0
+  car: {fileID: 481683610354487725}
+--- !u!114 &7595087966674669794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481683610739934985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f786f82be0b2104799aa29fb179496a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nearHits: []
+  hits: []
+  missable:
+    serializedVersion: 2
+    m_Bits: 2560
+  hype: {fileID: 641384620}
 --- !u!1 &481683611327776958
 GameObject:
   m_ObjectHideFlags: 0
