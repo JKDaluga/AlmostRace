@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*Last Edited by Robyn, 10/30, Added hype generation to script*/
+
 public class CarCollision : MonoBehaviour
 {
 
     public SphereCarController car;
     private float _invulTime = 0f;
     public float weight;
+
+    public float hypeToAdd = 5;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -38,7 +43,9 @@ public class CarCollision : MonoBehaviour
                 float percentDamage = Vector3.Project(relativePosition.normalized, rb.velocity.normalized).magnitude;
                 float damage = percentDamage * weight * relativeVelocity.magnitude;
                 otherCarHeat.heatCurrent += damage;
+                car.GetComponent<VehicleHypeBehavior>().AddHype(hypeToAdd);
             }
         }
+
     }
 }
