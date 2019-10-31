@@ -58,7 +58,8 @@ public class RespawnPlatformBehavior : MonoBehaviour
     {
         Transform bot = GameObject.Find("HotSpotBot").transform;
 
-        transform.position = new Vector3(bot.position.x, bot.position.y + spawnHeight, bot.position.z);
+        transform.position = new Vector3(_playerObject.transform.position.x,
+            _playerObject.transform.position.y + spawnHeight, _playerObject.transform.position.z);
         transform.LookAt(new Vector3(bot.position.x, transform.position.y, bot.position.z));
     }
 
