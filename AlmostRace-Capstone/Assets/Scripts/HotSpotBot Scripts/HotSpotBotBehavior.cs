@@ -20,7 +20,7 @@ public class HotSpotBotBehavior : MonoBehaviour
     {
         _splinePlusScript = GameObject.Find("HotSpotSpline").GetComponent<SplinePlus>();
         _splinePlusScript.SetSpeed(moveSpeed);
-        
+        _splinePlusScript.SPData.Followers[0].Reverse = true;
         foreach (KeyValuePair<int, Branch> entry in _splinePlusScript.SPData.DictBranches)
         {
             // do something with entry.Value or entry.Key

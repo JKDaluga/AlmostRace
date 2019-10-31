@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class MenuController : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public Text winText;
     //public GameObject countDown;
 
     private VehicleInput[] arr;
@@ -42,6 +44,7 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
+        winText.gameObject.SetActive(false);
     }
 
     public void mainMenu()
@@ -49,6 +52,7 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
+        winText.gameObject.SetActive(false);
     }
 
     private void turnOff(bool stat)

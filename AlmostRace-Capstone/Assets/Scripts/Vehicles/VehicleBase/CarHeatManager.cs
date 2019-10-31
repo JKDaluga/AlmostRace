@@ -29,24 +29,8 @@ public class CarHeatManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))//for testing, heats up car
+        if(Input.GetAxis(_vehicleInput.respawn) > 0 && _vehicleInput.getStatus() && !GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
         {
-            heatCurrent = 110f;
-            Time.timeScale = 0f;
-        }
-        else if (Input.GetKeyDown(KeyCode.N)) // for testing, cools down car
-        {
-            heatCurrent = 0f;
-        }
-        else if (Input.GetKeyDown(KeyCode.Y))
-        {
-            heatCurrent = 120f;
-            Time.timeScale = 1f;
-        }
-
-        if(Input.GetAxis(_vehicleInput.respawn) > 0)
-        {
-            Debug.Log("Respawn should have happened");
             Teleport();
         }
 
@@ -79,10 +63,9 @@ public class CarHeatManager : MonoBehaviour
         }
 
     }
-
-
     private void Kill()
     {
+        GetComponent<HotSpotVehicleAdministration>().DropTheBot();
         AudioManager.instance.Play("Death");
         _isDead = true;
         Instantiate(Resources.Load("explosion"), gameObject.transform.position, gameObject.transform.rotation);
@@ -97,7 +80,6 @@ public class CarHeatManager : MonoBehaviour
 
     public void Respawn()
     {
-
         _canTeleport = true;
         heatCurrent = 0;
         _isDead = false;
