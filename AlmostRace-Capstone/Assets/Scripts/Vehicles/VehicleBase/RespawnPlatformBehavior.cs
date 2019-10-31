@@ -33,8 +33,8 @@ public class RespawnPlatformBehavior : MonoBehaviour
         {
             _hypeManagerScript = HypeManager.HM;
         }
-        
-        if (HotSpotBotBehavior.instance != null)
+
+        /*if (HotSpotBotBehavior.instance != null)
         {
             _hotSpotBotScript = HotSpotBotBehavior.instance;
             if(_hotSpotBotScript.GetBeingHeld())
@@ -49,16 +49,47 @@ public class RespawnPlatformBehavior : MonoBehaviour
         else
         {
             SpawnOnSelf();
+        }*/
+
+        if (HotSpotBotBehavior.instance.GetBeingHeld())
+        {
+            if (_playerObject.GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+            {
+                
+                _playerObject.GetComponent<HotSpotVehicleAdministration>().DropTheBot();
+                Debug.Log("Self");
+                SpawnFacingHotSpot();
+            }
+            else
+            {
+                Debug.Log("Enemy");
+                SpawnOnEnemy();
+            }
         }
+        else
+        {
+            Debug.Log("Bot");
+            SpawnOnHotspot();
+        }
+
         StartCoroutine(RespawnSequence());
     }
 
     // If no one has the hotspot in the map place the platform at the proper position and rotation behind the hotspot
-    private void SpawnOnHotspot()
+    private void SpawnFacingHotSpot()
     {
         Transform bot = GameObject.Find("HotSpotBot").transform;
 
         transform.position = new Vector3(_playerObject.transform.position.x,
+            _playerObject.transform.position.y + spawnHeight, _playerObject.transform.position.z);
+        transform.LookAt(new Vector3(bot.position.x, transform.position.y, bot.position.z));
+    }
+
+    private void SpawnOnHotspot()
+    {
+        Transform bot = GameObject.Find("HotSpotBot").transform;
+
+        transform.position = new Vector3(bot.position.x,
             _playerObject.transform.position.y + spawnHeight, _playerObject.transform.position.z);
         transform.LookAt(new Vector3(bot.position.x, transform.position.y, bot.position.z));
     }

@@ -32,7 +32,8 @@ public class HotSpotBotBehavior : MonoBehaviour
                 }
             }
         }
-       
+
+        SetBeingHeld(false);
     }
 
     public bool GetBeingHeld()

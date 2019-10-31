@@ -65,10 +65,7 @@ public class CarHeatManager : MonoBehaviour
     }
     private void Kill()
     {
-        if (GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
-        {
-            GetComponent<HotSpotVehicleAdministration>().DropTheBot();
-        }
+        
         AudioManager.instance.Play("Death");
         _isDead = true;
         Instantiate(Resources.Load("explosion"), gameObject.transform.position, gameObject.transform.rotation);
@@ -79,6 +76,7 @@ public class CarHeatManager : MonoBehaviour
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, sphereCollider, modelHolder);
         sphereCollider.GetComponent<Rigidbody>().useGravity = false;
         sphereCollider.GetComponent<Rigidbody>().isKinematic = true;
+
     }
 
     public void Respawn()
