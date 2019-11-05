@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
     /*
     Author: Jake Velicer
@@ -21,20 +22,29 @@ public class HypeManager : MonoBehaviour
     public Text winnerText;
     private void Awake()
     {
-        HM = this;
+        if(HM == null) HM = this;
+        else
+        {
+            HM._vehicleList.Clear();
+            HM.SetUpDisplay();
+        }
     }
+
+    private void SetUpDisplay()
+    {
+        HM._hypeAmountDisplay = new Text[HM._vehicleList.Count];
+        for (int i = 0; i < HM._hypeAmountDisplay.Length; i++)
+        {
+            HM._hypeAmountDisplay[i] = GameObject.Find("HypeDisplay" + (i + 1)).GetComponent<Text>();
+        }
+
+        //HM.BeginningVehicleSort();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-       
-        _hypeAmountDisplay = new Text[_vehicleList.Count];
-
-        for(int i = 0; i < _hypeAmountDisplay.Length; i++)
-        {
-            _hypeAmountDisplay[i] = GameObject.Find("HypeDisplay" + (i + 1)).GetComponent<Text>();
-        }
-
-        BeginningVehicleSort();
+        
     }
 
     // Called to add the given vehicle to the vehicle list
