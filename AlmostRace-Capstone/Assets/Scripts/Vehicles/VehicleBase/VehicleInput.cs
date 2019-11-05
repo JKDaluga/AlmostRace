@@ -72,6 +72,8 @@ public class VehicleInput : MonoBehaviour
             _signatureAbilityName = "SignatureAbility" + _inputNum[playerNumber - 1] + "Mac";
             _pickupAbilityName = "Pickup" + _inputNum[playerNumber - 1] + "Mac";
             _respawn = "Respawn" +  _inputNum[playerNumber - 1] + "Mac";
+            _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1] + "Mac";
+            _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1] + "Mac";
 #endif
     }
 
