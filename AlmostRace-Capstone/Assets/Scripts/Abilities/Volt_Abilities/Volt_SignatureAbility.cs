@@ -10,6 +10,12 @@ public class Volt_SignatureAbility : Ability
      * passed down to the missiles, their explosions, and the lightning clouds they spawn. All variables are visible here so
      * that designers don't have to search across multiple objects and prefabs to set values.
      */
+
+    /*
+     * Edited by Robyn Riley 11/5/19
+     * Added functionality to make missiles fire in direction camera is facing
+     */
+
     [Header("Missile Info")]
 
     [Tooltip("Put missile here.")]
@@ -68,6 +74,11 @@ public class Volt_SignatureAbility : Ability
         spawnedMissile1.GetComponent<Volt_LightningMissile>().SetMissileCloudInfo(lightningCloudDuration, lightningCloudGrowthRate, lightningCloudGrowthAmount, lightningCloudMaxSize, lightningCloudHypeToGain);
         spawnedMissile2.GetComponent<Volt_LightningMissile>().SetMissileCloudInfo(lightningCloudDuration, lightningCloudGrowthRate, lightningCloudGrowthAmount, lightningCloudMaxSize, lightningCloudHypeToGain);
         spawnedMissile3.GetComponent<Volt_LightningMissile>().SetMissileCloudInfo(lightningCloudDuration, lightningCloudGrowthRate, lightningCloudGrowthAmount, lightningCloudMaxSize, lightningCloudHypeToGain);
+
+        //Set starting rotation to camera direction
+        spawnedMissile1.transform.LookAt(GetComponent<SphereCarController>().aimPos.transform);
+        spawnedMissile2.transform.LookAt(GetComponent<SphereCarController>().aimPos.transform);
+        spawnedMissile3.transform.LookAt(GetComponent<SphereCarController>().aimPos.transform);
 
         //rotate missile 2 and 3 to form a fan attack.
         spawnedMissile2.transform.Rotate(0, sideMissileOffset, 0);

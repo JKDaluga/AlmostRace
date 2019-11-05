@@ -34,6 +34,12 @@ public class VehicleInput : MonoBehaviour
     public string pickupInput { get {return _pickupAbilityName; } }
     private string _pickupAbilityName;
 
+    public string rightHorizontal { get { return _rightHorizontalName; } }
+    private string _rightHorizontalName;
+
+    public string rightVertical { get { return _rightVerticalName; } }
+    private string _rightVerticalName;
+
     public string respawn { get { return _respawn; } }
     private string _respawn;
 
@@ -53,6 +59,8 @@ public class VehicleInput : MonoBehaviour
             _signatureAbilityName = "SignatureAbility" + _inputNum[playerNumber - 1];
             _pickupAbilityName = "Pickup" + _inputNum[playerNumber - 1];
             _respawn = "Respawn" + _inputNum[playerNumber - 1];
+            _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1];
+            _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1];
 #endif
 
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX

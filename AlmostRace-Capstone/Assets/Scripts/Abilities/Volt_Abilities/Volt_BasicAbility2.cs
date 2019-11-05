@@ -8,6 +8,11 @@ using UnityEngine;
      */
 
 
+/*
+ * Edited by Robyn Riley 11/5/19
+ * Added functionality to make missiles fire in direction camera is facing
+ */
+
 
 
 public class Volt_BasicAbility2 : BasicAbility
@@ -88,6 +93,11 @@ public class Volt_BasicAbility2 : BasicAbility
         if(_canFireLaser)
         {
             AudioManager.instance.Play("Blaster1");
+            foreach(Transform i in laserMuzzles)
+            {
+                i.LookAt(GetComponent<SphereCarController>().aimPos.transform);
+            }
+
             GameObject laser = Instantiate(laserBolt, laserMuzzles[_currentMuzzle].position, laserMuzzles[_currentMuzzle].rotation);
             _voltLaserBoltInfo = laser.GetComponent<Volt_LaserBolt>();
             _voltLaserBoltInfo.SetImmunePlayer(gameObject);

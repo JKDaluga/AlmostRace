@@ -51,9 +51,9 @@ public class SphereCarController : MonoBehaviour
     private float _boostSpeed;
 
     [Header("Drift Ability")]
-   // public Image driftButton;
-   // public Sprite driftSpriteUp;
-   // public Sprite driftSpriteDown;
+    // public Image driftButton;
+    // public Sprite driftSpriteUp;
+    // public Sprite driftSpriteDown;
 
     [Header("Drift Particles")]
     public GameObject leftDriftParticles;
@@ -64,6 +64,10 @@ public class SphereCarController : MonoBehaviour
 
     [Header("Temporary Sound Stuff")]
     public AudioSource driftSound;
+
+    //Added by Robyn Riley 11/5/19
+    //A gameobject Childed to the ModelHolder. Controls camera and aiming direction
+    public GameObject aimPos;
 
     //Call allowing vehicle to take input from player
     private void Start()
@@ -178,7 +182,7 @@ public class SphereCarController : MonoBehaviour
         {
             return;
         }
-
+        
         //Applies force in appropriate direction based on drifting
         if (!_drifting)
         { 
