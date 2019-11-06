@@ -40,6 +40,9 @@ public class VehicleInput : MonoBehaviour
     public string rightVertical { get { return _rightVerticalName; } }
     private string _rightVerticalName;
 
+    public string rightStickButton { get { return _rightStickButtonName; } }
+    private string _rightStickButtonName;
+
     public string respawn { get { return _respawn; } }
     private string _respawn;
 
@@ -61,6 +64,7 @@ public class VehicleInput : MonoBehaviour
             _respawn = "Respawn" + _inputNum[playerNumber - 1];
             _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1];
             _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1];
+            _rightStickButtonName = "RightStickButton" + _inputNum[playerNumber - 1];
 #endif
 
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX

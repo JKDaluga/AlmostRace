@@ -9,22 +9,47 @@ using UnityEngine;
 
 public class SwivelCamera : MonoBehaviour
 {
-    public float horiz;
-    public float vert;
+    float horiz;
+    float vert;
 
+    public float turnTime = 100;
 
     public VehicleInput _vehicleInput;
 
-    private void Start()
-    {
-       // _vehicleInput = GetComponentInParent<VehicleInput>();
-    }
+    bool rearFacing = false;
+
+    private Vector3 velocity = Vector3.zero;
 
     private void FixedUpdate()
     {
         //If players are actively pushing the right joystick, sets the camera angles appropriately
         //Otherwise, allows players to face and aim forward
-        if (Mathf.Abs( Input.GetAxis(_vehicleInput.rightHorizontal)) > .3f  || Mathf.Abs(Input.GetAxis(_vehicleInput.rightVertical)) > .3f)
+
+        //When the rightJoystick button is pressed, make the camera face backwards
+        if (Input.GetButtonDown(_vehicleInput.rightStickButton))
+        {
+            Debug.Log("hit");
+            rearFacing = true;
+        }
+        //when released, reset the camera
+        if (Input.GetButtonUp(_vehicleInput.rightStickButton))
+        {
+            rearFacing = false;
+            Vector3 target = transform.parent.parent.eulerAngles;
+
+            transform.parent.rotation = Quaternion.Euler(target);
+        }
+
+        if (rearFacing)
+        {
+            Vector3 target = new Vector3(transform.parent.eulerAngles.x, transform.parent.parent.eulerAngles.y - 180, transform.parent.eulerAngles.z);
+
+            transform.parent.rotation = Quaternion.Euler(target);
+        } 
+
+
+        //if a direction is pushed on the right joystick, find the respective angle, and smoothly rotate the camera to the new position
+        if (Mathf.Abs(Input.GetAxis(_vehicleInput.rightHorizontal)) > .3f || Mathf.Abs(Input.GetAxis(_vehicleInput.rightVertical)) > .3f)
         {
 
             horiz = -Input.GetAxis(_vehicleInput.rightHorizontal);
@@ -32,11 +57,20 @@ public class SwivelCamera : MonoBehaviour
 
             float angle = Mathf.Atan2(horiz, vert) * Mathf.Rad2Deg;
 
+            Vector3 target = new Vector3(transform.parent.eulerAngles.x, transform.parent.parent.eulerAngles.y - angle, transform.parent.eulerAngles.z);
 
-            transform.parent.eulerAngles = new Vector3(transform.parent.eulerAngles.x, transform.parent.parent.eulerAngles.y - angle, transform.parent.eulerAngles.z);
-        } else
-        {
-            transform.parent.eulerAngles = transform.parent.parent.eulerAngles;
+            if (transform.parent.rotation != Quaternion.Euler(target))
+            {
+                transform.parent.rotation = Quaternion.RotateTowards(transform.parent.rotation, Quaternion.Euler(target), turnTime * Time.deltaTime);
+            }
         }
+        //if No direction is pressed, set the camera behind the player again.
+        else
+        {
+            Vector3 target = transform.parent.parent.eulerAngles;
+
+            transform.parent.rotation = Quaternion.RotateTowards(transform.parent.rotation, Quaternion.Euler(target), turnTime * Time.deltaTime);
+        }
+
     }
 }
