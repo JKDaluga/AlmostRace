@@ -24,20 +24,20 @@ public class MenuController : MonoBehaviour
         {
             if (pauseMenu.activeSelf == true)
             {
-                //if (Countdown.activeSelf == false)
-                //{
-                 //   turnOff(true);
-                //}
+                if (Countdown.activeSelf == false)
+                {
+                    turnOff(true);
+                }
                 Time.timeScale = 1f;
                 pauseMenu.SetActive(false);
             }
             else
             {
                 turnOff(false);
-                /*if (Countdown.activeSelf == false)
+                if (Countdown.activeSelf == false)
                 {
                     turnOff(false);
-                }*/
+                }
                 Time.timeScale = 0f;
                 pauseMenu.SetActive(true);
 
