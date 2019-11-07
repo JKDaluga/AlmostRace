@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
     /*
     Author: Jake Velicer
@@ -22,7 +23,7 @@ public class VehicleHypeBehavior : MonoBehaviour
     
     private HypeManager _hypeManagerScript;
     public float _hypeAmount;
-    public Text hypeText;
+    public TextMeshProUGUI hypeText;
 
     void Start()
     {

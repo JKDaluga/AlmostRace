@@ -38,7 +38,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     [Tooltip("Place UI element here.")]
     public Image signatureAbilityCooldown;
-    public GameObject signatureAbilityDarkSprite;
     public GameObject signatureAbilityDark;
 
 
@@ -63,15 +62,19 @@ public class VehicleAbilityBehavior : MonoBehaviour
             return;
         }
 
-        // Basic Ability Call
-        checkFireAbility(basicAbility, _vehicleInput.basicAbilityInput, _canUseBasic, canHoldBasic);
-        
-        // Signature Ability Call
-        if (checkFireAbility(signatureAbility, _vehicleInput.signatureAbilityInput, _canUseSignature, canHoldSignature))
+        if(basicAbility != null && signatureAbility != null) //placed here just so that the BallCar prefab doesn't throw nulls
         {
-            _canUseSignature = false;
-            StartCoroutine(AbilityCooldown());
+            // Basic Ability Call
+            checkFireAbility(basicAbility, _vehicleInput.basicAbilityInput, _canUseBasic, canHoldBasic);
+
+            // Signature Ability Call
+            if (checkFireAbility(signatureAbility, _vehicleInput.signatureAbilityInput, _canUseSignature, canHoldSignature))
+            {
+                _canUseSignature = false;
+                StartCoroutine(AbilityCooldown());
+            }
         }
+   
 
         // Pickup Ability Call
         if (Input.GetButtonDown(_vehicleInput.pickupInput) && pickup != null)

@@ -64,7 +64,7 @@ public class SphereCarController : MonoBehaviour
 
     [Header("Temporary Sound Stuff")]
     public AudioSource driftSound;
-
+    [Header("Camera Stuff")]
     //Added by Robyn Riley 11/5/19
     //A gameobject Childed to the ModelHolder. Controls camera and aiming direction
     public GameObject aimPos;
@@ -74,8 +74,14 @@ public class SphereCarController : MonoBehaviour
     {
         //AudioManager.instance.Play("Engine");
         _vehicleInput = GetComponent<VehicleInput>();
-        leftDriftParticles.SetActive(false);
-        rightDriftParticles.SetActive(false);
+
+
+        if (leftDriftParticles != null && rightDriftParticles != null) //placed here just so that the BallCar prefab doesn't throw nulls
+        {
+            leftDriftParticles.SetActive(false);
+            rightDriftParticles.SetActive(false);
+        }
+            
         
     }
 
@@ -116,17 +122,33 @@ public class SphereCarController : MonoBehaviour
             //Checks necessary conditions for drifting to happen
             if (Input.GetButtonDown(_vehicleInput.brake) && !_drifting && Input.GetAxis(_vehicleInput.horizontal) != 0)
             {
-                driftSound.Play();
+                if (driftSound != null) //placed here just so that the BallCar prefab doesn't throw nulls
+                {
+                    driftSound.Play();
+                }
+               
                 _drifting = true;
                 _driftDirection = Input.GetAxis(_vehicleInput.horizontal) > 0 ? 1 : -1;
-                if(_driftDirection == 1)
+
+
+                if(leftDriftParticles != null && rightDriftParticles != null) //placed here just so that the BallCar prefab doesn't throw nulls
                 {
-                    leftDriftParticles.SetActive(true);
+                    if (_driftDirection == 1)
+                    {
+                        leftDriftParticles.SetActive(true);
+                    }
+                    else if (_driftDirection == -1)
+                    {
+                        rightDriftParticles.SetActive(true);
+                    }
                 }
-                else if(_driftDirection == -1)
+                else
                 {
-                    rightDriftParticles.SetActive(true);
+                    //placed here just so that the BallCar prefab doesn't throw nulls
+                    //Delete this later
+                    Debug.Log("Drift Particles are null, please assign them!");
                 }
+                
             }
             if (_drifting)
             {
@@ -143,10 +165,17 @@ public class SphereCarController : MonoBehaviour
             }          
             else
             {
-                driftSound.Stop();
-               // driftButton.sprite = driftSpriteUp;
-                leftDriftParticles.SetActive(false);
-                rightDriftParticles.SetActive(false);
+                if(driftSound!=null)  //placed here just so that the BallCar prefab doesn't throw nulls
+
+                {
+                    driftSound.Stop();
+                }
+                // driftButton.sprite = driftSpriteUp;
+                if (leftDriftParticles != null && rightDriftParticles != null) //placed here just so that the BallCar prefab doesn't throw nulls
+                {
+                    leftDriftParticles.SetActive(false);
+                    rightDriftParticles.SetActive(false);
+                }
                 Steer(dir, amount);
             }
                 
@@ -172,7 +201,14 @@ public class SphereCarController : MonoBehaviour
         //Motion Blur for car speed right now 7 and 10 are the magic numbers for the effect we are looking for
         tiltShift.blurArea = Mathf.Min(_maxBlurArea * (Mathf.Pow(currentSpeed, _blurScaling) / Mathf.Pow(topSpeed, _blurScaling)), 1);
 
-        speedometerImage.fillAmount = currentSpeed / topSpeed; //Speedometer code
+        if(speedometerImage != null)
+        {
+            speedometerImage.fillAmount = currentSpeed / topSpeed; //Speedometer code
+        }
+        else
+        {
+            //remove this once UI gets replaced
+        }
     }
 
     private void FixedUpdate()
