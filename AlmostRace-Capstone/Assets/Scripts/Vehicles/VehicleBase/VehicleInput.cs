@@ -91,4 +91,9 @@ public class VehicleInput : MonoBehaviour
     {
         activeStatus = act;
     }
+
+    public int getPlayerNum()
+    {
+        return playerNumber;
+    }
 }
