@@ -25,12 +25,20 @@ public class Volt_LaserBolt : MonoBehaviour
 
         _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _laserSpeed) + _immunePlayerVelocity;
         _speed = _rigidBody.velocity.magnitude;
+        Invoke("CleanUp", 7.5f);
     }
 
     public void FixedUpdate()
     {
         _rigidBody.velocity = transform.forward * _speed;
         //_rigidBody.velocity += _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
+        
+    }
+
+
+    private void CleanUp()
+    {
+        Destroy(this.gameObject);
     }
 
     public void SetImmunePlayer(GameObject immunePlayer)
