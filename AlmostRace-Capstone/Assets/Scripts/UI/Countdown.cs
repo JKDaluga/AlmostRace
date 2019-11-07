@@ -9,6 +9,7 @@ public class Countdown : MonoBehaviour
     public int timeLeft = 3;
     private Text countText;
     private VehicleInput[] arrV;
+    private bool startStatus = true;
 
     void Start()    
     {
@@ -22,20 +23,16 @@ public class Countdown : MonoBehaviour
 
         turnOff(false);
 
-        while (count >= 0)
+        while (count > 0)
         {
-            if(count == 0)
-            {
-                countText.text = "GO!";
-                turnOff(true);
-            }
-            else
-            {
-                countText.text = count.ToString();
-            }
+            countText.text = count.ToString();
             yield return new WaitForSeconds(1);
             count--;
         }
+
+        turnOff(true);
+        startStatus = false;
+
         gameObject.SetActive(false);
     }
 

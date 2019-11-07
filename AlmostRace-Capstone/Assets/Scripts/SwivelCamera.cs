@@ -28,6 +28,7 @@ public class SwivelCamera : MonoBehaviour
         //When the rightJoystick button is pressed, make the camera face backwards
         if (Input.GetButtonDown(_vehicleInput.rightStickButton))
         {
+            Debug.Log("hit");
             rearFacing = true;
         }
         //when released, reset the camera
