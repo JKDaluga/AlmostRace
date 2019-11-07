@@ -89,7 +89,7 @@ public class CarHeatManager : MonoBehaviour
         GetComponent<VehicleAbilityBehavior>().enabled = true;
         sphereCollider.GetComponent<Rigidbody>().useGravity = true;
         sphereCollider.GetComponent<Rigidbody>().isKinematic = false;
-        BasicAbility bAbility = GetComponent<BasicAbility>();
+        HeatAbility bAbility = GetComponent<HeatAbility>();
         if (bAbility != null)
         {
             bAbility.DeactivateAbility();

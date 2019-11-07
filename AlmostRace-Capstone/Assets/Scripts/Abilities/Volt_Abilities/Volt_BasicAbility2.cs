@@ -4,18 +4,14 @@ using UnityEngine;
 /*
  Author: Eddie Borissov
  Purpose: Handles the Volt's long range quad laser cannons.
-     
-     */
-
+*/
 
 /*
  * Edited by Robyn Riley 11/5/19
  * Added functionality to make missiles fire in direction camera is facing
  */
 
-
-
-public class Volt_BasicAbility2 : BasicAbility
+public class Volt_BasicAbility2 : HeatAbility
 {
 
     public GameObject laserBolt;
@@ -52,7 +48,6 @@ public class Volt_BasicAbility2 : BasicAbility
     {
         _currentMuzzle = 1;
         carHeatInfo = gameObject.GetComponent<CarHeatManager>();
-       
     }
 
     private IEnumerator LaserCooldown()

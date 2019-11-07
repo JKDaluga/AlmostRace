@@ -12,12 +12,10 @@ using UnityEngine;
  */
 
 
-public class VoidWasp_BasicAbility : BasicAbility
+public class VoidWasp_BasicAbility : HeatAbility
 {
-
     private int _originalPhysicsLayer; // The physics layer that the car initially has.
     private int _voidStepPhysicsLayer = 10; // The physics layer that allows the car to pass through things
-   
 
     [Header("Basic Ability Variables")]
 

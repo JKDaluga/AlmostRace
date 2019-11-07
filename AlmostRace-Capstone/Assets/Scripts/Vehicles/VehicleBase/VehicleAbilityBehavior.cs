@@ -14,7 +14,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
 {
     [Header ("Basic Ability")]
     [Tooltip("Basic Ability Script Slot")]
-    public BasicAbility basicAbility;
+    public HeatAbility basicAbility;
     [Tooltip("Determines if the basic ability input can be held down")]
     public bool canHoldBasic;
     private bool _canUseBasic = true;

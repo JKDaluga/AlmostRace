@@ -9,10 +9,7 @@ using UnityEngine;
      
      */
 
-
-
-
-public class Volt_BasicAbility : BasicAbility
+public class Volt_BasicAbility : HeatAbility
 {
 
     public GameObject lightningCone;

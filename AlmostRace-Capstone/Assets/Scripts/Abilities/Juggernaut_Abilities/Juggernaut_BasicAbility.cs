@@ -5,7 +5,7 @@ using UnityEngine;
  * Eddie B. && Leo C.
  * This script handles the Juggernaut's Drill basic ability.
  */
-public class Juggernaut_BasicAbility : BasicAbility
+public class Juggernaut_BasicAbility : HeatAbility
 {
     [Header("Movement Variables Affected")]
     public SphereCarController sphereCarScript;

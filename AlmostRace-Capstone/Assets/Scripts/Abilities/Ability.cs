@@ -14,10 +14,22 @@ public abstract class Ability : MonoBehaviour
     }
 }
 
-public abstract class BasicAbility : Ability
+public abstract class CooldownAbility : Ability
+{
+    protected float cooldown;
+}
+
+public abstract class HeatAbility : Ability
 {
     protected CarHeatManager carHeatInfo;
     [Tooltip("How much damage is done to the player every X seconds")] public float selfHeatDamage;
     protected abstract void AddHeat();
-  
+}
+
+public abstract class CooldownHeatAbility : Ability
+{
+    protected CarHeatManager carHeatInfo;
+    [Tooltip("How much damage is done to the player every X seconds")] public float selfHeatDamage;
+    protected abstract void AddHeat();
+    protected float cooldown;
 }
