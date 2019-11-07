@@ -4,7 +4,8 @@ using UnityEngine;
 
 /*
  * Mike Romeo 06/11/2019
- * Functionality for destuctable boulder that the player can shoot at. 
+ * Functionality for destuctable boulder that the player can shoot at
+ * or collide with. 
  */
 
 public class DestructableBoulderBehaviour : MonoBehaviour
