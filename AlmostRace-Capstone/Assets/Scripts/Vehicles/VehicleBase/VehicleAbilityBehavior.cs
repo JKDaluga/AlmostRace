@@ -38,6 +38,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     [Tooltip("Place UI element here.")]
     public Image signatureAbilityCooldown;
+    public GameObject signatureAbilityDarkSprite;
     public GameObject signatureAbilityDark;
 
 
