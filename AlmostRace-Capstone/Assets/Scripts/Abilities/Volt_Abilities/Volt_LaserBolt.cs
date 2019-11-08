@@ -22,6 +22,7 @@ public class Volt_LaserBolt : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+     
         _rigidBody = gameObject.GetComponent<Rigidbody>();
         _immunePlayerVelocity = _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
 
@@ -67,6 +68,8 @@ public class Volt_LaserBolt : MonoBehaviour
         else if(other.gameObject != _immunePlayer && other.gameObject.GetComponent<Interactable>() != null)
         {//Checks if the object isn't the immunePlayer and if they are an interactable object.
             other.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
+           
+            Destroy(gameObject);
         }
 
         if (_isAlive)
