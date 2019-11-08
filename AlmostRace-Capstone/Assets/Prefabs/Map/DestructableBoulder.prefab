@@ -93,10 +93,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26e6503fd044974cbfd14f9b7eec7b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rockHealth: 1
-  damage: 1
-  carDamage: 20
-  boulderParticles: {fileID: 8645489304624053215}
+  canBeDamaged: 0
+  interactableHealth: 0
+  ramDamage: 20
+  slowDownAmount: 20
+  boulderParticles: {fileID: 8645489304624053186}
   deathSound: {fileID: 8300000, guid: fd136a9291bacef47a457e93de2a6b90, type: 3}
 --- !u!54 &737287558
 Rigidbody:
@@ -177,7 +178,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8645489304624053184
 Transform:
   m_ObjectHideFlags: 0
@@ -216,7 +217,7 @@ ParticleSystem:
   ringBufferLoopRange: {x: 0, y: 1}
   looping: 0
   prewarm: 0
-  playOnAwake: 1
+  playOnAwake: 0
   useUnscaledTime: 0
   autoRandomSeed: 1
   useRigidbodyForVelocity: 1

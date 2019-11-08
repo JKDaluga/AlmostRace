@@ -8,22 +8,21 @@ using UnityEngine;
  * or collide with. 
  */
 
-public class DestructableBoulderBehaviour : MonoBehaviour
+public class DestructableBoulderBehaviour : Interactable
 {
 
-    [Tooltip("Set Destuctable Boulder total amount of health")]
-    public int rockHealth = 100;
 
-    [Tooltip("Amount of damage the boulder can take")]
-    public int damage = 20;
 
     [Tooltip("Amount of damage it does to the vehicle")]
-    public int carDamage = 20;
+    public int ramDamage = 20;
+
+    [Tooltip("Amount that ramming the boulder slows the player")]
+    public float slowDownFactor = 4;
 
     [Tooltip("Attach boulder particle effect")]
-    public GameObject boulderParticles;
+    public ParticleSystem boulderParticles;
 
-    private Renderer rend;
+    private MeshRenderer rend;
     private Collider coll;
 
     [Tooltip("A reference to destruction sound")]
@@ -32,51 +31,56 @@ public class DestructableBoulderBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        rend = this.GetComponent<Renderer>();
+        rend = this.GetComponent<MeshRenderer>();
         coll = this.GetComponent<Collider>();
         rend.enabled = true;
         coll.enabled = true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        // Disable every thing after health hits 0 and play particle effect.
-        if(rockHealth <= 0)
-        {
-            boulderParticles.SetActive(true);
-            rend.enabled = false;
-            coll.enabled = false;
-
-            AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
-
-            Invoke("KillBoulder", 3);
-        }
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
-        if (!collision.gameObject.CompareTag("Untagged"))
+
+        if (collision.gameObject.GetComponent<CarHeatManager>() != null)
         {
 
-            if (collision.gameObject.CompareTag("Vehicle"))
+            TriggerInteractable();
+            collision.gameObject.GetComponent<CarHeatManager>().AddHeat(ramDamage);
+            if (collision.gameObject.GetComponent<SphereCarController>() != null)
             {
-                if (collision.gameObject.GetComponent<CarHeatManager>() != null)
-                {
-                    Debug.Log(collision.gameObject);
-                    collision.gameObject.GetComponent<CarHeatManager>().AddHeat(carDamage);
-                }
+                collision.gameObject.GetComponent<SphereCarController>().currentSpeed -= 
+                    (collision.gameObject.GetComponent<SphereCarController>().currentSpeed/slowDownFactor);
             }
-
-            rockHealth -= damage;
         }
-       
     }
 
-    private void KillBoulder()
+    public override void TriggerInteractable()
     {
-        // kill the container of this parent
+        boulderParticles.Play();
+        rend.enabled = false;
+        coll.enabled = false;
+
+        AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
+
+        Invoke("DestroyInteractable", boulderParticles.main.duration);
+    }
+
+    public override void DestroyInteractable()
+    {
+
         Destroy(transform.parent.gameObject);
     }
 
+    public override void ResetInteractable()
+    {
+        //Do not need
+    }
+
+    public override void DamageInteractable(float damageNumber)
+    {
+        interactableHealth -= damageNumber;
+        if (interactableHealth <= 0)
+        {
+            TriggerInteractable();
+        }
+    }
 }
