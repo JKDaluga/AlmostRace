@@ -39,4 +39,6 @@ public abstract class Interactable : MonoBehaviour
     /// Interactable health value.
     /// </summary>
     public float interactableHealth;
+
+    public GameObject interactingPlayer;
 }

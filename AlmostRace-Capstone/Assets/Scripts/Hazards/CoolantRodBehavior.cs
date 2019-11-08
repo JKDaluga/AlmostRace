@@ -9,6 +9,10 @@ public class CoolantRodBehavior : Interactable
  
     [Tooltip("How long it takes for a new Coolant Rod to appear")]
     public float coolantRodCooldown = 5f;
+
+    [Tooltip("How much hype to add to player that destroys the Coolant Rod")]
+    public float coolantExplosionHype = 100f; 
+
     private float _originalHealth;
 
     [Space(30)]
@@ -31,14 +35,18 @@ public class CoolantRodBehavior : Interactable
     public float coolantLineDamage = 5f;
     public float coolantLineRate = .25f;
 
+    [Tooltip("Hype gained by damaging others with coolant fire.")]
+    public float fireDamageHype;
+    [Tooltip("Hype gained by killing others with coolant fire.")]
+    public float fireKillHype;
+
     public void Start()
     {
         _originalHealth = interactableHealth;
         canBeDamaged = true;
         foreach (CoolantLineBehavior coolantLine in coolantLines)
         {
-            Debug.Log("Initialize Coolant Line was activated on: " + coolantLine.gameObject.name);
-            coolantLine.InitializeCoolantLine(coolantLineDuration, coolantLineDamage, coolantLineRate);
+            coolantLine.InitializeCoolantLine(coolantLineDuration, coolantLineDamage, coolantLineRate, fireDamageHype, fireKillHype);
         }
     }
 
@@ -68,10 +76,10 @@ public class CoolantRodBehavior : Interactable
     public override void TriggerInteractable()
     {
         coolantExplosion.Play();
+        interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(coolantExplosionHype);
         foreach (CoolantLineBehavior coolantLine in coolantLines)
         {
-            Debug.Log("Activate Coolant Line was activated on: " + coolantLine.gameObject.name);
-            coolantLine.ActivateCoolantLine();
+            coolantLine.ActivateCoolantLine(interactingPlayer);
             //Coolant lines disable themselves based on the duration passed in their initialization method.
         }
     }
@@ -106,6 +114,10 @@ public class CoolantRodBehavior : Interactable
             {
                 TriggerInteractable();
                 DestroyInteractable();
+                if(interactingPlayer != null)
+                {
+
+                }
             }
         }
     }

@@ -15,7 +15,10 @@ public class CoolantLineBehavior : MonoBehaviour
     private float _duration;
     private float _coolantDamage;
     private float _coolantDamageRate;
+    private float _fireKillHype;
+    private float _fireDamageHype;
     private Collider _coolantCollider;
+    private GameObject _interactingPlayer;//the player that activated this object initially.
     private MeshRenderer _renderer;
     public ParticleSystem fireWallParticle;
     private List<CarHeatManager> _carsDamaged;
@@ -34,20 +37,22 @@ public class CoolantLineBehavior : MonoBehaviour
     /// <param name="duration">How long the coolant line remains on fire</param>
     /// <param name="coolantDamage">How much damage the coolant line does when active.</param>
     /// <param name="coolantDamageRate">How often damage is dealt to cars.</param>
-    public void InitializeCoolantLine(float duration, float coolantDamage, float coolantDamageRate)
+    public void InitializeCoolantLine(float duration, float coolantDamage, float coolantDamageRate, float fireDamageHype, float fireKillHype)
     {
+        _fireKillHype = fireKillHype;
+        _fireDamageHype = fireDamageHype;
         _duration = duration;
         _coolantDamage = coolantDamage;
         _coolantDamageRate = coolantDamageRate;
     }
-    
+
     /// <summary>
     /// Activates the coolant line and makes it deadly.
     /// </summary>
-    public void ActivateCoolantLine()
+    public void ActivateCoolantLine(GameObject interactingPlayer)
     {
-        Debug.Log("Activate Coolant Line was activated on: " + gameObject.name);
-       // fireWallParticle.Play();
+        _interactingPlayer = interactingPlayer;
+        fireWallParticle.Play();
         _coolantCollider.enabled = true;
         _renderer.enabled = true;
         Invoke("DeactivateCoolantLine", _duration);
@@ -55,7 +60,7 @@ public class CoolantLineBehavior : MonoBehaviour
 
     public void DeactivateCoolantLine()
     {
-        //fireWallParticle.Stop();
+        fireWallParticle.Stop();
         _coolantCollider.enabled = false;
         _renderer.enabled = false;
     }
@@ -64,9 +69,11 @@ public class CoolantLineBehavior : MonoBehaviour
     {
         if(other.gameObject.GetComponent<CarHeatManager>() != null)
         {//Checks if a car passes through. 
+            Debug.Log("Car Detected by fire!");
             _carsDamaged.Add(other.gameObject.GetComponent<CarHeatManager>()); //Adds car to damage.
             if(_carsDamaged.Count == 1)
             {//If this is the first car added to the list, assume that cars aren't being damaged, start the invoke repeating.
+               
                 InvokeRepeating("DamageCars", 0, _coolantDamageRate);
             }
         }
@@ -86,13 +93,23 @@ public class CoolantLineBehavior : MonoBehaviour
     {
         if(_carsDamaged.Count > 0)//Make sure _carsDamaged isn't empty.
         {
-            foreach(CarHeatManager car in _carsDamaged)
+            foreach (CarHeatManager car in _carsDamaged)
             {
-                if(car.heatCurrent > 0) //Make sure car is alive.
+                if(!car.isDead) //Make sure car is alive.
                 {
-                    car.heatCurrent -= _coolantDamage; //Damage car.
+                    car.heatCurrent += _coolantDamage; //Damage car.
+                    if(!_interactingPlayer.Equals(car.gameObject))
+                    {                
+                        //rewards instigating player with hype for damaging other cars
+                        _interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(_fireDamageHype);
+                    }
                     if(car.heatCurrent <= 0) //See if car was killed by the damage.
                     {
+                        if (!_interactingPlayer.Equals(car.gameObject))
+                        {
+                            //rewards instigating player with hype for killing other cars
+                            _interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(_fireKillHype);
+                        }
                         _carsDamaged.Remove(car);// If a car is killed, remove it from the list of cars being damaged.
                     }
                 }
