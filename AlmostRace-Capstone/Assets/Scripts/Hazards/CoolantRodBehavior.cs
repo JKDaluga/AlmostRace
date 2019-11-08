@@ -4,20 +4,22 @@ using UnityEngine;
 
 public class CoolantRodBehavior : Interactable
 {
-    [Header("Coolant Rod Variables")]
+    [Header("Coolant Rod Variables............................................................")]
+    [Space(30)]
     public ParticleSystem coolantExplosion;
- 
+
     [Tooltip("How long it takes for a new Coolant Rod to appear")]
     public float coolantRodCooldown = 5f;
 
     [Tooltip("How much hype to add to player that destroys the Coolant Rod")]
-    public float coolantExplosionHype = 100f; 
+    public float coolantExplosionHype = 100f;
 
     private float _originalHealth;
 
-    [Space(30)]
 
-    [Header("Animation Variables")]
+
+    [Header("Animation Variables............................................................")]
+    [Space(30)]
     [Tooltip("How far up the Rod can go.")]
     public Transform topLimit;
     [Tooltip("How far down the Rod can go.")]
@@ -27,9 +29,10 @@ public class CoolantRodBehavior : Interactable
     [Tooltip("How often the Rod slides.")]
     public float slideRate = .1f;
     private int slideDirection = 1; // 1 for up, -1 for down
-    [Space(30)]
+    
 
-    [Header("Coolant Line Variables")]
+    [Header("Coolant Line Variables............................................................")]
+    [Space(30)]
     public List<CoolantLineBehavior> coolantLines;
     public float coolantLineDuration = 3f;
     public float coolantLineDamage = 5f;
@@ -52,12 +55,12 @@ public class CoolantRodBehavior : Interactable
 
     public void SlideRod()
     {
-        if(gameObject.transform.localPosition.y > topLimit.localPosition.y) //Checks if the Rod went too high. Corrects if it did.
+        if (gameObject.transform.localPosition.y > topLimit.localPosition.y) //Checks if the Rod went too high. Corrects if it did.
         {
             //Corrects position
             gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, topLimit.localPosition.y, (gameObject.transform.localPosition.z));
             //Stops slide
-            CancelInvoke("SlideRod"); 
+            CancelInvoke("SlideRod");
         }
         else if (gameObject.transform.localPosition.y < bottomLimit.localPosition.y)
         {
@@ -70,7 +73,6 @@ public class CoolantRodBehavior : Interactable
         {
             gameObject.transform.Translate(0, slideAmount * slideDirection, 0);
         }
-           
     }
 
     public override void TriggerInteractable()
@@ -90,19 +92,14 @@ public class CoolantRodBehavior : Interactable
         slideDirection = 1;
         InvokeRepeating("SlideRod", 0, slideRate); //make the rod go up
         interactableHealth = _originalHealth;
-
-
     }
 
     public override void DestroyInteractable()
     {
-
         canBeDamaged = false;//make rod not damagable
         slideDirection = -1;
         InvokeRepeating("SlideRod", 0, slideRate);//make coolant rod go into the ground
         Invoke("ResetInteractable", coolantRodCooldown);
-
-
     }
 
     public override void DamageInteractable(float damageNumber)
@@ -110,13 +107,13 @@ public class CoolantRodBehavior : Interactable
         if (canBeDamaged)
         {
             interactableHealth -= damageNumber;
-            if(interactableHealth <= 0)
+            if (interactableHealth <= 0)
             {
                 TriggerInteractable();
                 DestroyInteractable();
-                if(interactingPlayer != null)
+                if (interactingPlayer != null)
                 {
-
+                    interactingPlayer = null; // Resets interactingPlayer, just in case. Might have to reset for fire too, not sure yet.   
                 }
             }
         }
