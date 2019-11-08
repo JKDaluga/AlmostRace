@@ -61,6 +61,10 @@ public class Volt_LaserBolt : MonoBehaviour
            _immunePlayerScript.AddHype(_laserHype);
             Destroy(gameObject);
         }
+        else if(other.gameObject != _immunePlayer && other.gameObject.GetComponent<Interactable>() != null)
+        {//Checks if the object isn't the immunePlayer and if they are an interactable object.
+            other.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
+        }
         else if(other.gameObject != _immunePlayer)
         {
             Destroy(gameObject);
