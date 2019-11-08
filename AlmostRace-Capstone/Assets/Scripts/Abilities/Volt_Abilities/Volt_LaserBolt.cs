@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Volt_LaserBolt : MonoBehaviour
 {
+    public GameObject sparkEffect;
+    public MeshRenderer meshRenderer;
+    public Light pointLight;
     private GameObject _immunePlayer;
     private Vector3 _immunePlayerVelocity;
     private float _speed;
@@ -14,8 +17,7 @@ public class Volt_LaserBolt : MonoBehaviour
     private float _laserDamage;
     private float _laserSpeed;
     private float _laserHype;
-
-    
+    private bool _isAlive;
   
     // Start is called before the first frame update
     void Start()
@@ -55,6 +57,7 @@ public class Volt_LaserBolt : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHeatManager>() != null)
         {//Checks if the object isn't the immunePlayer and if they are a car.
             other.gameObject.GetComponent<CarHeatManager>().AddHeat(_laserDamage);
@@ -65,9 +68,33 @@ public class Volt_LaserBolt : MonoBehaviour
         {//Checks if the object isn't the immunePlayer and if they are an interactable object.
             other.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
         }
-        else if(other.gameObject != _immunePlayer)
+
+        if (_isAlive)
+
         {
-            Destroy(gameObject);
+            if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHeatManager>() != null)
+            {//Checks if the object isn't the immunePlayer and if they are a car.
+                other.gameObject.GetComponent<CarHeatManager>().AddHeat(_laserDamage);
+            _immunePlayerScript.AddHype(_laserHype);
+                StartCoroutine(ExplosionEffect());
+            }
+            else if(other.gameObject != _immunePlayer)
+            {
+                StartCoroutine(ExplosionEffect());
+            }
         }
+    }
+
+    private IEnumerator ExplosionEffect()
+    {
+        _isAlive = false;
+        _rigidBody.velocity = Vector3.zero;
+        _rigidBody.useGravity = false;
+        _rigidBody.isKinematic = true;
+        meshRenderer.enabled = false;
+        pointLight.enabled = false;
+        sparkEffect.SetActive(true);
+        yield return new WaitForSeconds(sparkEffect.GetComponent<ParticleSystem>().main.duration);
+        Destroy(gameObject);
     }
 }
