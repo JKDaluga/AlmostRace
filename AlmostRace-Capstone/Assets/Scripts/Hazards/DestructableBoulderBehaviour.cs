@@ -10,22 +10,22 @@ using UnityEngine;
 
 public class DestructableBoulderBehaviour : Interactable
 {
-
-
-
-    [Tooltip("Amount of damage it does to the vehicle")]
+    [Tooltip("Amount of damage it does to the vehicle.")]
     public int ramDamage = 20;
 
-    [Tooltip("Amount that ramming the boulder slows the player")]
+    [Tooltip("Amount of hype gained by destroying the boulder.")]
+    public float boulderDestroyedHype = 50f;
+
+    [Tooltip("Amount that ramming the boulder slows the player.")]
     public float slowDownFactor = 4;
 
-    [Tooltip("Attach boulder particle effect")]
+    [Tooltip("Attach boulder particle effect.")]
     public ParticleSystem boulderParticles;
 
     private MeshRenderer rend;
     private Collider coll;
 
-    [Tooltip("A reference to destruction sound")]
+    [Tooltip("A reference to destruction sound.")]
     public AudioClip deathSound;
 
     // Start is called before the first frame update
@@ -42,7 +42,7 @@ public class DestructableBoulderBehaviour : Interactable
 
         if (collision.gameObject.GetComponent<CarHeatManager>() != null)
         {
-
+            interactingPlayer = collision.gameObject; // sets the person crashing with the boulder as the interacting player
             TriggerInteractable();
             collision.gameObject.GetComponent<CarHeatManager>().AddHeat(ramDamage);
             if (collision.gameObject.GetComponent<SphereCarController>() != null)
@@ -55,6 +55,7 @@ public class DestructableBoulderBehaviour : Interactable
 
     public override void TriggerInteractable()
     {
+        interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(boulderDestroyedHype);
         boulderParticles.Play();
         rend.enabled = false;
         coll.enabled = false;
@@ -66,7 +67,6 @@ public class DestructableBoulderBehaviour : Interactable
 
     public override void DestroyInteractable()
     {
-
         Destroy(transform.parent.gameObject);
     }
 
@@ -80,6 +80,7 @@ public class DestructableBoulderBehaviour : Interactable
         interactableHealth -= damageNumber;
         if (interactableHealth <= 0)
         {
+           
             TriggerInteractable();
         }
     }
