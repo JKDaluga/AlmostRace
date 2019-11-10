@@ -3,27 +3,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ Eddie B
+
+    Simple script for the flame pillars. They are meant to be a one hit kill and hyper lethal.
+    Activated only after a turret is destroyed.
+     
+     */
+
 public class TurretFirePillarBehavior : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private Collider pillarCollider;
+    public ParticleSystem pillarParticles;
+
+    private void Start()
     {
-        
+        pillarCollider = gameObject.GetComponent<Collider>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Activate()
     {
-        
+        pillarCollider.enabled = true;
+        pillarParticles.Play();
     }
 
-    internal void Activate()
+    public void Deactivate()
     {
-        throw new NotImplementedException();
+        pillarCollider.enabled = false;
+        pillarParticles.Stop();
     }
 
-    internal void Deactivate()
+    private void OnTriggerEnter(Collider other)
     {
-        throw new NotImplementedException();
+        if(other.gameObject.GetComponent<CarHeatManager>() != null)
+        { //If a car runs into the flame pillar, blow up that car.
+            other.gameObject.GetComponent<CarHeatManager>().AddHeat(other.gameObject.GetComponent<CarHeatManager>().heatExplodeLimit);
+        }
     }
+
 }

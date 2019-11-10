@@ -63,7 +63,7 @@ public class TurretBehavior : Interactable
         _turretCollider = gameObject.GetComponent<Collider>();
         _originalHealth = interactableHealth;
         canBeDamaged = true;
-
+        turretFirePillar.Deactivate();
         _turretSound = gameObject.GetComponent<AudioSource>();
     }
 
@@ -113,17 +113,27 @@ public class TurretBehavior : Interactable
         _turretSound.PlayOneShot(turretRespawnSound); //play respawn sound
         turretFirePillar.Deactivate();//deactivate fire pillar
         interactableHealth = _originalHealth;//reset health
+        CancelInvoke("AimTurret");//stop aiming
+        CancelInvoke("FireTurret");//stop firing
     }
 
     public override void TriggerInteractable()
     {
-        //start aiming at target
-        //start shooting at target
+        InvokeRepeating("AimTurret", 0, turretAimRate);//start aiming at target
+        InvokeRepeating("FireTurret", 0, turretFireRate);//start shooting at target
     }
 
     public void AimTurret()
     {
-        turretHead.LookAt(currentTarget.transform.position);//look at current target
+        if(currentTarget != null)
+        {
+            turretHead.LookAt(currentTarget.transform.position);//look at current target
+        }
+        else
+        {
+            CancelInvoke("AimTurret");//stop aiming
+            CancelInvoke("FireTurret");//stop firing
+        }
     }
     public void FireTurret()
     {
