@@ -17,7 +17,7 @@ public class CarHeatManager : MonoBehaviour
     public float cooldownAmount = 1f;
     public float respawnSecs = 3f;
     public float cooldownFrequency = 2f;
-    private bool _isDead;
+    public bool isDead;
     private VehicleInput _vehicleInput;
     private bool _canTeleport = true;
 
@@ -34,7 +34,7 @@ public class CarHeatManager : MonoBehaviour
             Teleport();
         }
 
-        if (!_isDead)
+        if (!isDead)
         {
             if (heatCurrent > heatExplodeLimit)
             {
@@ -67,7 +67,7 @@ public class CarHeatManager : MonoBehaviour
     {
         
         AudioManager.instance.Play("Death");
-        _isDead = true;
+        isDead = true;
         Instantiate(Resources.Load("explosion"), gameObject.transform.position, gameObject.transform.rotation);
         DeathFade.GetComponent<Animator>().Play("DeathFadeIn");
         GetComponent<SphereCarController>().enabled = false;
@@ -83,7 +83,7 @@ public class CarHeatManager : MonoBehaviour
     {
         _canTeleport = true;
         heatCurrent = 0;
-        _isDead = false;
+        isDead = false;
         DeathFade.GetComponent<Animator>().Play("DeathFadeOut");
         GetComponent<SphereCarController>().enabled = true;
         GetComponent<VehicleAbilityBehavior>().enabled = true;
@@ -104,7 +104,7 @@ public class CarHeatManager : MonoBehaviour
         {
             AudioManager.instance.Play("Teleport");
             _canTeleport = false;
-            _isDead = true;
+            isDead = true;
             Instantiate(Resources.Load("Teleport"), gameObject.transform.position, gameObject.transform.rotation);
             DeathFade.GetComponent<Animator>().Play("DeathFadeIn");
             GetComponent<SphereCarController>().enabled = false;
