@@ -96,7 +96,7 @@ public class Volt_BasicAbility2 : HeatAbility
             GameObject laser = Instantiate(laserBolt, laserMuzzles[_currentMuzzle].position, laserMuzzles[_currentMuzzle].rotation);
             _voltLaserBoltInfo = laser.GetComponent<Volt_LaserBolt>();
             _voltLaserBoltInfo.SetImmunePlayer(gameObject);
-            _voltLaserBoltInfo.SetLaserDamage(laserDamage, laserSpeed, laserHypeToGain);
+            _voltLaserBoltInfo.SetLaserInfo(laserDamage, laserSpeed, laserHypeToGain);
             _canFireLaser = false;
             StartCoroutine(LaserCooldown());
             if (_currentMuzzle == (laserMuzzles.Count - 1) || _currentMuzzle == 0)

@@ -29,18 +29,7 @@ public class Volt_LaserBolt : MonoBehaviour
         _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _laserSpeed) + _immunePlayerVelocity;
         _speed = _rigidBody.velocity.magnitude;
 
-        Invoke("CleanUp", 7.0f);
-    }
-
-    /*public void FixedUpdate()
-    {
-        _rigidBody.velocity = transform.forward * _speed;
-        //_rigidBody.velocity += _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
-    }*/
-
-    private void CleanUp()
-    {
-        Destroy(gameObject);
+        Destroy(gameObject, 7.0f);
     }
 
     public void SetImmunePlayer(GameObject immunePlayer)
@@ -49,7 +38,7 @@ public class Volt_LaserBolt : MonoBehaviour
         _immunePlayerScript = _immunePlayer.GetComponent<VehicleHypeBehavior>();
     }
 
-    public void SetLaserDamage(float laserDamage, float laserSpeed, float laserHype)
+    public void SetLaserInfo(float laserDamage, float laserSpeed, float laserHype)
     {
         _laserDamage = laserDamage;
         _laserSpeed = laserSpeed;

@@ -12,6 +12,7 @@ public class TurretBehavior : Interactable
 {
     private Collider _turretCollider;
     private float _originalHealth;
+    public GameObject aggroObject;
 
     [Header("Combat Variables............................................................")]
     public GameObject currentTarget;
@@ -49,7 +50,7 @@ public class TurretBehavior : Interactable
     public AudioClip turretFiringSound;
     public AudioClip turretExplosionSound;
     public ParticleSystem turretRespawnParticles;
-    public AudioClip turretRespawnSound;
+    //public AudioClip turretRespawnSound;
 
 
 
@@ -87,6 +88,7 @@ public class TurretBehavior : Interactable
     {
         canBeDamaged = false;
         _turretCollider.enabled = false;//turn off collider to not block projectiles and vfx
+        aggroObject.SetActive(false);
         CancelInvoke("AimTurret");//stop aiming
         CancelInvoke("FireTurret");//stop firing
         turretExplosionParticles.Play();//play explosion vfx
@@ -98,19 +100,20 @@ public class TurretBehavior : Interactable
         currentTarget = null;//reset target
         turretFirePillar.Activate(); //activate fire pillar
         interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(destroyTurretHype);//award hype to interacting player
-
+        Invoke("ResetInteractable", turretRespawnTime);
     }
 
     public override void ResetInteractable()
     {
         canBeDamaged = true;
         _turretCollider.enabled = true;//turn on collider
+        aggroObject.SetActive(true);
         foreach (MeshRenderer mesh in visibleMeshes)//visually enable turret || make it disappear
         {
-            mesh.enabled = false;
+            mesh.enabled = true;
         }
         turretRespawnParticles.Play();
-        _turretSound.PlayOneShot(turretRespawnSound); //play respawn sound
+       // _turretSound.PlayOneShot(turretRespawnSound); //play respawn sound
         turretFirePillar.Deactivate();//deactivate fire pillar
         interactableHealth = _originalHealth;//reset health
         CancelInvoke("AimTurret");//stop aiming
@@ -139,5 +142,8 @@ public class TurretBehavior : Interactable
     {
         _turretSound.PlayOneShot(turretFiringSound);//play firing sound
         GameObject spawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
+        spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed);
+
+
     }
 }
