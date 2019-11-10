@@ -17,7 +17,7 @@ public class Volt_LaserBolt : MonoBehaviour
     private float _laserDamage;
     private float _laserSpeed;
     private float _laserHype;
-    private bool _isAlive;
+    private bool _isAlive = true;
   
     // Start is called before the first frame update
     void Start()
@@ -63,11 +63,11 @@ public class Volt_LaserBolt : MonoBehaviour
             {//Checks if the object isn't the immunePlayer and if they are a car.
                 other.gameObject.GetComponent<CarHeatManager>().AddHeat(_laserDamage);
             _immunePlayerScript.AddHype(_laserHype);
-                StartCoroutine(ExplosionEffect());
+                //StartCoroutine(ExplosionEffect());
             }
             else if(other.gameObject != _immunePlayer)
             {
-                StartCoroutine(ExplosionEffect());
+                //StartCoroutine(ExplosionEffect());
             }
         }
     }
