@@ -78,6 +78,7 @@ public class VehicleInput : MonoBehaviour
             _respawn = "Respawn" +  _inputNum[playerNumber - 1] + "Mac";
             _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1] + "Mac";
             _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1] + "Mac";
+            _rightStickButtonName = "RightStickButton" + _inputNum[playerNumber - 1] + "Mac";
 #endif
     }
 

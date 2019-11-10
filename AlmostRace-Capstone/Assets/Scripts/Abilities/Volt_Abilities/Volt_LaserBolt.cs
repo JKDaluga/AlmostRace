@@ -58,33 +58,23 @@ public class Volt_LaserBolt : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-
-        if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHeatManager>() != null)
-        {//Checks if the object isn't the immunePlayer and if they are a car.
-            other.gameObject.GetComponent<CarHeatManager>().AddHeat(_laserDamage);
-           _immunePlayerScript.AddHype(_laserHype);
-            Destroy(gameObject);
-        }
-        else if(other.gameObject != _immunePlayer && other.gameObject.GetComponent<Interactable>() != null)
-        {//Checks if the object isn't the immunePlayer and if they are an interactable object.
-            other.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
-            other.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
-         
-            Destroy(gameObject);
-        }
-
-        if (_isAlive)
-
+        if(_isAlive)
         {
             if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHeatManager>() != null)
             {//Checks if the object isn't the immunePlayer and if they are a car.
                 other.gameObject.GetComponent<CarHeatManager>().AddHeat(_laserDamage);
             _immunePlayerScript.AddHype(_laserHype);
-                //StartCoroutine(ExplosionEffect());
+                StartCoroutine(ExplosionEffect());
+            }
+            else if(other.gameObject != _immunePlayer && other.gameObject.GetComponent<Interactable>() != null)
+            {//Checks if the object isn't the immunePlayer and if they are an interactable object.
+                other.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
+                other.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
+                StartCoroutine(ExplosionEffect());
             }
             else if(other.gameObject != _immunePlayer)
             {
-                //StartCoroutine(ExplosionEffect());
+                StartCoroutine(ExplosionEffect());
             }
         }
     }
