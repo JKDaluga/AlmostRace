@@ -86,7 +86,7 @@ public class TurretBehavior : Interactable
     public override void DestroyInteractable()
     {
         canBeDamaged = false;
-        _turretCollider.enabled = false;//turn off collider to not block projectiles
+        _turretCollider.enabled = false;//turn off collider to not block projectiles and vfx
         CancelInvoke("AimTurret");//stop aiming
         CancelInvoke("FireTurret");//stop firing
         turretExplosionParticles.Play();//play explosion vfx
