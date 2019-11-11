@@ -7,7 +7,7 @@ using UnityEngine;
  * Very similar to Volt_BasicAbility 2, but refactored and modified to perform better and fit with camera aiming
  */
 
-public class Lux_BasicAbility : HeatAbility
+public class Lux_OffensiveAbility : HeatAbility
 {
     public GameObject luxProjectile;
     private Lux_ProjectileBehavior _luxProjectileScript;

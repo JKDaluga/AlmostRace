@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lux_SignatureAbility : MonoBehaviour
+public class Lux_DefensiveAbility : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

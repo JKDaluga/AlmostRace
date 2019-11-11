@@ -12,46 +12,46 @@ using UnityEngine.UI;
 
 public class VehicleAbilityBehavior : MonoBehaviour
 {
-    [Header ("Basic Ability")]
-    [Tooltip("Basic Ability Script Slot")]
-    public HeatAbility basicAbility;
-    [Tooltip("Determines if the basic ability input can be held down")]
+    [Header ("Offensive Ability.................................................................................")]
+    [Tooltip("Offensive Ability Script Slot")]
+    public HeatAbility offensiveAbility;
+    [Tooltip("Determines if the Offensive ability input can be held down")]
     public bool canHoldBasic;
     private bool _canUseBasic = true;
 
     [Tooltip("Place UI element here.")]
-    public Image basicAbilityButtonUI;
-    [Tooltip("Place basic ability sprite 1 here.")]
-    public Sprite basicAbilitySpriteReady;
-    [Tooltip("Place basic ability sprite 2 here.")]
-    public Sprite basicAbilitySpritePressed;
+    public Image offensiveAbilityButtonUI;
+    [Tooltip("Place Offensive ability sprite 1 here.")]
+    public Sprite offensiveAbilitySpriteReady;
+    [Tooltip("Place Offensive ability sprite 2 here.")]
+    public Sprite offensiveAbilitySpritePressed;
 
-    [Header ("Signature Ability")]
-    [Tooltip("Signature Ability Script Slot")]
-    public Ability signatureAbility;
+    [Header ("Defensive Ability.................................................................................")]
+    [Tooltip("Defensive Ability Script Slot")]
+    public Ability defensiveAbility;
     [Tooltip("Length of ability cooldown in seconds.")]
     public float abilityRecharge = 5f;
     [Tooltip("Determines if the signature ability input can be held down")]
-    public bool canHoldSignature;
+    public bool canHoldDefensiveAbility;
 
-    private bool _canUseSignature = true;
+    private bool _canUseDefensiveAbility = true;
 
     [Tooltip("Place UI element here.")]
-    public Image signatureAbilityCooldown;
-    public GameObject signatureAbilityDark;
+    public Image defensiveAbilityCooldown;
+    public GameObject defensiveAbilityDark;
 
 
 
-    [Header ("Pickup Ability")]
-    [Tooltip("Pickup Ability Script Slot")]
-    public Ability pickup;
+    [Header ("Boost Ability.................................................................................")]
+    [Tooltip("Boost Ability Script Slot")]
+    public Ability boostAbility;
 
     private VehicleInput _vehicleInput;
 
     private void Awake()
     {
         _vehicleInput = GetComponent<VehicleInput>();
-        signatureAbilityDark.SetActive(false);
+        defensiveAbilityDark.SetActive(false);
     }
 
     // Update is called once per frame
@@ -62,24 +62,24 @@ public class VehicleAbilityBehavior : MonoBehaviour
             return;
         }
 
-        if(basicAbility != null && signatureAbility != null) //placed here just so that the BallCar prefab doesn't throw nulls
+        if(offensiveAbility != null && defensiveAbility != null) //placed here just so that the BallCar prefab doesn't throw nulls
         {
             // Basic Ability Call
-            checkFireAbility(basicAbility, _vehicleInput.basicAbilityInput, _canUseBasic, canHoldBasic);
+            checkFireAbility(offensiveAbility, _vehicleInput.basicAbilityInput, _canUseBasic, canHoldBasic);
 
             // Signature Ability Call
-            if (checkFireAbility(signatureAbility, _vehicleInput.signatureAbilityInput, _canUseSignature, canHoldSignature))
+            if (checkFireAbility(defensiveAbility, _vehicleInput.signatureAbilityInput, _canUseDefensiveAbility, canHoldDefensiveAbility))
             {
-                _canUseSignature = false;
+                _canUseDefensiveAbility = false;
                 StartCoroutine(AbilityCooldown());
             }
         }
    
 
         // Pickup Ability Call
-        if (Input.GetButtonDown(_vehicleInput.pickupInput) && pickup != null)
+        if (Input.GetButtonDown(_vehicleInput.pickupInput) && boostAbility != null)
         {
-            pickup.ActivateAbility();
+            boostAbility.ActivateAbility();
         }
     }
 
@@ -90,13 +90,13 @@ public class VehicleAbilityBehavior : MonoBehaviour
         {
             if (Input.GetButton(abilityInput) && canFire && ability != null)
             {
-                basicAbilityButtonUI.sprite = basicAbilitySpritePressed;
+                offensiveAbilityButtonUI.sprite = offensiveAbilitySpritePressed;
                 ability.ActivateAbility();
                 return true;
             }
             else if (Input.GetButtonUp(abilityInput) && ability != null)
             {
-                basicAbilityButtonUI.sprite = basicAbilitySpriteReady;
+                offensiveAbilityButtonUI.sprite = offensiveAbilitySpriteReady;
                 ability.DeactivateAbility();
                 return false;
             }
@@ -105,8 +105,8 @@ public class VehicleAbilityBehavior : MonoBehaviour
         {
             if (Input.GetButtonDown(abilityInput) && canFire && ability != null)
             {
-                signatureAbilityCooldown.fillAmount = 1;
-                signatureAbilityDark.SetActive(true);
+                defensiveAbilityCooldown.fillAmount = 1;
+                defensiveAbilityDark.SetActive(true);
                 ability.ActivateAbility();
                 return true;
             }
@@ -123,17 +123,17 @@ public class VehicleAbilityBehavior : MonoBehaviour
         while (tempTime > 0)
         {        
             tempTime -= Time.deltaTime;
-            signatureAbilityCooldown.fillAmount = tempTime/abilityRecharge;
+            defensiveAbilityCooldown.fillAmount = tempTime/abilityRecharge;
             yield return null;
         }
-        signatureAbilityDark.SetActive(false);
-        _canUseSignature = true;
+        defensiveAbilityDark.SetActive(false);
+        _canUseDefensiveAbility = true;
     }
 
     // Returns if the pickup slot is vacant or occupied
     public bool hasPickup()
     {
-        if (pickup != null)
+        if (boostAbility != null)
         {
             return true;
         }
@@ -146,6 +146,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
     // Assigns the pickup slot with a given pickup
     public void assignPickup(GameObject givenPickup)
     {
-        pickup = givenPickup.GetComponent<Ability>();
+        boostAbility = givenPickup.GetComponent<Ability>();
     }
 }
