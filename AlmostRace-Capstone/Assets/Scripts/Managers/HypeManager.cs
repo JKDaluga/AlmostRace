@@ -9,6 +9,10 @@ using UnityEngine.SceneManagement;
     Purpose: Stores each vehicle object in a list,
     called to keep that list ordered by the vehicles with the most hype,
     updates the UI accordingly.
+
+    Edited 11/10/2019: Eddie B
+    Added a coroutine to track the total hype of the players. Needed for the HypeGates.
+    Made sense to have the code happen once here as opposed to 4+ times across the board.
     */
     
 public class HypeManager : MonoBehaviour

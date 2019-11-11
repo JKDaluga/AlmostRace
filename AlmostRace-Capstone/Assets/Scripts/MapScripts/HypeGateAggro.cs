@@ -2,17 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ Eddie B
+
+    Another simple detector that tracks cars that enter arena.
+     */
+
 public class HypeGateAggro : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public HypeGateBehavior _hypeGate;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if(other.gameObject.GetComponent<VehicleHypeBehavior>() != null)
+        {//if thing entering aggro is car
+            if(!_hypeGate.carsInRange.Contains(other.gameObject)) //if car hasn't already been detected
+            {
+                if (_hypeGate.carsInRange.Count == 0)//if no cars were in range, start checking cars in range
+                {//prevents the couroutine from having to be called in Start, saves performance
+                    _hypeGate.StartCoroutine(_hypeGate.CheckCars());
+                }
+                _hypeGate.carsInRange.Add(other.gameObject);
+            }
+        }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

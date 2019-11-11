@@ -3,33 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+/*
+ 
+    Eddie B
+
+    Script that handles how the Hype Gates behave in each arena. More specific functionality will probably
+    need to be added once the other arenas are finalized.
+
+     */
+
 public class HypeGateBehavior : MonoBehaviour
 {
 
-    private float _currentHype;
+    private float _currentHype; // tracks current total hype of cars inside of arena
+    private float _displayHype; //used in showing hype in text
+
+    [Tooltip("The amount of Hype players need to generate in this arena to proceed")]
     public float hypeLimit;
-    public GameObject gateToOpen;
+
+    [Tooltip("The gameobject to remove once hypeLimit is reached")]
+    public GameObject gateToOpen;//might be changed per hype gate for specific behavior
     private float _hypeLimitActual;
     public List<TextMeshProUGUI> displayTexts;
     private int _carsInGame;
-    private List<GameObject> _carsInRange;
+    public List<GameObject> carsInRange;
 
     // Start is called before the first frame update
     void Start()
     {
         _carsInGame = HypeManager.instance.vehicleList.Count;
-        StartCoroutine(CheckCars());
     }
 
     public IEnumerator CheckCars()
     {
         while(true)
         {
-            if(_carsInRange.Count < _carsInGame)
+            if(carsInRange.Count < _carsInGame)
             {
                 yield return null;
             }
-            else if(_carsInRange.Count == _carsInGame)
+            else if(carsInRange.Count == _carsInGame)
             {
                 StartCoroutine(TrackHype());
                 StopCoroutine(CheckCars());
@@ -40,7 +53,9 @@ public class HypeGateBehavior : MonoBehaviour
     }
 
     public IEnumerator TrackHype()
-    {  
+    {
+        _currentHype = HypeManager.instance.totalHype; //initial get of total hype, for display purposes
+        _displayHype = _currentHype;
         while (true)
         {
             _currentHype = HypeManager.instance.totalHype;
@@ -55,6 +70,14 @@ public class HypeGateBehavior : MonoBehaviour
                  yield return null;
             }
             yield return null;
+        }
+    }
+
+    public void UpdateDisplays()
+    {
+        foreach(TextMeshProUGUI displayText in displayTexts)
+        {
+            displayText.text = "Hype: " + (_currentHype - _displayHype) + "/" + hypeLimit;
         }
     }
 }
