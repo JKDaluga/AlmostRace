@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 5189792516208398823}
   - component: {fileID: 7590952557551204093}
   m_Layer: 5
-  m_Name: Image_Basic
+  m_Name: Image_Offensive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -402,19 +402,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ceda1c616fee4c0abcad4bdc27e75ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicAbility: {fileID: 1371892911444412718}
+  offensiveAbility: {fileID: 1371892911444412718}
   canHoldBasic: 1
-  basicAbilityButtonUI: {fileID: 7590952557551204093}
-  basicAbilitySpriteReady: {fileID: 21300000, guid: e978520391d03b942b6ea7756016cee1,
+  offensiveAbilityButtonUI: {fileID: 7590952557551204093}
+  offensiveAbilitySpriteReady: {fileID: 21300000, guid: e978520391d03b942b6ea7756016cee1,
     type: 3}
-  basicAbilitySpritePressed: {fileID: 21300000, guid: 4ade9e1fd1bb7674fb015d6ee93f24c9,
+  offensiveAbilitySpritePressed: {fileID: 21300000, guid: 4ade9e1fd1bb7674fb015d6ee93f24c9,
     type: 3}
-  signatureAbility: {fileID: 1371892911444412718}
+  defensiveAbility: {fileID: 1371892911444412718}
   abilityRecharge: 5
-  canHoldSignature: 0
-  signatureAbilityCooldown: {fileID: 1598876598755362110}
-  signatureAbilityDark: {fileID: 419147720706557991}
-  pickup: {fileID: 0}
+  canHoldDefensiveAbility: 0
+  defensiveAbilityCooldown: {fileID: 1598876598755362110}
+  defensiveAbilityDark: {fileID: 419147720706557991}
+  boostAbility: {fileID: 1371892911444412718}
 --- !u!114 &1371892911444412718
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -752,7 +752,7 @@ GameObject:
   - component: {fileID: 4139030532441207166}
   - component: {fileID: 5540428025789448641}
   m_Layer: 5
-  m_Name: Image_Signature
+  m_Name: Image_Defensive
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2230,7 +2230,7 @@ GameObject:
   - component: {fileID: 2717890203510717569}
   - component: {fileID: 1598876598755362110}
   m_Layer: 5
-  m_Name: Image_SigCooldown
+  m_Name: Image_DefCooldown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

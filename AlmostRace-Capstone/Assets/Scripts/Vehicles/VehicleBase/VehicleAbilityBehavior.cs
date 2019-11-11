@@ -21,9 +21,9 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     [Tooltip("Place UI element here.")]
     public Image offensiveAbilityButtonUI;
-    [Tooltip("Place Offensive ability sprite 1 here.")]
+    [Tooltip("Place Offensive ability normal sprite here.")]
     public Sprite offensiveAbilitySpriteReady;
-    [Tooltip("Place Offensive ability sprite 2 here.")]
+    [Tooltip("Place Offensive ability pressed down sprite here.")]
     public Sprite offensiveAbilitySpritePressed;
 
     [Header ("Defensive Ability.................................................................................")]
@@ -38,6 +38,8 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     [Tooltip("Place UI element here.")]
     public Image defensiveAbilityCooldown;
+
+    [Tooltip("Place dark version of UI element here.")]
     public GameObject defensiveAbilityDark;
 
 

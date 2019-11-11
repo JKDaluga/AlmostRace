@@ -44,9 +44,7 @@ public class Lux_OffensiveAbility : HeatAbility
     {
         _currentMuzzle = 1;
         carHeatInfo = gameObject.GetComponent<CarHeatManager>();
-        _luxProjectileScript = luxProjectile.GetComponent<Lux_ProjectileBehavior>();
-        _luxProjectileScript.SetImmunePlayer(gameObject);
-        _luxProjectileScript.SetProjectileInfo(projectileDamage, projectileSpeed, projectileHypeToGain);
+     
     }
 
     private IEnumerator AbilityRateOfFire()
@@ -72,7 +70,11 @@ public class Lux_OffensiveAbility : HeatAbility
                 i.LookAt(GetComponent<SphereCarController>().aimPos.transform);
             }
 
-            GameObject projectile = Instantiate(luxProjectile, muzzles[_currentMuzzle].position, muzzles[_currentMuzzle].rotation);          
+            GameObject projectile = Instantiate(luxProjectile, muzzles[_currentMuzzle].position, muzzles[_currentMuzzle].rotation);
+
+            _luxProjectileScript = projectile.GetComponent<Lux_ProjectileBehavior>();
+            _luxProjectileScript.SetImmunePlayer(gameObject);
+            _luxProjectileScript.SetProjectileInfo(projectileDamage, projectileSpeed, projectileHypeToGain);
             _canFire = false;
             StartCoroutine(AbilityRateOfFire());
             if (_currentMuzzle == (muzzles.Count - 1) || _currentMuzzle == 0)
