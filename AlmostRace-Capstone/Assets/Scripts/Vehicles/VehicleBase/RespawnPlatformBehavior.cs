@@ -34,29 +34,29 @@ public class RespawnPlatformBehavior : MonoBehaviour
         {
             _hypeManagerScript = HypeManager.HM;
         }
+        
         if (HotSpotBotBehavior.instance != null)
         {
             _hotSpotBotScript = HotSpotBotBehavior.instance;
-        }
-
-        if (_hotSpotBotScript.GetBeingHeld())
-        {
-            if (_playerObject.GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+            if (_hotSpotBotScript.GetBeingHeld())
             {
-                Debug.Log("Bot dropped, spawn behind it");
-                _playerObject.GetComponent<HotSpotVehicleAdministration>().DropTheBot();
+                if (_playerObject.GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+                {
+                    Debug.Log("Bot dropped, spawn behind it");
+                    _playerObject.GetComponent<HotSpotVehicleAdministration>().DropTheBot();
+                    SpawnBehindBot();
+                }
+                else
+                {
+                    Debug.Log("Spawn behind enemy with bot");
+                    SpawnBehindEnemyWithBot();
+                }
+            }
+            else if (!_hotSpotBotScript.GetBeingHeld())
+            {
+                Debug.Log("No one has the bot");
                 SpawnBehindBot();
             }
-            else
-            {
-                Debug.Log("Spawn behind enemy with bot");
-                SpawnBehindEnemyWithBot();
-            }
-        }
-        else if (!_hotSpotBotScript.GetBeingHeld())
-        {
-            Debug.Log("No one has the bot");
-            SpawnBehindBot();
         }
         else
         {
