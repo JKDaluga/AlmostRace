@@ -409,7 +409,7 @@ MonoBehaviour:
     type: 3}
   basicAbilitySpritePressed: {fileID: 21300000, guid: 4ade9e1fd1bb7674fb015d6ee93f24c9,
     type: 3}
-  signatureAbility: {fileID: 0}
+  signatureAbility: {fileID: 1371892911444412718}
   abilityRecharge: 5
   canHoldSignature: 0
   signatureAbilityCooldown: {fileID: 1598876598755362110}
@@ -431,11 +431,12 @@ MonoBehaviour:
   laserBolt: {fileID: 2460749259567487935, guid: 5dbb0bb9931875849aebd9f7fa96c1a4,
     type: 3}
   laserHypeToGain: 0
-  laserDamage: 10
+  laserDamage: 25
   laserSpeed: 50
-  laserRateOfFire: 0.5
+  laserRateOfFire: 0.25
   selfDamageRate: 0
   laserMuzzles:
+  - {fileID: 4000302993580368808}
   - {fileID: 4000302993580368808}
 --- !u!65 &2048040180542796253
 BoxCollider:
@@ -649,7 +650,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 481683610739934985}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f786f82be0b2104799aa29fb179496a, type: 3}
   m_Name: 
@@ -1399,7 +1400,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4835401826929498276}
-  m_LocalRotation: {x: -0.08248053, y: 2.6365327e-10, z: -0.0000000031856597, w: -0.9965927}
+  m_LocalRotation: {x: -0.08248053, y: 0.0000000090821635, z: -0.00000010973763, w: -0.9965927}
   m_LocalPosition: {x: 0, y: 3, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1480,7 +1481,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 50, y: -30}
+  m_AnchoredPosition: {x: 0.00048828125, y: -30}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &359796479748309875
@@ -2926,12 +2927,12 @@ PrefabInstance:
     - target: {fileID: 775676765654723354, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 2.6365327e-10
+      value: 0.0000000090821635
       objectReference: {fileID: 0}
     - target: {fileID: 775676765654723354, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.0000000031856597
+      value: -0.00000010973763
       objectReference: {fileID: 0}
     - target: {fileID: 775676765654723354, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
