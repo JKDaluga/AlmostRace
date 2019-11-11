@@ -27,9 +27,9 @@ public class VehicleHypeBehavior : MonoBehaviour
 
     void Start()
     {
-        if(HypeManager.HM != null)
+        if(HypeManager.instance != null)
         {
-            _hypeManagerScript = HypeManager.HM;
+            _hypeManagerScript = HypeManager.instance;
             _hypeManagerScript.VehicleAssign(this.gameObject);
         }
     }
@@ -56,7 +56,7 @@ public class VehicleHypeBehavior : MonoBehaviour
         _hypeManagerScript.VehicleSort();
     }
 
-    public float GiveHypeAmount()
+    public float GetHypeAmount()
     {
         return _hypeAmount;
     }

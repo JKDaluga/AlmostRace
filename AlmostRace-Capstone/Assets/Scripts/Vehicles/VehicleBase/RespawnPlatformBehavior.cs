@@ -30,9 +30,9 @@ public class RespawnPlatformBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(HypeManager.HM != null)
+        if(HypeManager.instance != null)
         {
-            _hypeManagerScript = HypeManager.HM;
+            _hypeManagerScript = HypeManager.instance;
         }
         
         if (HotSpotBotBehavior.instance != null)
@@ -79,11 +79,11 @@ public class RespawnPlatformBehavior : MonoBehaviour
     // Place the platform at the proper position and rotation above the enemy with the hotspot
     private void SpawnBehindEnemyWithBot()
     {
-        for(int i = 0; i < _hypeManagerScript._vehicleList.Count; i++)
+        for(int i = 0; i < _hypeManagerScript.vehicleList.Count; i++)
         {
-            if (_hypeManagerScript._vehicleList[i].GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+            if (_hypeManagerScript.vehicleList[i].GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
             {
-                _otherVehicle = _hypeManagerScript._vehicleList[i];
+                _otherVehicle = _hypeManagerScript.vehicleList[i];
             }
         }
         Vector3 nearestPointOnSpline = _hotSpotBotScript.GetNearestPointOnSpline(_otherVehicle.transform.position, distanceBehind);

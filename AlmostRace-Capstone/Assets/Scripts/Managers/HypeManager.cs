@@ -14,58 +14,69 @@ using UnityEngine.SceneManagement;
 public class HypeManager : MonoBehaviour
 {
 
-    public static HypeManager HM;
+    public static HypeManager instance;
 
-    public List<GameObject> _vehicleList = new List<GameObject>();
+    public List<GameObject> vehicleList = new List<GameObject>();
     private Text[] _hypeAmountDisplay;
+    public float totalHype;
     public float maxHype; //Essentially a win condition
     public Text winnerText;
+    private float tempTotal;
+
     private void Awake()
     {
-        if(HM == null) HM = this;
+        if(instance == null) instance = this;
         else
         {
-            HM._vehicleList.Clear();
-            HM.SetUpDisplay();
+            instance.vehicleList.Clear();
+            instance.SetUpDisplay();
         }
-    }
-
-    private void SetUpDisplay()
-    {
-        HM._hypeAmountDisplay = new Text[HM._vehicleList.Count];
-        for (int i = 0; i < HM._hypeAmountDisplay.Length; i++)
-        {
-            HM._hypeAmountDisplay[i] = GameObject.Find("HypeDisplay" + (i + 1)).GetComponent<Text>();
-        }
-
-        //HM.BeginningVehicleSort();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(TrackTotalHype());
+    }
+
+    public IEnumerator TrackTotalHype()
+    {
+        tempTotal = 0;
+        foreach(GameObject vehicle in vehicleList)
+        {
+            tempTotal += vehicle.GetComponent<VehicleHypeBehavior>().GetHypeAmount();
+        }
+        totalHype = tempTotal;
+        yield return null;
+    }
+
+    private void SetUpDisplay()
+    {
+        instance._hypeAmountDisplay = new Text[instance.vehicleList.Count];
+        for (int i = 0; i < instance._hypeAmountDisplay.Length; i++)
+        {
+            instance._hypeAmountDisplay[i] = GameObject.Find("HypeDisplay" + (i + 1)).GetComponent<Text>();
+        }
     }
 
     // Called to add the given vehicle to the vehicle list
     public void VehicleAssign(GameObject player)
     {
-        _vehicleList.Add(player);
+        vehicleList.Add(player);
     }
 
     // Sorts the list based upon which game object has the most hype in their VehicleHypeBehavior script
     public void VehicleSort()
     {
-        _vehicleList.Sort(
+        vehicleList.Sort(
             delegate(GameObject p1, GameObject p2)
             {
-                return p1.GetComponent<VehicleHypeBehavior>().GiveHypeAmount()
-                .CompareTo(p2.GetComponent<VehicleHypeBehavior>().GiveHypeAmount());
+                return p1.GetComponent<VehicleHypeBehavior>().GetHypeAmount()
+                .CompareTo(p2.GetComponent<VehicleHypeBehavior>().GetHypeAmount());
             }
         );
-
         // Put in descending order
-        _vehicleList.Reverse();
+        vehicleList.Reverse();
         checkWinCondition();
       //  UIupdate();
     }
@@ -73,7 +84,7 @@ public class HypeManager : MonoBehaviour
     // Sorts the list at the beginning of the game based on player number rather than hype amount
     private void BeginningVehicleSort()
     {
-        _vehicleList.Sort(
+        vehicleList.Sort(
             delegate(GameObject p1, GameObject p2)
             {
                 return p1.GetComponent<VehicleInput>().playerNumber
@@ -87,20 +98,20 @@ public class HypeManager : MonoBehaviour
     private void UIupdate()
     {
         int i = 0;
-        foreach(GameObject entry in _vehicleList)
+        foreach(GameObject entry in vehicleList)
         {
             _hypeAmountDisplay[i].text = entry.name.ToString() + ": " +
            // _hypeAmountDisplay[i].text = "Hype: " +
-            entry.GetComponent<VehicleHypeBehavior>().GiveHypeAmount().ToString();
+            entry.GetComponent<VehicleHypeBehavior>().GetHypeAmount().ToString();
             i++;
         }
     }
 
     private void checkWinCondition()
     {
-        foreach(GameObject entry in _vehicleList)
+        foreach(GameObject entry in vehicleList)
         {
-            if(entry.GetComponent<VehicleHypeBehavior>().GiveHypeAmount() >= maxHype)
+            if(entry.GetComponent<VehicleHypeBehavior>().GetHypeAmount() >= maxHype)
             {
                 Time.timeScale = 0.0f;
                 winnerText.text = "PLAYER " + entry.GetComponent<VehicleInput>().playerNumber + " WINS!";
