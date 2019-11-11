@@ -33,6 +33,9 @@ public class Lux_OffensiveAbility : HeatAbility
     [Tooltip("How fast firing projectiles builds heat.")]
     public float selfDamageRate;
 
+    public Transform rotaryTurret;
+    private Transform _aimPosActual;
+
     public List<Transform> muzzles;
     private int _currentMuzzle;
     private int _muzzleIterator = 1;
@@ -44,7 +47,18 @@ public class Lux_OffensiveAbility : HeatAbility
     {
         _currentMuzzle = 1;
         carHeatInfo = gameObject.GetComponent<CarHeatManager>();
-     
+        _aimPosActual = GetComponent<SphereCarController>().aimPos.transform;
+        StartCoroutine(TurretAim());
+
+    }
+
+    private IEnumerator TurretAim()
+    {
+        while(true)
+        {
+            rotaryTurret.LookAt(_aimPosActual);
+            yield return null;
+        }
     }
 
     private IEnumerator AbilityRateOfFire()
@@ -67,7 +81,7 @@ public class Lux_OffensiveAbility : HeatAbility
             AudioManager.instance.Play("Blaster1");
             foreach (Transform i in muzzles)
             {
-                i.LookAt(GetComponent<SphereCarController>().aimPos.transform);
+                i.LookAt(_aimPosActual);
             }
 
             GameObject projectile = Instantiate(luxProjectile, muzzles[_currentMuzzle].position, muzzles[_currentMuzzle].rotation);
