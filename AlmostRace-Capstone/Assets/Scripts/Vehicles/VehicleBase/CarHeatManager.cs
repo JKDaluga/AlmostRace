@@ -10,7 +10,9 @@ public class CarHeatManager : MonoBehaviour
     public GameObject respawnPlatform;
     public GameObject modelHolder;
     public GameObject sphereCollider;
-    public GameObject DeathFade;
+    public GameObject explosionEffect;
+    public GameObject teleportEffect;
+    public GameObject deathFade;
     public float heatCurrent = 0f;
     public float heatStallLimit = 100f;
     public float heatExplodeLimit = 120f;
@@ -65,18 +67,16 @@ public class CarHeatManager : MonoBehaviour
     }
     private void Kill()
     {
-        
         AudioManager.instance.Play("Death");
         isDead = true;
-        Instantiate(Resources.Load("explosion"), gameObject.transform.position, gameObject.transform.rotation);
-        DeathFade.GetComponent<Animator>().Play("DeathFadeIn");
+        Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);
+        deathFade.GetComponent<Animator>().Play("DeathFadeIn");
         GetComponent<SphereCarController>().enabled = false;
         GetComponent<VehicleAbilityBehavior>().enabled = false;
         GameObject respawnInstance = Instantiate(respawnPlatform);
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, sphereCollider, modelHolder);
         sphereCollider.GetComponent<Rigidbody>().useGravity = false;
         sphereCollider.GetComponent<Rigidbody>().isKinematic = true;
-
     }
 
     public void Respawn()
@@ -84,7 +84,7 @@ public class CarHeatManager : MonoBehaviour
         _canTeleport = true;
         heatCurrent = 0;
         isDead = false;
-        DeathFade.GetComponent<Animator>().Play("DeathFadeOut");
+        deathFade.GetComponent<Animator>().Play("DeathFadeOut");
         GetComponent<SphereCarController>().enabled = true;
         GetComponent<VehicleAbilityBehavior>().enabled = true;
         sphereCollider.GetComponent<Rigidbody>().useGravity = true;
@@ -94,19 +94,17 @@ public class CarHeatManager : MonoBehaviour
         {
             bAbility.DeactivateAbility();
         }
-
     }
 
     public void Teleport()
     {
-      
         if (_canTeleport)
         {
             AudioManager.instance.Play("Teleport");
             _canTeleport = false;
             isDead = true;
-            Instantiate(Resources.Load("Teleport"), gameObject.transform.position, gameObject.transform.rotation);
-            DeathFade.GetComponent<Animator>().Play("DeathFadeIn");
+            Instantiate(teleportEffect, gameObject.transform.position, gameObject.transform.rotation);
+            deathFade.GetComponent<Animator>().Play("DeathFadeIn");
             GetComponent<SphereCarController>().enabled = false;
             GetComponent<VehicleAbilityBehavior>().enabled = false;
             GameObject respawnInstance = Instantiate(respawnPlatform);
@@ -114,7 +112,6 @@ public class CarHeatManager : MonoBehaviour
             sphereCollider.GetComponent<Rigidbody>().useGravity = false;
             sphereCollider.GetComponent<Rigidbody>().isKinematic = true;
         }
-  
     }
 
     private void healthCooldown()

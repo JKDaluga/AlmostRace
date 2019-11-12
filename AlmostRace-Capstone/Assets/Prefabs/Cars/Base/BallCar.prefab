@@ -355,7 +355,11 @@ MonoBehaviour:
     type: 3}
   modelHolder: {fileID: 481683610514310998}
   sphereCollider: {fileID: 481683610739934985}
-  DeathFade: {fileID: 7746878269252819037}
+  explosionEffect: {fileID: 3164241150650279528, guid: 42ebfad31ec3343b8aba2180f001156a,
+    type: 3}
+  teleportEffect: {fileID: 2810214832798839782, guid: b6e063dae0c218940ad8af9105a63dba,
+    type: 3}
+  deathFade: {fileID: 7746878269252819037}
   heatCurrent: 0
   heatStallLimit: 100
   heatExplodeLimit: 120
@@ -2986,9 +2990,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54d86e26683fd49ceb879a39ae5231ef, type: 3}
---- !u!20 &6345297507684376634 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 775676765654723357, guid: 54d86e26683fd49ceb879a39ae5231ef,
+--- !u!1 &6345297507684376632 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 775676765654723359, guid: 54d86e26683fd49ceb879a39ae5231ef,
     type: 3}
   m_PrefabInstance: {fileID: 5966363089907305255}
   m_PrefabAsset: {fileID: 0}
@@ -2998,9 +3002,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5966363089907305255}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6345297507684376632 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 775676765654723359, guid: 54d86e26683fd49ceb879a39ae5231ef,
+--- !u!20 &6345297507684376634 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 775676765654723357, guid: 54d86e26683fd49ceb879a39ae5231ef,
     type: 3}
   m_PrefabInstance: {fileID: 5966363089907305255}
   m_PrefabAsset: {fileID: 0}

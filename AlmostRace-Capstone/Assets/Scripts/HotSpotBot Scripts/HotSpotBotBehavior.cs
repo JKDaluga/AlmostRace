@@ -9,6 +9,7 @@ public class HotSpotBotBehavior : MonoBehaviour
     private List<Node> branchNodes = new List<Node>();
     private SplinePlus _splinePlusScript;
     private bool _beingHeld;
+    private float _hugeDistance = 9999;
 
     private void Awake()
     {
@@ -47,8 +48,8 @@ public class HotSpotBotBehavior : MonoBehaviour
 
     public Vector3 GetNearestPointOnSpline(Vector3 givenPosition, int vectorsBack)
     {
-        Vector3 closestWorldPoint = new Vector3(9999, 9999, 9999);
-        float lastDistance = 9999;
+        Vector3 closestWorldPoint = new Vector3(_hugeDistance, _hugeDistance, _hugeDistance);
+        float lastDistance = _hugeDistance;
         int vectorsBackAdjustment;
 
         List<Branch> currentBranches = new List<Branch>();
