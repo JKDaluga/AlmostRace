@@ -23,7 +23,6 @@ public class RespawnPlatformBehavior : MonoBehaviour
     private GameObject _otherVehicle;
     private Transform _previousNode;
     private Transform _nextNode;
-    private bool _movingCollider;
     private bool _movingCar;
     private bool _spawnOnEnemy;
 
@@ -61,6 +60,16 @@ public class RespawnPlatformBehavior : MonoBehaviour
             SpawnOnSelf();
         }
         StartCoroutine(RespawnSequence());
+        Destroy(gameObject, 10);
+    }
+
+    // Sets the variables from the ones given by the vehicle that spawned the platform
+    public void SetPlayer(GameObject givenPlayer, GameObject givenColldier, GameObject givenModel)
+    {
+        _playerObject = givenPlayer;
+        _ballCollider = givenColldier;
+        _carMesh = givenModel;
+        
     }
 
     // Vehicle respawning had the HotsSpotBot, spawn it behind the dropped bot
@@ -113,49 +122,33 @@ public class RespawnPlatformBehavior : MonoBehaviour
             _playerObject.transform.position.y + spawnHeight, _playerObject.transform.position.z);
     }
 
+    // The time sequence for setting when to move the vehicle and when the vehicle runs its respawn function
+    private IEnumerator RespawnSequence()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _carMesh.SetActive(false);
+        yield return new WaitForSeconds(respawnSeconds / 2f);
+        _movingCar = true;
+        _carMesh.SetActive(true);
+        yield return new WaitForSeconds(respawnSeconds / 5f);
+        _playerObject.GetComponent<CarHeatManager>().Respawn();
+        _movingCar = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
-        // Move the vehicle collider and the model to the platform position
-        if (_movingCollider)
+        // Move the vehicle logic object to the platform position which includes the camera
+        if (_movingCar)
         {
-            if (_spawnOnEnemy)
-            {
-                transform.LookAt(new Vector3(_otherVehicle.transform.position.x,
-                    transform.position.y, _otherVehicle.transform.position.z));
-            }
             _ballCollider.transform.position = new Vector3
                 (transform.position.x, transform.position.y + 2, transform.position.z);
             _ballCollider.transform.rotation = transform.rotation;
             _carMesh.transform.rotation = transform.rotation;
-        }
-        // Move the vehicle logic object to the platform position which includes the camera
-        if (_movingCar)
-        {
             _playerObject.transform.position = new Vector3
                 (transform.position.x, transform.position.y + 2, transform.position.z);
             _playerObject.transform.rotation = transform.rotation;
         }
-    }
-
-    // Sets the variables from the ones given by the vehicle that spawned the platform
-    public void SetPlayer(GameObject givenPlayer, GameObject givenColldier, GameObject givenModel)
-    {
-        _playerObject = givenPlayer;
-        _ballCollider = givenColldier;
-        _carMesh = givenModel;
-    }
-
-    // The time sequence for setting when to move the vehicle and when the vehicle runs its respawn function
-    private IEnumerator RespawnSequence()
-    {
-        _movingCollider = true;
-        yield return new WaitForSeconds(respawnSeconds / 2f);
-        _movingCar = true;
-        yield return new WaitForSeconds(respawnSeconds / 5f);
-        _playerObject.GetComponent<CarHeatManager>().Respawn();
-        _movingCar = false;
-        _movingCollider = false;
     }
 
     // The platform destroys itself after the vehicle leaves it

@@ -67,7 +67,6 @@ public class CarHeatManager : MonoBehaviour
     }
     private void Kill()
     {
-        
         AudioManager.instance.Play("Death");
         isDead = true;
         Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);
@@ -78,7 +77,6 @@ public class CarHeatManager : MonoBehaviour
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, sphereCollider, modelHolder);
         sphereCollider.GetComponent<Rigidbody>().useGravity = false;
         sphereCollider.GetComponent<Rigidbody>().isKinematic = true;
-
     }
 
     public void Respawn()
