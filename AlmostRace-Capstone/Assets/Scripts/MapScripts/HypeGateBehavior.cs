@@ -51,7 +51,6 @@ public class HypeGateBehavior : MonoBehaviour
                 //StopCoroutine(CheckCars());
                 yield return null;
             }
-            Debug.Log("CheckCarsHappened!");
             yield return null;
         }
     }
@@ -84,7 +83,6 @@ public class HypeGateBehavior : MonoBehaviour
                 StopAllCoroutines();
                 yield return null;
             }
-            Debug.Log("TrackHype Happened!");
             yield return null;
         }
     }
