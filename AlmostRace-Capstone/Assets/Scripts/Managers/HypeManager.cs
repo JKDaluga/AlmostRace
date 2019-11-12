@@ -45,13 +45,19 @@ public class HypeManager : MonoBehaviour
 
     public IEnumerator TrackTotalHype()
     {
-        tempTotal = 0;
-        foreach(GameObject vehicle in vehicleList)
+        while(true)
         {
-            tempTotal += vehicle.GetComponent<VehicleHypeBehavior>().GetHypeAmount();
+            tempTotal = 0;
+            foreach (GameObject vehicle in vehicleList)
+            {
+                tempTotal += vehicle.GetComponent<VehicleHypeBehavior>().GetHypeAmount();
+            }
+           // Debug.Log("tempTotal: " + tempTotal);
+            totalHype = tempTotal;
+            //Debug.Log("totalHype:" + totalHype);
+            yield return null;
         }
-        totalHype = tempTotal;
-        yield return null;
+       
     }
 
     private void SetUpDisplay()

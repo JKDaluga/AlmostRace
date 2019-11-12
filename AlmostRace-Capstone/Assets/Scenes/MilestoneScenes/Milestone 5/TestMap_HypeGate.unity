@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 317738108}
   - component: {fileID: 317738107}
   - component: {fileID: 317738106}
+  - component: {fileID: 317738110}
   m_Layer: 17
   m_Name: AggroCircle
   m_TagString: Untagged
@@ -166,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ceffa0f3d4874d4ca60606eda1a293a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hypeGate: {fileID: 0}
+  _hypeGate: {fileID: 1618586569}
 --- !u!135 &317738107
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -226,6 +227,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 317738104}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &317738110
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 317738104}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &394920339
 GameObject:
   m_ObjectHideFlags: 0
@@ -922,7 +939,7 @@ PrefabInstance:
     - target: {fileID: 9047472390817029945, guid: 2c2f56ff84448174487a2a4983f4c45d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 183.5
+      value: 162.5
       objectReference: {fileID: 0}
     - target: {fileID: 9047472390817029945, guid: 2c2f56ff84448174487a2a4983f4c45d,
         type: 3}
@@ -1768,8 +1785,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d5872e06c79fa0429c0381f7633eecb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hypeLimit: 0
-  gateToOpen: {fileID: 0}
+  hypeLimit: 300
+  gateToOpen: {fileID: 1688027236}
   displayTexts:
   - {fileID: 477234337}
   - {fileID: 899961416}

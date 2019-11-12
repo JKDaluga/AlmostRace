@@ -27,6 +27,7 @@ public class HypeGateBehavior : MonoBehaviour
     public List<TextMeshProUGUI> displayTexts;
     private int _carsInGame;
     public List<GameObject> carsInRange;
+    private GameObject _aggroSphere;
 
     // Start is called before the first frame update
     void Start()
@@ -44,31 +45,46 @@ public class HypeGateBehavior : MonoBehaviour
             }
             else if(carsInRange.Count == _carsInGame)
             {
+                StopAllCoroutines();
                 StartCoroutine(TrackHype());
-                StopCoroutine(CheckCars());
+
+                //StopCoroutine(CheckCars());
                 yield return null;
             }
+            Debug.Log("CheckCarsHappened!");
             yield return null;
         }
     }
-
-    public IEnumerator TrackHype()
+    
+    public void InitializeHypeGate(GameObject aggroSphere)
     {
+        _aggroSphere = aggroSphere;
         _currentHype = HypeManager.instance.totalHype; //initial get of total hype, for display purposes
         _displayHype = _currentHype;
+        _hypeLimitActual = _currentHype + hypeLimit;
+    }
+
+    public IEnumerator TrackHype()
+    {    
         while (true)
         {
             _currentHype = HypeManager.instance.totalHype;
             if (_currentHype < _hypeLimitActual)
             {
+                UpdateDisplays();
                 yield return null;
             }
             else if(_currentHype >= _hypeLimitActual)
             {
                 gateToOpen.SetActive(false);
-                StopCoroutine(TrackHype());
-                 yield return null;
+                FinishDisplays();
+                _aggroSphere.SetActive(false);
+               
+                //StopCoroutine(TrackHype());
+                StopAllCoroutines();
+                yield return null;
             }
+            Debug.Log("TrackHype Happened!");
             yield return null;
         }
     }
@@ -77,7 +93,15 @@ public class HypeGateBehavior : MonoBehaviour
     {
         foreach(TextMeshProUGUI displayText in displayTexts)
         {
-            displayText.text = "Hype: " + (_currentHype - _displayHype) + "/" + hypeLimit;
+            displayText.text = "Hype: " + ((_currentHype - _displayHype) /  hypeLimit * 100).ToString("F0") + "%";
+        }
+    }
+
+    public void FinishDisplays()
+    {
+        foreach (TextMeshProUGUI displayText in displayTexts)
+        {
+            displayText.text = "Hype: 100%";
         }
     }
 }
