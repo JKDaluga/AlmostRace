@@ -125,7 +125,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
     // The time sequence for setting when to move the vehicle and when the vehicle runs its respawn function
     private IEnumerator RespawnSequence()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         _carMesh.SetActive(false);
         yield return new WaitForSeconds(respawnSeconds / 2f);
         _movingCar = true;
