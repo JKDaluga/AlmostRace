@@ -282,6 +282,7 @@ GameObject:
   - component: {fileID: 1371892911444412718}
   - component: {fileID: 2048040180542796253}
   - component: {fileID: 7391195651187390220}
+  - component: {fileID: 7936387276264758714}
   m_Layer: 8
   m_Name: Car
   m_TagString: Vehicle
@@ -471,6 +472,18 @@ MonoBehaviour:
   initialHypeGain: 50
   gradualHypeGain: 5
   hypeWaitTime: 1
+--- !u!114 &7936387276264758714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481683610354487727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e94402263dc91f408431a1122bf119a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &481683610514310998
 GameObject:
   m_ObjectHideFlags: 0
@@ -2981,7 +2994,7 @@ PrefabInstance:
     - target: {fileID: 775676765654723357, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
       propertyPath: m_CullingMask.m_Bits
-      value: 229175
+      value: 212791
       objectReference: {fileID: 0}
     - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
@@ -2990,9 +3003,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54d86e26683fd49ceb879a39ae5231ef, type: 3}
---- !u!1 &6345297507684376632 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 775676765654723359, guid: 54d86e26683fd49ceb879a39ae5231ef,
+--- !u!20 &6345297507684376634 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 775676765654723357, guid: 54d86e26683fd49ceb879a39ae5231ef,
     type: 3}
   m_PrefabInstance: {fileID: 5966363089907305255}
   m_PrefabAsset: {fileID: 0}
@@ -3002,9 +3015,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 5966363089907305255}
   m_PrefabAsset: {fileID: 0}
---- !u!20 &6345297507684376634 stripped
-Camera:
-  m_CorrespondingSourceObject: {fileID: 775676765654723357, guid: 54d86e26683fd49ceb879a39ae5231ef,
+--- !u!1 &6345297507684376632 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 775676765654723359, guid: 54d86e26683fd49ceb879a39ae5231ef,
     type: 3}
   m_PrefabInstance: {fileID: 5966363089907305255}
   m_PrefabAsset: {fileID: 0}
