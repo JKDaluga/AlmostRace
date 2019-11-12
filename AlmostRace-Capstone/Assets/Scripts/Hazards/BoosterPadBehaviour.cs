@@ -21,10 +21,12 @@ public class BoosterPadBehaviour : Interactable
     [Range(0, 100)]
     public float accelMultiplier;
 
+    [Tooltip("Set the boosting particle effect")]
+    public GameObject boostEffect;
+
     private void OnTriggerEnter(Collider other)
     {
-        print("getting triggerd REEEEEEEE");
-        Debug.Log(other);
+    
         if(other.gameObject.GetComponent<SphereCarController>() != null)
         {
             // Save original values so we can reset it later 
@@ -35,8 +37,11 @@ public class BoosterPadBehaviour : Interactable
             other.gameObject.GetComponent<SphereCarController>().topSpeed += ((speedMultiplier * _originalTopSpeed) / 100);
             other.gameObject.GetComponent<SphereCarController>().acceleration += ((accelMultiplier * _originalAccelarion) / 100);
 
-            Debug.Log("og speed: " + _originalTopSpeed + " new speed: " + other.gameObject.GetComponent<SphereCarController>().topSpeed);
-            Debug.Log("og accel: " + _originalAccelarion + "new accel: " + other.gameObject.GetComponent<SphereCarController>().acceleration);
+            //Debug.Log("og speed: " + _originalTopSpeed + " new speed: " + other.gameObject.GetComponent<SphereCarController>().topSpeed);
+            //Debug.Log("og accel: " + _originalAccelarion + "new accel: " + other.gameObject.GetComponent<SphereCarController>().acceleration);
+
+           // GameObject newBoostEffect = Instantiate(boostEffect, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+            //newBoostEffect.transform.parent = other.transform;
         }
     }
 
@@ -47,9 +52,17 @@ public class BoosterPadBehaviour : Interactable
             // Reset the original values when leaving the boost pad
             other.gameObject.GetComponent<SphereCarController>().topSpeed = _originalTopSpeed;
             other.gameObject.GetComponent<SphereCarController>().acceleration = _originalAccelarion;
-            print("leaving");
-            Debug.Log("og speed: " + _originalTopSpeed + " new speed: " + other.gameObject.GetComponent<SphereCarController>().topSpeed);
-            Debug.Log("og accel: " + _originalAccelarion + "new accel: " + other.gameObject.GetComponent<SphereCarController>().acceleration);
+            
+            //Debug.Log("og speed: " + _originalTopSpeed + " new speed: " + other.gameObject.GetComponent<SphereCarController>().topSpeed);
+            //Debug.Log("og accel: " + _originalAccelarion + "new accel: " + other.gameObject.GetComponent<SphereCarController>().acceleration);
+
+            /*foreach (Transform boosterChild in other.transform)
+            {
+                if (boosterChild.name == "newBoostEffect")
+                {
+                    Debug.Log("Child found. Mame: " + boosterChild.name);
+                }
+            }*/
         }
     }
 
