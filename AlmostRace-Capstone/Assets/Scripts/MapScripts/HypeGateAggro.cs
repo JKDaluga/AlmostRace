@@ -20,6 +20,7 @@ public class HypeGateAggro : MonoBehaviour
             {
                 if (_hypeGate.carsInRange.Count == 0)//if no cars were in range, start checking cars in range
                 {//prevents the couroutine from having to be called in Start, saves performance
+                    _hypeGate.InitializeHypeGate(gameObject);
                     _hypeGate.StartCoroutine(_hypeGate.CheckCars());
                 }
                 _hypeGate.carsInRange.Add(other.gameObject);
