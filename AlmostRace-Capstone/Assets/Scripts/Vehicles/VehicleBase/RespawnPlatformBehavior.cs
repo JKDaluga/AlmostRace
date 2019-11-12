@@ -42,9 +42,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
             {
                 if (_playerObject.GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
                 {
-                    Debug.Log("Bot dropped, spawn behind it");
-                    _playerObject.GetComponent<HotSpotVehicleAdministration>().DropTheBot();
-                    SpawnBehindBot();
+                    SpawnBehindBotAfterDropping();
                 }
                 else
                 {
@@ -54,7 +52,6 @@ public class RespawnPlatformBehavior : MonoBehaviour
             }
             else if (!_hotSpotBotScript.GetBeingHeld())
             {
-                Debug.Log("No one has the bot");
                 SpawnBehindBot();
             }
         }
@@ -66,6 +63,19 @@ public class RespawnPlatformBehavior : MonoBehaviour
         StartCoroutine(RespawnSequence());
     }
 
+    // Vehicle respawning had the HotsSpotBot, spawn it behind the dropped bot
+    private void SpawnBehindBotAfterDropping()
+    {
+        _playerObject.GetComponent<HotSpotVehicleAdministration>().DropTheBot();
+        Vector3 nearestPointOnSpline = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, distanceBehind);
+        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, -3);
+
+        transform.position = new Vector3(nearestPointOnSpline.x,
+            nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
+        transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
+    }
+
+    // No one had the HotsSpotBot, spawn the vehicle behind it
     private void SpawnBehindBot()
     {
         Transform bot = GameObject.Find("HotSpotBot").transform;
@@ -76,7 +86,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
         transform.LookAt(new Vector3(bot.position.x, transform.position.y, bot.position.z));
     }
 
-    // Place the platform at the proper position and rotation above the enemy with the hotspot
+    // Another vehicle has the HotSpotBot, spawn the vehicle respawning behind the vehicle with the HotSpotBot
     private void SpawnBehindEnemyWithBot()
     {
         for(int i = 0; i < _hypeManagerScript.vehicleList.Count; i++)
@@ -96,7 +106,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
             transform.position.y, _otherVehicle.transform.position.z));
     }
 
-    // If there is no hotspot spawn the vehicle at its death location
+    // If there is no HotSpotBot, spawn the vehicle at its death location
     private void SpawnOnSelf()
     {
         transform.position = new Vector3(_playerObject.transform.position.x,
