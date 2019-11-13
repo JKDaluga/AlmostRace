@@ -59,6 +59,10 @@ public class SphereCarController : MonoBehaviour
     public GameObject leftDriftParticles;
     public GameObject rightDriftParticles;
 
+    [Header("Collision Particles")]
+    public GameObject leftCollisionParticles;
+    public GameObject rightCollisionParticles;
+
     [Header("Speedometer")]
     public Image speedometerImage;
 
