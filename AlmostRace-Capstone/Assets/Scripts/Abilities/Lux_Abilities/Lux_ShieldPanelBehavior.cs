@@ -26,7 +26,7 @@ public class Lux_ShieldPanelBehavior : MonoBehaviour
 
     public void DeactivateShield()
     {
-        _shieldHealth
+        //_shieldHealth
     }
 
 }
