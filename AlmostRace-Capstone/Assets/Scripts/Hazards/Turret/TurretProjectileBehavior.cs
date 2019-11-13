@@ -12,18 +12,22 @@ public class TurretProjectileBehavior : MonoBehaviour
 {
 
     private Rigidbody _rigidBody;
-
+  
     private float _projectileDamage;
     public float _projectileSpeed;
+    private Collider _collider;
+    [Header("Particle Variables...................................................................")]
+    public GameObject sparkEffect;
+    public MeshRenderer meshRenderer;
+    public Light pointLight;
     // Start is called before the first frame update
     void Start()
     {
+        _collider = gameObject.GetComponent<Collider>();
         _rigidBody = gameObject.GetComponent<Rigidbody>();
         _rigidBody.velocity = transform.TransformDirection(Vector3.up * _projectileSpeed);    
         Destroy(gameObject, 7.0f);
     }
-
-
 
     public void SetProjectileInfo(float projectileDamage, float projectileSpeed)
     {
@@ -37,7 +41,30 @@ public class TurretProjectileBehavior : MonoBehaviour
         {//if other is a car
             other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
             Debug.Log("Damage done to player: " + _projectileDamage);
-            Destroy(gameObject);
-        }     
+            StartCoroutine(ExplosionEffect());
+        }
+        else if (other.gameObject.GetComponent<Interactable>() != null)
+        {//Checks if the object isn't the immunePlayer and if they are an interactable object.
+
+            other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+            StartCoroutine(ExplosionEffect());
+        }
+        else
+        {
+            StartCoroutine(ExplosionEffect());
+        }
+    }
+
+    public IEnumerator ExplosionEffect()
+    {
+        _collider.enabled = false;
+        _rigidBody.velocity = Vector3.zero;
+        _rigidBody.useGravity = false;
+        _rigidBody.isKinematic = true;
+        meshRenderer.enabled = false;
+        pointLight.enabled = false;
+        sparkEffect.SetActive(true);
+        yield return new WaitForSeconds(sparkEffect.GetComponent<ParticleSystem>().main.duration);
+        Destroy(gameObject);
     }
 }

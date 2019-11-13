@@ -2,31 +2,61 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lux_ShieldPanelBehavior : MonoBehaviour
+public class Lux_ShieldPanelBehavior : Interactable
 {
-
-    private float _shieldHealth;
-    private float _shieldHealthMax;
-    private GameObject _shieldObject;
+    private float _shieldMaxHealth;
+    private GameObject _shieldPlayer;
+    private Collider _collider;
+    private MeshRenderer _meshRender;
 
     private void Start()
     {
-        DeactivateShield();
+        canBeDamaged = true;
+        _collider = gameObject.GetComponent<Collider>();
+        _meshRender = gameObject.GetComponent<MeshRenderer>();
+        DestroyInteractable();
     }
 
     public void GiveInfo(float shieldHealth, GameObject shieldPlayer)
     {
-
+        _shieldMaxHealth = shieldHealth;
+        interactableHealth = shieldHealth;
+        _shieldPlayer = shieldPlayer;
     }
 
-    public void ActivateShield()
+    public override void TriggerInteractable()
     {
+        ResetInteractable(); // makes sure each panel has full health.
+        _meshRender.enabled = true;
+        _collider.enabled = true;
 
     }
 
-    public void DeactivateShield()
+    public override void DestroyInteractable()
     {
-        //_shieldHealth
+        _meshRender.enabled = false;
+        _collider.enabled = false;
     }
+
+    public override void ResetInteractable()
+    {
+        interactableHealth = _shieldMaxHealth;
+    }
+
+    public override void DamageInteractable(float damageNumber)
+    {
+        interactableHealth -= damageNumber;
+        if (interactableHealth <= 0)
+        {
+            DestroyInteractable();
+        }
+    }
+
+    public GameObject GetShieldPlayer()
+    {//required for the LuxProjectiles to make sure they aren't damaging their own player's shields.
+        return _shieldPlayer;
+    }
+
+    // _shieldHealth = _shieldHealthMax; add this later to where the shield dies
 
 }

@@ -33,7 +33,7 @@ public abstract class Interactable : MonoBehaviour
     /// <summary>
     /// A bool for whether or not the interactable can take damage.
     /// </summary>
-    public bool canBeDamaged;
+    public bool canBeDamaged = true;
 
     /// <summary>
     /// Interactable health value.

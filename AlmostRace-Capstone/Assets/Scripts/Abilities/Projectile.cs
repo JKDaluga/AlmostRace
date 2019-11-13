@@ -1,0 +1,62 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public abstract class Projectile : MonoBehaviour
+{
+
+    public GameObject sparkEffect;
+    private Collider _collider;
+    public MeshRenderer meshRenderer;
+    public Light pointLight;
+    protected GameObject _immunePlayer;
+    protected Vector3 _immunePlayerVelocity;
+    protected float _speedActual;
+    protected VehicleHypeBehavior _immunePlayerScript;
+    protected Rigidbody _rigidBody;
+
+    protected float _projectileDamage;
+    protected float _projectileSpeed;
+    protected float _projectileHype;
+    protected bool _isAlive = true;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        _collider = gameObject.GetComponent<Collider>();
+        _rigidBody = gameObject.GetComponent<Rigidbody>();
+        _immunePlayerVelocity = _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
+
+        _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _projectileSpeed) + _immunePlayerVelocity;
+        _speedActual = _rigidBody.velocity.magnitude;
+
+        Destroy(gameObject, 7.0f);
+    }
+
+    public void SetImmunePlayer(GameObject immunePlayer)
+    {
+        _immunePlayer = immunePlayer;
+        _immunePlayerScript = _immunePlayer.GetComponent<VehicleHypeBehavior>();
+    }
+
+    public void SetProjectileInfo(float projectileDamage, float projectileSpeed, float projectileHypeToGain)
+    {
+        _projectileDamage = projectileDamage;
+        _projectileSpeed = projectileSpeed;
+        _projectileHype = projectileHypeToGain;
+    }
+
+    public IEnumerator ExplosionEffect()
+    {
+        _collider.enabled = false;
+        _isAlive = false;
+        _rigidBody.velocity = Vector3.zero;
+        _rigidBody.useGravity = false;
+        _rigidBody.isKinematic = true;
+        meshRenderer.enabled = false;
+        pointLight.enabled = false;
+        sparkEffect.SetActive(true);
+        yield return new WaitForSeconds(sparkEffect.GetComponent<ParticleSystem>().main.duration);
+        Destroy(gameObject);
+    }
+}

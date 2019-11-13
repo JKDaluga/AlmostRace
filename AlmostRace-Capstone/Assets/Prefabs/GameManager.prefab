@@ -288,8 +288,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8447175210821411509}
   - component: {fileID: 8447175210821411510}
-  - component: {fileID: 2323304361835896}
-  - component: {fileID: 5524551858585904626}
   - component: {fileID: 6403223517959016241}
   - component: {fileID: 2280357531516124063}
   m_Layer: 0
@@ -327,198 +325,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53edda0a6ea374f00b72100833f50b7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _vehicleList: []
+  vehicleList: []
+  totalHype: 0
   maxHype: 0
   winnerText: {fileID: 5442321032361601276}
---- !u!82 &2323304361835896
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8447175210821411507}
-  m_Enabled: 0
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 487cae07aca4278468953b4f112aaffe, type: 3}
-  m_PlayOnAwake: 1
-  m_Volume: 0.07
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &5524551858585904626
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8447175210821411507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ca2840f985260c43b8d4ead2e8ab7f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: MissileLaunch
-    clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
-    volume: 1
-    volumeVariance: 0
-    pitch: 3
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: Blaster1
-    clip: {fileID: 8300000, guid: 7fc7cec712691a44aa1374de30c65523, type: 3}
-    volume: 0.5
-    volumeVariance: 0.58
-    pitch: 0.5
-    pitchVariance: 0.12
-    loop: 0
-    source: {fileID: 0}
-  - name: Death
-    clip: {fileID: 8300000, guid: cefdbfff7b9c8aa448808f6559270295, type: 3}
-    volume: 1
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: MissileLaunch
-    clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
-    volume: 1
-    volumeVariance: 0
-    pitch: 3
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: Engine
-    clip: {fileID: 8300000, guid: 963383b1ff7e2dd489b6de695942ddc8, type: 3}
-    volume: 0.05
-    volumeVariance: 0
-    pitch: 0.94
-    pitchVariance: 0
-    loop: 1
-    source: {fileID: 0}
-  - name: Teleport
-    clip: {fileID: 8300000, guid: 5b3f7f9cb9a526d43aaa1d38b30f6dea, type: 3}
-    volume: 1
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: Drift
-    clip: {fileID: 8300000, guid: 1a2db1d8f2d213b48984494e7309eb45, type: 3}
-    volume: 0.1
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 1
-    source: {fileID: 0}
-  - name: MissileLaunch
-    clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
-    volume: 1
-    volumeVariance: 0
-    pitch: 3
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: MissileLaunch
-    clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
-    volume: 1
-    volumeVariance: 0
-    pitch: 3
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: MissileLaunch
-    clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
-    volume: 1
-    volumeVariance: 0
-    pitch: 3
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
 --- !u!114 &6403223517959016241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -706,11 +516,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3888146201418055542}
     m_Modifications:
-    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
-        type: 3}
-      propertyPath: m_Name
-      value: Countdown
-      objectReference: {fileID: 0}
     - target: {fileID: 7992159949368064935, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -815,6 +620,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
+        type: 3}
+      propertyPath: m_Name
+      value: Countdown
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e, type: 3}

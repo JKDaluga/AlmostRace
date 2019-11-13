@@ -14,7 +14,7 @@ using TMPro;
 
 public class HypeGateBehavior : MonoBehaviour
 {
-
+    private HypeManager _hypeManager;
     private float _currentHype; // tracks current total hype of cars inside of arena
     private float _displayHype; //used in showing hype in text
 
@@ -32,7 +32,15 @@ public class HypeGateBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _carsInGame = HypeManager.instance.vehicleList.Count;
+        _hypeManager = FindObjectOfType<HypeManager>();
+        if(_hypeManager != null)
+        {
+            _carsInGame = _hypeManager.vehicleList.Count;
+        }
+        else
+        {
+            Debug.LogError("Hype Manager not found!");
+        }
     }
 
     public IEnumerator CheckCars()
@@ -58,7 +66,7 @@ public class HypeGateBehavior : MonoBehaviour
     public void InitializeHypeGate(GameObject aggroSphere)
     {
         _aggroSphere = aggroSphere;
-        _currentHype = HypeManager.instance.totalHype; //initial get of total hype, for display purposes
+        _currentHype = _hypeManager.totalHype; //initial get of total hype, for display purposes
         _displayHype = _currentHype;
         _hypeLimitActual = _currentHype + hypeLimit;
     }
@@ -67,7 +75,7 @@ public class HypeGateBehavior : MonoBehaviour
     {    
         while (true)
         {
-            _currentHype = HypeManager.instance.totalHype;
+            _currentHype = _hypeManager.totalHype;
             if (_currentHype < _hypeLimitActual)
             {
                 UpdateDisplays();
