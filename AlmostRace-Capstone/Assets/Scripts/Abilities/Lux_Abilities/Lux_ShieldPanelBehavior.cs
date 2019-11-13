@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class Lux_ShieldPanelBehavior : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+
+    private float _shieldHealth;
+    private float _shieldHealthMax;
+    private GameObject _shieldObject;
+
+    private void Start()
     {
-        
+        DeactivateShield();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void GiveInfo(float shieldHealth, GameObject shieldPlayer)
     {
-        
+
     }
+
+    public void ActivateShield()
+    {
+
+    }
+
+    public void DeactivateShield()
+    {
+        _shieldHealth
+    }
+
 }

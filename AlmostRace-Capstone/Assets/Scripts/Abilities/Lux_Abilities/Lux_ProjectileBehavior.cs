@@ -53,6 +53,7 @@ public class Lux_ProjectileBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (_isAlive)
         {
             if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHeatManager>() != null)

@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class Lux_DefensiveAbility : CooldownAbility
 {
+    public List<GameObject> _shields;
+
+    void Start()
+    {
+
+    }
+
     public override void ActivateAbility()
     {
         throw new System.NotImplementedException();
@@ -12,12 +19,6 @@ public class Lux_DefensiveAbility : CooldownAbility
     public override void DeactivateAbility()
     {
         throw new System.NotImplementedException();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
 }
