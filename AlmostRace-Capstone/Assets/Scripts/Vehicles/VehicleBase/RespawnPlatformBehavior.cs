@@ -29,11 +29,12 @@ public class RespawnPlatformBehavior : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(HypeManager.instance != null)
+        _hypeManagerScript = FindObjectOfType<HypeManager>();
+        if (_hypeManagerScript == null)
         {
-            _hypeManagerScript = HypeManager.instance;
+            Debug.LogError("Hype Manager not found!");
         }
-        
+
         if (HotSpotBotBehavior.instance != null)
         {
             _hotSpotBotScript = HotSpotBotBehavior.instance;

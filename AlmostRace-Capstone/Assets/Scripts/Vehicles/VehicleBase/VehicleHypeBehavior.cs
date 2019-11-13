@@ -27,10 +27,14 @@ public class VehicleHypeBehavior : MonoBehaviour
 
     void Start()
     {
-        if(HypeManager.instance != null)
+        _hypeManagerScript = FindObjectOfType<HypeManager>();
+        if (_hypeManagerScript != null)
         {
-            _hypeManagerScript = HypeManager.instance;
             _hypeManagerScript.VehicleAssign(this.gameObject);
+        }
+        else
+        {
+            Debug.LogError("Hype Manager not found!");
         }
     }
 
