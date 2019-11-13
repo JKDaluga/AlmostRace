@@ -20,6 +20,7 @@ public class TurretProjectileBehavior : MonoBehaviour
     public GameObject sparkEffect;
     public MeshRenderer meshRenderer;
     public Light pointLight;
+    private GameObject _immunePlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +30,7 @@ public class TurretProjectileBehavior : MonoBehaviour
         Destroy(gameObject, 7.0f);
     }
 
-    public void SetProjectileInfo(float projectileDamage, float projectileSpeed)
+    public void SetProjectileInfo(float projectileDamage, float projectileSpeed, GameObject immunePlayer)
     {
         _projectileDamage = projectileDamage;
         _projectileSpeed = projectileSpeed;
@@ -37,22 +38,26 @@ public class TurretProjectileBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.GetComponent<CarHeatManager>() != null)
-        {//if other is a car
-            other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
-            Debug.Log("Damage done to player: " + _projectileDamage);
-            StartCoroutine(ExplosionEffect());
-        }
-        else if (other.gameObject.GetComponent<Interactable>() != null)
-        {//Checks if the object isn't the immunePlayer and if they are an interactable object.
-
-            other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
-            StartCoroutine(ExplosionEffect());
-        }
-        else
+        if(_immunePlayer != other.gameObject)
         {
-            StartCoroutine(ExplosionEffect());
+            if (other.gameObject.GetComponent<CarHeatManager>() != null)
+            {//if other is a car
+                other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
+                Debug.Log("Damage done to player: " + _projectileDamage);
+                StartCoroutine(ExplosionEffect());
+            }
+            else if (other.gameObject.GetComponent<Interactable>() != null)
+            {//Checks if the object isn't the immunePlayer and if they are an interactable object.
+
+                other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+                StartCoroutine(ExplosionEffect());
+            }
+            else
+            {
+                StartCoroutine(ExplosionEffect());
+            }
         }
+       
     }
 
     public IEnumerator ExplosionEffect()

@@ -67,7 +67,7 @@ public class CarHeatManager : MonoBehaviour
     }
     private void Kill()
     {
-        AudioManager.instance.Play("Death");
+        //AudioManager.instance.Play("Death");
         isDead = true;
         Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);
         deathFade.GetComponent<Animator>().Play("DeathFadeIn");
