@@ -19,6 +19,7 @@ public class TurretFirePillarBehavior : MonoBehaviour
     private void Start()
     {
         pillarCollider = gameObject.GetComponent<Collider>();
+        Deactivate();
     }
 
     public void Activate()

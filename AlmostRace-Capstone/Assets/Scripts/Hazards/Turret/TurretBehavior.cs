@@ -61,7 +61,6 @@ public class TurretBehavior : Interactable
         _turretCollider = gameObject.GetComponent<Collider>();
         _originalHealth = interactableHealth;
         canBeDamaged = true;
-        turretFirePillar.Deactivate();
         _turretSound = gameObject.GetComponent<AudioSource>();
     }
 
