@@ -20,6 +20,7 @@ public class CarHeatManager : MonoBehaviour
     public float heatExplodeLimit = 120f;
     public float cooldownAmount = 1f;
     public float respawnSecs = 3f;
+    public float teleportCooldown = 5f;
     public float cooldownFrequency = 2f;
     public bool isDead;
     private VehicleInput _vehicleInput;
@@ -146,7 +147,6 @@ public class CarHeatManager : MonoBehaviour
 
     public void Respawn()
     {
-        _canTeleport = true;
         heatCurrent = 0;
         isDead = false;
         deathFade.GetComponent<Animator>().Play("DeathFadeOut");
@@ -165,9 +165,10 @@ public class CarHeatManager : MonoBehaviour
     {
         if (_canTeleport)
         {
-            AudioManager.instance.Play("Teleport");
             _canTeleport = false;
             isDead = true;
+            AudioManager.instance.Play("Teleport");
+            StartCoroutine(teleportCooldownTimer());
             Instantiate(teleportEffect, gameObject.transform.position, gameObject.transform.rotation);
             deathFade.GetComponent<Animator>().Play("DeathFadeIn");
             GetComponent<SphereCarController>().enabled = false;
@@ -177,6 +178,12 @@ public class CarHeatManager : MonoBehaviour
             sphereCollider.GetComponent<Rigidbody>().useGravity = false;
             sphereCollider.GetComponent<Rigidbody>().isKinematic = true;
         }
+    }
+
+    private IEnumerator teleportCooldownTimer()
+    {
+        yield return new WaitForSeconds(teleportCooldown);
+        _canTeleport = true;
     }
 
     private void healthCooldown()
