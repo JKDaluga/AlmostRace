@@ -22,7 +22,7 @@ public class HypeManager : MonoBehaviour
     public List<GameObject> vehicleList = new List<GameObject>();
     private Text[] _hypeAmountDisplay;
     public float totalHype;
-    public float maxHype; //Essentially a win condition
+    //public float maxHype; //Essentially a win condition
     public Text winnerText;
     private float tempTotal;
     public GameObject countdownObj;
@@ -133,12 +133,12 @@ public class HypeManager : MonoBehaviour
     {
         foreach(GameObject entry in vehicleList)
         {
-            if(entry.GetComponent<VehicleHypeBehavior>().GetHypeAmount() >= maxHype)
-            {
-                Time.timeScale = 0.0f;
-                winnerText.text = "PLAYER " + entry.GetComponent<VehicleInput>().playerNumber + " WINS!";
-                winnerText.gameObject.SetActive(true);
-            }
+           // if(entry.GetComponent<VehicleHypeBehavior>().GetHypeAmount() >= maxHype)
+           // {
+            //    Time.timeScale = 0.0f;
+           //     winnerText.text = "PLAYER " + entry.GetComponent<VehicleInput>().playerNumber + " WINS!";
+            //    winnerText.gameObject.SetActive(true);
+          //  }
         }
     }
 
