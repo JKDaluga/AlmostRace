@@ -21,7 +21,7 @@ public class Countdown : MonoBehaviour
         arrV = FindObjectsOfType<VehicleInput>();
         StartCoroutine(countDown(timeLeft));
     }
-    IEnumerator countDown(int seconds)
+    public IEnumerator countDown(int seconds)
     {
         int count = seconds;
 

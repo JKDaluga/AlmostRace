@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+using TMPro;
+
     /*
     Author: Jake Velicer
     Purpose: Stores each vehicle object in a list,
@@ -20,9 +22,11 @@ public class HypeManager : MonoBehaviour
     public List<GameObject> vehicleList = new List<GameObject>();
     private Text[] _hypeAmountDisplay;
     public float totalHype;
-    public float maxHype; //Essentially a win condition
+    //public float maxHype; //Essentially a win condition
     public Text winnerText;
     private float tempTotal;
+    public GameObject countdownObj;
+    
 
     private void Awake()
     {
@@ -50,6 +54,22 @@ public class HypeManager : MonoBehaviour
             yield return null;
         }
        
+    }
+
+    public IEnumerator EndGameCountDown(float timerTime)
+    {
+
+        float tempTime = timerTime;
+        countdownObj.SetActive(true);
+        TextMeshProUGUI countdownText = countdownObj.GetComponent<TextMeshProUGUI>();
+        while (tempTime > 0)
+        {
+            countdownText.text = "" + tempTime.ToString("F0");
+            tempTime -= Time.deltaTime;
+            yield return null;
+        }
+        countdownObj.SetActive(false);
+        EndGame();
     }
 
     private void SetUpDisplay()
@@ -113,12 +133,12 @@ public class HypeManager : MonoBehaviour
     {
         foreach(GameObject entry in vehicleList)
         {
-            if(entry.GetComponent<VehicleHypeBehavior>().GetHypeAmount() >= maxHype)
-            {
-                Time.timeScale = 0.0f;
-                winnerText.text = "PLAYER " + entry.GetComponent<VehicleInput>().playerNumber + " WINS!";
-                winnerText.gameObject.SetActive(true);
-            }
+           // if(entry.GetComponent<VehicleHypeBehavior>().GetHypeAmount() >= maxHype)
+           // {
+            //    Time.timeScale = 0.0f;
+           //     winnerText.text = "PLAYER " + entry.GetComponent<VehicleInput>().playerNumber + " WINS!";
+            //    winnerText.gameObject.SetActive(true);
+          //  }
         }
     }
 
