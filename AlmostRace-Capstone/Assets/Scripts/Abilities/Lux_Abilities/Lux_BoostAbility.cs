@@ -4,17 +4,33 @@ using UnityEngine;
 
 public class Lux_BoostAbility : CooldownHeatAbility
 {
+    private SphereCarController carInfo;
+
+    [Range(0,100)]
+    public float boostSpeedPercentage;
+
+    [Range(0, 100)]
+    public float boostTopSpeedPercentage;
+
+    private void Start()
+    {
+        gameObject.GetComponent<SphereCarController>();   
+    }
+
     public override void ActivateAbility()
     {
-
+        carInfo.SetIsBoosting(true);
+        carInfo.SetBoostInfo(boostSpeedPercentage, boostTopSpeedPercentage);
+        AddHeat();
     }
 
     public override void DeactivateAbility()
     {
+        carInfo.SetIsBoosting(false);
     }
 
     protected override void AddHeat()
     {
-
+        carHeatInfo.AddHeat(selfHeatDamage);
     }
 }
