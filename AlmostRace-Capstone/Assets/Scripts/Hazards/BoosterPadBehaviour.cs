@@ -6,6 +6,8 @@ using UnityEngine;
  * Mike Romeo 08/10/19
  * BoosterPadBehaviour gets the SphereCarController topspeed and accelaration variables 
  * and multiplies them with a percentage.
+ * 
+ * Activates a boosting particle effect when player is on the boost pad.
  */
 
 public class BoosterPadBehaviour : Interactable
@@ -21,8 +23,10 @@ public class BoosterPadBehaviour : Interactable
     [Range(0, 100)]
     public float accelMultiplier;
 
-    [Tooltip("Set the boosting particle effect")]
-    public GameObject boostEffect;
+    private AudioSource powerUpSound;
+
+   /* [Tooltip("Set the boosting particle effect")]
+    public GameObject boostEffect;*/
 
     private void OnTriggerEnter(Collider other)
     {
@@ -37,11 +41,10 @@ public class BoosterPadBehaviour : Interactable
             other.gameObject.GetComponent<SphereCarController>().topSpeed += ((speedMultiplier * _originalTopSpeed) / 100);
             other.gameObject.GetComponent<SphereCarController>().acceleration += ((accelMultiplier * _originalAccelarion) / 100);
 
-            //Debug.Log("og speed: " + _originalTopSpeed + " new speed: " + other.gameObject.GetComponent<SphereCarController>().topSpeed);
-            //Debug.Log("og accel: " + _originalAccelarion + "new accel: " + other.gameObject.GetComponent<SphereCarController>().acceleration);
+            powerUpSound = other.gameObject.GetComponent<AudioSource>();
 
-           // GameObject newBoostEffect = Instantiate(boostEffect, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
-            //newBoostEffect.transform.parent = other.transform;
+            // Turn on the particle effect
+            other.gameObject.GetComponent<SphereCarController>().boostingParticles.Play();
         }
     }
 
@@ -52,17 +55,9 @@ public class BoosterPadBehaviour : Interactable
             // Reset the original values when leaving the boost pad
             other.gameObject.GetComponent<SphereCarController>().topSpeed = _originalTopSpeed;
             other.gameObject.GetComponent<SphereCarController>().acceleration = _originalAccelarion;
-            
-            //Debug.Log("og speed: " + _originalTopSpeed + " new speed: " + other.gameObject.GetComponent<SphereCarController>().topSpeed);
-            //Debug.Log("og accel: " + _originalAccelarion + "new accel: " + other.gameObject.GetComponent<SphereCarController>().acceleration);
 
-            /*foreach (Transform boosterChild in other.transform)
-            {
-                if (boosterChild.name == "newBoostEffect")
-                {
-                    Debug.Log("Child found. Mame: " + boosterChild.name);
-                }
-            }*/
+            // Turn off the boost effect
+            other.gameObject.GetComponent<SphereCarController>().boostingParticles.Stop();
         }
     }
 
