@@ -25,10 +25,24 @@ public class CarHeatManager : MonoBehaviour
     private VehicleInput _vehicleInput;
     private bool _canTeleport = true;
 
+    [Header("Car Heat UI elements")]
+    public Image heatFillBar;
+    public Image heat25;
+    public Image heat50;
+    public Image heat75;
+    public Image heat90;
+
+
     private void Start()
     {
         _vehicleInput = GetComponent<VehicleInput>();
         InvokeRepeating("healthCooldown", 0, cooldownFrequency);
+
+        heat25.enabled = false;
+        heat50.enabled = false; 
+        heat75.enabled = false; 
+        heat90.enabled = false; 
+
     }
     // Update is called once per frame
     void Update()
@@ -62,7 +76,56 @@ public class CarHeatManager : MonoBehaviour
 
             if (heatImage != null)
             {
-                heatImage.fillAmount = ((heatCurrent * 100) / 120) / 100;
+                //heatImage.fillAmount = ((heatCurrent * 100) / 120) / 100;
+                heatFillBar.fillAmount = ((heatCurrent * 100) / 120) / 100;
+
+                if (heatFillBar.fillAmount >= 0)
+                {
+                    heat25.enabled = false;
+                    heat50.enabled = false;
+                    heat75.enabled = false;
+                    heat90.enabled = false;
+                }
+
+                if (heatFillBar.fillAmount > 0.25)
+                {
+                    heat25.enabled = true;
+                    heat50.enabled = false;
+                    heat75.enabled = false;
+                    heat90.enabled = false;
+                }
+
+                if (heatFillBar.fillAmount > 0.5)
+                {
+                    heat25.enabled = true;
+                    heat50.enabled = true;
+                    heat75.enabled = false;
+                    heat90.enabled = false;
+                }
+
+                if (heatFillBar.fillAmount > 0.75)
+                {
+                    heat25.enabled = true;
+                    heat50.enabled = true;
+                    heat75.enabled = true;
+                    heat90.enabled = false;
+                }
+
+                if (heatFillBar.fillAmount > 0.90)
+                {
+                    heat25.enabled = true;
+                    heat50.enabled = true;
+                    heat75.enabled = true;
+                    heat90.enabled = true;
+                }
+                else
+                {
+                    /*heat25.enabled = false;
+                    heat50.enabled = false;
+                    heat75.enabled = false;
+                    heat90.enabled = false;*/
+                }
+
             }
         }
 
