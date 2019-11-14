@@ -4,7 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-
+/*
+    Creator and developer of script: Leonardo Caballero
+*/
 public class MenuController : MonoBehaviour
 {
     public GameObject pauseMenu;

@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+    Creator and developer of script: Leonardo Caballero
+*/
 
 public class Countdown : MonoBehaviour
 {

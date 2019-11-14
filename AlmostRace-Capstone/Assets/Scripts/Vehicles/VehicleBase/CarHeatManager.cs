@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+/*
+    Some edits by Leonardo Caballero
+*/
 public class CarHeatManager : MonoBehaviour
 {
     public Image heatImage;

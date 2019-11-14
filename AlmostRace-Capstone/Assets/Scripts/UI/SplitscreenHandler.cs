@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+/*
+    Creator and developer of script: Leonardo Caballero
+*/
 public class SplitscreenHandler : MonoBehaviour
 {
 
@@ -30,6 +34,8 @@ public class SplitscreenHandler : MonoBehaviour
         }
     }
 
+
+    //Find time to make shorter, better code. 
     private void setUp_2(int num, Camera c)
     {
         if(num == 1)
