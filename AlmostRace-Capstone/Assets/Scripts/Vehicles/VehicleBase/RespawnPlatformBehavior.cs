@@ -39,7 +39,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
             _hotSpotBotScript = HotSpotBotBehavior.instance;
         }
 
-        if (GameObject.FindGameObjectWithTag("HotSpotSpline").GetComponent<SplinePlus>() != null)
+        if (GameObject.FindGameObjectWithTag("HotSpotSpline") != null)
         {
             if (GameObject.FindGameObjectWithTag("HotSpotSpline").GetComponent<SplinePlus>().SPData.Followers[0].FollowerGO != null)
             {
