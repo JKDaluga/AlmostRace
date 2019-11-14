@@ -26,7 +26,7 @@ public class Juggernaut_SignatureAbility : Ability
     public override void ActivateAbility()
     {
         sphereCarScript.steering = newSteering;
-        sphereCarScript.SetBoostInfo(boostSpeed);
+        //sphereCarScript.SetBoostInfo(boostSpeed);
         sphereCarScript.SetIsBoosting(true);
         Invoke("DeactivateAbility", boostDuration);
     }
@@ -34,7 +34,7 @@ public class Juggernaut_SignatureAbility : Ability
     public override void DeactivateAbility()
     {
         sphereCarScript.steering = _originalSteering;
-        sphereCarScript.SetBoostInfo(0);
+        //sphereCarScript.SetBoostInfo(0);
         sphereCarScript.SetIsBoosting(false);
     }
 }
