@@ -19,14 +19,14 @@ public class PickupBehavior : MonoBehaviour
             StartCoroutine(coolDown());
 
             // If the vehicle pickup slot is open assign a pickup
-            if(collision.gameObject.GetComponent<VehicleAbilityBehavior>().hasPickup() == false)
+           /* if(collision.gameObject.GetComponent<VehicleAbilityBehavior>().hasPickup() == false)
             {
                 if (chosenPickUp == PickUps.misslePickUp)
                 {
                     _pickUp = Resources.Load<GameObject>("MissileAbilityContainer");
                     collision.gameObject.GetComponent<VehicleAbilityBehavior>().assignPickup(_pickUp);
                 }
-            }
+            }*/
         }
     }
 

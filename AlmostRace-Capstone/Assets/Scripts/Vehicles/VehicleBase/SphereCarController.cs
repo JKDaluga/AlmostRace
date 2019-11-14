@@ -111,7 +111,6 @@ public class SphereCarController : MonoBehaviour
     void Update()
     {
         float extraSpeed = 0;
-        float extraTopSpeed = 0;
         // If vehicle input is turned off don't listen to inputs
         if (!_vehicleInput.getStatus())
         {
@@ -124,15 +123,13 @@ public class SphereCarController : MonoBehaviour
         if (_isBoosting)
         {
             extraSpeed += ((_boostSpeedPercentage * topSpeed) / 100);
-            extraTopSpeed += ((_boostTopSpeedPercentage * topSpeed) / 100);
         }
         if(_isOnBoosterPad)
         {
             extraSpeed += ((_boosterPadSpeedPercentage * topSpeed) / 100);
-            extraTopSpeed += ((_boosterPadTopSpeedPercentage * topSpeed) / 100);
         }
 
-        speed = (topSpeed + extraTopSpeed) * ((Input.GetAxis(_vehicleInput.verticalForward) - Input.GetAxis(_vehicleInput.verticalBackward)) + extraSpeed);
+        speed = (topSpeed + extraSpeed) * (Input.GetAxis(_vehicleInput.verticalForward) - Input.GetAxis(_vehicleInput.verticalBackward));
 
         //Allows for vehicle to back up and break
         if (speed < 0)
@@ -330,10 +327,9 @@ public class SphereCarController : MonoBehaviour
         _isBoosting = ToF;
     }
 
-    public void SetBoostInfo(float boostSpeedPercentage, float boostTopSpeedPercentage)
+    public void SetBoostInfo(float boostSpeedPercentage)
     {
         _boostSpeedPercentage = boostSpeedPercentage;
-        _boostTopSpeedPercentage = boostTopSpeedPercentage;
     }
 
     public void SetIsOnBoosterPad(bool ToF)
@@ -341,10 +337,9 @@ public class SphereCarController : MonoBehaviour
         _isOnBoosterPad = ToF;
     }
 
-    public void SetBoosterPadInfo(float boosterPadSpeedPercentage, float boosterPadTopSpeedPercentage)
+    public void SetBoosterPadInfo(float boosterPadSpeedPercentage)
     {
         _boosterPadSpeedPercentage = boosterPadSpeedPercentage;
-        _boosterPadTopSpeedPercentage = boosterPadTopSpeedPercentage;
     }
 
     public bool getDrifting()

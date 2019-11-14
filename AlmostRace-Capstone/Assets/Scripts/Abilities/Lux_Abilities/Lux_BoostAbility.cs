@@ -14,13 +14,13 @@ public class Lux_BoostAbility : CooldownHeatAbility
 
     private void Start()
     {
-        gameObject.GetComponent<SphereCarController>();   
+        carInfo = gameObject.GetComponent<SphereCarController>();   
     }
 
     public override void ActivateAbility()
     {
         carInfo.SetIsBoosting(true);
-        carInfo.SetBoostInfo(boostSpeedPercentage, boostTopSpeedPercentage);
+        carInfo.SetBoostInfo(boostSpeedPercentage);
         AddHeat();
     }
 
@@ -31,6 +31,6 @@ public class Lux_BoostAbility : CooldownHeatAbility
 
     protected override void AddHeat()
     {
-        carHeatInfo.AddHeat(selfHeatDamage);
+      // carHeatInfo.AddHeat(selfHeatDamage);
     }
 }
