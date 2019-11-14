@@ -2871,6 +2871,80 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 189842508}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &199979105
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2100984494}
+    m_Modifications:
+    - target: {fileID: 390578506902234032, guid: f321b761f7d4e244ab46ede1bde0a38c,
+        type: 3}
+      propertyPath: m_Name
+      value: Interactable_Turret (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -28.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 12.73
+      objectReference: {fileID: 0}
+    - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 357.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 390578506902234039, guid: f321b761f7d4e244ab46ede1bde0a38c,
+        type: 3}
+      propertyPath: spraysBullets
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f321b761f7d4e244ab46ede1bde0a38c, type: 3}
 --- !u!1 &203886151
 GameObject:
   m_ObjectHideFlags: 0
@@ -15018,12 +15092,12 @@ PrefabInstance:
     - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -62.5
+      value: -77
       objectReference: {fileID: 0}
     - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 13.39
+      value: 14.46
       objectReference: {fileID: 0}
     - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
         type: 3}
@@ -15053,7 +15127,7 @@ PrefabInstance:
     - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
         type: 3}
@@ -15072,18 +15146,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 390578506902234039, guid: f321b761f7d4e244ab46ede1bde0a38c,
         type: 3}
-      propertyPath: aimOffset
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 390578506902234039, guid: f321b761f7d4e244ab46ede1bde0a38c,
-        type: 3}
       propertyPath: spraysBullets
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 390578506902234039, guid: f321b761f7d4e244ab46ede1bde0a38c,
-        type: 3}
-      propertyPath: extraBulletsToSpray
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f321b761f7d4e244ab46ede1bde0a38c, type: 3}
@@ -16182,7 +16246,7 @@ PrefabInstance:
     - target: {fileID: 3668295604072373928, guid: 354b3884ed5935b43a6529a256a81c0d,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3668295604072373928, guid: 354b3884ed5935b43a6529a256a81c0d,
         type: 3}
@@ -16573,6 +16637,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 930545266}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &945330441 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 390578506902234043, guid: f321b761f7d4e244ab46ede1bde0a38c,
+    type: 3}
+  m_PrefabInstance: {fileID: 199979105}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &947064765
 GameObject:
   m_ObjectHideFlags: 0
@@ -31657,6 +31727,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1730813358}
+  - {fileID: 945330441}
   - {fileID: 792821768}
   - {fileID: 1973208427}
   m_Father: {fileID: 0}
