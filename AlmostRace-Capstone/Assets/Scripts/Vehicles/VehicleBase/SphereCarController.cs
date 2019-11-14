@@ -37,9 +37,17 @@ public class SphereCarController : MonoBehaviour
 
     //values passed in to the various functions
     public float topSpeed = 30f;
+    private float _originalTopSpeed;
+
     public float acceleration = 12f;
+    private float _originalAcceleration;
+
     public float deceleration = 12f;
+    private float _originalDeceleration;
+
     public float steering = 80f;
+    private float _originalSteering;
+
     public float gravity = 10f;
     public float driftStrength = 1f;
     public float reverseSpeed = 1f;
@@ -48,7 +56,7 @@ public class SphereCarController : MonoBehaviour
     private int _driftDirection = 1;
 
     private bool _isBoosting = false;
-    private float _boostSpeed;
+    private float _boostSpeedPercentage;
 
     [Header("Drift Ability")]
     // public Image driftButton;
@@ -61,6 +69,10 @@ public class SphereCarController : MonoBehaviour
 
     [Header("Boost Particles")]
     public ParticleSystem boostingParticles;
+
+    [Header("Collision Particles")]
+    public GameObject leftCollisionParticles;
+    public GameObject rightCollisionParticles;
 
     [Header("Speedometer")]
     public Image speedometerImage;
@@ -102,7 +114,7 @@ public class SphereCarController : MonoBehaviour
         speed = topSpeed * (Input.GetAxis(_vehicleInput.verticalForward) - Input.GetAxis(_vehicleInput.verticalBackward));
         if (_isBoosting)
         {
-            speed = _boostSpeed;
+            speed = _boostSpeedPercentage;
         }
 
         //Allows for vehicle to back up and break
@@ -302,9 +314,9 @@ public class SphereCarController : MonoBehaviour
         _isBoosting = ToF;
     }
 
-    public void SetBoostSpeed(float boostSpeed)
+    public void SetBoostSpeed(float boostSpeedPercentage)
     {
-        _boostSpeed = boostSpeed;
+        _boostSpeedPercentage = boostSpeedPercentage;
     }
 
 

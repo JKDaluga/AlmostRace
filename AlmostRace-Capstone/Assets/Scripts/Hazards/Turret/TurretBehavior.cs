@@ -18,9 +18,12 @@ public class TurretBehavior : Interactable
     public GameObject currentTarget;
     public Transform turretHead;
     public Transform turretMuzzle;
+    public float aimOffset = 2f;
     public float turretAimRate = .01f;
     public float turretFireRate = .5f;
     public float turretRespawnTime = 3f;
+    public bool spraysBullets = true;
+    public int extraBulletsToSpray = 5;
 
    
     [Header("Projectile Variables............................................................")]
@@ -51,12 +54,6 @@ public class TurretBehavior : Interactable
     public AudioClip turretExplosionSound;
     public ParticleSystem turretRespawnParticles;
     //public AudioClip turretRespawnSound;
-
-
-
-
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -130,7 +127,7 @@ public class TurretBehavior : Interactable
     {
         if(currentTarget != null)
         {
-            turretHead.LookAt(currentTarget.transform.position);//look at current target
+            turretHead.LookAt(currentTarget.transform.position + (aimOffset * currentTarget.GetComponent<SphereCarController>().sphere.velocity));//look at current target
         }
         else
         {
@@ -140,10 +137,24 @@ public class TurretBehavior : Interactable
     }
     public void FireTurret()
     {
-        _turretSound.PlayOneShot(turretFiringSound);//play firing sound
+       // _turretSound.PlayOneShot(turretFiringSound);//play firing sound
         GameObject spawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
-        spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed);
+        spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
+        if(spraysBullets)
+        {
 
+            for(int i = 0; i < extraBulletsToSpray; i++)
+            {
+                GameObject extraSpawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
+                extraSpawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
+                extraSpawnedProjectile.transform.Rotate(Random.Range(-.5f, .5f), Random.Range(-2,2), Random.Range(-.5f, .5f));
+            }
+           
+
+
+           
+
+        }
 
     }
 }

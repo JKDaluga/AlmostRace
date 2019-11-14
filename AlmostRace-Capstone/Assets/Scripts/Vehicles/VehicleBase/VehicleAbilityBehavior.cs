@@ -31,6 +31,8 @@ public class VehicleAbilityBehavior : MonoBehaviour
     public Ability defensiveAbility;
     [Tooltip("Length of ability cooldown in seconds.")]
     public float abilityRecharge = 5f;
+    [Tooltip("Length of ability duration in seconds.")]
+    public float abilityDuration = 3f;
     [Tooltip("Determines if the signature ability input can be held down")]
     public bool canHoldDefensiveAbility;
 
@@ -41,8 +43,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     [Tooltip("Place dark version of UI element here.")]
     public GameObject defensiveAbilityDark;
-
-
 
     [Header ("Boost Ability.................................................................................")]
     [Tooltip("Boost Ability Script Slot")]
@@ -74,6 +74,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
             {
                 _canUseDefensiveAbility = false;
                 StartCoroutine(AbilityCooldown());
+                StartCoroutine(AbilityDuration());
             }
         }
    
@@ -112,7 +113,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
                 ability.ActivateAbility();
                 return true;
             }
- 
         }
         return false;
     }
@@ -121,7 +121,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
     private IEnumerator AbilityCooldown()
     {
         float tempTime = abilityRecharge;
-
         while (tempTime > 0)
         {        
             tempTime -= Time.deltaTime;
@@ -130,6 +129,17 @@ public class VehicleAbilityBehavior : MonoBehaviour
         }
         defensiveAbilityDark.SetActive(false);
         _canUseDefensiveAbility = true;
+    }
+
+    private IEnumerator AbilityDuration()
+    {
+        float tempTime = abilityDuration;
+        while (tempTime > 0)
+        {
+            tempTime -= Time.deltaTime;
+            yield return null;
+        }
+        defensiveAbility.DeactivateAbility();
     }
 
     // Returns if the pickup slot is vacant or occupied

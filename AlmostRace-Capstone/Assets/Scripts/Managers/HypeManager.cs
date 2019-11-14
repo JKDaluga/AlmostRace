@@ -17,9 +17,6 @@ using UnityEngine.SceneManagement;
     
 public class HypeManager : MonoBehaviour
 {
-
-    public static HypeManager instance;
-
     public List<GameObject> vehicleList = new List<GameObject>();
     private Text[] _hypeAmountDisplay;
     public float totalHype;
@@ -29,12 +26,7 @@ public class HypeManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null) instance = this;
-        else
-        {
-            instance.vehicleList.Clear();
-            instance.SetUpDisplay();
-        }
+        SetUpDisplay();
     }
 
     // Start is called before the first frame update
@@ -62,10 +54,10 @@ public class HypeManager : MonoBehaviour
 
     private void SetUpDisplay()
     {
-        instance._hypeAmountDisplay = new Text[instance.vehicleList.Count];
-        for (int i = 0; i < instance._hypeAmountDisplay.Length; i++)
+        _hypeAmountDisplay = new Text[vehicleList.Count];
+        for (int i = 0; i < _hypeAmountDisplay.Length; i++)
         {
-            instance._hypeAmountDisplay[i] = GameObject.Find("HypeDisplay" + (i + 1)).GetComponent<Text>();
+            _hypeAmountDisplay[i] = GameObject.Find("HypeDisplay" + (i + 1)).GetComponent<Text>();
         }
     }
 
@@ -127,6 +119,26 @@ public class HypeManager : MonoBehaviour
                 winnerText.text = "PLAYER " + entry.GetComponent<VehicleInput>().playerNumber + " WINS!";
                 winnerText.gameObject.SetActive(true);
             }
+        }
+    }
+
+    public void EndGame()
+    {
+        Time.timeScale = 0.0f;
+        float highestHype = 0f;
+        GameObject winner = this.gameObject;
+        foreach (GameObject entry in vehicleList)
+        {
+            if (entry.GetComponent<VehicleHypeBehavior>().GetHypeAmount() > highestHype)
+            {
+                highestHype = entry.GetComponent<VehicleHypeBehavior>().GetHypeAmount();
+                winner = entry;
+            }
+        }
+        if(winner != this.gameObject)
+        {
+            winnerText.text = "PLAYER " + winner.GetComponent<VehicleInput>().playerNumber + " WINS!";
+            winnerText.gameObject.SetActive(true);
         }
     }
 

@@ -14371,7 +14371,7 @@ Transform:
   - {fileID: 388902661086501393}
   - {fileID: 388902660658676527}
   m_Father: {fileID: 390578506902234043}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &564342899777756057
 ParticleSystem:
@@ -23715,7 +23715,7 @@ Transform:
   - {fileID: 388902657954658864}
   - {fileID: 388902657237006898}
   m_Father: {fileID: 390578506902234043}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!198 &564342911660830880
 ParticleSystem:
@@ -75924,7 +75924,7 @@ GameObject:
   - component: {fileID: 390578506902234042}
   - component: {fileID: 390578506902234041}
   m_Layer: 0
-  m_Name: Turret_Base
+  m_Name: Interactable_Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75941,6 +75941,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 9.05, z: 271.42}
   m_LocalScale: {x: 2, y: 2.92, z: 2}
   m_Children:
+  - {fileID: 390578507156248974}
   - {fileID: 388902658240435801}
   - {fileID: 388902664839853086}
   - {fileID: 390578507892069716}
@@ -75973,7 +75974,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0c2127a10b3cb994eb25257653b81a4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -76020,19 +76021,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeDamaged: 1
-  interactableHealth: 100
+  interactableHealth: 1
   interactingPlayer: {fileID: 0}
   aggroObject: {fileID: 390578507156248975}
   currentTarget: {fileID: 0}
   turretHead: {fileID: 390578508349997948}
   turretMuzzle: {fileID: 390578506533684944}
-  turretAimRate: 0.01
+  aimOffset: 0.25
+  turretAimRate: 0.005
   turretFireRate: 0.5
   turretRespawnTime: 3
+  spraysBullets: 0
+  extraBulletsToSpray: 5
   turretProjectile: {fileID: 8136198403776402972, guid: 8c71d88392478e748a36817159a2ac66,
     type: 3}
-  turretProjectileDamage: 5
-  turretProjectileSpeed: 100
+  turretProjectileDamage: 1
+  turretProjectileSpeed: 400
   turretFirePillar: {fileID: 390578507892069712}
   destroyTurretHype: 150
   firePillarKillHype: 400
@@ -80995,12 +80999,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 390578507156248975}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.45, z: 0}
-  m_LocalScale: {x: 20, y: 5, z: 20}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.5342465, z: 0}
+  m_LocalScale: {x: 100, y: 5.136986, z: 300}
   m_Children: []
-  m_Father: {fileID: 390578508349997948}
-  m_RootOrder: 2
+  m_Father: {fileID: 390578506902234043}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &390578507156249202
 MeshFilter:
@@ -81107,7 +81111,7 @@ Transform:
   m_Children:
   - {fileID: 7737796503203042308}
   m_Father: {fileID: 390578506902234043}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &390578507892069717
 MeshFilter:
@@ -85814,7 +85818,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0c2127a10b3cb994eb25257653b81a4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -90441,9 +90445,8 @@ Transform:
   m_Children:
   - {fileID: 390578506533684944}
   - {fileID: 390578508122177589}
-  - {fileID: 390578507156248974}
   m_Father: {fileID: 390578506902234043}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &390578508349997921
 MeshFilter:
@@ -90470,7 +90473,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 0c2127a10b3cb994eb25257653b81a4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -95328,7 +95331,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7741569638739032238}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.785, z: 0}
+  m_LocalPosition: {x: 0, y: -0.768, z: 0}
   m_LocalScale: {x: 0.5, y: 0.50000024, z: 0.6666669}
   m_Children:
   - {fileID: 390578508044332738}

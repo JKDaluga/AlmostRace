@@ -78,7 +78,7 @@ public class Lux_OffensiveAbility : HeatAbility
     {
         if (_canFire)
         {
-            AudioManager.instance.Play("Blaster1");
+           // AudioManager.instance.Play("Blaster1");
             foreach (Transform i in muzzles)
             {
                 i.LookAt(_aimPosActual);

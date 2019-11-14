@@ -8,7 +8,6 @@ public class SplitscreenHandler : MonoBehaviour
     private VehicleInput[] arrP;
     private Rect ratio;
 
-    // Start is called before the first frame update
     void Start()
     {
         arrP = GameObject.FindObjectsOfType<VehicleInput>();

@@ -9,50 +9,10 @@ using UnityEngine;
  This script will no doubt become the final version eventually.
      */
 
-public class Lux_ProjectileBehavior : MonoBehaviour
+public class Lux_ProjectileBehavior : Projectile
 {
-
-    public GameObject sparkEffect;
-    public MeshRenderer meshRenderer;
-    public Light pointLight;
-    private GameObject _immunePlayer;
-    private Vector3 _immunePlayerVelocity;
-    private float _speedActual;
-    private VehicleHypeBehavior _immunePlayerScript;
-    private Rigidbody _rigidBody;
-
-    private float _projectileDamage;
-    private float _projectileSpeed;
-    private float _projectileHype;
-    private bool _isAlive = true;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        _rigidBody = gameObject.GetComponent<Rigidbody>();
-        _immunePlayerVelocity = _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
-
-        _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _projectileSpeed) + _immunePlayerVelocity;
-        _speedActual = _rigidBody.velocity.magnitude;
-
-        Destroy(gameObject, 7.0f);
-    }
-
-    public void SetImmunePlayer(GameObject immunePlayer)
-    {
-        _immunePlayer = immunePlayer;
-        _immunePlayerScript = _immunePlayer.GetComponent<VehicleHypeBehavior>();
-    }
-
-    public void SetProjectileInfo(float projectileDamage, float projectileSpeed, float projectileHypeToGain)
-    {
-        _projectileDamage = projectileDamage;
-        _projectileSpeed = projectileSpeed;
-        _projectileHype = projectileHypeToGain;
-    }
-
     private void OnTriggerEnter(Collider other)
-    {
+    {   
         if (_isAlive)
         {
             if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHeatManager>() != null)
@@ -63,6 +23,13 @@ public class Lux_ProjectileBehavior : MonoBehaviour
             }
             else if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<Interactable>() != null)
             {//Checks if the object isn't the immunePlayer and if they are an interactable object.
+                if(other.gameObject.GetComponent<Lux_ShieldPanelBehavior>() != null)
+                {//checks if about to hit a shield
+                    if(other.gameObject.GetComponent<Lux_ShieldPanelBehavior>().GetShieldPlayer() == _immunePlayer)
+                    {
+                       return;
+                    }
+                }
                 other.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
                 other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
                 StartCoroutine(ExplosionEffect());
@@ -73,19 +40,4 @@ public class Lux_ProjectileBehavior : MonoBehaviour
             }
         }
     }
-
-    private IEnumerator ExplosionEffect()
-    {
-        _isAlive = false;
-        _rigidBody.velocity = Vector3.zero;
-        _rigidBody.useGravity = false;
-        _rigidBody.isKinematic = true;
-        meshRenderer.enabled = false;
-        pointLight.enabled = false;
-        sparkEffect.SetActive(true);
-        yield return new WaitForSeconds(sparkEffect.GetComponent<ParticleSystem>().main.duration);
-        Destroy(gameObject);
-    }
-
-
 }

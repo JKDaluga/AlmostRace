@@ -16,7 +16,7 @@ public class NearestPlayerBonus : MonoBehaviour
 
     int closest;
 
-    [SerializeField] private float gainTime;
+    [SerializeField] private float gainTime = 0;
 
     public bool beingHeld;
 

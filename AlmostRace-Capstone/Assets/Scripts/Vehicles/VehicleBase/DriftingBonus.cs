@@ -17,7 +17,7 @@ public class DriftingBonus : MonoBehaviour
 {
     //Boolean values to check if the drift has just started 
     //and if the drift is ended safely
-    public bool safeDrift, startDrift;
+    public bool startDrift;
 
 
     //values for base hype and the multiplier that will grow over time
@@ -40,16 +40,15 @@ public class DriftingBonus : MonoBehaviour
         //If the car begins drifting, set the booleans and reset the multiplier
         if (car.getDrifting() && startDrift)
         {
-            safeDrift = true;
             startDrift = false;
             hypeMultiplier = 0;
         }
 
 
         //While the car is drifting safely, add to the multiplier
-        if (safeDrift)
+        if(!startDrift)
         {
-            if(hypeMultiplier < 5)
+            if (hypeMultiplier < 5)
             {
                 hypeMultiplier += Time.deltaTime;
             }
@@ -60,19 +59,9 @@ public class DriftingBonus : MonoBehaviour
         if(!car.getDrifting())
         {
             startDrift = true;
-            if (safeDrift)
-            {
-                finalHype =Mathf.Floor( hypeToAdd * hypeMultiplier);
-                car.gameObject.GetComponent<VehicleHypeBehavior>().AddHype(finalHype);
-                safeDrift = false;
-            }
+            finalHype =Mathf.Floor( hypeToAdd * hypeMultiplier);
+            car.gameObject.GetComponent<VehicleHypeBehavior>().AddHype(finalHype);
+            hypeMultiplier = 0;
         }
-    }
-
-
-    //If the player collides with anything, they lose the safedrifting bonus
-    private void OnCollisionEnter(Collision collision)
-    {
-        safeDrift = false;
     }
 }

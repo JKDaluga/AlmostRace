@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CarCollision : MonoBehaviour
 {
-
+    public GameObject frontCollisionParticles;
     public SphereCarController car;
     private float _invulTime = 0f;
     public float weight;
@@ -43,6 +43,8 @@ public class CarCollision : MonoBehaviour
             
             // We only want the player instigating the collision to damage the other so this angle helps determing who the instigating player is
             float instigatingPlayerAngle = Mathf.Acos(Vector3.Dot(rb.velocity.normalized, -relativePosition.normalized)) * 180 / Mathf.PI;
+
+            frontCollisionParticles.GetComponent<ParticleSystem>().Play();
 
             // If the angleBetween < 90 then the collision exists
             // If instigatingPlayerAngle < 90 then that player is moving in the direction of the other player and should assign damage
