@@ -76031,11 +76031,11 @@ MonoBehaviour:
   turretAimRate: 0.005
   turretFireRate: 0.5
   turretRespawnTime: 3
-  spraysBullets: 0
+  spraysBullets: 1
   extraBulletsToSpray: 5
   turretProjectile: {fileID: 8136198403776402972, guid: 8c71d88392478e748a36817159a2ac66,
     type: 3}
-  turretProjectileDamage: 1
+  turretProjectileDamage: 5
   turretProjectileSpeed: 400
   turretFirePillar: {fileID: 390578507892069712}
   destroyTurretHype: 150
@@ -76049,6 +76049,7 @@ MonoBehaviour:
   turretExplosionSound: {fileID: 8300000, guid: f17673fddbd2e814cb6b449654c5f749,
     type: 3}
   turretRespawnParticles: {fileID: 564342899777756057}
+  turretRespawnSound: {fileID: 0}
 --- !u!54 &390578506902234042
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -81021,7 +81022,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 390578507156248975}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
