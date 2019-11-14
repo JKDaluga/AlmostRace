@@ -49,6 +49,12 @@ public class VehicleAbilityBehavior : MonoBehaviour
     public Ability boostAbility;
     [Tooltip("Length of ability duration in seconds.")]
     public float boostAbilityDuration = 3f;
+    private bool _canBoost = true;
+    [Tooltip("Place UI element here.")]
+    public Image boostAbilityCooldown;
+
+    [Tooltip("Place dark version of UI element here.")]
+    public GameObject boostAbilityDark;
 
     private VehicleInput _vehicleInput;
 
@@ -56,6 +62,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
     {
         _vehicleInput = GetComponent<VehicleInput>();
         defensiveAbilityDark.SetActive(false);
+        boostAbilityDark.SetActive(false);
     }
 
     // Update is called once per frame
@@ -81,11 +88,17 @@ public class VehicleAbilityBehavior : MonoBehaviour
         }
    
 
-        // Pickup Ability Call
+        // Boost Ability Call
         if (Input.GetButtonDown(_vehicleInput.pickupInput) && boostAbility != null)
         {
-            boostAbility.ActivateAbility();
-            StartCoroutine(BoostAbilityDuration());
+            if(_canBoost)
+            {
+                _canBoost = true;
+                boostAbilityDark.SetActive(true);
+                boostAbility.ActivateAbility();
+                StartCoroutine(BoostAbilityDuration());
+            }
+           
         }
     }
 
@@ -147,12 +160,16 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     private IEnumerator BoostAbilityDuration()
     {
+        _canBoost = false;
         float tempTime = boostAbilityDuration;
         while (tempTime > 0)
         {
+            boostAbilityCooldown.fillAmount = tempTime / boostAbilityDuration;
             tempTime -= Time.deltaTime;
             yield return null;
         }
+        _canBoost = true;
+        boostAbilityDark.SetActive(false);
         boostAbility.DeactivateAbility();
     }
 

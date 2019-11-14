@@ -19,9 +19,9 @@ public class SplitscreenHandler : MonoBehaviour
         foreach (VehicleInput p in arrP)
         {
             VehicleInput v = p.gameObject.GetComponent<VehicleInput>();
-            if (p.gameObject.GetComponentInChildren<Camera>() != null)
+            if (p.gameObject.GetComponent<SphereCarController>().tiltShift.gameObject != null)
             {
-                Camera c = p.gameObject.GetComponentInChildren<Camera>();
+                Camera c = p.gameObject.GetComponent<SphereCarController>().tiltShift.gameObject.GetComponent<Camera>();
                 if (arrP.Length == 2)
                 {
                     setUp_2(v.getPlayerNum(), c);
