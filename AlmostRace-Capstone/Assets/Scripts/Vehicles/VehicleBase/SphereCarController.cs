@@ -48,7 +48,8 @@ public class SphereCarController : MonoBehaviour
     public float steering = 80f;
     private float _originalSteering;
 
-    public float gravity = 10f;
+    public float groundedGravity = 10f;
+    public float airborneGravity = 10f;
     public float driftStrength = 1f;
     public float reverseSpeed = 1f;
 
@@ -257,18 +258,26 @@ public class SphereCarController : MonoBehaviour
             sphere.AddForce(transform.forward * currentSpeed, ForceMode.Acceleration);
         }
 
-        //Adds a multiplier to gravity to keep the car grounded
-        sphere.AddForce(Vector3.down * gravity, ForceMode.Acceleration);
-
-        //Smoothly turns the vehicle
-        transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 12.5f);
-
         //hitOn/hitNear check and rotate the vehicle body up and down based on direction of the track
         RaycastHit hitOn;
         RaycastHit hitNear;
 
-        Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitOn, 1.1f, layerMask);
+        Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitOn, 1.5f, layerMask);
         Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitNear, 5.0f, layerMask);
+
+        if(hitOn.collider != null)
+        {
+            sphere.AddForce(-hitOn.normal * groundedGravity, ForceMode.Acceleration);
+        }
+        else
+        {
+            //Adds a multiplier to gravity to keep the car grounded
+            sphere.AddForce(Vector3.down * airborneGravity, ForceMode.Acceleration);
+
+        }
+
+        //Smoothly turns the vehicle
+        transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 12.5f);
 
         //gets the vehicle's velocity without upward and downward directions
         Vector3 flatVel = new Vector3(sphere.velocity.x, 0, sphere.velocity.z);
