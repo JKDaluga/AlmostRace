@@ -500,8 +500,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vehicleList: []
   totalHype: 0
-  maxHype: 1000
   winnerText: {fileID: 5442321032361601276}
+  countdownObj: {fileID: 3780414201012212067}
 --- !u!114 &6403223517959016241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -660,16 +660,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 3604974643310627529, guid: 136953c0a43327f45b33a5e2f64b24ff,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2280357531516124063}
-    - target: {fileID: 3604974643310627529, guid: 136953c0a43327f45b33a5e2f64b24ff,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: restart
-      objectReference: {fileID: 0}
     - target: {fileID: 3604974643515148102, guid: 136953c0a43327f45b33a5e2f64b24ff,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -684,6 +674,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3604974643310627529, guid: 136953c0a43327f45b33a5e2f64b24ff,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2280357531516124063}
+    - target: {fileID: 3604974643310627529, guid: 136953c0a43327f45b33a5e2f64b24ff,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: restart
       objectReference: {fileID: 0}
     - target: {fileID: 3604974644859053137, guid: 136953c0a43327f45b33a5e2f64b24ff,
         type: 3}
@@ -721,6 +721,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3888146201418055542}
     m_Modifications:
+    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
+        type: 3}
+      propertyPath: m_Name
+      value: Countdown
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7992159949368064935, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -825,16 +835,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
-        type: 3}
-      propertyPath: m_Name
-      value: Countdown
-      objectReference: {fileID: 0}
-    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e, type: 3}

@@ -87,7 +87,8 @@ public class HypeGateBehavior : MonoBehaviour
                 if(isFinalHypeGate)
                 {
                     _hypeManager.StartCoroutine(_hypeManager.EndGameCountDown(5));
-                    StopAllCoroutines();
+                    isFinalHypeGate = false;
+                    //StopAllCoroutines();
                 }
                 else
                 {

@@ -50,7 +50,7 @@ public class TurretBehavior : Interactable
     public List<MeshRenderer> visibleMeshes;
     public ParticleSystem turretExplosionParticles;
     private AudioSource _turretSound;
-    public AudioClip turretFiringSound;
+   // public AudioClip turretFiringSound;
     public AudioClip turretExplosionSound;
     public ParticleSystem turretRespawnParticles;
     public AudioClip turretRespawnSound;
@@ -136,7 +136,7 @@ public class TurretBehavior : Interactable
     }
     public void FireTurret()
     {
-        _turretSound.PlayOneShot(turretFiringSound);//play firing sound
+        //_turretSound.PlayOneShot(turretFiringSound);//play firing sound
         GameObject spawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
         spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
         if(spraysBullets)
