@@ -55,12 +55,6 @@ public class TurretBehavior : Interactable
     public ParticleSystem turretRespawnParticles;
     //public AudioClip turretRespawnSound;
 
-
-
-
-
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -143,7 +137,7 @@ public class TurretBehavior : Interactable
     }
     public void FireTurret()
     {
-        _turretSound.PlayOneShot(turretFiringSound);//play firing sound
+       // _turretSound.PlayOneShot(turretFiringSound);//play firing sound
         GameObject spawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
         spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
         if(spraysBullets)
@@ -153,7 +147,7 @@ public class TurretBehavior : Interactable
             {
                 GameObject extraSpawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
                 extraSpawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
-                extraSpawnedProjectile.transform.Rotate(Random.Range(-1, 1), Random.Range(-5, 5), Random.Range(-1, 1));
+                extraSpawnedProjectile.transform.Rotate(Random.Range(-.5f, .5f), Random.Range(-2,2), Random.Range(-.5f, .5f));
             }
            
 

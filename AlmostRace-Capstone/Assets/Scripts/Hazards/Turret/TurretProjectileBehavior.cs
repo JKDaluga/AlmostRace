@@ -34,12 +34,12 @@ public class TurretProjectileBehavior : MonoBehaviour
     {
         _projectileDamage = projectileDamage;
         _projectileSpeed = projectileSpeed;
+        _immunePlayer = immunePlayer;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(_immunePlayer != other.gameObject)
-        {
+       
             if (other.gameObject.GetComponent<CarHeatManager>() != null)
             {//if other is a car
                 other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
@@ -48,15 +48,17 @@ public class TurretProjectileBehavior : MonoBehaviour
             }
             else if (other.gameObject.GetComponent<Interactable>() != null)
             {//Checks if the object isn't the immunePlayer and if they are an interactable object.
-
-                other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
-                StartCoroutine(ExplosionEffect());
+                if(other.gameObject.GetComponent<TurretBehavior>() == null)
+                {
+                    other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+                    StartCoroutine(ExplosionEffect());
+                }  
             }
             else
             {
                 StartCoroutine(ExplosionEffect());
             }
-        }
+        
        
     }
 
