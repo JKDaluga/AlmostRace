@@ -34,34 +34,43 @@ public class RespawnPlatformBehavior : MonoBehaviour
         {
             Debug.LogError("Hype Manager not found!");
         }
-
         if (HotSpotBotBehavior.instance != null)
         {
             _hotSpotBotScript = HotSpotBotBehavior.instance;
-            if (_hotSpotBotScript.GetBeingHeld())
+        }
+
+        if (GameObject.FindGameObjectWithTag("HotSpotSpline").GetComponent<SplinePlus>() != null)
+        {
+            if (GameObject.FindGameObjectWithTag("HotSpotSpline").GetComponent<SplinePlus>().SPData.Followers[0].FollowerGO != null)
             {
-                if (_playerObject.GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+                if (_hotSpotBotScript.GetBeingHeld())
                 {
-                    SpawnBehindBotAfterDropping();
+                    if (_playerObject.GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+                    {
+                        SpawnBehindBotAfterDropping();
+                    }
+                    else
+                    {
+                        SpawnBehindEnemyWithBot();
+                    }
                 }
-                else
+                else if (!_hotSpotBotScript.GetBeingHeld())
                 {
-                    Debug.Log("Spawn behind enemy with bot");
-                    SpawnBehindEnemyWithBot();
+                    SpawnBehindBot();
                 }
             }
-            else if (!_hotSpotBotScript.GetBeingHeld())
+            else
             {
-                SpawnBehindBot();
+                SpawnOnNearestSplinePoint();
             }
         }
         else
         {
-            Debug.Log("There is no bot in the scene");
+            Debug.Log("There is no hot spot in the scene");
             SpawnOnSelf();
         }
         StartCoroutine(RespawnSequence());
-        Destroy(gameObject, 10);
+        Destroy(gameObject, 5);
     }
 
     // Sets the variables from the ones given by the vehicle that spawned the platform
@@ -116,7 +125,18 @@ public class RespawnPlatformBehavior : MonoBehaviour
             transform.position.y, _otherVehicle.transform.position.z));
     }
 
-    // If there is no HotSpotBot, spawn the vehicle at its death location
+    // If there is no HotSpotBot, spawn the vehicle at the nearest point on the spline from its death location
+    private void SpawnOnNearestSplinePoint()
+    {
+        Vector3 nearestPointOnSpline = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, distanceBehind);
+        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, -3);
+
+        transform.position = new Vector3(nearestPointOnSpline.x,
+            nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
+        transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
+    }
+
+    // If there is no HotSpotBot, and there is not HotSpotBotSpline, spawn the vehicle at its death location
     private void SpawnOnSelf()
     {
         transform.position = new Vector3(_playerObject.transform.position.x,
