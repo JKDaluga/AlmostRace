@@ -14,6 +14,7 @@ using TMPro;
 
 public class HypeGateBehavior : MonoBehaviour
 {
+    public bool isFinalHypeGate = false;
     private HypeManager _hypeManager;
     private float _currentHype; // tracks current total hype of cars inside of arena
     private float _displayHype; //used in showing hype in text
@@ -83,10 +84,17 @@ public class HypeGateBehavior : MonoBehaviour
             }
             else if(_currentHype >= _hypeLimitActual)
             {
-                gateToOpen.SetActive(false);
-                FinishDisplays();
-                _aggroSphere.SetActive(false);
-               
+                if(isFinalHypeGate)
+                {
+                    _hypeManager.StartCoroutine(_hypeManager.EndGameCountDown(5));
+                    StopAllCoroutines();
+                }
+                else
+                {
+                    gateToOpen.SetActive(false);
+                    FinishDisplays();
+                    _aggroSphere.SetActive(false);
+                }  
                 //StopCoroutine(TrackHype());
                 StopAllCoroutines();
                 yield return null;

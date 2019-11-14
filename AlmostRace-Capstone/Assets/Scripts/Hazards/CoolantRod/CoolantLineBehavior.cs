@@ -57,6 +57,7 @@ public class CoolantLineBehavior : MonoBehaviour
 
     public void DeactivateCoolantLine()
     {
+        _carsDamaged.Clear();
         fireWallParticle.Stop();
         _coolantCollider.enabled = false;
     }
