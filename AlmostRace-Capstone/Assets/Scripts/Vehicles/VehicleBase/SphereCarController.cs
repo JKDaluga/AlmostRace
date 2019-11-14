@@ -107,6 +107,8 @@ public class SphereCarController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        float extraSpeed = 0;
+        float extraTopSpeed = 0;
         // If vehicle input is turned off don't listen to inputs
         if (!_vehicleInput.getStatus())
         {
@@ -115,12 +117,19 @@ public class SphereCarController : MonoBehaviour
         }
 
         //Takes input for forward and reverse movement
-        speed = topSpeed * (Input.GetAxis(_vehicleInput.verticalForward) - Input.GetAxis(_vehicleInput.verticalBackward));
 
         if (_isBoosting)
         {
-            speed = topSpeed * (Input.GetAxis(_vehicleInput.verticalForward) - Input.GetAxis(_vehicleInput.verticalBackward)) + _boostSpeedPercentage;
+            extraSpeed += ((_boostSpeedPercentage * topSpeed) / 100);
+            extraTopSpeed += ((_boostTopSpeedPercentage * topSpeed) / 100);
         }
+        if(_isOnBoosterPad)
+        {
+            extraSpeed += ((_boosterPadSpeedPercentage * topSpeed) / 100);
+            extraTopSpeed += ((_boosterPadTopSpeedPercentage * topSpeed) / 100);
+        }
+
+        speed = (topSpeed + extraTopSpeed) * ((Input.GetAxis(_vehicleInput.verticalForward) - Input.GetAxis(_vehicleInput.verticalBackward)) + extraSpeed);
 
         //Allows for vehicle to back up and break
         if (speed < 0)
