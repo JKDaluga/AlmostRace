@@ -87,7 +87,7 @@ public class CarHeatManager : MonoBehaviour
                     heat90.enabled = false;
                 }
 
-                if (heatFillBar.fillAmount > 0.35)
+                if (heatFillBar.fillAmount > 0.25)
                 {
                     heat25.enabled = true;
                     heat50.enabled = false;
