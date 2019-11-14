@@ -19,14 +19,12 @@ public class CoolantLineBehavior : MonoBehaviour
     private float _fireDamageHype;
     private Collider _coolantCollider;
     private GameObject _interactingPlayer;//the player that activated this object initially.
-    private MeshRenderer _renderer;
     public ParticleSystem fireWallParticle;
     private List<CarHeatManager> _carsDamaged;
 
     public void Start()
     {
         _coolantCollider = gameObject.GetComponent<Collider>();
-        _renderer = gameObject.GetComponent<MeshRenderer>();
         _carsDamaged = new List<CarHeatManager>();
         DeactivateCoolantLine();
     }
@@ -54,7 +52,6 @@ public class CoolantLineBehavior : MonoBehaviour
         _interactingPlayer = interactingPlayer;
         fireWallParticle.Play();
         _coolantCollider.enabled = true;
-        _renderer.enabled = true;
         Invoke("DeactivateCoolantLine", _duration);
     }
 
@@ -62,7 +59,6 @@ public class CoolantLineBehavior : MonoBehaviour
     {
         fireWallParticle.Stop();
         _coolantCollider.enabled = false;
-        _renderer.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
