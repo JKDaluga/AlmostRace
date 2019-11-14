@@ -94,7 +94,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
             if(_canBoost)
             {
                 _canBoost = true;
-                boostAbilityDark.SetActive(false);
+                boostAbilityDark.SetActive(true);
                 boostAbility.ActivateAbility();
                 StartCoroutine(BoostAbilityDuration());
             }
