@@ -290,6 +290,7 @@ GameObject:
   - component: {fileID: 8447175210821411510}
   - component: {fileID: 6403223517959016241}
   - component: {fileID: 2280357531516124063}
+  - component: {fileID: 4294865929609175849}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -357,7 +358,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 8204487031573093328}
   winText: {fileID: 5442321032361601276}
-  Countdown: {fileID: 0}
+  Countdown: {fileID: 1941561050340348468}
+--- !u!114 &4294865929609175849
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8447175210821411507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 537fd75a3c0cfe7459bbe91f34c4d953, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4889572372164296797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -479,21 +492,41 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 6403223517959016241}
+      objectReference: {fileID: 2280357531516124063}
     - target: {fileID: 3604974643310627529, guid: 136953c0a43327f45b33a5e2f64b24ff,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ReloadScene
+      value: restart
       objectReference: {fileID: 0}
     - target: {fileID: 3604974643515148102, guid: 136953c0a43327f45b33a5e2f64b24ff,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 6403223517959016241}
+      objectReference: {fileID: 2280357531516124063}
     - target: {fileID: 3604974643515148102, guid: 136953c0a43327f45b33a5e2f64b24ff,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: LoadSpecificScene
+      value: mainMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3604974643515148102, guid: 136953c0a43327f45b33a5e2f64b24ff,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3604974644859053137, guid: 136953c0a43327f45b33a5e2f64b24ff,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2280357531516124063}
+    - target: {fileID: 3604974644859053137, guid: 136953c0a43327f45b33a5e2f64b24ff,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: close
+      objectReference: {fileID: 0}
+    - target: {fileID: 3604974644859053137, guid: 136953c0a43327f45b33a5e2f64b24ff,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 136953c0a43327f45b33a5e2f64b24ff, type: 3}
@@ -574,7 +607,7 @@ PrefabInstance:
     - target: {fileID: 7992159949368064935, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -279
+      value: -133.3
       objectReference: {fileID: 0}
     - target: {fileID: 7992159949368064935, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
         type: 3}
@@ -628,6 +661,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e, type: 3}
+--- !u!1 &1941561050340348468 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
+    type: 3}
+  m_PrefabInstance: {fileID: 8365458694173534604}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1941561050340348459 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7992159949368064935, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,

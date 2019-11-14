@@ -18,9 +18,12 @@ public class TurretBehavior : Interactable
     public GameObject currentTarget;
     public Transform turretHead;
     public Transform turretMuzzle;
+    public float aimOffset = 2f;
     public float turretAimRate = .01f;
     public float turretFireRate = .5f;
     public float turretRespawnTime = 3f;
+    public bool spraysBullets = true;
+    public int extraBulletsToSpray = 5;
 
    
     [Header("Projectile Variables............................................................")]
@@ -130,7 +133,7 @@ public class TurretBehavior : Interactable
     {
         if(currentTarget != null)
         {
-            turretHead.LookAt(currentTarget.transform.position);//look at current target
+            turretHead.LookAt(currentTarget.transform.position + (aimOffset * currentTarget.GetComponent<SphereCarController>().sphere.velocity));//look at current target
         }
         else
         {
@@ -142,8 +145,22 @@ public class TurretBehavior : Interactable
     {
         _turretSound.PlayOneShot(turretFiringSound);//play firing sound
         GameObject spawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
-        spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed);
+        spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
+        if(spraysBullets)
+        {
 
+            for(int i = 0; i < extraBulletsToSpray; i++)
+            {
+                GameObject extraSpawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
+                extraSpawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
+                extraSpawnedProjectile.transform.Rotate(Random.Range(-1, 1), Random.Range(-5, 5), Random.Range(-1, 1));
+            }
+           
+
+
+           
+
+        }
 
     }
 }
