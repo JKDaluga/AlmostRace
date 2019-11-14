@@ -38,6 +38,11 @@ public class Volt_LaserBolt : MonoBehaviour
         _immunePlayerScript = _immunePlayer.GetComponent<VehicleHypeBehavior>();
     }
 
+    public GameObject getImmunePlayer()
+    {
+        return _immunePlayer;
+    }
+
     public void SetLaserInfo(float laserDamage, float laserSpeed, float laserHype)
     {
         _laserDamage = laserDamage;
