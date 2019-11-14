@@ -18,10 +18,7 @@ public class BoosterPadBehaviour : Interactable
     [Tooltip("Set the percentage of the boost can increase speed")]
     [Range(-100, 100)]
     public float speedMultiplier;
-
-    [Tooltip("Set the percentage of the boost can increase acceleration")]
-    [Range(0, 100)]
-    public float accelMultiplier;
+    private List<CarHeatManager> _carsBoosted = new List<CarHeatManager>();
 
     private AudioSource powerUpSound;
 
@@ -33,13 +30,13 @@ public class BoosterPadBehaviour : Interactable
     
         if(other.gameObject.GetComponent<SphereCarController>() != null)
         {
-            // Save original values so we can reset it later 
-            _originalTopSpeed = other.gameObject.GetComponent<SphereCarController>().topSpeed;
-            _originalAccelarion = other.gameObject.GetComponent<SphereCarController>().acceleration;
-
-            // Increase max values of speed and acceleration 
-            other.gameObject.GetComponent<SphereCarController>().topSpeed += ((speedMultiplier * _originalTopSpeed) / 100);
-            other.gameObject.GetComponent<SphereCarController>().acceleration += ((accelMultiplier * _originalAccelarion) / 100);
+            _carsBoosted.Add(other.gameObject.GetComponent<CarHeatManager>());
+            if(_carsBoosted.Count == 1)
+            {
+                StartCoroutine(TrackCars());
+            }
+            other.gameObject.GetComponent<SphereCarController>().SetBoosterPadInfo(speedMultiplier);
+            other.gameObject.GetComponent<SphereCarController>().SetIsOnBoosterPad(true);
 
             powerUpSound = other.gameObject.GetComponent<AudioSource>();
 
@@ -48,13 +45,30 @@ public class BoosterPadBehaviour : Interactable
         }
     }
 
+    private IEnumerator TrackCars()
+    {
+        while(_carsBoosted.Count > 1)
+        {
+            foreach(CarHeatManager car in _carsBoosted)
+            {
+                if(car.isDead)
+                {
+                    _carsBoosted.Remove(car);
+                }
+            }
+            yield return null;
+        }
+
+        StopAllCoroutines();
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.gameObject.GetComponent<SphereCarController>() != null)
         {
             // Reset the original values when leaving the boost pad
-            other.gameObject.GetComponent<SphereCarController>().topSpeed = _originalTopSpeed;
-            other.gameObject.GetComponent<SphereCarController>().acceleration = _originalAccelarion;
+            other.gameObject.GetComponent<SphereCarController>().SetIsOnBoosterPad(false);
+            _carsBoosted.Remove(other.gameObject.GetComponent<CarHeatManager>());
 
             // Turn off the boost effect
             other.gameObject.GetComponent<SphereCarController>().boostingParticles.Stop();
