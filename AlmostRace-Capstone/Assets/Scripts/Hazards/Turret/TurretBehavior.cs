@@ -53,7 +53,7 @@ public class TurretBehavior : Interactable
     public AudioClip turretFiringSound;
     public AudioClip turretExplosionSound;
     public ParticleSystem turretRespawnParticles;
-    //public AudioClip turretRespawnSound;
+    public AudioClip turretRespawnSound;
 
     // Start is called before the first frame update
     void Start()
@@ -110,7 +110,7 @@ public class TurretBehavior : Interactable
             mesh.enabled = true;
         }
         turretRespawnParticles.Play();
-       // _turretSound.PlayOneShot(turretRespawnSound); //play respawn sound
+        //_turretSound.PlayOneShot(turretRespawnSound); //play respawn sound
         turretFirePillar.Deactivate();//deactivate fire pillar
         interactableHealth = _originalHealth;//reset health
         CancelInvoke("AimTurret");//stop aiming
@@ -137,7 +137,7 @@ public class TurretBehavior : Interactable
     }
     public void FireTurret()
     {
-       // _turretSound.PlayOneShot(turretFiringSound);//play firing sound
+        _turretSound.PlayOneShot(turretFiringSound);//play firing sound
         GameObject spawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
         spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
         if(spraysBullets)
