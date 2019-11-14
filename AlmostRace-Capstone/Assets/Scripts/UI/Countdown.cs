@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 /*
     Creator and developer of script: Leonardo Caballero
@@ -10,13 +11,13 @@ using UnityEngine.UI;
 public class Countdown : MonoBehaviour
 {
     public int timeLeft = 3;
-    private Text countText;
+    private TextMeshProUGUI countText;
     private VehicleInput[] arrV;
     private bool startStatus = true;
 
     void Start()    
     {
-        countText = GetComponent<Text>();
+        countText = GetComponent<TextMeshProUGUI>();
         arrV = FindObjectsOfType<VehicleInput>();
         StartCoroutine(countDown(timeLeft));
     }
