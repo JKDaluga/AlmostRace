@@ -57,6 +57,11 @@ public class SphereCarController : MonoBehaviour
 
     private bool _isBoosting = false;
     private float _boostSpeedPercentage;
+    private float _boostTopSpeedPercentage;
+
+    private bool _isOnBoosterPad = false;
+    private float _boosterPadSpeedPercentage;
+    private float _boosterPadTopSpeedPercentage;
 
     [Header("Drift Ability")]
     // public Image driftButton;
@@ -84,17 +89,19 @@ public class SphereCarController : MonoBehaviour
     //Call allowing vehicle to take input from player
     private void Start()
     {
+        _originalTopSpeed = topSpeed;
+        _originalAcceleration = acceleration;
+        _originalDeceleration = deceleration;
+        _originalSteering = steering;
         //AudioManager.instance.Play("Engine");
         _vehicleInput = GetComponent<VehicleInput>();
-
 
         if (leftDriftParticles != null && rightDriftParticles != null) //placed here just so that the BallCar prefab doesn't throw nulls
         {
             leftDriftParticles.SetActive(false);
             rightDriftParticles.SetActive(false);
         }
-            
-        
+               
     }
 
     // Update is called once per frame
@@ -109,9 +116,10 @@ public class SphereCarController : MonoBehaviour
 
         //Takes input for forward and reverse movement
         speed = topSpeed * (Input.GetAxis(_vehicleInput.verticalForward) - Input.GetAxis(_vehicleInput.verticalBackward));
+
         if (_isBoosting)
         {
-            speed = _boostSpeedPercentage;
+            speed = topSpeed * (Input.GetAxis(_vehicleInput.verticalForward) - Input.GetAxis(_vehicleInput.verticalBackward)) + _boostSpeedPercentage;
         }
 
         //Allows for vehicle to back up and break
@@ -141,7 +149,6 @@ public class SphereCarController : MonoBehaviour
                
                 _drifting = true;
                 _driftDirection = Input.GetAxis(_vehicleInput.horizontal) > 0 ? 1 : -1;
-
 
                 if(leftDriftParticles != null && rightDriftParticles != null) //placed here just so that the BallCar prefab doesn't throw nulls
                 {
@@ -311,11 +318,22 @@ public class SphereCarController : MonoBehaviour
         _isBoosting = ToF;
     }
 
-    public void SetBoostSpeed(float boostSpeedPercentage)
+    public void SetBoostInfo(float boostSpeedPercentage, float boostTopSpeedPercentage)
     {
         _boostSpeedPercentage = boostSpeedPercentage;
+        _boostTopSpeedPercentage = boostTopSpeedPercentage;
     }
 
+    public void SetIsOnBoosterPad(bool ToF)
+    {
+        _isOnBoosterPad = ToF;
+    }
+
+    public void SetBoosterPadInfo(float boosterPadSpeedPercentage, float boosterPadTopSpeedPercentage)
+    {
+        _boosterPadSpeedPercentage = boosterPadSpeedPercentage;
+        _boosterPadTopSpeedPercentage = boosterPadTopSpeedPercentage;
+    }
 
     public bool getDrifting()
     {
