@@ -9,8 +9,8 @@ public class SetCamera : MonoBehaviour
     void Start()
     {
         string layer = "Player" + GetComponent<VehicleInput>().getPlayerNum();
-        GetComponentInChildren<CinemachineVirtualCamera>().gameObject.layer = LayerMask.NameToLayer(layer);
-        GetComponentInChildren<Camera>().cullingMask += (1 << LayerMask.NameToLayer(layer));
+        transform.parent.GetComponentInChildren<CinemachineVirtualCamera>().gameObject.layer = LayerMask.NameToLayer(layer);
+        transform.parent.GetComponentInChildren<Camera>().cullingMask += (1 << LayerMask.NameToLayer(layer));
     }
 
     // Update is called once per frame
