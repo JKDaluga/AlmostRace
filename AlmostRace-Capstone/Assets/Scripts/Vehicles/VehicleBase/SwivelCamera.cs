@@ -17,6 +17,8 @@ public class SwivelCamera : MonoBehaviour
 
     public VehicleInput _vehicleInput;
 
+    public Transform normal;
+
     bool rearFacing = false;
 
     private Vector3 velocity = Vector3.zero;
@@ -26,10 +28,12 @@ public class SwivelCamera : MonoBehaviour
         //If players are actively pushing the right joystick, sets the camera angles appropriately
         //Otherwise, allows players to face and aim forward
 
+        transform.parent.eulerAngles = new Vector3(normal.eulerAngles.z, transform.parent.eulerAngles.y, transform.parent.eulerAngles.z);
+        
+
         //When the rightJoystick button is pressed, make the camera face backwards
         if (Input.GetButtonDown(_vehicleInput.rightStickButton))
         {
-            Debug.Log("hit");
             rearFacing = true;
         }
         //when released, reset the camera
