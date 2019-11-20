@@ -14,13 +14,13 @@ using UnityEngine;
 
 public class TurretAggroBehavior2 : MonoBehaviour
 {
-    public TurretBehavior turret;
+    public TurretBehavior2 turret;
 
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.GetComponent<CarHeatManager>() != null)
         {//if other is a car
-            turret.currentTarget = other.gameObject;
+            turret.possibleTargets.Add(other.gameObject);
             turret.TriggerInteractable();
         }
     }
@@ -29,10 +29,18 @@ public class TurretAggroBehavior2 : MonoBehaviour
     {
         if (other.gameObject.GetComponent<CarHeatManager>() != null)
         {//if other is a car
-            if (turret.currentTarget == other.gameObject)
+         
+            if(other.gameObject == turret.currentTarget)
             {
                 turret.currentTarget = null;
             }
+                turret.possibleTargets.Remove(other.gameObject);
+                if(turret.possibleTargets.Count == 0)
+                {
+
+                    turret.ResetInteractable();
+                }
+            
             
         }
     }

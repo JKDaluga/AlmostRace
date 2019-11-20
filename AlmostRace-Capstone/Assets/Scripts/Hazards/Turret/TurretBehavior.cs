@@ -150,10 +150,8 @@ public class TurretBehavior : Interactable
 
     public void AimTurret()
     {
-        if(hasPower)
-        {
-            if (hasPower)
-            {
+
+
                 if (currentTarget != null)
                 {
                     turretHead.LookAt(currentTarget.transform.position + (aimOffset * currentTarget.GetComponent<SphereCarController>().sphere.velocity));//look at current target
@@ -163,8 +161,8 @@ public class TurretBehavior : Interactable
                     CancelInvoke("AimTurret");//stop aiming
                     CancelInvoke("FireTurret");//stop firing
                 }
-            }    
-        }
+              
+   
        
     }
     public void FireTurret()
@@ -181,11 +179,7 @@ public class TurretBehavior : Interactable
                 extraSpawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
                 extraSpawnedProjectile.transform.Rotate(Random.Range(-.5f, .5f), Random.Range(-2,2), Random.Range(-.5f, .5f));
             }
-           
-
-
-           
-
+          
         }
 
     }
