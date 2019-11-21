@@ -14,7 +14,7 @@ public class HotSpotBotBehavior : MonoBehaviour
     public float moveSpeed;
     public float dropGracePeriod;
     public MeshRenderer meshRenderer;
-    public Collider thisCollider;
+    public Collider botCollider;
     public GameObject hypeColliderObject;
     public static HotSpotBotBehavior instance;
     private List<Node> branchNodes = new List<Node>();
@@ -89,7 +89,7 @@ public class HotSpotBotBehavior : MonoBehaviour
         else
         {
             hypeColliderObject.SetActive(false);
-            thisCollider.enabled = false;
+            botCollider.enabled = false;
 
             for (int i = 0; i < branchNodes.Count; i++)
             {
@@ -106,7 +106,7 @@ public class HotSpotBotBehavior : MonoBehaviour
 
             yield return new WaitForSeconds(dropGracePeriod);
             hypeColliderObject.SetActive(true);
-            thisCollider.enabled = true;
+            botCollider.enabled = true;
         }
     }
 
@@ -136,7 +136,7 @@ public class HotSpotBotBehavior : MonoBehaviour
         float speed = 3.0F;
         float dist = 9999;
         hypeColliderObject.SetActive(false);
-        thisCollider.enabled = false;
+        botCollider.enabled = false;
         while(dist >= 0.1f)
         {
             dist = Vector3.Distance(currentArenaDesignation.position, transform.position);
@@ -153,7 +153,7 @@ public class HotSpotBotBehavior : MonoBehaviour
             meshRenderer.enabled = true;
         }
         hypeColliderObject.SetActive(true);
-        thisCollider.enabled = true;
+        botCollider.enabled = true;
     }
 
     public void ReAttachToSpline()
