@@ -16,8 +16,7 @@ public class SwivelCamera : MonoBehaviour
     public float turnAmount = 1;
 
     public VehicleInput _vehicleInput;
-
-    public Transform normal;
+    
 
     bool rearFacing = false;
 
@@ -27,8 +26,7 @@ public class SwivelCamera : MonoBehaviour
     {
         //If players are actively pushing the right joystick, sets the camera angles appropriately
         //Otherwise, allows players to face and aim forward
-
-        transform.parent.eulerAngles = new Vector3(normal.eulerAngles.z, transform.parent.eulerAngles.y, transform.parent.eulerAngles.z);
+        
         
 
         //When the rightJoystick button is pressed, make the camera face backwards
