@@ -247,16 +247,6 @@ public class SphereCarController : MonoBehaviour
         {
             return;
         }
-        
-        //Applies force in appropriate direction based on drifting
-        if (!_drifting)
-        { 
-            sphere.AddForce(-kartModel.transform.right * currentSpeed, ForceMode.Acceleration);
-        }
-        else
-        {
-            sphere.AddForce(transform.forward * currentSpeed, ForceMode.Acceleration);
-        }
 
         //hitOn/hitNear check and rotate the vehicle body up and down based on direction of the track
         RaycastHit hitOn;
@@ -265,6 +255,25 @@ public class SphereCarController : MonoBehaviour
         Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitOn, 1.5f, layerMask);
         Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitNear, 5.0f, layerMask);
 
+
+        //Next we are getting the difference between down and the direction we will apply gravity so we can similarly adjust how we apply regular movement
+        Quaternion forceRotation = new Quaternion();
+        if (hitOn.collider != null)
+        {
+            //calculating the angle in radians then converting it to degrees
+            forceRotation = Quaternion.FromToRotation(Vector3.down, -hitOn.normal);
+        }
+
+        //Applies force in appropriate direction based on drifting
+        if (!_drifting)
+        { 
+            sphere.AddForce((forceRotation *(-kartModel.transform.right)) * currentSpeed, ForceMode.Acceleration);
+        }
+        else
+        {
+            sphere.AddForce((forceRotation * (transform.forward)) * currentSpeed, ForceMode.Acceleration);
+        }
+        
         if(hitOn.collider != null)
         {
             sphere.AddForce(-hitOn.normal * groundedGravity, ForceMode.Acceleration);
