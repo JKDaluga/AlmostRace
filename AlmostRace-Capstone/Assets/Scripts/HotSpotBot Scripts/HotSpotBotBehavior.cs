@@ -12,6 +12,7 @@ using UnityEngine;
 public class HotSpotBotBehavior : MonoBehaviour
 {
     public float moveSpeed;
+    public float dropGracePeriod;
     public MeshRenderer meshRenderer;
     public Collider thisCollider;
     public GameObject hypeColliderObject;
@@ -76,7 +77,7 @@ public class HotSpotBotBehavior : MonoBehaviour
         _allVehiclesIn = allVehiclesIn;
     }
 
-    public void SetPosition(Vector3 vehiclesPosition)
+    public IEnumerator SetPosition(Vector3 vehiclesPosition)
     {
         Node positionToPlace = branchNodes[0];
         float distance = Vector3.Distance(branchNodes[0].Point.position, vehiclesPosition);
@@ -87,6 +88,9 @@ public class HotSpotBotBehavior : MonoBehaviour
         }
         else
         {
+            hypeColliderObject.SetActive(false);
+            thisCollider.enabled = false;
+
             for (int i = 0; i < branchNodes.Count; i++)
             {
                 if(distance > Vector3.Distance(branchNodes[i].Point.position, vehiclesPosition))
@@ -95,11 +99,14 @@ public class HotSpotBotBehavior : MonoBehaviour
                     positionToPlace = branchNodes[i];
                 }
             }
-            Node pathPoint1 = SplinePlusAPI.CreateNode(_splinePlusScript.SPData, vehiclesPosition + new Vector3(0,80,0));
+            Node pathPoint1 = SplinePlusAPI.CreateNode(_splinePlusScript.SPData, vehiclesPosition);
             int branchKey = SplinePlusAPI.ConnectTwoNodes(_splinePlusScript.SPData, pathPoint1, positionToPlace);
-            
             _splinePlusScript.GoToNewBranch(branchKey);
             _splinePlusScript.SPData.Followers[0].DistanceData.Index = branchKey;
+
+            yield return new WaitForSeconds(dropGracePeriod);
+            hypeColliderObject.SetActive(true);
+            thisCollider.enabled = true;
         }
     }
 
@@ -165,7 +172,7 @@ public class HotSpotBotBehavior : MonoBehaviour
         }
         else
         {
-            SetPosition(currentArenaDesignation.position);
+            StartCoroutine(SetPosition(currentArenaDesignation.position));
         }
     }
 

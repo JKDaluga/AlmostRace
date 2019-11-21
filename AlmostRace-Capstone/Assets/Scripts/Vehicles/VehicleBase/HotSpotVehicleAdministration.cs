@@ -42,7 +42,7 @@ public class HotSpotVehicleAdministration : MonoBehaviour
         holdingTheBot = false;
         HotSpotBotHeld.SetActive(true);
         HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetBeingHeld(false);
-        HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetPosition(transform.position);
+        StartCoroutine(HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetPosition(transform.position));
         HotSpotBotHeld = null;
     }
 
