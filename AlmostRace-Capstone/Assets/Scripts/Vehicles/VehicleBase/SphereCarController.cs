@@ -252,7 +252,7 @@ public class SphereCarController : MonoBehaviour
         RaycastHit hitOn;
         RaycastHit hitNear;
 
-        Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitOn, 1.5f, layerMask);
+        Physics.Raycast(transform.position + (kartModel.transform.up * .1f), -kartModel.transform.up, out hitOn, 1.65f, layerMask);
         Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitNear, 5.0f, layerMask);
 
 
