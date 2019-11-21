@@ -56,7 +56,8 @@ public class HypeGateBehavior : MonoBehaviour
             {
                 StopAllCoroutines();
                 StartCoroutine(TrackHype());
-                // Trigger bot detach event
+
+                //StopCoroutine(CheckCars());
                 yield return null;
             }
             yield return null;

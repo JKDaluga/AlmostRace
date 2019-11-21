@@ -15,33 +15,29 @@ public class Lux_ProjectileBehavior : Projectile
     {   
         if (_isAlive)
         {
-            if(other.gameObject.GetComponent<Lux_ProjectileBehavior>() == null)
-            {//Stops projectiles from hitting each other
-                if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHeatManager>() != null)
-                {//Checks if the object isn't the immunePlayer and if they are a car.
-                    other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
-                    _immunePlayerScript.AddHype(_projectileHype);
-                    StartCoroutine(ExplosionEffect());
-                }
-                else if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<Interactable>() != null)
-                {//Checks if the object isn't the immunePlayer and if they are an interactable object.
-                    if (other.gameObject.GetComponent<Lux_ShieldPanelBehavior>() != null)
-                    {//checks if about to hit a shield
-                        if (other.gameObject.GetComponent<Lux_ShieldPanelBehavior>().GetShieldPlayer() == _immunePlayer)
-                        {
-                            return;
-                        }
-                    }
-                    other.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
-                    other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
-                    StartCoroutine(ExplosionEffect());
-                }
-                else if (other.gameObject != _immunePlayer)
-                {
-                    StartCoroutine(ExplosionEffect());
-                }
+            if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHeatManager>() != null)
+            {//Checks if the object isn't the immunePlayer and if they are a car.
+                other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
+                _immunePlayerScript.AddHype(_projectileHype);
+                StartCoroutine(ExplosionEffect());
             }
-           
+            else if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<Interactable>() != null)
+            {//Checks if the object isn't the immunePlayer and if they are an interactable object.
+                if(other.gameObject.GetComponent<Lux_ShieldPanelBehavior>() != null)
+                {//checks if about to hit a shield
+                    if(other.gameObject.GetComponent<Lux_ShieldPanelBehavior>().GetShieldPlayer() == _immunePlayer)
+                    {
+                       return;
+                    }
+                }
+                other.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
+                other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+                StartCoroutine(ExplosionEffect());
+            }
+            else if (other.gameObject != _immunePlayer)
+            {
+                StartCoroutine(ExplosionEffect());
+            }
         }
     }
 }
