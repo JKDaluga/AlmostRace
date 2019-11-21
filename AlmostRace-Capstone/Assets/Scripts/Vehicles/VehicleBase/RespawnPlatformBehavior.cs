@@ -61,7 +61,14 @@ public class RespawnPlatformBehavior : MonoBehaviour
             }
             else
             {
-                SpawnOnNearestSplinePoint();
+                if (_playerObject.GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+                {
+                    SpawnBehindBotAfterDropping();
+                }
+                else
+                {
+                    SpawnOnNearestSplinePoint();
+                }
             }
         }
         else

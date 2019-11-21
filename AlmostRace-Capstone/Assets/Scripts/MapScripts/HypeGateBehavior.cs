@@ -24,16 +24,19 @@ public class HypeGateBehavior : MonoBehaviour
 
     [Tooltip("The gameobject to remove once hypeLimit is reached")]
     public GameObject gateToOpen;//might be changed per hype gate for specific behavior
+    public Transform hotSpotLocation;
     private float _hypeLimitActual;
     public List<TextMeshProUGUI> displayTexts;
     private int _carsInGame;
     public List<GameObject> carsInRange;
     private GameObject _aggroSphere;
+    private HotSpotBotBehavior _hotSpotBotScript;
 
     // Start is called before the first frame update
     void Start()
     {
         _hypeManager = FindObjectOfType<HypeManager>();
+        _hotSpotBotScript = GameObject.Find("HotSpotBot").GetComponent<HotSpotBotBehavior>();
         if(_hypeManager != null)
         {
             _carsInGame = _hypeManager.vehicleList.Count;
@@ -46,6 +49,7 @@ public class HypeGateBehavior : MonoBehaviour
 
     public IEnumerator CheckCars()
     {
+        _hotSpotBotScript.DetachFromSpline(hotSpotLocation);
         while(true)
         {
             if(carsInRange.Count < _carsInGame)
@@ -56,7 +60,7 @@ public class HypeGateBehavior : MonoBehaviour
             {
                 StopAllCoroutines();
                 StartCoroutine(TrackHype());
-                // Trigger bot detach event
+                _hotSpotBotScript.SetVehiclesIn(true);
                 yield return null;
             }
             yield return null;
