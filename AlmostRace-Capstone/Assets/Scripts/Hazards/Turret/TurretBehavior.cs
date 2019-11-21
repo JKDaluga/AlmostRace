@@ -15,7 +15,6 @@ public class TurretBehavior : Interactable
     public GameObject aggroObject;
 
     [Header("Combat Variables............................................................")]
-    public bool hasPower = false;
     public GameObject currentTarget;
     public Transform turretHead;
     public Transform turretMuzzle;
@@ -49,11 +48,6 @@ public class TurretBehavior : Interactable
     [Header("Feedback Variables............................................................")]
     [Space(30)]
     public List<MeshRenderer> visibleMeshes;
-    public List<MeshRenderer> turretGlows;
-    public Material p1Glow;
-    public Material p2Glow;
-    public Material p3Glow;
-    public Material p4Glow;
     public ParticleSystem turretExplosionParticles;
     private AudioSource _turretSound;
    // public AudioClip turretFiringSound;
@@ -64,9 +58,9 @@ public class TurretBehavior : Interactable
     // Start is called before the first frame update
     void Start()
     {
-        //_turretCollider = gameObject.GetComponent<Collider>();
+        _turretCollider = gameObject.GetComponent<Collider>();
         _originalHealth = interactableHealth;
-        canBeDamaged = false;
+        canBeDamaged = true;
         _turretSound = gameObject.GetComponent<AudioSource>();
     }
 
@@ -82,26 +76,6 @@ public class TurretBehavior : Interactable
                 {
                     interactingPlayer = null; // Resets interactingPlayer
                 }
-            }
-        }
-        else
-        {
-            int interactingPlayerInput = interactingPlayer.GetComponent<VehicleInput>().getPlayerNum();
-            switch (interactingPlayerInput)
-            {
-                case 1:
-                    //if P1 is detected
-
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-
-                    break;
-                case 4:
-
-                    break;
             }
         }
     }
@@ -150,20 +124,15 @@ public class TurretBehavior : Interactable
 
     public void AimTurret()
     {
-
-
-                if (currentTarget != null)
-                {
-                    turretHead.LookAt(currentTarget.transform.position + (aimOffset * currentTarget.GetComponent<SphereCarController>().sphere.velocity));//look at current target
-                }
-                else
-                {
-                    CancelInvoke("AimTurret");//stop aiming
-                    CancelInvoke("FireTurret");//stop firing
-                }
-              
-   
-       
+        if(currentTarget != null)
+        {
+            turretHead.LookAt(currentTarget.transform.position + (aimOffset * currentTarget.GetComponent<SphereCarController>().sphere.velocity));//look at current target
+        }
+        else
+        {
+            CancelInvoke("AimTurret");//stop aiming
+            CancelInvoke("FireTurret");//stop firing
+        }
     }
     public void FireTurret()
     {
@@ -179,7 +148,11 @@ public class TurretBehavior : Interactable
                 extraSpawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
                 extraSpawnedProjectile.transform.Rotate(Random.Range(-.5f, .5f), Random.Range(-2,2), Random.Range(-.5f, .5f));
             }
-          
+           
+
+
+           
+
         }
 
     }
