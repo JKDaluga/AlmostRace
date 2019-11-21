@@ -108,22 +108,25 @@ public class HotSpotBotBehavior : MonoBehaviour
         _inArena = true;
         currentArenaDesignation = givenLocationDesignation;
         _splinePlusScript.SPData.Followers[0].FollowerGO = null;
-        for(int i = 0; i < _hypeManagerScript.vehicleList.Count; i++)
+        if(_beingHeld)
         {
-            if (_hypeManagerScript.vehicleList[i].GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+            for(int i = 0; i < _hypeManagerScript.vehicleList.Count; i++)
             {
-                _hypeManagerScript.vehicleList[i].GetComponent<HotSpotVehicleAdministration>().DropTheBot();
+                if (_hypeManagerScript.vehicleList[i].GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+                {
+                    _hypeManagerScript.vehicleList[i].GetComponent<HotSpotVehicleAdministration>().DropTheBot();
+                }
             }
-            else
-            {
-                StartCoroutine(LerpToArenaLocation());
-            }
+        }
+        else
+        {
+            StartCoroutine(LerpToArenaLocation());
         }
     }
 
     private IEnumerator LerpToArenaLocation()
     {
-        float speed = 5.0F;
+        float speed = 3.0F;
         float dist = 9999;
         hypeColliderObject.SetActive(false);
         thisCollider.enabled = false;
@@ -144,6 +147,26 @@ public class HotSpotBotBehavior : MonoBehaviour
         }
         hypeColliderObject.SetActive(true);
         thisCollider.enabled = true;
+    }
+
+    public void ReAttachToSpline()
+    {
+        _inArena = false;
+        _splinePlusScript.SPData.Followers[0].FollowerGO = gameObject;
+        if(_beingHeld)
+        {
+            for(int i = 0; i < _hypeManagerScript.vehicleList.Count; i++)
+            {
+                if (_hypeManagerScript.vehicleList[i].GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+                {
+                    _hypeManagerScript.vehicleList[i].GetComponent<HotSpotVehicleAdministration>().DropTheBot();
+                }
+            }
+        }
+        else
+        {
+            SetPosition(currentArenaDesignation.position);
+        }
     }
 
     public Vector3 GetNearestPointOnSpline(Vector3 givenPosition, int vectorsBack)

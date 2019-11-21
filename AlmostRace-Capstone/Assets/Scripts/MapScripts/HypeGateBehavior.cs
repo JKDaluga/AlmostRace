@@ -98,6 +98,7 @@ public class HypeGateBehavior : MonoBehaviour
                     gateToOpen.SetActive(false);
                     FinishDisplays();
                     _aggroSphere.SetActive(false);
+                    _hotSpotBotScript.ReAttachToSpline();
                 }  
                 //StopCoroutine(TrackHype());
                 StopAllCoroutines();
