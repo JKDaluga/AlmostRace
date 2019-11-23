@@ -86,13 +86,7 @@ public class VoidWasp_ShieldBehaviour : Interactable
     {
         if (other.gameObject.GetComponent<Projectile>() != null)
         {
-            if (_collectedDamage <= _maxHealth)
-            {
-                _collectedDamage += other.gameObject.GetComponent<Projectile>().GetProjectileDamage();
 
-                print(_collectedDamage);
-            }
-            
             Destroy(other.gameObject);
 
             print("Getting hit by turret");
