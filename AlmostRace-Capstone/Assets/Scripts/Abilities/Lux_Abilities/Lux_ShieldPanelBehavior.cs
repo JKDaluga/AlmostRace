@@ -27,8 +27,6 @@ public class Lux_ShieldPanelBehavior : Interactable
     public override void TriggerInteractable()
     {
         ResetInteractable(); // makes sure each panel has full health.
-        _meshRender.enabled = true;
-        _collider.enabled = true;
 
     }
 
@@ -40,6 +38,8 @@ public class Lux_ShieldPanelBehavior : Interactable
 
     public override void ResetInteractable()
     {
+        _meshRender.enabled = true;
+        _collider.enabled = true;
         interactableHealth = _shieldMaxHealth;
     }
 

@@ -25,9 +25,16 @@ public abstract class Projectile : MonoBehaviour
     {
         _collider = gameObject.GetComponent<Collider>();
         _rigidBody = gameObject.GetComponent<Rigidbody>();
-        _immunePlayerVelocity = _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
 
-        _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _projectileSpeed) + _immunePlayerVelocity;
+        if (_immunePlayer != null && _immunePlayerScript != null) {
+            _immunePlayerVelocity = _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
+            _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _projectileSpeed) + _immunePlayerVelocity;
+        }
+        else
+        {
+            _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _projectileSpeed);
+        }
+
         _speedActual = _rigidBody.velocity.magnitude;
 
         Destroy(gameObject, 7.0f);
@@ -36,7 +43,10 @@ public abstract class Projectile : MonoBehaviour
     public void SetImmunePlayer(GameObject immunePlayer)
     {
         _immunePlayer = immunePlayer;
-        _immunePlayerScript = _immunePlayer.GetComponent<VehicleHypeBehavior>();
+        if (_immunePlayer.GetComponent<VehicleHypeBehavior>() != null)
+        {
+            _immunePlayerScript = _immunePlayer.GetComponent<VehicleHypeBehavior>();
+        }
     }
 
     public void SetProjectileInfo(float projectileDamage, float projectileSpeed, float projectileHypeToGain)
@@ -44,6 +54,11 @@ public abstract class Projectile : MonoBehaviour
         _projectileDamage = projectileDamage;
         _projectileSpeed = projectileSpeed;
         _projectileHype = projectileHypeToGain;
+    }
+
+    public float GetProjectileDamage()
+    {
+        return _projectileDamage;
     }
 
     public IEnumerator ExplosionEffect()

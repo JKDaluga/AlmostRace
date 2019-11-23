@@ -50,8 +50,6 @@ public class Lux_BoostAbility : CooldownHeatAbility
         jpMain.startSpeed = _originalJetSpeed;
 
         carInfo.SetIsBoosting(false);
-
-       
     }
 
     protected override void AddHeat()

@@ -72,6 +72,7 @@ public class CoolantLineBehavior : MonoBehaviour
             {//If this is the first car added to the list, assume that cars aren't being damaged, start the invoke repeating.
                
                 InvokeRepeating("DamageCars", 0, _coolantDamageRate);
+                // todo: @Eddie, add damage to interactables
             }
         }
     }
