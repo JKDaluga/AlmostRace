@@ -17,7 +17,7 @@ public class SwivelCamera : MonoBehaviour
 
     public VehicleInput _vehicleInput;
 
-    public Transform normal;
+    Quaternion orig;
 
     bool rearFacing = false;
 
@@ -27,14 +27,16 @@ public class SwivelCamera : MonoBehaviour
     {
         //If players are actively pushing the right joystick, sets the camera angles appropriately
         //Otherwise, allows players to face and aim forward
-
-        transform.parent.eulerAngles = new Vector3(normal.eulerAngles.z, transform.parent.eulerAngles.y, transform.parent.eulerAngles.z);
         
 
         //When the rightJoystick button is pressed, make the camera face backwards
         if (Input.GetButtonDown(_vehicleInput.rightStickButton))
         {
             rearFacing = true;
+
+            Quaternion target = transform.parent.rotation * Quaternion.Euler(0, 180, 0);
+
+            transform.parent.rotation = target;
         }
         //when released, reset the camera
         if (Input.GetButtonUp(_vehicleInput.rightStickButton) || Input.GetAxis(_vehicleInput.rightVertical) < -.3f)
@@ -43,14 +45,9 @@ public class SwivelCamera : MonoBehaviour
             Vector3 target = transform.parent.parent.eulerAngles;
 
             transform.parent.rotation = Quaternion.Euler(target);
+
+
         }
-
-        if (rearFacing)
-        {
-            Vector3 target = new Vector3(transform.parent.eulerAngles.x, transform.parent.parent.eulerAngles.y - 180, transform.parent.eulerAngles.z);
-
-            transform.parent.rotation = Quaternion.Euler(target);
-        } 
 
 
         //if a direction is pushed on the right joystick, find the respective angle, and smoothly rotate the camera to the new position
@@ -59,20 +56,20 @@ public class SwivelCamera : MonoBehaviour
             CancelInvoke();
             horiz = Input.GetAxis(_vehicleInput.rightHorizontal);
             
+            
 
-            float angle = Mathf.Atan2(horiz, vert) * Mathf.Rad2Deg;
+            Quaternion target = transform.parent.rotation * Quaternion.Euler(0, turnAmount * Mathf.Sign(horiz), 0);
 
-            Vector3 target = new Vector3(transform.parent.eulerAngles.x, transform.parent.eulerAngles.y + (turnAmount * Mathf.Sign( horiz)), transform.parent.eulerAngles.z);
-
-            if (transform.parent.rotation != Quaternion.Euler(target))
+            if (transform.parent.rotation != target)
             {
-                transform.parent.rotation = Quaternion.RotateTowards(transform.parent.rotation, Quaternion.Euler(target), turnTime * Time.deltaTime);
+                transform.parent.rotation = Quaternion.RotateTowards(transform.parent.rotation, target, turnTime * Time.deltaTime);
+                
             }
         }
         //if No direction is pressed, set the camera behind the player again.
         else 
         {
-            if (!Input.GetButton(_vehicleInput.basicAbilityInput) && !Input.GetButton(_vehicleInput.signatureAbilityInput))
+            if (!Input.GetButton(_vehicleInput.basicAbilityInput) && !Input.GetButton(_vehicleInput.signatureAbilityInput) && !Input.GetButton(_vehicleInput.rightStickButton))
             Invoke("Forward", 3.0f);
             else
             {

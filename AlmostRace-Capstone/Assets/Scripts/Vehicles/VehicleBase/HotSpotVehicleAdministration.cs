@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+    /*
+    Author: Jake Velicer
+    Purpose: Contains the behavior for vehciles picking up the hot spot bot,
+    and the behavior for dropping it.
+    */
+
 public class HotSpotVehicleAdministration : MonoBehaviour
 {
     public bool holdingTheBot;
     private GameObject HotSpotBotHeld;
     public float initialHypeGain, gradualHypeGain, hypeWaitTime;
     private float hypeTimer;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -40,9 +40,9 @@ public class HotSpotVehicleAdministration : MonoBehaviour
     public void DropTheBot()
     {
         holdingTheBot = false;
-        HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetBeingHeld(false);
-        HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetPosition(transform.position);
         HotSpotBotHeld.SetActive(true);
+        HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetBeingHeld(false);
+        StartCoroutine(HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetPosition(transform.position));
         HotSpotBotHeld = null;
     }
 
