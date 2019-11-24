@@ -6,6 +6,9 @@ using UnityEngine;
  * Mike Romeo 06/11/2019
  * Functionality for destuctable boulder that the player can shoot at
  * or collide with. 
+ * 
+ * Edited by Eddie B
+ * Made to work with turrets blowing up boulders as well.
  */
 
 public class DestructableBoulderBehaviour : Interactable
@@ -55,7 +58,11 @@ public class DestructableBoulderBehaviour : Interactable
 
     public override void TriggerInteractable()
     {
-        interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(boulderDestroyedHype);
+        if(interactingPlayer.GetComponent<VehicleHypeBehavior>() != null)
+        {//makes sure that non-player agents can destroy the boulders without throwing null references.
+            interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(boulderDestroyedHype);
+        }
+     
         boulderParticles.Play();
         rend.enabled = false;
         coll.enabled = false;
