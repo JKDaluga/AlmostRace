@@ -54,12 +54,8 @@ public class TurretBehavior2 : Interactable
     public Material p2Glow;
     public Material p3Glow;
     public Material p4Glow;
-    public ParticleSystem turretExplosionParticles;
     private AudioSource _turretSound;
     // public AudioClip turretFiringSound;
-    public AudioClip turretExplosionSound;
-    public ParticleSystem turretRespawnParticles;
-    public AudioClip turretRespawnSound;
 
     // Start is called before the first frame update
     void Start()
