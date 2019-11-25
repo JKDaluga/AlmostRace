@@ -54,10 +54,11 @@ public class VehicleHypeBehavior : MonoBehaviour
 
     public void AddHype(float hypeToAdd, string hypeType)
     {
-        Debug.Log(hypeToAdd + " was added to " + gameObject.name + " from " + hypeType);
+       // Debug.Log(hypeToAdd + " was added to " + gameObject.name + " from " + hypeType);
         _hypeAmount += hypeToAdd;
         _hypeManagerScript.VehicleSort();
         GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
+        spawnedPopUp.GetComponent<TextMeshProUGUI>().text = hypeType + ":" + hypeToAdd;
         spawnedPopUp.transform.SetParent(scalingPanel.transform);
     }
 
