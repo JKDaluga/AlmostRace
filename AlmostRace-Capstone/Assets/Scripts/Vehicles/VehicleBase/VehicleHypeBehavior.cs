@@ -20,8 +20,10 @@ using TMPro;
     
 public class VehicleHypeBehavior : MonoBehaviour
 {
-    
+
+
     private HypeManager _hypeManagerScript;
+    public GameObject scalingPanel;
     public float _hypeAmount;
     public TextMeshProUGUI hypeText;
     public GameObject hypePopup;
@@ -55,7 +57,8 @@ public class VehicleHypeBehavior : MonoBehaviour
         Debug.Log(hypeToAdd + " was added to " + gameObject.name + " from " + hypeType);
         _hypeAmount += hypeToAdd;
         _hypeManagerScript.VehicleSort();
-        Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
+        GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
+        spawnedPopUp.transform.SetParent(scalingPanel.transform);
     }
 
     public void SubtractHype(float hypeToSubtract)

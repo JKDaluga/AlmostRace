@@ -415,6 +415,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5f17f286ddc4c29845b30cc5051567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scalingPanel: {fileID: 4303767793833997196}
   _hypeAmount: 0
   hypeText: {fileID: 2182457598661606704}
   hypePopup: {fileID: 2879130621511507432, guid: 4ab4d5de727c7f74aac8ac98b0f630b5,
@@ -432,20 +433,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ceda1c616fee4c0abcad4bdc27e75ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offensiveAbility: {fileID: 1371892911444412718}
+  offensiveAbility: {fileID: 0}
   canHoldBasic: 1
   offensiveAbilityButtonUI: {fileID: 7590952557551204093}
   offensiveAbilitySpriteReady: {fileID: 21300000, guid: 0832489b27b341e4fb96585c10a537e4,
     type: 3}
   offensiveAbilitySpritePressed: {fileID: 21300000, guid: 12d96843eaaf95545acab515e267e5c3,
     type: 3}
-  defensiveAbility: {fileID: 1371892911444412718}
+  defensiveAbility: {fileID: 0}
   defensiveAbilityRecharge: 5
   defensiveAbilityDuration: 3
   canHoldDefensiveAbility: 0
   defensiveAbilityCooldown: {fileID: 1598876598755362110}
   defensiveAbilityDark: {fileID: 419147720706557991}
-  boostAbility: {fileID: 1371892911444412718}
+  boostAbility: {fileID: 0}
   boostAbilityDuration: 3
   boostAbilityCooldown: {fileID: 768703235822065352}
   boostAbilityDark: {fileID: 8904896707114225486}
@@ -458,20 +459,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 481683610354487727}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8061e08ece290404fa16f77ba237c729, type: 3}
+  m_Script: {fileID: 11500000, guid: 9851dd9a18f97d24e9463a52e43c1814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   selfHeatDamage: 0
-  laserBolt: {fileID: 2460749259567487935, guid: 5dbb0bb9931875849aebd9f7fa96c1a4,
+  luxProjectile: {fileID: 2460749259567487935, guid: 93d3025eda2713446bde506db609f5ee,
     type: 3}
-  laserHypeToGain: 0
-  laserDamage: 25
-  laserSpeed: 50
-  laserRateOfFire: 0.25
+  projectileHypeToGain: 0
+  projectileDamage: 0
+  projectileSpeed: 0
+  rateOfFire: 0
   selfDamageRate: 0
-  laserMuzzles:
-  - {fileID: 4000302993580368808}
-  - {fileID: 4000302993580368808}
+  rotaryTurret: {fileID: 4000302993580368808}
+  muzzles: []
 --- !u!65 &2048040180542796253
 BoxCollider:
   m_ObjectHideFlags: 0
