@@ -99,7 +99,7 @@ public class HypeManager : MonoBehaviour
         );
         // Put in descending order
         vehicleList.Reverse();
-        checkWinCondition();
+        //checkWinCondition(); Doesn't need to be here, since we are moving away from the hype limit. - Eddie
       //  UIupdate();
     }
 

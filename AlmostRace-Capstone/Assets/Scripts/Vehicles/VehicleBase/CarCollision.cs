@@ -59,7 +59,7 @@ public class CarCollision : MonoBehaviour
                 {
                     float damage = percentDamage * weight * relativeVelocity.magnitude;
                     otherCarHeat.heatCurrent += damage;
-                    car.GetComponent<VehicleHypeBehavior>().AddHype(hypeToAdd);
+                    car.GetComponent<VehicleHypeBehavior>().AddHype(hypeToAdd, "Crash!");
                 }
             }
         }

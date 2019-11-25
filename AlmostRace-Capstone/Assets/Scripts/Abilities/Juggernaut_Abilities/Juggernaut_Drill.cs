@@ -40,7 +40,7 @@ public class Juggernaut_Drill : MonoBehaviour
             else
             {
                 damagedCarScript.heatCurrent += _drillDamage;
-                _hypeScript.AddHype(_hypeGained);
+                _hypeScript.AddHype(_hypeGained, "Drill");
             }
         }
         else

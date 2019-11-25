@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,6 +55,11 @@ public abstract class Projectile : MonoBehaviour
         _projectileDamage = projectileDamage;
         _projectileSpeed = projectileSpeed;
         _projectileHype = projectileHypeToGain;
+    }
+
+    internal object getImmunePlayer()
+    {
+        return _immunePlayer;
     }
 
     public float GetProjectileDamage()

@@ -63,6 +63,6 @@ public class HotSpotVehicleAdministration : MonoBehaviour
 
     void HypeGain(float added)
     {
-        GetComponent<VehicleHypeBehavior>().AddHype(added);
+        GetComponent<VehicleHypeBehavior>().AddHype(added, "Bot Grabbed!");
     }
 }

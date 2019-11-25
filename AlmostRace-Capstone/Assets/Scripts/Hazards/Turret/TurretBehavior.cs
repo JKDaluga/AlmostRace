@@ -95,7 +95,7 @@ public class TurretBehavior : Interactable
         _turretSound.PlayOneShot(turretExplosionSound); //play explosion sound
         currentTarget = null;//reset target
         turretFirePillar.Activate(); //activate fire pillar
-        interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(destroyTurretHype);//award hype to interacting player
+        interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(destroyTurretHype, "Turret Destroyed");//award hype to interacting player
         Invoke("ResetInteractable", turretRespawnTime);
     }
 

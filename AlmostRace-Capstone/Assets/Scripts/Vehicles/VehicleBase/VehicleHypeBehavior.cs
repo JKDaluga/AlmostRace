@@ -24,6 +24,8 @@ public class VehicleHypeBehavior : MonoBehaviour
     private HypeManager _hypeManagerScript;
     public float _hypeAmount;
     public TextMeshProUGUI hypeText;
+    public GameObject hypePopup;
+    public Transform hypePopupSpawn;
 
     void Start()
     {
@@ -48,10 +50,12 @@ public class VehicleHypeBehavior : MonoBehaviour
         hypeText.text = "Hype: " + _hypeAmount;
     }
 
-    public void AddHype(float hypeToAdd)
+    public void AddHype(float hypeToAdd, string hypeType)
     {
+        Debug.Log(hypeToAdd + " was added to " + gameObject.name + " from " + hypeType);
         _hypeAmount += hypeToAdd;
         _hypeManagerScript.VehicleSort();
+        Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
     }
 
     public void SubtractHype(float hypeToSubtract)

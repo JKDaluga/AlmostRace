@@ -78,7 +78,7 @@ public class CoolantRodBehavior : Interactable
     public override void TriggerInteractable()
     {
         coolantExplosion.Play();
-        interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(coolantExplosionHype);
+        interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(coolantExplosionHype, "Coolant Kaboom!");
         foreach (CoolantLineBehavior coolantLine in coolantLines)
         {
             coolantLine.ActivateCoolantLine(interactingPlayer);

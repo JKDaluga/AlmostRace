@@ -48,13 +48,13 @@ public class NearMiss : MonoBehaviour
             {
                 if (closecall[i].collider.gameObject != self)
                 {
-                    if(closecall[i].collider.gameObject.GetComponent<Volt_LaserBolt>() != null)
+                    if(closecall[i].collider.gameObject.GetComponent<Projectile>() != null)
                     {
-                        Debug.Log(closecall[i].collider.gameObject.GetComponent<Volt_LaserBolt>().getImmunePlayer().transform.parent + " & " + transform.parent);
-                        if(closecall[i].collider.gameObject.GetComponent<Volt_LaserBolt>().getImmunePlayer().transform.parent != transform.parent)
-                        {
-                            nearHits.Add(closecall[i].collider.gameObject);
-                        }
+                       // Debug.Log(closecall[i].collider.gameObject.GetComponent<Projectile>().getImmunePlayer().transform.parent + " & " + transform.parent);
+                      //  if(closecall[i].collider.gameObject.GetComponent<Projectile>().getImmunePlayer().transform.parent != transform.parent)
+                       // {
+                       //     nearHits.Add(closecall[i].collider.gameObject);
+                      //  }
                     }
                     else
                     {
@@ -74,7 +74,7 @@ public class NearMiss : MonoBehaviour
                     nearHits.Remove(target);
                     if (!hits.Find(GameObject => GameObject == target))
                     {
-                        hype.AddHype(5.0f);
+                        hype.AddHype(5.0f, "Near Miss");
                     }
                     else
                     {
