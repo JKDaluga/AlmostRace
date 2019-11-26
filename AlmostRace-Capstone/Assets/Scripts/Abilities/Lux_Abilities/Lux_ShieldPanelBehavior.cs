@@ -27,7 +27,6 @@ public class Lux_ShieldPanelBehavior : Interactable
     public override void TriggerInteractable()
     {
         ResetInteractable(); // makes sure each panel has full health.
-
     }
 
     public override void DestroyInteractable()

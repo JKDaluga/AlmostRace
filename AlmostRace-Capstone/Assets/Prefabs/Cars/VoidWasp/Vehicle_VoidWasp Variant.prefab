@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3687796816726783503}
   - component: {fileID: 3526306371435366144}
+  - component: {fileID: 4683143189038482347}
   m_Layer: 20
   m_Name: PS_VoidSurge
   m_TagString: Untagged
@@ -52,6 +53,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &4683143189038482347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 594996663158592089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcd733cd46ee02847846615da4dd1d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentRef: {fileID: 6257215333583748408}
 --- !u!1 &766253174410123726
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,17 +496,22 @@ PrefabInstance:
     - target: {fileID: 2068207908328324620, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.09853762
+      value: -0.098082095
       objectReference: {fileID: 0}
     - target: {fileID: 2068207908328324620, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000001560878
+      value: 0.000000015536624
       objectReference: {fileID: 0}
     - target: {fileID: 2068207908328324620, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000011484422
+      value: -0.000000114313316
+      objectReference: {fileID: 0}
+    - target: {fileID: 2068207908328324620, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.99517834
       objectReference: {fileID: 0}
     - target: {fileID: 3345660790554224653, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}

@@ -65,10 +65,14 @@ public class VoidWasp_ShieldBehaviour : Interactable
 
             _collider.enabled = false;
             psRef.SetActive(false);
+            _released = false;
+            psRef.GetComponent<Animator>().SetBool("surgeEnd", false);
+            print("release" + _released);
         }
         if (!_released)
         {
-
+            surgeRelease();
+            print("release" + _released);
         }
 
 
@@ -80,10 +84,17 @@ public class VoidWasp_ShieldBehaviour : Interactable
         // collected damage divided over total amount projectiles
     }
 
+    private void surgeRelease()
+    {
+        psRef.GetComponent<Animator>().SetBool("surgeEnd", true);
+        _released = true;
+    }
+
     public override void ResetInteractable()
     {
         interactableHealth = _maxHealth;
         _collectedDamage = 0;
+        _released = false;
     }
 
     public override void TriggerInteractable()
