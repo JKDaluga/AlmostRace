@@ -50,6 +50,7 @@ public class SphereCarController : MonoBehaviour
 
     public float groundedGravity = 10f;
     public float airborneGravity = 10f;
+    private Vector3 GravDir = Vector3.down;
     public float driftStrength = 1f;
     public float reverseSpeed = 1f;
 
@@ -210,9 +211,24 @@ public class SphereCarController : MonoBehaviour
                 
         }
 
+        //hitOn/hitNear check and rotate the vehicle body up and down based on direction of the track
+        RaycastHit hitOn;
 
+        Physics.Raycast(transform.position + (kartNormal.transform.up * .1f), -kartNormal.transform.up, out hitOn, 2f, layerMask);
+
+        //Next we are getting the difference between down and the direction we will apply gravity so we can similarly adjust how we apply regular movement
+        Quaternion forceRotation = new Quaternion();
+        if (hitOn.collider != null)
+        {
+            //calculating the angle in radians then converting it to degrees
+            forceRotation = Quaternion.FromToRotation(Vector3.down, -hitOn.normal);
+        }
+        else
+        {
+            print("Caught ya");
+        }
         //Ties the vehicle body to the sphere collider
-        transform.position = sphere.transform.position - new Vector3(0, 0.4f, 0);
+        transform.position = sphere.transform.position - (forceRotation * new Vector3(0, 0.4f, 0));
 
         //Checks if the vehicle should be reversing or not, and evenly increases speed based on that.
         if(Mathf.Abs(speed) >= Mathf.Abs(currentSpeed) || speed * currentSpeed > 0)
@@ -250,10 +266,12 @@ public class SphereCarController : MonoBehaviour
 
         //hitOn/hitNear check and rotate the vehicle body up and down based on direction of the track
         RaycastHit hitOn;
+        RaycastHit hitNearShort;
         RaycastHit hitNear;
 
-        Physics.Raycast(transform.position + (kartModel.transform.up * .1f), -kartModel.transform.up, out hitOn, 2f, layerMask);
-        Physics.Raycast(transform.position + (transform.up * .1f), Vector3.down, out hitNear, 5.0f, layerMask);
+        Physics.Raycast(transform.position + (kartNormal.transform.up * .1f), -kartNormal.transform.up, out hitOn, 1.5f, layerMask);
+        Physics.Raycast(transform.position + (kartNormal.transform.up * .1f), -kartNormal.transform.up, out hitNearShort, 2f, layerMask);
+        Physics.Raycast(transform.position + (kartNormal.transform.up * .1f), -kartNormal.transform.up, out hitNear, 5.0f, layerMask);
 
 
         //Next we are getting the difference between down and the direction we will apply gravity so we can similarly adjust how we apply regular movement
@@ -277,18 +295,27 @@ public class SphereCarController : MonoBehaviour
         if(hitOn.collider != null)
         {
             sphere.AddForce(-hitOn.normal * groundedGravity, ForceMode.Acceleration);
+            GravDir = -hitOn.normal;
+            if (currentSpeed <= 0)
+            print("HITON : " + hitOn.normal + "SPEED : "+ currentSpeed);
+        }
+        else if (hitNearShort.collider != null)
+        {
+            sphere.AddForce(-hitOn.normal * (groundedGravity * 10), ForceMode.Acceleration);
+            GravDir = -hitOn.normal;
+            print("HITSHORT : ");
         }
         else
         {
             //Adds a multiplier to gravity to keep the car grounded
-            sphere.AddForce(Vector3.down * airborneGravity, ForceMode.Acceleration);
+            sphere.AddForce(GravDir * airborneGravity, ForceMode.Acceleration);
 
         }
 
         //Smoothly turns the vehicle
         transform.eulerAngles = Vector3.Lerp(transform.eulerAngles, new Vector3(0, transform.eulerAngles.y + currentRotate, 0), Time.deltaTime * 12.5f);
 
-        //gets the vehicle's velocity without upward and downward directions
+       /* //gets the vehicle's velocity without upward and downward directions
         Vector3 flatVel = new Vector3(sphere.velocity.x, 0, sphere.velocity.z);
 
 
@@ -312,7 +339,7 @@ public class SphereCarController : MonoBehaviour
                 //redirects the vehicle based on collision direction
                 sphere.velocity = Vector3.ProjectOnPlane(sphere.velocity, colliding1.normal);
             }
-        }
+        }*/
 
         //Normal Rotation
         //Rotates the vehicle model to be parallel to the ground
