@@ -27,6 +27,8 @@ public class VoidWasp_ShieldBehaviour : Interactable
 
     private float _collectedDamage;
 
+    private bool _released;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -57,9 +59,19 @@ public class VoidWasp_ShieldBehaviour : Interactable
 
     public override void DestroyInteractable()
     {
-        //_meshRender.enabled = false;
-        _collider.enabled = false;
-        psRef.SetActive(false);
+        if (_released)
+        {
+            //_meshRender.enabled = false;
+
+            _collider.enabled = false;
+            psRef.SetActive(false);
+        }
+        if (!_released)
+        {
+
+        }
+
+
 
         // Call function that repels the damage again
         // Seperate objects activates as trigger? 
