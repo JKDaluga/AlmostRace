@@ -25,6 +25,10 @@ public class DataManager : MonoBehaviour
         {
             instance = this;
             playerInfo = new PlayerInfo[4];
+            for(int i = 0; i < playerInfo.Length; i++)
+            {
+                playerInfo[i] = new PlayerInfo();
+            }
         }
     }
 }
