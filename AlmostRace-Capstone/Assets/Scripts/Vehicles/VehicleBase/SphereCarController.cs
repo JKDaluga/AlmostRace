@@ -89,8 +89,8 @@ public class SphereCarController : MonoBehaviour
     [Header("Camera Stuff")]
     //Added by Robyn Riley 11/5/19
     //A gameobject Childed to the ModelHolder. Controls camera and aiming direction
-    public GameObject aimPos;
-
+    public GameObject aimObject, aimPos;
+    
     //Call allowing vehicle to take input from player
     private void Start()
     {
@@ -105,8 +105,7 @@ public class SphereCarController : MonoBehaviour
         {
             leftDriftParticles.SetActive(false);
             rightDriftParticles.SetActive(false);
-        }
-               
+        } 
     }
 
     // Update is called once per frame
@@ -262,6 +261,17 @@ public class SphereCarController : MonoBehaviour
         if (!_vehicleInput.getStatus())
         {
             return;
+        }
+
+
+        //Auto Aim assistant code
+
+        if(GetComponent<AimAssistant>().nearest != null)
+        {
+            aimPos.transform.position = GetComponent<AimAssistant>().nearest.transform.position;
+        } else
+        {
+            aimPos.transform.localPosition = aimObject.transform.localPosition;
         }
 
         //hitOn/hitNear check and rotate the vehicle body up and down based on direction of the track

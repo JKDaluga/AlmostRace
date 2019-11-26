@@ -297,6 +297,7 @@ GameObject:
   - component: {fileID: 2048040180542796253}
   - component: {fileID: 7391195651187390220}
   - component: {fileID: 7936387276264758714}
+  - component: {fileID: 2304973371242497439}
   m_Layer: 8
   m_Name: Car
   m_TagString: Vehicle
@@ -354,6 +355,7 @@ MonoBehaviour:
   rightCollisionParticles: {fileID: 0}
   speedometerImage: {fileID: 0}
   driftSound: {fileID: 0}
+  aimObject: {fileID: 0}
   aimPos: {fileID: 8711981326839699230}
 --- !u!114 &7711789729176970095
 MonoBehaviour:
@@ -513,6 +515,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e94402263dc91f408431a1122bf119a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2304973371242497439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 481683610354487727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1454fc80285b33745a560bed88723c4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assistRadius: 3
+  assistLength: 100
+  shootable:
+    serializedVersion: 2
+    m_Bits: 512
+  self: {fileID: 481683610739934985}
+  nearest: {fileID: 0}
 --- !u!1 &481683610514310998
 GameObject:
   m_ObjectHideFlags: 0
@@ -8641,7 +8662,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnTime: 100
   turnAmount: 1
-  maxAngle: 30
+  maxAngle: 50
   _vehicleInput: {fileID: 6818455058190144800}
 --- !u!1 &8830205933706002893
 GameObject:
