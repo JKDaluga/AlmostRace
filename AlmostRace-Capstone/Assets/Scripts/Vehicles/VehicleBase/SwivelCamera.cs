@@ -15,6 +15,8 @@ public class SwivelCamera : MonoBehaviour
     public float turnTime = 100;
     public float turnAmount = 1;
 
+    public float maxAngle;
+
     public VehicleInput _vehicleInput;
 
     Quaternion orig;
@@ -55,10 +57,28 @@ public class SwivelCamera : MonoBehaviour
         {
             CancelInvoke();
             horiz = Input.GetAxis(_vehicleInput.rightHorizontal);
-            
+
+            Quaternion target;
+
+            target = transform.parent.rotation * Quaternion.Euler(0, turnAmount * Mathf.Sign(horiz), 0);
             
 
-            Quaternion target = transform.parent.rotation * Quaternion.Euler(0, turnAmount * Mathf.Sign(horiz), 0);
+            float actualY = transform.parent.localEulerAngles.y;
+
+            if(actualY > 180)
+            {
+                actualY -= 360;
+            }
+
+            Debug.Log(actualY);
+
+            if(Mathf.Abs(actualY) > maxAngle)
+            {
+                if(Mathf.Sign(actualY) == Mathf.Sign(horiz))
+                {
+                    target = transform.parent.rotation;
+                }
+            }
 
             if (transform.parent.rotation != target)
             {
