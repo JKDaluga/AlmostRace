@@ -56,7 +56,11 @@ public class Lux_OffensiveAbility : HeatAbility
     {
         while(true)
         {
+
             rotaryTurret.LookAt(_aimPosActual);
+
+            //Should preserve all rotations, while keeping Z rotation at 0
+            rotaryTurret.transform.localRotation = Quaternion.Euler(rotaryTurret.transform.rotation.eulerAngles.x, rotaryTurret.transform.rotation.eulerAngles.y, 0);
             yield return null;
         }
     }
