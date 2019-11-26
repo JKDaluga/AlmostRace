@@ -355,8 +355,8 @@ MonoBehaviour:
   rightCollisionParticles: {fileID: 0}
   speedometerImage: {fileID: 0}
   driftSound: {fileID: 0}
-  aimObject: {fileID: 0}
-  aimPos: {fileID: 8711981326839699230}
+  aimObject: {fileID: 8711981326839699230}
+  aimPos: {fileID: 3570780922842735981}
 --- !u!114 &7711789729176970095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1334,6 +1334,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 5216716336619021092}
   - {fileID: 1907507983728633020}
   m_Father: {fileID: 481683610514310999}
   m_RootOrder: 1
@@ -1685,6 +1686,36 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &3570780922842735981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5216716336619021092}
+  m_Layer: 8
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5216716336619021092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3570780922842735981}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 729, y: -196.92, z: -10988}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 88368060003413048}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3629173675740036089
 GameObject:
   m_ObjectHideFlags: 0
@@ -2097,7 +2128,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4835401826929498276}
-  m_LocalRotation: {x: -0.019988006, y: 0.000000018626203, z: -0.00000011314215, w: -0.9998002}
+  m_LocalRotation: {x: -0.019988025, y: -0.000000015371253, z: -0.00000011246247,
+    w: -0.9998002}
   m_LocalPosition: {x: 0, y: 2, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -8587,7 +8619,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 88368060003413048}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7033925084578454418
 MeshFilter:
