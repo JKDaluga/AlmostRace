@@ -49,7 +49,7 @@ public class VehicleHypeBehavior : MonoBehaviour
 
     public void UpdateUI()
     {
-        hypeText.text = "Hype: " + _hypeAmount;
+        hypeText.text = "" + _hypeAmount;
     }
 
     public void AddHype(float hypeToAdd, string hypeType)
