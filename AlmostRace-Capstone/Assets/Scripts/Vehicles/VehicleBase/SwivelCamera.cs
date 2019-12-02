@@ -5,6 +5,9 @@ using UnityEngine;
 /*
  * Robyn Riley 11/5/19
  * Rotates an empty gameobject around the vehicle model, with the camera set to always look at the object
+ * 
+ * Edited 12/2/2019: Eddie B
+ * Added a float called "resetDelay" that replaced the magic number used for resetting camera after no input
  */
 
 public class SwivelCamera : MonoBehaviour
@@ -14,6 +17,7 @@ public class SwivelCamera : MonoBehaviour
 
     public float turnTime = 100;
     public float turnAmount = 1;
+    public float resetDelay = 3.0f;
 
     public float maxAngle;
 
@@ -70,7 +74,7 @@ public class SwivelCamera : MonoBehaviour
                 actualY -= 360;
             }
 
-            Debug.Log(actualY);
+            //Debug.Log(actualY);
 
             if(Mathf.Abs(actualY) > maxAngle)
             {
@@ -90,7 +94,7 @@ public class SwivelCamera : MonoBehaviour
         else 
         {
             if (!Input.GetButton(_vehicleInput.basicAbilityInput) && !Input.GetButton(_vehicleInput.signatureAbilityInput) && !Input.GetButton(_vehicleInput.rightStickButton))
-            Invoke("Forward", 3.0f);
+            Invoke("Forward", resetDelay);
             else
             {
                 CancelInvoke();

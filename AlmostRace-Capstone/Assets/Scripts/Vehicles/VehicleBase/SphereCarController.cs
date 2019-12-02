@@ -224,7 +224,7 @@ public class SphereCarController : MonoBehaviour
         }
         else
         {
-            print("Caught ya");
+           // print("Caught ya");
         }
         //Ties the vehicle body to the sphere collider
         transform.position = sphere.transform.position - (forceRotation * new Vector3(0, 0.4f, 0));
@@ -306,14 +306,14 @@ public class SphereCarController : MonoBehaviour
         {
             sphere.AddForce(-hitOn.normal * groundedGravity, ForceMode.Acceleration);
             GravDir = -hitOn.normal;
-            if (currentSpeed <= 0)
-            print("HITON : " + hitOn.normal + "SPEED : "+ currentSpeed);
+            //if (currentSpeed <= 0)
+            //print("HITON : " + hitOn.normal + "SPEED : "+ currentSpeed);
         }
         else if (hitNearShort.collider != null)
         {
             sphere.AddForce(-hitOn.normal * (groundedGravity * 10), ForceMode.Acceleration);
             GravDir = -hitOn.normal;
-            print("HITSHORT : ");
+            //print("HITSHORT : ");
         }
         else
         {
