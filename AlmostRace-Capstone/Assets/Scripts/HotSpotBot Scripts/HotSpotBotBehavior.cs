@@ -11,8 +11,12 @@ using UnityEngine;
 
 public class HotSpotBotBehavior : MonoBehaviour
 {
-    public float moveSpeed;
-    public float dropGracePeriod;
+    [Tooltip("Speed when the bot is within chase range")] public float chaseSpeed = 100;
+    [Tooltip("Speed when the bot is to far from the players and needs to slow down")] public float farSpeed = 50;
+    [Tooltip("Speed when the bot is just within reach")] public float reachSpeed = 10;
+    public float farDistance = 50;
+    public float closeDistance = 10;
+    public float dropGracePeriod = 2;
     public MeshRenderer meshRenderer;
     public Collider botCollider;
     public GameObject hypeColliderObject;
@@ -21,6 +25,7 @@ public class HotSpotBotBehavior : MonoBehaviour
     private SplinePlus _splinePlusScript;
     private HypeManager _hypeManagerScript;
     private Transform currentArenaDesignation;
+    private Transform _closestVehicle;
     private bool _beingHeld;
     private bool _inArena;
     private bool _allVehiclesIn;
@@ -34,7 +39,6 @@ public class HotSpotBotBehavior : MonoBehaviour
     void Start()
     {
         _splinePlusScript = GameObject.FindGameObjectWithTag("HotSpotSpline").GetComponent<SplinePlus>();
-        _splinePlusScript.SetSpeed(moveSpeed);
         _splinePlusScript.SPData.Followers[0].Reverse = true;
         _hypeManagerScript = FindObjectOfType<HypeManager>();
 
@@ -42,10 +46,10 @@ public class HotSpotBotBehavior : MonoBehaviour
         {
             Debug.LogError("Hype Manager not found!");
         }
+         _closestVehicle = _hypeManagerScript.vehicleList[1].transform;
 
         foreach (KeyValuePair<int, Branch> entry in _splinePlusScript.SPData.DictBranches)
         {
-            // do something with entry.Value or entry.Key
             for(int i = 0; i < entry.Value.Nodes.Count; i++)
             {
                 if(!branchNodes.Contains(entry.Value.Nodes[i]))
@@ -55,6 +59,11 @@ public class HotSpotBotBehavior : MonoBehaviour
             }
         }
         SetBeingHeld(false);
+    }
+
+    void Update()
+    {
+        SetBotSpeed();
     }
 
     public bool GetBeingHeld()
@@ -75,6 +84,32 @@ public class HotSpotBotBehavior : MonoBehaviour
     public void SetVehiclesIn(bool allVehiclesIn)
     {
         _allVehiclesIn = allVehiclesIn;
+    }
+
+    public void SetBotSpeed()
+    {
+        for (int i = 0; i < _hypeManagerScript.vehicleList.Count; i++)
+        {
+            float distance = Vector3.Distance(transform.position, _hypeManagerScript.vehicleList[i].transform.position);
+            if (distance <= Vector3.Distance(transform.position, _closestVehicle.transform.position))
+            {
+                _closestVehicle = _hypeManagerScript.vehicleList[i].transform;
+            }
+        }
+
+        if (Vector3.Distance(transform.position, _closestVehicle.transform.position) > farDistance)
+        {
+            _splinePlusScript.SetSpeed(farSpeed);
+        }
+        else if (Vector3.Distance(transform.position, _closestVehicle.transform.position) < farDistance
+        && Vector3.Distance(transform.position, _closestVehicle.transform.position) > closeDistance)
+        {
+            _splinePlusScript.SetSpeed(chaseSpeed);
+        }
+        else if (Vector3.Distance(transform.position, _closestVehicle.transform.position) < closeDistance)
+        {
+            _splinePlusScript.SetSpeed(reachSpeed);
+        }
     }
 
     public IEnumerator SetPosition(Vector3 vehiclesPosition)

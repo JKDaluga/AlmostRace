@@ -8,7 +8,6 @@ using UnityEngine.UI;
 */
 public class CarHeatManager : MonoBehaviour
 {
-    public Image heatImage;
     public GameObject respawnPlatform;
     public GameObject modelHolder;
     public GameObject sphereCollider;
@@ -75,7 +74,7 @@ public class CarHeatManager : MonoBehaviour
                 gameObject.SetActive(true);
             }
 
-            if (heatImage != null)
+            if (heatFillBar != null)
             {
                 //heatImage.fillAmount = ((heatCurrent * 100) / 120) / 100;
                 heatFillBar.fillAmount = ((heatCurrent * 100) / 120) / 100;

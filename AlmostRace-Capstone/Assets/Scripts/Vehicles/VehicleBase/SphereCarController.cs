@@ -89,8 +89,8 @@ public class SphereCarController : MonoBehaviour
     [Header("Camera Stuff")]
     //Added by Robyn Riley 11/5/19
     //A gameobject Childed to the ModelHolder. Controls camera and aiming direction
-    public GameObject aimPos;
-
+    public GameObject aimObject, aimPos;
+    
     //Call allowing vehicle to take input from player
     private void Start()
     {
@@ -105,8 +105,7 @@ public class SphereCarController : MonoBehaviour
         {
             leftDriftParticles.SetActive(false);
             rightDriftParticles.SetActive(false);
-        }
-               
+        } 
     }
 
     // Update is called once per frame
@@ -260,6 +259,17 @@ public class SphereCarController : MonoBehaviour
             return;
         }
 
+
+        //Auto Aim assistant code
+
+        if(GetComponent<AimAssistant>().nearest != null)
+        {
+            aimPos.transform.position = GetComponent<AimAssistant>().nearest.transform.position;
+        } else
+        {
+            aimPos.transform.localPosition = aimObject.transform.localPosition;
+        }
+
         //hitOn/hitNear check and rotate the vehicle body up and down based on direction of the track
         RaycastHit hitOn;
         RaycastHit hitNearShort;
@@ -292,13 +302,16 @@ public class SphereCarController : MonoBehaviour
         {
             sphere.AddForce(-hitOn.normal * groundedGravity, ForceMode.Acceleration);
             GravDir = -hitOn.normal;
-            print("HITON : " + hitOn.normal + "SPEED : "+ currentSpeed);
+        }
+        else if (hitNearShort.collider != null)
+        {
+            sphere.AddForce(-hitOn.normal * (groundedGravity * 10), ForceMode.Acceleration);
+            GravDir = -hitOn.normal;
         }
         else
         {
             //Adds a multiplier to gravity to keep the car grounded
             sphere.AddForce(GravDir * airborneGravity, ForceMode.Acceleration);
-
         }
 
         //Smoothly turns the vehicle
