@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Robyn Riley 11/26/19
+ * An assistant class for Designers to edit that controls the parameters of the aiming assist
+ */
+
 public class AimAssistant : MonoBehaviour
 {
 
     public float assistWidth;
     public float assistLength;
     public LayerMask shootable;
-
-    private Vector3 castEnd;
+    
 
     public GameObject aimCircle;
 
@@ -19,14 +23,10 @@ public class AimAssistant : MonoBehaviour
 
     RaycastHit hit;
     
-
-    private void Start()
-    {
-        castEnd = (GetComponent<SphereCarController>().aimObject.transform.localPosition - transform.position) * assistLength;
-    }
-
     private void FixedUpdate()
     {
+
+        //Checks if the collider object is the right size to allow for easy scaling at runtime, this can be shifted to start when the final values are done
         if (aimCircle != null)
         {
 
