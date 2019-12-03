@@ -405,7 +405,6 @@ GameObject:
   - component: {fileID: 6818455058190144800}
   - component: {fileID: 641384620}
   - component: {fileID: 641384622}
-  - component: {fileID: 1371892911444412718}
   - component: {fileID: 2048040180542796253}
   - component: {fileID: 7391195651187390220}
   - component: {fileID: 7936387276264758714}
@@ -481,7 +480,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc8e8b2be37a6034588e29518b7e894f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heatImage: {fileID: 0}
   respawnPlatform: {fileID: 6421155629415652471, guid: 2e9cdd11d776b456abab6ffde9561b65,
     type: 3}
   modelHolder: {fileID: 481683610514310998}
@@ -564,28 +562,6 @@ MonoBehaviour:
   boostAbilityDuration: 3
   boostAbilityCooldown: {fileID: 768703235822065352}
   boostAbilityDark: {fileID: 8904896707114225486}
---- !u!114 &1371892911444412718
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 481683610354487727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9851dd9a18f97d24e9463a52e43c1814, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selfHeatDamage: 0
-  luxProjectile: {fileID: 2460749259567487935, guid: 93d3025eda2713446bde506db609f5ee,
-    type: 3}
-  projectileHypeToGain: 0
-  projectileDamage: 0
-  projectileSpeed: 0
-  rateOfFire: 0
-  selfDamageRate: 0
-  rotaryTurret: {fileID: 4000302993580368808}
-  muzzles: []
 --- !u!65 &2048040180542796253
 BoxCollider:
   m_ObjectHideFlags: 0
