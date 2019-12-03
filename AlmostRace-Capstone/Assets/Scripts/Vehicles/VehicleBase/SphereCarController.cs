@@ -311,7 +311,7 @@ public class SphereCarController : MonoBehaviour
         else
         {
             //Adds a multiplier to gravity to keep the car grounded
-            sphere.AddForce(GravDir * airborneGravity, ForceMode.Acceleration);
+            sphere.AddForce(Vector3.down * airborneGravity, ForceMode.Acceleration);
         }
 
         //Smoothly turns the vehicle
