@@ -28,6 +28,7 @@ public class VehicleHypeBehavior : MonoBehaviour
     public TextMeshProUGUI hypeText;
     public GameObject hypePopup;
     public Transform hypePopupSpawn;
+    public float bigHypeAmount = 50f;
 
     void Start()
     {
@@ -55,6 +56,10 @@ public class VehicleHypeBehavior : MonoBehaviour
     public void AddHype(float hypeToAdd, string hypeType)
     {
        // Debug.Log(hypeToAdd + " was added to " + gameObject.name + " from " + hypeType);
+       if(hypeToAdd >= bigHypeAmount)
+        {
+            AudioManager.instance.Play("Audience");
+        }
         _hypeAmount += hypeToAdd;
         _hypeManagerScript.VehicleSort();
         GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);

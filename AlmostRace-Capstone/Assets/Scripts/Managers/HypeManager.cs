@@ -159,6 +159,7 @@ public class HypeManager : MonoBehaviour
         {
             winnerText.text = "PLAYER " + winner.GetComponent<VehicleInput>().playerNumber + " WINS!";
             winnerText.gameObject.SetActive(true);
+            AudioManager.instance.Play("Victory Music");
         }
     }
 
