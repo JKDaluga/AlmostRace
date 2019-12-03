@@ -213,7 +213,7 @@ public class SphereCarController : MonoBehaviour
         //hitOn/hitNear check and rotate the vehicle body up and down based on direction of the track
         RaycastHit hitOn;
 
-        Physics.Raycast(transform.position + (kartNormal.transform.up * .1f), -kartNormal.transform.up, out hitOn, 2f, layerMask);
+        Physics.Raycast(sphere.transform.position, -kartNormal.transform.up, out hitOn, 2f, layerMask);
 
         //Next we are getting the difference between down and the direction we will apply gravity so we can similarly adjust how we apply regular movement
         Quaternion forceRotation = new Quaternion();
@@ -221,10 +221,6 @@ public class SphereCarController : MonoBehaviour
         {
             //calculating the angle in radians then converting it to degrees
             forceRotation = Quaternion.FromToRotation(Vector3.down, -hitOn.normal);
-        }
-        else
-        {
-           // print("Caught ya");
         }
         //Ties the vehicle body to the sphere collider
         transform.position = sphere.transform.position - (forceRotation * new Vector3(0, 0.4f, 0));
@@ -279,9 +275,9 @@ public class SphereCarController : MonoBehaviour
         RaycastHit hitNearShort;
         RaycastHit hitNear;
 
-        Physics.Raycast(transform.position + (kartNormal.transform.up * .1f), -kartNormal.transform.up, out hitOn, 1.5f, layerMask);
-        Physics.Raycast(transform.position + (kartNormal.transform.up * .1f), -kartNormal.transform.up, out hitNearShort, 2f, layerMask);
-        Physics.Raycast(transform.position + (kartNormal.transform.up * .1f), -kartNormal.transform.up, out hitNear, 5.0f, layerMask);
+        Physics.Raycast(sphere.transform.position, -kartNormal.transform.up, out hitOn, 1.5f, layerMask);
+        Physics.Raycast(sphere.transform.position, -kartNormal.transform.up, out hitNearShort, 2f, layerMask);
+        Physics.Raycast(sphere.transform.position, -kartNormal.transform.up, out hitNear, 5.0f, layerMask);
 
 
         //Next we are getting the difference between down and the direction we will apply gravity so we can similarly adjust how we apply regular movement
@@ -306,20 +302,16 @@ public class SphereCarController : MonoBehaviour
         {
             sphere.AddForce(-hitOn.normal * groundedGravity, ForceMode.Acceleration);
             GravDir = -hitOn.normal;
-            //if (currentSpeed <= 0)
-            //print("HITON : " + hitOn.normal + "SPEED : "+ currentSpeed);
         }
         else if (hitNearShort.collider != null)
         {
             sphere.AddForce(-hitOn.normal * (groundedGravity * 10), ForceMode.Acceleration);
             GravDir = -hitOn.normal;
-            //print("HITSHORT : ");
         }
         else
         {
             //Adds a multiplier to gravity to keep the car grounded
-            sphere.AddForce(GravDir * airborneGravity, ForceMode.Acceleration);
-
+            sphere.AddForce(Vector3.down * airborneGravity, ForceMode.Acceleration);
         }
 
         //Smoothly turns the vehicle
