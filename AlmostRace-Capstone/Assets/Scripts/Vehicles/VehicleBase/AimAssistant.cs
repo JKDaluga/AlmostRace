@@ -5,11 +5,13 @@ using UnityEngine;
 public class AimAssistant : MonoBehaviour
 {
 
-    public float assistRadius;
+    public float assistWidth;
     public float assistLength;
     public LayerMask shootable;
 
     private Vector3 castEnd;
+
+    public GameObject aimCircle;
 
     public GameObject self;
 
@@ -25,18 +27,19 @@ public class AimAssistant : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-
-        if (Physics.CapsuleCast(transform.position, castEnd, assistRadius, transform.parent.GetComponentInChildren<Camera>().gameObject.transform.forward, out hit, assistLength, shootable))
+        if (aimCircle != null)
         {
-            nearest = hit.collider.gameObject;
 
+            if (aimCircle.transform.localScale.y != assistLength)
+            {
+                aimCircle.transform.localScale = new Vector3(aimCircle.transform.localScale.x, assistLength, aimCircle.transform.localScale.z);
+                aimCircle.transform.localPosition = new Vector3(0, aimCircle.transform.localPosition.y, assistLength+1);
+            }
+
+            if (aimCircle.transform.localScale.x != assistWidth)
+            {
+                aimCircle.transform.localScale = new Vector3(assistWidth, aimCircle.transform.localScale.y, aimCircle.transform.localScale.z);
+            }
         }
-        else
-        {
-            nearest = null;
-        }
-
-
     }
 }
