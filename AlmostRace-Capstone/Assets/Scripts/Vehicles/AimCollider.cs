@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Robyn Riley 12/3/19
+ * Handler class for Aim Assist mechanic, checks collisions and assigns necessary values
+ */
+
 public class AimCollider : MonoBehaviour
 {
     public AimAssistant aim;
@@ -17,6 +22,7 @@ public class AimCollider : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //If the colliding list isn't empty, finds the nearest object in the list
         if (colliding.Count > 0)
         {
             foreach (GameObject i in colliding)
@@ -30,9 +36,10 @@ public class AimCollider : MonoBehaviour
         }
     }
 
+    //Trigger Enter and Exit are used to add and remove values, and resets variables to default if necessary
+
     private void OnTriggerEnter(Collider other)
     {
-        print(other.name);
         if(aim.shootable == (aim.shootable | ( 1 << other.gameObject.layer)) && other.gameObject != aim.self)
         {
             colliding.Add(other.gameObject);
