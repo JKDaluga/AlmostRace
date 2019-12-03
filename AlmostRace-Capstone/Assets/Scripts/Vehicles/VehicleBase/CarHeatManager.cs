@@ -146,6 +146,7 @@ public class CarHeatManager : MonoBehaviour
 
     public void Respawn()
     {
+        AudioManager.instance.Play("Respawn");
         heatCurrent = 0;
         isDead = false;
         deathFade.GetComponent<Animator>().Play("DeathFadeOut");
