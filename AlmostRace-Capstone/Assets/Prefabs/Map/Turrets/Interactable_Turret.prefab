@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: 390578507156249203}
   - component: {fileID: 390578507156248972}
   - component: {fileID: 7475438307413017022}
+  - component: {fileID: 2041302580247973364}
   m_Layer: 17
   m_Name: AggroSphere
   m_TagString: Untagged
@@ -169,6 +170,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turret: {fileID: 2145442897797487720}
+--- !u!54 &2041302580247973364
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 390578507156248975}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &794251573810901087
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,9 +525,9 @@ MonoBehaviour:
   deactivatedMaterial: {fileID: -3033667219593020291, guid: c39c3888212ffea4bb18e816f21e3eeb,
     type: 3}
   p1Glow: {fileID: 2100000, guid: b1edfd1c0e65f954386be08fb0340e56, type: 2}
-  p2Glow: {fileID: 2100000, guid: 0071c675e990967449127ff5b611ebdb, type: 2}
+  p2Glow: {fileID: 2100000, guid: fb6a3966b2022e54ab4944efeb9432f1, type: 2}
   p3Glow: {fileID: 2100000, guid: d696d309928d0bc48818dedf3fa837ce, type: 2}
-  p4Glow: {fileID: 2100000, guid: fb6a3966b2022e54ab4944efeb9432f1, type: 2}
+  p4Glow: {fileID: 2100000, guid: 0071c675e990967449127ff5b611ebdb, type: 2}
 --- !u!82 &7671872947571410288
 AudioSource:
   m_ObjectHideFlags: 0

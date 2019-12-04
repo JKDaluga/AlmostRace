@@ -18,9 +18,10 @@ public class TurretAggroBehavior2 : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
-        if (other.GetComponent<CarCollision>() != null && other.GetComponent<CarCollision>().car.gameObject.GetComponent<CarHeatManager>() != null)
-        {//if other is a car
+       // Debug.Log(other.gameObject.name);
+       // if (other.GetComponent<CarCollision>() != null && other.GetComponent<CarCollision>().car.gameObject.GetComponent<CarHeatManager>() != null)
+            if (other.gameObject.GetComponent<CarHeatManager>() != null)
+            {//if other is a car
             Debug.Log("Car was found!");
             turret.possibleTargets.Add(other.gameObject);
             //turret.TriggerInteractable();
@@ -29,7 +30,8 @@ public class TurretAggroBehavior2 : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<CarCollision>() != null && other.GetComponent<CarCollision>().car.gameObject.GetComponent<CarHeatManager>() != null)
+        //if (other.GetComponent<CarCollision>() != null && other.GetComponent<CarCollision>().car.gameObject.GetComponent<CarHeatManager>() != null)
+        if (other.gameObject.GetComponent<CarHeatManager>() != null)
         {//if other is a car
 
             if (other.gameObject == turret.currentTarget)
