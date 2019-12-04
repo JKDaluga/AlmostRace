@@ -127,7 +127,7 @@ public class TurretBehavior2 : Interactable
 
     public override void ResetInteractable()
     {
-        Debug.Log("Turret was reset!");
+      //  Debug.Log("Turret was reset!");
         currentTarget = null;
         canBeDamaged = true;
         hasPower = false;
@@ -207,7 +207,7 @@ public class TurretBehavior2 : Interactable
         {//Searches through possible targets, finds the first one that ISN'T the one that activated the turret
             if (possibleTargets[i].GetComponent<CarHeatManager>().isDead)
             {
-                Debug.Log("Dead player detected!");
+               // Debug.Log("Dead player detected!");
                 possibleTargets.Remove(possibleTargets[i]); //should clean List of dead targets.
                 if (possibleTargets.Count == 0)
                 {
@@ -219,13 +219,13 @@ public class TurretBehavior2 : Interactable
             {
                 if (possibleTargets[i] != interactingPlayer)
                 {
-                    Debug.Log("TARGET FOUND!");
+                  //  Debug.Log("TARGET FOUND!");
                     currentTarget = possibleTargets[i]; // finds suitable target and sets it to the current
                     i = 100;
                 }
                 else
                 {
-                    Debug.Log("unsuitable target, going to next!");
+                 //   Debug.Log("unsuitable target, going to next!");
                 }
             }
 

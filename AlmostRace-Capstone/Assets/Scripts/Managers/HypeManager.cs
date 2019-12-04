@@ -48,7 +48,7 @@ public class HypeManager : MonoBehaviour
             {
                 tempTotal += vehicle.GetComponent<VehicleHypeBehavior>().GetHypeAmount();
             }
-           // Debug.Log("tempTotal: " + tempTotal);
+            //Debug.Log("tempTotal: " + tempTotal);
             totalHype = tempTotal;
             //Debug.Log("totalHype:" + totalHype);
             yield return null;

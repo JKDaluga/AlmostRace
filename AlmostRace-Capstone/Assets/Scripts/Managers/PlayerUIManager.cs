@@ -23,9 +23,13 @@ public class PlayerUIManager : MonoBehaviour
     [Space(30)]
     public GameObject arenaHype;
     public Image lockImage;
+    public Sprite lockSprite;
+    public Sprite unlockSprite;
     public Image lockBottomFill;
     public Image lockTopFill;
+
     public TextMeshProUGUI arenaHypeText;
+    public TextMeshProUGUI arenaHypeNumber;
 
     [Header("Pole Position Variables")]
     [Space(30)]
@@ -75,11 +79,26 @@ public class PlayerUIManager : MonoBehaviour
 
     public void DeactivateArenaHypeDisplay()
     {
+        LockArena();
         arenaHype.SetActive(false);
+    }
+
+    public void LockArena()
+    {
+        lockBottomFill.fillAmount = 0;
+        lockTopFill.fillAmount = 0;
+        lockImage.sprite = lockSprite;
+    }
+
+    public void UnlockArena()
+    {
+       
+        lockTopFill.fillAmount = 0;
+        lockImage.sprite = unlockSprite;
     }
 
     public void SetArenaHypeDisplayNumber(float hypePercentage)
     {
-        arenaHypeText.text = "" + hypePercentage.ToString("F0") + "%";
+        arenaHypeNumber.text = "" + hypePercentage.ToString("F0") + "%";
     }
 }

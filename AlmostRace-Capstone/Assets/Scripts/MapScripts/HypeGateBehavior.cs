@@ -50,18 +50,28 @@ public class HypeGateBehavior : MonoBehaviour
     public IEnumerator CheckCars()
     {
         _hotSpotBotScript.DetachFromSpline(hotSpotLocation);
+
+        float playerPercentage;
         while(true)
         {
-            if(carsInRange.Count < _carsInGame)
+            playerPercentage = ((float)carsInRange.Count / (float)_carsInGame);
+            Debug.Log((float)(carsInRange.Count / _carsInGame));
+            if (carsInRange.Count < _carsInGame)
             {
                 foreach(GameObject car in _hypeManager.vehicleList)
                 {
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.ActivateArenaHypeDisplay();
+                    car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.arenaHypeText.text = "Arena Locked";
+                    car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockBottomFill.fillAmount = playerPercentage;
                 }
                 yield return null;
             }
             else if(carsInRange.Count == _carsInGame)
             {
+                foreach (GameObject car in _hypeManager.vehicleList)
+                {
+                    car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.arenaHypeText.text = "Arena Hype";
+                }
                 StopAllCoroutines();
                 StartCoroutine(TrackHype());
                 _hotSpotBotScript.SetVehiclesIn(true);
@@ -93,6 +103,7 @@ public class HypeGateBehavior : MonoBehaviour
             {
                 if(isFinalHypeGate)
                 {
+                    FinishDisplays();
                     _hypeManager.StartCoroutine(_hypeManager.EndGameCountDown(5));
                     isFinalHypeGate = false;
                     //StopAllCoroutines();
@@ -100,7 +111,7 @@ public class HypeGateBehavior : MonoBehaviour
                 else
                 {
                     gateToOpen.SetActive(false);
-                    AudioManager.instance.Play("");
+                    //AudioManager.instance.Play("");
                     FinishDisplays();
                     _aggroSphere.SetActive(false);
                     _hotSpotBotScript.ReAttachToSpline();
@@ -119,8 +130,9 @@ public class HypeGateBehavior : MonoBehaviour
         {
             displayText.text = "Hype: " + ((_currentHype - _displayHype) /  hypeLimit * 100).ToString("F0") + "%";
         }
-        foreach (GameObject car in carsInRange)
+        foreach (GameObject car in _hypeManager.vehicleList)
         {
+            car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockTopFill.fillAmount = (_currentHype - _displayHype) / hypeLimit; 
             car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.SetArenaHypeDisplayNumber(((_currentHype - _displayHype) / hypeLimit * 100));
         }
     }
@@ -131,9 +143,20 @@ public class HypeGateBehavior : MonoBehaviour
         {
             displayText.text = "Hype: 100%";
         }
-        foreach (GameObject car in carsInRange)
+        foreach (GameObject car in _hypeManager.vehicleList)
         {
             car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.SetArenaHypeDisplayNumber(100);
+            car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.UnlockArena();
+
+        }
+        Invoke("DisableDisplays", 1);
+    }
+
+    public void DisableDisplays()
+    {
+        foreach (GameObject car in _hypeManager.vehicleList)
+        {
+            car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.DeactivateArenaHypeDisplay();
         }
     }
 }
