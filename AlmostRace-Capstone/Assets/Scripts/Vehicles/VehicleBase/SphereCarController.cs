@@ -305,7 +305,7 @@ public class SphereCarController : MonoBehaviour
         }
         else if (hitNearShort.collider != null)
         {
-            sphere.AddForce(-hitOn.normal * (groundedGravity * 10), ForceMode.Acceleration);
+            sphere.AddForce(-hitOn.normal * groundedGravity, ForceMode.Acceleration);
             GravDir = -hitOn.normal;
         }
         else
