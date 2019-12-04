@@ -55,9 +55,9 @@ MonoBehaviour:
   - name: Death
     clip: {fileID: 8300000, guid: cefdbfff7b9c8aa448808f6559270295, type: 3}
     volume: 1
-  - name: MissileLaunch
-    clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
-    volume: 1
+  - name: Turret
+    clip: {fileID: 8300000, guid: c922c34f559ead440a273a13a924cfc7, type: 3}
+    volume: 0.7
   - name: Engine
     clip: {fileID: 8300000, guid: 963383b1ff7e2dd489b6de695942ddc8, type: 3}
     volume: 0.05
@@ -83,10 +83,10 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
     volume: 1
   - name: Ability Recharge
-    clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
+    clip: {fileID: 8300000, guid: aa6305697bd33ea4f9dcfcc757e0ce64, type: 3}
     volume: 1
   - name: Shield Activated
-    clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
+    clip: {fileID: 8300000, guid: 0c967583e558eb9408ec7e46a2292f79, type: 3}
     volume: 1
   - name: RockExplosion
     clip: {fileID: 8300000, guid: 8dfcae34791b3a447b81d6653208f596, type: 3}
@@ -96,6 +96,21 @@ MonoBehaviour:
     volume: 1
   - name: Respawn
     clip: {fileID: 8300000, guid: 4d8463854df47194b8197916ee9d3a2a, type: 3}
+    volume: 1
+  - name: HotSpot Lost
+    clip: {fileID: 8300000, guid: a64806f49342ba342a5ba92eb5106625, type: 3}
+    volume: 1
+  - name: HotSpot Attachment
+    clip: {fileID: 8300000, guid: 90d9b5f4845ceb6409836aad491d0335, type: 3}
+    volume: 1
+  - name: Car Collision
+    clip: {fileID: 8300000, guid: cb89be4ec965b8443b578b6c519751ec, type: 3}
+    volume: 1
+  - name: Lux Shooting
+    clip: {fileID: 8300000, guid: 4f396ba69a7a3104a8b81624cb2a98eb, type: 3}
+    volume: 1
+  - name: Race Complete
+    clip: {fileID: 8300000, guid: 4f396ba69a7a3104a8b81624cb2a98eb, type: 3}
     volume: 1
 --- !u!82 &7923551450835292693
 AudioSource:
@@ -107,7 +122,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 487cae07aca4278468953b4f112aaffe, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.07
   m_Pitch: 1

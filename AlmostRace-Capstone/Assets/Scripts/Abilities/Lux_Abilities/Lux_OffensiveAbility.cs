@@ -100,6 +100,7 @@ public class Lux_OffensiveAbility : HeatAbility
                 _muzzleIterator *= -1;
             }
             _currentMuzzle += _muzzleIterator;
+            AudioManager.instance.Play("Lux Shooting");
         }
     }
 

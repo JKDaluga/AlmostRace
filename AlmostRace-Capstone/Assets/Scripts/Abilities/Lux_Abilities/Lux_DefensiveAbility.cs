@@ -24,6 +24,7 @@ public class Lux_DefensiveAbility : CooldownAbility
 
     public override void ActivateAbility()
     { //DeactivateAbility called VehicleAbilityBehavior after the duration is over.
+        AudioManager.instance.Play("Shield Activated");
         foreach (GameObject shield in _shields)
         {
             shield.GetComponent<Lux_ShieldPanelBehavior>().TriggerInteractable();
