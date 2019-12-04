@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -44,6 +45,17 @@ public class VoidWasp_OffensiveAbility : HeatAbility
     public Transform waspAimDirection;
     private Transform _aimPosActual;
 
+    [Tooltip("Reference to the cinemachine camera object attached to the car")]
+    public CinemachineVirtualCamera attachedCamera;
+    public Animator cameraAnimator;
+
+    public float cameraChangeDuration;
+    public float cameraFovTarget;
+
+    private float _defaultFov;
+
+    private IEnumerator coChangeFoV;
+
     // ask eddie what this is for
     public Transform voidMuzzle;
 
@@ -63,6 +75,8 @@ public class VoidWasp_OffensiveAbility : HeatAbility
         carHeatInfo = gameObject.GetComponent<CarHeatManager>();
         _aimPosActual = GetComponent<SphereCarController>().aimPos.transform;
         StartCoroutine(TurretAim());
+
+        _defaultFov = attachedCamera.m_Lens.FieldOfView;
     }
 
     private IEnumerator TurretAim()
@@ -95,8 +109,6 @@ public class VoidWasp_OffensiveAbility : HeatAbility
             // Todo: Instantia multiple projectiles at once. Each with slightly different rotation
             // This rotation is based on the spread
 
-
-
             // todo: When hit, creates explosion particle effect. 
             for (int i = 0; i < projectileCount; i++)
             {
@@ -110,11 +122,14 @@ public class VoidWasp_OffensiveAbility : HeatAbility
                 projectile.transform.rotation = Quaternion.RotateTowards(projectile.transform.rotation, _projectiles[i], shotSpread);
 
             }
-
            
             _canFire = false;
 
             StartCoroutine(AbilityRateOfFire());
+            cameraAnimator.SetTrigger("shotFired");
+            // Probably use this for boost but changing fov while shooting does not really work.
+            /*ChangeFov(cameraChangeDuration, cameraFovTarget);
+            Invoke("ResetFov", cameraChangeDuration);*/
         }
     }
 
@@ -141,6 +156,44 @@ public class VoidWasp_OffensiveAbility : HeatAbility
     protected override void AddHeat()
     {
         carHeatInfo.AddHeat(selfHeatDamage);
+    }
+
+    /// <summary>
+    /// Animate Field of view towards desired setting
+    /// </summary>
+    /// <param name="duration">Time is is going to take</param>
+    /// <param name="value">What value to change it to</param>
+    public void ChangeFov(float duration, float value)
+    {
+        if (coChangeFoV != null)
+        {
+            StopCoroutine(coChangeFoV);
+        }
+        coChangeFoV = CoChangeFoV(duration, value);
+        StartCoroutine(coChangeFoV);
+    }
+
+    IEnumerator CoChangeFoV(float duration, float value)
+    {
+        float t = 0.0f;
+        float startFoV = _defaultFov;
+        while (t != duration)
+        {
+            t += Time.deltaTime;
+
+            if (t > duration)
+            {
+                t = duration;
+            }
+
+            attachedCamera.m_Lens.FieldOfView = Mathf.Lerp(startFoV, value, t / duration);
+            yield return null;
+        }
+    }
+
+    private void ResetFov()
+    {
+        ChangeFov(cameraChangeDuration * 2, _defaultFov);
     }
 
 }

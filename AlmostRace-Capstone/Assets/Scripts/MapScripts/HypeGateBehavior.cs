@@ -54,10 +54,18 @@ public class HypeGateBehavior : MonoBehaviour
         {
             if(carsInRange.Count < _carsInGame)
             {
+                foreach(GameObject car in carsInRange)
+                {
+                    car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.ActivateArenaHypeDisplay();
+                }
                 yield return null;
             }
             else if(carsInRange.Count == _carsInGame)
             {
+                foreach (GameObject car in carsInRange)
+                {
+                    car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.ActivateArenaHypeDisplay();
+                }
                 StopAllCoroutines();
                 StartCoroutine(TrackHype());
                 _hotSpotBotScript.SetVehiclesIn(true);
@@ -115,6 +123,10 @@ public class HypeGateBehavior : MonoBehaviour
         {
             displayText.text = "Hype: " + ((_currentHype - _displayHype) /  hypeLimit * 100).ToString("F0") + "%";
         }
+        foreach (GameObject car in carsInRange)
+        {
+            car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.SetArenaHypeDisplayNumber(((_currentHype - _displayHype) / hypeLimit * 100));
+        }
     }
 
     public void FinishDisplays()
@@ -122,6 +134,10 @@ public class HypeGateBehavior : MonoBehaviour
         foreach (TextMeshProUGUI displayText in displayTexts)
         {
             displayText.text = "Hype: 100%";
+        }
+        foreach (GameObject car in carsInRange)
+        {
+            car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.SetArenaHypeDisplayNumber(100);
         }
     }
 }

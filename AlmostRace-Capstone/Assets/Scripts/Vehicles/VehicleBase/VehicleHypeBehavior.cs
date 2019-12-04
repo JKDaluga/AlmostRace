@@ -20,9 +20,8 @@ using TMPro;
     
 public class VehicleHypeBehavior : MonoBehaviour
 {
-
-
     private HypeManager _hypeManagerScript;
+    public PlayerUIManager playerUIManagerScript;
     public GameObject scalingPanel;
     public float _hypeAmount;
     public TextMeshProUGUI hypeText;
