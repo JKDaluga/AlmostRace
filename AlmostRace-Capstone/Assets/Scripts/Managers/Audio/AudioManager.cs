@@ -1,5 +1,7 @@
 ﻿using UnityEngine.Audio;
 using System;
+using System.Collections.Generic;
+
 using UnityEngine;
 
 /*
@@ -42,6 +44,7 @@ public class AudioManager : MonoBehaviour
 
     public void Play(string sound)
     {
+        
         Sound s = FindSound(sound);
 
         if(sound == null)

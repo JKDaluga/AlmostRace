@@ -45,7 +45,7 @@ public class HotSpotVehicleAdministration : MonoBehaviour
         HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetBeingHeld(false);
         StartCoroutine(HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetPosition(transform.position));
         HotSpotBotHeld = null;
-        AudioManager.instance.Play("Hotspot Lost");
+        AudioManager.instance.Play("HotSpot Lost");
     }
 
     private void OnTriggerEnter(Collider other)

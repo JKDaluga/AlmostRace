@@ -54,7 +54,7 @@ public class HypeGateBehavior : MonoBehaviour
         {
             if(carsInRange.Count < _carsInGame)
             {
-                foreach(GameObject car in carsInRange)
+                foreach(GameObject car in _hypeManager.vehicleList)
                 {
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.ActivateArenaHypeDisplay();
                 }
@@ -62,10 +62,6 @@ public class HypeGateBehavior : MonoBehaviour
             }
             else if(carsInRange.Count == _carsInGame)
             {
-                foreach (GameObject car in carsInRange)
-                {
-                    car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.ActivateArenaHypeDisplay();
-                }
                 StopAllCoroutines();
                 StartCoroutine(TrackHype());
                 _hotSpotBotScript.SetVehiclesIn(true);
