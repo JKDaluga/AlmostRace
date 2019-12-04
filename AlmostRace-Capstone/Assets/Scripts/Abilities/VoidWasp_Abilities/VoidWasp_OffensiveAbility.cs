@@ -23,6 +23,12 @@ public class VoidWasp_OffensiveAbility : HeatAbility
     [Tooltip("How much damage is done per projectile bolt.")]
     public float projectileDamage;
 
+    public float speedIncrease;
+
+    public float speedRate;
+
+    public float speedLimit;
+
     [Tooltip("How quickly each projectile moves.")]
     public float projectileSpeed;
 
@@ -118,8 +124,10 @@ public class VoidWasp_OffensiveAbility : HeatAbility
                 _voidwaspProjectileScript = projectile.GetComponent<VoidWasp_ProjectileBehaviour>();
                 _voidwaspProjectileScript.SetImmunePlayer(gameObject);
                 _voidwaspProjectileScript.SetProjectileInfo(projectileDamage, projectileSpeed, projectileHypeToGain);
+                _voidwaspProjectileScript.GiveInfo(speedIncrease, speedRate, speedLimit);
+                projectile.transform.Rotate(Random.Range(-shotSpread/2, shotSpread/2), Random.Range(-shotSpread, shotSpread), 0);
 
-                projectile.transform.rotation = Quaternion.RotateTowards(projectile.transform.rotation, _projectiles[i], shotSpread);
+                //projectile.transform.rotation = Quaternion.RotateTowards(projectile.transform.rotation, _projectiles[i], shotSpread);
 
             }
            
@@ -176,7 +184,7 @@ public class VoidWasp_OffensiveAbility : HeatAbility
     IEnumerator CoChangeFoV(float duration, float value)
     {
         float t = 0.0f;
-        float startFoV = _defaultFov;
+        float startFoV = Camera.main.fieldOfView;
         while (t != duration)
         {
             t += Time.deltaTime;
@@ -193,7 +201,7 @@ public class VoidWasp_OffensiveAbility : HeatAbility
 
     private void ResetFov()
     {
-        ChangeFov(cameraChangeDuration * 2, _defaultFov);
+        ChangeFov(cameraChangeDuration * 3, _defaultFov);
     }
 
 }
