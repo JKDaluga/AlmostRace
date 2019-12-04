@@ -38,6 +38,8 @@ public class DestructableBoulderBehaviour : Interactable
         coll = this.GetComponent<Collider>();
         rend.enabled = true;
         coll.enabled = true;
+        boulderDestroyedHype *= transform.localScale.x;
+        interactableHealth *= (transform.localScale.x * 5);
     }
 
     private void OnCollisionEnter(Collision collision)
