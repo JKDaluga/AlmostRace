@@ -7,7 +7,7 @@ public abstract class Projectile : MonoBehaviour
 {
 
     public GameObject sparkEffect;
-    private Collider _collider;
+    protected Collider _collider;
     public MeshRenderer meshRenderer;
     public Light pointLight;
     protected GameObject _immunePlayer;
@@ -22,12 +22,22 @@ public abstract class Projectile : MonoBehaviour
     protected bool _isAlive = true;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         _collider = gameObject.GetComponent<Collider>();
         _rigidBody = gameObject.GetComponent<Rigidbody>();
 
-        if (_immunePlayer != null && _immunePlayerScript != null) {
+        meshRenderer = gameObject.GetComponent<MeshRenderer>();
+        _speedActual = _rigidBody.velocity.magnitude;
+
+        Destroy(gameObject, 7.0f);
+    }
+
+    protected void GiveSpeed()
+    {
+
+        if (_immunePlayer != null && _immunePlayerScript != null)
+        {
             _immunePlayerVelocity = _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
             _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _projectileSpeed) + _immunePlayerVelocity;
         }
@@ -35,10 +45,6 @@ public abstract class Projectile : MonoBehaviour
         {
             _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _projectileSpeed);
         }
-
-        _speedActual = _rigidBody.velocity.magnitude;
-
-        Destroy(gameObject, 7.0f);
     }
 
     public void SetImmunePlayer(GameObject immunePlayer)
@@ -74,7 +80,7 @@ public abstract class Projectile : MonoBehaviour
         _rigidBody.velocity = Vector3.zero;
         _rigidBody.useGravity = false;
         _rigidBody.isKinematic = true;
-        meshRenderer.enabled = false;
+         meshRenderer.enabled = false;
         pointLight.enabled = false;
         sparkEffect.SetActive(true);
         yield return new WaitForSeconds(sparkEffect.GetComponent<ParticleSystem>().main.duration);

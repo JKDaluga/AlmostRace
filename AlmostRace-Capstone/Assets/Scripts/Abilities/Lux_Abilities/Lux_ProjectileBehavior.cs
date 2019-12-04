@@ -11,6 +11,12 @@ using UnityEngine;
 
 public class Lux_ProjectileBehavior : Projectile
 {
+    private void Start()
+    {
+        base.Start();
+        GiveSpeed();
+    }
+
     private void OnTriggerEnter(Collider other)
     {   
         if (_isAlive)
