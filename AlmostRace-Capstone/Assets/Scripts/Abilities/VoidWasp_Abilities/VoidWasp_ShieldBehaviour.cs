@@ -22,7 +22,7 @@ public class VoidWasp_ShieldBehaviour : Interactable
     private float _maxHealth;
     private GameObject _surgeObject;
 
-    private Collider _collider;
+    private SphereCollider _collider;
     private MeshRenderer _meshRender;
 
     private float _collectedDamage;
@@ -34,7 +34,8 @@ public class VoidWasp_ShieldBehaviour : Interactable
     {
         canBeDamaged = true;
         psRef.SetActive(false);
-        _collider = gameObject.GetComponent<Collider>();
+        _collider = gameObject.GetComponent<SphereCollider>();
+        _collider.enabled = false;
         _meshRender = gameObject.GetComponent<MeshRenderer>();
         DestroyInteractable();
     }
@@ -112,8 +113,15 @@ public class VoidWasp_ShieldBehaviour : Interactable
 
             Destroy(other.gameObject);
 
-            print("Getting hit by turret");
+          //  print("Getting hit by turret");
         }
 
+    }
+
+
+    public GameObject GetShieldPlayer()
+    {
+        //required for the VoidWasp Projectiles to make sure they aren't damaging their own player's shields.
+        return _surgeObject;
     }
 }

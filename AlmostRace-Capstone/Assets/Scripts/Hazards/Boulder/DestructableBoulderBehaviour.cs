@@ -67,7 +67,7 @@ public class DestructableBoulderBehaviour : Interactable
         rend.enabled = false;
         coll.enabled = false;
 
-        AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
+        AudioManager.instance.Play("RockExplosion");
 
         Invoke("DestroyInteractable", boulderParticles.main.duration);
     }

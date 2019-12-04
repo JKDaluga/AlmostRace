@@ -9,7 +9,7 @@ using UnityEngine;
 public class VoidWasp_OffensiveAbility : HeatAbility
 {
     public GameObject voidwaspProjectile;
-    private Lux_ProjectileBehavior _voidwaspProjectileScript;
+    private VoidWasp_ProjectileBehaviour _voidwaspProjectileScript;
 
     [Header("Ability Values")]
 
@@ -25,13 +25,13 @@ public class VoidWasp_OffensiveAbility : HeatAbility
     [Tooltip("How quickly each projectile moves.")]
     public float projectileSpeed;
 
+    [Tooltip("How many projectile it shoots in bursts")]
+    public int projectileCount = 8;
 
-    /*
-     * Todo: How many bullets it shoot
-     * 
-     * Todo: Bullet spread
-     */
+    [Tooltip("How much the bullets should spread from each other")]
+    public float shotSpread;
 
+    private List<Quaternion> _projectiles;
 
     /* use this to set delay between shots*/
     [Tooltip("How quickly the projectile are fired, smaller number means more projectiles!")]
@@ -46,6 +46,15 @@ public class VoidWasp_OffensiveAbility : HeatAbility
 
     // ask eddie what this is for
     public Transform voidMuzzle;
+
+    private void Awake()
+    {
+        _projectiles = new List<Quaternion>(projectileCount);
+        for (int i = 0; i < projectileCount; i++)
+        {
+            _projectiles.Add(Quaternion.Euler(Vector3.zero));
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -86,21 +95,26 @@ public class VoidWasp_OffensiveAbility : HeatAbility
             // Todo: Instantia multiple projectiles at once. Each with slightly different rotation
             // This rotation is based on the spread
 
-            GameObject projectile = Instantiate(voidwaspProjectile, voidMuzzle.position, voidMuzzle.rotation);
-            
-            // todo: When hit, creates explosion particle effect. 
 
-            _voidwaspProjectileScript = projectile.GetComponent<Lux_ProjectileBehavior>();
-            _voidwaspProjectileScript.SetImmunePlayer(gameObject);
-            _voidwaspProjectileScript.SetProjectileInfo(projectileDamage, projectileSpeed, projectileHypeToGain);
+
+            // todo: When hit, creates explosion particle effect. 
+            for (int i = 0; i < projectileCount; i++)
+            {
+                _projectiles[i] = Random.rotation;
+
+                GameObject projectile = Instantiate(voidwaspProjectile, voidMuzzle.position, voidMuzzle.rotation);
+                _voidwaspProjectileScript = projectile.GetComponent<VoidWasp_ProjectileBehaviour>();
+                _voidwaspProjectileScript.SetImmunePlayer(gameObject);
+                _voidwaspProjectileScript.SetProjectileInfo(projectileDamage, projectileSpeed, projectileHypeToGain);
+
+                projectile.transform.rotation = Quaternion.RotateTowards(projectile.transform.rotation, _projectiles[i], shotSpread);
+
+            }
+
+           
             _canFire = false;
 
-            //StartCoroutine(AbilityRateOfFire());
-            /*if (_currentMuzzle == (muzzles.Count - 1) || _currentMuzzle == 0)
-            {
-                _muzzleIterator *= -1;
-            }
-            _currentMuzzle += _muzzleIterator;*/
+            StartCoroutine(AbilityRateOfFire());
         }
     }
 
