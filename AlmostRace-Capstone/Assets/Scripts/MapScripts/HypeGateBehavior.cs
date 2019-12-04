@@ -70,6 +70,8 @@ public class HypeGateBehavior : MonoBehaviour
             {
                 foreach (GameObject car in _hypeManager.vehicleList)
                 {
+                    car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockBottomFill.fillAmount = 1;
+
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.arenaHypeText.text = "Arena Hype";
                 }
                 StopAllCoroutines();

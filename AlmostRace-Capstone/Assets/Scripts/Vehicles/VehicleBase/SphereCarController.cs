@@ -66,9 +66,9 @@ public class SphereCarController : MonoBehaviour
     private float _boosterPadTopSpeedPercentage;
 
     [Header("Drift Ability")]
-    // public Image driftButton;
-    // public Sprite driftSpriteUp;
-    // public Sprite driftSpriteDown;
+     public Image driftButton;
+     public Sprite driftSpriteUp;
+     public Sprite driftSpriteDown;
 
     [Header("Drift Particles")]
     public GameObject leftDriftParticles;
@@ -181,8 +181,8 @@ public class SphereCarController : MonoBehaviour
             }
             if (_drifting)
             {
-               // driftButton.sprite = driftSpriteDown;
-                //Remaps the user input values to appropriate amounts to allow drifting
+                driftButton.sprite = driftSpriteDown;
+              //Remaps the user input values to appropriate amounts to allow drifting
                 amount = (_driftDirection == 1) ? ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 0, 1 + driftStrength) : ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 1 + driftStrength, 0);
             }
 
@@ -199,7 +199,7 @@ public class SphereCarController : MonoBehaviour
                 {
                     driftSound.Stop();
                 }
-                // driftButton.sprite = driftSpriteUp;
+                 driftButton.sprite = driftSpriteUp;
                 if (leftDriftParticles != null && rightDriftParticles != null) //placed here just so that the BallCar prefab doesn't throw nulls
                 {
                     leftDriftParticles.SetActive(false);
