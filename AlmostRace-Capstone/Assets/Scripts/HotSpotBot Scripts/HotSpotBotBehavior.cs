@@ -63,7 +63,10 @@ public class HotSpotBotBehavior : MonoBehaviour
 
     void Update()
     {
-        SetBotSpeed();
+        if (!_inArena)
+        {
+            SetBotSpeed();
+        }
     }
 
     public bool GetBeingHeld()
