@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8645489302925090674}
   - component: {fileID: 8645489302925090677}
   - component: {fileID: 737287558}
-  - component: {fileID: 737287559}
+  - component: {fileID: 5470192649007921646}
   m_Layer: 0
   m_Name: Boulder
   m_TagString: Untagged
@@ -117,8 +117,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!65 &737287559
-BoxCollider:
+--- !u!64 &5470192649007921646
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -127,9 +127,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.0111816, y: 0.9994017, z: 2.147272}
-  m_Center: {x: -0.048950195, y: -0.50029916, z: -0.1226717}
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: -2432090755550338912, guid: e945bb6a241b0144a837ae11c3616ec3, type: 3}
 --- !u!1 &8645489303069214088
 GameObject:
   m_ObjectHideFlags: 0
