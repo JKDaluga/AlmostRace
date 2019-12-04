@@ -68,4 +68,18 @@ public class PlayerUIManager : MonoBehaviour
         }
     }
 
+    public void ActivateArenaHypeDisplay()
+    {
+        arenaHype.SetActive(true);
+    }
+
+    public void DeactivateArenaHypeDisplay()
+    {
+        arenaHype.SetActive(false);
+    }
+
+    public void SetArenaHypeDisplayNumber(float hypePercentage)
+    {
+        arenaHypeText.text = "" + hypePercentage.ToString("F0") + "%";
+    }
 }
