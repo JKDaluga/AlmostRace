@@ -11,6 +11,12 @@ using UnityEngine;
 public class TurretProjectileBehavior : Projectile
 {
 
+    public new void Start()
+    {
+        base.Start();
+        GiveSpeed();
+    }
+
     public void SetProjectileInfo(float projectileDamage, float projectileSpeed, GameObject immunePlayer)
     {
         _projectileDamage = projectileDamage;
@@ -29,11 +35,15 @@ public class TurretProjectileBehavior : Projectile
             }
             else if (other.gameObject.GetComponent<Interactable>() != null)
             {//Checks if the object isn't the immunePlayer and if they are an interactable object.
-                if(other.gameObject.GetComponent<TurretBehavior>() == null)
+
+            if(other.gameObject.CompareTag("Projectile"))
+            {
+                if (other.gameObject.GetComponent<TurretBehavior>() == null)
                 {
                     other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
                     StartCoroutine(ExplosionEffect());
-                }  
+                }
+            }
             }
             else
             {

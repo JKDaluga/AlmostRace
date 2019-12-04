@@ -27,7 +27,11 @@ public abstract class Projectile : MonoBehaviour
         _collider = gameObject.GetComponent<Collider>();
         _rigidBody = gameObject.GetComponent<Rigidbody>();
 
-        meshRenderer = gameObject.GetComponent<MeshRenderer>();
+        if(meshRenderer == null)
+        {
+            meshRenderer = gameObject.GetComponent<MeshRenderer>();
+        }
+     
         _speedActual = _rigidBody.velocity.magnitude;
 
         Destroy(gameObject, 7.0f);
