@@ -189,12 +189,15 @@ MonoBehaviour:
     type: 3}
   projectileHypeToGain: 10
   projectileDamage: 10
-  projectileSpeed: 50
+  projectileSpeed: 500
   projectileCount: 8
   shotSpread: 2
   rateOfFire: 1
   selfDamageRate: 0
   waspAimDirection: {fileID: 6143993409253599859}
+  attachedCamera: {fileID: 3597313662231388979}
+  cameraChangeDuration: 0
+  cameraFovTarget: 0
   voidMuzzle: {fileID: 3301055960207122808}
 --- !u!114 &5465839937505566639
 MonoBehaviour:
@@ -649,6 +652,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 032019f499ece314bbf7b2b05ab0f65e, type: 3}
+--- !u!114 &3597313662231388979 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1512402559537702238, guid: 032019f499ece314bbf7b2b05ab0f65e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2670946470971360877}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2575587412642201914 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 481683610514310999, guid: 032019f499ece314bbf7b2b05ab0f65e,
