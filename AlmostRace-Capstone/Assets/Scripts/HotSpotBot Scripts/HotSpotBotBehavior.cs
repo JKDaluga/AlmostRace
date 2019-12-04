@@ -46,7 +46,7 @@ public class HotSpotBotBehavior : MonoBehaviour
         {
             Debug.LogError("Hype Manager not found!");
         }
-         _closestVehicle = _hypeManagerScript.vehicleList[1].transform;
+         _closestVehicle = _hypeManagerScript.vehicleList[0].transform;
 
         foreach (KeyValuePair<int, Branch> entry in _splinePlusScript.SPData.DictBranches)
         {
