@@ -202,7 +202,7 @@ public class TurretBehavior2 : Interactable
 
     public void FindTarget()
     {
-        Debug.Log("null target!");
+        //Debug.Log("null target!");
         for (int i = 0; i < possibleTargets.Count; i++)
         {//Searches through possible targets, finds the first one that ISN'T the one that activated the turret
             if (possibleTargets[i].GetComponent<CarHeatManager>().isDead)
