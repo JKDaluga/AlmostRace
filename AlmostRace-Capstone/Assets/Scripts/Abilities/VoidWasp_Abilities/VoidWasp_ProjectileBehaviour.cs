@@ -88,7 +88,7 @@ public class VoidWasp_ProjectileBehaviour : Projectile
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("hit carrrr");
+        Debug.Log("hitttt");
         // get collision contact point
         ContactPoint contact = collision.contacts[0];
         Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
