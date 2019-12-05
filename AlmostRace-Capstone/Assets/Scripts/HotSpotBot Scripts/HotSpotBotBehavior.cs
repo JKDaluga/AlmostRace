@@ -39,7 +39,7 @@ public class HotSpotBotBehavior : MonoBehaviour
     void Start()
     {
         _splinePlusScript = GameObject.FindGameObjectWithTag("HotSpotSpline").GetComponent<SplinePlus>();
-        _splinePlusScript.SPData.Followers[0].Reverse = true;
+        _splinePlusScript.SPData.Followers[0].Reverse = false;
         _hypeManagerScript = FindObjectOfType<HypeManager>();
 
         if (_hypeManagerScript == null)
