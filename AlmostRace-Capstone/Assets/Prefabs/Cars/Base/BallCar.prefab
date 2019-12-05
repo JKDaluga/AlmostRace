@@ -423,10 +423,10 @@ MonoBehaviour:
   heatCurrent: 0
   heatStallLimit: 100
   heatExplodeLimit: 120
-  cooldownAmount: 1
+  cooldownAmount: 0.3
   respawnSecs: 3
   teleportCooldown: 5
-  cooldownFrequency: 2
+  cooldownFrequency: 0.1
   isDead: 0
   teleportCDImage: {fileID: 8079144206827734046}
   teleDark: {fileID: 1712037963952961314}
@@ -717,7 +717,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 061a6638517380a49b6e2c6bbd274512, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  frontCollisionParticles: {fileID: 0}
+  frontCollisionParticles: {fileID: 132274, guid: fe3d56eddfcbadb418d81896e5ec547c,
+    type: 3}
   car: {fileID: 481683610354487725}
   weight: 5
   hypeToAdd: 5
@@ -2536,7 +2537,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3570780922842735981}
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 729, y: -196.92, z: -10988}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -8883,7 +8884,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: 12345
+  m_text: 12345678
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: f316aaed9092488409c63f9a87503237, type: 2}
   m_sharedMaterial: {fileID: 4527509097915757258, guid: f316aaed9092488409c63f9a87503237,
@@ -8912,8 +8913,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8953,7 +8954,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 2182457598661606704}
-    characterCount: 5
+    characterCount: 8
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -9768,10 +9769,10 @@ RectTransform:
   m_Father: {fileID: 4005096987129299487}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 270.00006}
-  m_SizeDelta: {x: 2880, y: 1800}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 270.50006}
+  m_SizeDelta: {x: 960, y: 721}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3650556826062788399
 CanvasRenderer:
