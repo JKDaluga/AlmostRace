@@ -130,7 +130,7 @@ public class TurretBehavior : Interactable
         if(currentTarget != null)
         {
 
-            if (m_lastKnownPosition != currentTarget.transform.position)
+            /*if (m_lastKnownPosition != currentTarget.transform.position)
             {
                 m_lastKnownPosition = currentTarget.transform.position;
                 m_lookAtRotation = Quaternion.LookRotation(m_lastKnownPosition - turretHead.transform.position);
@@ -139,9 +139,9 @@ public class TurretBehavior : Interactable
             if (transform.rotation != m_lookAtRotation)
             {
                 turretHead.transform.rotation = Quaternion.RotateTowards(turretHead.transform.rotation, m_lookAtRotation, 30 * Time.deltaTime);
-            }
+            }*/
 
-            //turretHead.LookAt(currentTarget.transform.position + (aimOffset * currentTarget.GetComponent<SphereCarController>().sphere.velocity));//look at current target
+            turretHead.LookAt(currentTarget.transform.position + (aimOffset * currentTarget.GetComponent<SphereCarController>().sphere.velocity));//look at current target
         }
         else
         {
