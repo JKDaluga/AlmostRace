@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657892, g: 0.4964127, b: 0.5748172, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3008,6 +3008,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94b20b19c7095ea4dab2f55de8f7d12b, type: 3}
+--- !u!4 &181443482 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 181443481}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &186818787 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 775676765654723359, guid: 54d86e26683fd49ceb879a39ae5231ef,
@@ -6333,12 +6338,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ceda1c616fee4c0abcad4bdc27e75ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicAbility: {fileID: 0}
+  offensiveAbility: {fileID: 0}
   canHoldBasic: 0
-  signatureAbility: {fileID: 0}
-  abilityRecharge: 5
-  canHoldSignature: 0
-  pickup: {fileID: 0}
+  offensiveAbilityButtonUI: {fileID: 0}
+  offensiveAbilitySpriteReady: {fileID: 0}
+  offensiveAbilitySpritePressed: {fileID: 0}
+  defensiveAbility: {fileID: 0}
+  defensiveAbilityRecharge: 5
+  defensiveAbilityDuration: 3
+  canHoldDefensiveAbility: 0
+  defensiveAbilityCooldown: {fileID: 0}
+  defensiveAbilityDark: {fileID: 0}
+  boostAbility: {fileID: 0}
+  boostAbilityDuration: 3
+  boostAbilityCooldown: {fileID: 0}
+  boostAbilityDark: {fileID: 0}
 --- !u!114 &397635919
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6351,7 +6365,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff5f17f286ddc4c29845b30cc5051567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerUIManagerScript: {fileID: 0}
+  scalingPanel: {fileID: 0}
   _hypeAmount: 0
+  hypeText: {fileID: 0}
+  hypePopup: {fileID: 0}
+  hypePopupSpawn: {fileID: 0}
+  bigHypeAmount: 50
 --- !u!1 &401893095
 GameObject:
   m_ObjectHideFlags: 0
@@ -15117,7 +15137,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 186818788}
-  - {fileID: 837980474}
+  - {fileID: 181443482}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -31863,7 +31883,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2361190b18e2b2b4691a11d9aeb301c8, type: 2}
+  - {fileID: 2100000, guid: 0c2127a10b3cb994eb25257653b81a4b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -32461,6 +32481,8 @@ MonoBehaviour:
   kartNormal: {fileID: 481683610791638708}
   sphere: {fileID: 481683610496251628}
   tiltShift: {fileID: 7928416574219668707}
+  speed: 0
+  currentSpeed: 0
   layerMask:
     serializedVersion: 2
     m_Bits: 1587
@@ -32468,9 +32490,22 @@ MonoBehaviour:
   acceleration: 8
   deceleration: 8
   steering: 5
-  gravity: 450
+  groundedGravity: 10
+  airborneGravity: 10
   driftStrength: 0.6
   reverseSpeed: 1
+  driftButton: {fileID: 0}
+  driftSpriteUp: {fileID: 0}
+  driftSpriteDown: {fileID: 0}
+  leftDriftParticles: {fileID: 0}
+  rightDriftParticles: {fileID: 0}
+  boostingParticles: {fileID: 0}
+  leftCollisionParticles: {fileID: 0}
+  rightCollisionParticles: {fileID: 0}
+  speedometerImage: {fileID: 0}
+  driftSound: {fileID: 0}
+  aimObject: {fileID: 0}
+  aimPos: {fileID: 0}
 --- !u!4 &481683611150917711
 Transform:
   m_ObjectHideFlags: 0
@@ -32666,11 +32701,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 775676765654723357, guid: 54d86e26683fd49ceb879a39ae5231ef,
         type: 3}
       propertyPath: near clip plane
@@ -32685,6 +32715,11 @@ PrefabInstance:
         type: 3}
       propertyPath: field of view
       value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 775676765654723355, guid: 54d86e26683fd49ceb879a39ae5231ef,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 54d86e26683fd49ceb879a39ae5231ef, type: 3}
@@ -32805,26 +32840,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2974660096388028817, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 227.51953
-      objectReference: {fileID: 0}
-    - target: {fileID: 2974660094815424650, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 51.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2974660094815424650, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 983
-      objectReference: {fileID: 0}
-    - target: {fileID: 2974660095169269913, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 0.2699585
-      objectReference: {fileID: 0}
     - target: {fileID: 2974660095169269912, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
         type: 3}
       propertyPath: m_Type
@@ -32844,6 +32859,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_FillAmount
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974660096388028817, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 227.51953
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974660094815424650, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 51.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974660094815424650, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 983
+      objectReference: {fileID: 0}
+    - target: {fileID: 2974660095169269913, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.2699585
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8c8f389bd57349a4cb60cec5bfe3f2ae, type: 3}
