@@ -5,6 +5,8 @@ using UnityEngine;
 public class VoidWasp_ProjectileBehaviour : Projectile
 {
 
+    public GameObject projectileClone;
+
     private float _speedIncrease;
 
     private float _speedRate;
@@ -17,6 +19,8 @@ public class VoidWasp_ProjectileBehaviour : Projectile
     {
         base.Start();
         GiveSpeed();
+
+        // might be used later
         /*_collider = gameObject.GetComponent<Collider>();
         _rigidBody = gameObject.GetComponent<Rigidbody>();
         if (_immunePlayer != null && _immunePlayerScript != null)
@@ -49,7 +53,6 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         _speedLimit = speedLimit;
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (_isAlive)
@@ -58,7 +61,8 @@ public class VoidWasp_ProjectileBehaviour : Projectile
             {//Checks if the object isn't the immunePlayer and if they are a car.
                 other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
                 _immunePlayerScript.AddHype(_projectileHype, "Damage:");
-                StartCoroutine(ExplosionEffect());
+
+                //StartCoroutine(ExplosionEffect());
             }
             else if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<Interactable>() != null)
             {//Checks if the object isn't the immunePlayer and if they are an interactable object.
@@ -76,9 +80,27 @@ public class VoidWasp_ProjectileBehaviour : Projectile
             }
             else if (other.gameObject != _immunePlayer)
             {
-                Debug.Log(gameObject.name + " has collided with: " + other.gameObject.name);
+                
                 StartCoroutine(ExplosionEffect());
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("hit carrrr");
+        // get collision contact point
+        ContactPoint contact = collision.contacts[0];
+        Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+        Vector3 pos = contact.point;
+
+        // spawn game object into collided position
+        GameObject spawnedClone = Instantiate(projectileClone, pos, rot);
+        spawnedClone.transform.SetParent(collision.gameObject.transform);
+        if (collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<CarHeatManager>() != null)
+        {
+            Debug.Log("hit carrrr");
+        }
+
     }
 }

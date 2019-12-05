@@ -12,11 +12,9 @@ GameObject:
   - component: {fileID: 2460749259567487907}
   - component: {fileID: 2460749259567487933}
   - component: {fileID: 2460749259567487932}
-  - component: {fileID: 1487355027072660621}
-  - component: {fileID: -8976469105313088555}
   - component: {fileID: 3566812203039644891}
   m_Layer: 11
-  m_Name: Projectile_VoidWasp
+  m_Name: Projectile_Explosion_VoidWasp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,38 +75,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1487355027072660621
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2460749259567487935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 332c1ae300b2c8b4683a300dec462d3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 23
---- !u!114 &-8976469105313088555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2460749259567487935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f3a764e140862c48a08666d7c9b3251, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sparkEffect: {fileID: 3188723178328320080}
-  meshRenderer: {fileID: 0}
-  pointLight: {fileID: 6743178288184647392}
-  projectileClone: {fileID: 2460749259567487935, guid: fbb2ab841b970d0448c3c9bdb1cecb17,
-    type: 3}
 --- !u!23 &3566812203039644891
 MeshRenderer:
   m_ObjectHideFlags: 0

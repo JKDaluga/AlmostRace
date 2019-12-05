@@ -76,8 +76,6 @@ public class VoidWasp_ShieldBehaviour : Interactable
             print("release" + _released);
         }
 
-
-
         // Call function that repels the damage again
         // Seperate objects activates as trigger? 
         // Does damage to any car that is around it OR shoot out random projectiles? 
