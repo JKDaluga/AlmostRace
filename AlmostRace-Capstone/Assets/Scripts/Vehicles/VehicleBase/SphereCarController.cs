@@ -276,7 +276,7 @@ public class SphereCarController : MonoBehaviour
         RaycastHit hitNear;
 
         Physics.Raycast(sphere.transform.position, -kartNormal.transform.up, out hitOn, 1.5f, layerMask);
-        Physics.Raycast(sphere.transform.position, -kartNormal.transform.up, out hitNearShort, 2f, layerMask);
+        Physics.Raycast(sphere.transform.position, -kartNormal.transform.up, out hitNearShort, 3f, layerMask);
         Physics.Raycast(sphere.transform.position, -kartNormal.transform.up, out hitNear, 5.0f, layerMask);
 
 
