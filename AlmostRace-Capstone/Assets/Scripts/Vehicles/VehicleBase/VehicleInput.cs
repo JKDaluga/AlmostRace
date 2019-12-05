@@ -65,9 +65,9 @@ public class VehicleInput : MonoBehaviour
             _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1];
             _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1];
             _rightStickButtonName = "RightStickButton" + _inputNum[playerNumber - 1];
-#endif
+        #endif
 
-#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+        #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
             _horizontalName = "Horizontal" + _inputNum[playerNumber - 1];
             _vertForwardName = "VerticalForwards" + _inputNum[playerNumber - 1] + "Mac";
             _vertBackwardName = "VerticalBackwards" + _inputNum[playerNumber - 1] + "Mac";
@@ -79,7 +79,7 @@ public class VehicleInput : MonoBehaviour
             _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1] + "Mac";
             _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1] + "Mac";
             _rightStickButtonName = "RightStickButton" + _inputNum[playerNumber - 1] + "Mac";
-#endif
+        #endif
     }
 
 
