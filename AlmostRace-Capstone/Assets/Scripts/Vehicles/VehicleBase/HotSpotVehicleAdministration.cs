@@ -35,7 +35,7 @@ public class HotSpotVehicleAdministration : MonoBehaviour
         HotSpotBotHeld = theBot.transform.parent.gameObject;
         HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetBeingHeld(true);
         HotSpotBotHeld.SetActive(false);
-        AudioManager.instance.Play("Hotspot Attachment");
+        AudioManager.instance.Play("HotSpot Attachment");
     }
 
     public void DropTheBot()
