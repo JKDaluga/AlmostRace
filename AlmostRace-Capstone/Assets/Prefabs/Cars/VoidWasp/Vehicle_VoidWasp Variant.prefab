@@ -188,7 +188,7 @@ MonoBehaviour:
   voidwaspProjectile: {fileID: 2460749259567487935, guid: 2dd631c5d6c1c5b48aae2e059360ebe0,
     type: 3}
   projectileHypeToGain: 10
-  projectileDamage: 2
+  projectileDamage: 5
   speedIncrease: 5
   speedRate: 0.01
   speedLimit: 500
@@ -216,8 +216,8 @@ MonoBehaviour:
   boostTopSpeedPercentage: 25
   carAnimation: {fileID: 2204465250628393665}
   attachedCamera: {fileID: 3597313662231388979}
-  cameraChangeDuration: 0
-  cameraFovTarget: 0
+  cameraChangeDuration: 0.5
+  cameraFovTarget: 60
 --- !u!95 &2204465250628393665
 Animator:
   serializedVersion: 3
@@ -264,7 +264,7 @@ Transform:
   m_GameObject: {fileID: 2591390981642823118}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5000005, y: 0.5, z: 0.5000005}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 6143993409253599859}
   m_RootOrder: 0
@@ -276,7 +276,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2591390981642823118}
-  m_Mesh: {fileID: -2432090755550338912, guid: c79d08a29bb064a6e99e946f20a2f9d6, type: 3}
+  m_Mesh: {fileID: -2432090755550338912, guid: 678660bfbcb5a9e4b9b7d953a9a11430, type: 3}
 --- !u!23 &6822345015835842907
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -284,7 +284,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2591390981642823118}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -633,7 +633,7 @@ PrefabInstance:
     - target: {fileID: 2182457598661606704, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_textInfo.characterCount
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2182457598661606704, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
