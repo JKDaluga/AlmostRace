@@ -14275,8 +14275,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selfHeatDamage: 25
-  boostSpeedPercentage: 25
-  boostTopSpeedPercentage: 25
+  boostSpeedPercentage: 75
+  boostTopSpeedPercentage: 50
   jetParticles: {fileID: 6504814872682209290}
   jetIncrease: 7
 --- !u!114 &7998599946614423137
@@ -20062,6 +20062,21 @@ PrefabInstance:
       propertyPath: boostingParticles
       value: 
       objectReference: {fileID: 5184197181290732394}
+    - target: {fileID: 481683610354487725, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: topSpeed
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 481683610354487725, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: acceleration
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 481683610354487725, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: deceleration
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 481683611327776958, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_IsActive
