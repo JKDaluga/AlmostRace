@@ -8,26 +8,13 @@ using UnityEngine;
      
      */
 
-public class TurretProjectileBehavior : MonoBehaviour
+public class TurretProjectileBehavior : Projectile
 {
 
-    private Rigidbody _rigidBody;
-  
-    private float _projectileDamage;
-    public float _projectileSpeed;
-    private Collider _collider;
-    [Header("Particle Variables...................................................................")]
-    public GameObject sparkEffect;
-    public MeshRenderer meshRenderer;
-    public Light pointLight;
-    private GameObject _immunePlayer;
-    // Start is called before the first frame update
-    void Start()
+    public new void Start()
     {
-        _collider = gameObject.GetComponent<Collider>();
-        _rigidBody = gameObject.GetComponent<Rigidbody>();
-        _rigidBody.velocity = transform.TransformDirection(Vector3.up * _projectileSpeed);    
-        Destroy(gameObject, 7.0f);
+        base.Start();
+        GiveSpeed();
     }
 
     public void SetProjectileInfo(float projectileDamage, float projectileSpeed, GameObject immunePlayer)
@@ -48,11 +35,15 @@ public class TurretProjectileBehavior : MonoBehaviour
             }
             else if (other.gameObject.GetComponent<Interactable>() != null)
             {//Checks if the object isn't the immunePlayer and if they are an interactable object.
-                if(other.gameObject.GetComponent<TurretBehavior>() == null)
+
+            if(other.gameObject.CompareTag("Projectile"))
+            {
+                if (other.gameObject.GetComponent<TurretBehavior>() == null)
                 {
                     other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
                     StartCoroutine(ExplosionEffect());
-                }  
+                }
+            }
             }
             else
             {
@@ -62,16 +53,4 @@ public class TurretProjectileBehavior : MonoBehaviour
        
     }
 
-    public IEnumerator ExplosionEffect()
-    {
-        _collider.enabled = false;
-        _rigidBody.velocity = Vector3.zero;
-        _rigidBody.useGravity = false;
-        _rigidBody.isKinematic = true;
-        meshRenderer.enabled = false;
-        pointLight.enabled = false;
-        sparkEffect.SetActive(true);
-        yield return new WaitForSeconds(sparkEffect.GetComponent<ParticleSystem>().main.duration);
-        Destroy(gameObject);
-    }
 }

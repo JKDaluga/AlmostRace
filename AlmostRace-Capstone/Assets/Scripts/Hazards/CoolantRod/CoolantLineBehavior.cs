@@ -66,12 +66,13 @@ public class CoolantLineBehavior : MonoBehaviour
     {
         if(other.gameObject.GetComponent<CarHeatManager>() != null)
         {//Checks if a car passes through. 
-            Debug.Log("Car Detected by fire!");
+          //  Debug.Log("Car Detected by fire!");
             _carsDamaged.Add(other.gameObject.GetComponent<CarHeatManager>()); //Adds car to damage.
             if(_carsDamaged.Count == 1)
             {//If this is the first car added to the list, assume that cars aren't being damaged, start the invoke repeating.
                
                 InvokeRepeating("DamageCars", 0, _coolantDamageRate);
+                // todo: @Eddie, add damage to interactables
             }
         }
     }
@@ -98,14 +99,14 @@ public class CoolantLineBehavior : MonoBehaviour
                     if(!_interactingPlayer.Equals(car.gameObject))
                     {                
                         //rewards instigating player with hype for damaging other cars
-                        _interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(_fireDamageHype);
+                        _interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(_fireDamageHype, "Coolant Flames");
                     }
                     if(car.heatCurrent <= 0) //See if car was killed by the damage.
                     {
                         if (!_interactingPlayer.Equals(car.gameObject))
                         {
                             //rewards instigating player with hype for killing other cars
-                            _interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(_fireKillHype);
+                            _interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(_fireKillHype, "Incinerated!");
                         }
                         _carsDamaged.Remove(car);// If a car is killed, remove it from the list of cars being damaged.
                     }

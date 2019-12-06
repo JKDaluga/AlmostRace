@@ -6,6 +6,9 @@ using UnityEngine;
  * Mike Romeo 06/11/2019
  * Functionality for destuctable boulder that the player can shoot at
  * or collide with. 
+ * 
+ * Edited by Eddie B
+ * Made to work with turrets blowing up boulders as well.
  */
 
 public class DestructableBoulderBehaviour : Interactable
@@ -35,6 +38,8 @@ public class DestructableBoulderBehaviour : Interactable
         coll = this.GetComponent<Collider>();
         rend.enabled = true;
         coll.enabled = true;
+        boulderDestroyedHype *= transform.localScale.x;
+        interactableHealth *= (transform.localScale.x * 5);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -42,25 +47,33 @@ public class DestructableBoulderBehaviour : Interactable
 
         if (collision.gameObject.GetComponent<CarHeatManager>() != null)
         {
-            interactingPlayer = collision.gameObject; // sets the person crashing with the boulder as the interacting player
-            TriggerInteractable();
-            collision.gameObject.GetComponent<CarHeatManager>().AddHeat(ramDamage);
-            if (collision.gameObject.GetComponent<SphereCarController>() != null)
+            if(canBeDamaged)
             {
-                collision.gameObject.GetComponent<SphereCarController>().currentSpeed -= 
-                    (collision.gameObject.GetComponent<SphereCarController>().currentSpeed/slowDownFactor);
+                interactingPlayer = collision.gameObject; // sets the person crashing with the boulder as the interacting player
+                TriggerInteractable();
+                collision.gameObject.GetComponent<CarHeatManager>().AddHeat(ramDamage);
+                if (collision.gameObject.GetComponent<SphereCarController>() != null)
+                {
+                    collision.gameObject.GetComponent<SphereCarController>().currentSpeed -=
+                        (collision.gameObject.GetComponent<SphereCarController>().currentSpeed / slowDownFactor);
+                }
             }
+
         }
     }
 
     public override void TriggerInteractable()
     {
-        interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(boulderDestroyedHype);
+        if(interactingPlayer.GetComponent<VehicleHypeBehavior>() != null)
+        {//makes sure that non-player agents can destroy the boulders without throwing null references.
+            interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(boulderDestroyedHype, "Boulder Damage");
+        }
+     
         boulderParticles.Play();
         rend.enabled = false;
         coll.enabled = false;
 
-        AudioSource.PlayClipAtPoint(deathSound, gameObject.transform.position);
+        AudioManager.instance.Play("RockExplosion");
 
         Invoke("DestroyInteractable", boulderParticles.main.duration);
     }

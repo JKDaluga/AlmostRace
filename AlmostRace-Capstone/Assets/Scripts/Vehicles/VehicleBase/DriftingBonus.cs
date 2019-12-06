@@ -56,11 +56,11 @@ public class DriftingBonus : MonoBehaviour
 
         //when the car stops drifting, check if the drift was safe,
         //add hype if the drift was safe, and reset all other values
-        if(!car.getDrifting())
+        if(!car.getDrifting() && hypeMultiplier > 0)
         {
             startDrift = true;
             finalHype =Mathf.Floor( hypeToAdd * hypeMultiplier);
-            car.gameObject.GetComponent<VehicleHypeBehavior>().AddHype(finalHype);
+            car.gameObject.GetComponent<VehicleHypeBehavior>().AddHype(finalHype, "Drift");
             hypeMultiplier = 0;
         }
     }

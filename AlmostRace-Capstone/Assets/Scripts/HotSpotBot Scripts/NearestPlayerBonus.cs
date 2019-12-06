@@ -71,7 +71,7 @@ public class NearestPlayerBonus : MonoBehaviour
 
     void AddBonus()
     {
-        players[closest].GetComponent<VehicleHypeBehavior>().AddHype(5);
+        players[closest].GetComponent<VehicleHypeBehavior>().AddHype(5, "Closest To Hotspot Bot");
     }
 
 }

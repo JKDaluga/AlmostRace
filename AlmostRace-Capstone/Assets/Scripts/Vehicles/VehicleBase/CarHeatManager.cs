@@ -8,7 +8,6 @@ using UnityEngine.UI;
 */
 public class CarHeatManager : MonoBehaviour
 {
-    public Image heatImage;
     public GameObject respawnPlatform;
     public GameObject modelHolder;
     public GameObject sphereCollider;
@@ -26,7 +25,10 @@ public class CarHeatManager : MonoBehaviour
     private VehicleInput _vehicleInput;
     private bool _canTeleport = true;
 
-    [Header("Car Heat UI elements")]
+    [Header("UI Variables")]
+    [Space(30)]
+    public Image teleportCDImage;
+    public GameObject teleDark;
     public Image heatFillBar;
     public Image heat25;
     public Image heat50;
@@ -75,7 +77,7 @@ public class CarHeatManager : MonoBehaviour
                 gameObject.SetActive(true);
             }
 
-            if (heatImage != null)
+            if (heatFillBar != null)
             {
                 //heatImage.fillAmount = ((heatCurrent * 100) / 120) / 100;
                 heatFillBar.fillAmount = ((heatCurrent * 100) / 120) / 100;
@@ -147,6 +149,7 @@ public class CarHeatManager : MonoBehaviour
 
     public void Respawn()
     {
+        AudioManager.instance.Play("Respawn");
         heatCurrent = 0;
         isDead = false;
         deathFade.GetComponent<Animator>().Play("DeathFadeOut");
@@ -167,6 +170,8 @@ public class CarHeatManager : MonoBehaviour
         {
             _canTeleport = false;
             isDead = true;
+            teleportCDImage.fillAmount = 1;
+            teleDark.SetActive(true);
             AudioManager.instance.Play("Teleport");
             StartCoroutine(teleportCooldownTimer());
             Instantiate(teleportEffect, gameObject.transform.position, gameObject.transform.rotation);
@@ -182,7 +187,14 @@ public class CarHeatManager : MonoBehaviour
 
     private IEnumerator teleportCooldownTimer()
     {
-        yield return new WaitForSeconds(teleportCooldown);
+        float tempTime = teleportCooldown;
+        while (tempTime > 0)
+        {
+            tempTime -= Time.deltaTime;
+            teleportCDImage.fillAmount = tempTime / teleportCooldown;
+            yield return null;
+        }
+        teleDark.SetActive(false);
         _canTeleport = true;
     }
 

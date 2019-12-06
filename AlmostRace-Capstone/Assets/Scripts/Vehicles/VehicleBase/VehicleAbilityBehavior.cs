@@ -145,6 +145,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         }
         defensiveAbilityDark.SetActive(false);
         _canUseDefensiveAbility = true;
+        AudioManager.instance.Play("Ability Recharge");
     }
 
     private IEnumerator DefensiveAbilityDuration()

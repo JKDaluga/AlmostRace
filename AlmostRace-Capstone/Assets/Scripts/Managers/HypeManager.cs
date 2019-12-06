@@ -48,7 +48,7 @@ public class HypeManager : MonoBehaviour
             {
                 tempTotal += vehicle.GetComponent<VehicleHypeBehavior>().GetHypeAmount();
             }
-           // Debug.Log("tempTotal: " + tempTotal);
+            //Debug.Log("tempTotal: " + tempTotal);
             totalHype = tempTotal;
             //Debug.Log("totalHype:" + totalHype);
             yield return null;
@@ -99,7 +99,7 @@ public class HypeManager : MonoBehaviour
         );
         // Put in descending order
         vehicleList.Reverse();
-        checkWinCondition();
+        //checkWinCondition(); Doesn't need to be here, since we are moving away from the hype limit. - Eddie
       //  UIupdate();
     }
 
@@ -159,6 +159,7 @@ public class HypeManager : MonoBehaviour
         {
             winnerText.text = "PLAYER " + winner.GetComponent<VehicleInput>().playerNumber + " WINS!";
             winnerText.gameObject.SetActive(true);
+            AudioManager.instance.Play("Victory Music");
         }
     }
 

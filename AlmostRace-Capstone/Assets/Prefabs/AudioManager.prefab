@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7923551450835292683}
   - component: {fileID: 7923551450835292692}
   - component: {fileID: 7923551450835292693}
+  - component: {fileID: 4736898367086406799}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -48,83 +49,69 @@ MonoBehaviour:
   - name: MissileLaunch
     clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 3
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
   - name: Blaster1
     clip: {fileID: 8300000, guid: 7fc7cec712691a44aa1374de30c65523, type: 3}
     volume: 0.5
-    volumeVariance: 0.58
-    pitch: 0.5
-    pitchVariance: 0.12
-    loop: 0
-    source: {fileID: 0}
   - name: Death
     clip: {fileID: 8300000, guid: cefdbfff7b9c8aa448808f6559270295, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: MissileLaunch
-    clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
-    volume: 1
-    volumeVariance: 0
-    pitch: 3
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
+  - name: Turret
+    clip: {fileID: 8300000, guid: c922c34f559ead440a273a13a924cfc7, type: 3}
+    volume: 0.7
   - name: Engine
     clip: {fileID: 8300000, guid: 963383b1ff7e2dd489b6de695942ddc8, type: 3}
     volume: 0.05
-    volumeVariance: 0
-    pitch: 0.94
-    pitchVariance: 0
-    loop: 1
-    source: {fileID: 0}
   - name: Teleport
     clip: {fileID: 8300000, guid: 5b3f7f9cb9a526d43aaa1d38b30f6dea, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
   - name: Drift
     clip: {fileID: 8300000, guid: 1a2db1d8f2d213b48984494e7309eb45, type: 3}
     volume: 0.1
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 1
-    source: {fileID: 0}
   - name: MissileLaunch
     clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 3
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: MissileLaunch
+  - name: RaceMusic
     clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 3
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
-  - name: MissileLaunch
+  - name: Audience
+    clip: {fileID: 8300000, guid: 644818743ab36514aa3e4b19e35bcf48, type: 3}
+    volume: 1
+  - name: Victory Music
+    clip: {fileID: 8300000, guid: 1b0a47b1c0ffb49c7b33f40bcae7fbe8, type: 3}
+    volume: 1
+  - name: Victory Voice
     clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
     volume: 1
-    volumeVariance: 0
-    pitch: 3
-    pitchVariance: 0
-    loop: 0
-    source: {fileID: 0}
+  - name: Ability Recharge
+    clip: {fileID: 8300000, guid: aa6305697bd33ea4f9dcfcc757e0ce64, type: 3}
+    volume: 1
+  - name: Shield Activated
+    clip: {fileID: 8300000, guid: 0c967583e558eb9408ec7e46a2292f79, type: 3}
+    volume: 1
+  - name: RockExplosion
+    clip: {fileID: 8300000, guid: 8dfcae34791b3a447b81d6653208f596, type: 3}
+    volume: 1
+  - name: ArenaCleared
+    clip: {fileID: 8300000, guid: 4d8463854df47194b8197916ee9d3a2a, type: 3}
+    volume: 1
+  - name: Respawn
+    clip: {fileID: 8300000, guid: 4d8463854df47194b8197916ee9d3a2a, type: 3}
+    volume: 1
+  - name: HotSpot Lost
+    clip: {fileID: 8300000, guid: a64806f49342ba342a5ba92eb5106625, type: 3}
+    volume: 1
+  - name: HotSpot Attachment
+    clip: {fileID: 8300000, guid: 90d9b5f4845ceb6409836aad491d0335, type: 3}
+    volume: 1
+  - name: Car Collision
+    clip: {fileID: 8300000, guid: cb89be4ec965b8443b578b6c519751ec, type: 3}
+    volume: 1
+  - name: Lux Shooting
+    clip: {fileID: 8300000, guid: 4f396ba69a7a3104a8b81624cb2a98eb, type: 3}
+    volume: 1
+  - name: Race Complete
+    clip: {fileID: 8300000, guid: 4f396ba69a7a3104a8b81624cb2a98eb, type: 3}
+    volume: 1
 --- !u!82 &7923551450835292693
 AudioSource:
   m_ObjectHideFlags: 0
@@ -132,10 +119,10 @@ AudioSource:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7923551450835292694}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 487cae07aca4278468953b4f112aaffe, type: 3}
+  m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 0.07
   m_Pitch: 1
@@ -221,3 +208,11 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!81 &4736898367086406799
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7923551450835292694}
+  m_Enabled: 1

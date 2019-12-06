@@ -21,7 +21,7 @@ public class HypeGenerator_HotSpot : MonoBehaviour
         {
             foreach(VehicleHypeBehavior carsHyped in _vehiclesHyped)
             {
-                carsHyped.AddHype(hypeGained);
+                carsHyped.AddHype(hypeGained, "Hotspot Bot");
             }
         }
         else

@@ -11,6 +11,12 @@ using UnityEngine;
 
 public class Lux_ProjectileBehavior : Projectile
 {
+    private void Start()
+    {
+        base.Start();
+        GiveSpeed();
+    }
+
     private void OnTriggerEnter(Collider other)
     {   
         if (_isAlive)
@@ -18,7 +24,7 @@ public class Lux_ProjectileBehavior : Projectile
             if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHeatManager>() != null)
             {//Checks if the object isn't the immunePlayer and if they are a car.
                 other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
-                _immunePlayerScript.AddHype(_projectileHype);
+                _immunePlayerScript.AddHype(_projectileHype, "Damage:");
                 StartCoroutine(ExplosionEffect());
             }
             else if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<Interactable>() != null)

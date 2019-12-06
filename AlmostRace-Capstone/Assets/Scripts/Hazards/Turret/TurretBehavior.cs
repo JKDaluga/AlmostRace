@@ -36,13 +36,13 @@ public class TurretBehavior : Interactable
   
     [Header("Fire Pillar Variables............................................................")]
     [Space(30)]
-    public TurretFirePillarBehavior turretFirePillar;
+   // public TurretFirePillarBehavior turretFirePillar;
 
  
     [Header("Hype Variables............................................................")]
     [Space(30)]
     public float destroyTurretHype = 150f;
-    public float firePillarKillHype = 400f;
+   // public float firePillarKillHype = 400f;
     
     
     [Header("Feedback Variables............................................................")]
@@ -54,6 +54,9 @@ public class TurretBehavior : Interactable
     public AudioClip turretExplosionSound;
     public ParticleSystem turretRespawnParticles;
     public AudioClip turretRespawnSound;
+
+   private Vector3 m_lastKnownPosition = Vector3.zero;
+   private Quaternion m_lookAtRotation;
 
     // Start is called before the first frame update
     void Start()
@@ -94,8 +97,8 @@ public class TurretBehavior : Interactable
         }
         _turretSound.PlayOneShot(turretExplosionSound); //play explosion sound
         currentTarget = null;//reset target
-        turretFirePillar.Activate(); //activate fire pillar
-        interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(destroyTurretHype);//award hype to interacting player
+        //turretFirePillar.Activate(); //activate fire pillar
+        interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(destroyTurretHype, "Turret Destroyed");//award hype to interacting player
         Invoke("ResetInteractable", turretRespawnTime);
     }
 
@@ -110,7 +113,7 @@ public class TurretBehavior : Interactable
         }
         turretRespawnParticles.Play();
         //_turretSound.PlayOneShot(turretRespawnSound); //play respawn sound
-        turretFirePillar.Deactivate();//deactivate fire pillar
+       // turretFirePillar.Deactivate();//deactivate fire pillar
         interactableHealth = _originalHealth;//reset health
         CancelInvoke("AimTurret");//stop aiming
         CancelInvoke("FireTurret");//stop firing
@@ -126,6 +129,18 @@ public class TurretBehavior : Interactable
     {
         if(currentTarget != null)
         {
+
+            /*if (m_lastKnownPosition != currentTarget.transform.position)
+            {
+                m_lastKnownPosition = currentTarget.transform.position;
+                m_lookAtRotation = Quaternion.LookRotation(m_lastKnownPosition - turretHead.transform.position);
+            }
+
+            if (transform.rotation != m_lookAtRotation)
+            {
+                turretHead.transform.rotation = Quaternion.RotateTowards(turretHead.transform.rotation, m_lookAtRotation, 30 * Time.deltaTime);
+            }*/
+
             turretHead.LookAt(currentTarget.transform.position + (aimOffset * currentTarget.GetComponent<SphereCarController>().sphere.velocity));//look at current target
         }
         else
