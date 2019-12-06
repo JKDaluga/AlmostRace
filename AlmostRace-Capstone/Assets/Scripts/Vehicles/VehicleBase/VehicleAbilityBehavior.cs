@@ -97,6 +97,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
                 boostAbilityDark.SetActive(true);
                 boostAbility.ActivateAbility();
                 StartCoroutine(BoostAbilityDuration());
+                AudioManager.instance.Play("Boost");
             }
            
         }
