@@ -140,7 +140,6 @@ public class HotSpotBotBehavior : MonoBehaviour
             Node pathPoint1 = SplinePlusAPI.CreateNode(_splinePlusScript.SPData, vehiclesPosition);
             int branchKey = SplinePlusAPI.ConnectTwoNodes(_splinePlusScript.SPData, pathPoint1, positionToPlace);
             _splinePlusScript.GoToNewBranch(branchKey);
-            _splinePlusScript.SPData.Followers[0].DistanceData.Index = branchKey;
 
             yield return new WaitForSeconds(dropGracePeriod);
             hypeColliderObject.SetActive(true);
