@@ -22,6 +22,7 @@ public class HotSpotBotBehavior : MonoBehaviour
     public GameObject hypeColliderObject;
     public static HotSpotBotBehavior instance;
     private List<Node> branchNodes = new List<Node>();
+    private List<Branch> branchesAtStart = new List<Branch>();
     private SplinePlus _splinePlusScript;
     private HypeManager _hypeManagerScript;
     private Transform currentArenaDesignation;
@@ -50,6 +51,7 @@ public class HotSpotBotBehavior : MonoBehaviour
 
         foreach (KeyValuePair<int, Branch> entry in _splinePlusScript.SPData.DictBranches)
         {
+            branchesAtStart.Add(entry.Value);
             for(int i = 0; i < entry.Value.Nodes.Count; i++)
             {
                 if(!branchNodes.Contains(entry.Value.Nodes[i]))
@@ -219,23 +221,17 @@ public class HotSpotBotBehavior : MonoBehaviour
         Vector3 closestWorldPoint = new Vector3(_hugeDistance, _hugeDistance, _hugeDistance);
         float lastDistance = _hugeDistance;
         int vectorsBackAdjustment;
-
-        List<Branch> currentBranches = new List<Branch>();
-        foreach (KeyValuePair<int, Branch> entry in _splinePlusScript.SPData.DictBranches)
-        {
-            currentBranches.Add(entry.Value);
-        }
         
-        for (int i = 0; i < currentBranches.Count; i++)
+        for (int i = 0; i < branchesAtStart.Count; i++)
         {
-            for (int j = 0; j < currentBranches[i].Vertices.Count; j++)
+            for (int j = 0; j < branchesAtStart[i].Vertices.Count; j++)
             {
-                float distance = Vector3.Distance(currentBranches[i].Vertices[j], givenPosition);
+                float distance = Vector3.Distance(branchesAtStart[i].Vertices[j], givenPosition);
                 if (distance <= lastDistance)
                 {
                     lastDistance = distance;
-                    vectorsBackAdjustment = Mathf.Clamp(j + vectorsBack, 0, currentBranches[i].Vertices.Count - 1);
-                    closestWorldPoint = currentBranches[i].Vertices[vectorsBackAdjustment];
+                    vectorsBackAdjustment = Mathf.Clamp(j + vectorsBack, 1, branchesAtStart[i].Vertices.Count - 1);
+                    closestWorldPoint = branchesAtStart[i].Vertices[vectorsBackAdjustment];
                 }
             }
         }
