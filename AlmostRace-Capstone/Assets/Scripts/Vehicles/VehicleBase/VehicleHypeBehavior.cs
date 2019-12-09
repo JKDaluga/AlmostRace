@@ -49,7 +49,7 @@ public class VehicleHypeBehavior : MonoBehaviour
 
     public void UpdateUI()
     {
-        hypeText.text = "" + _hypeAmount;
+        hypeText.text = "" + _hypeAmount.ToString("F0");
     }
 
     public void AddHype(float hypeToAdd, string hypeType)
@@ -66,7 +66,7 @@ public class VehicleHypeBehavior : MonoBehaviour
         _hypeAmount += hypeToAdd;
         _hypeManagerScript.VehicleSort();
         GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
-        spawnedPopUp.GetComponent<TextMeshProUGUI>().text = hypeType + ": " + hypeToAdd;
+        spawnedPopUp.GetComponent<TextMeshProUGUI>().text = hypeType + ": " + hypeToAdd.ToString("F0");
         spawnedPopUp.transform.SetParent(scalingPanel.transform);
     }
 
