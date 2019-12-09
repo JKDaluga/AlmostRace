@@ -12,9 +12,14 @@ using UnityEngine;
 
 public class RespawnPlatformBehavior : MonoBehaviour
 {
-    [Tooltip("Amount of seconds it takes for the respawn cycle of the vehicle")] public int respawnSeconds;
-    [Tooltip("Amount of height off the ground the platform spawns at")] public float spawnHeight;
-    [Tooltip("Amount of distance to spawn behind the hot spot")] public int distanceBehind;
+    [Tooltip("Amount of seconds it takes for the respawn cycle of the vehicle")]
+    public int respawnSeconds;
+    [Tooltip("Amount of height off the ground the platform spawns at")]
+    public float spawnHeight;
+    [Tooltip("Amount of distance to spawn behind the hot spot")]
+    public int distanceBehind;
+    [Tooltip("Amount of distance forward to make the platform look at, used when spawning after holding the bot or if there is no bot in the scene")]
+    public int lookDistanceForward;
     private HotSpotBotBehavior _hotSpotBotScript;
     private HypeManager _hypeManagerScript;
     private GameObject _playerObject;
@@ -94,7 +99,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
     {
         _playerObject.GetComponent<HotSpotVehicleAdministration>().DropTheBot();
         Vector3 nearestPointOnSpline = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, distanceBehind);
-        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, -3);
+        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, lookDistanceForward);
 
         transform.position = new Vector3(nearestPointOnSpline.x,
             nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
@@ -136,7 +141,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
     private void SpawnOnNearestSplinePoint()
     {
         Vector3 nearestPointOnSpline = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, distanceBehind);
-        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, -3);
+        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, lookDistanceForward);
 
         transform.position = new Vector3(nearestPointOnSpline.x,
             nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);

@@ -59,6 +59,10 @@ public class VehicleHypeBehavior : MonoBehaviour
         {
             AudioManager.instance.Play("Audience");
         }
+        else
+        {
+            AudioManager.instance.Play("Low Hype");
+        }
         _hypeAmount += hypeToAdd;
         _hypeManagerScript.VehicleSort();
         GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
