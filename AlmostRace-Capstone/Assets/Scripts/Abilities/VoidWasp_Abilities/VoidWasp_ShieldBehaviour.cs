@@ -37,6 +37,7 @@ public class VoidWasp_ShieldBehaviour : Interactable
         _collider = gameObject.GetComponent<SphereCollider>();
         _collider.enabled = false;
         _meshRender = gameObject.GetComponent<MeshRenderer>();
+        //_meshRender.enabled = false;
         DestroyInteractable();
     }
 
@@ -62,17 +63,16 @@ public class VoidWasp_ShieldBehaviour : Interactable
     {
         if (_released)
         {
-            //_meshRender.enabled = false;
-
+            _meshRender.enabled = false;
             _collider.enabled = false;
             psRef.SetActive(false);
             _released = false;
-            psRef.GetComponent<Animator>().SetBool("surgeEnd", false);
+            psRef.GetComponent<Animator>().SetTrigger("endVoidSurge");
             print("release" + _released);
         }
         if (!_released)
         {
-            surgeRelease();
+            SurgeRelease();
             print("release" + _released);
         }
 
@@ -83,9 +83,9 @@ public class VoidWasp_ShieldBehaviour : Interactable
         // collected damage divided over total amount projectiles
     }
 
-    private void surgeRelease()
+    private void SurgeRelease()
     {
-        psRef.GetComponent<Animator>().SetBool("surgeEnd", true);
+        psRef.GetComponent<Animator>().SetTrigger("startVoidSurge");
         _released = true;
     }
 
@@ -100,6 +100,7 @@ public class VoidWasp_ShieldBehaviour : Interactable
     {
         ResetInteractable(); // makes sure each panel has full health.
         //_meshRender.enabled = true;
+
         _collider.enabled = true;
         psRef.SetActive(true);
     }
