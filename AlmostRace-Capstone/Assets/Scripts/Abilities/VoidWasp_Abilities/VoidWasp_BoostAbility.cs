@@ -12,6 +12,8 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
 {
     private SphereCarController carInfo;
 
+    public GameObject carCollider;
+
     [Range(0, 100)]
     public float boostSpeedPercentage;
 
@@ -48,6 +50,7 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
         //ChangeFov(cameraChangeDuration, cameraFovTarget);
 
         gameObject.layer = 21;
+        carCollider.layer = 21;
 
         AddHeat();
     }
@@ -58,6 +61,8 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
         carAnimation.SetBool("spinning", false);
 
         gameObject.layer = 8;
+        carCollider.layer = 9;
+
 
         //Invoke("ResetFov", cameraChangeDuration);
     }
