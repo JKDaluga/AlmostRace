@@ -90,7 +90,11 @@ public class SphereCarController : MonoBehaviour
     //Added by Robyn Riley 11/5/19
     //A gameobject Childed to the ModelHolder. Controls camera and aiming direction
     public GameObject aimObject, aimPos;
-    
+
+    [Header("Car UI")]
+    public RectTransform UIPanel;
+    public RectTransform secondaryUIPanel;
+
     //Call allowing vehicle to take input from player
     private void Start()
     {

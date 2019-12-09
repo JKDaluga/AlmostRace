@@ -52,34 +52,7 @@ public class VehicleInput : MonoBehaviour
 
     private void Awake()
     {
-
-        #if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
-            _horizontalName = "Horizontal" + _inputNum[playerNumber - 1];
-            _vertForwardName = "VerticalForwards" + _inputNum[playerNumber - 1];
-            _vertBackwardName = "VerticalBackwards" + _inputNum[playerNumber - 1];
-            _brakeName = "Brake" + _inputNum[playerNumber - 1];
-            _basicAbilityName = "BasicAbility" + _inputNum[playerNumber - 1];
-            _signatureAbilityName = "SignatureAbility" + _inputNum[playerNumber - 1];
-            _pickupAbilityName = "Pickup" + _inputNum[playerNumber - 1];
-            _respawn = "Respawn" + _inputNum[playerNumber - 1];
-            _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1];
-            _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1];
-            _rightStickButtonName = "RightStickButton" + _inputNum[playerNumber - 1];
-        #endif
-
-        #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
-            _horizontalName = "Horizontal" + _inputNum[playerNumber - 1];
-            _vertForwardName = "VerticalForwards" + _inputNum[playerNumber - 1] + "Mac";
-            _vertBackwardName = "VerticalBackwards" + _inputNum[playerNumber - 1] + "Mac";
-            _brakeName = "Brake" + _inputNum[playerNumber - 1] + "Mac";
-            _basicAbilityName = "BasicAbility" + _inputNum[playerNumber - 1] + "Mac";
-            _signatureAbilityName = "SignatureAbility" + _inputNum[playerNumber - 1] + "Mac";
-            _pickupAbilityName = "Pickup" + _inputNum[playerNumber - 1] + "Mac";
-            _respawn = "Respawn" +  _inputNum[playerNumber - 1] + "Mac";
-            _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1] + "Mac";
-            _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1] + "Mac";
-            _rightStickButtonName = "RightStickButton" + _inputNum[playerNumber - 1] + "Mac";
-        #endif
+        setPlayerNum(playerNumber);
     }
 
 
@@ -96,5 +69,38 @@ public class VehicleInput : MonoBehaviour
     public int getPlayerNum()
     {
         return playerNumber;
+    }
+
+    public void setPlayerNum(int num)
+    {
+        playerNumber = num;
+
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+        _horizontalName = "Horizontal" + _inputNum[playerNumber - 1];
+        _vertForwardName = "VerticalForwards" + _inputNum[playerNumber - 1];
+        _vertBackwardName = "VerticalBackwards" + _inputNum[playerNumber - 1];
+        _brakeName = "Brake" + _inputNum[playerNumber - 1];
+        _basicAbilityName = "BasicAbility" + _inputNum[playerNumber - 1];
+        _signatureAbilityName = "SignatureAbility" + _inputNum[playerNumber - 1];
+        _pickupAbilityName = "Pickup" + _inputNum[playerNumber - 1];
+        _respawn = "Respawn" + _inputNum[playerNumber - 1];
+        _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1];
+        _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1];
+        _rightStickButtonName = "RightStickButton" + _inputNum[playerNumber - 1];
+#endif
+
+#if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
+            _horizontalName = "Horizontal" + _inputNum[playerNumber - 1];
+            _vertForwardName = "VerticalForwards" + _inputNum[playerNumber - 1] + "Mac";
+            _vertBackwardName = "VerticalBackwards" + _inputNum[playerNumber - 1] + "Mac";
+            _brakeName = "Brake" + _inputNum[playerNumber - 1] + "Mac";
+            _basicAbilityName = "BasicAbility" + _inputNum[playerNumber - 1] + "Mac";
+            _signatureAbilityName = "SignatureAbility" + _inputNum[playerNumber - 1] + "Mac";
+            _pickupAbilityName = "Pickup" + _inputNum[playerNumber - 1] + "Mac";
+            _respawn = "Respawn" +  _inputNum[playerNumber - 1] + "Mac";
+            _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1] + "Mac";
+            _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1] + "Mac";
+            _rightStickButtonName = "RightStickButton" + _inputNum[playerNumber - 1] + "Mac";
+#endif
     }
 }
