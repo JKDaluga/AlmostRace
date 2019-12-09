@@ -24,6 +24,7 @@ public class HypeGateBehavior : MonoBehaviour
 
     [Tooltip("The gameobject to remove once hypeLimit is reached")]
     public GameObject gateToOpen;//might be changed per hype gate for specific behavior
+    public GameObject gateToClose;
     public Transform hotSpotLocation;
     private float _hypeLimitActual;
     public List<TextMeshProUGUI> displayTexts;
@@ -45,6 +46,7 @@ public class HypeGateBehavior : MonoBehaviour
         {
             Debug.LogError("Hype Manager not found!");
         }
+        gateToClose.SetActive(false);
     }
 
     public IEnumerator CheckCars()
@@ -74,10 +76,13 @@ public class HypeGateBehavior : MonoBehaviour
 
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.arenaHypeText.text = "Arena Hype";
                 }
+
+                gateToClose.SetActive(true);
                 StopAllCoroutines();
                 StartCoroutine(TrackHype());
                 _hotSpotBotScript.SetVehiclesIn(true);
                 yield return null;
+
             }
             yield return null;
         }

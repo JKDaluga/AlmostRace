@@ -28,4 +28,15 @@ public class HypeGateAggro : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<VehicleHypeBehavior>() != null)
+        {//if thing entering aggro is car
+            if (_hypeGate.carsInRange.Contains(other.gameObject)) //if car hasn't already been detected
+            {
+                _hypeGate.carsInRange.Remove(other.gameObject);
+            }
+        }
+    }
+
 }

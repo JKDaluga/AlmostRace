@@ -47,8 +47,8 @@ public class DestructableBoulderBehaviour : Interactable
 
         if (collision.gameObject.GetComponent<CarHeatManager>() != null)
         {
-            if(canBeDamaged)
-            {
+           // if(canBeDamaged)
+          //  {
                 interactingPlayer = collision.gameObject; // sets the person crashing with the boulder as the interacting player
                 TriggerInteractable();
                 collision.gameObject.GetComponent<CarHeatManager>().AddHeat(ramDamage);
@@ -57,7 +57,7 @@ public class DestructableBoulderBehaviour : Interactable
                     collision.gameObject.GetComponent<SphereCarController>().currentSpeed -=
                         (collision.gameObject.GetComponent<SphereCarController>().currentSpeed / slowDownFactor);
                 }
-            }
+           // }
 
         }
     }
@@ -75,7 +75,7 @@ public class DestructableBoulderBehaviour : Interactable
 
         AudioManager.instance.Play("RockExplosion");
 
-        Invoke("DestroyInteractable", boulderParticles.main.duration);
+        Invoke("DestroyInteractable", boulderParticles.main.startLifetime.constant);
     }
 
     public override void DestroyInteractable()

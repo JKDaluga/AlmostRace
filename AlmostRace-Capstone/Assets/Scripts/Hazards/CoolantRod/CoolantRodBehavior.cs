@@ -6,7 +6,7 @@ public class CoolantRodBehavior : Interactable
 {
     [Header("Coolant Rod Variables............................................................")]
     [Space(30)]
-    public ParticleSystem coolantExplosion;
+   // public ParticleSystem coolantExplosion;
 
     [Tooltip("How long it takes for a new Coolant Rod to appear")]
     public float coolantRodCooldown = 5f;
@@ -77,7 +77,7 @@ public class CoolantRodBehavior : Interactable
 
     public override void TriggerInteractable()
     {
-        coolantExplosion.Play();
+        //coolantExplosion.Play();
         interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(coolantExplosionHype, "Coolant Kaboom!");
         foreach (CoolantLineBehavior coolantLine in coolantLines)
         {
