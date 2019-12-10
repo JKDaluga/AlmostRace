@@ -20,6 +20,8 @@ public class CoolantRodBehavior : Interactable
 
     [Header("Animation Variables............................................................")]
     [Space(30)]
+    public GameObject objToSlide;
+    public GameObject columns;
     [Tooltip("How far up the Rod can go.")]
     public Transform topLimit;
     [Tooltip("How far down the Rod can go.")]
@@ -51,34 +53,48 @@ public class CoolantRodBehavior : Interactable
         {
             coolantLine.InitializeCoolantLine(coolantLineDuration, coolantLineDamage, coolantLineRate, fireDamageHype, fireKillHype);
         }
+        InvokeRepeating("RotateSphere", 0, .01f);
     }
 
-    public void SlideRod()
+    public void RotateSphere()
     {
-        if (gameObject.transform.localPosition.y > topLimit.localPosition.y) //Checks if the Rod went too high. Corrects if it did.
+        objToSlide.transform.Rotate(0, 1, 0);
+    }
+
+    public void RotateColumns()
+    {
+        columns.transform.Rotate(0, 1, 0);
+    }
+
+public void SlideRod()
+    {
+        if (objToSlide.gameObject.transform.localPosition.y > topLimit.localPosition.y) //Checks if the Rod went too high. Corrects if it did.
         {
             //Corrects position
-            gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, topLimit.localPosition.y, (gameObject.transform.localPosition.z));
+            objToSlide.gameObject.transform.localPosition = new Vector3(objToSlide.gameObject.transform.localPosition.x, topLimit.localPosition.y, (objToSlide.gameObject.transform.localPosition.z));
             //Stops slide
             CancelInvoke("SlideRod");
         }
-        else if (gameObject.transform.localPosition.y < bottomLimit.localPosition.y)
+        else if (objToSlide.gameObject.transform.localPosition.y < bottomLimit.localPosition.y)
         {
             //Corrects position
-            gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x, bottomLimit.localPosition.y, (gameObject.transform.localPosition.z));
+            objToSlide.gameObject.transform.localPosition = new Vector3(objToSlide.gameObject.transform.localPosition.x, bottomLimit.localPosition.y, (objToSlide.gameObject.transform.localPosition.z));
             //Stops slide
             CancelInvoke("SlideRod");
         }
         else
         {
-            gameObject.transform.Translate(0, slideAmount * slideDirection, 0);
+            objToSlide.gameObject.transform.Translate(0, slideAmount * slideDirection, 0);
         }
     }
 
     public override void TriggerInteractable()
     {
         //coolantExplosion.Play();
-        interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(coolantExplosionHype, "Coolant Kaboom!");
+        if(interactingPlayer != null)
+        {
+            interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(coolantExplosionHype, "Vandal");
+        }
         foreach (CoolantLineBehavior coolantLine in coolantLines)
         {
             coolantLine.ActivateCoolantLine(interactingPlayer);
@@ -99,6 +115,7 @@ public class CoolantRodBehavior : Interactable
         canBeDamaged = false;//make rod not damagable
         slideDirection = -1;
         InvokeRepeating("SlideRod", 0, slideRate);//make coolant rod go into the ground
+       // InvokeRepeating("RotateColumns", 0, .01f);
         Invoke("ResetInteractable", coolantRodCooldown);
     }
 
