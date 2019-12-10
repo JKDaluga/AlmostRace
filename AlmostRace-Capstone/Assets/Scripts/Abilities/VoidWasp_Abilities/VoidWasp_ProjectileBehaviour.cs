@@ -5,7 +5,7 @@ using UnityEngine;
 public class VoidWasp_ProjectileBehaviour : Projectile
 {
 
-    public GameObject projectileClone;
+    private GameObject _stuckProjectile;
 
     private float _speedIncrease;
 
@@ -15,11 +15,21 @@ public class VoidWasp_ProjectileBehaviour : Projectile
 
     private float _speedLimitActual;
 
+// //////////EXPLOSION STUFF
+
+    private float _explosionDamage;
+
+    private float _explosionFuse;
+
+    private float _explosionHypeToGain;
+
+    private float _explosionRadius;
+
     private new void Start()
     {
         base.Start();
         GiveSpeed();
-
+        #region DeadCode
         // might be used later
         /*_collider = gameObject.GetComponent<Collider>();
         _rigidBody = gameObject.GetComponent<Rigidbody>();
@@ -35,6 +45,7 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         {
             _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _projectileSpeed);
         }*/
+        #endregion
     }
 
     public void IncreaseSpeed()
@@ -46,11 +57,16 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         }
     }
 
-    public void GiveInfo(float speedIncrease, float speedRate, float speedLimit)
+    public void GiveInfo(float speedIncrease, float speedRate, float speedLimit, GameObject stuckProjectile, float explosionDamage, float explosionFuse, float explosionHypeToGain, float explosionRadius)
     {
         _speedIncrease = speedIncrease;
         _speedRate = speedRate;
         _speedLimit = speedLimit;
+        _explosionDamage = explosionDamage;
+        _explosionFuse = explosionFuse;
+        _explosionHypeToGain = explosionHypeToGain;
+        _stuckProjectile = stuckProjectile;
+        _explosionRadius = explosionRadius;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -68,11 +84,11 @@ public class VoidWasp_ProjectileBehaviour : Projectile
             Vector3 originalRotation = gameObject.transform.rotation.eulerAngles;
 
             // spawn game object into collided position
-            GameObject spawnedClone = Instantiate(projectileClone, pos, Quaternion.Euler(originalRotation));
+            GameObject spawnedClone = Instantiate(_stuckProjectile, pos, Quaternion.Euler(originalRotation));
             spawnedClone.transform.SetParent(collision.gameObject.transform);
 
             //TODO
-            //spawnedClone.GetComponent< Whatever its script is >().GiveInfo(fuseLength, explosionDamage, explosion "size" ); 
+            spawnedClone.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, _explosionFuse, _explosionHypeToGain, _explosionRadius); 
         }
         else
         { //Hits ground, or anything else
@@ -81,11 +97,11 @@ public class VoidWasp_ProjectileBehaviour : Projectile
             Vector3 pos = contact.point;
 
             // spawn game object into collided position
-            GameObject spawnedClone = Instantiate(projectileClone, pos, rot);
-            spawnedClone.transform.SetParent(collision.gameObject.transform);
+            GameObject spawnedClone2 = Instantiate(_stuckProjectile, pos, rot);
+            spawnedClone2.transform.SetParent(collision.gameObject.transform);
 
             //TODO
-            //spawnedClone.GetComponent< Whatever its script is >().GiveInfo(fuseLength but it's 0, explosionDamage, explosion "size" ); 
+            spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, _explosionFuse, _explosionHypeToGain, _explosionRadius);
         }
 
         //TODO Replace this with particle explosions or w/e u want

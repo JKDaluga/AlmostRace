@@ -9,13 +9,29 @@ using UnityEngine;
 
 public class VoidWasp_OffensiveAbility : HeatAbility
 {
+
+    [Header("Ability Values")]
+    [Space(30)]
     public GameObject voidwaspProjectile;
     private VoidWasp_ProjectileBehaviour _voidwaspProjectileScript;
 
-    [Header("Ability Values")]
-
     private bool _isFiring = false;
     private bool _canFire = true;
+
+    /* use this to set delay between shots*/
+    [Tooltip("How quickly the projectile are fired, smaller number means more projectiles!")]
+    public float rateOfFire;
+    private float _cooldownTime = 0;
+
+    [Tooltip("How fast firing projectiles builds heat.")]
+    public float selfDamageRate;
+
+    public Transform waspAimDirection;
+    private Transform _aimPosActual;
+
+
+    [Header("Projectile Variables")]
+    [Space(30)]
 
     [Tooltip("How much Hype is given per projectile.")]
     public float projectileHypeToGain;
@@ -38,18 +54,20 @@ public class VoidWasp_OffensiveAbility : HeatAbility
     [Tooltip("How much the bullets should spread from each other")]
     public float shotSpread;
 
-    private List<Quaternion> _projectiles;
+    private List<Quaternion> _projectileRotations;
 
-    /* use this to set delay between shots*/
-    [Tooltip("How quickly the projectile are fired, smaller number means more projectiles!")]
-    public float rateOfFire;
-    private float _cooldownTime = 0;
+    [Header("Explosion Variables")]
+    [Space(30)]
 
-    [Tooltip("How fast firing projectiles builds heat.")]
-    public float selfDamageRate;
+    public GameObject stuckProjectile;
 
-    public Transform waspAimDirection;
-    private Transform _aimPosActual;
+    public float explosionDamage = 2f;
+
+    public float explosionFuse = 1f;
+
+    public float explosionRadius = 1f;
+
+    public float explosionHypeToGain = 5f;
 
 
 
@@ -58,10 +76,10 @@ public class VoidWasp_OffensiveAbility : HeatAbility
 
     private void Awake()
     {
-        _projectiles = new List<Quaternion>(projectileCount);
+        _projectileRotations = new List<Quaternion>(projectileCount);
         for (int i = 0; i < projectileCount; i++)
         {
-            _projectiles.Add(Quaternion.Euler(Vector3.zero));
+            _projectileRotations.Add(Quaternion.Euler(Vector3.zero));
         }
     }
 
@@ -108,13 +126,13 @@ public class VoidWasp_OffensiveAbility : HeatAbility
             // todo: When hit, creates explosion particle effect. 
             for (int i = 0; i < projectileCount; i++)
             {
-                _projectiles[i] = Random.rotation;
+                _projectileRotations[i] = Random.rotation;
 
                 GameObject projectile = Instantiate(voidwaspProjectile, voidMuzzle.position, voidMuzzle.rotation);
                 _voidwaspProjectileScript = projectile.GetComponent<VoidWasp_ProjectileBehaviour>();
                 _voidwaspProjectileScript.SetImmunePlayer(gameObject);
                 _voidwaspProjectileScript.SetProjectileInfo(projectileDamage, projectileSpeed, projectileHypeToGain);
-                _voidwaspProjectileScript.GiveInfo(speedIncrease, speedRate, speedLimit);
+                _voidwaspProjectileScript.GiveInfo(speedIncrease, speedRate, speedLimit, stuckProjectile, explosionDamage, explosionFuse, explosionHypeToGain, explosionRadius);
                 projectile.transform.Rotate(Random.Range(-shotSpread/2, shotSpread/2), Random.Range(-shotSpread, shotSpread), 0);
 
                 //projectile.transform.rotation = Quaternion.RotateTowards(projectile.transform.rotation, _projectiles[i], shotSpread);
