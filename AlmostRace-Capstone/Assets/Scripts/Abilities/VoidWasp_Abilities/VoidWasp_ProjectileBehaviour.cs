@@ -82,6 +82,7 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         else if(collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<Interactable>() != null)
         { //Hits Interactable
             collision.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
+            collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
             Debug.Log("2 Projectile Hit: " + collision.gameObject.name);
             
         }
