@@ -30,11 +30,14 @@ public class DataManager : MonoBehaviour
         else
         {
             instance = this;
-            //playerInfo = new PlayerInfo[4];
-            //for(int i = 0; i < playerInfo.Length; i++)
-            //{
-            //    playerInfo[i] = new PlayerInfo();
-            //}
+            if(playerInfo.Length != 4)
+            {
+                playerInfo = new PlayerInfo[4];
+                for (int i = 0; i < playerInfo.Length; i++)
+                {
+                    playerInfo[i] = new PlayerInfo();
+                }
+            }
             DontDestroyOnLoad(this.gameObject);
         }
     }
