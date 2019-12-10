@@ -56,7 +56,7 @@ public class HotSpotVehicleAdministration : MonoBehaviour
             && !holdingTheBot && HotSpotBotHeld == null)
             {
                 HoldTheBot(other.gameObject);
-                GetComponent<CarHeatManager>().healthCurrent = 0;
+                GetComponent<CarHeatManager>().healthCurrent = GetComponent<CarHeatManager>().healthMax;
                 HypeGain(initialHypeGain);
                 hypeTimer = 0;
             }

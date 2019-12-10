@@ -15,6 +15,7 @@ public class VoidWasp_ProjectileBehaviour : Projectile
 
     private float _speedLimitActual;
 
+
 // //////////EXPLOSION STUFF
 
     private float _explosionDamage;

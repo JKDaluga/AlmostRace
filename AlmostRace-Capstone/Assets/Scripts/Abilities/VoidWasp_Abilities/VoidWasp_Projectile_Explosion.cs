@@ -15,6 +15,8 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
 
     private GameObject _immunePlayer;
 
+    public GameObject explosionParticles;
+
     Collider[] objectsHit;
 
 
@@ -63,12 +65,13 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
             }
 
         }
-       // DestroyExplosion(); 
+        explosionParticles.SetActive(true);
+        DestroyExplosion(explosionParticles.GetComponent<ParticleSystem>().main.startLifetime.constant); 
     }
 
-    public void DestroyExplosion()
+    public void DestroyExplosion(float time)
     {
-        Destroy(gameObject);
+        Destroy(gameObject, time);
     }
 
 }
