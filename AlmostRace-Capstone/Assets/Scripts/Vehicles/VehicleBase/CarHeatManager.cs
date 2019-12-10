@@ -73,7 +73,7 @@ public class CarHeatManager : MonoBehaviour
             {
                 healthFillBar.fillAmount = healthCurrent/healthMax ;
 
-                if (healthFillBar.fillAmount <= 0.15)
+                if (healthFillBar.fillAmount <= 0.20)
                 {
                     if(!isFlashing)
                     {
@@ -82,9 +82,9 @@ public class CarHeatManager : MonoBehaviour
                     }
                   
                 }
-
                 else if (healthFillBar.fillAmount < 0.33)
                 {
+
                     engineImage.sprite = engineRed;                 
                 }
 
@@ -123,6 +123,14 @@ public class CarHeatManager : MonoBehaviour
             engineImage.color = Color.white;
             engineIsFlash = false;
         }
+
+        if (healthFillBar.fillAmount > 0.20)
+        {
+            CancelInvoke("FlashRedEngine");
+            engineImage.color = Color.white;
+            engineIsFlash = false;
+            isFlashing = false;
+        }
     }
 
     private void Kill()
@@ -143,6 +151,8 @@ public class CarHeatManager : MonoBehaviour
     {
         isFlashing = false;
         CancelInvoke("FlashRedEngine");
+        engineImage.color = Color.white;
+        engineIsFlash = false;
         AudioManager.instance.Play("Respawn");
         healthCurrent = healthMax;
         isDead = false;

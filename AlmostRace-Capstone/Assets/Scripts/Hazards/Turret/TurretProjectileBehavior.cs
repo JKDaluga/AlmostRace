@@ -36,7 +36,7 @@ public class TurretProjectileBehavior : Projectile
             else if (other.gameObject.GetComponent<Interactable>() != null)
             {//Checks if the object isn't the immunePlayer and if they are an interactable object.
 
-            if(other.gameObject.CompareTag("Projectile"))
+            if(!other.gameObject.CompareTag("Projectile"))
             {
                 if (other.gameObject.GetComponent<TurretBehavior>() == null)
                 {
