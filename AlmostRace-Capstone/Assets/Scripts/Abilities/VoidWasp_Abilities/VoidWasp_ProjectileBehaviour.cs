@@ -79,24 +79,32 @@ public class VoidWasp_ProjectileBehaviour : Projectile
             collision.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
             _immunePlayerScript.AddHype(_projectileHype, "Damage:");
         }
-        else if(collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<Interactable>() != null)
+        else if (collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<Interactable>() != null)
         { //Hits Interactable
             collision.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
             collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
             Debug.Log("2 Projectile Hit: " + collision.gameObject.name);
-            
+
         }
-        ContactPoint contact = collision.contacts[0];
-        Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
-        Vector3 pos = contact.point;
 
-        // spawn game object into collided position
-        GameObject spawnedClone2 = Instantiate(_stuckProjectile, pos, rot);
-        spawnedClone2.transform.SetParent(collision.gameObject.transform);
+      
+            ContactPoint contact = collision.contacts[0];
+            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+            Vector3 pos = contact.point;
 
-        //TODO
-        spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, _explosionFuse, _explosionHypeToGain, _explosionRadius, _immunePlayer);
-        spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().LightFuse();
+     
+        
+            // spawn game object into collided position
+            GameObject spawnedClone2 = Instantiate(_stuckProjectile, pos, rot);
+        if ((collision.gameObject != _immunePlayer))
+        {
+            spawnedClone2.transform.SetParent(collision.gameObject.transform);
+            spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().LightFuse();
+        }
+
+            //TODO
+            spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, _explosionFuse, _explosionHypeToGain, _explosionRadius, _immunePlayer);
+          
 
         //TODO Replace this with particle explosions or w/e u want
         Destroy(gameObject);

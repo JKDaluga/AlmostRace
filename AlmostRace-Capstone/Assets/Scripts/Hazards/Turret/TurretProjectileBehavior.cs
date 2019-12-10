@@ -26,31 +26,35 @@ public class TurretProjectileBehavior : Projectile
 
     private void OnTriggerEnter(Collider other)
     {
-       
-            if (other.gameObject.GetComponent<CarHeatManager>() != null)
-            {//if other is a car
-                other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
-                Debug.Log("Damage done to player: " + _projectileDamage);
-                StartCoroutine(ExplosionEffect());
-            }
-            else if (other.gameObject.GetComponent<Interactable>() != null)
-            {//Checks if the object isn't the immunePlayer and if they are an interactable object.
+        //Debug.Log("Damage done to: " + other.gameObject.name + " " + _projectileDamage);
+         if (other.gameObject.GetComponent<Interactable>() != null)
+        {//Checks if the object isn't the immunePlayer and if they are an interactable object.
 
-            if(!other.gameObject.CompareTag("Projectile"))
+            if (!other.gameObject.CompareTag("Projectile"))
             {
+                //  Debug.Log("Damage done to: " + other.gameObject.name + " " + _projectileDamage);
                 if (other.gameObject.GetComponent<TurretBehavior>() == null)
                 {
+                   // Debug.Log("object hit:" + other.gameObject.name);
                     other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
-                    StartCoroutine(ExplosionEffect());
+                    Destroy(gameObject);
+                    // StartCoroutine(ExplosionEffect());
                 }
             }
-            }
-            else
-            {
-                StartCoroutine(ExplosionEffect());
-            }
-        
-       
+            StartCoroutine(ExplosionEffect());
+        }
+        else if (other.gameObject.GetComponent<CarHeatManager>() != null)
+        {//if other is a car
+            other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
+            Debug.Log("Damage done to player: " + _projectileDamage);
+            StartCoroutine(ExplosionEffect());
+        }
+        else
+        {
+            StartCoroutine(ExplosionEffect());
+        }
+
+
     }
 
 }
