@@ -13,18 +13,21 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
 
     private float _explosionRadius;
 
+    private GameObject _immunePlayer;
+
     Collider[] objectsHit;
 
 
 
-    public void GiveInfo(float explosionDamage, float explosionFuse, float explosionHypeToGain, float explosionRadius)
+    public void GiveInfo(float explosionDamage, float explosionFuse, float explosionHypeToGain, float explosionRadius, GameObject immunePlayer)
     {
         _explosionDamage = explosionDamage;
         _explosionFuse = explosionFuse;
         _explosionHypeToGain = explosionHypeToGain;
         _explosionRadius = explosionRadius;
-        Debug.Log("Blow delay: " + _explosionFuse);
-      
+        _immunePlayer = immunePlayer;
+       // Debug.Log("Explosion Fuse at Explosion is: " + _explosionFuse);
+
     }
 
 
@@ -35,29 +38,30 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
 
     public void BlowFuse()
     {
-       objectsHit = Physics.OverlapSphere(gameObject.transform.localPosition, _explosionRadius);
-        Debug.Log("Blow me now baby");
-
+        Transform parent = gameObject.transform.parent;
+        gameObject.transform.SetParent(null);
+        objectsHit = Physics.OverlapSphere(gameObject.transform.localPosition, _explosionRadius);
+        gameObject.transform.SetParent(parent);
         foreach (Collider obj in objectsHit)
         {
-            Debug.Log("Blow me FOR EACH, babyyyyyyyyyy");
-            if (obj.gameObject.GetComponent<CarHeatManager>() != null)
-            {//if a car was hit
-                obj.gameObject.GetComponent<CarHeatManager>().AddHeat(_explosionDamage);
-                Debug.Log("Blow me car baby");
-
-            }
-
-            if (obj.gameObject.GetComponent<Interactable>() != null)
+            if(obj.gameObject != _immunePlayer)
             {
-                obj.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
-                Debug.Log("Blow me interactable baby");
+                if (obj.gameObject.GetComponent<CarHeatManager>() != null)
+                {//if a car was hit
+                    obj.gameObject.GetComponent<CarHeatManager>().AddHeat(_explosionDamage);
 
+                    //Debug.Log("Car was hit with explosion");
+
+                }
+                else if (obj.gameObject.GetComponent<Interactable>() != null)
+                {
+                    obj.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
+                  
+                    // Debug.Log("Interactable was hit with explosion");
+
+                }
             }
-            else
-            {
-                Debug.Log("Ifs are definately fucking happening");
-            }
+
         }
        // DestroyExplosion(); 
     }

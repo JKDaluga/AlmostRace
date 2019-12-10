@@ -27,6 +27,7 @@ public class VehicleHypeBehavior : MonoBehaviour
     public TextMeshProUGUI hypeText;
     public GameObject hypePopup;
     public Transform hypePopupSpawn;
+    public Transform hypePopupEnd;
     public float bigHypeAmount = 50f;
     
 
@@ -69,6 +70,7 @@ public class VehicleHypeBehavior : MonoBehaviour
         GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
         spawnedPopUp.GetComponent<TextMeshProUGUI>().text = hypeType + ": " + hypeToAdd.ToString("F0");
         spawnedPopUp.transform.SetParent(scalingPanel.transform);
+        spawnedPopUp.GetComponent<HypePopup>().GiveInfo(hypePopupSpawn, hypePopupEnd, 1f);
     }
 
     public void SubtractHype(float hypeToSubtract)

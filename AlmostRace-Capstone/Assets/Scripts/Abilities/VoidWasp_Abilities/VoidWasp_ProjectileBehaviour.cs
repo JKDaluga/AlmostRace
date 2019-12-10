@@ -67,43 +67,34 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         _explosionHypeToGain = explosionHypeToGain;
         _stuckProjectile = stuckProjectile;
         _explosionRadius = explosionRadius;
+        //Debug.Log("Explosion Fuse at Projectile is: " + _explosionFuse);
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<CarHeatManager>() != null)
         {//Checks if the object isn't the immunePlayer and if they are a car.
+            Debug.Log("1 Projectile Hit: " + collision.gameObject.name);
             collision.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
             _immunePlayerScript.AddHype(_projectileHype, "Damage:");
-
-            // get collision contact point
-            ContactPoint contact = collision.contacts[0];
-            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
-            Vector3 pos = contact.point;
-
-            Vector3 originalRotation = gameObject.transform.rotation.eulerAngles;
-
-            // spawn game object into collided position
-            GameObject spawnedClone = Instantiate(_stuckProjectile, pos, Quaternion.Euler(originalRotation));
-            spawnedClone.transform.SetParent(collision.gameObject.transform);
-
-            //TODO
-            spawnedClone.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, _explosionFuse, _explosionHypeToGain, _explosionRadius);
-            spawnedClone.GetComponent<VoidWasp_Projectile_Explosion>().LightFuse();
         }
-        else
-        { //Hits ground, or anything else
-            ContactPoint contact = collision.contacts[0];
-            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
-            Vector3 pos = contact.point;
-
-            // spawn game object into collided position
-            GameObject spawnedClone2 = Instantiate(_stuckProjectile, pos, rot);
-            spawnedClone2.transform.SetParent(collision.gameObject.transform);
-
-            //TODO
-            spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, 0, _explosionHypeToGain, _explosionRadius);
+        else if(collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<Interactable>() != null)
+        { //Hits Interactable
+            collision.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
+            Debug.Log("2 Projectile Hit: " + collision.gameObject.name);
+            
         }
+        ContactPoint contact = collision.contacts[0];
+        Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+        Vector3 pos = contact.point;
+
+        // spawn game object into collided position
+        GameObject spawnedClone2 = Instantiate(_stuckProjectile, pos, rot);
+        spawnedClone2.transform.SetParent(collision.gameObject.transform);
+
+        //TODO
+        spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, _explosionFuse, _explosionHypeToGain, _explosionRadius, _immunePlayer);
+        spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().LightFuse();
 
         //TODO Replace this with particle explosions or w/e u want
         Destroy(gameObject);

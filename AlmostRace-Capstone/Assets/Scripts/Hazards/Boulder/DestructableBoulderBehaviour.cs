@@ -64,10 +64,14 @@ public class DestructableBoulderBehaviour : Interactable
 
     public override void TriggerInteractable()
     {
-        if(interactingPlayer.GetComponent<VehicleHypeBehavior>() != null)
-        {//makes sure that non-player agents can destroy the boulders without throwing null references.
-            interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(boulderDestroyedHype, "Boulder Damage");
+        if(interactingPlayer != null)
+        {
+            if (interactingPlayer.GetComponent<VehicleHypeBehavior>() != null)
+            {//makes sure that non-player agents can destroy the boulders without throwing null references.
+                interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(boulderDestroyedHype, "Boulder Damage");
+            }
         }
+
      
         boulderParticles.Play();
         rend.enabled = false;
@@ -93,7 +97,6 @@ public class DestructableBoulderBehaviour : Interactable
         interactableHealth -= damageNumber;
         if (interactableHealth <= 0)
         {
-           
             TriggerInteractable();
         }
     }

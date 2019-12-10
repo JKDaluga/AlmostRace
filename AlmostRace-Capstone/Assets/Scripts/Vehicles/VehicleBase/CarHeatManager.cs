@@ -14,13 +14,13 @@ public class CarHeatManager : MonoBehaviour
     public GameObject explosionEffect;
     public GameObject teleportEffect;
     public GameObject deathFade;
-    public float heatCurrent = 0f;
+    public float healthCurrent = 0f;
     public float heatStallLimit = 100f;
-    public float heatExplodeLimit = 120f;
-    public float cooldownAmount = 1f;
+    public float healthMax = 120f;
+    public float healAmount = 1f;
     public float respawnSecs = 3f;
     public float teleportCooldown = 5f;
-    public float cooldownFrequency = 2f;
+    public float healFreq = 2f;
     public bool isDead;
     private VehicleInput _vehicleInput;
     private bool _canTeleport = true;
@@ -30,77 +30,81 @@ public class CarHeatManager : MonoBehaviour
     public Image teleportCDImage;
     public GameObject teleDark;
     public Image healthFillBar;
-    public Image engine;
+    public Image engineImage;
     public Sprite engineGreen;
     public Sprite engineYellow;
+    public Sprite engineOrange;
     public Sprite engineRed;
-
-
+    public float engineFlashFreq = .4f;
+    private bool engineIsFlash = false;
+    private bool isFlashing = false;
     private void Start()
     {
         _vehicleInput = GetComponent<VehicleInput>();
-        InvokeRepeating("healthCooldown", 0, cooldownFrequency);
+        InvokeRepeating("healthCooldown", 0, healFreq);
+        healthCurrent = healthMax;
     }
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetAxis(_vehicleInput.respawn) > 0 && _vehicleInput.getStatus() && !GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+        if (Input.GetAxis(_vehicleInput.respawn) > 0 && _vehicleInput.getStatus() && !GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
         {
             Teleport();
         }
 
         if (!isDead)
         {
-            if (heatCurrent > heatExplodeLimit)
+            if (healthCurrent > healthMax)
             {
-                heatCurrent = heatExplodeLimit;
+                healthCurrent = healthMax;
             }
 
-            if (heatCurrent >= heatExplodeLimit)
+            if (healthCurrent <= 0)
             {
                 Kill();
             }
 
-            if (heatCurrent < 0)
+            if (healthCurrent < 0)
             {
-                heatCurrent = 0;
+                healthCurrent = 0;
             }
 
-            if (heatCurrent == 0 && gameObject.activeSelf == false)
+            if (healthCurrent == healthMax && gameObject.activeSelf == false)
             {
                 gameObject.SetActive(true);
             }
 
             if (healthFillBar != null)
             {
-                healthFillBar.fillAmount = ((heatCurrent * 100) / 120) / 100;
+                healthFillBar.fillAmount = healthCurrent/healthMax ;
 
-                if (healthFillBar.fillAmount >= 0)
+                if (healthFillBar.fillAmount <= 0.25)
                 {
-                    InvokeRepeating("FlashRedEngine", 0, 4);
+                    if(!isFlashing)
+                    {
+                        isFlashing = true;
+                        InvokeRepeating("FlashRedEngine", 0, engineFlashFreq);
+                    }
+                  
                 }
 
-                if (healthFillBar.fillAmount > 0.25)
+                else if (healthFillBar.fillAmount < 0.5)
                 {
-                    engine.sprite = engineRed;
+                    engineImage.sprite = engineRed;                 
                 }
 
-                if (healthFillBar.fillAmount > 0.5)
+                else if (healthFillBar.fillAmount < 0.75)
                 {
-                    engine.sprite = engineRed;
+                    engineImage.sprite = engineOrange;                 
                 }
 
-                if (healthFillBar.fillAmount > 0.75)
+                else if (healthFillBar.fillAmount < 0.90)
                 {
-                    engine.sprite = engineYellow;
-                }
-
-                if (healthFillBar.fillAmount > 0.90)
-                {
-                    engine.sprite = engineGreen;
+                    engineImage.sprite = engineYellow;             
                 }
                 else
                 {
+                    engineImage.sprite = engineGreen;
                     /*heat25.enabled = false;
                     heat50.enabled = false;
                     heat75.enabled = false;
@@ -111,6 +115,21 @@ public class CarHeatManager : MonoBehaviour
         }
 
     }
+
+    private void FlashRedEngine()
+    {
+        if (!engineIsFlash)
+        {//if hasn't flashed and is still red
+            engineImage.color = Color.black;
+            engineIsFlash = true;
+        }
+        else
+        {
+            engineImage.color = Color.white;
+            engineIsFlash = false;
+        }
+    }
+
     private void Kill()
     {
         //AudioManager.instance.Play("Death");
@@ -127,8 +146,10 @@ public class CarHeatManager : MonoBehaviour
 
     public void Respawn()
     {
+        isFlashing = false;
+        CancelInvoke("FlashRedEngine");
         AudioManager.instance.Play("Respawn");
-        heatCurrent = 0;
+        healthCurrent = healthMax;
         isDead = false;
         deathFade.GetComponent<Animator>().Play("DeathFadeOut");
         GetComponent<SphereCarController>().enabled = true;
@@ -178,17 +199,17 @@ public class CarHeatManager : MonoBehaviour
 
     private void healthCooldown()
     {
-        heatCurrent -= cooldownAmount;
+        healthCurrent += healAmount;
     }
 
     public void AddHeat(float heat)
     {
-        heatCurrent += heat;
+        healthCurrent -= heat;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("KillBox"))
+        if (collision.gameObject.CompareTag("KillBox"))
         {
             Kill();
         }

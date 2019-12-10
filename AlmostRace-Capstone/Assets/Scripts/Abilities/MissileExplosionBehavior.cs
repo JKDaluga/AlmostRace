@@ -43,7 +43,7 @@ public class MissileExplosionBehavior : MonoBehaviour
           //  Debug.Log(explosionDamage + " damage was dealt to: " + collision.gameObject.name + "!");
             if(collision.GetComponent<CarHeatManager>() != null )
             {
-                collision.GetComponent<CarHeatManager>().heatCurrent += explosionDamage;
+                collision.GetComponent<CarHeatManager>().healthCurrent += explosionDamage;
             }
         }
         else if(collision.gameObject == immunePlayer)

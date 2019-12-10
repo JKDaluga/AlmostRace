@@ -46,7 +46,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
 
         if (GameObject.FindGameObjectWithTag("HotSpotSpline") != null)
         {
-            if (GameObject.FindGameObjectWithTag("HotSpotSpline").GetComponent<SplinePlus>().SPData.Followers[0].FollowerGO != null)
+            if (GameObject.FindGameObjectWithTag("HotSpotSpline").GetComponent<SplinePlus>().SPData.Followers[0].FollowerGO != null && !_hotSpotBotScript.GetInArena())
             {
                 if (_hotSpotBotScript.GetBeingHeld())
                 {
@@ -63,6 +63,10 @@ public class RespawnPlatformBehavior : MonoBehaviour
                 {
                     SpawnBehindBot();
                 }
+            }
+            else if(_hotSpotBotScript.GetInArena())
+            {
+                SpawnOnArenaSpawnPoint();
             }
             else
             {
@@ -135,6 +139,23 @@ public class RespawnPlatformBehavior : MonoBehaviour
         _spawnOnEnemy = true;
         transform.LookAt(new Vector3(_otherVehicle.transform.position.x,
             transform.position.y, _otherVehicle.transform.position.z));
+    }
+
+    // If we are in an arena, vehicle drops the bot if they have it, the vehicle spawns at a random spawn point in the arena
+    private void SpawnOnArenaSpawnPoint()
+    {
+        if (_playerObject.GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+        {
+            _playerObject.GetComponent<HotSpotVehicleAdministration>().DropTheBot();
+        }
+
+        Transform randomSpawnPoint = _hotSpotBotScript.GetCurrentArena().
+        spawnPoints[Random.Range(0, _hotSpotBotScript.GetCurrentArena().spawnPoints.Length)];
+        Transform botHoldLocation = _hotSpotBotScript.GetCurrentArenaDesignation();
+
+        transform.position = new Vector3(randomSpawnPoint.position.x,
+            randomSpawnPoint.position.y + spawnHeight, randomSpawnPoint.position.z);
+        transform.LookAt(new Vector3(botHoldLocation.position.x, transform.position.y, botHoldLocation.position.z));
     }
 
     // If there is no HotSpotBot, spawn the vehicle at the nearest point on the spline from its death location

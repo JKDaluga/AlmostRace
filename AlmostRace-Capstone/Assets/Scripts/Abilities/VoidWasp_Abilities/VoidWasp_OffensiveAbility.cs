@@ -132,7 +132,10 @@ public class VoidWasp_OffensiveAbility : HeatAbility
                 _voidwaspProjectileScript = projectile.GetComponent<VoidWasp_ProjectileBehaviour>();
                 _voidwaspProjectileScript.SetImmunePlayer(gameObject);
                 _voidwaspProjectileScript.SetProjectileInfo(projectileDamage, projectileSpeed, projectileHypeToGain);
+
                 _voidwaspProjectileScript.GiveInfo(speedIncrease, speedRate, speedLimit, stuckProjectile, explosionDamage, explosionFuse, explosionHypeToGain, explosionRadius);
+               // Debug.Log("Explosion Fuse at OffensiveAbility is: " + explosionFuse);
+
                 projectile.transform.Rotate(Random.Range(-shotSpread/2, shotSpread/2), Random.Range(-shotSpread, shotSpread), 0);
 
                 //projectile.transform.rotation = Quaternion.RotateTowards(projectile.transform.rotation, _projectiles[i], shotSpread);
