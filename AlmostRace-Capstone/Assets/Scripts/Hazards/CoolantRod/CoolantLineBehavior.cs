@@ -95,13 +95,13 @@ public class CoolantLineBehavior : MonoBehaviour
             {
                 if(!car.isDead) //Make sure car is alive.
                 {
-                    car.heatCurrent += _coolantDamage; //Damage car.
+                    car.healthCurrent += _coolantDamage; //Damage car.
                     if(!_interactingPlayer.Equals(car.gameObject))
                     {                
                         //rewards instigating player with hype for damaging other cars
                         _interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(_fireDamageHype, "Coolant Flames");
                     }
-                    if(car.heatCurrent <= 0) //See if car was killed by the damage.
+                    if(car.healthCurrent <= 0) //See if car was killed by the damage.
                     {
                         if (!_interactingPlayer.Equals(car.gameObject))
                         {

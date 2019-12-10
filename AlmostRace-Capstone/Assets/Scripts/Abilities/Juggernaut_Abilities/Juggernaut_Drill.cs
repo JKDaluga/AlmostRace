@@ -31,7 +31,7 @@ public class Juggernaut_Drill : MonoBehaviour
     {
         if (damagedCarScript != null)
         {
-            if (damagedCarScript.heatCurrent >= damagedCarScript.heatExplodeLimit)
+            if (damagedCarScript.healthCurrent >= damagedCarScript.healthMax)
             {
                 damagedCarScript = null;
                 CancelInvoke("DamageCar");
@@ -39,7 +39,7 @@ public class Juggernaut_Drill : MonoBehaviour
             }
             else
             {
-                damagedCarScript.heatCurrent += _drillDamage;
+                damagedCarScript.healthCurrent += _drillDamage;
                 _hypeScript.AddHype(_hypeGained, "Drill");
             }
         }

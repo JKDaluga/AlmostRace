@@ -70,6 +70,6 @@ public class VoidWasp_BasicAbility : HeatAbility
 
     protected override void AddHeat()
     {
-        carHeatInfo.heatCurrent += selfHeatDamage;
+        carHeatInfo.healthCurrent += selfHeatDamage;
     }
 }

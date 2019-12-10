@@ -8,7 +8,7 @@ public class KillboxBehaviour : MonoBehaviour
     {
         if (other.gameObject.GetComponent<CarHeatManager>() != null)
         {//if other is a car
-            other.gameObject.GetComponent<CarHeatManager>().AddHeat(other.gameObject.GetComponent<CarHeatManager>().heatExplodeLimit);
+            other.gameObject.GetComponent<CarHeatManager>().AddHeat(other.gameObject.GetComponent<CarHeatManager>().healthMax);
         }
     }
 }

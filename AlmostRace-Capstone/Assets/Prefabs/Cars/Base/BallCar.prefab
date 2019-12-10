@@ -423,21 +423,23 @@ MonoBehaviour:
   teleportEffect: {fileID: 2810214832798839782, guid: b6e063dae0c218940ad8af9105a63dba,
     type: 3}
   deathFade: {fileID: 7746878269252819037}
-  heatCurrent: 0
+  healthCurrent: 120
   heatStallLimit: 100
-  heatExplodeLimit: 120
-  cooldownAmount: 0.3
+  healthMax: 120
+  healAmount: 0.05
   respawnSecs: 3
   teleportCooldown: 5
-  cooldownFrequency: 0.1
+  healFreq: 0.01
   isDead: 0
   teleportCDImage: {fileID: 8079144206827734046}
   teleDark: {fileID: 1712037963952961314}
-  healthFillBar: {fileID: 0}
-  engine: {fileID: 0}
-  engineGreen: {fileID: 0}
-  engineYellow: {fileID: 0}
-  engineRed: {fileID: 0}
+  healthFillBar: {fileID: 1939973175890622882}
+  engineImage: {fileID: 4796580631679079367}
+  engineGreen: {fileID: 21300000, guid: edc31ed20f3016643814a8f5a41abf28, type: 3}
+  engineYellow: {fileID: 21300000, guid: 0c2caae368d6f6345b426397ab6860b0, type: 3}
+  engineOrange: {fileID: 21300000, guid: b67cd094ae517ce45b665e51b8b16208, type: 3}
+  engineRed: {fileID: 21300000, guid: cc3f3593777b8214eaa14f3c7a09857f, type: 3}
+  engineFlashFreq: 0.4
 --- !u!114 &6818455058190144800
 MonoBehaviour:
   m_ObjectHideFlags: 0

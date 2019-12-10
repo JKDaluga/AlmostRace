@@ -38,7 +38,7 @@ public class TurretFirePillarBehavior : MonoBehaviour
     {
         if(other.gameObject.GetComponent<CarHeatManager>() != null)
         { //If a car runs into the flame pillar, blow up that car.
-            other.gameObject.GetComponent<CarHeatManager>().AddHeat(other.gameObject.GetComponent<CarHeatManager>().heatExplodeLimit);
+            other.gameObject.GetComponent<CarHeatManager>().AddHeat(other.gameObject.GetComponent<CarHeatManager>().healthMax);
         }
     }
 

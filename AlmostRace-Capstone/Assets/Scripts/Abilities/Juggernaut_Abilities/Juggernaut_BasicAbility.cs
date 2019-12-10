@@ -81,7 +81,7 @@ public class Juggernaut_BasicAbility : HeatAbility
 
     protected override void AddHeat()
     {
-        carHeatInfo.heatCurrent += selfHeatDamage;
+        carHeatInfo.healthCurrent += selfHeatDamage;
     }
 
 }
