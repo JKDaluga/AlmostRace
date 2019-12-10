@@ -22,8 +22,9 @@ public class PlayerManagement : MonoBehaviour
         {
             players[i] = dis[i].gameObject;
         }
-      
-        data = FindObjectOfType<DataManager>();
+
+        data = DataManager.instance;
+        data.resetData();
     }
 
     public void turnOff(int player)
