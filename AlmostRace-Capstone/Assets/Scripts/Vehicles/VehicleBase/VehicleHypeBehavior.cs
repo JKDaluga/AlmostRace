@@ -28,6 +28,7 @@ public class VehicleHypeBehavior : MonoBehaviour
     public GameObject hypePopup;
     public Transform hypePopupSpawn;
     public float bigHypeAmount = 50f;
+    
 
     void Start()
     {

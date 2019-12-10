@@ -18,7 +18,7 @@ public class PlayerInfo
 
 public class DataManager : MonoBehaviour
 {
-    private static DataManager instance;
+    public static DataManager instance;
     public PlayerInfo[] playerInfo;
 
     private void Awake()

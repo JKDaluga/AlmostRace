@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class HypePopup : MonoBehaviour
 {
-
     public void DestroyText()
     {
         Destroy(gameObject);

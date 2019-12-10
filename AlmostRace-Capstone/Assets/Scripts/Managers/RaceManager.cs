@@ -17,7 +17,7 @@ public class RaceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        dm = GameObject.FindObjectOfType<DataManager>();
+        dm = DataManager.instance;
         if(dm == null)
         {
             Debug.LogError("Cannot find DataManager");
