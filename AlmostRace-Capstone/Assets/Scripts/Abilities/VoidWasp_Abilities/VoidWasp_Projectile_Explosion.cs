@@ -54,7 +54,12 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
                 Debug.Log("Blow me interactable baby");
 
             }
+            else
+            {
+                Debug.Log("Ifs are definately fucking happening");
+            }
         }
+       // DestroyExplosion(); 
     }
 
     public void DestroyExplosion()
