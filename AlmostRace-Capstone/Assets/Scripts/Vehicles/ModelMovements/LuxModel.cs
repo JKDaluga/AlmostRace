@@ -36,7 +36,7 @@ public class LuxModel : MonoBehaviour
             transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(new Vector3(0, 90, 0)), pitchSpeed * Time.deltaTime);
         }
 
-        print(child.transform.localEulerAngles.z);
+        //print(child.transform.localEulerAngles.z);
 
 
         if (Input.GetButtonDown(ins.pickupInput) && !car.GetIsBoosting())
