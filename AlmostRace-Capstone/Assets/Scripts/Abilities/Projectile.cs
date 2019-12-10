@@ -34,7 +34,7 @@ public abstract class Projectile : MonoBehaviour
      
         _speedActual = _rigidBody.velocity.magnitude;
 
-        Destroy(gameObject, 7.0f);
+        Destroy(gameObject, 15.0f);
     }
 
     protected void GiveSpeed()

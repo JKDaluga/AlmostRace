@@ -59,6 +59,11 @@ public class Lux_OffensiveAbility : HeatAbility
 
             rotaryTurret.LookAt(_aimPosActual);
 
+            //Quaternion trg = Quaternion.LookRotation(_aimPosActual.position - rotaryTurret.transform.position);
+
+            rotaryTurret.localEulerAngles = new Vector3(0.0f, rotaryTurret.localEulerAngles.y, 0.0f);
+            
+
             //Should preserve all rotations, while keeping Z rotation at 0
             //rotaryTurret.transform.localRotation = Quaternion.Euler(rotaryTurret.transform.rotation.eulerAngles.x, rotaryTurret.transform.rotation.eulerAngles.y, 0);
             yield return null;

@@ -52,7 +52,14 @@ public class HypeGateBehavior : MonoBehaviour
     public IEnumerator CheckCars()
     {
         _hotSpotBotScript.DetachFromSpline(hotSpotLocation);
-
+        if (_hypeManager != null)
+        {
+            _carsInGame = _hypeManager.vehicleList.Count;
+        }
+        else
+        {
+            Debug.LogError("Hype Manager not found!");
+        }
         float playerPercentage;
         while(true)
         {
