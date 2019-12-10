@@ -64,11 +64,6 @@ public class CarHeatManager : MonoBehaviour
                 Kill();
             }
 
-            if (healthCurrent < 0)
-            {
-                healthCurrent = 0;
-            }
-
             if (healthCurrent == healthMax && gameObject.activeSelf == false)
             {
                 gameObject.SetActive(true);
@@ -78,7 +73,7 @@ public class CarHeatManager : MonoBehaviour
             {
                 healthFillBar.fillAmount = healthCurrent/healthMax ;
 
-                if (healthFillBar.fillAmount <= 0.25)
+                if (healthFillBar.fillAmount <= 0.15)
                 {
                     if(!isFlashing)
                     {
@@ -88,17 +83,17 @@ public class CarHeatManager : MonoBehaviour
                   
                 }
 
-                else if (healthFillBar.fillAmount < 0.5)
+                else if (healthFillBar.fillAmount < 0.33)
                 {
                     engineImage.sprite = engineRed;                 
                 }
 
-                else if (healthFillBar.fillAmount < 0.75)
+                else if (healthFillBar.fillAmount < 0.50)
                 {
                     engineImage.sprite = engineOrange;                 
                 }
 
-                else if (healthFillBar.fillAmount < 0.90)
+                else if (healthFillBar.fillAmount < 0.75)
                 {
                     engineImage.sprite = engineYellow;             
                 }
