@@ -15,28 +15,48 @@ public class LuxModel : MonoBehaviour
 
     private float maxPitch;
 
-
+    int dir;
     private void Update()
     {
+
+        if (Input.GetButtonDown(ins.brake))
+        {
+            if (car.getTurning() > 0)
+            {
+                dir = 1;
+            }
+            else dir = -1;
+        }
         //A set of code to pitch the car sideways based on if it's drifting/turning
         if (car.getDrifting())
         {
             maxPitch = driftPitch;
+            
         }
         else
         {
             maxPitch = turnPitch;
         }
-        
-        transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(car.getTurning() * maxPitch, transform.eulerAngles.y, transform.eulerAngles.z)), pitchSpeed * Time.deltaTime);
-        
+        if (!car.getDrifting())
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(car.getTurning() * maxPitch, transform.eulerAngles.y, transform.eulerAngles.z)), pitchSpeed * Time.deltaTime);
+        } else
+        {
+            print(Mathf.Sign(car.getTurning()) + "==" + Mathf.Sign(dir));
+            if(Mathf.Sign(car.getTurning()) == Mathf.Sign(dir))
+            {
+                transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(car.getTurning() * maxPitch, transform.eulerAngles.y, transform.eulerAngles.z)), pitchSpeed * Time.deltaTime);
+            }
+            else
+            {
+                transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(new Vector3(0, 90, 0)), pitchSpeed * Time.deltaTime);
+            }
+        }
 
         if(car.getTurning() == 0)
         {
             transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(new Vector3(0, 90, 0)), pitchSpeed * Time.deltaTime);
         }
-
-        //print(child.transform.localEulerAngles.z);
 
 
         if (Input.GetButtonDown(ins.pickupInput) && !car.GetIsBoosting())

@@ -88,7 +88,8 @@ public class VoidWasp_ProjectileBehaviour : Projectile
             spawnedClone.transform.SetParent(collision.gameObject.transform);
 
             //TODO
-            spawnedClone.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, _explosionFuse, _explosionHypeToGain, _explosionRadius); 
+            spawnedClone.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, _explosionFuse, _explosionHypeToGain, _explosionRadius);
+            spawnedClone.GetComponent<VoidWasp_Projectile_Explosion>().LightFuse();
         }
         else
         { //Hits ground, or anything else
@@ -101,7 +102,7 @@ public class VoidWasp_ProjectileBehaviour : Projectile
             spawnedClone2.transform.SetParent(collision.gameObject.transform);
 
             //TODO
-            spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, _explosionFuse, _explosionHypeToGain, _explosionRadius);
+            spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, 0, _explosionHypeToGain, _explosionRadius);
         }
 
         //TODO Replace this with particle explosions or w/e u want
