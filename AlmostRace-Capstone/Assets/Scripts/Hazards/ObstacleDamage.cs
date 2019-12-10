@@ -18,8 +18,8 @@ public class ObstacleDamage : MonoBehaviour
         {
             if (other.gameObject.GetComponent<CarHeatManager>() != null)
             {
-                other.gameObject.GetComponent<CarHeatManager>().heatCurrent
-                = other.gameObject.GetComponent<CarHeatManager>().heatCurrent + damage;
+                other.gameObject.GetComponent<CarHeatManager>().healthCurrent
+                = other.gameObject.GetComponent<CarHeatManager>().healthCurrent + damage;
             }
         }
     }
