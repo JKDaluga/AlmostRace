@@ -378,6 +378,11 @@ public class SphereCarController : MonoBehaviour
         _isBoosting = ToF;
     }
 
+    public bool GetIsBoosting()
+    {
+        return _isBoosting;
+    }
+
     public void SetBoostInfo(float boostSpeedPercentage)
     {
         _boostSpeedPercentage = boostSpeedPercentage;
@@ -396,5 +401,15 @@ public class SphereCarController : MonoBehaviour
     public bool getDrifting()
     {
         return _drifting;
+    }
+
+    public float getTurning()
+    {
+        return Input.GetAxis(_vehicleInput.horizontal);
+    }
+
+    public float getForward()
+    {
+        return Input.GetAxis(_vehicleInput.verticalForward);
     }
 }
