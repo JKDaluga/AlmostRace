@@ -301,6 +301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxVoidHealth: 100
   surgeObject: {fileID: 6257215333583748408}
+  explosionRadius: 50
 --- !u!114 &5371590076462435752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -492,7 +493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canBeDamaged: 1
-  interactableHealth: 0
+  interactableHealth: 50
   interactingPlayer: {fileID: 6257215333583748408}
   psRef: {fileID: 594996663158592089}
 --- !u!1 &8211015291608376208
@@ -46764,22 +46765,22 @@ PrefabInstance:
     - target: {fileID: 2068207908328324620, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.019988002
+      value: 0.016992645
       objectReference: {fileID: 0}
     - target: {fileID: 2068207908328324620, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000001956228
+      value: -0.000000016757339
       objectReference: {fileID: 0}
     - target: {fileID: 2068207908328324620, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000011265176
+      value: 2.8479255e-10
       objectReference: {fileID: 0}
     - target: {fileID: 2068207908328324620, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.9998002
+      value: 0.99985564
       objectReference: {fileID: 0}
     - target: {fileID: 1907507983728633020, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
@@ -47032,6 +47033,14 @@ PrefabInstance:
     - target: {fileID: 19882774, guid: f6322404d6e3b914aa01ac044fb9415e, type: 3}
       propertyPath: lengthInSec
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 19853934, guid: f6322404d6e3b914aa01ac044fb9415e, type: 3}
+      propertyPath: InitialModule.startSizeY.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 19853934, guid: f6322404d6e3b914aa01ac044fb9415e, type: 3}
+      propertyPath: InitialModule.startSizeZ.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6322404d6e3b914aa01ac044fb9415e, type: 3}

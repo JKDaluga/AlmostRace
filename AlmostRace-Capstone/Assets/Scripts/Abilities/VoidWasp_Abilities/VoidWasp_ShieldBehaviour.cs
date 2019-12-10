@@ -27,7 +27,13 @@ public class VoidWasp_ShieldBehaviour : Interactable
 
     private float _collectedDamage;
 
+    private float _explosionRadius;
+
     private bool _released;
+
+    private GameObject _immunePlayer;
+
+    Collider[] objectsHit;
 
     // Start is called before the first frame update
     void Start()
@@ -41,16 +47,20 @@ public class VoidWasp_ShieldBehaviour : Interactable
         DestroyInteractable();
     }
 
-    public void GiveInfo(float maxHealth, GameObject shieldRef)
+    public void GiveInfo(float maxHealth, GameObject shieldRef, float explosionRadius, GameObject immunePlayer)
     {
         interactableHealth = maxHealth;
         _surgeObject = shieldRef;
+        _explosionRadius = explosionRadius;
+       // Debug.Log("1 explosion radius: " + _explosionRadius);
+        _immunePlayer = immunePlayer;
     }
 
     public override void DamageInteractable(float damageNumber)
     {
         interactableHealth -= damageNumber;
         _collectedDamage += damageNumber;
+
         if (interactableHealth < 0)
         {
             DestroyInteractable();
@@ -61,20 +71,10 @@ public class VoidWasp_ShieldBehaviour : Interactable
 
     public override void DestroyInteractable()
     {
-        if (_released)
-        {
-            _meshRender.enabled = false;
-            _collider.enabled = false;
-            psRef.SetActive(false);
-            _released = false;
-            psRef.GetComponent<Animator>().SetTrigger("endVoidSurge");
-            print("release" + _released);
-        }
-        if (!_released)
-        {
-            SurgeRelease();
-            print("release" + _released);
-        }
+
+        _meshRender.enabled = false;
+        _collider.enabled = false;
+        psRef.GetComponent<Animator>().SetBool("surgeEnd", true);
 
         // Call function that repels the damage again
         // Seperate objects activates as trigger? 
@@ -83,26 +83,29 @@ public class VoidWasp_ShieldBehaviour : Interactable
         // collected damage divided over total amount projectiles
     }
 
+
+
     private void SurgeRelease()
     {
         psRef.GetComponent<Animator>().SetTrigger("startVoidSurge");
-        _released = true;
+        print("release" + _released);
+
     }
 
     public override void ResetInteractable()
     {
         interactableHealth = _maxHealth;
         _collectedDamage = 0;
-        _released = false;
     }
 
     public override void TriggerInteractable()
     {
         ResetInteractable(); // makes sure each panel has full health.
-        //_meshRender.enabled = true;
-
         _collider.enabled = true;
+        Debug.Log("triggered");
         psRef.SetActive(true);
+        psRef.GetComponent<Animator>().SetTrigger("startVoidSurge");
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -112,7 +115,6 @@ public class VoidWasp_ShieldBehaviour : Interactable
 
             Destroy(other.gameObject);
 
-          //  print("Getting hit by turret");
         }
 
     }
@@ -122,5 +124,32 @@ public class VoidWasp_ShieldBehaviour : Interactable
     {
         //required for the VoidWasp Projectiles to make sure they aren't damaging their own player's shields.
         return _surgeObject;
+    }
+
+    public void Explode()
+    {
+        objectsHit = Physics.OverlapSphere(_immunePlayer.transform.localPosition, _explosionRadius);
+        //Debug.Log("2 explosion radius: " + _explosionRadius);
+        foreach (Collider obj in objectsHit)
+        {
+            Debug.Log("Object hit: " + obj.gameObject.name);
+          //  if (obj.gameObject != _immunePlayer)
+            //{
+                if (obj.gameObject.GetComponent<CarHeatManager>() != null)
+                {//if a car was hit
+                    obj.gameObject.GetComponent<CarHeatManager>().AddHeat(_collectedDamage/4);
+                    Debug.Log("1 damage done: " + _collectedDamage);
+                }
+                else if (obj.gameObject.GetComponent<Interactable>() != null)
+                {
+                    obj.gameObject.GetComponent<Interactable>().DamageInteractable(_collectedDamage/4);
+                    Debug.Log("2 damage done: " + _collectedDamage);
+                }
+
+               // Debug.Log("3 damage done: " + _collectedDamage);
+               // Debug.Log(obj.gameObject.name);
+            //}
+
+        }
     }
 }

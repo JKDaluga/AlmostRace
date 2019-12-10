@@ -20,9 +20,15 @@ public class VoidWasp_DefensiveAbility : CooldownAbility
     [Tooltip("Reference to the void surge game object")]
     public GameObject surgeObject;
 
+    [Tooltip("Set explosion radius")]
+    public float explosionRadius;
+
+    private GameObject _immunePlayer;
+
     void Start()
     {
-        surgeObject.GetComponent<VoidWasp_ShieldBehaviour>().GiveInfo(maxVoidHealth, gameObject);
+        _immunePlayer = gameObject;
+        surgeObject.GetComponent<VoidWasp_ShieldBehaviour>().GiveInfo(maxVoidHealth, gameObject, explosionRadius, _immunePlayer);
     }
 
     public override void ActivateAbility()

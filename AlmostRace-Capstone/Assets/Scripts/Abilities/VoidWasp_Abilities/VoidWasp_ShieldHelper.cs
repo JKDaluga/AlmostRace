@@ -11,4 +11,10 @@ public class VoidWasp_ShieldHelper : MonoBehaviour
     {
         parentRef.GetComponent<VoidWasp_ShieldBehaviour>().DestroyInteractable();
     }
+
+    void triggerExplosion()
+    {
+        parentRef.GetComponent<VoidWasp_ShieldBehaviour>().Explode();
+    }
+   
 }
