@@ -26,6 +26,7 @@ public class HypeGateBehavior : MonoBehaviour
     public GameObject gateToOpen;//might be changed per hype gate for specific behavior
     public GameObject gateToClose;
     public Transform hotSpotLocation;
+    public Transform[] spawnPoints;
     private float _hypeLimitActual;
     public List<TextMeshProUGUI> displayTexts;
     private int _carsInGame;
@@ -51,7 +52,7 @@ public class HypeGateBehavior : MonoBehaviour
 
     public IEnumerator CheckCars()
     {
-        _hotSpotBotScript.DetachFromSpline(hotSpotLocation);
+        _hotSpotBotScript.DetachFromSpline(this);
         if (_hypeManager != null)
         {
             _carsInGame = _hypeManager.vehicleList.Count;
