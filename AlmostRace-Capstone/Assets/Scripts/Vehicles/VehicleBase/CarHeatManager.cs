@@ -29,23 +29,17 @@ public class CarHeatManager : MonoBehaviour
     [Space(30)]
     public Image teleportCDImage;
     public GameObject teleDark;
-    public Image heatFillBar;
-    public Image heat25;
-    public Image heat50;
-    public Image heat75;
-    public Image heat90;
+    public Image healthFillBar;
+    public Image engine;
+    public Sprite engineGreen;
+    public Sprite engineYellow;
+    public Sprite engineRed;
 
 
     private void Start()
     {
         _vehicleInput = GetComponent<VehicleInput>();
         InvokeRepeating("healthCooldown", 0, cooldownFrequency);
-
-        heat25.enabled = false;
-        heat50.enabled = false; 
-        heat75.enabled = false; 
-        heat90.enabled = false; 
-
     }
     // Update is called once per frame
     void Update()
@@ -77,49 +71,33 @@ public class CarHeatManager : MonoBehaviour
                 gameObject.SetActive(true);
             }
 
-            if (heatFillBar != null)
+            if (healthFillBar != null)
             {
-                //heatImage.fillAmount = ((heatCurrent * 100) / 120) / 100;
-                heatFillBar.fillAmount = ((heatCurrent * 100) / 120) / 100;
+                healthFillBar.fillAmount = ((heatCurrent * 100) / 120) / 100;
 
-                if (heatFillBar.fillAmount >= 0)
+                if (healthFillBar.fillAmount >= 0)
                 {
-                    heat25.enabled = false;
-                    heat50.enabled = false;
-                    heat75.enabled = false;
-                    heat90.enabled = false;
+                    InvokeRepeating("FlashRedEngine", 0, 4);
                 }
 
-                if (heatFillBar.fillAmount > 0.25)
+                if (healthFillBar.fillAmount > 0.25)
                 {
-                    heat25.enabled = true;
-                    heat50.enabled = false;
-                    heat75.enabled = false;
-                    heat90.enabled = false;
+                    engine.sprite = engineRed;
                 }
 
-                if (heatFillBar.fillAmount > 0.5)
+                if (healthFillBar.fillAmount > 0.5)
                 {
-                    heat25.enabled = true;
-                    heat50.enabled = true;
-                    heat75.enabled = false;
-                    heat90.enabled = false;
+                    engine.sprite = engineRed;
                 }
 
-                if (heatFillBar.fillAmount > 0.75)
+                if (healthFillBar.fillAmount > 0.75)
                 {
-                    heat25.enabled = true;
-                    heat50.enabled = true;
-                    heat75.enabled = true;
-                    heat90.enabled = false;
+                    engine.sprite = engineYellow;
                 }
 
-                if (heatFillBar.fillAmount > 0.90)
+                if (healthFillBar.fillAmount > 0.90)
                 {
-                    heat25.enabled = true;
-                    heat50.enabled = true;
-                    heat75.enabled = true;
-                    heat90.enabled = true;
+                    engine.sprite = engineGreen;
                 }
                 else
                 {
