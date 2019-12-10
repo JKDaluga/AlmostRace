@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 public class Ready : MonoBehaviour
 {
 
+    public string sceneName;
+
     // Update is called once per frame
     void Update()
     {
         if (Input.GetButtonDown("Submit")){
-            SceneManager.LoadSceneAsync("Spline Map Final");
+            SceneManager.LoadSceneAsync(sceneName);
         }
     }
 }
