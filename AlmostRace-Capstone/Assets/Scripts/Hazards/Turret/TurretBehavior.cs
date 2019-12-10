@@ -25,9 +25,10 @@ public class TurretBehavior : Interactable
     public bool spraysBullets = true;
     public int extraBulletsToSpray = 5;
 
-   
+
     [Header("Projectile Variables............................................................")]
     [Space(30)]
+    public bool shootsBoulders = false;
     public GameObject turretProjectile;
     public float turretProjectileDamage;
     public float turretProjectileSpeed;
@@ -171,8 +172,16 @@ public class TurretBehavior : Interactable
     {
         //_turretSound.PlayOneShot(turretFiringSound);//play firing sound
         GameObject spawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
-        spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
-        if(spraysBullets)
+        if(!shootsBoulders)
+        {
+            spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
+
+        }
+        else
+        {
+            spawnedProjectile.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * turretProjectileSpeed);
+        }
+        if (spraysBullets && !shootsBoulders)
         {
 
             for(int i = 0; i < extraBulletsToSpray; i++)

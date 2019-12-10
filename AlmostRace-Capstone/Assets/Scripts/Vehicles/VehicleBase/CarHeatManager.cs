@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+//using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,6 +9,7 @@ using UnityEngine.UI;
 */
 public class CarHeatManager : MonoBehaviour
 {
+   // StackTrace stackTrace;
     public GameObject respawnPlatform;
     public GameObject modelHolder;
     public GameObject sphereCollider;
@@ -135,6 +137,10 @@ public class CarHeatManager : MonoBehaviour
 
     private void Kill()
     {
+
+       // stackTrace = new StackTrace();
+//print("KILL !! " + stackTrace.GetFrame(1).GetMethod().Name);
+
         //AudioManager.instance.Play("Death");
         isDead = true;
         Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);
@@ -209,6 +215,9 @@ public class CarHeatManager : MonoBehaviour
 
     public void AddHeat(float heat)
     {
+        //stackTrace = new StackTrace();
+       // print("ADDHEAT !! " + stackTrace.GetFrame(1).GetMethod().Name);
+
         healthCurrent -= heat;
     }
 

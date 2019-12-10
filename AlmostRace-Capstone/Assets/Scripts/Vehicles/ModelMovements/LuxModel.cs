@@ -42,7 +42,7 @@ public class LuxModel : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(car.getTurning() * maxPitch, transform.eulerAngles.y, transform.eulerAngles.z)), pitchSpeed * Time.deltaTime);
         } else
         {
-            print(Mathf.Sign(car.getTurning()) + "==" + Mathf.Sign(dir));
+            //print(Mathf.Sign(car.getTurning()) + "==" + Mathf.Sign(dir));
             if(Mathf.Sign(car.getTurning()) == Mathf.Sign(dir))
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(car.getTurning() * maxPitch, transform.eulerAngles.y, transform.eulerAngles.z)), pitchSpeed * Time.deltaTime);

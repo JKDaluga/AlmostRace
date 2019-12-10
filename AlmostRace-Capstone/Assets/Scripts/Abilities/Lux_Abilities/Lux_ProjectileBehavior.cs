@@ -25,6 +25,8 @@ public class Lux_ProjectileBehavior : Projectile
             {//Checks if the object isn't the immunePlayer and if they are a car.
                 other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
                 _immunePlayerScript.AddHype(_projectileHype, "Damage:");
+                //Debug.Log("Projectile destoryed by:" + other.gameObject.name);
+
                 StartCoroutine(ExplosionEffect());
             }
             else if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<Interactable>() != null)
@@ -38,10 +40,13 @@ public class Lux_ProjectileBehavior : Projectile
                 }
                 other.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
                 other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+               // Debug.Log("Projectile destoryed by:" + other.gameObject.name);
+
                 StartCoroutine(ExplosionEffect());
             }
             else if (other.gameObject != _immunePlayer)
             {
+                //Debug.Log("Projectile destoryed by:" + other.gameObject.name);
                 StartCoroutine(ExplosionEffect());
             }
         }
