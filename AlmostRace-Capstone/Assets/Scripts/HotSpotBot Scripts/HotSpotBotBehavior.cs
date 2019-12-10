@@ -21,11 +21,12 @@ public class HotSpotBotBehavior : MonoBehaviour
     public Collider botCollider;
     public GameObject hypeColliderObject;
     public static HotSpotBotBehavior instance;
-    private List<Node> branchNodes = new List<Node>();
-    private List<Branch> branchesAtStart = new List<Branch>();
+    private List<Node> _branchNodes = new List<Node>();
+    private List<Branch> _branchesAtStart = new List<Branch>();
     private SplinePlus _splinePlusScript;
     private HypeManager _hypeManagerScript;
-    private Transform currentArenaDesignation;
+    private HypeGateBehavior _currentArena;
+    private Transform _currentArenaDesignation;
     private Transform _closestVehicle;
     private bool _beingHeld;
     private bool _inArena;
@@ -50,12 +51,12 @@ public class HotSpotBotBehavior : MonoBehaviour
 
         foreach (KeyValuePair<int, Branch> entry in _splinePlusScript.SPData.DictBranches)
         {
-            branchesAtStart.Add(entry.Value);
+            _branchesAtStart.Add(entry.Value);
             for(int i = 0; i < entry.Value.Nodes.Count; i++)
             {
-                if(!branchNodes.Contains(entry.Value.Nodes[i]))
+                if(!_branchNodes.Contains(entry.Value.Nodes[i]))
                 {
-                    branchNodes.Add(entry.Value.Nodes[i]);
+                    _branchNodes.Add(entry.Value.Nodes[i]);
                 }
             }
         }
@@ -118,8 +119,8 @@ public class HotSpotBotBehavior : MonoBehaviour
 
     public IEnumerator SetPosition(Vector3 vehiclesPosition)
     {
-        Node positionToPlace = branchNodes[0];
-        float distance = Vector3.Distance(branchNodes[0].Point.position, vehiclesPosition);
+        Node positionToPlace = _branchNodes[0];
+        float distance = Vector3.Distance(_branchNodes[0].Point.position, vehiclesPosition);
         
         if(_inArena)
         {
@@ -130,12 +131,12 @@ public class HotSpotBotBehavior : MonoBehaviour
             hypeColliderObject.SetActive(false);
             botCollider.enabled = false;
 
-            for (int i = 0; i < branchNodes.Count; i++)
+            for (int i = 0; i < _branchNodes.Count; i++)
             {
-                if(distance > Vector3.Distance(branchNodes[i].Point.position, vehiclesPosition))
+                if(distance > Vector3.Distance(_branchNodes[i].Point.position, vehiclesPosition))
                 {
-                    distance = Vector3.Distance(branchNodes[i].Point.position, vehiclesPosition);
-                    positionToPlace = branchNodes[i];
+                    distance = Vector3.Distance(_branchNodes[i].Point.position, vehiclesPosition);
+                    positionToPlace = _branchNodes[i];
                 }
             }
             Node pathPoint1 = SplinePlusAPI.CreateNode(_splinePlusScript.SPData, vehiclesPosition);
@@ -148,10 +149,21 @@ public class HotSpotBotBehavior : MonoBehaviour
         }
     }
 
-    public void DetachFromSpline(Transform givenLocationDesignation)
+    public HypeGateBehavior GetCurrentArena()
+    {
+        return _currentArena;
+    }
+
+    public Transform GetCurrentArenaDesignation()
+    {
+        return _currentArenaDesignation;
+    }
+
+    public void DetachFromSpline(HypeGateBehavior currentArenaIn)
     {
         _inArena = true;
-        currentArenaDesignation = givenLocationDesignation;
+        _currentArena = currentArenaIn;
+        _currentArenaDesignation = _currentArena.hotSpotLocation;
         _splinePlusScript.SPData.Followers[0].FollowerGO = null;
         if(_beingHeld)
         {
@@ -177,8 +189,8 @@ public class HotSpotBotBehavior : MonoBehaviour
         botCollider.enabled = false;
         while(dist >= 0.1f)
         {
-            dist = Vector3.Distance(currentArenaDesignation.position, transform.position);
-            transform.position = Vector3.Lerp(transform.position, currentArenaDesignation.position, Time.deltaTime * speed);
+            dist = Vector3.Distance(_currentArenaDesignation.position, transform.position);
+            transform.position = Vector3.Lerp(transform.position, _currentArenaDesignation.position, Time.deltaTime * speed);
             yield return null;
         }
         if (!_allVehiclesIn)
@@ -197,6 +209,7 @@ public class HotSpotBotBehavior : MonoBehaviour
     public void ReAttachToSpline()
     {
         _inArena = false;
+        _currentArena = null;
         _splinePlusScript.SPData.Followers[0].FollowerGO = gameObject;
         if(_beingHeld)
         {
@@ -210,7 +223,7 @@ public class HotSpotBotBehavior : MonoBehaviour
         }
         else
         {
-            StartCoroutine(SetPosition(currentArenaDesignation.position));
+            StartCoroutine(SetPosition(_currentArenaDesignation.position));
         }
     }
 
@@ -221,16 +234,16 @@ public class HotSpotBotBehavior : MonoBehaviour
         float lastDistance = _hugeDistance;
         int vectorsBackAdjustment;
         
-        for (int i = 0; i < branchesAtStart.Count; i++)
+        for (int i = 0; i < _branchesAtStart.Count; i++)
         {
-            for (int j = 0; j < branchesAtStart[i].Vertices.Count; j++)
+            for (int j = 0; j < _branchesAtStart[i].Vertices.Count; j++)
             {
-                float distance = Vector3.Distance(branchesAtStart[i].Vertices[j], givenPosition);
+                float distance = Vector3.Distance(_branchesAtStart[i].Vertices[j], givenPosition);
                 if (distance <= lastDistance)
                 {
                     lastDistance = distance;
-                    vectorsBackAdjustment = Mathf.Clamp(j + vectorsBack, 1, branchesAtStart[i].Vertices.Count - 1);
-                    closestWorldPoint = branchesAtStart[i].Vertices[vectorsBackAdjustment];
+                    vectorsBackAdjustment = Mathf.Clamp(j + vectorsBack, 1, _branchesAtStart[i].Vertices.Count - 1);
+                    closestWorldPoint = _branchesAtStart[i].Vertices[vectorsBackAdjustment];
                 }
             }
         }
