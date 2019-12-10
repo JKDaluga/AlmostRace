@@ -23,8 +23,8 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
         _explosionFuse = explosionFuse;
         _explosionHypeToGain = explosionHypeToGain;
         _explosionRadius = explosionRadius;
-        Debug.Log("Blow delay: " + _explosionFuse);
-      
+       // Debug.Log("Explosion Fuse at Explosion is: " + _explosionFuse);
+
     }
 
 
@@ -36,22 +36,20 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
     public void BlowFuse()
     {
        objectsHit = Physics.OverlapSphere(gameObject.transform.localPosition, _explosionRadius);
-        Debug.Log("Blow me now baby");
 
         foreach (Collider obj in objectsHit)
         {
-            Debug.Log("Blow me FOR EACH, babyyyyyyyyyy");
+            Debug.Log("Object to be hit: " + obj.gameObject.name);
             if (obj.gameObject.GetComponent<CarHeatManager>() != null)
             {//if a car was hit
                 obj.gameObject.GetComponent<CarHeatManager>().AddHeat(_explosionDamage);
-                Debug.Log("Blow me car baby");
+                Debug.Log("Car was hit with explosion");
 
             }
-
-            if (obj.gameObject.GetComponent<Interactable>() != null)
+            else if (obj.gameObject.GetComponent<Interactable>() != null)
             {
                 obj.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
-                Debug.Log("Blow me interactable baby");
+                Debug.Log("Interactable was hit with explosion");
 
             }
             else
