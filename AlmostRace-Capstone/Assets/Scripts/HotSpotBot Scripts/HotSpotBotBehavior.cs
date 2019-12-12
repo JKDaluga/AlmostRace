@@ -35,6 +35,7 @@ public class HotSpotBotBehavior : MonoBehaviour
     private void Awake()
     {
         instance = this;
+
         //AudioManager.instance.Play("Hotspot Engine");
     }
 
@@ -75,7 +76,6 @@ public class HotSpotBotBehavior : MonoBehaviour
 
     public bool GetBeingHeld()
     {
-        AudioManager.instance.Play("Hotspot Grabbed");
         return _beingHeld;
     }
 
