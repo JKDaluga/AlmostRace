@@ -128,9 +128,7 @@ public void SlideRod()
             {
                 TriggerInteractable();
                 DestroyInteractable();
-                AudioManager.instance.Play("Cooling Rod Down");
-                AudioManager.instance.Play("Cooling Rod Fire");
-                if (interactingPlayer != null)
+            if (interactingPlayer != null)
                 {
                     interactingPlayer = null; // Resets interactingPlayer, just in case. Might have to reset for fire too, not sure yet.   
                 }

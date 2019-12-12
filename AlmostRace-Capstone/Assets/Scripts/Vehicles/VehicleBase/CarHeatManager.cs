@@ -160,7 +160,6 @@ public class CarHeatManager : MonoBehaviour
         CancelInvoke("FlashRedEngine");
         engineImage.color = Color.white;
         engineIsFlash = false;
-        AudioManager.instance.Play("Respawn");
         healthCurrent = healthMax;
         isDead = false;
         deathFade.GetComponent<Animator>().Play("DeathFadeOut");
@@ -169,10 +168,12 @@ public class CarHeatManager : MonoBehaviour
         sphereCollider.GetComponent<Rigidbody>().useGravity = true;
         sphereCollider.GetComponent<Rigidbody>().isKinematic = false;
         HeatAbility bAbility = GetComponent<HeatAbility>();
+        AudioManager.instance.Play("Respawn complete");
         if (bAbility != null)
         {
             bAbility.DeactivateAbility();
         }
+
     }
 
     public void Teleport()
