@@ -126,7 +126,7 @@ public class HypeGateBehavior : MonoBehaviour
                 else
                 {
                     gateToOpen.SetActive(false);
-                    //AudioManager.instance.Play("");
+                    AudioManager.instance.Play("ArenaCleared");
                     FinishDisplays();
                     _aggroSphere.SetActive(false);
                     _hotSpotBotScript.ReAttachToSpline();

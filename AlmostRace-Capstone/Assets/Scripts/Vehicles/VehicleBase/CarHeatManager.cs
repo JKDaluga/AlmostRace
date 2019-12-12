@@ -138,10 +138,11 @@ public class CarHeatManager : MonoBehaviour
     private void Kill()
     {
 
-       // stackTrace = new StackTrace();
-//print("KILL !! " + stackTrace.GetFrame(1).GetMethod().Name);
+        // stackTrace = new StackTrace();
+        //print("KILL !! " + stackTrace.GetFrame(1).GetMethod().Name);
 
         //AudioManager.instance.Play("Death");
+        AudioManager.instance.Play("Death");
         isDead = true;
         Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);
         deathFade.GetComponent<Animator>().Play("DeathFadeIn");

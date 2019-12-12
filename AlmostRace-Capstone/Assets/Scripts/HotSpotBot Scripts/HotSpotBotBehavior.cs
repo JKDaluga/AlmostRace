@@ -35,6 +35,7 @@ public class HotSpotBotBehavior : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        //AudioManager.instance.Play("Hotspot Engine");
     }
 
     // Start is called before the first frame update
@@ -68,11 +69,13 @@ public class HotSpotBotBehavior : MonoBehaviour
         if (!_inArena)
         {
             SetBotSpeed();
+
         }
     }
 
     public bool GetBeingHeld()
     {
+        AudioManager.instance.Play("Hotspot Grabbed");
         return _beingHeld;
     }
 

@@ -32,12 +32,14 @@ public class Countdown : MonoBehaviour
             countText.text = count.ToString();
             yield return new WaitForSeconds(1);
             count--;
+            AudioManager.instance.Play("Countdown");
         }
 
         turnOff(true);
         startStatus = false;
 
         gameObject.SetActive(false);
+        AudioManager.instance.Play("Countdown End");
     }
 
     private void turnOff(bool stat)
