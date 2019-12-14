@@ -24,9 +24,18 @@ public class AimCollider : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(colliding.Count != 0)
+        if (colliding.Count != 0)
         {
             aim.target = colliding[count];
+        }
+        else aim.target = null;
+        
+        foreach(GameObject i in colliding)
+        {
+            if(i == null)
+            {
+                colliding.TrimExcess();
+            }
         }
 
 
