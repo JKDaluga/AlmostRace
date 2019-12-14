@@ -110,7 +110,6 @@ public class ModelBehavior : MonoBehaviour
         float time = 0;
         while(time < voidSpinDuration)
         {
-            print(time);
             transform.Rotate(new Vector3(voidWaspSpin, 0.0f, 0.0f) * Time.deltaTime);
             time += Time.deltaTime;
             yield return null;
