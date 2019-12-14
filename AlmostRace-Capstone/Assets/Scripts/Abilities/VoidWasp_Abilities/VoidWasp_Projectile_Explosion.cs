@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class VoidWasp_Projectile_Explosion : MonoBehaviour
 {
@@ -52,13 +53,25 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
                 {//if a car was hit
                     obj.gameObject.GetComponent<CarHeatManager>().AddHeat(_explosionDamage);
 
+
+                    obj.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = .25f;
+                    obj.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = .25f;
+
+                    obj.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
                     //Debug.Log("Car was hit with explosion");
 
                 }
                 else if (obj.gameObject.GetComponent<Interactable>() != null)
                 {
                     obj.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
-                  
+                    if (obj.gameObject.GetComponent<Interactable>().interactableHealth <= 0)
+                    {
+                        if (_immunePlayer.GetComponent<AimAssistant>().target == obj.gameObject)
+                        {
+                            _immunePlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(obj.gameObject);
+                        }
+                    }
+
                     // Debug.Log("Interactable was hit with explosion");
 
                 }
