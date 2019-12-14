@@ -90,7 +90,6 @@ public void SlideRod()
 
     public override void TriggerInteractable()
     {
-        //coolantExplosion.Play();
         if(interactingPlayer != null)
         {
             interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(coolantExplosionHype, "Vandal");
@@ -107,6 +106,7 @@ public void SlideRod()
         canBeDamaged = true;//make rod damagable
         slideDirection = 1;
         InvokeRepeating("SlideRod", 0, slideRate); //make the rod go up
+        AudioManager.instance.Play("Cooling Rod Up");
         interactableHealth = _originalHealth;
     }
 
@@ -128,7 +128,7 @@ public void SlideRod()
             {
                 TriggerInteractable();
                 DestroyInteractable();
-                if (interactingPlayer != null)
+            if (interactingPlayer != null)
                 {
                     interactingPlayer = null; // Resets interactingPlayer, just in case. Might have to reset for fire too, not sure yet.   
                 }
