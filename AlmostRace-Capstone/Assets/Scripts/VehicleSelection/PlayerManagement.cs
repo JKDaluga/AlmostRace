@@ -72,8 +72,20 @@ public class PlayerManagement : MonoBehaviour
             data.playerInfo[i].carID = players2[i].GetComponent<VirtualMouse>().currentVehicle;
             Debug.Log(data.playerInfo[i].isActive);
         }
+        updatePlayerNums();
 
-        
     }
     
+    private void updatePlayerNums()
+    {
+        int i = 0;
+        foreach(PlayerInfo player in data.playerInfo)
+        {
+            if(player.isActive)
+            {
+                player.playerID = i;
+                i++;
+            }
+        }
+    }
 }

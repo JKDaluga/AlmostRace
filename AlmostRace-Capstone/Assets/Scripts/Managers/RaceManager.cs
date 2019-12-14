@@ -54,23 +54,23 @@ public class RaceManager : MonoBehaviour
             Camera c = sphereCar.tiltShift.gameObject.GetComponent<Camera>();
             if (playerCount == 2)
             {
-                setUp_2(playerNum, c);
+                setUp_2(player.playerID, c);
             }
             else if (playerCount > 2)
             {
-                setUp_3_4(playerNum, c);
+                setUp_3_4(player.playerID, c);
             }
         }
 
-        setUpCarUI(sphereCar, v, playerCount);
+        setUpCarUI(sphereCar, player.playerID, playerCount);
     }
 
-    void setUpCarUI(SphereCarController car, VehicleInput vehicleInput, int playerCount)
+    void setUpCarUI(SphereCarController car, int playerID, int playerCount)
     {
         // Setup car dependent on # of players and car #
         if(playerCount == 2)
         {
-            if(vehicleInput.getPlayerNum() == 2)
+            if(playerID == 2)
             {
                 car.UIPanel.anchorMin = new Vector2(0, 0);
                 car.UIPanel.anchorMax = new Vector2(0, 0);
@@ -84,19 +84,19 @@ public class RaceManager : MonoBehaviour
         }
         else if(playerCount >= 3)
         {
-            if (vehicleInput.getPlayerNum() == 2)
+            if (playerID == 2)
             {
                 car.UIPanel.anchorMin = new Vector2(1, 1);
                 car.UIPanel.anchorMax = new Vector2(1, 1);
                 car.UIPanel.pivot = new Vector2(1, 1);
             }
-            else if (vehicleInput.getPlayerNum() == 3)
+            else if (playerID == 3)
             {
                 car.UIPanel.anchorMin = new Vector2(0, 0);
                 car.UIPanel.anchorMax = new Vector2(0, 0);
                 car.UIPanel.pivot = new Vector2(0, 0);
             }
-            else if (vehicleInput.getPlayerNum() == 4)
+            else if (playerID == 4)
             {
                 car.UIPanel.anchorMin = new Vector2(1, 0);
                 car.UIPanel.anchorMax = new Vector2(1, 0);
