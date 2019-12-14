@@ -137,18 +137,15 @@ public class VoidWasp_OffensiveAbility : HeatAbility
                // Debug.Log("Explosion Fuse at OffensiveAbility is: " + explosionFuse);
 
                 projectile.transform.Rotate(Random.Range(-shotSpread/5, shotSpread/5), Random.Range(-shotSpread, shotSpread), 0);
-
                 //projectile.transform.rotation = Quaternion.RotateTowards(projectile.transform.rotation, _projectiles[i], shotSpread);
+                AudioManager.instance.Play("VoidWasp Shot");
 
             }
-           
+
             _canFire = false;
 
+
             StartCoroutine(AbilityRateOfFire());
-            //cameraAnimator.SetTrigger("shotFired");
-            // Probably use this for boost but changing fov while shooting does not really work.
-            /*ChangeFov(cameraChangeDuration, cameraFovTarget);
-            Invoke("ResetFov", cameraChangeDuration);*/
         }
     }
 

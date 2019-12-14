@@ -54,7 +54,7 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
 
         gameObject.layer = 21;
         carCollider.layer = 21;
-
+        AudioManager.instance.Play("VoidWasp Boost");
         AddHeat();
     }
 
@@ -65,6 +65,7 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
 
         SetMaterials(voidWaspParts, _originalMat);
 
+        AudioManager.instance.Play("VoidWasp Boost Down");
 
         gameObject.layer = 8;
         carCollider.layer = 9;
