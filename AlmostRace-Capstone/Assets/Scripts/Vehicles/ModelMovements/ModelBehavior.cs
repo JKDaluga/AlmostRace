@@ -9,13 +9,15 @@ public class ModelBehavior : MonoBehaviour
 
     public int carType;
 
+    public GameObject leftDriftParticles, rightDriftParticles;
+
     public float turnPitch, driftPitch;
 
     public float pitchSpeed;
 
     private float maxPitch;
 
-    public float voidWaspSpin;
+    public float voidWaspSpin, voidSpinDuration;
 
     bool voidWaspBoost;
 
@@ -40,6 +42,10 @@ public class ModelBehavior : MonoBehaviour
         else
         {
             maxPitch = turnPitch;
+            if(leftDriftParticles != null)
+            leftDriftParticles.SetActive(false);
+            if(rightDriftParticles != null)
+            rightDriftParticles.SetActive(false);
         }
         if (!voidWaspBoost)
         {
@@ -57,6 +63,19 @@ public class ModelBehavior : MonoBehaviour
                 else
                 {
                     transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(new Vector3(0, 90, 0)), pitchSpeed * Time.deltaTime);
+                }
+
+                if(Mathf.Abs(transform.eulerAngles.x) > (maxPitch * .9f))
+                {
+                    if(dir > 0)
+                    {
+                        if(rightDriftParticles != null)
+                            rightDriftParticles.SetActive(true);
+                    } else
+                    {
+                        if (leftDriftParticles != null)
+                            leftDriftParticles.SetActive(true);
+                    }
                 }
             }
 
@@ -89,7 +108,7 @@ public class ModelBehavior : MonoBehaviour
     {
         voidWaspBoost = true;
         float time = 0;
-        while(time < car.gameObject.GetComponent<VehicleAbilityBehavior>().boostAbilityDuration)
+        while(time < voidSpinDuration)
         {
             print(time);
             transform.Rotate(new Vector3(voidWaspSpin, 0.0f, 0.0f) * Time.deltaTime);
