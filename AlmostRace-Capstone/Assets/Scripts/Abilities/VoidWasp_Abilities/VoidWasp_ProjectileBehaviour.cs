@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class VoidWasp_ProjectileBehaviour : Projectile
 {
@@ -77,6 +78,8 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         {//Checks if the object isn't the immunePlayer and if they are a car.
             Debug.Log("1 Projectile Hit: " + collision.gameObject.name);
             collision.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
+
+            collision.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
             _immunePlayerScript.AddHype(_projectileHype, "Damage:");
         }
         else if (collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<Interactable>() != null)

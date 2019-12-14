@@ -267,9 +267,9 @@ public class SphereCarController : MonoBehaviour
 
         //Auto Aim assistant code
 
-        if(GetComponent<AimAssistant>().nearest != null)
+        if(GetComponent<AimAssistant>().target != null)
         {
-            aimPos.transform.position = GetComponent<AimAssistant>().nearest.transform.position;
+            aimPos.transform.position = GetComponent<AimAssistant>().target.transform.position;
         } else
         {
             aimPos.transform.localPosition = aimObject.transform.localPosition;
