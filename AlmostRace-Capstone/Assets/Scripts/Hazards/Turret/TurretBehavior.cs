@@ -170,7 +170,7 @@ public class TurretBehavior : Interactable
 
     public void FireTurret()
     {
-        //_turretSound.PlayOneShot(turretFiringSound);//play firing sound
+        AudioManager.instance.Play("Turret Shot");//play firing sound
         GameObject spawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
         if(!shootsBoulders)
         {
