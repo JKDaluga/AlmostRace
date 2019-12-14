@@ -74,39 +74,47 @@ public class RaceManager : MonoBehaviour
             if(playerID == 2)
             {
                 car.UIPanel.anchorMin = new Vector2(0, 0);
-                car.UIPanel.anchorMax = new Vector2(0, 0);
-                car.UIPanel.pivot = new Vector3(0, 0);
+                car.UIPanel.anchorMax = new Vector2(1, .5f);
             }
-            car.UIPanel.localScale = new Vector3(1,.5f,1);
+            else
+            {
+                car.UIPanel.anchorMin = new Vector2(0, .5f);
+                car.UIPanel.anchorMax = new Vector2(1, 1);
+            }
             for (int i = 0; i < car.secondaryUIPanel.childCount; i++)
             {
-                car.secondaryUIPanel.GetChild(i).localScale = new Vector3(twoPlayerUIScalingFactor* car.secondaryUIPanel.GetChild(i).localScale.x, twoPlayerUIScalingFactor*(car.secondaryUIPanel.GetChild(i).localScale.y * 2), twoPlayerUIScalingFactor*car.secondaryUIPanel.GetChild(i).localScale.z);
+                car.secondaryUIPanel.GetChild(i).localScale = car.secondaryUIPanel.GetChild(i).localScale * twoPlayerUIScalingFactor;
             }
         }
         else if(playerCount >= 3)
         {
-            if (playerID == 2)
+            if (playerID == 1)
             {
-                car.UIPanel.anchorMin = new Vector2(1, 1);
+                car.UIPanel.anchorMin = new Vector2(0, .5f);
+                car.UIPanel.anchorMax = new Vector2(.5f, 1);
+                car.UIPanel.pivot = new Vector2(1, 1);
+            }
+            else if (playerID == 2)
+            {
+                car.UIPanel.anchorMin = new Vector2(.5f, .5f);
                 car.UIPanel.anchorMax = new Vector2(1, 1);
                 car.UIPanel.pivot = new Vector2(1, 1);
             }
             else if (playerID == 3)
             {
                 car.UIPanel.anchorMin = new Vector2(0, 0);
-                car.UIPanel.anchorMax = new Vector2(0, 0);
+                car.UIPanel.anchorMax = new Vector2(.5f, .5f);
                 car.UIPanel.pivot = new Vector2(0, 0);
             }
             else if (playerID == 4)
             {
-                car.UIPanel.anchorMin = new Vector2(1, 0);
-                car.UIPanel.anchorMax = new Vector2(1, 0);
+                car.UIPanel.anchorMin = new Vector2(.5f, 0);
+                car.UIPanel.anchorMax = new Vector2(1, .5f);
                 car.UIPanel.pivot = new Vector2(1, 0);
             }
-            car.UIPanel.localScale = new Vector3(.5f, .5f, 1);
             for (int i = 0; i < car.secondaryUIPanel.childCount; i++)
             {
-                car.secondaryUIPanel.GetChild(i).localScale = new Vector3(threePlusPlayerUIScalingFactor * car.secondaryUIPanel.GetChild(i).localScale.x, threePlusPlayerUIScalingFactor * car.secondaryUIPanel.GetChild(i).localScale.y, threePlusPlayerUIScalingFactor * car.secondaryUIPanel.GetChild(i).localScale.z);
+                car.secondaryUIPanel.GetChild(i).localScale = car.secondaryUIPanel.GetChild(i).localScale * threePlusPlayerUIScalingFactor;
             }
         }
     }
