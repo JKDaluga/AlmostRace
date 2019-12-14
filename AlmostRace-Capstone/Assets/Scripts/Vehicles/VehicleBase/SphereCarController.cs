@@ -185,6 +185,7 @@ public class SphereCarController : MonoBehaviour
             }
             if (_drifting)
             {
+                AudioManager.instance.Play("Drift"); 
                 driftButton.sprite = driftSpriteDown;
               //Remaps the user input values to appropriate amounts to allow drifting
                 amount = (_driftDirection == 1) ? ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 0, 1 + driftStrength) : ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 1 + driftStrength, 0);
