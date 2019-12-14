@@ -81,8 +81,8 @@ public class VoidWasp_ProjectileBehaviour : Projectile
             Debug.Log("1 Projectile Hit: " + collision.gameObject.name);
             collision.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
 
-            collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = .25f;
-            collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = .25f;
+            collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 4f;
+            collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 4f;
 
             collision.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
             _immunePlayerScript.AddHype(_projectileHype, "Damage:");
