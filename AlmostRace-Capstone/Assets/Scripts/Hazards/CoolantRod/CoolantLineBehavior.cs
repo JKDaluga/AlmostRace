@@ -53,6 +53,7 @@ public class CoolantLineBehavior : MonoBehaviour
         fireWallParticle.Play();
         _coolantCollider.enabled = true;
         Invoke("DeactivateCoolantLine", _duration);
+        AudioManager.instance.Play("Cooling Rod Fire");
     }
 
     public void DeactivateCoolantLine()

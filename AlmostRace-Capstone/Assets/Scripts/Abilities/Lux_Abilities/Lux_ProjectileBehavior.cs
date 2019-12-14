@@ -25,6 +25,7 @@ public class Lux_ProjectileBehavior : Projectile
             {//Checks if the object isn't the immunePlayer and if they are a car.
                 other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
                 _immunePlayerScript.AddHype(_projectileHype, "Damage:");
+                AudioManager.instance.Play("Bullet Impact Lux");
                 //Debug.Log("Projectile destoryed by:" + other.gameObject.name);
 
                 StartCoroutine(ExplosionEffect());
