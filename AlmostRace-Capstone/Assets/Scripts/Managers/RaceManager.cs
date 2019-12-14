@@ -41,7 +41,8 @@ public class RaceManager : MonoBehaviour
     void spawnPlayer(PlayerInfo player, int playerCount, int playerNum)
     {
         // spawns the car on the map in the right spot
-        GameObject car = Instantiate(carPool[player.carID], spawnLocations[player.carID].position, spawnLocations[player.carID].rotation);
+        print(player.carID * 4 + player.playerID - 1);
+        GameObject car = Instantiate(carPool[player.carID * 4 + player.playerID - 1], spawnLocations[player.carID].position, spawnLocations[player.carID].rotation);
 
         //Set up car skin
 
