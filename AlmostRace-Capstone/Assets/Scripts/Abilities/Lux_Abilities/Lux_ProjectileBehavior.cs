@@ -46,6 +46,14 @@ public class Lux_ProjectileBehavior : Projectile
                 }
                 other.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
                 other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+
+                if(other.gameObject.GetComponent<Interactable>().interactableHealth <= 0)
+                {
+                    if(_immunePlayer.GetComponent<AimAssistant>().target == other.gameObject)
+                    {
+                        _immunePlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(other.gameObject);
+                    }
+                }
                // Debug.Log("Projectile destoryed by:" + other.gameObject.name);
 
                 StartCoroutine(ExplosionEffect());

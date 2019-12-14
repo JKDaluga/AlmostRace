@@ -29,14 +29,8 @@ public class AimCollider : MonoBehaviour
             aim.target = colliding[count];
         }
         else aim.target = null;
-        
-        foreach(GameObject i in colliding)
-        {
-            if(i == null)
-            {
-                colliding.TrimExcess();
-            }
-        }
+
+        colliding.RemoveAll(GameObject => GameObject == null);
 
 
         if (Mathf.Abs(Input.GetAxis(aim.gameObject.GetComponent<VehicleInput>().rightHorizontal)) >= .2)
@@ -70,7 +64,7 @@ public class AimCollider : MonoBehaviour
     {
         if(aim.shootable == (aim.shootable | ( 1 << other.gameObject.layer)) && other.gameObject != aim.gameObject)
         {
-            Debug.Log(other.gameObject == aim.gameObject);
+
             if(colliding.Count == 0)
             {
                 count = 0;

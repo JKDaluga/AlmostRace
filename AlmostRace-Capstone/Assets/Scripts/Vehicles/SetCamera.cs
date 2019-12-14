@@ -32,7 +32,7 @@ public class SetCamera : MonoBehaviour
                 break;
         }
 
-        print(transform.parent.GetComponentInChildren<CinemachineImpulseListener>().m_ChannelMask.ToString() + "-" + GetComponent<VehicleInput>().playerNumber);
+
         
     }
 
