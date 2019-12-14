@@ -37,7 +37,7 @@ public class CarCollision : MonoBehaviour
             CarHeatManager otherCarHeat = other.car.GetComponent<CarHeatManager>();
             Vector3 relativeVelocity = rb.velocity - other_rb.velocity;
             Vector3 relativePosition = rb.position - other_rb.position;
-            AudioManager.instance.Play("Genral collision");
+            AudioManager.instance.Play("General collision");
 
             //calculating the angle in radians then converting it to degrees
             float angleBetween = Mathf.Acos(Vector3.Dot(relativeVelocity.normalized, relativePosition.normalized))* 180 / Mathf.PI;
