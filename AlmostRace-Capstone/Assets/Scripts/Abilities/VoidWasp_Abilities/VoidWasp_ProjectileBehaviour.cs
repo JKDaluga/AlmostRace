@@ -31,6 +31,8 @@ public class VoidWasp_ProjectileBehaviour : Projectile
     {
         base.Start();
         GiveSpeed();
+        AudioManager.instance.Play("VoidWasp Shot trail");
+
         #region DeadCode
         // might be used later
         /*_collider = gameObject.GetComponent<Collider>();
@@ -81,6 +83,8 @@ public class VoidWasp_ProjectileBehaviour : Projectile
 
             collision.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
             _immunePlayerScript.AddHype(_projectileHype, "Damage:");
+
+            AudioManager.instance.Play("VoidWasp Shot hit");
         }
         else if (collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<Interactable>() != null)
         { //Hits Interactable
@@ -88,6 +92,7 @@ public class VoidWasp_ProjectileBehaviour : Projectile
             collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
             Debug.Log("2 Projectile Hit: " + collision.gameObject.name);
 
+            AudioManager.instance.Play("VoidWasp Shot hit");
         }
 
       
