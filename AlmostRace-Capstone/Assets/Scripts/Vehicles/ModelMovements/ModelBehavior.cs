@@ -2,18 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LuxModel : MonoBehaviour
+public class ModelBehavior : MonoBehaviour
 {
     public SphereCarController car;
     public VehicleInput ins;
 
-    public GameObject child;
+    public int carType;
 
     public float turnPitch, driftPitch;
 
     public float pitchSpeed;
 
     private float maxPitch;
+
+    public float voidWaspSpin;
+
+    bool voidWaspBoost;
 
     int dir;
     private void Update()
@@ -37,36 +41,65 @@ public class LuxModel : MonoBehaviour
         {
             maxPitch = turnPitch;
         }
-        if (!car.getDrifting())
+        if (!voidWaspBoost)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(car.getTurning() * maxPitch, transform.eulerAngles.y, transform.eulerAngles.z)), pitchSpeed * Time.deltaTime);
-        } else
-        {
-            //print(Mathf.Sign(car.getTurning()) + "==" + Mathf.Sign(dir));
-            if(Mathf.Sign(car.getTurning()) == Mathf.Sign(dir))
+            if (!car.getDrifting())
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(car.getTurning() * maxPitch, transform.eulerAngles.y, transform.eulerAngles.z)), pitchSpeed * Time.deltaTime);
             }
             else
             {
+                //print(Mathf.Sign(car.getTurning()) + "==" + Mathf.Sign(dir));
+                if (Mathf.Sign(car.getTurning()) == Mathf.Sign(dir))
+                {
+                    transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(car.getTurning() * maxPitch, transform.eulerAngles.y, transform.eulerAngles.z)), pitchSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(new Vector3(0, 90, 0)), pitchSpeed * Time.deltaTime);
+                }
+            }
+
+            if (car.getTurning() == 0)
+            {
                 transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(new Vector3(0, 90, 0)), pitchSpeed * Time.deltaTime);
             }
         }
 
-        if(car.getTurning() == 0)
-        {
-            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(new Vector3(0, 90, 0)), pitchSpeed * Time.deltaTime);
-        }
 
 
         if (Input.GetButtonDown(ins.pickupInput) && !car.GetIsBoosting())
         {
-            StartCoroutine(pitchForward());
+            switch (carType)
+            {
+                case 0:
+                    StartCoroutine(pitchForward());
+                    break;
+                case 1:
+                    StartCoroutine(rotate());
+                    break;
+            }
         }
         
     }
 
     public float rotateTime;
+
+    public IEnumerator rotate()
+    {
+        voidWaspBoost = true;
+        float time = 0;
+        while(time < car.gameObject.GetComponent<VehicleAbilityBehavior>().boostAbilityDuration)
+        {
+            print(time);
+            transform.Rotate(new Vector3(voidWaspSpin, 0.0f, 0.0f) * Time.deltaTime);
+            time += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.localRotation = Quaternion.Euler(0, 90, 0);
+        voidWaspBoost = false;
+    }
 
     public IEnumerator pitchForward()
     {
