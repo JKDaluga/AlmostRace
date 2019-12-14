@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class VehicleCollisionEffects : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class VehicleCollisionEffects : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 1;
+        GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 1;
+
+        GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         foreach (ContactPoint contact in collision.contacts)
         {
             Instantiate(sparks, contact.point, Quaternion.identity);
