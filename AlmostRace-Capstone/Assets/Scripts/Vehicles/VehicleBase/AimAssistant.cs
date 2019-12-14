@@ -19,7 +19,7 @@ public class AimAssistant : MonoBehaviour
 
     public GameObject self;
 
-    public GameObject nearest;
+    public GameObject target;
 
     RaycastHit hit;
     
@@ -36,9 +36,9 @@ public class AimAssistant : MonoBehaviour
                 aimCircle.transform.localPosition = new Vector3(0, aimCircle.transform.localPosition.y, assistLength+1);
             }
 
-            if (aimCircle.transform.localScale.x != assistWidth)
+            if (aimCircle.transform.localScale.x != assistWidth || aimCircle.transform.localScale.z != assistWidth)
             {
-                aimCircle.transform.localScale = new Vector3(assistWidth, aimCircle.transform.localScale.y, aimCircle.transform.localScale.z);
+                aimCircle.transform.localScale = new Vector3(assistWidth, aimCircle.transform.localScale.y, assistWidth);
             }
         }
     }

@@ -11,6 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
 [RequireComponent(typeof(VehicleInput))]
 public class SphereCarController : MonoBehaviour
@@ -95,6 +96,10 @@ public class SphereCarController : MonoBehaviour
     public RectTransform UIPanel;
     public RectTransform secondaryUIPanel;
 
+
+    bool airborne;
+    float airborneTimer;
+
     //Call allowing vehicle to take input from player
     private void Start()
     {
@@ -109,7 +114,9 @@ public class SphereCarController : MonoBehaviour
         {
             leftDriftParticles.SetActive(false);
             rightDriftParticles.SetActive(false);
-        } 
+        }
+        airborne = false;
+        airborneTimer = 0;
     }
 
     // Update is called once per frame
@@ -267,9 +274,9 @@ public class SphereCarController : MonoBehaviour
 
         //Auto Aim assistant code
 
-        if(GetComponent<AimAssistant>().nearest != null)
+        if(GetComponent<AimAssistant>().target != null)
         {
-            aimPos.transform.position = GetComponent<AimAssistant>().nearest.transform.position;
+            aimPos.transform.position = GetComponent<AimAssistant>().target.transform.position;
         } else
         {
             aimPos.transform.localPosition = aimObject.transform.localPosition;
@@ -312,11 +319,27 @@ public class SphereCarController : MonoBehaviour
         {
             sphere.AddForce(-hitOn.normal * groundedGravity, ForceMode.Acceleration);
             GravDir = -hitOn.normal;
+            if (airborne)
+            {
+                gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 2 * airborneTimer;
+                gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 2 * airborneTimer;
+
+                gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
+                airborne = false;
+                airborneTimer = 0;
+            }
         }
         else
         {
             //Adds a multiplier to gravity to keep the car grounded
             sphere.AddForce(Vector3.down * airborneGravity, ForceMode.Acceleration);
+            if(!airborne)
+            airborne = true;
+        }
+
+        if (airborne)
+        {
+            airborneTimer += Time.deltaTime;
         }
 
         //Smoothly turns the vehicle

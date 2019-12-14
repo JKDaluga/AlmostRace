@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 /*
  Eddie B. This code is basically a copy past of Volt_LaserBolt (which will probably get deleted soon).
@@ -24,7 +25,12 @@ public class Lux_ProjectileBehavior : Projectile
             if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHeatManager>() != null)
             {//Checks if the object isn't the immunePlayer and if they are a car.
                 other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
+
+                other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = .75f;
+                other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = .75f;
+                other.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
                 _immunePlayerScript.AddHype(_projectileHype, "Damage:");
+                AudioManager.instance.Play("Bullet Impact Lux");
                 //Debug.Log("Projectile destoryed by:" + other.gameObject.name);
 
                 StartCoroutine(ExplosionEffect());
@@ -40,6 +46,14 @@ public class Lux_ProjectileBehavior : Projectile
                 }
                 other.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
                 other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+
+                if(other.gameObject.GetComponent<Interactable>().interactableHealth <= 0)
+                {
+                    if(_immunePlayer.GetComponent<AimAssistant>().target == other.gameObject)
+                    {
+                        _immunePlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(other.gameObject);
+                    }
+                }
                // Debug.Log("Projectile destoryed by:" + other.gameObject.name);
 
                 StartCoroutine(ExplosionEffect());

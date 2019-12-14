@@ -12,6 +12,7 @@ using UnityEngine;
 public class PlayerInfo
 {
     public bool isActive = false;
+    public int playerID = 0;
     public int carID = 0;
     public int colorID = 0;
 }

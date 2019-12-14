@@ -10,6 +10,8 @@ using UnityEngine;
 
 public class VoidWasp_BoostAbility : CooldownHeatAbility
 {
+
+    [Header("Boost settings")]
     private SphereCarController carInfo;
 
     public GameObject carCollider;
@@ -20,51 +22,54 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
     [Range(0, 100)]
     public float boostTopSpeedPercentage;
 
-    public Animator carAnimation;
 
-    [Header("Camera boost settings")]
-    [Tooltip("Reference to the cinemachine camera object attached to the car")]
-    public CinemachineVirtualCamera attachedCamera;
+    [Header("VoidWasp Boost Effects")]
+    [Tooltip("Set Voidwasp booster particle effect")]
+    public GameObject voidParticles;
 
-    public float cameraChangeDuration;
-    public float cameraFovTarget;
 
-    private float _defaultFov;
+    [Tooltip("List of VoisWasp parts that get reassigned on boost")]
+    public List<GameObject> voidWaspParts;
+    [Tooltip("Transparent material that needs to get assigned to every part")]
+    public Material boostMat;
 
-    private IEnumerator coChangeFoV;
+    private Material _originalMat;
 
     private void Start()
     {
         carInfo = gameObject.GetComponent<SphereCarController>();
+        voidParticles.SetActive(false);
 
-        _defaultFov = attachedCamera.m_Lens.FieldOfView;
+        _originalMat = voidWaspParts[0].GetComponent<Renderer>().material;
+        print(_originalMat);
     }
 
     public override void ActivateAbility()
     {
         carInfo.SetIsBoosting(true);
         carInfo.SetBoostInfo(boostSpeedPercentage);
+        voidParticles.SetActive(true);
 
-        carAnimation.SetBool("spinning", true);
-
-        //ChangeFov(cameraChangeDuration, cameraFovTarget);
+        SetMaterials(voidWaspParts, boostMat);
 
         gameObject.layer = 21;
         carCollider.layer = 21;
-
+        AudioManager.instance.Play("VoidWasp Boost");
         AddHeat();
     }
 
     public override void DeactivateAbility()
     {
         carInfo.SetIsBoosting(false);
-        carAnimation.SetBool("spinning", false);
+        voidParticles.SetActive(false);
+
+        SetMaterials(voidWaspParts, _originalMat);
+
+        AudioManager.instance.Play("VoidWasp Boost Down");
 
         gameObject.layer = 8;
         carCollider.layer = 9;
 
-
-        //Invoke("ResetFov", cameraChangeDuration);
     }
 
     protected override void AddHeat()
@@ -72,41 +77,15 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
         //throw new System.NotImplementedException();
     }
 
-    /// <summary>
-    /// Animate Field of view towards desired setting
-    /// </summary>
-    /// <param name="duration">Time is is going to take</param>
-    /// <param name="value">What value to change it to</param>
-    public void ChangeFov(float duration, float value)
+
+
+    void SetMaterials(List<GameObject> parts, Material mat)
     {
-        if (coChangeFoV != null)
+        foreach (GameObject part in parts)
         {
-            StopCoroutine(coChangeFoV);
-        }
-        coChangeFoV = CoChangeFoV(duration, value);
-        StartCoroutine(coChangeFoV);
-    }
-
-    IEnumerator CoChangeFoV(float duration, float value)
-    {
-        float t = 0.0f;
-        float startFoV = Camera.main.fieldOfView;
-        while (t != duration)
-        {
-            t += Time.deltaTime;
-
-            if (t > duration)
-            {
-                t = duration;
-            }
-
-            attachedCamera.m_Lens.FieldOfView = Mathf.Lerp(startFoV, value, t / duration);
-            yield return null;
+            part.GetComponent<Renderer>().material = mat;
         }
     }
 
-    private void ResetFov()
-    {
-        ChangeFov(cameraChangeDuration * 2, _defaultFov);
-    }
+   
 }

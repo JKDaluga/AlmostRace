@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class VoidWasp_ProjectileBehaviour : Projectile
 {
@@ -30,6 +31,8 @@ public class VoidWasp_ProjectileBehaviour : Projectile
     {
         base.Start();
         GiveSpeed();
+        AudioManager.instance.Play("VoidWasp Shot trail");
+
         #region DeadCode
         // might be used later
         /*_collider = gameObject.GetComponent<Collider>();
@@ -77,14 +80,31 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         {//Checks if the object isn't the immunePlayer and if they are a car.
             Debug.Log("1 Projectile Hit: " + collision.gameObject.name);
             collision.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
+
+            collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 4f;
+            collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 4f;
+
+            collision.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
             _immunePlayerScript.AddHype(_projectileHype, "Damage:");
+
+            AudioManager.instance.Play("VoidWasp Shot hit");
         }
         else if (collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<Interactable>() != null)
         { //Hits Interactable
             collision.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
             collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+
+            if (collision.gameObject.GetComponent<Interactable>().interactableHealth <= 0)
+            {
+                if (_immunePlayer.GetComponent<AimAssistant>().target == collision.gameObject)
+                {
+                    _immunePlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(collision.gameObject);
+                }
+            }
+
             Debug.Log("2 Projectile Hit: " + collision.gameObject.name);
 
+            AudioManager.instance.Play("VoidWasp Shot hit");
         }
 
       
