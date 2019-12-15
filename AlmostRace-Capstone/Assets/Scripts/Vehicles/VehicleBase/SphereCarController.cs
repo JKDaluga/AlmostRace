@@ -188,7 +188,7 @@ public class SphereCarController : MonoBehaviour
                 {
                     //placed here just so that the BallCar prefab doesn't throw nulls
                     //Delete this later
-                    Debug.Log("Drift Particles are null, please assign them!");
+                    //Debug.Log("Drift Particles are null, please assign them!");
                 }
                 
             }

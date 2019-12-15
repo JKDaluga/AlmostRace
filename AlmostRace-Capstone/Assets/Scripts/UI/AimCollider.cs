@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 /*
  * Robyn Riley 12/3/19
@@ -30,6 +32,30 @@ public class AimCollider : MonoBehaviour
             aim.target = colliding[count];
         }
         else aim.target = null;
+        
+        if(count >= colliding.Count)
+        {
+            count = -1;
+        }
+
+        try
+        {
+            foreach (GameObject i in colliding)
+            {
+                Vector3 dir = i.transform.position - aim.gameObject.transform.position;
+                dir.Normalize();
+
+                float dot = Vector3.Dot(dir, aim.gameObject.transform.forward);
+                if (dot < 0)
+                {
+                    colliding.Remove(i);
+                }
+            }
+        }
+        catch(InvalidOperationException e)
+        {
+            colliding.Clear();
+        }
 
         if (!colliding.Contains(aim.target))
         {
@@ -110,6 +136,7 @@ public class AimCollider : MonoBehaviour
             colliding.Add(other.gameObject);
         }
     }
+    
 
     private void OnTriggerExit(Collider other)
     {
