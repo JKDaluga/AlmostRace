@@ -14,19 +14,20 @@ public class crosshairAim : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if(aim.target != null)
-        {
-            Vector3 pos = cam.WorldToScreenPoint(aim.target.transform.position);
-            Vector3 offsetPos = new Vector3(pos.x, pos.y + 25, pos.z);
-            transform.position = offsetPos;
+            if (aim.target != null && aim.gameObject.GetComponent<SphereCarController>().aimOn)
+            {
+                Vector3 pos = cam.WorldToScreenPoint(aim.target.GetComponent<Collider>().bounds.center);
+                Vector3 offsetPos = new Vector3(pos.x, pos.y + 25, pos.z);
+                transform.position = pos;
 
-            GetComponent<Image>().sprite = locked;
-        }
-        else
-        {
-            transform.position = cam.WorldToScreenPoint(aim.gameObject.GetComponent<SphereCarController>().aimObject.transform.position);
-            GetComponent<Image>().sprite = normal;
-        }
+                GetComponent<Image>().sprite = locked;
+            }
+            else
+            {
+                transform.position = cam.WorldToScreenPoint(aim.gameObject.GetComponent<SphereCarController>().aimObject.transform.position);
+                GetComponent<Image>().sprite = normal;
+            }
+        
     }
 
 

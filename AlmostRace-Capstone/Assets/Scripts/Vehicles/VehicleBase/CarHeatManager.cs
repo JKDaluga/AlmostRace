@@ -16,6 +16,8 @@ public class CarHeatManager : MonoBehaviour
     public GameObject explosionEffect;
     public GameObject teleportEffect;
     public GameObject deathFade;
+    private float _extraHPMax = 120f;
+    private float _extraHP = 0;
     public float healthCurrent = 0f;
     public float heatStallLimit = 100f;
     public float healthMax = 120f;
@@ -31,6 +33,7 @@ public class CarHeatManager : MonoBehaviour
     [Space(30)]
     public Image teleportCDImage;
     public GameObject teleDark;
+    public Image extraHealthFillBar;
     public Image healthFillBar;
     public Image engineImage;
     public Sprite engineGreen;
@@ -70,7 +73,7 @@ public class CarHeatManager : MonoBehaviour
             {
                 gameObject.SetActive(true);
             }
-
+            #region HealthFillBar
             if (healthFillBar != null)
             {
                 healthFillBar.fillAmount = healthCurrent/healthMax ;
@@ -86,22 +89,26 @@ public class CarHeatManager : MonoBehaviour
                 }
                 else if (healthFillBar.fillAmount < 0.33)
                 {
-
-                    engineImage.sprite = engineRed;                 
+                    engineImage.sprite = engineRed;
+                    healthFillBar.color = new Color32(232, 27, 66, 255);
                 }
 
                 else if (healthFillBar.fillAmount < 0.50)
                 {
-                    engineImage.sprite = engineOrange;                 
+                    engineImage.sprite = engineOrange;
+                    healthFillBar.color = new Color32(217, 121, 39, 255);
                 }
 
                 else if (healthFillBar.fillAmount < 0.75)
                 {
-                    engineImage.sprite = engineYellow;             
+                    engineImage.sprite = engineYellow;
+                    healthFillBar.color = new Color32(220, 189, 38, 255);
+
                 }
                 else
                 {
                     engineImage.sprite = engineGreen;
+                    healthFillBar.color = new Color32(53, 180, 74, 255);
                     /*heat25.enabled = false;
                     heat50.enabled = false;
                     heat75.enabled = false;
@@ -109,12 +116,22 @@ public class CarHeatManager : MonoBehaviour
                 }
 
             }
+            #endregion
+
+            #region ExtraHealthFillBar
+            if(extraHealthFillBar != null)
+            {
+                extraHealthFillBar.fillAmount = _extraHP / _extraHPMax;
+            }
+            #endregion
         }
 
     }
 
     private void FlashRedEngine()
     {
+        engineImage.sprite = engineRed;
+        healthFillBar.color = new Color32(232, 27, 66, 255);
         if (!engineIsFlash)
         {//if hasn't flashed and is still red
             engineImage.color = Color.black;
@@ -152,6 +169,8 @@ public class CarHeatManager : MonoBehaviour
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, sphereCollider, modelHolder);
         sphereCollider.GetComponent<Rigidbody>().useGravity = false;
         sphereCollider.GetComponent<Rigidbody>().isKinematic = true;
+
+        gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
     }
 
     public void Respawn()
@@ -173,7 +192,7 @@ public class CarHeatManager : MonoBehaviour
         {
             bAbility.DeactivateAbility();
         }
-
+        gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
     }
 
     public void Teleport()
@@ -215,12 +234,59 @@ public class CarHeatManager : MonoBehaviour
         healthCurrent += healAmount;
     }
 
-    public void AddHeat(float heat)
+    public void DamageCar(float damage)
     {
+
         //stackTrace = new StackTrace();
        // print("ADDHEAT !! " + stackTrace.GetFrame(1).GetMethod().Name);
+       if(_extraHP > 0)
+        { //if you have _extraHP
+            
+            //damage left over after it's delt to the _extraHP
+            float _tempDamage = damage - _extraHP;
 
-        healthCurrent -= heat;
+            if(_tempDamage < 0)
+            {//makes sure _tempDamage doesn't heal the player later on
+                _tempDamage = 0;
+            }
+
+            _extraHP -= damage; //deals the damage to the _extraHP
+
+            if(_extraHP <= 0)
+            { //If you have no _extraHP left
+                healthCurrent -= _tempDamage;
+            }
+        }
+        else
+        {
+            healthCurrent -= damage;
+        }
+       
+    }
+
+    public void DamageCarTrue(float damage)
+    {
+        healthCurrent -= damage;
+    }
+
+    public float GetExtraHealth()
+    {
+        return _extraHP;
+    }
+
+    public void SetExtraHealth(float extraHP)
+    {
+        _extraHP = extraHP;
+    }
+
+    public float GetExtaHealthMax()
+    {
+        return _extraHPMax;
+    }
+
+    public void SetExtraHealthMax(float extraHealthMax)
+    {
+        _extraHPMax = extraHealthMax;
     }
 
     private void OnCollisionEnter(Collision collision)

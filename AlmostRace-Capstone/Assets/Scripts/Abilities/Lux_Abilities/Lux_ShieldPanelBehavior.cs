@@ -2,60 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Lux_ShieldPanelBehavior : Interactable
+public class Lux_ShieldPanelBehavior : MonoBehaviour
 {
-    private float _shieldMaxHealth;
-    private GameObject _shieldPlayer;
-    private Collider _collider;
-    private MeshRenderer _meshRender;
+    public MeshRenderer _meshRender;
+    private CarHeatManager _carHealthScript;
 
-    private void Start()
+    private void Awake()
     {
-        canBeDamaged = true;
-        _collider = gameObject.GetComponent<Collider>();
-        _meshRender = gameObject.GetComponent<MeshRenderer>();
         DestroyInteractable();
     }
 
-    public void GiveInfo(float shieldHealth, GameObject shieldPlayer)
+    public void GiveInfo(CarHeatManager carHealthScript)
     {
-        _shieldMaxHealth = shieldHealth;
-        interactableHealth = shieldHealth;
-        _shieldPlayer = shieldPlayer;
+        _carHealthScript = carHealthScript;
     }
 
-    public override void TriggerInteractable()
+    public IEnumerator TrackHealth()
     {
-        ResetInteractable(); // makes sure each panel has full health.
-    }
-
-    public override void DestroyInteractable()
-    {
-        _meshRender.enabled = false;
-        _collider.enabled = false;
-    }
-
-    public override void ResetInteractable()
-    {
-        _meshRender.enabled = true;
-        _collider.enabled = true;
-        interactableHealth = _shieldMaxHealth;
-    }
-
-    public override void DamageInteractable(float damageNumber)
-    {
-        interactableHealth -= damageNumber;
-        if (interactableHealth <= 0)
+        while(true)
         {
-            DestroyInteractable();
+            if(_carHealthScript.GetExtraHealth() <= 0)
+            {
+                Debug.Log("Track Health should have happened");
+                DestroyInteractable();
+                yield return null;
+            }
+            yield return null;
         }
     }
 
-    public GameObject GetShieldPlayer()
-    {//required for the LuxProjectiles to make sure they aren't damaging their own player's shields.
-        return _shieldPlayer;
+    public void TriggerInteractable()
+    {
+        _meshRender.enabled = true;  
+        StartCoroutine(TrackHealth());
     }
 
-    // _shieldHealth = _shieldHealthMax; add this later to where the shield dies
-
+    public void DestroyInteractable()
+    {
+        StopAllCoroutines();
+        _meshRender.enabled = false;
+    }
 }

@@ -67,7 +67,7 @@ public class CoolantLineBehavior : MonoBehaviour
     {
         if(other.gameObject.GetComponent<CarHeatManager>() != null)
         {//Checks if a car passes through. 
-            Debug.Log("Car Detected by fire!");
+            //Debug.Log("Car Detected by fire!");
             _carsDamaged.Add(other.gameObject.GetComponent<CarHeatManager>()); //Adds car to damage.
             if(_carsDamaged.Count == 1)
             {//If this is the first car added to the list, assume that cars aren't being damaged, start the invoke repeating.
@@ -96,7 +96,7 @@ public class CoolantLineBehavior : MonoBehaviour
             {
                 if(!car.isDead) //Make sure car is alive.
                 {
-                    car.AddHeat(_coolantDamage); //Damage car.
+                    car.DamageCar(_coolantDamage); //Damage car.
                     if(!_interactingPlayer.Equals(car.gameObject))
                     {                
                         //rewards instigating player with hype for damaging other cars

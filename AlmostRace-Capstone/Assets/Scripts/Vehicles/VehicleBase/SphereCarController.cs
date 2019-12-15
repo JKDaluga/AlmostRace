@@ -99,6 +99,7 @@ public class SphereCarController : MonoBehaviour
 
     bool airborne;
     float airborneTimer;
+    [HideInInspector] public bool aimOn;
 
     //Call allowing vehicle to take input from player
     private void Start()
@@ -117,6 +118,7 @@ public class SphereCarController : MonoBehaviour
         }
         airborne = false;
         airborneTimer = 0;
+        aimOn = true;
     }
 
     // Update is called once per frame
@@ -186,7 +188,7 @@ public class SphereCarController : MonoBehaviour
                 {
                     //placed here just so that the BallCar prefab doesn't throw nulls
                     //Delete this later
-                    Debug.Log("Drift Particles are null, please assign them!");
+                    //Debug.Log("Drift Particles are null, please assign them!");
                 }
                 
             }
@@ -274,12 +276,19 @@ public class SphereCarController : MonoBehaviour
 
         //Auto Aim assistant code
 
-        if(GetComponent<AimAssistant>().target != null)
+        
+        if(GetComponent<AimAssistant>().target != null && aimOn)
         {
-            aimPos.transform.position = GetComponent<AimAssistant>().target.transform.position;
+            aimPos.transform.position = GetComponent<AimAssistant>().target.GetComponent<Collider>().bounds.center;
         } else
         {
             aimPos.transform.localPosition = aimObject.transform.localPosition;
+        }
+
+        if (Input.GetButtonDown(_vehicleInput.rightStickButton))
+        {
+            aimOn = !aimOn;
+            print(aimOn);
         }
 
         //hitOn/hitNear check and rotate the vehicle body up and down based on direction of the track

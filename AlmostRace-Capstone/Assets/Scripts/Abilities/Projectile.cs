@@ -67,7 +67,7 @@ public abstract class Projectile : MonoBehaviour
         _projectileHype = projectileHypeToGain;
     }
 
-    internal object getImmunePlayer()
+    public GameObject getImmunePlayer()
     {
         return _immunePlayer;
     }
@@ -77,8 +77,14 @@ public abstract class Projectile : MonoBehaviour
         return _projectileDamage;
     }
 
+    public void SetProjectileDamage(float projectileDamage)
+    {
+        _projectileDamage = projectileDamage;
+    }
+
     public IEnumerator ExplosionEffect()
     {
+        _projectileDamage = 0;
         _collider.enabled = false;
         _isAlive = false;
         _rigidBody.velocity = Vector3.zero;
@@ -86,8 +92,18 @@ public abstract class Projectile : MonoBehaviour
         _rigidBody.isKinematic = true;
          meshRenderer.enabled = false;
         pointLight.enabled = false;
-        sparkEffect.SetActive(true);
-        yield return new WaitForSeconds(sparkEffect.GetComponent<ParticleSystem>().main.duration);
+        if(sparkEffect!= null)
+        {
+            sparkEffect.SetActive(true);
+        }
+      if(sparkEffect != null)
+        {
+            yield return new WaitForSeconds(sparkEffect.GetComponent<ParticleSystem>().main.duration);
+        }
+      else
+        {
+            yield return null;
+        }
         Destroy(gameObject);
     }
 }

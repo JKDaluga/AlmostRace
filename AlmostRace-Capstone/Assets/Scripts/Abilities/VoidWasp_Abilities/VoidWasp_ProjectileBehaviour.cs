@@ -76,10 +76,10 @@ public class VoidWasp_ProjectileBehaviour : Projectile
 
     private void OnCollisionEnter(Collision collision)
     {
+   
         if (collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<CarHeatManager>() != null)
         {//Checks if the object isn't the immunePlayer and if they are a car.
-            Debug.Log("1 Projectile Hit: " + collision.gameObject.name);
-            collision.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
+            collision.gameObject.GetComponent<CarHeatManager>().DamageCar(_projectileDamage);
 
             collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 4f;
             collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 4f;
@@ -93,16 +93,7 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         { //Hits Interactable
             collision.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
             collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
-
-            if (collision.gameObject.GetComponent<Interactable>().interactableHealth <= 0)
-            {
-                if (_immunePlayer.GetComponent<AimAssistant>().target == collision.gameObject)
-                {
-                    _immunePlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(collision.gameObject);
-                }
-            }
-
-            Debug.Log("2 Projectile Hit: " + collision.gameObject.name);
+            
 
             AudioManager.instance.Play("VoidWasp Shot hit");
         }
@@ -121,12 +112,9 @@ public class VoidWasp_ProjectileBehaviour : Projectile
             spawnedClone2.transform.SetParent(collision.gameObject.transform);
             spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().LightFuse();
         }
-
-            //TODO
             spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, _explosionFuse, _explosionHypeToGain, _explosionRadius, _immunePlayer);
           
 
-        //TODO Replace this with particle explosions or w/e u want
         Destroy(gameObject);
     }
 }

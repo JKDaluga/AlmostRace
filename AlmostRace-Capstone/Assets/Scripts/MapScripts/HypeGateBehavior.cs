@@ -65,7 +65,7 @@ public class HypeGateBehavior : MonoBehaviour
         while(true)
         {
             playerPercentage = ((float)carsInRange.Count / (float)_carsInGame);
-            Debug.Log((float)(carsInRange.Count / _carsInGame));
+            //Debug.Log((float)(carsInRange.Count / _carsInGame));
             if (carsInRange.Count < _carsInGame)
             {
                 foreach(GameObject car in _hypeManager.vehicleList)

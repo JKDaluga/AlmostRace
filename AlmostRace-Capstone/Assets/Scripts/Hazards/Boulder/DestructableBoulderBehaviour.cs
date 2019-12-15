@@ -55,7 +55,7 @@ public class DestructableBoulderBehaviour : Interactable
             {
                 collision.gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
             }
-            collision.gameObject.GetComponent<CarHeatManager>().AddHeat(ramDamage);
+            collision.gameObject.GetComponent<CarHeatManager>().DamageCar(ramDamage);
             if (collision.gameObject.GetComponent<SphereCarController>() != null)
             {
                 collision.gameObject.GetComponent<SphereCarController>().currentSpeed -=
@@ -74,6 +74,11 @@ public class DestructableBoulderBehaviour : Interactable
             {//makes sure that non-player agents can destroy the boulders without throwing null references.
                 interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(boulderDestroyedHype, "Vandal");
             }
+        }
+
+        if(interactingPlayer.GetComponent<AimAssistant>().target = gameObject)
+        {
+            interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
         }
 
      

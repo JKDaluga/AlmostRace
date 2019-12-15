@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 
 /*
  * Robyn Riley 12/3/19
@@ -26,13 +28,74 @@ public class AimCollider : MonoBehaviour
     {
         if (colliding.Count != 0)
         {
+            if(count >= 0)
             aim.target = colliding[count];
         }
         else aim.target = null;
+        
+        if(count >= colliding.Count)
+        {
+            count = -1;
+        }
+
+        try
+        {
+            foreach (GameObject i in colliding)
+            {
+                Vector3 dir = i.transform.position - aim.gameObject.transform.position;
+                dir.Normalize();
+
+                float dot = Vector3.Dot(dir, aim.gameObject.transform.forward);
+                if (dot < 0)
+                {
+                    colliding.Remove(i);
+                }
+            }
+        }
+        catch(InvalidOperationException e)
+        {
+            colliding.Clear();
+        }
+
+        if (!colliding.Contains(aim.target))
+        {
+            aim.target = null;
+        }
 
         colliding.RemoveAll(GameObject => GameObject == null);
+        
+        if (colliding.Count > 0)
+        {
+            if (colliding[count].GetComponent<Interactable>() != null)
+            {
+                if (colliding[count].GetComponent<Interactable>().interactableHealth <= 0)
+                {
+                    for (int i = 0; i < colliding.Count; i++)
+                    {
+                        if (colliding[i].GetComponent<Interactable>() != null && colliding[i].GetComponent<Interactable>().interactableHealth > 0)
+                        {
+                            count = i;
+                            break;
+                        }
 
+                    }
+                    count = -1;
+                    aim.target = null;
+                }
+            }
+            if (aim.target == null && colliding.Count > 1)
+            {
+                for (int i = 0; i < colliding.Count; i++)
+                {
+                    if (colliding[i].GetComponent<Interactable>() != null && colliding[i].GetComponent<Interactable>().interactableHealth > 0)
+                    {
+                        count = i;
+                        break;
+                    }
+                }
+            }
 
+        }
         if (Mathf.Abs(Input.GetAxis(aim.gameObject.GetComponent<VehicleInput>().rightHorizontal)) >= .2)
         {
             if (canSwap)
@@ -41,21 +104,22 @@ public class AimCollider : MonoBehaviour
 
                 count += sign;
 
-                if (count >= colliding.Count)
-                {
-                    count = 0;
-                }
-
-                if (count < 0)
-                {
-                    count = colliding.Count - 1;
-                }
 
                 canSwap = false;
             }
         }
         else canSwap = true;
 
+
+        if (count >= colliding.Count)
+        {
+            count = 0;
+        }
+
+        if (count < 0)
+        {
+            count = colliding.Count - 1;
+        }
     }
 
     //Trigger Enter and Exit are used to add and remove values, and resets variables to default if necessary
@@ -72,6 +136,7 @@ public class AimCollider : MonoBehaviour
             colliding.Add(other.gameObject);
         }
     }
+    
 
     private void OnTriggerExit(Collider other)
     {
