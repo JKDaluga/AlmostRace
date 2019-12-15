@@ -64,13 +64,7 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
                 else if (obj.gameObject.GetComponent<Interactable>() != null)
                 {
                     obj.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
-                    if (obj.gameObject.GetComponent<Interactable>().interactableHealth <= 0)
-                    {
-                        if (_immunePlayer.GetComponent<AimAssistant>().target == obj.gameObject)
-                        {
-                            _immunePlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(obj.gameObject);
-                        }
-                    }
+                   
 
                     // Debug.Log("Interactable was hit with explosion");
 
