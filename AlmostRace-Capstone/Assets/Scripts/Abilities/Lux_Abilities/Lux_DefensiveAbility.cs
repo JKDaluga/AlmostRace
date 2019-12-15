@@ -19,6 +19,7 @@ public class Lux_DefensiveAbility : CooldownAbility
         foreach(GameObject shield in _shields)
         {
             shield.GetComponent<Lux_ShieldPanelBehavior>().GiveInfo(shieldHealth, gameObject);
+            shield.SetActive(false);
         }
     }
 
@@ -28,6 +29,7 @@ public class Lux_DefensiveAbility : CooldownAbility
         foreach (GameObject shield in _shields)
         {
             shield.GetComponent<Lux_ShieldPanelBehavior>().TriggerInteractable();
+            shield.SetActive(true);
         }
     }
 
@@ -36,6 +38,7 @@ public class Lux_DefensiveAbility : CooldownAbility
         foreach (GameObject shield in _shields)
         {
             shield.GetComponent<Lux_ShieldPanelBehavior>().DestroyInteractable();
+            shield.SetActive(true);
         }
     }
 

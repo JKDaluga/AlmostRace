@@ -22,6 +22,15 @@ public class Lux_ProjectileBehavior : Projectile
     {   
         if (_isAlive)
         {
+            if(other.gameObject.layer == 20)
+            {
+                if(other.gameObject.GetComponent<Lux_ShieldPanelBehavior>().GetShieldPlayer() != _immunePlayer)
+                {
+                    Destroy(gameObject);
+                    StartCoroutine(ExplosionEffect());
+                }
+            
+            }
             if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHeatManager>() != null)
             {//Checks if the object isn't the immunePlayer and if they are a car.
                 other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);

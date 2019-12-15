@@ -76,6 +76,12 @@ public class VoidWasp_ProjectileBehaviour : Projectile
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.layer == 20)
+        {
+            Debug.Log("Void Wasp projectile should have detected shields and destroyed");
+            Destroy(gameObject);
+            StartCoroutine(ExplosionEffect());
+        }
         if (collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<CarHeatManager>() != null)
         {//Checks if the object isn't the immunePlayer and if they are a car.
             Debug.Log("1 Projectile Hit: " + collision.gameObject.name);

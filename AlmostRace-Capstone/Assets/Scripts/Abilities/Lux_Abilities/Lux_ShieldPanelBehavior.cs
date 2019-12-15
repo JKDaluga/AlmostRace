@@ -7,13 +7,12 @@ public class Lux_ShieldPanelBehavior : Interactable
     private float _shieldMaxHealth;
     private GameObject _shieldPlayer;
     private Collider _collider;
-    private MeshRenderer _meshRender;
+    public MeshRenderer _meshRender;
 
-    private void Start()
+    private void Awake()
     {
-        canBeDamaged = true;
-        _collider = gameObject.GetComponent<Collider>();
-        _meshRender = gameObject.GetComponent<MeshRenderer>();
+        canBeDamaged = false;
+
         DestroyInteractable();
     }
 
@@ -31,12 +30,16 @@ public class Lux_ShieldPanelBehavior : Interactable
 
     public override void DestroyInteractable()
     {
+        _collider = gameObject.GetComponent<Collider>();
+        _meshRender = gameObject.GetComponent<MeshRenderer>();
         _meshRender.enabled = false;
         _collider.enabled = false;
     }
 
     public override void ResetInteractable()
     {
+        _collider = gameObject.GetComponent<Collider>();
+        _meshRender = gameObject.GetComponent<MeshRenderer>();
         _meshRender.enabled = true;
         _collider.enabled = true;
         interactableHealth = _shieldMaxHealth;
@@ -44,11 +47,15 @@ public class Lux_ShieldPanelBehavior : Interactable
 
     public override void DamageInteractable(float damageNumber)
     {
-        interactableHealth -= damageNumber;
-        if (interactableHealth <= 0)
+        if(canBeDamaged)
         {
-            DestroyInteractable();
+            interactableHealth -= damageNumber;
+            if (interactableHealth <= 0)
+            {
+                DestroyInteractable();
+            }
         }
+
     }
 
     public GameObject GetShieldPlayer()
@@ -56,6 +63,18 @@ public class Lux_ShieldPanelBehavior : Interactable
         return _shieldPlayer;
     }
 
-    // _shieldHealth = _shieldHealthMax; add this later to where the shield dies
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Projectile"))
+        {
+            if (other.GetComponent<Projectile>().getImmunePlayer() != _shieldPlayer)
+            {
+               // Debug.Log(other.name + "should have been destroyed b");
+                //other.GetComponent<Projectile>().SetProjectileDamage(0);
+               Destroy(other);
+            }
+
+        }
+    }
 
 }

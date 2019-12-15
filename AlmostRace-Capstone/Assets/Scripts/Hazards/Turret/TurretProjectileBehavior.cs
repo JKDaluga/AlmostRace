@@ -28,7 +28,13 @@ public class TurretProjectileBehavior : Projectile
     private void OnTriggerEnter(Collider other)
     {
         //Debug.Log("Damage done to: " + other.gameObject.name + " " + _projectileDamage);
-         if (other.gameObject.GetComponent<Interactable>() != null)
+        if (other.gameObject.layer == 20)
+        {
+            Debug.Log("Shield detected by turret projectile");
+            Destroy(gameObject);
+            StartCoroutine(ExplosionEffect());
+        }
+        if (other.gameObject.GetComponent<Interactable>() != null)
         {//Checks if the object isn't the immunePlayer and if they are an interactable object.
 
             if (!other.gameObject.CompareTag("Projectile"))
