@@ -76,6 +76,11 @@ public class DestructableBoulderBehaviour : Interactable
             }
         }
 
+        if(interactingPlayer.GetComponent<AimAssistant>().target = gameObject)
+        {
+            interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
+        }
+
      
         boulderParticles.Play();
         rend.enabled = false;
