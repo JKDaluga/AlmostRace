@@ -41,7 +41,9 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
         voidParticles.SetActive(false);
 
         _originalMat = voidWaspParts[0].GetComponent<Renderer>().material;
-       // print(_originalMat);
+
+        // Set reference to Car Heat manager
+        carHeatInfo = gameObject.GetComponent<CarHeatManager>();
     }
 
     public override void ActivateAbility()
@@ -74,10 +76,9 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
 
     protected override void AddHeat()
     {
-        //throw new System.NotImplementedException();
+        Debug.Log("Add heat to car" + selfHeatDamage);
+        carHeatInfo.DamageCar(selfHeatDamage);
     }
-
-
 
     void SetMaterials(List<GameObject> parts, Material mat)
     {

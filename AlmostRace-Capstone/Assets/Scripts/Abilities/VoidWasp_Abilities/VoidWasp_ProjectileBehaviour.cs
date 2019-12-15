@@ -119,12 +119,9 @@ public class VoidWasp_ProjectileBehaviour : Projectile
             spawnedClone2.transform.SetParent(collision.gameObject.transform);
             spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().LightFuse();
         }
-
-            //TODO
             spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, _explosionFuse, _explosionHypeToGain, _explosionRadius, _immunePlayer);
           
 
-        //TODO Replace this with particle explosions or w/e u want
         Destroy(gameObject);
     }
 }

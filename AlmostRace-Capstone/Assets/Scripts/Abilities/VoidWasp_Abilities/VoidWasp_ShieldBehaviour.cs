@@ -135,6 +135,7 @@ public class VoidWasp_ShieldBehaviour : Interactable
             part.Play();
         }
 
+        /*
         foreach (Collider obj in objectsHit)
         {
             Debug.Log("Object hit: " + obj.gameObject.name);
@@ -155,6 +156,6 @@ public class VoidWasp_ShieldBehaviour : Interactable
                // Debug.Log(obj.gameObject.name);
             //}
 
-        }
+        }*/
     }
 }
