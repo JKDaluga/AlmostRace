@@ -78,7 +78,6 @@ public class VoidWasp_ProjectileBehaviour : Projectile
     {
         if (collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<CarHeatManager>() != null)
         {//Checks if the object isn't the immunePlayer and if they are a car.
-            Debug.Log("1 Projectile Hit: " + collision.gameObject.name);
             collision.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
 
             collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 4f;
@@ -101,8 +100,6 @@ public class VoidWasp_ProjectileBehaviour : Projectile
                     _immunePlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(collision.gameObject);
                 }
             }
-
-            Debug.Log("2 Projectile Hit: " + collision.gameObject.name);
 
             AudioManager.instance.Play("VoidWasp Shot hit");
         }

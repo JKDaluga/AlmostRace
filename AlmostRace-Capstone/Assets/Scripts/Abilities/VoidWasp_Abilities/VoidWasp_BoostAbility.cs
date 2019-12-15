@@ -41,7 +41,7 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
         voidParticles.SetActive(false);
 
         _originalMat = voidWaspParts[0].GetComponent<Renderer>().material;
-        print(_originalMat);
+       // print(_originalMat);
     }
 
     public override void ActivateAbility()
