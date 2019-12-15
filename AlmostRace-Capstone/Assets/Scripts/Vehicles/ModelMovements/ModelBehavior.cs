@@ -64,9 +64,7 @@ public class ModelBehavior : MonoBehaviour
                 {
                     transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(new Vector3(0, 90, 0)), pitchSpeed * Time.deltaTime);
                 }
-
-                if(Mathf.Abs(transform.eulerAngles.x) > (maxPitch * .9f))
-                {
+                
                     if(dir > 0)
                     {
                         if(rightDriftParticles != null)
@@ -76,7 +74,6 @@ public class ModelBehavior : MonoBehaviour
                         if (leftDriftParticles != null)
                             leftDriftParticles.SetActive(true);
                     }
-                }
             }
 
             if (car.getTurning() == 0)
