@@ -60,6 +60,7 @@ public class PlayerInput : MonoBehaviour
         _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1];
         _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1];
         _verticalName = "VerticalUI" + _inputNum[playerNumber - 1];
+        _respawn = "Respawn" + _inputNum[playerNumber - 1];
 #endif
 
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX

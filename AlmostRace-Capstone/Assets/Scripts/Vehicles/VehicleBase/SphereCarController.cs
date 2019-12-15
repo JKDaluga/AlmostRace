@@ -276,7 +276,7 @@ public class SphereCarController : MonoBehaviour
 
         if(GetComponent<AimAssistant>().target != null)
         {
-            aimPos.transform.position = GetComponent<AimAssistant>().target.transform.position;
+            aimPos.transform.position = GetComponent<AimAssistant>().target.GetComponent<Collider>().bounds.center;
         } else
         {
             aimPos.transform.localPosition = aimObject.transform.localPosition;

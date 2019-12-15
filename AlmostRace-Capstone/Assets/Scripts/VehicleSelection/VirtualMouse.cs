@@ -12,7 +12,10 @@ public class VirtualMouse : UIBehaviour
     private PlayerInput _playerInput;
     public GameObject _mouse;
     public GameObject Grid;
-    private bool _ready = false; 
+    private bool _ready = false;
+    private bool _isInfoOn = false;
+
+    public GameObject[] infoScreens;
 
     private bool overlapping = true;
 
@@ -22,25 +25,26 @@ public class VirtualMouse : UIBehaviour
     {
         _playerInput = GetComponent<PlayerInput>();
     }
-    private void Update()
+
+    private void FixedUpdate()
     {
         moveCursor();
-
-
     }
-
     private void moveCursor()
     {
-        int dir = Input.GetAxis(_playerInput.horizontal) > 0 ? 1 : -1;
-        int dir2 = Input.GetAxis(_playerInput.vertical) > 0 ? 1 : -1;
-
-        if (Input.GetAxis(_playerInput.vertical) >= 0.1 && _mouse.activeSelf || Input.GetAxis(_playerInput.vertical) <= -0.1 && _mouse.activeSelf)
+        float dir = Input.GetAxis(_playerInput.horizontal);// > 0 ? 1 : -1;
+        float dir2 = Input.GetAxis(_playerInput.vertical);// > 0 ? 1 : -1;
+        if(Mathf.Abs(dir) <0.1)
         {
-            gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x + 0, gameObject.transform.localPosition.y + dir2 * sens);
+            dir = 0;
         }
-        if (Input.GetAxis(_playerInput.horizontal) >= 0.1 && _mouse.activeSelf || Input.GetAxis(_playerInput.horizontal) <= -0.1 && _mouse.activeSelf)
+        if (Mathf.Abs(dir2) < 0.1)
         {
-            gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x + dir * sens, gameObject.transform.localPosition.y + 0);
+            dir2 = 0;
+        }
+        if (_mouse.activeSelf)
+        {
+            gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x + dir * sens, gameObject.transform.localPosition.y + dir2 * sens);
         }
 
         if (Input.GetButtonDown(_playerInput.awakeButton) == true && _mouse.activeSelf == false && _ready == false)
@@ -56,17 +60,25 @@ public class VirtualMouse : UIBehaviour
         {
             currentVehicle = 0;
             _ready = false;
+            _isInfoOn = false;
             _mouse.SetActive(true);
             Grid.GetComponent<Display>().addedCar(false);
             Grid.GetComponent<Display>().confirmedCar(false);
 
         }
 
-        if (Input.GetButtonDown(_playerInput.selectButton) == true && _ready == true)
+        if (Input.GetButtonDown(_playerInput.selectButton) == true && _ready == true && _isInfoOn == false)
         {
             Grid.GetComponent<Display>().confirmedCar(true);
         }
-        
+
+        if (Input.GetButtonDown(_playerInput.respawn) == true && _ready == true && _isInfoOn == false)
+        {
+            _isInfoOn = true;
+            //Grid.GetComponent<Display>().confirmedCar(true);
+        }
+
+
     }
 
     public void changeReady(bool stat)
@@ -77,5 +89,42 @@ public class VirtualMouse : UIBehaviour
     {
         return _ready;
     }
-    
+    public void showInfoScreen(int screenNum)
+    {
+        switch(currentVehicle)
+        {
+            case 0:
+                switch (screenNum)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 1:
+                switch (screenNum)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }

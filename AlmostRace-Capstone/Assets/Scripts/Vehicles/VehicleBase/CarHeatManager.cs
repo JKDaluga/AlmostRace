@@ -169,6 +169,8 @@ public class CarHeatManager : MonoBehaviour
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, sphereCollider, modelHolder);
         sphereCollider.GetComponent<Rigidbody>().useGravity = false;
         sphereCollider.GetComponent<Rigidbody>().isKinematic = true;
+
+        gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
     }
 
     public void Respawn()
@@ -190,7 +192,7 @@ public class CarHeatManager : MonoBehaviour
         {
             bAbility.DeactivateAbility();
         }
-
+        gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
     }
 
     public void Teleport()

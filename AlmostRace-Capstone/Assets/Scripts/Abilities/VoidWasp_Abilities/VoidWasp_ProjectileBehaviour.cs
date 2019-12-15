@@ -93,14 +93,7 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         { //Hits Interactable
             collision.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
             collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
-
-            if (collision.gameObject.GetComponent<Interactable>().interactableHealth <= 0)
-            {
-                if (_immunePlayer.GetComponent<AimAssistant>().target == collision.gameObject)
-                {
-                    _immunePlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(collision.gameObject);
-                }
-            }
+            
 
             AudioManager.instance.Play("VoidWasp Shot hit");
         }

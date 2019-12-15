@@ -16,9 +16,9 @@ public class crosshairAim : MonoBehaviour
     {
         if(aim.target != null)
         {
-            Vector3 pos = cam.WorldToScreenPoint(aim.target.transform.position);
+            Vector3 pos = cam.WorldToScreenPoint(aim.target.GetComponent<Collider>().bounds.center);
             Vector3 offsetPos = new Vector3(pos.x, pos.y + 25, pos.z);
-            transform.position = offsetPos;
+            transform.position = pos;
 
             GetComponent<Image>().sprite = locked;
         }
