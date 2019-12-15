@@ -436,6 +436,11 @@ public class SphereCarController : MonoBehaviour
         return _drifting;
     }
 
+    public void setDrifting(bool val)
+    {
+        _drifting = val;
+    }
+
     public float getTurning()
     {
         return Input.GetAxis(_vehicleInput.horizontal);
