@@ -96,7 +96,7 @@ public class CoolantLineBehavior : MonoBehaviour
             {
                 if(!car.isDead) //Make sure car is alive.
                 {
-                    car.AddHeat(_coolantDamage); //Damage car.
+                    car.DamageCar(_coolantDamage); //Damage car.
                     if(!_interactingPlayer.Equals(car.gameObject))
                     {                
                         //rewards instigating player with hype for damaging other cars

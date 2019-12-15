@@ -27,13 +27,6 @@ public class TurretProjectileBehavior : Projectile
 
     private void OnTriggerEnter(Collider other)
     {
-        //Debug.Log("Damage done to: " + other.gameObject.name + " " + _projectileDamage);
-        if (other.gameObject.layer == 20)
-        {
-            Debug.Log("Shield detected by turret projectile");
-            Destroy(gameObject);
-            StartCoroutine(ExplosionEffect());
-        }
         if (other.gameObject.GetComponent<Interactable>() != null)
         {//Checks if the object isn't the immunePlayer and if they are an interactable object.
 
@@ -52,7 +45,7 @@ public class TurretProjectileBehavior : Projectile
         }
         else if (other.gameObject.GetComponent<CarHeatManager>() != null)
         {//if other is a car
-            other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
+            other.gameObject.GetComponent<CarHeatManager>().DamageCar(_projectileDamage);
             other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = .4f;
             other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = .4f;
 

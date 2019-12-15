@@ -142,7 +142,7 @@ public class VoidWasp_ShieldBehaviour : Interactable
             //{
                 if (obj.gameObject.GetComponent<CarHeatManager>() != null)
                 {//if a car was hit
-                    obj.gameObject.GetComponent<CarHeatManager>().AddHeat(_collectedDamage/4);
+                    obj.gameObject.GetComponent<CarHeatManager>().DamageCar(_collectedDamage/4);
                     Debug.Log("1 damage done: " + _collectedDamage);
                 }
                 else if (obj.gameObject.GetComponent<Interactable>() != null)

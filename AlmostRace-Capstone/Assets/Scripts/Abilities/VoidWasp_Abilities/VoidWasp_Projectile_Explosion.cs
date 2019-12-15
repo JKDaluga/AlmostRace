@@ -51,7 +51,7 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
             {
                 if (obj.gameObject.GetComponent<CarHeatManager>() != null)
                 {//if a car was hit
-                    obj.gameObject.GetComponent<CarHeatManager>().AddHeat(_explosionDamage);
+                    obj.gameObject.GetComponent<CarHeatManager>().DamageCar(_explosionDamage);
 
 
                     obj.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 4f;
