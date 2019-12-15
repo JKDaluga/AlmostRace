@@ -4679,7 +4679,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1734303708098635440
 Transform:
   m_ObjectHideFlags: 0
@@ -4769,7 +4769,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3525037599908622889
 Transform:
   m_ObjectHideFlags: 0
@@ -47183,10 +47183,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   car: {fileID: 9047472390560815505}
   ins: {fileID: 2702256785903131932}
-  child: {fileID: 5284021186431828857}
+  carType: 0
+  leftDriftParticles: {fileID: 0}
+  rightDriftParticles: {fileID: 0}
   turnPitch: 25
   driftPitch: 50
   pitchSpeed: 50
+  voidWaspSpin: 0
+  voidSpinDuration: 0
   rotateTime: 0.1
 --- !u!1 &7674454898302836987
 GameObject:
@@ -51876,7 +51880,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3332757120254519869
 Transform:
   m_ObjectHideFlags: 0
@@ -52071,7 +52075,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9087187932284410672}
   m_LocalRotation: {x: -0.7069991, y: 0.012340614, z: -0.7069991, w: -0.012340614}
-  m_LocalPosition: {x: 1.9279919, y: 0.9384001, z: 0.013598824}
+  m_LocalPosition: {x: 1.9279919, y: 0.9384001, z: -0.05}
   m_LocalScale: {x: 1.8000005, y: 1.8000017, z: 1.8000019}
   m_Children:
   - {fileID: 2067679928318819346}
@@ -57443,6 +57447,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Volt_Final
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: e9ef4509e7a76db42a3a8fb17193f069,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 19199070615733357, guid: e9ef4509e7a76db42a3a8fb17193f069,
         type: 3}
       propertyPath: m_IsActive
@@ -57714,7 +57723,7 @@ PrefabInstance:
     - target: {fileID: 2068207908328324620, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.0000000010862008
+      value: 0.0000000010862006
       objectReference: {fileID: 0}
     - target: {fileID: 2068207908328324620, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
