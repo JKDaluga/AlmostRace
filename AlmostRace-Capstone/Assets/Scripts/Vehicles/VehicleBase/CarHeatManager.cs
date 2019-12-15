@@ -264,6 +264,11 @@ public class CarHeatManager : MonoBehaviour
        
     }
 
+    public void DamageCarTrue(float damage)
+    {
+        healthCurrent -= damage;
+    }
+
     public float GetExtraHealth()
     {
         return _extraHP;

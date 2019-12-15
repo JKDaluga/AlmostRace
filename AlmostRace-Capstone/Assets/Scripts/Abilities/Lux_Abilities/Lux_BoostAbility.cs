@@ -68,6 +68,6 @@ public class Lux_BoostAbility : CooldownHeatAbility
 
     protected override void AddHeat()
     {
-       carHeatInfo.DamageCar(selfHeatDamage);
+       carHeatInfo.DamageCarTrue(selfHeatDamage);
     }
 }
