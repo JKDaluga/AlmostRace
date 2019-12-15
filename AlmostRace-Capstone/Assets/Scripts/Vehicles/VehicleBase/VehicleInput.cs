@@ -48,7 +48,7 @@ public class VehicleInput : MonoBehaviour
 
     private string[] _inputNum = new string[4] { "P1", "P2", "P3", "P4"};
 
-    private bool activeStatus = true;
+    private bool activeStatus = false;
 
     private void Awake()
     {
