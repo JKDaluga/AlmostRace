@@ -27,7 +27,7 @@ public class Lux_ShieldPanelBehavior : MonoBehaviour
                 DestroyInteractable();
                 yield return null;
             }
-       
+            yield return null;
         }
     }
 
