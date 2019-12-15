@@ -26,8 +26,8 @@ public class Lux_ProjectileBehavior : Projectile
             {//Checks if the object isn't the immunePlayer and if they are a car.
                 other.gameObject.GetComponent<CarHeatManager>().AddHeat(_projectileDamage);
 
-                other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = .25f;
-                other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = .25f;
+                other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = .75f;
+                other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = .75f;
                 other.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
                 _immunePlayerScript.AddHype(_projectileHype, "Damage:");
                 AudioManager.instance.Play("Bullet Impact Lux");

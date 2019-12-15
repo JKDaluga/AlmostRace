@@ -135,7 +135,7 @@ public class CarHeatManager : MonoBehaviour
         }
     }
 
-    private void Kill()
+    public void Kill()
     {
 
         // stackTrace = new StackTrace();

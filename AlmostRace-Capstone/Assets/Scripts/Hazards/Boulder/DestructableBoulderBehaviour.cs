@@ -49,14 +49,18 @@ public class DestructableBoulderBehaviour : Interactable
         {
            // if(canBeDamaged)
           //  {
-                interactingPlayer = collision.gameObject; // sets the person crashing with the boulder as the interacting player
-                TriggerInteractable();
-                collision.gameObject.GetComponent<CarHeatManager>().AddHeat(ramDamage);
-                if (collision.gameObject.GetComponent<SphereCarController>() != null)
-                {
-                    collision.gameObject.GetComponent<SphereCarController>().currentSpeed -=
-                        (collision.gameObject.GetComponent<SphereCarController>().currentSpeed / slowDownFactor);
-                }
+            interactingPlayer = collision.gameObject; // sets the person crashing with the boulder as the interacting player
+            TriggerInteractable();
+            if(collision.gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Contains(gameObject))
+            {
+                collision.gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
+            }
+            collision.gameObject.GetComponent<CarHeatManager>().AddHeat(ramDamage);
+            if (collision.gameObject.GetComponent<SphereCarController>() != null)
+            {
+                collision.gameObject.GetComponent<SphereCarController>().currentSpeed -=
+                    (collision.gameObject.GetComponent<SphereCarController>().currentSpeed / slowDownFactor);
+            }
            // }
 
         }
