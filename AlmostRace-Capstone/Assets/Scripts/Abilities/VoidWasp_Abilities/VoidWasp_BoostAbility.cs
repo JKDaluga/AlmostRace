@@ -76,7 +76,7 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
 
     protected override void AddHeat()
     {
-        Debug.Log("Add heat to car" + selfHeatDamage);
+        //Debug.Log("Add heat to car" + selfHeatDamage);
         carHeatInfo.DamageCar(selfHeatDamage);
     }
 
