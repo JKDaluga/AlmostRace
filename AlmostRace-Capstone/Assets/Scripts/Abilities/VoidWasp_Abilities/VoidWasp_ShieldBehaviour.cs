@@ -19,6 +19,8 @@ public class VoidWasp_ShieldBehaviour : Interactable
 
     public GameObject psRef;
 
+    //public GameObject explosionPs;
+
     private float _maxHealth;
     private GameObject _surgeObject;
 
@@ -35,21 +37,23 @@ public class VoidWasp_ShieldBehaviour : Interactable
 
     Collider[] objectsHit;
 
+    public List<ParticleSystem> explosionParts;
+
     // Start is called before the first frame update
     void Start()
     {
+        _collider = gameObject.GetComponent<SphereCollider>();
+        _meshRender = gameObject.GetComponent<MeshRenderer>();
         canBeDamaged = true;
         psRef.SetActive(false);
-        _collider = gameObject.GetComponent<SphereCollider>();
+        _meshRender.enabled = false;
         _collider.enabled = false;
-        _meshRender = gameObject.GetComponent<MeshRenderer>();
-        //_meshRender.enabled = false;
-        DestroyInteractable();
     }
 
     public void GiveInfo(float maxHealth, GameObject shieldRef, float explosionRadius, GameObject immunePlayer)
     {
         interactableHealth = maxHealth;
+        _maxHealth = maxHealth;
         _surgeObject = shieldRef;
         _explosionRadius = explosionRadius;
        // Debug.Log("1 explosion radius: " + _explosionRadius);
@@ -66,55 +70,43 @@ public class VoidWasp_ShieldBehaviour : Interactable
             DestroyInteractable();
         }
 
-        print("shield heath: " + interactableHealth);
+        print("shield health: " + interactableHealth);
     }
 
     public override void DestroyInteractable()
     {
-
+        
+        psRef.SetActive(false);
         _meshRender.enabled = false;
         _collider.enabled = false;
-        psRef.GetComponent<Animator>().SetBool("surgeEnd", true);
 
-        // Call function that repels the damage again
-        // Seperate objects activates as trigger? 
-        // Does damage to any car that is around it OR shoot out random projectiles? 
-        // Could be more wasps maybe, and these projectiles do damage based in total 
-        // collected damage divided over total amount projectiles
-    }
-
-
-
-    private void SurgeRelease()
-    {
-        psRef.GetComponent<Animator>().SetTrigger("startVoidSurge");
-        print("release" + _released);
-
+        Explode();
     }
 
     public override void ResetInteractable()
     {
         interactableHealth = _maxHealth;
         _collectedDamage = 0;
+        //explosionPs.SetActive(false);
     }
 
     public override void TriggerInteractable()
     {
-        ResetInteractable(); // makes sure each panel has full health.
-        _collider.enabled = true;
         Debug.Log("triggered");
-        psRef.SetActive(true);
-        psRef.GetComponent<Animator>().SetTrigger("startVoidSurge");
 
+        ResetInteractable(); 
+        _collider.enabled = true;
+        _meshRender.enabled = true;
+        psRef.SetActive(true);
+
+        //psRef.GetComponent<Animator>().SetTrigger("startVoidSurge");
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<Projectile>() != null)
         {
-
             Destroy(other.gameObject);
-
         }
 
     }
@@ -126,10 +118,23 @@ public class VoidWasp_ShieldBehaviour : Interactable
         return _surgeObject;
     }
 
+    void OnDrawGizmosSelected()
+    {
+        // Draw a yellow sphere at the transform's position
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(transform.position, 50);
+    }
+
     public void Explode()
     {
         objectsHit = Physics.OverlapSphere(_immunePlayer.transform.localPosition, _explosionRadius);
         //Debug.Log("2 explosion radius: " + _explosionRadius);
+
+        foreach (ParticleSystem part in explosionParts)
+        {
+            part.Play();
+        }
+
         foreach (Collider obj in objectsHit)
         {
             Debug.Log("Object hit: " + obj.gameObject.name);

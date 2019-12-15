@@ -18,14 +18,11 @@ public class Countdown : MonoBehaviour
     void Start()    
     {
         countText = GetComponent<TextMeshProUGUI>();
-        arrV = FindObjectsOfType<VehicleInput>();
         StartCoroutine(countDown(timeLeft));
     }
     public IEnumerator countDown(int seconds)
     {
         int count = seconds;
-
-        turnOff(false);
 
         while (count > 0)
         {
@@ -35,6 +32,7 @@ public class Countdown : MonoBehaviour
             AudioManager.instance.Play("Countdown");
         }
 
+        arrV = FindObjectsOfType<VehicleInput>();
         turnOff(true);
         startStatus = false;
 
