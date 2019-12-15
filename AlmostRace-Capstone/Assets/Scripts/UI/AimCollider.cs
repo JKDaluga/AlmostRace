@@ -31,6 +31,11 @@ public class AimCollider : MonoBehaviour
         }
         else aim.target = null;
 
+        if (!colliding.Contains(aim.target))
+        {
+            aim.target = null;
+        }
+
         colliding.RemoveAll(GameObject => GameObject == null);
         
         if (colliding.Count > 0)
