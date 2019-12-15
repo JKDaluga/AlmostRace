@@ -8,6 +8,7 @@ public class CarCollision : MonoBehaviour
 {
     public GameObject frontCollisionParticles;
     public SphereCarController car;
+    public VehicleCollisionEffects collisionEffectsScript;
     private float _invulTime = 0f;
     public float weight;
 
@@ -37,6 +38,7 @@ public class CarCollision : MonoBehaviour
             CarHeatManager otherCarHeat = other.car.GetComponent<CarHeatManager>();
             Vector3 relativeVelocity = rb.velocity - other_rb.velocity;
             Vector3 relativePosition = rb.position - other_rb.position;
+            collisionEffectsScript.CreateSparks(collision);
             AudioManager.instance.Play("General collision");
 
             //calculating the angle in radians then converting it to degrees

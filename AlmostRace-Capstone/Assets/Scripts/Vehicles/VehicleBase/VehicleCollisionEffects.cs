@@ -14,22 +14,23 @@ public class VehicleCollisionEffects : MonoBehaviour
     {
         GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 1;
         GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 1;
-
         GetComponent<CinemachineImpulseSource>().GenerateImpulse();
-        foreach (ContactPoint contact in collision.contacts)
-        {
-            Instantiate(sparks, contact.point, Quaternion.identity);
-        }        
+        CreateSparks(collision);
     }
 
     private void OnCollisionStay(Collision collision)
     {
-        foreach (ContactPoint contact in collision.contacts)
+        if (colliderRigidbody.velocity.magnitude > velocityRequirement)
         {
-            if (colliderRigidbody.velocity.magnitude > velocityRequirement)
-            {
-                Instantiate(sparks, contact.point, Quaternion.identity);
-            }
+            CreateSparks(collision);
         }
+    }
+
+    public void CreateSparks(Collision givenCollision)
+    {
+        foreach (ContactPoint contact in givenCollision.contacts)
+        {
+            Instantiate(sparks, contact.point, Quaternion.identity);
+        }  
     }
 }
