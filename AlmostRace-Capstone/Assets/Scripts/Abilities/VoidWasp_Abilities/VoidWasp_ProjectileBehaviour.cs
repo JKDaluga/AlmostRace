@@ -17,8 +17,9 @@ public class VoidWasp_ProjectileBehaviour : Projectile
     private float _speedLimitActual;
 
 
-// //////////EXPLOSION STUFF
 
+    [Header("Projectile Explosion Settings")]
+    
     private float _explosionDamage;
 
     private float _explosionFuse;
@@ -26,6 +27,7 @@ public class VoidWasp_ProjectileBehaviour : Projectile
     private float _explosionHypeToGain;
 
     private float _explosionRadius;
+
 
     private new void Start()
     {
