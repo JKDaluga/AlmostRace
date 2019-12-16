@@ -44,9 +44,6 @@ public class RaceManager : MonoBehaviour
         //print(player.carID * 4 + player.playerID - 1);
         GameObject car = Instantiate(carPool[player.carID * 4 + player.playerID - 1], spawnLocations[player.carID].position, spawnLocations[player.carID].rotation);
 
-        //Set up car skin
-
-
         SphereCarController sphereCar = car.GetComponentInChildren<SphereCarController>();
         VehicleInput v = car.GetComponentInChildren<VehicleInput>();
         v.setPlayerNum(playerNum);

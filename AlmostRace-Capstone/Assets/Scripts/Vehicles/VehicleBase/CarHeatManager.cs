@@ -193,6 +193,8 @@ public class CarHeatManager : MonoBehaviour
             bAbility.DeactivateAbility();
         }
         gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
+        GetComponent<SphereCarController>().setDrifting(false);
+
     }
 
     public void Teleport()
@@ -262,6 +264,11 @@ public class CarHeatManager : MonoBehaviour
             healthCurrent -= damage;
         }
        
+    }
+
+    public void DamageCarTrue(float damage)
+    {
+        healthCurrent -= damage;
     }
 
     public float GetExtraHealth()

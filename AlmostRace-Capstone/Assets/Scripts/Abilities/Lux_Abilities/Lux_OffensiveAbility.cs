@@ -90,7 +90,15 @@ public class Lux_OffensiveAbility : HeatAbility
            // AudioManager.instance.Play("Blaster1");
             foreach (Transform i in muzzles)
             {
-                i.LookAt(_aimPosActual);
+                if (GetComponent<AimAssistant>().target != null && GetComponent<AimAssistant>().target.GetComponent<SphereCarController>() != null)
+                {
+                    Vector3 assistedPos = predictedPosition(_aimPosActual.position, transform.position, GetComponent<AimAssistant>().target.GetComponent<Rigidbody>().velocity, projectileSpeed);
+                    i.LookAt(assistedPos);
+                }
+                else
+                {
+                    i.LookAt(_aimPosActual);
+                }
             }
 
             GameObject projectile = Instantiate(luxProjectile, muzzles[_currentMuzzle].position, muzzles[_currentMuzzle].rotation);
@@ -107,6 +115,21 @@ public class Lux_OffensiveAbility : HeatAbility
             _currentMuzzle += _muzzleIterator;
             AudioManager.instance.Play("Lux Shooting");
         }
+    }
+
+    private Vector3 predictedPosition(Vector3 targetPosition, Vector3 shooterPosition, Vector3 targetVelocity, float projectileSpeed)
+    {
+        Vector3 displacement = targetPosition - shooterPosition;
+        float targetMoveAngle = Vector3.Angle(-displacement, targetVelocity) * Mathf.Deg2Rad;
+        //if the target is stopping or if it is impossible for the projectile to catch up with the target (Sine Formula)
+        if (targetVelocity.magnitude == 0 || targetVelocity.magnitude > projectileSpeed && Mathf.Sin(targetMoveAngle) / projectileSpeed > Mathf.Cos(targetMoveAngle) / targetVelocity.magnitude)
+        {
+          //  Debug.Log("Position prediction is not feasible.");
+            return targetPosition;
+        }
+        //also Sine Formula
+        float shootAngle = Mathf.Asin(Mathf.Sin(targetMoveAngle) * targetVelocity.magnitude / projectileSpeed);
+        return targetPosition + targetVelocity * displacement.magnitude / Mathf.Sin(Mathf.PI - targetMoveAngle - shootAngle) * Mathf.Sin(shootAngle) / targetVelocity.magnitude;
     }
 
     public override void ActivateAbility()

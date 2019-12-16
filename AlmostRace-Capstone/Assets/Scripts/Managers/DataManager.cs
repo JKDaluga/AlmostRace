@@ -24,7 +24,7 @@ public class DataManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance != null)
+        if(instance != null && this != instance)
         {
             Destroy(this.gameObject);
         }
@@ -51,6 +51,7 @@ public class DataManager : MonoBehaviour
         for (int i = 0; i < playerInfo.Length; i++)
         {
             playerInfo[i] = new PlayerInfo();
+            playerInfo[i].playerID = i + 1;
         }
     }
 }
