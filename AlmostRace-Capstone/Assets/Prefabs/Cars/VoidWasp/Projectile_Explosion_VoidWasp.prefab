@@ -103,6 +103,8 @@ GameObject:
   - component: {fileID: 2460749259567487907}
   - component: {fileID: 3566812203039644891}
   - component: {fileID: 8164579502901507378}
+  - component: {fileID: 6951665868811839481}
+  - component: {fileID: 4520960306688620585}
   m_Layer: 11
   m_Name: Projectile_Explosion_VoidWasp
   m_TagString: Projectile
@@ -187,6 +189,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosionParticles: {fileID: 6113858972159001863}
+--- !u!135 &6951665868811839481
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2460749259567487935}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 3
+  m_Center: {x: 0, y: -0.00033208728, z: 0.00004208088}
+--- !u!54 &4520960306688620585
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2460749259567487935}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2700344805999601104
 GameObject:
   m_ObjectHideFlags: 0
