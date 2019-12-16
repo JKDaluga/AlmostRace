@@ -25,12 +25,12 @@ public class VoidWasp_Shield_Explosion : MonoBehaviour
         if (hit.gameObject.GetComponent<CarHeatManager>() != null)
         {
             _hitObjects.Add(hit.gameObject);
-            Debug.Log("Car added: " + hit.gameObject.name);
+            //Debug.Log("Car added: " + hit.gameObject.name);
         }
         else if (hit.gameObject.GetComponent<Interactable>() != null)
         {
             _hitObjects.Add(hit.gameObject);
-            Debug.Log("interactable added: " + hit.gameObject.name);
+            //Debug.Log("interactable added: " + hit.gameObject.name);
         }
     }
 
