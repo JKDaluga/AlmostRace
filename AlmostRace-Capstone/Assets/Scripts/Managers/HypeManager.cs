@@ -160,14 +160,14 @@ public class HypeManager : MonoBehaviour
         }
         if(winner != this.gameObject)
         {
-            winnerText.text = "PLAYER " + winner.GetComponent<VehicleInput>().playerNumber + " WINS!";
-            winnerText.gameObject.SetActive(true);
+            //winnerText.text = "PLAYER " + winner.GetComponent<VehicleInput>().playerNumber + " WINS!";
+            //winnerText.gameObject.SetActive(true);
 
             eventPanel.SetActive(true);
             winText.SetActive(true);
-            //winText.GetComponent<TextMeshProUGUI>().text = 
+            winText.GetComponent<TextMeshProUGUI>().text = "PLAYER " + winner.GetComponent<VehicleInput>().playerNumber + " WINS!";
 
-            //Invoke("DisableEvents", 3);
+            Invoke("DisableEvents", 3);
             AudioManager.instance.Play("Victory Music");
         }
     }

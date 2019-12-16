@@ -3147,6 +3147,8 @@ MonoBehaviour:
   totalHype: 0
   winnerText: {fileID: 5442321032361601276}
   countdownObj: {fileID: 3780414201012212067}
+  eventPanel: {fileID: 0}
+  winText: {fileID: 0}
 --- !u!114 &6403223517959016241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3206,9 +3208,9 @@ MonoBehaviour:
   - {fileID: 7702634044193063500, guid: ef1759693b1b63148bed276bbacdc39f, type: 3}
   - {fileID: 9047472390817029944, guid: 2c2f56ff84448174487a2a4983f4c45d, type: 3}
   - {fileID: 2575587412774211945, guid: 0fe22d43b8876eb45b1aaefa14bf68bd, type: 3}
-  - {fileID: 7086322331804688970, guid: 2d8d979b0cb098949bec0fac8b708242, type: 3}
-  - {fileID: 1911002277026032638, guid: 345ea56833a9ea245be48861e250949f, type: 3}
-  - {fileID: 3469786411798641848, guid: 8e9d1d1174b3c0a4099675c5374f78a1, type: 3}
+  - {fileID: 8460865714168472540, guid: 2d8d979b0cb098949bec0fac8b708242, type: 3}
+  - {fileID: -9019809285714080380, guid: 345ea56833a9ea245be48861e250949f, type: 3}
+  - {fileID: -4797949736585797371, guid: 8e9d1d1174b3c0a4099675c5374f78a1, type: 3}
   spawnLocations:
   - {fileID: 6196485191558557733}
   - {fileID: 7487433797625196638}
@@ -3306,26 +3308,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3604974643310627528, guid: 136953c0a43327f45b33a5e2f64b24ff,
-        type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 274
-      objectReference: {fileID: 0}
-    - target: {fileID: 3604974643310627528, guid: 136953c0a43327f45b33a5e2f64b24ff,
-        type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -33
-      objectReference: {fileID: 0}
-    - target: {fileID: 3604974643310627529, guid: 136953c0a43327f45b33a5e2f64b24ff,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 2280357531516124063}
-    - target: {fileID: 3604974643310627529, guid: 136953c0a43327f45b33a5e2f64b24ff,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: restart
       objectReference: {fileID: 0}
     - target: {fileID: 3604974644997413768, guid: 136953c0a43327f45b33a5e2f64b24ff,
         type: 3}
@@ -3468,6 +3450,16 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -98
       objectReference: {fileID: 0}
+    - target: {fileID: 3604974643310627528, guid: 136953c0a43327f45b33a5e2f64b24ff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 274
+      objectReference: {fileID: 0}
+    - target: {fileID: 3604974643310627528, guid: 136953c0a43327f45b33a5e2f64b24ff,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -33
+      objectReference: {fileID: 0}
     - target: {fileID: 3604974644859053136, guid: 136953c0a43327f45b33a5e2f64b24ff,
         type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3502,6 +3494,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3604974643310627529, guid: 136953c0a43327f45b33a5e2f64b24ff,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2280357531516124063}
+    - target: {fileID: 3604974643310627529, guid: 136953c0a43327f45b33a5e2f64b24ff,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: restart
       objectReference: {fileID: 0}
     - target: {fileID: 3604974644859053137, guid: 136953c0a43327f45b33a5e2f64b24ff,
         type: 3}
@@ -3556,16 +3558,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3888146201418055542}
     m_Modifications:
-    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
-        type: 3}
-      propertyPath: m_Name
-      value: Countdown
-      objectReference: {fileID: 0}
-    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7992159949368064935, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3670,6 +3662,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
+        type: 3}
+      propertyPath: m_Name
+      value: Countdown
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e, type: 3}
