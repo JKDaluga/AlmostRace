@@ -13,11 +13,14 @@ public class MenuController : MonoBehaviour
     public Text winText;
     public GameObject Countdown;
     private VehicleInput[] arrV;
-
+    private EngineAudio[] engineSoundsToControl;
+    private VehicleCollisionEffects[] sparkSoundsToControl;
 
     private void Start()
     {
         arrV = FindObjectsOfType<VehicleInput>();
+        engineSoundsToControl = FindObjectsOfType<EngineAudio>();
+        sparkSoundsToControl = FindObjectsOfType<VehicleCollisionEffects>();
     }
 
     void Update()
@@ -36,13 +39,28 @@ public class MenuController : MonoBehaviour
                 }
                 Time.timeScale = 1f;
                 pauseMenu.SetActive(false);
+                foreach (EngineAudio engineSound in engineSoundsToControl)
+				{
+					engineSound.toggleEngine(true);
+				}
+                foreach (VehicleCollisionEffects sparkSound in sparkSoundsToControl)
+				{
+					sparkSound.toggleSparksSound(true);
+				}
             }
             else
             {
                 turnOff(false);
                 Time.timeScale = 0f;
                 pauseMenu.SetActive(true);
-
+                foreach (EngineAudio engineSound in engineSoundsToControl)
+				{
+					engineSound.toggleEngine(false);
+				}
+                foreach (VehicleCollisionEffects sparkSound in sparkSoundsToControl)
+				{
+					sparkSound.toggleSparksSound(false);
+				}
             }
         }
     }
@@ -71,6 +89,14 @@ public class MenuController : MonoBehaviour
         if (Countdown.activeSelf == false)
         {
             turnOff(true);
+        }
+        foreach (EngineAudio engineSound in engineSoundsToControl)
+        {
+            engineSound.toggleEngine(true);
+        }
+        foreach (VehicleCollisionEffects sparkSound in sparkSoundsToControl)
+        {
+            sparkSound.toggleSparksSound(true);
         }
     }
 
