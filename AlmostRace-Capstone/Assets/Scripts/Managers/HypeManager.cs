@@ -72,7 +72,7 @@ public class HypeManager : MonoBehaviour
             yield return null;
         }
         countdownObj.SetActive(false);
-        StartCoroutine(EndGame());
+        EndGame();
     }
 
     private void SetUpDisplay()
@@ -145,9 +145,8 @@ public class HypeManager : MonoBehaviour
         }
     }
 
-    public IEnumerator EndGame()
+    public void EndGame()
     {
-        Time.timeScale = 0.0f;
         float highestHype = 0f;
         GameObject winner = this.gameObject;
         foreach (GameObject entry in vehicleList)
@@ -165,12 +164,15 @@ public class HypeManager : MonoBehaviour
             winText.GetComponent<TextMeshProUGUI>().text = "PLAYER=" + winner.GetComponent<VehicleInput>().playerNumber + "=WINS!";
 
             Invoke("DisableEvents", 3);
+            Invoke("ReturnToMainMenu", 4);
             AudioManager.instance.Play("Victory Music");
-            yield return new WaitForSeconds(3);
-            SceneManager.LoadScene("MainMenu");
-            Time.timeScale = 1f;
-            winText.gameObject.SetActive(false);
         }
+    }
+    private void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+        Time.timeScale = 1f;
+        winText.gameObject.SetActive(false);
     }
 
     public void DisableEvents()
