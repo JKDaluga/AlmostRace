@@ -66,20 +66,20 @@ public class DestructableBoulderBehaviour : Interactable
 
     public override void TriggerInteractable()
     {
-        if(interactingPlayer != null)
+        if (interactingPlayer != null)
         {
             if (interactingPlayer.GetComponent<VehicleHypeBehavior>() != null)
             {//makes sure that non-player agents can destroy the boulders without throwing null references.
                 interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(boulderDestroyedHype, "Vandal");
             }
-        }
+        
 
-        if(interactingPlayer.GetComponent<AimAssistant>().target = gameObject)
-        {
-            interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
-        }
+        if (interactingPlayer.GetComponent<AimAssistant>().target = gameObject)
+            {
+                interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
+            }
 
-     
+        }
         boulderParticles.Play();
         rend.enabled = false;
         coll.enabled = false;

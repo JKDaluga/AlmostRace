@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/** 
+/**
  *  Mike R.
  *  Eddie B.
  *  Robin R.
- * 
+ *
  *  VoidWasp_OffensiveAbility spawns projectiles and shoots them in a predicted path.
- *  The spawned projectile spawns in a random rotation spread. 
+ *  The spawned projectile spawns in a random rotation spread.
  **/
 
 public class VoidWasp_OffensiveAbility : HeatAbility
@@ -153,8 +153,8 @@ public class VoidWasp_OffensiveAbility : HeatAbility
 
                 _voidwaspProjectileScript.GiveInfo(speedIncrease, speedRate, speedLimit, stuckProjectile, explosionDamage, explosionFuse, explosionHypeToGain, explosionRadius);
 
-                projectile.transform.Rotate(Random.Range(-shotSpread/5, shotSpread/5), Random.Range(-shotSpread, shotSpread), 0);
-                // Play audio
+                projectile.transform.Rotate(0, Random.Range(-shotSpread, shotSpread), 0);
+                //projectile.transform.rotation = Quaternion.RotateTowards(projectile.transform.rotation, _projectiles[i], shotSpread);
                 AudioManager.instance.Play("VoidWasp Shot");
             }
 
@@ -188,6 +188,6 @@ public class VoidWasp_OffensiveAbility : HeatAbility
         carHeatInfo.DamageCar(selfHeatDamage);
     }
 
-   
+
 
 }

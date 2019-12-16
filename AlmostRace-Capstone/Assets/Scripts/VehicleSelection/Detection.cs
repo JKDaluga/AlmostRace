@@ -44,6 +44,10 @@ public class Detection : MonoBehaviour
                 int gotNum = results[0].gameObject.GetComponentInParent<Display>().PlayerNum;
                 results[0].gameObject.GetComponentInParent<Display>().playerManagement.GetComponent<PlayerManagement>().turnOff(gotNum - 1);
             }
+            else if(results[0].gameObject.GetComponent<VehicleData>() == null)
+            {
+
+            }
             else
             {
                 mouse.currentVehicle = results[0].gameObject.GetComponent<VehicleData>().VehicleNumber;

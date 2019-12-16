@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
-/** 
+/**
  *  Mike R.
  *  Eddie B.
- * 
+ *
  *  VoidWasp_Projectile_Explosion is attached to the void wasp explosive projectile clone.
  *  Based on the fuse setting a collider gets activated, collects all gameobjects hit within that collider,
  *  and deals damage to them. Afterwards, will destroy itself based on the particle effect duration.
@@ -26,12 +26,12 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
 
     public GameObject explosionParticles;
 
-    private List<GameObject> objectsHit;
+    private List<GameObject> _hitObjects;
 
     private void Start()
     {
         gameObject.GetComponent<SphereCollider>().radius = _explosionRadius;
-        objectsHit = new List<GameObject>();
+        _hitObjects = new List<GameObject>();
     }
 
     public void GiveInfo(float explosionDamage, float explosionFuse, float explosionHypeToGain, float explosionRadius, GameObject immunePlayer)
@@ -45,8 +45,18 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
 
     private void OnTriggerEnter(Collider hit)
     {
-        objectsHit.Add(hit.gameObject);
-
+        if (hit.gameObject.GetComponent<CarHeatManager>() != null)
+        {
+            _hitObjects.Add(hit.gameObject);
+            hit.gameObject.GetComponent<CarHeatManager>().DamageCar(_explosionDamage);
+            Debug.Log("Car added: " + hit.gameObject.transform.parent.name);
+        }
+        else if (hit.gameObject.GetComponent<Interactable>() != null)
+        {
+            _hitObjects.Add(hit.gameObject);
+            hit.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
+            Debug.Log("Interactable added: " + hit.gameObject.name);
+        }
     }
 
     public void LightFuse()
@@ -60,15 +70,14 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
         gameObject.transform.SetParent(null);
         gameObject.transform.SetParent(parent);
 
-
-        foreach (GameObject obj in objectsHit)
+        foreach (GameObject obj in _hitObjects)
         {
 
             if (obj.gameObject != _immunePlayer)
             {
                 if (obj.gameObject.GetComponent<CarHeatManager>() != null)
                 {//if a car was hit
-                    obj.gameObject.GetComponent<CarHeatManager>().DamageCar(_explosionDamage);
+                  //  obj.gameObject.GetComponent<CarHeatManager>().DamageCar(_explosionDamage);
 
                     obj.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 4f;
                     obj.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 4f;
@@ -77,12 +86,11 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
                 }
                 else if (obj.gameObject.GetComponent<Interactable>() != null)
                 {
-                    obj.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
+                    //obj.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
                 }
             }
 
         }
-
         explosionParticles.SetActive(true);
         DestroyExplosion(explosionParticles.GetComponent<ParticleSystem>().main.startLifetime.constant);
     }

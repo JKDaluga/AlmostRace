@@ -5,9 +5,9 @@ using UnityEngine;
 /**
  *  Mike R.
  *  Eddie B.
- *  
+ *
  *  Created on: 15-12-2019
- * 
+ *
  *  When triggered looks for al the objects collides with,
  *  Saves all the objects and does damage to them when DoDamage is called.
  **/
@@ -23,17 +23,24 @@ public class VoidWasp_Shield_Explosion : MonoBehaviour
 
     private void OnTriggerEnter(Collider hit)
     {
-
-        _hitObjects.Add(hit.gameObject);
+        if (hit.gameObject.GetComponent<CarHeatManager>() != null)
+        {
+            _hitObjects.Add(hit.gameObject);
+            //Debug.Log("Car added: " + hit.gameObject.name);
+        }
+        else if (hit.gameObject.GetComponent<Interactable>() != null)
+        {
+            _hitObjects.Add(hit.gameObject);
+            //Debug.Log("interactable added: " + hit.gameObject.name);
+        }
     }
 
 
     public void DoDamage(float damage, GameObject immunePlayer)
     {
-
         foreach (GameObject hit in _hitObjects)
         {
-            
+
             if (hit.gameObject.GetComponent<CarHeatManager>() != null)
             {
                 if (hit.gameObject != immunePlayer)
@@ -41,7 +48,6 @@ public class VoidWasp_Shield_Explosion : MonoBehaviour
                     hit.gameObject.GetComponent<CarHeatManager>().DamageCar(damage / _hitObjects.Count);
                     Debug.Log("1 damage done: " + damage + " To " + hit.gameObject.transform.parent.name);
                 }
-                
             }
             else if (hit.gameObject.GetComponent<Interactable>() != null)
             {
