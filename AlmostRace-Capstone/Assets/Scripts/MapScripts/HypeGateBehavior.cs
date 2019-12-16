@@ -96,7 +96,9 @@ public class HypeGateBehavior : MonoBehaviour
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.arenaHypeText.text = "Arena Hype";
                 }
 
-                gateToClose.SetActive(true);
+                Invoke("CloseGate", 1);
+
+               
                 StopAllCoroutines();
                 StartCoroutine(TrackHype());
                 _hotSpotBotScript.SetVehiclesIn(true);
@@ -109,6 +111,11 @@ public class HypeGateBehavior : MonoBehaviour
         }
     }
     
+    public void CloseGate()
+    {
+        gateToClose.SetActive(true);
+    }
+
     public void InitializeHypeGate(GameObject aggroSphere)
     {
         _aggroSphere = aggroSphere;
