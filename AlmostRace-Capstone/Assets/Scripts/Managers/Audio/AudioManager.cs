@@ -28,6 +28,10 @@ public class AudioManager : MonoBehaviour
     {
         if (instance != null)
         {
+            if(instance.source.clip != source.clip)
+            {
+                instance.source.clip = source.clip;
+            }
             Destroy(gameObject);
         }
         else
