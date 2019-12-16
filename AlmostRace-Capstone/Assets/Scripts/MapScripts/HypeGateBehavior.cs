@@ -170,7 +170,7 @@ public class HypeGateBehavior : MonoBehaviour
     {
         foreach(TextMeshProUGUI displayText in displayTexts)
         {
-            displayText.text = "Hype: " + ((_currentHype - _displayHype) /  hypeLimit * 100).ToString("F0") + "%";
+            displayText.text = ((_currentHype - _displayHype) /  hypeLimit * 100).ToString("F0") + "%";
         }
         foreach (GameObject car in _hypeManager.vehicleList)
         {
@@ -183,7 +183,7 @@ public class HypeGateBehavior : MonoBehaviour
     {
         foreach (TextMeshProUGUI displayText in displayTexts)
         {
-            displayText.text = "Hype: 100%";
+            displayText.text = "100%";
         }
         foreach (GameObject car in _hypeManager.vehicleList)
         {
