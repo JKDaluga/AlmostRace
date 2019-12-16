@@ -12,6 +12,8 @@ public class VehicleCollisionEffects : MonoBehaviour
     public GameObject sparkSoundObject;
     private AudioManager _audioManager;
     private AudioSource _audioSource;
+    private bool _sparksPlaying;
+    private bool _playAudio = true;
 
     private void Start()
     {
@@ -41,6 +43,7 @@ public class VehicleCollisionEffects : MonoBehaviour
         GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         AudioManager.instance.Play("General collision");
         CreateSparks(collision);
+        _sparksPlaying = true;
     }
 
     private void OnCollisionStay(Collision collision)
@@ -56,12 +59,14 @@ public class VehicleCollisionEffects : MonoBehaviour
         else
         {
             _audioSource.Stop();
+            _sparksPlaying = false;
         }
     }
 
     void OnCollisionExit(Collision other)
     {
         _audioSource.Stop();
+        _sparksPlaying = false;
     }
 
     public void CreateSparks(Collision givenCollision)
@@ -70,5 +75,18 @@ public class VehicleCollisionEffects : MonoBehaviour
         {
             Instantiate(sparks, contact.point, Quaternion.identity);
         }  
+    }
+
+    public void toggleSparksSound(bool toggle)
+    {
+        _playAudio = toggle;
+        if(_playAudio && _sparksPlaying)
+        {
+            _audioSource.Play();
+        }
+        else
+        {
+            _audioSource.Stop();
+        }
     }
 }
