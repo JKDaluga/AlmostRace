@@ -16,6 +16,7 @@ public class MenuController : MonoBehaviour
     private EngineAudio[] _engineSoundsToControl;
     private VehicleCollisionEffects[] _sparkSoundsToControl;
     private SphereCarController[] _sphereCarController;
+    private VehicleInput[] _vehicleInput;
 
     private void Start()
     {
@@ -39,6 +40,11 @@ public class MenuController : MonoBehaviour
                 {
                     turnOff(true);
                 }
+                _vehicleInput = FindObjectsOfType<VehicleInput>();
+                foreach(VehicleInput car in _vehicleInput)
+                {
+                    car.setStatus(true);
+                }
                 Time.timeScale = 1f;
                 pauseMenu.SetActive(false);
                 UnpauseSoundHandle();
@@ -60,6 +66,11 @@ public class MenuController : MonoBehaviour
 				{
                     driftSound.DriftAudioSource.enabled = false;
 				}
+                _vehicleInput = FindObjectsOfType<VehicleInput>();
+                foreach (VehicleInput car in _vehicleInput)
+                {
+                    car.setStatus(false);
+                }
             }
         }
     }
