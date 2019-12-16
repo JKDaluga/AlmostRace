@@ -47,6 +47,7 @@ public class Detection : MonoBehaviour
             else
             {
                 mouse.currentVehicle = results[0].gameObject.GetComponent<VehicleData>().VehicleNumber;
+                mouse.viewCar();
                 gameObject.GetComponentInParent<VirtualMouse>().changeReady(true);
                 mouse._mouse.SetActive(false);
                 gameObject.GetComponentInParent<VirtualMouse>().Grid.GetComponent<Display>().addedCar(true);

@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ * Robyn Riley, Script that manages model movements when different actions are taken
+ * Script accesses the spherecarcontroller to get vehicle states and inputs to play particle effects 
+ * and pitch the vehicle an appropriate amount.
+ */
+
 public class ModelBehavior : MonoBehaviour
 {
     public SphereCarController car;
@@ -37,25 +43,33 @@ public class ModelBehavior : MonoBehaviour
         if (car.getDrifting())
         {
             maxPitch = driftPitch;
-            
+
         }
         else
         {
             maxPitch = turnPitch;
-            if(leftDriftParticles != null)
-            leftDriftParticles.SetActive(false);
-            if(rightDriftParticles != null)
-            rightDriftParticles.SetActive(false);
+
+            //Turns off drift particles if not drifting
+            if (leftDriftParticles != null)
+            {
+                leftDriftParticles.SetActive(false);
+            }
+            if (rightDriftParticles != null)
+            {
+                rightDriftParticles.SetActive(false);
+            }
         }
+        //Check for void wasp boost, because it overrides the pitch of the vehicle
         if (!voidWaspBoost)
         {
+            //If the car isn't drifting, set the x rotation based on turning input
             if (!car.getDrifting())
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(car.getTurning() * maxPitch, transform.eulerAngles.y, transform.eulerAngles.z)), pitchSpeed * Time.deltaTime);
             }
             else
-            {
-                //print(Mathf.Sign(car.getTurning()) + "==" + Mathf.Sign(dir));
+            {   
+                //If drifting, locks vehicle rotation based on the direction of the drift. Pitches as normal otherwise
                 if (Mathf.Sign(car.getTurning()) == Mathf.Sign(dir))
                 {
                     transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(car.getTurning() * maxPitch, transform.eulerAngles.y, transform.eulerAngles.z)), pitchSpeed * Time.deltaTime);
@@ -65,6 +79,7 @@ public class ModelBehavior : MonoBehaviour
                     transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(new Vector3(0, 90, 0)), pitchSpeed * Time.deltaTime);
                 }
                 
+                    //Sets appropriate drifting particles based on direction
                     if(dir > 0)
                     {
                         if(rightDriftParticles != null)
@@ -83,7 +98,7 @@ public class ModelBehavior : MonoBehaviour
         }
 
 
-
+        //Checks the car type and uses the correct boost visual for each.
         if (Input.GetButtonDown(ins.pickupInput) && !car.GetIsBoosting())
         {
             switch (carType)
@@ -101,6 +116,7 @@ public class ModelBehavior : MonoBehaviour
 
     public float rotateTime;
 
+    //Routine allowing void wasp to do spins while boosting
     public IEnumerator rotate()
     {
         voidWaspBoost = true;
@@ -116,6 +132,7 @@ public class ModelBehavior : MonoBehaviour
         voidWaspBoost = false;
     }
 
+    //Adds small shake effect to Lux boosting
     public IEnumerator pitchForward()
     {
         float time = 0;

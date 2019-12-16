@@ -27,7 +27,7 @@ public class VoidWasp_ShieldBehaviour : Interactable
     private float _collectedDamage;
     private GameObject _immunePlayer;
 
-    Collider[] objectsHit;
+    //Collider[] objectsHit;
 
     [Header("Shield Explosion Settings")]
     [Tooltip("Sphere Collider that does damage to other objects when triggered")]
@@ -48,7 +48,6 @@ public class VoidWasp_ShieldBehaviour : Interactable
         _meshRender.enabled = false;
         _collider.enabled = false;
 
-        explosionDamageCollider.GetComponent<SphereCollider>().radius = _explosionRadius;
         explosionDamageCollider.SetActive(false);
     }
 
@@ -58,7 +57,6 @@ public class VoidWasp_ShieldBehaviour : Interactable
         _maxHealth = maxHealth;
         _surgeObject = shieldRef;
         _explosionRadius = explosionRadius;
-       // Debug.Log("1 explosion radius: " + _explosionRadius);
         _immunePlayer = immunePlayer;
     }
 
@@ -97,10 +95,9 @@ public class VoidWasp_ShieldBehaviour : Interactable
 
         ResetInteractable(); 
         _collider.enabled = true;
-        _meshRender.enabled = true;
+        //_meshRender.enabled = true;
         psRef.SetActive(true);
 
-        //psRef.GetComponent<Animator>().SetTrigger("startVoidSurge");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -129,7 +126,7 @@ public class VoidWasp_ShieldBehaviour : Interactable
         {
             part.Play();
         }
-
+        explosionDamageCollider.GetComponent<SphereCollider>().radius = _explosionRadius;
         explosionDamageCollider.SetActive(true);
         Invoke("TriggerExplosion", 0.5f);
 
@@ -163,7 +160,7 @@ public class VoidWasp_ShieldBehaviour : Interactable
 
     void TriggerExplosion()
     {
-        explosionDamageCollider.GetComponent<VoidWasp_Shield_Explosion>().DoDamage(_collectedDamage);
+        explosionDamageCollider.GetComponent<VoidWasp_Shield_Explosion>().DoDamage(_collectedDamage, _immunePlayer);
         explosionDamageCollider.SetActive(false);
     }
 }

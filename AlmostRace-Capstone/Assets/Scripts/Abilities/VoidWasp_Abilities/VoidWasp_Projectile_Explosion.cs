@@ -18,9 +18,13 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
 
     public GameObject explosionParticles;
 
-    Collider[] objectsHit;
+    private List<GameObject> objectsHit;
 
-
+    private void Start()
+    {
+        gameObject.GetComponent<SphereCollider>().radius = _explosionRadius;
+        objectsHit = new List<GameObject>();
+    }
 
     public void GiveInfo(float explosionDamage, float explosionFuse, float explosionHypeToGain, float explosionRadius, GameObject immunePlayer)
     {
@@ -29,25 +33,36 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
         _explosionHypeToGain = explosionHypeToGain;
         _explosionRadius = explosionRadius;
         _immunePlayer = immunePlayer;
-       // Debug.Log("Explosion Fuse at Explosion is: " + _explosionFuse);
+        // Debug.Log("Explosion Fuse at Explosion is: " + _explosionFuse);
 
     }
 
+    private void OnTriggerEnter(Collider hit)
+    {
+        objectsHit.Add(hit.gameObject);
+
+    }
 
     public void LightFuse()
     {
         Invoke("BlowFuse", _explosionFuse);
+
     }
 
     public void BlowFuse()
     {
         Transform parent = gameObject.transform.parent;
         gameObject.transform.SetParent(null);
-        objectsHit = Physics.OverlapSphere(gameObject.transform.localPosition, _explosionRadius);
+        //objectsHit = Physics.OverlapSphere(gameObject.transform.localPosition, _explosionRadius);
         gameObject.transform.SetParent(parent);
-        foreach (Collider obj in objectsHit)
+        Debug.Log("Blow Fuse");
+        Debug.Log("List count: " + objectsHit.Count);
+
+        foreach (GameObject obj in objectsHit)
         {
-            if(obj.gameObject != _immunePlayer)
+            Debug.Log("object name" + obj.gameObject.name);
+
+            if (obj.gameObject != _immunePlayer)
             {
                 if (obj.gameObject.GetComponent<CarHeatManager>() != null)
                 {//if a car was hit
@@ -64,16 +79,13 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
                 else if (obj.gameObject.GetComponent<Interactable>() != null)
                 {
                     obj.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
-                   
-
-                    // Debug.Log("Interactable was hit with explosion");
-
                 }
             }
 
         }
+        Debug.Log("After for each loop");
         explosionParticles.SetActive(true);
-        DestroyExplosion(explosionParticles.GetComponent<ParticleSystem>().main.startLifetime.constant); 
+        DestroyExplosion(explosionParticles.GetComponent<ParticleSystem>().main.startLifetime.constant);
     }
 
     public void DestroyExplosion(float time)
