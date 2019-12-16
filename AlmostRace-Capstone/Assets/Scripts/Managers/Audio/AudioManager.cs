@@ -28,6 +28,7 @@ public class AudioManager : MonoBehaviour
     {
         if (instance != null)
         {
+            source = GetComponent<AudioSource>();
             if(instance.source.clip != source.clip)
             {
                 instance.source.clip = source.clip;
