@@ -16,10 +16,12 @@ public class RaceManager : MonoBehaviour
 
     private GameObject eventPanel;
     private RectTransform rt;
+    public GameObject fourthPlayerPanel;
 
     // Start is called before the first frame update
     void Start()
     {
+        fourthPlayerPanel.SetActive(false);
         eventPanel = GameObject.FindGameObjectWithTag("EventPanel");
         rt = eventPanel.GetComponent<RectTransform>();
         rt.offsetMin = new Vector2(0, 0);
@@ -100,6 +102,10 @@ public class RaceManager : MonoBehaviour
         }
         else if(playerCount >= 3)
         {
+            if(playerCount == 3)
+            {
+                fourthPlayerPanel.SetActive(true);
+            }
             if (playerID == 1)
             {
                 car.UIPanel.anchorMin = new Vector2(0, .5f);
