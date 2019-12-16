@@ -142,6 +142,12 @@ public class VoidWasp_OffensiveAbility : HeatAbility
     {
         if (_canFire)
         {
+            GameObject projectileFirst = Instantiate(voidwaspProjectile, voidMuzzle.position, voidMuzzle.rotation);
+            _voidwaspProjectileScript = projectileFirst.GetComponent<VoidWasp_ProjectileBehaviour>();
+            _voidwaspProjectileScript.SetImmunePlayer(gameObject);
+            _voidwaspProjectileScript.SetProjectileInfo(projectileDamage, projectileSpeed, projectileHypeToGain);
+
+            _voidwaspProjectileScript.GiveInfo(speedIncrease, speedRate, speedLimit, stuckProjectile, explosionDamage, explosionFuse, explosionHypeToGain, explosionRadius);
             for (int i = 0; i < projectileCount; i++)
             {
                 _projectileRotations[i] = Random.rotation;

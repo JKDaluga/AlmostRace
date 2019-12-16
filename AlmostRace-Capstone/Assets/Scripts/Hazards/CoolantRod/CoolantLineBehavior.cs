@@ -97,20 +97,24 @@ public class CoolantLineBehavior : MonoBehaviour
                 if(!car.isDead) //Make sure car is alive.
                 {
                     car.DamageCar(_coolantDamage); //Damage car.
-                    if(!_interactingPlayer.Equals(car.gameObject))
-                    {                
-                        //rewards instigating player with hype for damaging other cars
-                        _interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(_fireDamageHype, "Coolant Flames");
-                    }
-                    if(car.healthCurrent <= 0) //See if car was killed by the damage.
+                    if(_interactingPlayer != null)
                     {
                         if (!_interactingPlayer.Equals(car.gameObject))
                         {
-                            //rewards instigating player with hype for killing other cars
-                            _interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(_fireKillHype, "Incinerated!");
+                            //rewards instigating player with hype for damaging other cars
+                            _interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(_fireDamageHype, "Coolant Flames");
                         }
-                        _carsDamaged.Remove(car);// If a car is killed, remove it from the list of cars being damaged.
+                        if (car.healthCurrent <= 0) //See if car was killed by the damage.
+                        {
+                            if (!_interactingPlayer.Equals(car.gameObject))
+                            {
+                                //rewards instigating player with hype for killing other cars
+                                _interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(_fireKillHype, "Incinerated!");
+                            }
+                            _carsDamaged.Remove(car);// If a car is killed, remove it from the list of cars being damaged.
+                        }
                     }
+
                 }
             }
         }
