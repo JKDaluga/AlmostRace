@@ -86,44 +86,48 @@ public class VoidWasp_ProjectileBehaviour : Projectile
 
     private void OnTriggerEnter(Collider collision)
     {
-
-        if (collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<CarHeatManager>() != null)
-        {//Checks if the object isn't the immunePlayer and if they are a car.
-            collision.gameObject.GetComponent<CarHeatManager>().DamageCar(_projectileDamage);
-
-            collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 4f;
-            collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 4f;
-
-            collision.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
-            _immunePlayerScript.AddHype(_projectileHype, "Damage:");
-
-            AudioManager.instance.Play("VoidWasp Shot hit");
-        }
-        else if (collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<Interactable>() != null)
-        { //Hits Interactable
-            collision.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
-            collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
-
-            AudioManager.instance.Play("VoidWasp Shot hit");
-        }
-
-
-       // ContactPoint contact = collision.contacts[0];
-       // Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
-       // Vector3 pos = contact.point;
-
-
-
-        // spawn game object into collided position
-        GameObject spawnedClone2 = Instantiate(_stuckProjectile, gameObject.transform.position, gameObject.transform.rotation);
-        if ((collision.gameObject != _immunePlayer))
+        if(collision.gameObject != _immunePlayer)
         {
-            spawnedClone2.transform.SetParent(collision.gameObject.transform);
-            spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().LightFuse();
+            if (collision.gameObject.GetComponent<CarHeatManager>() != null)
+            {//Checks if the object isn't the immunePlayer and if they are a car.
+                collision.gameObject.GetComponent<CarHeatManager>().DamageCar(_projectileDamage);
+
+                collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 4f;
+                collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 4f;
+
+                collision.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
+                _immunePlayerScript.AddHype(_projectileHype, "Damage:");
+
+                AudioManager.instance.Play("VoidWasp Shot hit");
+            }
+            else if (collision.gameObject.GetComponent<Interactable>() != null)
+            { //Hits Interactable
+                collision.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
+                collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+
+                AudioManager.instance.Play("VoidWasp Shot hit");
+            }
+
+
+            // ContactPoint contact = collision.contacts[0];
+            // Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+            // Vector3 pos = contact.point;
+
+
+
+            // spawn game object into collided position
+            GameObject spawnedClone2 = Instantiate(_stuckProjectile, gameObject.transform.position, gameObject.transform.rotation);
+            if ((collision.gameObject != _immunePlayer))
+            {
+                spawnedClone2.transform.SetParent(collision.gameObject.transform);
+                spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().LightFuse();
+            }
+            spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, _explosionFuse, _explosionHypeToGain, _explosionRadius, _immunePlayer);
+
+
+            Destroy(gameObject);
         }
-        spawnedClone2.GetComponent<VoidWasp_Projectile_Explosion>().GiveInfo(_explosionDamage, _explosionFuse, _explosionHypeToGain, _explosionRadius, _immunePlayer);
 
-
-        Destroy(gameObject);
+          
     }
 }

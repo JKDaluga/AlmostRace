@@ -45,17 +45,20 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
 
     private void OnTriggerEnter(Collider hit)
     {
-        if (hit.gameObject.GetComponent<CarHeatManager>() != null)
+        if(hit.gameObject != _immunePlayer)
         {
-            _hitObjects.Add(hit.gameObject);
-            hit.gameObject.GetComponent<CarHeatManager>().DamageCar(_explosionDamage);
-           // Debug.Log("Car added: " + hit.gameObject.transform.parent.name);
-        }
-        else if (hit.gameObject.GetComponent<Interactable>() != null)
-        {
-            _hitObjects.Add(hit.gameObject);
-            hit.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
-           // Debug.Log("Interactable added: " + hit.gameObject.name);
+            if (hit.gameObject.GetComponent<CarHeatManager>() != null)
+            {
+                _hitObjects.Add(hit.gameObject);
+                hit.gameObject.GetComponent<CarHeatManager>().DamageCar(_explosionDamage);
+                // Debug.Log("Car added: " + hit.gameObject.transform.parent.name);
+            }
+            else if (hit.gameObject.GetComponent<Interactable>() != null)
+            {
+                _hitObjects.Add(hit.gameObject);
+                hit.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
+                // Debug.Log("Interactable added: " + hit.gameObject.name);
+            }
         }
     }
 
