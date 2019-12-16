@@ -18,12 +18,12 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
 
     public GameObject explosionParticles;
 
-    private List<GameObject> objectsHit;
+    private List<GameObject> _hitObjects;
 
     private void Start()
     {
         gameObject.GetComponent<SphereCollider>().radius = _explosionRadius;
-        objectsHit = new List<GameObject>();
+        _hitObjects = new List<GameObject>();
     }
 
     public void GiveInfo(float explosionDamage, float explosionFuse, float explosionHypeToGain, float explosionRadius, GameObject immunePlayer)
@@ -39,8 +39,18 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
 
     private void OnTriggerEnter(Collider hit)
     {
-        objectsHit.Add(hit.gameObject);
-
+        if (hit.gameObject.GetComponent<CarHeatManager>() != null)
+        {
+            _hitObjects.Add(hit.gameObject);
+            hit.gameObject.GetComponent<CarHeatManager>().DamageCar(_explosionDamage);
+            Debug.Log("Car added: " + hit.gameObject.transform.parent.name);
+        }
+        else if (hit.gameObject.GetComponent<Interactable>() != null)
+        {
+            _hitObjects.Add(hit.gameObject);
+            hit.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
+            Debug.Log("Interactable added: " + hit.gameObject.name);
+        }
     }
 
     public void LightFuse()
@@ -56,17 +66,17 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
         //objectsHit = Physics.OverlapSphere(gameObject.transform.localPosition, _explosionRadius);
         gameObject.transform.SetParent(parent);
         Debug.Log("Blow Fuse");
-        Debug.Log("List count: " + objectsHit.Count);
+        Debug.Log("List count: " + _hitObjects.Count);
 
-        foreach (GameObject obj in objectsHit)
+        foreach (GameObject obj in _hitObjects)
         {
-            Debug.Log("object name" + obj.gameObject.name);
+            Debug.Log("object name" + obj.gameObject.name + " in the list");
 
             if (obj.gameObject != _immunePlayer)
             {
                 if (obj.gameObject.GetComponent<CarHeatManager>() != null)
                 {//if a car was hit
-                    obj.gameObject.GetComponent<CarHeatManager>().DamageCar(_explosionDamage);
+                  //  obj.gameObject.GetComponent<CarHeatManager>().DamageCar(_explosionDamage);
 
 
                     obj.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 4f;
@@ -78,12 +88,11 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
                 }
                 else if (obj.gameObject.GetComponent<Interactable>() != null)
                 {
-                    obj.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
+                    //obj.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
                 }
             }
 
         }
-        Debug.Log("After for each loop");
         explosionParticles.SetActive(true);
         DestroyExplosion(explosionParticles.GetComponent<ParticleSystem>().main.startLifetime.constant);
     }

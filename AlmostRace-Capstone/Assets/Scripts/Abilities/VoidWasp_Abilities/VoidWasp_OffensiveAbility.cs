@@ -159,7 +159,7 @@ public class VoidWasp_OffensiveAbility : HeatAbility
                 _voidwaspProjectileScript.GiveInfo(speedIncrease, speedRate, speedLimit, stuckProjectile, explosionDamage, explosionFuse, explosionHypeToGain, explosionRadius);
                // Debug.Log("Explosion Fuse at OffensiveAbility is: " + explosionFuse);
 
-                projectile.transform.Rotate(Random.Range(-shotSpread/5, shotSpread/5), Random.Range(-shotSpread, shotSpread), 0);
+                projectile.transform.Rotate(0, Random.Range(-shotSpread, shotSpread), 0);
                 //projectile.transform.rotation = Quaternion.RotateTowards(projectile.transform.rotation, _projectiles[i], shotSpread);
                 AudioManager.instance.Play("VoidWasp Shot");
 
