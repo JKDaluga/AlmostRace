@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * Robyn Riley. Code that handles crosshair placement on screens
+ * Accesses the Aim assistant object to place the reticle object in the correct screen space location
+ */
+
 public class crosshairAim : MonoBehaviour
 {
     public AimAssistant aim;
@@ -10,10 +15,9 @@ public class crosshairAim : MonoBehaviour
 
     public Sprite normal, locked;
     
-
-    // Update is called once per frame
     void FixedUpdate()
     {
+        //If the vehicle has a target, assign the reticle to the position and switch the sprite to locked on
             if (aim.target != null && aim.gameObject.GetComponent<SphereCarController>().aimOn)
             {
                 Vector3 pos = cam.WorldToScreenPoint(aim.target.GetComponent<Collider>().bounds.center);
@@ -22,6 +26,7 @@ public class crosshairAim : MonoBehaviour
 
                 GetComponent<Image>().sprite = locked;
             }
+            //Otherwise, lock the cursor to the center of the screen.
             else
             {
                 transform.position = cam.WorldToScreenPoint(aim.gameObject.GetComponent<SphereCarController>().aimObject.transform.position);

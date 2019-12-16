@@ -194,6 +194,7 @@ public class CarHeatManager : MonoBehaviour
         }
         gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
         GetComponent<SphereCarController>().setDrifting(false);
+        GetComponent<SphereCarController>().SetIsBoosting(false);
 
     }
 
