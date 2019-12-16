@@ -22,6 +22,7 @@ public class VoidWasp_Shield_Explosion : MonoBehaviour
 
     private void OnTriggerEnter(Collider hit)
     {
+
         _hitObjects.Add(hit.gameObject);
 
 
@@ -37,24 +38,30 @@ public class VoidWasp_Shield_Explosion : MonoBehaviour
     }
 
 
-    public void DoDamage(float damage)
+    public void DoDamage(float damage, GameObject immunePlayer)
     {
 
         foreach (GameObject hit in _hitObjects)
         {
-            Debug.Log("Object hit: " + hit.gameObject.name);
-
+            //Debug.Log("Object hit: " + hit.gameObject.transform.parent.name);
+            
             if (hit.gameObject.GetComponent<CarHeatManager>() != null)
             {
-                hit.gameObject.GetComponent<CarHeatManager>().DamageCar(damage / 4);
-                Debug.Log("1 damage done: " + damage);
+                if (hit.gameObject != immunePlayer)
+                {
+                    hit.gameObject.GetComponent<CarHeatManager>().DamageCar(damage / _hitObjects.Count);
+                    Debug.Log("1 damage done: " + damage + " To " + hit.gameObject.transform.parent.name);
+                }
+                
             }
             else if (hit.gameObject.GetComponent<Interactable>() != null)
             {
-                hit.gameObject.GetComponent<Interactable>().DamageInteractable(damage / 4);
-                Debug.Log("2 damage done: " + damage);
+                hit.gameObject.GetComponent<Interactable>().DamageInteractable(damage / _hitObjects.Count);
+                Debug.Log("2 damage done: " + damage + " To " + hit.gameObject.transform.parent.name);
             }
         }
+
+        _hitObjects.Clear();
     }
 
 }
