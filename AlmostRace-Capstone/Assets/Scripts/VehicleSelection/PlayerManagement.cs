@@ -11,8 +11,8 @@ public class PlayerManagement : MonoBehaviour
     private GameObject[] players = new GameObject[4];
     public GameObject[] players2 = new GameObject[4];
     private DataManager data;
-
-
+    private static bool _isReady = false;
+    private static bool _isLoading = false;
 
     // Start is called before the first frame update
     void Start()
@@ -22,9 +22,18 @@ public class PlayerManagement : MonoBehaviour
         {
             players[i] = dis[i].gameObject;
         }
-
+        _isLoading = false;
         data = DataManager.instance;
         data.resetData();
+    }
+
+    private void FixedUpdate()
+    {
+        if(_isReady && !_isLoading && Input.GetButtonDown("Submit"))
+        {
+            _isLoading = true;
+            SceneManager.LoadSceneAsync("Playtest 2");
+        }
     }
 
     public void turnOff(int player)
@@ -55,11 +64,13 @@ public class PlayerManagement : MonoBehaviour
             startImage.SetActive(true);
             vehicles.SetActive(false);
             addData();
+            _isReady = true;
         }
         else
         {
             startImage.SetActive(false);
             vehicles.SetActive(true);
+            _isReady = false;
         }
     }
 
@@ -73,12 +84,11 @@ public class PlayerManagement : MonoBehaviour
             Debug.Log(data.playerInfo[i].isActive);
         }
         updatePlayerNums();
-
     }
     
     private void updatePlayerNums()
     {
-        int i = 0;
+        int i = 1;
         foreach(PlayerInfo player in data.playerInfo)
         {
             if(player.isActive)

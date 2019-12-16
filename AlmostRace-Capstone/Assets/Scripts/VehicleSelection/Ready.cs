@@ -9,10 +9,10 @@ public class Ready : MonoBehaviour
     public string sceneName;
 
     // Update is called once per frame
-    void Update()
+    void fixedUpdate()
     {
         if (Input.GetButtonDown("Submit")){
-            SceneManager.LoadSceneAsync(sceneName);
+            //SceneManager.LoadSceneAsync(sceneName);
         }
     }
 }

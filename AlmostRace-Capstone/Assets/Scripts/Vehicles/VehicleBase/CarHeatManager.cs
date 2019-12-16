@@ -193,6 +193,8 @@ public class CarHeatManager : MonoBehaviour
             bAbility.DeactivateAbility();
         }
         gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
+        GetComponent<SphereCarController>().setDrifting(false);
+
     }
 
     public void Teleport()
