@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Creator and developer of script: Leonardo Caballero
+    Purpose: A Pause Screen
+    *LEGACY CODE*
+*/
 public class PauseGame : MonoBehaviour
 {
 	public GameObject pausePanel;
