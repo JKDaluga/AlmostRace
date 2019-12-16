@@ -76,7 +76,7 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         //Debug.Log("Explosion Fuse at Projectile is: " + _explosionFuse);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
 
         if (collision.gameObject != _immunePlayer && collision.gameObject.GetComponent<CarHeatManager>() != null)
@@ -101,14 +101,14 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         }
 
 
-        ContactPoint contact = collision.contacts[0];
-        Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
-        Vector3 pos = contact.point;
+       // ContactPoint contact = collision.contacts[0];
+       // Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+       // Vector3 pos = contact.point;
 
 
 
         // spawn game object into collided position
-        GameObject spawnedClone2 = Instantiate(_stuckProjectile, pos, rot);
+        GameObject spawnedClone2 = Instantiate(_stuckProjectile, gameObject.transform.position, gameObject.transform.rotation);
         if ((collision.gameObject != _immunePlayer))
         {
             spawnedClone2.transform.SetParent(collision.gameObject.transform);
