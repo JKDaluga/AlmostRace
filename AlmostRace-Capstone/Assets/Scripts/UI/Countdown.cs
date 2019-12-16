@@ -6,6 +6,8 @@ using TMPro;
 
 /*
     Creator and developer of script: Leonardo Caballero
+    Purpose: To allow a countdown to start the race or to show the game is almost over.
+    Also helps keeps the player in place during the starting countdown. 
 */
 
 public class Countdown : MonoBehaviour

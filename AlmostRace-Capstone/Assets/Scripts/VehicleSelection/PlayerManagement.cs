@@ -4,6 +4,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+    Creator and developer of script: Leonardo Caballero
+    Purpose: A system that keeps track of players that are currently playing, keeps track
+    of what vehicle each player has chosen, and allows players to 
+    turn each other off. Also helps display the correct text on the character select screen. 
+*/
+
 public class PlayerManagement : MonoBehaviour
 {
     public GameObject startImage;

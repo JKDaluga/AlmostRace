@@ -72,7 +72,7 @@ public class HypeManager : MonoBehaviour
             yield return null;
         }
         countdownObj.SetActive(false);
-        EndGame();
+        StartCoroutine(EndGame());
     }
 
     private void SetUpDisplay()
@@ -145,7 +145,7 @@ public class HypeManager : MonoBehaviour
         }
     }
 
-    public void EndGame()
+    public IEnumerator EndGame()
     {
         Time.timeScale = 0.0f;
         float highestHype = 0f;
@@ -166,6 +166,10 @@ public class HypeManager : MonoBehaviour
 
             Invoke("DisableEvents", 3);
             AudioManager.instance.Play("Victory Music");
+            yield return new WaitForSeconds(3);
+            SceneManager.LoadScene("MainMenu");
+            Time.timeScale = 1f;
+            winText.gameObject.SetActive(false);
         }
     }
 

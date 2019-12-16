@@ -13,14 +13,16 @@ public class MenuController : MonoBehaviour
     public Text winText;
     public GameObject Countdown;
     private VehicleInput[] arrV;
-    private EngineAudio[] engineSoundsToControl;
-    private VehicleCollisionEffects[] sparkSoundsToControl;
+    private EngineAudio[] _engineSoundsToControl;
+    private VehicleCollisionEffects[] _sparkSoundsToControl;
+    private SphereCarController[] _sphereCarController;
 
     private void Start()
     {
         arrV = FindObjectsOfType<VehicleInput>();
-        engineSoundsToControl = FindObjectsOfType<EngineAudio>();
-        sparkSoundsToControl = FindObjectsOfType<VehicleCollisionEffects>();
+        _engineSoundsToControl = FindObjectsOfType<EngineAudio>();
+        _sparkSoundsToControl = FindObjectsOfType<VehicleCollisionEffects>();
+        _sphereCarController = FindObjectsOfType<SphereCarController>();
     }
 
     void Update()
@@ -39,27 +41,24 @@ public class MenuController : MonoBehaviour
                 }
                 Time.timeScale = 1f;
                 pauseMenu.SetActive(false);
-                foreach (EngineAudio engineSound in engineSoundsToControl)
-				{
-					engineSound.toggleEngine(true);
-				}
-                foreach (VehicleCollisionEffects sparkSound in sparkSoundsToControl)
-				{
-					sparkSound.toggleSparksSound(true);
-				}
+                UnpauseSoundHandle();
             }
             else
             {
                 turnOff(false);
                 Time.timeScale = 0f;
                 pauseMenu.SetActive(true);
-                foreach (EngineAudio engineSound in engineSoundsToControl)
+                foreach (EngineAudio engineSound in _engineSoundsToControl)
 				{
 					engineSound.toggleEngine(false);
 				}
-                foreach (VehicleCollisionEffects sparkSound in sparkSoundsToControl)
+                foreach (VehicleCollisionEffects sparkSound in _sparkSoundsToControl)
 				{
 					sparkSound.toggleSparksSound(false);
+				}
+                foreach (SphereCarController driftSound in _sphereCarController)
+				{
+                    driftSound.DriftAudioSource.enabled = false;
 				}
             }
         }
@@ -90,14 +89,7 @@ public class MenuController : MonoBehaviour
         {
             turnOff(true);
         }
-        foreach (EngineAudio engineSound in engineSoundsToControl)
-        {
-            engineSound.toggleEngine(true);
-        }
-        foreach (VehicleCollisionEffects sparkSound in sparkSoundsToControl)
-        {
-            sparkSound.toggleSparksSound(true);
-        }
+        UnpauseSoundHandle();
     }
 
     private void turnOff(bool stat)
@@ -105,6 +97,18 @@ public class MenuController : MonoBehaviour
         foreach (VehicleInput t in arrV)
         {
             t.setStatus(stat);
+        }
+    }
+
+    private void UnpauseSoundHandle()
+    {
+        foreach (EngineAudio engineSound in _engineSoundsToControl)
+        {
+            engineSound.toggleEngine(true);
+        }
+        foreach (VehicleCollisionEffects sparkSound in _sparkSoundsToControl)
+        {
+            sparkSound.toggleSparksSound(true);
         }
     }
 }
