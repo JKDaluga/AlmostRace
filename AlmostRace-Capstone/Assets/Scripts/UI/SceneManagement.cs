@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 
 /*
-    Creator and developer of script: Jake 
+    Creator and developer of script: Jake Velicer
     Purpose: Handles switching scenes
     *LEGACY CODE*
 */
