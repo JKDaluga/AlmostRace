@@ -165,7 +165,7 @@ public class HypeManager : MonoBehaviour
 
             eventPanel.SetActive(true);
             winText.SetActive(true);
-            winText.GetComponent<TextMeshProUGUI>().text = "PLAYER " + winner.GetComponent<VehicleInput>().playerNumber + " WINS!";
+            winText.GetComponent<TextMeshProUGUI>().text = "PLAYER=" + winner.GetComponent<VehicleInput>().playerNumber + "=WINS!";
 
             Invoke("DisableEvents", 3);
             AudioManager.instance.Play("Victory Music");
