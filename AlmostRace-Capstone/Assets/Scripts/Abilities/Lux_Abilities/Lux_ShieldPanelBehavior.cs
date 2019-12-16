@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ Eddie B. Lux defensive ability. Adds a shield to the car.
+*/
 public class Lux_ShieldPanelBehavior : MonoBehaviour
 {
     public MeshRenderer _meshRender;

@@ -3,6 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Creator and developer of script: Eddie Borrisov & Jake Velicer
+    Purpose: Abstract Classes for abilities to inherit from 
+*/
 public abstract class Projectile : MonoBehaviour
 {
 

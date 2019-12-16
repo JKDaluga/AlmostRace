@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/*
+    Author: Jason Daluga
+    Purpose: used for asyncronous loading of any scene
+    CURRENTLY UNUSED
+*/
+
 public class SceneLoader : MonoBehaviour
 {
     GameObject loadingScreen;

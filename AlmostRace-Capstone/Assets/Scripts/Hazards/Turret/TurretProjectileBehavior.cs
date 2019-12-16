@@ -4,7 +4,7 @@ using UnityEngine;
 using Cinemachine;
 
 /*
- 
+ Eddie B
     Simple code for the Turret projectiles. They are currently behaving like lasers, can be changed to anything.
      
      */

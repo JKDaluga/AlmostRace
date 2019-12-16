@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Author: Robyn Riley
+    Purpose: Provide steady hype gain to player with hotspot bot
+*/
 public class HypeGenerator_HotSpot : MonoBehaviour
 {
     private List<VehicleHypeBehavior> _vehiclesHyped;

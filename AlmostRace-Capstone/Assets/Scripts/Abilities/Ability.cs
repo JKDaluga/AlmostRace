@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Creator and developer of script: Jason Daluga
+    Purpose: Abstract Classes for abilities to inherit from 
+*/
 public abstract class Ability : MonoBehaviour
 {
     public abstract void ActivateAbility();

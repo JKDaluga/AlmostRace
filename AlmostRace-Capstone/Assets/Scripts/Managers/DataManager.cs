@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /*
- * 
- * 
- * 
- */
+    Author: Jason Daluga
+    Purpose: PlayerInfo is a storage class for player data
+    Data Manager is what we use to player car data for race manager
+*/
 
 [System.Serializable]
 public class PlayerInfo

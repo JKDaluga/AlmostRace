@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Creator and developer of script: Eddie Borrisov
+    Purpose: Handles code for coolant rod interactable
+*/
 public class CoolantRodBehavior : Interactable
 {
     [Header("Coolant Rod Variables............................................................")]

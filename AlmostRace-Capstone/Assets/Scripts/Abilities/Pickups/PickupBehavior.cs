@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Creator and developer of script: Jason Daluga
+    Purpose: Allows cars to use pickups. Currently UNUSED
+*/
 public class PickupBehavior : MonoBehaviour
 {
     public enum PickUps{misslePickUp};

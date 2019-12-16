@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Creator and developer of script: Jason Daluga
+    Purpose: A script used to help projectiles ride slopes
+*/
 public class ProjectileNormalizer : MonoBehaviour
 {
 
