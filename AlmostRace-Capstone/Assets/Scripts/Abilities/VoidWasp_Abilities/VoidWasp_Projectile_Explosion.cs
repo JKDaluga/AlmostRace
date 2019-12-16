@@ -43,13 +43,13 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
         {
             _hitObjects.Add(hit.gameObject);
             hit.gameObject.GetComponent<CarHeatManager>().DamageCar(_explosionDamage);
-            Debug.Log("Car added: " + hit.gameObject.transform.parent.name);
+           // Debug.Log("Car added: " + hit.gameObject.transform.parent.name);
         }
         else if (hit.gameObject.GetComponent<Interactable>() != null)
         {
             _hitObjects.Add(hit.gameObject);
             hit.gameObject.GetComponent<Interactable>().DamageInteractable(_explosionDamage);
-            Debug.Log("Interactable added: " + hit.gameObject.name);
+           // Debug.Log("Interactable added: " + hit.gameObject.name);
         }
     }
 
@@ -65,12 +65,12 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
         gameObject.transform.SetParent(null);
         //objectsHit = Physics.OverlapSphere(gameObject.transform.localPosition, _explosionRadius);
         gameObject.transform.SetParent(parent);
-        Debug.Log("Blow Fuse");
-        Debug.Log("List count: " + _hitObjects.Count);
+     //   Debug.Log("Blow Fuse");
+      //  Debug.Log("List count: " + _hitObjects.Count);
 
         foreach (GameObject obj in _hitObjects)
         {
-            Debug.Log("object name" + obj.gameObject.name + " in the list");
+           // Debug.Log("object name" + obj.gameObject.name + " in the list");
 
             if (obj.gameObject != _immunePlayer)
             {
