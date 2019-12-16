@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-    Mike Romeo
-    - Document Created: 21/11/2019
-
-    Title:  Void Surge
-    This script activates and deactivates the void wasp defensive ability.
-    
-*/
+/**
+ *   Mike Romeo
+ *   Document Created: 21/11/2019
+ *
+ *   This script activates and deactivates the void wasp defensive ability.
+ *   Passes public shield variable settings into the shield behaviour.  
+ * */
 
 public class VoidWasp_DefensiveAbility : CooldownAbility
 {
@@ -40,5 +39,4 @@ public class VoidWasp_DefensiveAbility : CooldownAbility
     {
         surgeObject.GetComponent<VoidWasp_ShieldBehaviour>().DestroyInteractable();
     }
-
 }

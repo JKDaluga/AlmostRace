@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
-    Mike Romeo
-    - Document Created: 21/11/2019
-
-    Title:  Void Surge
-    The defensive ability for the void wasp.
-    Activates a circle collider that collects all the damage 
-    done to the car and keeps track of it. 
-    When over it will release the damage in a AOE effect.  
-    
-*/
+/**
+ *   Mike R.
+ *   Eddie B.
+ *   Document Created: 21/11/2019
+ *
+ *   The defensive ability for the void wasp.
+ *   Activates a Sphere collider that collects all the damage done to the car and keeps track of it. 
+ *   When over it, will release the damage in a AOE effect   
+ **/
 
 public class VoidWasp_ShieldBehaviour : Interactable
 {
@@ -70,7 +68,7 @@ public class VoidWasp_ShieldBehaviour : Interactable
             DestroyInteractable();
         }
 
-        print("shield health: " + interactableHealth);
+        //print("shield health: " + interactableHealth);
     }
 
     public override void DestroyInteractable()
@@ -91,11 +89,8 @@ public class VoidWasp_ShieldBehaviour : Interactable
 
     public override void TriggerInteractable()
     {
-        Debug.Log("triggered");
-
         ResetInteractable(); 
         _collider.enabled = true;
-        //_meshRender.enabled = true;
         psRef.SetActive(true);
 
     }
@@ -106,9 +101,7 @@ public class VoidWasp_ShieldBehaviour : Interactable
         {
             Destroy(other.gameObject);
         }
-
     }
-
 
     public GameObject GetShieldPlayer()
     {
@@ -119,43 +112,15 @@ public class VoidWasp_ShieldBehaviour : Interactable
 
     public void Explode()
     {
-        //objectsHit = Physics.OverlapSphere(_immunePlayer.transform.localPosition, _explosionRadius);
-        //Debug.Log("2 explosion radius: " + _explosionRadius);
 
         foreach (ParticleSystem part in explosionParts)
         {
             part.Play();
         }
+
         explosionDamageCollider.GetComponent<SphereCollider>().radius = _explosionRadius;
         explosionDamageCollider.SetActive(true);
         Invoke("TriggerExplosion", 0.5f);
-
-        
-        
-
-
-        /*
-        foreach (Collider obj in objectsHit)
-        {
-            Debug.Log("Object hit: " + obj.gameObject.name);
-          //  if (obj.gameObject != _immunePlayer)
-            //{
-                if (obj.gameObject.GetComponent<CarHeatManager>() != null)
-                {//if a car was hit
-                    obj.gameObject.GetComponent<CarHeatManager>().DamageCar(_collectedDamage/4);
-                    Debug.Log("1 damage done: " + _collectedDamage);
-                }
-                else if (obj.gameObject.GetComponent<Interactable>() != null)
-                {
-                    obj.gameObject.GetComponent<Interactable>().DamageInteractable(_collectedDamage/4);
-                    Debug.Log("2 damage done: " + _collectedDamage);
-                }
-
-               // Debug.Log("3 damage done: " + _collectedDamage);
-               // Debug.Log(obj.gameObject.name);
-            //}
-
-        }*/
     }
 
     void TriggerExplosion()

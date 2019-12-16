@@ -1,11 +1,15 @@
-﻿using Cinemachine;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
- * Mike Romeo: Created document. This script will handle the void wasps offensive abillity
- */
+/**
+ *  Mike R.
+ *  Eddie B.
+ *  Robin R.
+ *
+ *  VoidWasp_OffensiveAbility spawns projectiles and shoots them in a predicted path.
+ *  The spawned projectile spawns in a random rotation spread.
+ **/
 
 public class VoidWasp_OffensiveAbility : HeatAbility
 {
@@ -69,9 +73,6 @@ public class VoidWasp_OffensiveAbility : HeatAbility
 
     public float explosionHypeToGain = 5f;
 
-
-
-    // ask eddie what this is for
     public Transform voidMuzzle;
 
     private void Awake()
@@ -86,7 +87,6 @@ public class VoidWasp_OffensiveAbility : HeatAbility
     // Start is called before the first frame update
     void Start()
     {
-        //_currentMuzzle = 1;
         carHeatInfo = gameObject.GetComponent<CarHeatManager>();
         _aimPosActual = GetComponent<SphereCarController>().aimPos.transform;
         StartCoroutine(TurretAim());
@@ -99,7 +99,7 @@ public class VoidWasp_OffensiveAbility : HeatAbility
         {
             if (GetComponent<AimAssistant>().target != null && GetComponent<AimAssistant>().target.GetComponent<SphereCarController>() != null)
             {
-                Vector3 assistedPos = predictedPosition(_aimPosActual.position, transform.position, GetComponent<AimAssistant>().target.GetComponent<Rigidbody>().velocity, projectileSpeed);
+                Vector3 assistedPos = PredictedPosition(_aimPosActual.position, transform.position, GetComponent<AimAssistant>().target.GetComponent<Rigidbody>().velocity, projectileSpeed);
                 waspAimDirection.LookAt(assistedPos);
             }
             else
@@ -110,7 +110,7 @@ public class VoidWasp_OffensiveAbility : HeatAbility
         }
     }
 
-    private Vector3 predictedPosition(Vector3 targetPosition, Vector3 shooterPosition, Vector3 targetVelocity, float projectileSpeed)
+    private Vector3 PredictedPosition(Vector3 targetPosition, Vector3 shooterPosition, Vector3 targetVelocity, float projectileSpeed)
     {
         Vector3 displacement = targetPosition - shooterPosition;
         float targetMoveAngle = Vector3.Angle(-displacement, targetVelocity) * Mathf.Deg2Rad;
@@ -142,11 +142,6 @@ public class VoidWasp_OffensiveAbility : HeatAbility
     {
         if (_canFire)
         {
-
-            // Todo: Instantia multiple projectiles at once. Each with slightly different rotation
-            // This rotation is based on the spread
-
-            // todo: When hit, creates explosion particle effect. 
             for (int i = 0; i < projectileCount; i++)
             {
                 _projectileRotations[i] = Random.rotation;
@@ -157,17 +152,13 @@ public class VoidWasp_OffensiveAbility : HeatAbility
                 _voidwaspProjectileScript.SetProjectileInfo(projectileDamage, projectileSpeed, projectileHypeToGain);
 
                 _voidwaspProjectileScript.GiveInfo(speedIncrease, speedRate, speedLimit, stuckProjectile, explosionDamage, explosionFuse, explosionHypeToGain, explosionRadius);
-               // Debug.Log("Explosion Fuse at OffensiveAbility is: " + explosionFuse);
 
                 projectile.transform.Rotate(0, Random.Range(-shotSpread, shotSpread), 0);
                 //projectile.transform.rotation = Quaternion.RotateTowards(projectile.transform.rotation, _projectiles[i], shotSpread);
                 AudioManager.instance.Play("VoidWasp Shot");
-
             }
 
             _canFire = false;
-
-
             StartCoroutine(AbilityRateOfFire());
         }
     }
@@ -197,6 +188,6 @@ public class VoidWasp_OffensiveAbility : HeatAbility
         carHeatInfo.DamageCar(selfHeatDamage);
     }
 
-   
+
 
 }

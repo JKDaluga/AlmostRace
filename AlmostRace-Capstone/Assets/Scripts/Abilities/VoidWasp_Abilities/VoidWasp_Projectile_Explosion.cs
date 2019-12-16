@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+/**
+ *  Mike R.
+ *  Eddie B.
+ *
+ *  VoidWasp_Projectile_Explosion is attached to the void wasp explosive projectile clone.
+ *  Based on the fuse setting a collider gets activated, collects all gameobjects hit within that collider,
+ *  and deals damage to them. Afterwards, will destroy itself based on the particle effect duration.
+ **/
 public class VoidWasp_Projectile_Explosion : MonoBehaviour
 {
 
@@ -33,8 +41,6 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
         _explosionHypeToGain = explosionHypeToGain;
         _explosionRadius = explosionRadius;
         _immunePlayer = immunePlayer;
-        // Debug.Log("Explosion Fuse at Explosion is: " + _explosionFuse);
-
     }
 
     private void OnTriggerEnter(Collider hit)
@@ -56,14 +62,12 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
     public void LightFuse()
     {
         Invoke("BlowFuse", _explosionFuse);
-
     }
 
     public void BlowFuse()
     {
         Transform parent = gameObject.transform.parent;
         gameObject.transform.SetParent(null);
-        //objectsHit = Physics.OverlapSphere(gameObject.transform.localPosition, _explosionRadius);
         gameObject.transform.SetParent(parent);
      //   Debug.Log("Blow Fuse");
       //  Debug.Log("List count: " + _hitObjects.Count);
@@ -78,13 +82,10 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
                 {//if a car was hit
                   //  obj.gameObject.GetComponent<CarHeatManager>().DamageCar(_explosionDamage);
 
-
                     obj.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 4f;
                     obj.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 4f;
 
                     obj.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
-                    //Debug.Log("Car was hit with explosion");
-
                 }
                 else if (obj.gameObject.GetComponent<Interactable>() != null)
                 {

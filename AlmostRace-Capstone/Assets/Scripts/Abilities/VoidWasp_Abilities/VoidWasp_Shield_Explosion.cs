@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /**
- * Mike Romeo
- * Created on: 15-12-2019
- * 
- * When triggered looks for al the objects collides with,
- * Saves all the objects and does damage to them when
- * DoDamage is called.
- * */
+ *  Mike R.
+ *  Eddie B.
+ *
+ *  Created on: 15-12-2019
+ *
+ *  When triggered looks for al the objects collides with,
+ *  Saves all the objects and does damage to them when DoDamage is called.
+ **/
 
 public class VoidWasp_Shield_Explosion : MonoBehaviour
 {
@@ -39,15 +40,14 @@ public class VoidWasp_Shield_Explosion : MonoBehaviour
     {
         foreach (GameObject hit in _hitObjects)
         {
-            //Debug.Log("Object hit: " + hit.gameObject.transform.parent.name);
-            
+
             if (hit.gameObject.GetComponent<CarHeatManager>() != null)
             {
                 if (hit.gameObject != immunePlayer)
                 {
                     hit.gameObject.GetComponent<CarHeatManager>().DamageCar(damage / _hitObjects.Count);
                     Debug.Log("1 damage done: " + damage + " To " + hit.gameObject.transform.parent.name);
-                }           
+                }
             }
             else if (hit.gameObject.GetComponent<Interactable>() != null)
             {
