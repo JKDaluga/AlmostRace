@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 /*
  Author: Mike Romeo
- Purpose: 
-     
-     */
+ Purpose: Respawns Boulders
+*/
 
 public class BoulderSpawning : MonoBehaviour
 {

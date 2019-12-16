@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Author: Jason Daluga
+    Purpose: Sets up the race based on the data provide from datamanager
+*/
 public class RaceManager : MonoBehaviour
 {
     private DataManager dm;

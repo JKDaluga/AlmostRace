@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Creator and developer of script: Jake Velicer
+    Purpose: Destroy object after [destroySecs] seconds
+*/
 public class DestroyAfterSeconds : MonoBehaviour
 {
     public float destroySecs;

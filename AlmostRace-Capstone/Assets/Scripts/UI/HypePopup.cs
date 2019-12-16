@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Creator and developer of script: Eddie / Jason
+    Purpose: Visual feedback for gaining hype
+*/
 public class HypePopup : MonoBehaviour
 {
 
