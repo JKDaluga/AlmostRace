@@ -63,7 +63,7 @@ public class AimCollider : MonoBehaviour
 
         colliding.RemoveAll(GameObject => GameObject == null);
         
-        if (colliding.Count > 0)
+        if (colliding.Count > 0 && aimIndex >= 0 && aimIndex < colliding.Count)
         {
             if (colliding[aimIndex].GetComponent<Interactable>() != null)
             {

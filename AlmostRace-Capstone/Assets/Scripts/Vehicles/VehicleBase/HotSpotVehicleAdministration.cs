@@ -13,6 +13,7 @@ public class HotSpotVehicleAdministration : MonoBehaviour
     public bool holdingTheBot;
     private GameObject HotSpotBotHeld;
     public float initialHypeGain, gradualHypeGain, hypeWaitTime;
+    public GameObject[] botCapturedAesthetic;
     private float hypeTimer;
 
     // Update is called once per frame
@@ -35,7 +36,10 @@ public class HotSpotVehicleAdministration : MonoBehaviour
         HotSpotBotHeld = theBot.transform.parent.gameObject;
         HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetBeingHeld(true);
         HotSpotBotHeld.SetActive(false);
-       
+        foreach (GameObject item in botCapturedAesthetic)
+        {
+            item.SetActive(true);
+        }
     }
 
     public void DropTheBot()
@@ -46,6 +50,10 @@ public class HotSpotVehicleAdministration : MonoBehaviour
         StartCoroutine(HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetPosition(transform.position));
         HotSpotBotHeld = null;
         AudioManager.instance.Play("HotSpot Lost");
+        foreach (GameObject item in botCapturedAesthetic)
+        {
+            item.SetActive(false);
+        }
     }
 
     private void OnTriggerEnter(Collider other)

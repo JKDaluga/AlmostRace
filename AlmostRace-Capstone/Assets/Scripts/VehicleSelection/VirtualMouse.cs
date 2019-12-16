@@ -18,6 +18,7 @@ public class VirtualMouse : UIBehaviour
     private int _pageIndex = 0;
 
     public GameObject[] infoScreens;
+    public GameObject[] carModels;
 
     private bool overlapping = true;
 
@@ -43,6 +44,7 @@ public class VirtualMouse : UIBehaviour
             _ready = false;
             _isInfoOn = false;
             resetInfoScreens();
+            resetCars();
             _mouse.SetActive(true);
             Grid.GetComponent<Display>().addedCar(false);
             Grid.GetComponent<Display>().confirmedCar(false);
@@ -120,6 +122,20 @@ public class VirtualMouse : UIBehaviour
         foreach(GameObject screen in infoScreens)
         {
             screen.SetActive(false);
+        }
+    }
+
+    public void viewCar()
+    {
+        resetCars();
+        carModels[currentVehicle].SetActive(true);
+    }
+
+    private void resetCars()
+    {
+        foreach (GameObject car in carModels)
+        {
+            car.SetActive(false);
         }
     }
 }
