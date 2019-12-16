@@ -14,9 +14,17 @@ public class RaceManager : MonoBehaviour
     public float twoPlayerUIScalingFactor = 1;
     public float threePlusPlayerUIScalingFactor = 1;
 
+    private GameObject eventPanel;
+    private RectTransform rt;
+
     // Start is called before the first frame update
     void Start()
     {
+        eventPanel = GameObject.FindGameObjectWithTag("EventPanel");
+        rt = eventPanel.GetComponent<RectTransform>();
+        rt.offsetMin = new Vector2(0, 0);
+        rt.offsetMax = new Vector2(0, 0);
+
         dm = DataManager.instance;
         if(dm == null)
         {
@@ -26,6 +34,7 @@ public class RaceManager : MonoBehaviour
         {
             int playerCount = dm.getNumActivePlayers();
             int playerNum = 1;
+
             foreach (PlayerInfo player in dm.playerInfo)
             {
                 if(player.isActive)
@@ -35,7 +44,7 @@ public class RaceManager : MonoBehaviour
                 }
             }
         }
-        
+        eventPanel.SetActive(false);
     }
 
     void spawnPlayer(PlayerInfo player, int playerCount, int playerNum)
@@ -61,6 +70,12 @@ public class RaceManager : MonoBehaviour
         }
 
         setUpCarUI(sphereCar, player.playerID, playerCount);
+
+        if(playerCount == 1)
+        {
+            rt.offsetMin = new Vector2(0, 150);
+            rt.offsetMax = new Vector2(0, 150);
+        }
     }
 
     void setUpCarUI(SphereCarController car, int playerID, int playerCount)

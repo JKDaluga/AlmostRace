@@ -26,6 +26,9 @@ public class HypeManager : MonoBehaviour
     public Text winnerText;
     private float tempTotal;
     public GameObject countdownObj;
+    public GameObject eventPanel;
+    public GameObject winText;
+
     
 
     private void Awake()
@@ -159,8 +162,19 @@ public class HypeManager : MonoBehaviour
         {
             winnerText.text = "PLAYER " + winner.GetComponent<VehicleInput>().playerNumber + " WINS!";
             winnerText.gameObject.SetActive(true);
+
+            eventPanel.SetActive(true);
+            winText.SetActive(true);
+            //winText.GetComponent<TextMeshProUGUI>().text = 
+
+            //Invoke("DisableEvents", 3);
             AudioManager.instance.Play("Victory Music");
         }
     }
 
+    public void DisableEvents()
+    {
+        eventPanel.SetActive(false);
+        winText.SetActive(false);
+    }
 }

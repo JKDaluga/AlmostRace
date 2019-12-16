@@ -33,6 +33,10 @@ public class HypeGateBehavior : MonoBehaviour
     public List<GameObject> carsInRange;
     private GameObject _aggroSphere;
     private HotSpotBotBehavior _hotSpotBotScript;
+    public GameObject eventPanel;
+    public GameObject playerWinText;
+    public GameObject arenaActiveText;
+    public GameObject arenaEndText;
 
     // Start is called before the first frame update
     void Start()
@@ -73,6 +77,10 @@ public class HypeGateBehavior : MonoBehaviour
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.ActivateArenaHypeDisplay();
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.arenaHypeText.text = "Arena Locked";
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockBottomFill.fillAmount = playerPercentage;
+                    eventPanel.SetActive(true);
+                    arenaActiveText.SetActive(true);
+
+                    Invoke("DisableEvents", 3);
                 }
                 yield return null;
             }
@@ -81,6 +89,7 @@ public class HypeGateBehavior : MonoBehaviour
                 foreach (GameObject car in _hypeManager.vehicleList)
                 {
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockBottomFill.fillAmount = 1;
+                    
 
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.arenaHypeText.text = "Arena Hype";
                 }
@@ -130,6 +139,13 @@ public class HypeGateBehavior : MonoBehaviour
                     FinishDisplays();
                     _aggroSphere.SetActive(false);
                     _hotSpotBotScript.ReAttachToSpline();
+                    eventPanel.SetActive(true);
+                    arenaEndText.SetActive(true);
+
+                    eventPanel.SetActive(true);
+                    arenaEndText.SetActive(true);
+
+                    Invoke("DisableEvents", 3);
                 }  
                 //StopCoroutine(TrackHype());
                 StopAllCoroutines();
@@ -173,5 +189,12 @@ public class HypeGateBehavior : MonoBehaviour
         {
             car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.DeactivateArenaHypeDisplay();
         }
+    }
+
+    public void DisableEvents()
+    {
+        eventPanel.SetActive(false);
+        arenaActiveText.SetActive(false);
+        arenaEndText.SetActive(false);
     }
 }
