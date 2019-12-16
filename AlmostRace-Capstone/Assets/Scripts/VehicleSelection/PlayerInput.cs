@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Creator and developer of script: Leonardo Caballero
+*/
 public class PlayerInput : MonoBehaviour
 {
     [Tooltip("They are either player 1, 2, 3, or 4? etc.")] public int playerNumber = 1;

@@ -6,6 +6,8 @@ using UnityEngine;
     Author: Jason Daluga & Jake Velicer
     Purpose: Assigns multiple input variables based on which platform the game is running on.
     Multiple scripts obtain input from these variables based on getters.
+
+    Some edits by Leonardo Caballero to help make the player(s) not move during the starting countdown. 
     */
 
 public class VehicleInput : MonoBehaviour

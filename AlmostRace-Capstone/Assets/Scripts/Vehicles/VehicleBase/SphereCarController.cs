@@ -4,6 +4,8 @@
 /*
  Eddie Borissov
  Edit 10/15/2019 added code for the speedometer UI and for Drifting UI and particle effects.
+
+ Some edits by Leonardo Caballero to help make the player(s) not move during the starting countdown. 
  */
 
 using System.Collections;

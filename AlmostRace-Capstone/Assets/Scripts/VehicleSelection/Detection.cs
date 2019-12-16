@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+/*
+    Creator and developer of script: Leonardo Caballero
+    Purpose: For each player cursor to detect clickable objects from the character select screen 
+    with thier own cursor. Depending on what's detected, the right action is taken. 
+*/
+
 public class Detection : MonoBehaviour
 {
 
