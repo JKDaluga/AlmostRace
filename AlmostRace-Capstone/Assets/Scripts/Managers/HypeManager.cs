@@ -160,9 +160,6 @@ public class HypeManager : MonoBehaviour
         }
         if(winner != this.gameObject)
         {
-            //winnerText.text = "PLAYER " + winner.GetComponent<VehicleInput>().playerNumber + " WINS!";
-            //winnerText.gameObject.SetActive(true);
-
             eventPanel.SetActive(true);
             winText.SetActive(true);
             winText.GetComponent<TextMeshProUGUI>().text = "PLAYER=" + winner.GetComponent<VehicleInput>().playerNumber + "=WINS!";
