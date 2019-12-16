@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+
+/*
+    Creator and developer of script: Leonardo Caballero
+    Purpose: For character select screen, it allows players to move their "cursor" with their gamepad. 
+*/
+
 public class VirtualMouse : UIBehaviour
 { 
 

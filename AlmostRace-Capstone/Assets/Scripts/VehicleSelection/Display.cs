@@ -4,6 +4,12 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+    Creator and developer of script: Leonardo Caballero
+    Purpose: To keep track of the players' actions during the character select screen, what vehicles
+    they've chosen, and what needs to dispalyed in each players' grid. 
+*/
+
 public class Display : MonoBehaviour
 {
 
