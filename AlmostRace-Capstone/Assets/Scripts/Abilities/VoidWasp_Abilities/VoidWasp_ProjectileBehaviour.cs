@@ -3,6 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 
+/**
+ *  Mike R.
+ *  Eddie B.
+ * 
+ *  Takes in projectile settings for individual void wasp projectile behaviour.
+ *  Sets the velocity of the projectile that gets passed into from VoidWasp_OffensiveAbility.
+ * 
+ *  When hitting a player the projectile deals the given damage, triggers screen shake and
+ *  spawns a projectile explosive clone whenever another car is hit. 
+ **/
+
 public class VoidWasp_ProjectileBehaviour : Projectile
 {
 
@@ -15,8 +26,6 @@ public class VoidWasp_ProjectileBehaviour : Projectile
     private float _speedLimit;
 
     private float _speedLimitActual;
-
-
 
     [Header("Projectile Explosion Settings")]
 
@@ -73,7 +82,6 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         _explosionHypeToGain = explosionHypeToGain;
         _stuckProjectile = stuckProjectile;
         _explosionRadius = explosionRadius;
-        //Debug.Log("Explosion Fuse at Projectile is: " + _explosionFuse);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -95,7 +103,6 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         { //Hits Interactable
             collision.gameObject.GetComponent<Interactable>().interactingPlayer = _immunePlayer;
             collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
-
 
             AudioManager.instance.Play("VoidWasp Shot hit");
         }

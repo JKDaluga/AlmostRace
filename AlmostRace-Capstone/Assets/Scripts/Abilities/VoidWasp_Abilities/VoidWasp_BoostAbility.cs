@@ -3,10 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/* Mike Romeo
+/** 
+ *  Mike R.
+ *  Eddie B.
+ *  Robin R.
  *  
- *  Void Wasp boost ability
- */
+ *  Increases speed and Top speed by a percentage. 
+ *  When trigger it will switch the car to a different physics layer 
+ *  so the var can phase trough objects and, changes the material to a transparent one.
+ **/
 
 public class VoidWasp_BoostAbility : CooldownHeatAbility
 {
@@ -56,7 +61,9 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
 
         gameObject.layer = 21;
         carCollider.layer = 21;
+
         AudioManager.instance.Play("VoidWasp Boost");
+
         AddHeat();
     }
 
@@ -76,7 +83,6 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
 
     protected override void AddHeat()
     {
-        //Debug.Log("Add heat to car" + selfHeatDamage);
         carHeatInfo.DamageCar(selfHeatDamage);
     }
 
