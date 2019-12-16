@@ -1,5 +1,4 @@
 ﻿//Script made by Robyn
-//Last Edit Robyn 10/7
 //Script is used to control the sphere collider based car. Takes inputs and applies collision physics
 
 /*

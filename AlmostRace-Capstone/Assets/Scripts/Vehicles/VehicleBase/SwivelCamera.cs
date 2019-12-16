@@ -8,6 +8,9 @@ using UnityEngine;
  * 
  * Edited 12/2/2019: Eddie B
  * Added a float called "resetDelay" that replaced the magic number used for resetting camera after no input
+ * 
+ *               * * * * NOT CURRENTLY IN USE * * * *
+ * 
  */
 
 public class SwivelCamera : MonoBehaviour
