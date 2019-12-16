@@ -24175,11 +24175,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2460749259567487905}
     m_Modifications:
-    - target: {fileID: 986596068398015174, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
-        type: 3}
-      propertyPath: m_Name
-      value: VoidWasp_Trail
-      objectReference: {fileID: 0}
     - target: {fileID: 986596068398382822, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -24250,15 +24245,35 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 986596068398015174, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
+        type: 3}
+      propertyPath: m_Name
+      value: VoidWasp_Trail
+      objectReference: {fileID: 0}
     - target: {fileID: 986596068378983334, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 0.2
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 986596068378983334, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
         type: 3}
       propertyPath: EmissionModule.rateOverDistance.scalar
       value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 986596068378983334, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
+        type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 986596068378983334, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
+        type: 3}
+      propertyPath: RotationModule.x.minMaxState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 986596068378983334, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
+        type: 3}
+      propertyPath: RotationModule.y.minMaxState
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e, type: 3}

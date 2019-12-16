@@ -77,15 +77,17 @@ public class HypeGateBehavior : MonoBehaviour
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.ActivateArenaHypeDisplay();
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.arenaHypeText.text = "Arena Locked";
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockBottomFill.fillAmount = playerPercentage;
-                    eventPanel.SetActive(true);
-                    arenaActiveText.SetActive(true);
-
-                    Invoke("DisableEvents", 3);
                 }
                 yield return null;
             }
             else if(carsInRange.Count == _carsInGame)
             {
+                eventPanel.SetActive(true);
+                arenaActiveText.SetActive(true);
+
+                Invoke("DisableEvents", 3);
+
+
                 foreach (GameObject car in _hypeManager.vehicleList)
                 {
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockBottomFill.fillAmount = 1;
@@ -94,17 +96,26 @@ public class HypeGateBehavior : MonoBehaviour
                     car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.arenaHypeText.text = "Arena Hype";
                 }
 
-                gateToClose.SetActive(true);
+                Invoke("CloseGate", 1);
+
+               
                 StopAllCoroutines();
                 StartCoroutine(TrackHype());
                 _hotSpotBotScript.SetVehiclesIn(true);
                 yield return null;
+
+                
 
             }
             yield return null;
         }
     }
     
+    public void CloseGate()
+    {
+        gateToClose.SetActive(true);
+    }
+
     public void InitializeHypeGate(GameObject aggroSphere)
     {
         _aggroSphere = aggroSphere;

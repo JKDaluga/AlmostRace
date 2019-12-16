@@ -418,7 +418,7 @@ MonoBehaviour:
   speedRate: 0.01
   speedLimit: 500
   projectileSpeed: 500
-  projectileCount: 20
+  projectileCount: 5
   shotSpread: 2
   stuckProjectile: {fileID: 2460749259567487935, guid: 6c800de9f6375df47b96984eaf7f6692,
     type: 3}
@@ -439,7 +439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11a944549be3f11499fa94bd4b8b5901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  selfHeatDamage: 35
+  selfHeatDamage: 25
   carCollider: {fileID: 2575587412870480228}
   boostSpeedPercentage: 20
   boostTopSpeedPercentage: 25
@@ -33495,6 +33495,26 @@ PrefabInstance:
       propertyPath: boostingParticles
       value: 
       objectReference: {fileID: 1855677598428304699}
+    - target: {fileID: 481683610354487725, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: acceleration
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 481683610354487725, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: steering
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 481683610354487725, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: driftStrength
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 481683610354487725, guid: 032019f499ece314bbf7b2b05ab0f65e,
+        type: 3}
+      propertyPath: topSpeed
+      value: 560
+      objectReference: {fileID: 0}
     - target: {fileID: 481683611327776958, guid: 032019f499ece314bbf7b2b05ab0f65e,
         type: 3}
       propertyPath: m_IsActive
