@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 
+/*
+    Creator and developer of script: Jake 
+    Purpose: Handles switching scenes
+    *LEGACY CODE*
+*/
 public class SceneManagement : MonoBehaviour
 {
     public GameObject pauseMenu;

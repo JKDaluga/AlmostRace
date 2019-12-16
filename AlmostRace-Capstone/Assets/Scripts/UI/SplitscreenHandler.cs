@@ -5,6 +5,8 @@ using UnityEngine;
 
 /*
     Creator and developer of script: Leonardo Caballero
+    Purpose: Handles Spliting Screens for multiplayer
+    *LEGACY CODE*
 */
 public class SplitscreenHandler : MonoBehaviour
 {

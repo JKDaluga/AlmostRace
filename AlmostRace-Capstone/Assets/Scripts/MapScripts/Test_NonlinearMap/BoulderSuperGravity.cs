@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+ Author: Eddie Borrisov
+ Purpose: Assigned boulder gravity based on size
+ *LEGACY CODE*
+*/
 public class BoulderSuperGravity : MonoBehaviour
 {
     public float downForce = 100;

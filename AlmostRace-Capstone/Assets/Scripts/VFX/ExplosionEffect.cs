@@ -2,6 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/*
+    Author: Leonardo Caballero
+    Purpose: used for asyncronous loading of any scene
+    CURRENTLY UNUSED
+*/
 public class ExplosionEffect : MonoBehaviour
 {
 
