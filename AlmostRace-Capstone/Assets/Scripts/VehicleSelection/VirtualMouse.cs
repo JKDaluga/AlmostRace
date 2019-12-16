@@ -14,8 +14,11 @@ public class VirtualMouse : UIBehaviour
     public GameObject Grid;
     private bool _ready = false;
     private bool _isInfoOn = false;
+    private bool _canSwap = true;
+    private int _pageIndex = 0;
 
     public GameObject[] infoScreens;
+    public GameObject[] carModels;
 
     private bool overlapping = true;
 
@@ -26,6 +29,57 @@ public class VirtualMouse : UIBehaviour
         _playerInput = GetComponent<PlayerInput>();
     }
 
+    private void Update()
+    {
+        if (Input.GetButtonDown(_playerInput.awakeButton) == true && _mouse.activeSelf == false && _ready == false)
+        {
+            _mouse.SetActive(true);
+            Grid.GetComponent<Display>().changeStatus(true, _playerInput.getPlayerNum()); ;
+            Grid.GetComponent<Display>().addedCar(false);
+
+        }
+        else if (Input.GetButtonDown(_playerInput.backButton) == true && _mouse.activeSelf == false && _ready == true)
+        {
+            currentVehicle = 0;
+            _ready = false;
+            _isInfoOn = false;
+            resetInfoScreens();
+            resetCars();
+            _mouse.SetActive(true);
+            Grid.GetComponent<Display>().addedCar(false);
+            Grid.GetComponent<Display>().confirmedCar(false);
+
+        }
+
+        if (Input.GetButtonDown(_playerInput.selectButton) == true && _ready == true && _isInfoOn == false)
+        {
+            Grid.GetComponent<Display>().confirmedCar(true);
+        }
+
+        if (Input.GetAxis(_playerInput.respawn) > 0 == true && _ready == true && _isInfoOn == false)
+        {
+            _isInfoOn = true;
+            showInfoScreen(0);
+        }
+
+        if(_isInfoOn)
+        {
+            if (Mathf.Abs(Input.GetAxis(_playerInput.horizontal)) >= .2)
+            {
+                if (_canSwap)
+                {
+                    int sign = (int)Mathf.Sign(Input.GetAxisRaw(_playerInput.horizontal));
+
+                    _pageIndex += sign;
+                    _pageIndex = _pageIndex % 4;
+                    showInfoScreen(_pageIndex);
+                    _canSwap = false;
+                }
+            }
+            else _canSwap = true;
+        }
+
+    }
     private void FixedUpdate()
     {
         moveCursor();
@@ -47,38 +101,6 @@ public class VirtualMouse : UIBehaviour
             gameObject.transform.localPosition = new Vector3(gameObject.transform.localPosition.x + dir * sens, gameObject.transform.localPosition.y + dir2 * sens);
         }
 
-        if (Input.GetButtonDown(_playerInput.awakeButton) == true && _mouse.activeSelf == false && _ready == false)
-        { 
-            _mouse.SetActive(true);
-            Grid.GetComponent<Display>().changeStatus(true, _playerInput.getPlayerNum()); ;
-            Grid.GetComponent<Display>().addedCar(false);
-            
-
-
-        }
-        else if (Input.GetButtonDown(_playerInput.backButton) == true && _mouse.activeSelf == false && _ready == true)
-        {
-            currentVehicle = 0;
-            _ready = false;
-            _isInfoOn = false;
-            _mouse.SetActive(true);
-            Grid.GetComponent<Display>().addedCar(false);
-            Grid.GetComponent<Display>().confirmedCar(false);
-
-        }
-
-        if (Input.GetButtonDown(_playerInput.selectButton) == true && _ready == true && _isInfoOn == false)
-        {
-            Grid.GetComponent<Display>().confirmedCar(true);
-        }
-
-        if (Input.GetButtonDown(_playerInput.respawn) == true && _ready == true && _isInfoOn == false)
-        {
-            _isInfoOn = true;
-            //Grid.GetComponent<Display>().confirmedCar(true);
-        }
-
-
     }
 
     public void changeReady(bool stat)
@@ -91,40 +113,29 @@ public class VirtualMouse : UIBehaviour
     }
     public void showInfoScreen(int screenNum)
     {
-        switch(currentVehicle)
+        resetInfoScreens();
+        infoScreens[(currentVehicle * 4) + screenNum].SetActive(true);
+    }
+
+    private void resetInfoScreens()
+    {
+        foreach(GameObject screen in infoScreens)
         {
-            case 0:
-                switch (screenNum)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            case 1:
-                switch (screenNum)
-                {
-                    case 0:
-                        break;
-                    case 1:
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    default:
-                        break;
-                }
-                break;
-            default:
-                break;
+            screen.SetActive(false);
+        }
+    }
+
+    public void viewCar()
+    {
+        resetCars();
+        carModels[currentVehicle].SetActive(true);
+    }
+
+    private void resetCars()
+    {
+        foreach (GameObject car in carModels)
+        {
+            car.SetActive(false);
         }
     }
 }

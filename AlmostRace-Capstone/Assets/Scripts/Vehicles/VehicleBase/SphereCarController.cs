@@ -188,7 +188,7 @@ public class SphereCarController : MonoBehaviour
                 {
                     //placed here just so that the BallCar prefab doesn't throw nulls
                     //Delete this later
-                    Debug.Log("Drift Particles are null, please assign them!");
+                    //Debug.Log("Drift Particles are null, please assign them!");
                 }
                 
             }
@@ -263,6 +263,13 @@ public class SphereCarController : MonoBehaviour
         {
             //remove this once UI gets replaced
         }
+
+
+
+        if (Input.GetButtonDown(_vehicleInput.rightStickButton))
+        {
+            aimOn = !aimOn;
+        }
     }
 
     private void FixedUpdate()
@@ -283,12 +290,6 @@ public class SphereCarController : MonoBehaviour
         } else
         {
             aimPos.transform.localPosition = aimObject.transform.localPosition;
-        }
-
-        if (Input.GetButtonDown(_vehicleInput.rightStickButton))
-        {
-            aimOn = !aimOn;
-            print(aimOn);
         }
 
         //hitOn/hitNear check and rotate the vehicle body up and down based on direction of the track
@@ -434,6 +435,11 @@ public class SphereCarController : MonoBehaviour
     public bool getDrifting()
     {
         return _drifting;
+    }
+
+    public void setDrifting(bool val)
+    {
+        _drifting = val;
     }
 
     public float getTurning()
