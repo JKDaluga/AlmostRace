@@ -80,6 +80,11 @@ public void SlideRod()
             //Corrects position
             objToSlide.gameObject.transform.localPosition = new Vector3(objToSlide.gameObject.transform.localPosition.x, bottomLimit.localPosition.y, (objToSlide.gameObject.transform.localPosition.z));
             //Stops slide
+            foreach (CoolantLineBehavior coolantLine in coolantLines)
+            {
+                coolantLine.ActivateCoolantLine(interactingPlayer);
+                //Coolant lines disable themselves based on the duration passed in their initialization method.
+            }
             CancelInvoke("SlideRod");
         }
         else
@@ -94,11 +99,7 @@ public void SlideRod()
         {
             interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(coolantExplosionHype, "Vandal");
         }
-        foreach (CoolantLineBehavior coolantLine in coolantLines)
-        {
-            coolantLine.ActivateCoolantLine(interactingPlayer);
-            //Coolant lines disable themselves based on the duration passed in their initialization method.
-        }
+
     }
 
     public override void ResetInteractable()

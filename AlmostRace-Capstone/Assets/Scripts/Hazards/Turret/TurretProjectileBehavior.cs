@@ -51,7 +51,7 @@ public class TurretProjectileBehavior : Projectile
 
             other.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
             
-            Debug.Log("Damage done to player: " + _projectileDamage);
+            //Debug.Log("Damage done to player: " + _projectileDamage);
             StartCoroutine(ExplosionEffect());
         }
         else
