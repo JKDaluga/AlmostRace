@@ -16,28 +16,27 @@ using UnityEngine;
 
 public class VoidWasp_ShieldBehaviour : Interactable
 {
-
+    [Header("Shield Settings")]
+    [Tooltip("Reference to shield particle system")]
     public GameObject psRef;
-
-    //public GameObject explosionPs;
-
+    
     private float _maxHealth;
     private GameObject _surgeObject;
-
     private SphereCollider _collider;
     private MeshRenderer _meshRender;
-
     private float _collectedDamage;
-
-    private float _explosionRadius;
-
-    private bool _released;
-
     private GameObject _immunePlayer;
 
     Collider[] objectsHit;
 
+    [Header("Shield Explosion Settings")]
+    [Tooltip("Sphere Collider that does damage to other objects when triggered")]
+    public GameObject explosionDamageCollider;
+
+    [Tooltip("List of all the parts from the particle explosion so we can trigger it")]
     public List<ParticleSystem> explosionParts;
+
+    private float _explosionRadius;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +47,9 @@ public class VoidWasp_ShieldBehaviour : Interactable
         psRef.SetActive(false);
         _meshRender.enabled = false;
         _collider.enabled = false;
+
+        explosionDamageCollider.GetComponent<SphereCollider>().radius = _explosionRadius;
+        explosionDamageCollider.SetActive(false);
     }
 
     public void GiveInfo(float maxHealth, GameObject shieldRef, float explosionRadius, GameObject immunePlayer)
@@ -87,7 +89,6 @@ public class VoidWasp_ShieldBehaviour : Interactable
     {
         interactableHealth = _maxHealth;
         _collectedDamage = 0;
-        //explosionPs.SetActive(false);
     }
 
     public override void TriggerInteractable()
@@ -118,22 +119,23 @@ public class VoidWasp_ShieldBehaviour : Interactable
         return _surgeObject;
     }
 
-    void OnDrawGizmosSelected()
-    {
-        // Draw a yellow sphere at the transform's position
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(transform.position, 50);
-    }
 
     public void Explode()
     {
-        objectsHit = Physics.OverlapSphere(_immunePlayer.transform.localPosition, _explosionRadius);
+        //objectsHit = Physics.OverlapSphere(_immunePlayer.transform.localPosition, _explosionRadius);
         //Debug.Log("2 explosion radius: " + _explosionRadius);
 
         foreach (ParticleSystem part in explosionParts)
         {
             part.Play();
         }
+
+        explosionDamageCollider.SetActive(true);
+        Invoke("TriggerExplosion", 0.5f);
+
+        
+        
+
 
         /*
         foreach (Collider obj in objectsHit)
@@ -157,5 +159,11 @@ public class VoidWasp_ShieldBehaviour : Interactable
             //}
 
         }*/
+    }
+
+    void TriggerExplosion()
+    {
+        explosionDamageCollider.GetComponent<VoidWasp_Shield_Explosion>().DoDamage(_collectedDamage);
+        explosionDamageCollider.SetActive(false);
     }
 }

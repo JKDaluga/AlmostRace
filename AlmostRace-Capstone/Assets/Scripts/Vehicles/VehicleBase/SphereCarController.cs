@@ -263,6 +263,13 @@ public class SphereCarController : MonoBehaviour
         {
             //remove this once UI gets replaced
         }
+
+
+
+        if (Input.GetButtonDown(_vehicleInput.rightStickButton))
+        {
+            aimOn = !aimOn;
+        }
     }
 
     private void FixedUpdate()
@@ -283,12 +290,6 @@ public class SphereCarController : MonoBehaviour
         } else
         {
             aimPos.transform.localPosition = aimObject.transform.localPosition;
-        }
-
-        if (Input.GetButtonDown(_vehicleInput.rightStickButton))
-        {
-            aimOn = !aimOn;
-            print(aimOn);
         }
 
         //hitOn/hitNear check and rotate the vehicle body up and down based on direction of the track
