@@ -32,7 +32,7 @@ public class HypePopup : MonoBehaviour
             timeRatio = timePassed / _duration;
             if (DataManager.instance.getNumActivePlayers() == 2)
             {
-                this.gameObject.transform.localScale = (-2.22f * ((timeRatio - .25f) * (timeRatio - .25f)) + 1.25f) * (new Vector3(1, 2, 1));
+                this.gameObject.transform.localScale = (-2.22f * ((timeRatio - .25f) * (timeRatio - .25f)) + 1.25f) * (new Vector3(1, 1, 1));
             }
             else
             {
