@@ -69,6 +69,7 @@ public class SphereCarController : MonoBehaviour
      public Image driftButton;
      public Sprite driftSpriteUp;
      public Sprite driftSpriteDown;
+    public AudioSource DriftAudioSource;
 
     [Header("Drift Particles")]
     public GameObject leftDriftParticles;
@@ -189,17 +190,20 @@ public class SphereCarController : MonoBehaviour
             }
             if (_drifting)
             {
-                AudioManager.instance.Play("Drift"); 
+                DriftAudioSource.enabled = true;
                 driftButton.sprite = driftSpriteDown;
               //Remaps the user input values to appropriate amounts to allow drifting
                 amount = (_driftDirection == 1) ? ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 0, 1 + driftStrength) : ExtensionMethods.Remap(Input.GetAxis(_vehicleInput.horizontal), -1, 1, 1 + driftStrength, 0);
+            }
+            else
+            {
+                DriftAudioSource.enabled = false;
             }
 
             //passes in appropriate turning values based on drifting bool
             if (_drifting)
             {
                 Steer(_driftDirection, amount);
-             
             }          
             else
             {
@@ -258,8 +262,6 @@ public class SphereCarController : MonoBehaviour
         {
             //remove this once UI gets replaced
         }
-
-
 
         if (Input.GetButtonDown(_vehicleInput.rightStickButton))
         {
