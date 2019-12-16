@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/*
- * Mike Romeo 06/11/2019
- * Functionality for destuctable boulder that the player can shoot at
- * or collide with. 
+/**
+ *  Mike R 06/11/2019
+ *  Functionality for destuctable boulder that the player can shoot at
+ *  or collide with. 
  * 
- * Edited by Eddie B
- * Made to work with turrets blowing up boulders as well.
- */
+ *  Edited by Eddie B
+ *  Made to work with turrets blowing up boulders as well.
+ **/
 
 public class DestructableBoulderBehaviour : Interactable
 {
@@ -45,8 +45,7 @@ public class DestructableBoulderBehaviour : Interactable
 
         if (collision.gameObject.GetComponent<CarHeatManager>() != null)
         {
-           // if(canBeDamaged)
-          //  {
+
             interactingPlayer = collision.gameObject; // sets the person crashing with the boulder as the interacting player
             TriggerInteractable();
             if(collision.gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Contains(gameObject))
@@ -59,7 +58,6 @@ public class DestructableBoulderBehaviour : Interactable
                 collision.gameObject.GetComponent<SphereCarController>().currentSpeed -=
                     (collision.gameObject.GetComponent<SphereCarController>().currentSpeed / slowDownFactor);
             }
-           // }
 
         }
     }
@@ -69,7 +67,7 @@ public class DestructableBoulderBehaviour : Interactable
         if (interactingPlayer != null)
         {
             if (interactingPlayer.GetComponent<VehicleHypeBehavior>() != null)
-            {//makes sure that non-player agents can destroy the boulders without throwing null references.
+            {   //makes sure that non-player agents can destroy the boulders without throwing null references.
                 interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(boulderDestroyedHype, "Vandal");
             }
         

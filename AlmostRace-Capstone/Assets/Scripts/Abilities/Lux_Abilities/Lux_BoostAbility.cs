@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/**
+ *  Eddie B.
+ *  Mike R.
+ *  
+ *  When triggered, increases top Speed settings and adjusts 
+ *  the jet enginge particle effects length. 
+ **/
+
 public class Lux_BoostAbility : CooldownHeatAbility
 {
     private SphereCarController carInfo;
