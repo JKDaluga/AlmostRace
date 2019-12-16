@@ -67,6 +67,7 @@ public class HotSpotVehicleAdministration : MonoBehaviour
                 GetComponent<CarHeatManager>().healthCurrent = GetComponent<CarHeatManager>().healthMax;
                 HypeGain(initialHypeGain);
                 hypeTimer = 0;
+                AudioManager.instance.Play("HotSpot Attachment");
             }
         }
     }
