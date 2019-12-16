@@ -14,6 +14,8 @@ public class VirtualMouse : UIBehaviour
     public GameObject Grid;
     private bool _ready = false;
     private bool _isInfoOn = false;
+    private bool _canSwap = true;
+    private int _pageIndex = 0;
 
     public GameObject[] infoScreens;
 
@@ -34,14 +36,13 @@ public class VirtualMouse : UIBehaviour
             Grid.GetComponent<Display>().changeStatus(true, _playerInput.getPlayerNum()); ;
             Grid.GetComponent<Display>().addedCar(false);
 
-
-
         }
         else if (Input.GetButtonDown(_playerInput.backButton) == true && _mouse.activeSelf == false && _ready == true)
         {
             currentVehicle = 0;
             _ready = false;
             _isInfoOn = false;
+            resetInfoScreens();
             _mouse.SetActive(true);
             Grid.GetComponent<Display>().addedCar(false);
             Grid.GetComponent<Display>().confirmedCar(false);
@@ -57,6 +58,23 @@ public class VirtualMouse : UIBehaviour
         {
             _isInfoOn = true;
             showInfoScreen(0);
+        }
+
+        if(_isInfoOn)
+        {
+            if (Mathf.Abs(Input.GetAxis(_playerInput.horizontal)) >= .2)
+            {
+                if (_canSwap)
+                {
+                    int sign = (int)Mathf.Sign(Input.GetAxisRaw(_playerInput.horizontal));
+
+                    _pageIndex += sign;
+                    _pageIndex = _pageIndex % 4;
+                    showInfoScreen(_pageIndex);
+                    _canSwap = false;
+                }
+            }
+            else _canSwap = true;
         }
 
     }
