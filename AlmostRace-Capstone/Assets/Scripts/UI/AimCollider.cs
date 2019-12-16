@@ -22,6 +22,7 @@ public class AimCollider : MonoBehaviour
 
     private void FixedUpdate()
     {
+        //Code to set and reset target based on colliding placement
         if (colliding.Count > 0)
         {
             if(aimIndex >= 0 && aimIndex < colliding.Count)
@@ -37,6 +38,7 @@ public class AimCollider : MonoBehaviour
             aimIndex = -1;
         }
 
+        //Removes objects that are behind the car
         try
         {
             foreach (GameObject i in colliding)
@@ -56,11 +58,13 @@ public class AimCollider : MonoBehaviour
             colliding.Clear();
         }
 
+        //Removes targets that are no longer in colliding list
         if (!colliding.Contains(aim.target))
         {
             aim.target = null;
         }
 
+        //If an object becomes null, remove it from the list
         colliding.RemoveAll(GameObject => GameObject == null);
         
         if (colliding.Count > 0 && aimIndex >= 0 && aimIndex < colliding.Count)
@@ -95,6 +99,8 @@ public class AimCollider : MonoBehaviour
             }
 
         }
+
+        //Allows for swapping between possible targets
         if (Mathf.Abs(Input.GetAxis(aim.gameObject.GetComponent<VehicleInput>().rightHorizontal)) >= .2)
         {
             if (canSwap)
