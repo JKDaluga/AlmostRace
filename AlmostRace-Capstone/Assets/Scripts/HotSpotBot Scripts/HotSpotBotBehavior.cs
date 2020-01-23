@@ -12,25 +12,27 @@ using UnityEngine;
 public class HotSpotBotBehavior : MonoBehaviour
 {
     [Tooltip("Speed when the bot is within chase range")] public float chaseSpeed = 100;
-    [Tooltip("Speed when the bot is to far from the players and needs to slow down")] public float farSpeed = 50;
-    [Tooltip("Speed when the bot is just within reach")] public float reachSpeed = 10;
-    public float farDistance = 50;
-    public float closeDistance = 10;
+    [Tooltip("Speed when the bot is to far ahead of the players and needs to slow down")] public float farSpeed = 50;
     public float dropGracePeriod = 2;
     public MeshRenderer meshRenderer;
     public Collider botCollider;
     public GameObject hypeColliderObject;
     public static HotSpotBotBehavior instance;
     private List<Node> _branchNodes = new List<Node>();
-    private List<Branch> _branchesAtStart = new List<Branch>();
+    private Dictionary<int, Branch> _branchesAtStart = new Dictionary<int, Branch>();
+    private float[] _branchOfVehicle;
+    private float _currentBranchOfBot;
     private SplinePlus _splinePlusScript;
     private HypeManager _hypeManagerScript;
     private HypeGateBehavior _currentArena;
     private Transform _currentArenaDesignation;
-    private Transform _closestVehicle;
     private bool _beingHeld;
     private bool _inArena;
     private bool _allVehiclesIn;
+    private bool _vehiclesReceived;
+    private bool _currentlySettingPosition;
+    private bool _canGoForward;
+    private readonly int _hugeDistance = 9999;
 
     private void Awake()
     {
@@ -45,15 +47,15 @@ public class HotSpotBotBehavior : MonoBehaviour
         _splinePlusScript = GameObject.FindGameObjectWithTag("HotSpotSpline").GetComponent<SplinePlus>();
         _splinePlusScript.SPData.Followers[0].Reverse = false;
         _hypeManagerScript = FindObjectOfType<HypeManager>();
-
         if (_hypeManagerScript == null)
         {
             Debug.LogError("Hype Manager not found!");
         }
+        StartCoroutine(WaitForVehicleCount());
 
-        foreach (KeyValuePair<int, Branch> entry in _splinePlusScript.SPData.DictBranches)
+        _branchesAtStart = _splinePlusScript.SPData.DictBranches;
+        foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {
-            _branchesAtStart.Add(entry.Value);
             for(int i = 0; i < entry.Value.Nodes.Count; i++)
             {
                 if(!_branchNodes.Contains(entry.Value.Nodes[i]))
@@ -67,11 +69,21 @@ public class HotSpotBotBehavior : MonoBehaviour
 
     void Update()
     {
-        if (!_inArena)
+        if (!_inArena && _vehiclesReceived)
         {
+            DistanceChecker();
             SetBotSpeed();
-
         }
+    }
+
+    private IEnumerator WaitForVehicleCount()
+    {
+        while (_hypeManagerScript.vehicleList.Count == 0)
+        {
+            yield return null;
+        }
+        _branchOfVehicle = new float[_hypeManagerScript.vehicleList.Count];
+        _vehiclesReceived = true;
     }
 
     public bool GetBeingHeld()
@@ -94,34 +106,75 @@ public class HotSpotBotBehavior : MonoBehaviour
         _allVehiclesIn = allVehiclesIn;
     }
 
+    public void SetCanGoForward(bool canGoForward)
+    {
+        _canGoForward = canGoForward;
+    }
+
     public void SetBotSpeed()
     {
-        for (int i = 0; i < _hypeManagerScript.vehicleList.Count; i++)
+        //Debug.Log("Bot's Key: " + _currentBranchOfBot);
+        //Debug.Log("Bot Speed: " + _splinePlusScript.SPData.Followers[0].Speed);
+        if (_canGoForward)
         {
-            float distance = Vector3.Distance(transform.position, _hypeManagerScript.vehicleList[i].transform.position);
-            if (_closestVehicle == null || distance <= Vector3.Distance(transform.position, _closestVehicle.transform.position))
+            for (int i = 0; i < _branchOfVehicle.Length; i++)
             {
-                _closestVehicle = _hypeManagerScript.vehicleList[i].transform;
+                //Debug.Log("Vehicle: " + _hypeManagerScript.vehicleList[i] + " Key: " + _branchOfVehicle[i]);
+                if (_branchOfVehicle[i] > _currentBranchOfBot)
+                {
+                    if (!_currentlySettingPosition)
+                    {
+                        StartCoroutine(SetPosition(_hypeManagerScript.vehicleList[i].transform.position));
+                    }
+                }
+
+                if (_branchOfVehicle[i] < _currentBranchOfBot)
+                {
+                    _splinePlusScript.SetSpeed(farSpeed);
+                }
+                else if (_branchOfVehicle[i] == _currentBranchOfBot)
+                {
+                    _splinePlusScript.SetSpeed(chaseSpeed);
+                }
             }
         }
+        else
+        {
+            _splinePlusScript.SetSpeed(0);
+        }
+    }
 
-        if (Vector3.Distance(transform.position, _closestVehicle.transform.position) > farDistance)
+    public void DistanceChecker()
+    {
+        float lastVehicleDistance = _hugeDistance;
+        float lastDistance = _hugeDistance;
+
+        foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {
-            _splinePlusScript.SetSpeed(farSpeed);
-        }
-        else if (Vector3.Distance(transform.position, _closestVehicle.transform.position) < farDistance
-        && Vector3.Distance(transform.position, _closestVehicle.transform.position) > closeDistance)
-        {
-            _splinePlusScript.SetSpeed(chaseSpeed);
-        }
-        else if (Vector3.Distance(transform.position, _closestVehicle.transform.position) < closeDistance)
-        {
-            _splinePlusScript.SetSpeed(reachSpeed);
+            for (int j = 0; j < entry.Value.Vertices.Count; j++)
+            {
+                float hotSpotDistance = Vector3.Distance(entry.Value.Vertices[j], transform.position);
+                if (hotSpotDistance <= lastDistance)
+                {
+                    lastDistance = hotSpotDistance;
+                    _currentBranchOfBot = entry.Key;
+                }
+                for (int k = 0; k < _branchOfVehicle.Length; k++)
+                {
+                    float vehicleDistance = Vector3.Distance(entry.Value.Vertices[j], _hypeManagerScript.vehicleList[k].transform.position);
+                    if (vehicleDistance <= lastVehicleDistance)
+                    {
+                        lastVehicleDistance = vehicleDistance;
+                        _branchOfVehicle[k] = entry.Key;
+                    }
+                }
+            }
         }
     }
 
     public IEnumerator SetPosition(Vector3 vehiclesPosition)
     {
+        _currentlySettingPosition = true;
         Node positionToPlace = _branchNodes[0];
         float distance = Vector3.Distance(_branchNodes[0].Point.position, vehiclesPosition);
         
@@ -139,16 +192,17 @@ public class HotSpotBotBehavior : MonoBehaviour
                 if(distance > Vector3.Distance(_branchNodes[i].Point.position, vehiclesPosition))
                 {
                     distance = Vector3.Distance(_branchNodes[i].Point.position, vehiclesPosition);
-                    positionToPlace = _branchNodes[i];
+                    positionToPlace = _branchNodes[i + 1];
                 }
             }
-            Node pathPoint1 = SplinePlusAPI.CreateNode(_splinePlusScript.SPData, vehiclesPosition);
+            Node pathPoint1 = SplinePlusAPI.CreateNode(_splinePlusScript.SPData,positionToPlace.Point.position);
             int branchKey = SplinePlusAPI.ConnectTwoNodes(_splinePlusScript.SPData, pathPoint1, positionToPlace);
             _splinePlusScript.GoToNewBranch(branchKey);
 
             yield return new WaitForSeconds(dropGracePeriod);
             hypeColliderObject.SetActive(true);
             botCollider.enabled = true;
+            _currentlySettingPosition = false;
         }
     }
 
@@ -232,7 +286,6 @@ public class HotSpotBotBehavior : MonoBehaviour
 
     public Vector3 GetNearestPointOnSpline(Vector3 givenPosition, int vectorsBack)
     {
-        int _hugeDistance = 9999;
         Vector3 closestWorldPoint = new Vector3(_hugeDistance, _hugeDistance, _hugeDistance);
         float lastDistance = _hugeDistance;
         int vectorsBackAdjustment;

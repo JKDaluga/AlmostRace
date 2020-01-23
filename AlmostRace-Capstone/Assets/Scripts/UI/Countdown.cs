@@ -13,30 +13,33 @@ using TMPro;
 public class Countdown : MonoBehaviour
 {
     public int timeLeft = 3;
-    private TextMeshProUGUI countText;
-    private VehicleInput[] arrV;
-    private bool startStatus = true;
+    private TextMeshProUGUI _countText;
+    private VehicleInput[] _arrV;
+    private HotSpotBotBehavior _botBehaviorScript;
+    private bool _startStatus = true;
 
     void Start()    
     {
-        countText = GetComponent<TextMeshProUGUI>();
+        _countText = GetComponent<TextMeshProUGUI>();
         StartCoroutine(countDown(timeLeft));
     }
+
     public IEnumerator countDown(int seconds)
     {
         int count = seconds;
 
         while (count > 0)
         {
-            countText.text = count.ToString();
+            _countText.text = count.ToString();
             yield return new WaitForSeconds(1);
             count--;
             AudioManager.instance.Play("Countdown");
         }
 
-        arrV = FindObjectsOfType<VehicleInput>();
+        _arrV = FindObjectsOfType<VehicleInput>();
+        _botBehaviorScript = FindObjectOfType<HotSpotBotBehavior>();
         turnOff(true);
-        startStatus = false;
+        _startStatus = false;
 
         gameObject.SetActive(false);
         AudioManager.instance.Play("Countdown End");
@@ -44,9 +47,10 @@ public class Countdown : MonoBehaviour
 
     private void turnOff(bool stat)
     {
-        foreach (VehicleInput t in arrV)
+        foreach (VehicleInput t in _arrV)
         {
             t.setStatus(stat);
         }
+        _botBehaviorScript.SetCanGoForward(stat);
     }
 }
