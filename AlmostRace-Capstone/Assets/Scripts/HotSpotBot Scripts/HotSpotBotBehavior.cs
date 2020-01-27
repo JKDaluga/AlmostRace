@@ -14,6 +14,8 @@ public class HotSpotBotBehavior : MonoBehaviour
     [Tooltip("Speed when the bot is within chase range")] public float chaseSpeed = 100;
     [Tooltip("Speed when the bot is to far ahead of the players and needs to slow down")] public float farSpeed = 50;
     public float dropGracePeriod = 2;
+    public int branchesToPlaceAhead = 1;
+    public float setPositionSpeedMultiplier = 2;
     public MeshRenderer meshRenderer;
     public Collider botCollider;
     public GameObject hypeColliderObject;
@@ -37,8 +39,6 @@ public class HotSpotBotBehavior : MonoBehaviour
     private void Awake()
     {
         instance = this;
-
-        //AudioManager.instance.Play("Hotspot Engine");
     }
 
     // Start is called before the first frame update
@@ -117,24 +117,31 @@ public class HotSpotBotBehavior : MonoBehaviour
         //Debug.Log("Bot Speed: " + _splinePlusScript.SPData.Followers[0].Speed);
         if (_canGoForward)
         {
-            for (int i = 0; i < _branchOfVehicle.Length; i++)
+            if (_currentlySettingPosition)
             {
-                //Debug.Log("Vehicle: " + _hypeManagerScript.vehicleList[i] + " Key: " + _branchOfVehicle[i]);
-                if (_branchOfVehicle[i] > _currentBranchOfBot)
+                _splinePlusScript.SetSpeed(chaseSpeed * setPositionSpeedMultiplier);
+            }
+            else
+            {
+                for (int i = 0; i < _branchOfVehicle.Length; i++)
                 {
-                    if (!_currentlySettingPosition)
+                    //Debug.Log("Vehicle: " + _hypeManagerScript.vehicleList[i] + " Key: " + _branchOfVehicle[i]);
+                    if (_branchOfVehicle[i] > _currentBranchOfBot)
                     {
-                        StartCoroutine(SetPosition(_hypeManagerScript.vehicleList[i].transform.position));
+                        if (!_currentlySettingPosition)
+                        {
+                            StartCoroutine(SetPosition(_hypeManagerScript.vehicleList[i].transform.position));
+                        }
                     }
-                }
 
-                if (_branchOfVehicle[i] < _currentBranchOfBot)
-                {
-                    _splinePlusScript.SetSpeed(farSpeed);
-                }
-                else if (_branchOfVehicle[i] == _currentBranchOfBot)
-                {
-                    _splinePlusScript.SetSpeed(chaseSpeed);
+                    if (_branchOfVehicle[i] < _currentBranchOfBot)
+                    {
+                        _splinePlusScript.SetSpeed(farSpeed);
+                    }
+                    else if (_branchOfVehicle[i] == _currentBranchOfBot)
+                    {
+                        _splinePlusScript.SetSpeed(chaseSpeed);
+                    }
                 }
             }
         }
@@ -192,10 +199,10 @@ public class HotSpotBotBehavior : MonoBehaviour
                 if(distance > Vector3.Distance(_branchNodes[i].Point.position, vehiclesPosition))
                 {
                     distance = Vector3.Distance(_branchNodes[i].Point.position, vehiclesPosition);
-                    positionToPlace = _branchNodes[i + 1];
+                    positionToPlace = _branchNodes[i + branchesToPlaceAhead];
                 }
             }
-            Node pathPoint1 = SplinePlusAPI.CreateNode(_splinePlusScript.SPData,positionToPlace.Point.position);
+            Node pathPoint1 = SplinePlusAPI.CreateNode(_splinePlusScript.SPData, vehiclesPosition);
             int branchKey = SplinePlusAPI.ConnectTwoNodes(_splinePlusScript.SPData, pathPoint1, positionToPlace);
             _splinePlusScript.GoToNewBranch(branchKey);
 
