@@ -53,7 +53,7 @@ public class HotSpotBotBehavior : MonoBehaviour
         }
         StartCoroutine(WaitForVehicleCount());
 
-        _branchesAtStart = _splinePlusScript.SPData.DictBranches;
+        _branchesAtStart = new Dictionary<int, Branch>(_splinePlusScript.SPData.DictBranches);
         foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {
             for(int i = 0; i < entry.Value.Nodes.Count; i++)
