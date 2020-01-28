@@ -103,10 +103,9 @@ public class RespawnPlatformBehavior : MonoBehaviour
     {
         _playerObject.GetComponent<HotSpotVehicleAdministration>().DropTheBot();
         Vector3 nearestPointOnSpline = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, distanceBehind);
-        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, lookDistanceForward);
+        transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
 
-        transform.position = new Vector3(nearestPointOnSpline.x,
-            nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
+        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(transform.position, lookDistanceForward);
         transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
     }
 
@@ -115,10 +114,9 @@ public class RespawnPlatformBehavior : MonoBehaviour
     {
         Transform bot = GameObject.Find("HotSpotBot").transform;
         Vector3 nearestPointOnSpline = _hotSpotBotScript.GetNearestPointOnSpline(bot.position, distanceBehind);
-
-        transform.position = new Vector3(nearestPointOnSpline.x,
-            nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
-        transform.LookAt(new Vector3(bot.position.x, transform.position.y, bot.position.z));
+        
+        transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
+        transform.LookAt(new Vector3(bot.transform.position.x, transform.position.y, bot.transform.position.z));
     }
 
     // Another vehicle has the HotSpotBot, spawn the vehicle respawning behind the vehicle with the HotSpotBot
@@ -132,13 +130,11 @@ public class RespawnPlatformBehavior : MonoBehaviour
             }
         }
         Vector3 nearestPointOnSpline = _hotSpotBotScript.GetNearestPointOnSpline(_otherVehicle.transform.position, distanceBehind);
-
-        transform.position = new Vector3(nearestPointOnSpline.x,
-            nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
+        transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
 
         _spawnOnEnemy = true;
-        transform.LookAt(new Vector3(_otherVehicle.transform.position.x,
-            transform.position.y, _otherVehicle.transform.position.z));
+        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(_otherVehicle.transform.position, lookDistanceForward);
+        transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
     }
 
     // If we are in an arena, vehicle drops the bot if they have it, the vehicle spawns at a random spawn point in the arena
@@ -153,8 +149,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
         spawnPoints[Random.Range(0, _hotSpotBotScript.GetCurrentArena().spawnPoints.Length)];
         Transform botHoldLocation = _hotSpotBotScript.GetCurrentArenaDesignation();
 
-        transform.position = new Vector3(randomSpawnPoint.position.x,
-            randomSpawnPoint.position.y + spawnHeight, randomSpawnPoint.position.z);
+        transform.position = new Vector3(randomSpawnPoint.position.x, randomSpawnPoint.position.y + spawnHeight, randomSpawnPoint.position.z);
         transform.LookAt(new Vector3(botHoldLocation.position.x, transform.position.y, botHoldLocation.position.z));
     }
 
@@ -162,10 +157,9 @@ public class RespawnPlatformBehavior : MonoBehaviour
     private void SpawnOnNearestSplinePoint()
     {
         Vector3 nearestPointOnSpline = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, distanceBehind);
-        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, lookDistanceForward);
+        transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
 
-        transform.position = new Vector3(nearestPointOnSpline.x,
-            nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
+        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(transform.position, lookDistanceForward);
         transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
     }
 
