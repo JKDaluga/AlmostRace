@@ -13,6 +13,7 @@ public class HotSpotBotBehavior : MonoBehaviour
 {
     [Tooltip("Speed when the bot is within chase range")] public float chaseSpeed = 100;
     [Tooltip("Speed when the bot is to far ahead of the players and needs to slow down")] public float farSpeed = 50;
+    public bool reverseDirection;
     public float dropGracePeriod = 2;
     public int branchesToPlaceAhead = 1;
     public float setPositionSpeedMultiplier = 2;
@@ -45,7 +46,7 @@ public class HotSpotBotBehavior : MonoBehaviour
     void Start()
     {
         _splinePlusScript = GameObject.FindGameObjectWithTag("HotSpotSpline").GetComponent<SplinePlus>();
-        _splinePlusScript.SPData.Followers[0].Reverse = false;
+        _splinePlusScript.SPData.Followers[0].Reverse = reverseDirection;
         _hypeManagerScript = FindObjectOfType<HypeManager>();
         if (_hypeManagerScript == null)
         {
@@ -199,7 +200,15 @@ public class HotSpotBotBehavior : MonoBehaviour
                 if(distance > Vector3.Distance(_branchNodes[i].Point.position, vehiclesPosition))
                 {
                     distance = Vector3.Distance(_branchNodes[i].Point.position, vehiclesPosition);
-                    positionToPlace = _branchNodes[i + branchesToPlaceAhead];
+                    if ((i + branchesToPlaceAhead) < _branchNodes.Count)
+                    {
+                        positionToPlace = _branchNodes[i + branchesToPlaceAhead];
+                    }
+                    else
+                    {
+
+                        positionToPlace = _branchNodes[i];
+                    }
                 }
             }
             Node pathPoint1 = SplinePlusAPI.CreateNode(_splinePlusScript.SPData, vehiclesPosition);
@@ -297,16 +306,16 @@ public class HotSpotBotBehavior : MonoBehaviour
         float lastDistance = _hugeDistance;
         int vectorsBackAdjustment;
         
-        for (int i = 0; i < _branchesAtStart.Count; i++)
+        foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {
-            for (int j = 0; j < _branchesAtStart[i].Vertices.Count; j++)
+            for (int j = 0; j < entry.Value.Vertices.Count; j++)
             {
-                float distance = Vector3.Distance(_branchesAtStart[i].Vertices[j], givenPosition);
+                float distance = Vector3.Distance(entry.Value.Vertices[j], givenPosition);
                 if (distance <= lastDistance)
                 {
                     lastDistance = distance;
-                    vectorsBackAdjustment = Mathf.Clamp(j + vectorsBack, 1, _branchesAtStart[i].Vertices.Count - 1);
-                    closestWorldPoint = _branchesAtStart[i].Vertices[vectorsBackAdjustment];
+                    vectorsBackAdjustment = Mathf.Clamp(j + vectorsBack, 1, entry.Value.Vertices.Count - 1);
+                    closestWorldPoint = entry.Value.Vertices[vectorsBackAdjustment];
                 }
             }
         }
