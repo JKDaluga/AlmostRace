@@ -23,7 +23,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
     private HotSpotBotBehavior _hotSpotBotScript;
     private HypeManager _hypeManagerScript;
     private GameObject _playerObject;
-    private GameObject _ballCollider;
+   // private GameObject _ballCollider;
     private GameObject _carMesh;
     private GameObject _otherVehicle;
     private Transform _previousNode;
@@ -90,10 +90,10 @@ public class RespawnPlatformBehavior : MonoBehaviour
     }
 
     // Sets the variables from the ones given by the vehicle that spawned the platform
-    public void SetPlayer(GameObject givenPlayer, GameObject givenColldier, GameObject givenModel)
+    public void SetPlayer(GameObject givenPlayer, GameObject givenModel)
     {
         _playerObject = givenPlayer;
-        _ballCollider = givenColldier;
+       // _ballCollider = givenColldier;
         _carMesh = givenModel;
         
     }
@@ -189,9 +189,9 @@ public class RespawnPlatformBehavior : MonoBehaviour
         // Move the vehicle logic object to the platform position which includes the camera
         if (_movingCar)
         {
-            _ballCollider.transform.position = new Vector3
-                (transform.position.x, transform.position.y + 2, transform.position.z);
-            _ballCollider.transform.rotation = transform.rotation;
+          //  _ballCollider.transform.position = new Vector3
+                //(transform.position.x, transform.position.y + 2, transform.position.z);
+        //    _ballCollider.transform.rotation = transform.rotation;
             _carMesh.transform.rotation = transform.rotation;
             _playerObject.transform.position = new Vector3
                 (transform.position.x, transform.position.y + 2, transform.position.z);
