@@ -56,7 +56,6 @@ public class HypeManager : MonoBehaviour
             //Debug.Log("totalHype:" + totalHype);
             yield return null;
         }
-       
     }
 
     public IEnumerator EndGameCountDown(float timerTime)

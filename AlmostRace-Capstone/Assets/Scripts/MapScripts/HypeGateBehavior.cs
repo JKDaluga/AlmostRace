@@ -104,8 +104,6 @@ public class HypeGateBehavior : MonoBehaviour
                 _hotSpotBotScript.SetVehiclesIn(true);
                 yield return null;
 
-                
-
             }
             yield return null;
         }
