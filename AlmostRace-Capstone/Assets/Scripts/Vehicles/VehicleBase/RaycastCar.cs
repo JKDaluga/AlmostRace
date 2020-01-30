@@ -7,7 +7,6 @@ public class RaycastCar : MonoBehaviour
     // car physics calculations/input stuff
     private Vector3 accel;
     [Header("Car Testing Variables")]
-    public float gravity;
     public float throttle;
     public float reverse;
     private float deadZone = .1f;
@@ -45,6 +44,7 @@ public class RaycastCar : MonoBehaviour
 
     // car physics adjustments
     [Header("Car Adjustable Variables")]
+    public float gravity = 200f;
     public float power = 300;
     public float maxSpeed = 50;
     public float maxTurnSpeed = 10;
