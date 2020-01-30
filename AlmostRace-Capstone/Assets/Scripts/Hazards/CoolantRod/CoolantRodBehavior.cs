@@ -102,6 +102,17 @@ public void SlideRod()
         if(interactingPlayer != null)
         {
             interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(coolantExplosionHype, "Vandal");
+            if (interactingPlayer.GetComponent<AimAssistant>().target == gameObject)
+            {
+                interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
+            }
+        }
+
+        AimCollider[] allPlayers = FindObjectsOfType<AimCollider>();
+
+        foreach (AimCollider i in allPlayers)
+        {
+            i.interactables.Remove(GetComponent<Collider>());
         }
 
     }
@@ -110,6 +121,12 @@ public void SlideRod()
     {
         canBeDamaged = true;//make rod damagable
         slideDirection = 1;
+        AimCollider[] allPlayers = FindObjectsOfType<AimCollider>();
+
+        foreach (AimCollider i in allPlayers)
+        {
+            i.interactables.Add(GetComponent<Collider>());
+        }
         InvokeRepeating("SlideRod", 0, slideRate); //make the rod go up
         AudioManager.instance.Play("Cooling Rod Up");
         interactableHealth = _originalHealth;
