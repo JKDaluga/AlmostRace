@@ -18,7 +18,7 @@ public class crosshairAim : MonoBehaviour
     void FixedUpdate()
     {
         //If the vehicle has a target, assign the reticle to the position and switch the sprite to locked on
-            if (aim.target != null && aim.gameObject.GetComponent<SphereCarController>().aimOn)
+            if (aim.target != null && aim.gameObject.GetComponent<AimAssistant>().aimOn)
             {
                 Vector3 pos = cam.WorldToScreenPoint(aim.target.GetComponent<Collider>().bounds.center);
                 Vector3 offsetPos = new Vector3(pos.x, pos.y + 25, pos.z);
@@ -29,7 +29,7 @@ public class crosshairAim : MonoBehaviour
             //Otherwise, lock the cursor to the center of the screen.
             else
             {
-                transform.position = cam.WorldToScreenPoint(aim.gameObject.GetComponent<SphereCarController>().aimObject.transform.position);
+                transform.position = cam.WorldToScreenPoint(aim.gameObject.GetComponent<AimAssistant>().aimObject.transform.position);
                 GetComponent<Image>().sprite = normal;
             }
         

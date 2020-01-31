@@ -12,9 +12,9 @@ using UnityEngine;
 public class AimCollider : MonoBehaviour
 {
     public AimAssistant aim;
-    public LayerMask layer;
+    [HideInInspector] public LayerMask layer;
 
-    public float maxDist;
+    [HideInInspector] public float maxDist;
 
     public List<GameObject> colliding;
     private Camera cam;
