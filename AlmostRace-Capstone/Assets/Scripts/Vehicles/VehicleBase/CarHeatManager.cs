@@ -12,7 +12,7 @@ public class CarHeatManager : MonoBehaviour
    // StackTrace stackTrace;
     public GameObject respawnPlatform;
     public GameObject modelHolder;
-    public GameObject sphereCollider;
+    public GameObject carObject;
     public GameObject explosionEffect;
     public GameObject teleportEffect;
     public GameObject deathFade;
@@ -166,9 +166,9 @@ public class CarHeatManager : MonoBehaviour
         GetComponent<SphereCarController>().enabled = false;
         GetComponent<VehicleAbilityBehavior>().enabled = false;
         GameObject respawnInstance = Instantiate(respawnPlatform);
-        respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, sphereCollider, modelHolder);
-        sphereCollider.GetComponent<Rigidbody>().useGravity = false;
-        sphereCollider.GetComponent<Rigidbody>().isKinematic = true;
+        respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject,  modelHolder);
+        carObject.GetComponent<Rigidbody>().useGravity = false;
+        carObject.GetComponent<Rigidbody>().isKinematic = true;
 
         gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
     }
@@ -184,8 +184,8 @@ public class CarHeatManager : MonoBehaviour
         deathFade.GetComponent<Animator>().Play("DeathFadeOut");
         GetComponent<SphereCarController>().enabled = true;
         GetComponent<VehicleAbilityBehavior>().enabled = true;
-        sphereCollider.GetComponent<Rigidbody>().useGravity = true;
-        sphereCollider.GetComponent<Rigidbody>().isKinematic = false;
+        carObject.GetComponent<Rigidbody>().useGravity = true;
+        carObject.GetComponent<Rigidbody>().isKinematic = false;
         HeatAbility bAbility = GetComponent<HeatAbility>();
         AudioManager.instance.Play("Respawn complete");
         if (bAbility != null)
@@ -213,9 +213,9 @@ public class CarHeatManager : MonoBehaviour
             GetComponent<SphereCarController>().enabled = false;
             GetComponent<VehicleAbilityBehavior>().enabled = false;
             GameObject respawnInstance = Instantiate(respawnPlatform);
-            respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, sphereCollider, modelHolder);
-            sphereCollider.GetComponent<Rigidbody>().useGravity = false;
-            sphereCollider.GetComponent<Rigidbody>().isKinematic = true;
+            respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
+            carObject.GetComponent<Rigidbody>().useGravity = false;
+            carObject.GetComponent<Rigidbody>().isKinematic = true;
         }
     }
 

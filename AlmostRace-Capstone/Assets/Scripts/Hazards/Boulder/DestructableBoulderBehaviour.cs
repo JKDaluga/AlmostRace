@@ -72,12 +72,20 @@ public class DestructableBoulderBehaviour : Interactable
             }
         
 
-        if (interactingPlayer.GetComponent<AimAssistant>().target = gameObject)
+        if (interactingPlayer.GetComponent<AimAssistant>().target == gameObject)
             {
                 interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
+                interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().interactables.Remove(GetComponent<Collider>());
             }
 
         }
+        AimCollider[] allPlayers = FindObjectsOfType<AimCollider>();
+
+        foreach(AimCollider i in allPlayers)
+        {
+            i.interactables.Remove(GetComponent<Collider>());
+        }
+
         boulderParticles.Play();
         rend.enabled = false;
         coll.enabled = false;

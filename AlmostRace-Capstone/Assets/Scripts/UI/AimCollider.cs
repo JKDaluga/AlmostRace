@@ -12,93 +12,121 @@ using UnityEngine;
 public class AimCollider : MonoBehaviour
 {
     public AimAssistant aim;
+    public LayerMask layer;
+
+    public float maxDist;
 
     public List<GameObject> colliding;
+    private Camera cam;
+    Plane[] planes;
+
+    private GameObject[] obj;
+    public List<Collider> interactables;
 
     int aimIndex = 0;
 
     bool canSwap;
 
+    private void Start()
+    {
+        cam = aim.transform.parent.GetComponentInChildren<Camera>();
+        interactables = new List<Collider>();
+
+        obj = GameObject.FindGameObjectsWithTag("Interactable");
+
+        for(int i = 0; i < obj.Length; i++)
+        {
+            interactables.Add(obj[i].GetComponent<Collider>());
+        }
+
+        obj = GameObject.FindGameObjectsWithTag("Vehicle");
+
+        for(int i = 0; i < obj.Length; i++)
+        {
+            if(obj[i] != aim.self && obj[i] != aim.gameObject)
+            {
+                try
+                {
+                    interactables.Add(obj[i].GetComponent<Collider>());
+                }
+                catch
+                {
+                    print("Object doesn't have collider");
+                }
+            }
+        }
+
+
+    }
 
     private void FixedUpdate()
     {
-        //Code to set and reset target based on colliding placement
-        if (colliding.Count > 0)
+        planes = GeometryUtility.CalculateFrustumPlanes(cam);
+
+
+        if (aimIndex >= colliding.Count)
         {
-            if(aimIndex >= 0 && aimIndex < colliding.Count)
-            {
-                aim.target = colliding[aimIndex];
-            }
-        
-        }
-        else aim.target = null;
-        
-        if(aimIndex >= colliding.Count)
-        {
-            aimIndex = -1;
+            aimIndex = 0;
         }
 
-        //Removes objects that are behind the car
-        try
+        if (aimIndex < 0)
         {
-            foreach (GameObject i in colliding)
-            {
-                Vector3 dir = i.transform.position - aim.gameObject.transform.position;
-                dir.Normalize();
-
-                float dot = Vector3.Dot(dir, aim.gameObject.transform.forward);
-                if (dot < 0)
-                {
-                    colliding.Remove(i);
-                }
-            }
-        }
-        catch(InvalidOperationException e)
-        {
-            colliding.Clear();
+            aimIndex = colliding.Count - 1;
         }
 
-        //Removes targets that are no longer in colliding list
-        if (!colliding.Contains(aim.target))
+        if (colliding.Count > 0 && aimIndex < colliding.Count)
+        {
+            aim.target = colliding[aimIndex];
+        } else
         {
             aim.target = null;
         }
-
-        //If an object becomes null, remove it from the list
-        colliding.RemoveAll(GameObject => GameObject == null);
         
-        if (colliding.Count > 0 && aimIndex >= 0 && aimIndex < colliding.Count)
+
+        for(int i = 0; i < interactables.Count; i++)
         {
-            if (colliding[aimIndex].GetComponent<Interactable>() != null)
+            
+            if (GeometryUtility.TestPlanesAABB(planes, interactables[i].bounds))
             {
-                if (colliding[aimIndex].GetComponent<Interactable>().interactableHealth <= 0)
+                if (!colliding.Contains(interactables[i].gameObject) && interactables[i].GetComponent<Collider>().enabled)
                 {
-                    for (int i = 0; i < colliding.Count; i++)
+                    if (Vector3.Distance(interactables[i].transform.position, aim.transform.position) < maxDist)
                     {
-                        if (colliding[i].GetComponent<Interactable>() != null && colliding[i].GetComponent<Interactable>().interactableHealth > 0)
+                        if (!Physics.Raycast(aim.transform.position, interactables[i].ClosestPoint(aim.transform.position) - aim.transform.position, maxDist, layer))
                         {
-                            aimIndex = i;
-                            break;
+                            colliding.Add(interactables[i].gameObject);
                         }
-
                     }
-                    aimIndex = -1;
-                    aim.target = null;
                 }
             }
-            if (aim.target == null && colliding.Count > 1)
+            else
             {
-                for (int i = 0; i < colliding.Count; i++)
+                try
                 {
-                    if (colliding[i].GetComponent<Interactable>() != null && colliding[i].GetComponent<Interactable>().interactableHealth > 0)
-                    {
-                        aimIndex = i;
-                        break;
-                    }
+                    colliding.Remove(interactables[i].gameObject);
                 }
+                catch { }
             }
-
         }
+
+        for(int i = 0; i < colliding.Count; i++)
+        {
+            if(Vector3.Distance(colliding[i].transform.position, aim.transform.position) > maxDist)
+            {
+                colliding.Remove(colliding[i]);
+            }
+            if (!colliding[i].GetComponent<Collider>().enabled)
+            {
+                colliding.Remove(colliding[i]);
+            }
+            if (Physics.Raycast(aim.transform.position, colliding[i].GetComponent<Collider>().ClosestPoint(aim.transform.position) - aim.transform.position, Vector3.Distance(colliding[i].transform.position, aim.transform.position), layer))
+            {
+                colliding.Remove(colliding[i]);
+            }
+        }
+
+
+        
 
         //Allows for swapping between possible targets
         if (Mathf.Abs(Input.GetAxis(aim.gameObject.GetComponent<VehicleInput>().rightHorizontal)) >= .2)
@@ -116,44 +144,6 @@ public class AimCollider : MonoBehaviour
         else canSwap = true;
 
 
-        if (aimIndex >= colliding.Count)
-        {
-            aimIndex = 0;
-        }
-
-        if (aimIndex < 0)
-        {
-            aimIndex = colliding.Count - 1;
-        }
-    }
-
-    //Trigger Enter and Exit are used to add and remove values, and resets variables to default if necessary
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if(aim.shootable == (aim.shootable | ( 1 << other.gameObject.layer)) && other.gameObject != aim.gameObject)
-        {
-
-            if(colliding.Count == 0)
-            {
-                aimIndex = 0;
-            }
-            colliding.Add(other.gameObject);
-        }
-    }
-    
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (colliding.Contains(other.gameObject))
-        {
-            colliding.Remove(other.gameObject);
-            if(colliding.Count == 0)
-            {
-                aimIndex = -1;
-                aim.target = null;
-            }
-        }
     }
 
 }
