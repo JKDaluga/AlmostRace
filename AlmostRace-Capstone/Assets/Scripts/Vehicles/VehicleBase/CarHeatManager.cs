@@ -163,7 +163,7 @@ public class CarHeatManager : MonoBehaviour
         isDead = true;
         Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);
         deathFade.GetComponent<Animator>().Play("DeathFadeIn");
-        GetComponent<SphereCarController>().enabled = false;
+        GetComponent<RaycastCar>().enabled = false;
         GetComponent<VehicleAbilityBehavior>().enabled = false;
         GameObject respawnInstance = Instantiate(respawnPlatform);
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject,  modelHolder);
@@ -182,7 +182,7 @@ public class CarHeatManager : MonoBehaviour
         healthCurrent = healthMax;
         isDead = false;
         deathFade.GetComponent<Animator>().Play("DeathFadeOut");
-        GetComponent<SphereCarController>().enabled = true;
+        GetComponent<RaycastCar>().enabled = true;
         GetComponent<VehicleAbilityBehavior>().enabled = true;
         carObject.GetComponent<Rigidbody>().useGravity = true;
         carObject.GetComponent<Rigidbody>().isKinematic = false;
@@ -193,8 +193,8 @@ public class CarHeatManager : MonoBehaviour
             bAbility.DeactivateAbility();
         }
         gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
-        GetComponent<SphereCarController>().setDrifting(false);
-        GetComponent<SphereCarController>().SetIsBoosting(false);
+        //GetComponent<RaycastCar>().setDrifting(false);
+       // GetComponent<RaycastCar>().SetIsBoosting(false);
 
     }
 
@@ -210,7 +210,7 @@ public class CarHeatManager : MonoBehaviour
             StartCoroutine(teleportCooldownTimer());
             Instantiate(teleportEffect, gameObject.transform.position, gameObject.transform.rotation);
             deathFade.GetComponent<Animator>().Play("DeathFadeIn");
-            GetComponent<SphereCarController>().enabled = false;
+            GetComponent<RaycastCar>().enabled = false;
             GetComponent<VehicleAbilityBehavior>().enabled = false;
             GameObject respawnInstance = Instantiate(respawnPlatform);
             respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);

@@ -47,7 +47,7 @@ public class Lux_OffensiveAbility : HeatAbility
     {
         _currentMuzzle = 1;
         carHeatInfo = gameObject.GetComponent<CarHeatManager>();
-        _aimPosActual = GetComponent<SphereCarController>().aimPos.transform;
+       // _aimPosActual = GetComponent<SphereCarController>().aimPos.transform;
         StartCoroutine(TurretAim());
 
     }
@@ -90,15 +90,15 @@ public class Lux_OffensiveAbility : HeatAbility
            // AudioManager.instance.Play("Blaster1");
             foreach (Transform i in muzzles)
             {
-                if (GetComponent<AimAssistant>().target != null && GetComponent<AimAssistant>().target.GetComponent<SphereCarController>() != null)
-                {
-                    Vector3 assistedPos = predictedPosition(_aimPosActual.position, transform.position, GetComponent<AimAssistant>().target.GetComponent<Rigidbody>().velocity, projectileSpeed);
-                    i.LookAt(assistedPos);
-                }
-                else
-                {
+               // if (GetComponent<AimAssistant>().target != null && GetComponent<AimAssistant>().target.GetComponent<SphereCarController>() != null)
+              //  {
+               //     Vector3 assistedPos = predictedPosition(_aimPosActual.position, transform.position, GetComponent<AimAssistant>().target.GetComponent<Rigidbody>().velocity, projectileSpeed);
+               //     i.LookAt(assistedPos);
+              //  }
+              //  else
+              //  {
                     i.LookAt(_aimPosActual);
-                }
+               // }
             }
 
             GameObject projectile = Instantiate(luxProjectile, muzzles[_currentMuzzle].position, muzzles[_currentMuzzle].rotation);

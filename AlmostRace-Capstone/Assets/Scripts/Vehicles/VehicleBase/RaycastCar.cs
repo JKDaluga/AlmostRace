@@ -226,4 +226,14 @@ public class RaycastCar : MonoBehaviour
     {
         return carMass;
     }
+
+    public Vector3 GetRelativeVelocity()
+    {
+        return relativeVelocity;
+    }
+    
+    public Vector3 GetFlatVelocity()
+    {
+        return flatVelo;
+    }
 }

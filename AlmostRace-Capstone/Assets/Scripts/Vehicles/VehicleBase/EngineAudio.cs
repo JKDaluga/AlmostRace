@@ -5,7 +5,7 @@ using UnityEngine;
 public class EngineAudio : MonoBehaviour
 {
     AudioManager audioManager;
-    public SphereCarController car;
+    public RaycastCar car;
     bool playAudio = true;
     AudioSource engineSound;
     public float topPitch = 1;
@@ -38,7 +38,7 @@ public class EngineAudio : MonoBehaviour
     {
         if(playAudio)
         {
-            engineSound.pitch = ExtensionMethods.Remap(car.currentSpeed / car.topSpeed, 0, 1, bottomPitch, topPitch);
+            engineSound.pitch = ExtensionMethods.Remap(car.currentSpeed / car.maxSpeed, 0, 1, bottomPitch, topPitch);
         }
     }
 

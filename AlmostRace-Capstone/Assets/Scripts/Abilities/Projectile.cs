@@ -46,7 +46,7 @@ public abstract class Projectile : MonoBehaviour
 
         if (_immunePlayer != null && _immunePlayerScript != null)
         {
-            _immunePlayerVelocity = _immunePlayer.gameObject.GetComponent<SphereCarController>().sphere.velocity;
+            _immunePlayerVelocity = _immunePlayer.gameObject.GetComponent<RaycastCar>().GetFlatVelocity();
             _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _projectileSpeed) + _immunePlayerVelocity;
         }
         else

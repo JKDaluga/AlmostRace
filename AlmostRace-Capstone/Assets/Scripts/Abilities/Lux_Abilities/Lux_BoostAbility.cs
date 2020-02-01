@@ -12,7 +12,8 @@ using UnityEngine;
 
 public class Lux_BoostAbility : CooldownHeatAbility
 {
-    private SphereCarController carInfo;
+    private RaycastCar carInfo;
+    private bool isBoosting = false;
 
     [Range(0, 100)]
     public float boostSpeedPercentage;
@@ -36,28 +37,31 @@ public class Lux_BoostAbility : CooldownHeatAbility
 
     private void Start()
     {
-        carInfo = gameObject.GetComponent<SphereCarController>();
+        carInfo = gameObject.GetComponent<RaycastCar>();
         carHeatInfo = gameObject.GetComponent<CarHeatManager>();
     }
 
     public override void ActivateAbility()
     {
-        carInfo.SetIsBoosting(true);
-        carInfo.SetBoostInfo(boostSpeedPercentage);
-        
-        // Set the new jet particle speed
-        var jpMain = jetParticles.main;
-        var jpMain2 = jetParticles2.main;
-        var jpMain3 = jetParticles3.main;
-        // Save the original before updating the speed
-        _originalJetSpeed = jpMain.startSpeed;
-        _originalJetSpeed2 = jpMain2.startSpeed;
-        // Change the speed while boosting
-        jpMain.startSpeed = jetIncrease;
-        jpMain2.startSpeed = jetIncrease;
-        jpMain3.startSpeed = jetIncrease;
+       if(!isBoosting)
+        {
+            isBoosting = true;
+            // Set the new jet particle speed
+            var jpMain = jetParticles.main;
+            var jpMain2 = jetParticles2.main;
+            var jpMain3 = jetParticles3.main;
+            // Save the original before updating the speed
+            _originalJetSpeed = jpMain.startSpeed;
+            _originalJetSpeed2 = jpMain2.startSpeed;
+            // Change the speed while boosting
+            jpMain.startSpeed = jetIncrease;
+            jpMain2.startSpeed = jetIncrease;
+            jpMain3.startSpeed = jetIncrease;
 
-        AddHeat();
+            AddHeat();
+        }
+       
+       //carInfo.SetBoostInfo(boostSpeedPercentage);              
     }
 
     public override void DeactivateAbility()
@@ -71,7 +75,7 @@ public class Lux_BoostAbility : CooldownHeatAbility
         jpMain2.startSpeed = _originalJetSpeed2;
         jpMain3.startSpeed = _originalJetSpeed2;
 
-        carInfo.SetIsBoosting(false);
+        isBoosting = false;
     }
 
     protected override void AddHeat()
