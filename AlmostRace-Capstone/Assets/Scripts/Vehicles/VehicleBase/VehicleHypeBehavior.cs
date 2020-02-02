@@ -46,7 +46,6 @@ public class VehicleHypeBehavior : MonoBehaviour
 
     private void Update()
     {
-        print(_hypeAmount);
         UpdateUI();
     }
 
@@ -66,7 +65,8 @@ public class VehicleHypeBehavior : MonoBehaviour
         {
             AudioManager.instance.Play("Low Hype");
         }
-        _hypeAmount += hypeToAdd;
+        //_hypeAmount += hypeToAdd;
+        _hypeAmount = _hypeAmount + hypeToAdd;
         _hypeManagerScript.VehicleSort();
         GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
         spawnedPopUp.GetComponent<TextMeshProUGUI>().text = hypeType + ": " + hypeToAdd.ToString("F0");
