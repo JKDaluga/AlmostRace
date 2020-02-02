@@ -5,17 +5,18 @@ using UnityEngine;
 public class RaycastWheel : MonoBehaviour
 {
     public float maxSuspension = 0.2f;
-    public float spring = 100.0f;
+    public LayerMask layerMask;
+    private float spring = 100.0f;
     private float damper = 50.0f;
 
     public Rigidbody parent;
     private bool grounded = false;
     private float equilibrium;
+    private RaycastCar car;
 
     private void Awake()
     {
-        RaycastCar car = parent.GetComponent<RaycastCar>();
-        equilibrium = (car.gravity * car.getCarMass()) / spring;
+        car = parent.GetComponent<RaycastCar>();
     }
 
     public bool IsGrounded
@@ -41,7 +42,7 @@ public class RaycastWheel : MonoBehaviour
         // down = local downwards direction
         Vector3 down = transform.TransformDirection(Vector3.down);
 
-        if (Physics.Raycast(transform.position, downwards, out hit, maxSuspension))
+        if (Physics.Raycast(transform.position, downwards, out hit, maxSuspension, layerMask))
         {
 
             grounded = true;
@@ -76,6 +77,12 @@ public class RaycastWheel : MonoBehaviour
         }
 
         float speed = parent.velocity.magnitude;
+    }
+
+    public void setSpring(float springForce)
+    {
+        spring = springForce;
+        equilibrium = (car.gravity * car.getCarMass()) / spring;
     }
 
     void OnDrawGizmosSelected()

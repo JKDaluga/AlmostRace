@@ -23,7 +23,7 @@ public class HypePopup : MonoBehaviour
         _startPos = startPos;
         _endPos = endPos;
         _duration = duration;
-       // StartCoroutine("StartLerp"); // RE ENABLE THIS ONCE CODE IS FIGURED OUT!!
+        StartCoroutine("StartLerp"); 
     }
 
     IEnumerator StartLerp()

@@ -46,6 +46,7 @@ public class VehicleHypeBehavior : MonoBehaviour
 
     private void Update()
     {
+        print(_hypeAmount);
         UpdateUI();
     }
 

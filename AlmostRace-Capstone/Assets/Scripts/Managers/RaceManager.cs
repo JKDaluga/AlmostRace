@@ -56,15 +56,14 @@ public class RaceManager : MonoBehaviour
     void spawnPlayer(PlayerInfo player, int playerCount, int playerNum)
     {
         // spawns the car on the map in the right spot
-        //print(player.carID * 4 + player.playerID - 1);
-        GameObject car = Instantiate(carPool[player.carID * 4 + player.playerID - 1], spawnLocations[player.carID].position, spawnLocations[player.carID].rotation);
+        GameObject car = Instantiate(carPool[player.carID * 4 + player.playerID - 1], spawnLocations[player.playerID - 1].position, spawnLocations[player.playerID - 1].rotation);
 
-        SphereCarController sphereCar = car.GetComponentInChildren<SphereCarController>();
+        RaycastCar raycastCar = car.GetComponentInChildren<RaycastCar>();
         VehicleInput v = car.GetComponentInChildren<VehicleInput>();
         v.setPlayerNum(playerNum);
-        if (sphereCar.tiltShift.gameObject != null)
+        if (raycastCar != null)
         {
-            Camera c = sphereCar.tiltShift.gameObject.GetComponent<Camera>();
+            Camera c = raycastCar.gameObject.transform.parent.GetComponentInChildren<Camera>();
             if (playerCount == 2)
             {
                 setUp_2(player.playerID, c);
@@ -75,7 +74,7 @@ public class RaceManager : MonoBehaviour
             }
         }
 
-        setUpCarUI(sphereCar, player.playerID, playerCount);
+        setUpCarUI(raycastCar, player.playerID, playerCount);
 
         if(playerCount == 1)
         {
@@ -84,7 +83,7 @@ public class RaceManager : MonoBehaviour
         }
     }
 
-    void setUpCarUI(SphereCarController car, int playerID, int playerCount)
+    void setUpCarUI(RaycastCar car, int playerID, int playerCount)
     {
         // Setup car dependent on # of players and car #
         if(playerCount == 2)

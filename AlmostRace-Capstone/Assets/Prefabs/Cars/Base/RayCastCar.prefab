@@ -9817,11 +9817,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644788420753075392}
   m_LocalRotation: {x: -0.08248053, y: 0.000000009427731, z: -0.000000113913025, w: -0.9965927}
-  m_LocalPosition: {x: 0, y: 1.25, z: -18.75}
-  m_LocalScale: {x: 2.5, y: 1.0405406, z: 2.4594595}
+  m_LocalPosition: {x: 0, y: 1.25, z: -7.5}
+  m_LocalScale: {x: 1, y: 1.023667, z: 1.023667}
   m_Children: []
-  m_Father: {fileID: 2543647688365849204}
-  m_RootOrder: 3
+  m_Father: {fileID: 644788421544090389}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
 --- !u!20 &644788420753075452
 Camera:
@@ -9854,7 +9854,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 15957815
+    m_Bits: 15941431
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -9910,7 +9910,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644788420753075392}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a22b3a7095a744a428c134b5e26ad68e, type: 3}
   m_Name: 
@@ -9965,7 +9965,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSuspension: 2
-  spring: 3000
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 16777015
   parent: {fileID: 2007631786315081986}
 --- !u!1 &644788421452543565
 GameObject:
@@ -10011,7 +10013,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSuspension: 2
-  spring: 3000
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 16777015
   parent: {fileID: 2007631786315081986}
 --- !u!1 &644788421525363677
 GameObject:
@@ -10134,6 +10138,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children:
+  - {fileID: 644788422693019630}
+  - {fileID: 644788420753075395}
   - {fileID: 8938214498588058289}
   - {fileID: 716463124009632865}
   m_Father: {fileID: 0}
@@ -10183,7 +10189,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSuspension: 2
-  spring: 3000
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 16777015
   parent: {fileID: 2007631786315081986}
 --- !u!1 &644788421937589631
 GameObject:
@@ -10229,7 +10237,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSuspension: 2
-  spring: 3000
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 16777015
   parent: {fileID: 2007631786315081986}
 --- !u!1 &644788422693019631
 GameObject:
@@ -10257,12 +10267,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644788422693019631}
   m_LocalRotation: {x: -0.08248053, y: 0.000000009427731, z: -0.000000113913025, w: -0.9965927}
-  m_LocalPosition: {x: 0, y: 1.25, z: -18.75}
-  m_LocalScale: {x: 2.5, y: 1.0405406, z: 2.4594595}
+  m_LocalPosition: {x: 0, y: 1.25, z: -7.5}
+  m_LocalScale: {x: 1, y: 1.023667, z: 1.023667}
   m_Children:
   - {fileID: 644788421525363676}
-  m_Father: {fileID: 2543647688365849204}
-  m_RootOrder: 4
+  m_Father: {fileID: 644788421544090389}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &644788422693019624
 MonoBehaviour:
@@ -10521,6 +10531,7 @@ GameObject:
   - component: {fileID: 8356836832006321181}
   - component: {fileID: 2284106843419262158}
   - component: {fileID: 3747545889929314588}
+  - component: {fileID: 7615112171040360555}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -10548,7 +10559,7 @@ Transform:
   - {fileID: 8028647169396267673}
   - {fileID: 6599933181260147352}
   m_Father: {fileID: 644788421544090389}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &134786323538944703
 MeshFilter:
@@ -10619,12 +10630,16 @@ MonoBehaviour:
   currentTurnSpeed: 0
   actualGrip: 0
   horizontal: 0
+  UIPanel: {fileID: 4177144666104445511}
+  secondaryUIPanel: {fileID: 1479380672437841465}
   frontLeftWheel: {fileID: 644788421216844747}
   frontRightWheel: {fileID: 644788421452543564}
   rearLeftWheel: {fileID: 644788421937589630}
   rearRightWheel: {fileID: 644788421635495946}
   frontLeftRayCast: {fileID: 0}
   frontRightRayCast: {fileID: 0}
+  rearLeftRayCast: {fileID: 0}
+  rearRightRayCast: {fileID: 0}
   gravity: 200
   power: 5000
   maxSpeed: 500
@@ -10632,6 +10647,8 @@ MonoBehaviour:
   carGrip: 70
   turnSpeed: 4
   driftStrength: 1.3
+  springFallDisengangeSpeed: 50
+  spring: 4000
 --- !u!114 &8318204714915202085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10878,6 +10895,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92ba4b72f1950414eb513d244c48d14c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7615112171040360555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849574673130163026}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff5f17f286ddc4c29845b30cc5051567, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerUIManagerScript: {fileID: 8303201427433979980}
+  scalingPanel: {fileID: 1840375509750723518}
+  _hypeAmount: 0
+  hypeText: {fileID: 5603265233513886037}
+  hypePopup: {fileID: 5949011031299857024, guid: daf8942438d6b9b4ea20282998216f54,
+    type: 3}
+  hypePopupSpawn: {fileID: 3978164793652258535}
+  hypePopupEnd: {fileID: 1670209949530665616}
+  bigHypeAmount: 150
 --- !u!1 &1290937828463579961
 GameObject:
   m_ObjectHideFlags: 0
@@ -46650,8 +46688,6 @@ Transform:
   - {fileID: 4657924428878531676}
   - {fileID: 1866871992314042664}
   - {fileID: 5788591693250314135}
-  - {fileID: 644788420753075395}
-  - {fileID: 644788422693019630}
   m_Father: {fileID: 8938214498588058289}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47157,7 +47193,7 @@ RectTransform:
   m_Children:
   - {fileID: 4177144666104445511}
   m_Father: {fileID: 644788421544090389}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

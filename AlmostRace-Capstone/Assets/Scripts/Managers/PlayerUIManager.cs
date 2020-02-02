@@ -7,7 +7,6 @@ using TMPro;
 /*
     Author: Eddie Borrisov
     Purpose: Sets up correct colors for player UI
-    CURRENTLY UNUSED
 */
 public class PlayerUIManager : MonoBehaviour
 {

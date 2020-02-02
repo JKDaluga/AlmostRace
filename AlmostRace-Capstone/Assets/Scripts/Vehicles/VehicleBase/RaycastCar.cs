@@ -28,9 +28,12 @@ public class RaycastCar : MonoBehaviour
     private float rev;
     private float actualTurn;
     private float carMass;
-    private Transform[] wheelTransform = new Transform[4]; //these are the transforms for our 4 wheels
     public float actualGrip;
     public float horizontal; //horizontal input control, either mobile control or keyboard
+
+    [Header("Car UI")]
+    public RectTransform UIPanel;
+    public RectTransform secondaryUIPanel;
 
     // the physical transforms for the car's wheels
     [Header("Wheels")]
@@ -41,6 +44,8 @@ public class RaycastCar : MonoBehaviour
 
     public RaycastWheel frontLeftRayCast;
     public RaycastWheel frontRightRayCast;
+    public RaycastWheel rearLeftRayCast;
+    public RaycastWheel rearRightRayCast;
 
     // car physics adjustments
     [Header("Car Adjustable Variables")]
@@ -51,6 +56,8 @@ public class RaycastCar : MonoBehaviour
     public float carGrip = 70;
     public float turnSpeed = 3.0f;  //keep this value somewhere between 2.5f and 6.0f
     public float driftStrength = 1.5f; //this number should be greater than 1f
+    public float springFallDisengangeSpeed = 50f;
+    public float spring = 4000f;
 
     private float slideSpeed;
 
@@ -82,6 +89,8 @@ public class RaycastCar : MonoBehaviour
         carRigidbody.centerOfMass = new Vector3(0f, -1.0f, -0f);
         frontLeftRayCast = frontLeftWheel.GetComponentInParent<RaycastWheel>();
         frontRightRayCast = frontRightWheel.GetComponentInParent<RaycastWheel>();
+        rearLeftRayCast = rearLeftWheel.GetComponentInParent<RaycastWheel>();
+        rearRightRayCast = rearRightWheel.GetComponentInParent<RaycastWheel>();
     }
 
     void Update()
@@ -98,6 +107,10 @@ public class RaycastCar : MonoBehaviour
 
         // call the function to start processing all vehicle physics
         carPhysicsUpdate();
+        if(Mathf.Abs(relativeVelocity.y) > 50f)
+        {
+            print(relativeVelocity.y);
+        }
 
     }
 
@@ -108,22 +121,22 @@ public class RaycastCar : MonoBehaviour
             Debug.LogError("One or more of the wheel transforms have not been plugged in on the car");
             Debug.Break();
         }
-        else
-        {
-            //set up the car's wheel transforms
-            wheelTransform[0] = frontLeftWheel;
-            wheelTransform[1] = rearLeftWheel;
-            wheelTransform[2] = frontRightWheel;
-            wheelTransform[3] = rearRightWheel;
-        }
     }
 
     void checkInput()
     {
-        //Use the Keyboard for all car input
-        horizontal = Input.GetAxis(input.horizontal);
-        throttle = Input.GetAxis(input.verticalForward);
-        reverse = Input.GetAxis(input.verticalBackward);
+        if(input.getStatus())
+        {
+            horizontal = Input.GetAxis(input.horizontal);
+            throttle = Input.GetAxis(input.verticalForward);
+            reverse = Input.GetAxis(input.verticalBackward);
+        }
+        else
+        {
+            horizontal = 0f;
+            throttle = 0f;
+            reverse = 0f;
+        }
     }
 
     void carPhysicsUpdate()
@@ -148,7 +161,10 @@ public class RaycastCar : MonoBehaviour
         flatDir = Vector3.Normalize(tempVEC);
         
         // calculate relative velocity
-        relativeVelocity = carTransform.InverseTransformDirection(flatVelo);
+        relativeVelocity = carTransform.InverseTransformDirection(velo);
+        
+        if(relativeVelocity.y < -springFallDisengangeSpeed) setSpringForce(0f);
+        else setSpringForce(spring);
 
         // calculate how much we are sliding (find out movement along our x axis)
         slideSpeed = Vector3.Dot(myRight, flatVelo);
@@ -209,7 +225,7 @@ public class RaycastCar : MonoBehaviour
             carRigidbody.angularDrag = 10f;
         }
 
-        if (Mathf.Abs(throttle) >= deadZone && Mathf.Abs(reverse) <= deadZone || Mathf.Abs(reverse) >= deadZone && Mathf.Abs(throttle) <= deadZone)
+        if ((Mathf.Abs(throttle) >= deadZone && Mathf.Abs(reverse) <= deadZone || Mathf.Abs(reverse) >= deadZone && Mathf.Abs(throttle) <= deadZone) || !isCarGrounded())
         {
             carRigidbody.drag = 0f;
         }
@@ -235,5 +251,20 @@ public class RaycastCar : MonoBehaviour
     public Vector3 GetFlatVelocity()
     {
         return flatVelo;
+    }
+
+    
+    //Car is grounded if atleast one of those wheels are grounded
+    public bool isCarGrounded()
+    {
+        return frontLeftRayCast.IsGrounded || frontRightRayCast.IsGrounded || rearLeftRayCast.IsGrounded || rearRightRayCast.IsGrounded;
+    }
+
+    private void setSpringForce(float springForce)
+    {
+        frontLeftRayCast.setSpring(springForce);
+        frontRightRayCast.setSpring(springForce);
+        rearLeftRayCast.setSpring(springForce);
+        rearRightRayCast.setSpring(springForce);
     }
 }
