@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class AIBehaviour : MonoBehaviour
 {
 
@@ -9,6 +10,8 @@ public class AIBehaviour : MonoBehaviour
     public float inputForward, inputTurn, inputBrake;
 
     private bool _inArena;
+
+    RaycastCar thisCar;
     
 
     //Copied from HotSpotBehaviour.cs script. It creates a spline that is capable of following the hotspot bot spline
@@ -30,6 +33,7 @@ public class AIBehaviour : MonoBehaviour
 
         _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
 
+        thisCar = GetComponent<RaycastCar>();
 
         foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {
@@ -57,6 +61,10 @@ public class AIBehaviour : MonoBehaviour
             //Run A.I in arena script
         }
 
+        if (inputForward < 1)
+        {
+            inputForward += .1f;
+        }
     }
 
     public void SetAiSpeed()
@@ -71,6 +79,8 @@ public class AIBehaviour : MonoBehaviour
                 if (currentPosition <= lastDistance)
                 {
                     //input.forward
+
+                    thisCar.throttle = inputForward;
 
                     lastDistance = currentPosition;
                     _currentBranchOfBot = entry.Key;
