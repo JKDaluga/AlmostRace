@@ -45,10 +45,12 @@ public class AimAssistant : MonoBehaviour
         }
 
 
-
-        if (Input.GetButtonDown(GetComponent<VehicleInput>().rightStickButton))
+        if (GetComponent<VehicleInput>())
         {
-            aimOn = !aimOn;
+            if (Input.GetButtonDown(GetComponent<VehicleInput>().rightStickButton))
+            {
+                aimOn = !aimOn;
+            }
         }
     }
 }

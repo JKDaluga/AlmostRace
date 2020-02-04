@@ -10,6 +10,7 @@ public class RaycastCar : MonoBehaviour
     public float throttle;
     public float reverse;
     public float horizontal;
+    public bool drift;
 
     [Header("Car Testing Variables")]
     public float currentSpeed;
@@ -129,12 +130,14 @@ public class RaycastCar : MonoBehaviour
                 horizontal = Input.GetAxis(input.horizontal);
                 throttle = Input.GetAxis(input.verticalForward);
                 reverse = Input.GetAxis(input.verticalBackward);
+                drift = Input.GetButton(input.brake);
             }
             else
             {
                 horizontal = 0f;
                 throttle = 0f;
                 reverse = 0f;
+                drift = false;
             }
         }
     }
@@ -206,7 +209,7 @@ public class RaycastCar : MonoBehaviour
 
         // turn car
         float tempMaxTurnSpeed = maxTurnSpeed;
-        if(Input.GetButton(input.brake))
+        if(drift)
         {
             tempMaxTurnSpeed *= driftStrength;
         }

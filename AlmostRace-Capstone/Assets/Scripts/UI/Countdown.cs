@@ -52,5 +52,10 @@ public class Countdown : MonoBehaviour
             t.setStatus(stat);
         }
         _botBehaviorScript.SetCanGoForward(stat);
+        AIBehaviour[] bots = FindObjectsOfType<AIBehaviour>();
+        foreach(AIBehaviour go in bots)
+        {
+            go.canDrive = true;
+        }
     }
 }

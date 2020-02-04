@@ -126,22 +126,29 @@ public class AimCollider : MonoBehaviour
         }
 
 
-        
+
 
         //Allows for swapping between possible targets
-        if (Mathf.Abs(Input.GetAxis(aim.gameObject.GetComponent<VehicleInput>().rightHorizontal)) >= .2)
+        if (GetComponentInParent<VehicleInput>())
         {
-            if (canSwap)
+            if (Mathf.Abs(Input.GetAxis(aim.gameObject.GetComponent<VehicleInput>().rightHorizontal)) >= .2)
             {
-                int sign = (int)Mathf.Sign(Input.GetAxisRaw(aim.gameObject.GetComponent<VehicleInput>().rightHorizontal));
+                if (canSwap)
+                {
+                    int sign = (int)Mathf.Sign(Input.GetAxisRaw(aim.gameObject.GetComponent<VehicleInput>().rightHorizontal));
 
-                aimIndex += sign;
+                    aimIndex += sign;
 
 
-                canSwap = false;
+                    canSwap = false;
+                }
             }
+            else canSwap = true;
         }
-        else canSwap = true;
+        else
+        {
+            //It's an AI car if this block exists
+        }
 
 
     }

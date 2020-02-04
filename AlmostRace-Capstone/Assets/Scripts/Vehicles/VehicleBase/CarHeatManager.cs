@@ -52,9 +52,12 @@ public class CarHeatManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetAxis(_vehicleInput.respawn) > 0 && _vehicleInput.getStatus() && !GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+        if (_vehicleInput != null)
         {
-            Teleport();
+            if (Input.GetAxis(_vehicleInput.respawn) > 0 && _vehicleInput.getStatus() && !GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
+            {
+                Teleport();
+            }
         }
 
         if (!isDead)

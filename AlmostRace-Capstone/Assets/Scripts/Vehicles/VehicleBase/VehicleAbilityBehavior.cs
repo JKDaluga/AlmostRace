@@ -68,38 +68,42 @@ public class VehicleAbilityBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!_vehicleInput.getStatus())
+        if (_vehicleInput != null)
         {
-            return;
-        }
-
-        if(offensiveAbility != null && defensiveAbility != null) //placed here just so that the BallCar prefab doesn't throw nulls
-        {
-            // Basic Ability Call
-            checkFireAbility(offensiveAbility, _vehicleInput.basicAbilityInput, _canUseBasic, canHoldBasic);
-
-            // Signature Ability Call
-            if (checkFireAbility(defensiveAbility, _vehicleInput.signatureAbilityInput, _canUseDefensiveAbility, canHoldDefensiveAbility))
+            if (!_vehicleInput.getStatus())
             {
-                _canUseDefensiveAbility = false;
-                StartCoroutine(DefensiveAbilityCooldown());
-                StartCoroutine(DefensiveAbilityDuration());
+                return;
             }
-        }
-   
 
-        // Boost Ability Call
-        if (Input.GetButtonDown(_vehicleInput.pickupInput) && boostAbility != null)
-        {
-            if(_canBoost)
+
+            if (offensiveAbility != null && defensiveAbility != null) //placed here just so that the BallCar prefab doesn't throw nulls
             {
-                _canBoost = true;
-                boostAbilityDark.SetActive(true);
-                boostAbility.ActivateAbility();
-                StartCoroutine(BoostAbilityDuration());
-                AudioManager.instance.Play("Boost");
+                // Basic Ability Call
+                checkFireAbility(offensiveAbility, _vehicleInput.basicAbilityInput, _canUseBasic, canHoldBasic);
+
+                // Signature Ability Call
+                if (checkFireAbility(defensiveAbility, _vehicleInput.signatureAbilityInput, _canUseDefensiveAbility, canHoldDefensiveAbility))
+                {
+                    _canUseDefensiveAbility = false;
+                    StartCoroutine(DefensiveAbilityCooldown());
+                    StartCoroutine(DefensiveAbilityDuration());
+                }
             }
-           
+
+
+            // Boost Ability Call
+            if (Input.GetButtonDown(_vehicleInput.pickupInput) && boostAbility != null)
+            {
+                if (_canBoost)
+                {
+                    _canBoost = true;
+                    boostAbilityDark.SetActive(true);
+                    boostAbility.ActivateAbility();
+                    StartCoroutine(BoostAbilityDuration());
+                    AudioManager.instance.Play("Boost");
+                }
+
+            }
         }
     }
 
