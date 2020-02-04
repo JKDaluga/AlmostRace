@@ -98,7 +98,8 @@ public class AIBehaviour : MonoBehaviour
 
                 if (Mathf.Abs(inputTurn)<1)
                 {
-                    if (Vector3.Dot(entry.Value.Vertices[j], transform.position)<_hugeTurn)
+                    print(Vector3.Dot(entry.Value.Vertices[j], transform.right));   
+                    if (Vector3.Dot(entry.Value.Vertices[j], transform.right)>0)
                     {
                         inputTurn -= .1f;
                     }
