@@ -10,6 +10,7 @@ public class AIBehaviour : MonoBehaviour
     public float inputForward, inputTurn, inputBrake;
 
     private bool _inArena;
+    public bool canDrive = false;
 
     RaycastCar thisCar;
     
@@ -23,6 +24,7 @@ public class AIBehaviour : MonoBehaviour
 
     private float _currentBranchOfBot;
     private readonly int _hugeDistance = 9999;
+    private readonly int _hugeTurn = 9999;
 
     // Start is called before the first frame update
     void Start()
@@ -51,39 +53,59 @@ public class AIBehaviour : MonoBehaviour
     void Update()
     {
 
-        if (!_inArena)
+        if (canDrive)
         {
-            //A.I on single direction vehicle track
-            SetAiSpeed();
-        }
-        else
-        {
-            //Run A.I in arena script
+            if (!_inArena)
+            {
+                //A.I on single direction vehicle track
+                SetAiSpeed();
+            }
+            else
+            {
+                //Run A.I in arena script
+            }
         }
 
-        if (inputForward < 1)
-        {
-            inputForward += .1f;
-        }
     }
 
     public void SetAiSpeed()
     {
         float lastDistance = _hugeDistance;
+        float lastTurn = _hugeTurn;
 
         foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {
             for (int j = 0; j < entry.Value.Vertices.Count; j++)
             {
                 float currentPosition = Vector3.Distance(entry.Value.Vertices[j], transform.position);
+                
+
                 if (currentPosition <= lastDistance)
                 {
                     //input.forward
 
                     thisCar.throttle = inputForward;
+                    thisCar.horizontal = inputTurn;
 
                     lastDistance = currentPosition;
                     _currentBranchOfBot = entry.Key;
+                }
+
+                if (inputForward < 1)
+                {
+                    inputForward += .1f;
+                }
+
+                if (Mathf.Abs(inputTurn)<1)
+                {
+                    if (Vector3.Dot(entry.Value.Vertices[j], transform.position)<_hugeTurn)
+                    {
+                        inputTurn -= .1f;
+                    }
+                    else
+                    {
+                        inputTurn += .1f;
+                    }
                 }
             }
         }
