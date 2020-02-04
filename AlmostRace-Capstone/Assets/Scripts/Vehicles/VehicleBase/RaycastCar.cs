@@ -6,30 +6,31 @@ public class RaycastCar : MonoBehaviour
 {
     // car physics calculations/input stuff
     private Vector3 accel;
-    [Header("Car Testing Variables")]
+    [Header("Input Variables")]
     public float throttle;
     public float reverse;
+    public float horizontal;
+
+    [Header("Car Testing Variables")]
+    public float currentSpeed;
+    public float currentTurnSpeed;
+    public float actualGrip;
     private float deadZone = .1f;
     private Vector3 myRight;
-    private Vector3 velo;
-    private Vector3 flatVelo;
-    private Vector3 relativeVelocity;
+    private Vector3 vel;
+    private Vector3 flatVel;
+    private Vector3 relativeVel;
     private Vector3 dir;
     private Vector3 flatDir;
     private Vector3 carUp;
     private Transform carTransform;
     private Rigidbody carRigidbody;
     private Vector3 engineForce;
-    public float currentSpeed;
-    public float currentTurnSpeed;
-
     private Vector3 turnVec;
     private Vector3 imp;
     private float rev;
     private float actualTurn;
     private float carMass;
-    public float actualGrip;
-    public float horizontal; //horizontal input control, either mobile control or keyboard
 
     [Header("Car UI")]
     public RectTransform UIPanel;
@@ -107,11 +108,6 @@ public class RaycastCar : MonoBehaviour
 
         // call the function to start processing all vehicle physics
         carPhysicsUpdate();
-        if(Mathf.Abs(relativeVelocity.y) > 50f)
-        {
-            print(relativeVelocity.y);
-        }
-
     }
 
     void setUpWheels()
@@ -125,17 +121,21 @@ public class RaycastCar : MonoBehaviour
 
     void checkInput()
     {
-        if(input.getStatus())
+        // If there is no vehicle input then this is an AI Carand the AI Car will set the inputs.
+        if (input != null)
         {
-            horizontal = Input.GetAxis(input.horizontal);
-            throttle = Input.GetAxis(input.verticalForward);
-            reverse = Input.GetAxis(input.verticalBackward);
-        }
-        else
-        {
-            horizontal = 0f;
-            throttle = 0f;
-            reverse = 0f;
+            if (input.getStatus())
+            {
+                horizontal = Input.GetAxis(input.horizontal);
+                throttle = Input.GetAxis(input.verticalForward);
+                reverse = Input.GetAxis(input.verticalBackward);
+            }
+            else
+            {
+                horizontal = 0f;
+                throttle = 0f;
+                reverse = 0f;
+            }
         }
     }
 
@@ -145,12 +145,12 @@ public class RaycastCar : MonoBehaviour
         myRight = carTransform.right;
 
         // find our velocity
-        Vector3 velo = carRigidbody.velocity;
+        Vector3 vel = carRigidbody.velocity;
 
-        Vector3 tempVEC = Vector3.ProjectOnPlane(velo, carUp); //new Vector3(velo.x, 0, velo.z);
+        Vector3 tempVEC = Vector3.ProjectOnPlane(vel, carUp); //new Vector3(velo.x, 0, velo.z);
 
         // figure out our velocity without y movement - our flat velocity
-        flatVelo = tempVEC;
+        flatVel = tempVEC;
 
         // find out which direction we are moving in
         dir = transform.TransformDirection(carFwd);
@@ -161,16 +161,16 @@ public class RaycastCar : MonoBehaviour
         flatDir = Vector3.Normalize(tempVEC);
         
         // calculate relative velocity
-        relativeVelocity = carTransform.InverseTransformDirection(velo);
+        relativeVel = carTransform.InverseTransformDirection(vel);
         
-        if(relativeVelocity.y < -springFallDisengangeSpeed) setSpringForce(0f);
+        if(relativeVel.y < -springFallDisengangeSpeed) setSpringForce(0f);
         else setSpringForce(spring);
 
         // calculate how much we are sliding (find out movement along our x axis)
-        slideSpeed = Vector3.Dot(myRight, flatVelo);
+        slideSpeed = Vector3.Dot(myRight, flatVel);
 
         // calculate current speed (the magnitude of the flat velocity)
-        currentSpeed = flatVelo.magnitude;
+        currentSpeed = flatVel.magnitude;
         currentTurnSpeed = Mathf.Abs(carRigidbody.angularVelocity.y);
 
         // calculate engine force with our flat direction vector and acceleration
@@ -245,12 +245,12 @@ public class RaycastCar : MonoBehaviour
 
     public Vector3 GetRelativeVelocity()
     {
-        return relativeVelocity;
+        return relativeVel;
     }
     
     public Vector3 GetFlatVelocity()
     {
-        return flatVelo;
+        return flatVel;
     }
 
     
