@@ -25,6 +25,8 @@ public class AIBehaviour : MonoBehaviour
     private float _currentBranchOfBot;
     private readonly int _hugeDistance = 9999;
     private readonly int _hugeTurn = 9999;
+    private Vector3 closestVertex = Vector3.zero;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -64,6 +66,11 @@ public class AIBehaviour : MonoBehaviour
             {
                 //Run A.I in arena script
             }
+
+            if (inputForward < 1)
+            {
+                inputForward += .1f;
+            }
         }
 
     }
@@ -73,42 +80,39 @@ public class AIBehaviour : MonoBehaviour
         float lastDistance = _hugeDistance;
         float lastTurn = _hugeTurn;
 
+        float currentPosition, angleBetween;
+
         foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {
             for (int j = 0; j < entry.Value.Vertices.Count; j++)
             {
-                float currentPosition = Vector3.Distance(entry.Value.Vertices[j], transform.position);
-                
+                currentPosition = Vector3.Distance(entry.Value.Vertices[j], transform.position);
 
-                if (currentPosition <= lastDistance)
+                if (closestVertex == Vector3.zero) {
+                    closestVertex = entry.Value.Vertices[j];
+                    lastDistance = currentPosition;
+                    }
+                else if (currentPosition <= lastDistance)
                 {
-                    //input.forward
-
                     thisCar.throttle = inputForward;
-                    thisCar.horizontal = inputTurn;
 
                     lastDistance = currentPosition;
-                    _currentBranchOfBot = entry.Key;
+                    closestVertex = entry.Value.Vertices[j];
                 }
 
-                if (inputForward < 1)
-                {
-                    inputForward += .1f;
-                }
-
-                if (Mathf.Abs(inputTurn)<1)
-                {
-                    print(Vector3.Dot(entry.Value.Vertices[j], transform.right));   
-                    if (Vector3.Dot(entry.Value.Vertices[j], transform.right)>0)
-                    {
-                        inputTurn -= .1f;
-                    }
-                    else
-                    {
-                        inputTurn += .1f;
-                    }
-                }
             }
+        }
+        currentPosition = Vector3.Distance(closestVertex, transform.position);
+        angleBetween = Mathf.Acos(Vector3.Dot((closestVertex-transform.position).normalized, thisCar.transform.right)) * 180 / Mathf.PI;
+
+        if (angleBetween > 90)
+        {
+            thisCar.turnSpeed = inputTurn;
+        }
+
+        if (inputTurn < 1)
+        {
+            inputTurn += .1f;
         }
     }
 
