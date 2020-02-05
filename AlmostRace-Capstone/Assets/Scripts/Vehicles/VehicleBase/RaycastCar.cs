@@ -32,6 +32,8 @@ public class RaycastCar : MonoBehaviour
     private float rev;
     private float actualTurn;
     private float carMass;
+    private float boostSpeed = 0f;
+    private float boostPadSpeed = 0f;
 
     [Header("Car UI")]
     public RectTransform UIPanel;
@@ -201,7 +203,7 @@ public class RaycastCar : MonoBehaviour
         //gravity
         carRigidbody.AddForce(-carUp.normalized * gravity * carRigidbody.mass);
 
-        if (currentSpeed < maxSpeed)
+        if (currentSpeed < maxSpeed + boostSpeed + boostPadSpeed)
         {
             // apply the engine force to the rigidbody
             carRigidbody.AddForce(engineForce * Time.deltaTime);
@@ -269,5 +271,13 @@ public class RaycastCar : MonoBehaviour
         frontRightRayCast.setSpring(springForce);
         rearLeftRayCast.setSpring(springForce);
         rearRightRayCast.setSpring(springForce);
+    }
+
+    public void cheatPhysics()
+    {
+        if (currentSpeed > maxSpeed + boostSpeed + boostPadSpeed)
+        {
+            carRigidbody.velocity = maxSpeed * carRigidbody.velocity.normalized;
+        }
     }
 }
