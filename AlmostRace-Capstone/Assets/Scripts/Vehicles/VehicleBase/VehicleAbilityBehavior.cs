@@ -190,6 +190,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
             yield return null;
         }
         boostAbility.DeactivateAbility();
+        GetComponent<RaycastCar>().cheatPhysics();
     }
 
     // Assigns the pickup slot with a given pickup
