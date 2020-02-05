@@ -47,10 +47,10 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
     {
         if(hit.gameObject != _immunePlayer)
         {
-            if (hit.gameObject.GetComponent<CarHeatManager>() != null)
+            if (hit.gameObject.GetComponent<CarHealthBehavior>() != null)
             {
                 _hitObjects.Add(hit.gameObject);
-                hit.gameObject.GetComponent<CarHeatManager>().DamageCar(_explosionDamage);
+                hit.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_explosionDamage);
                 // Debug.Log("Car added: " + hit.gameObject.transform.parent.name);
             }
             else if (hit.gameObject.GetComponent<Interactable>() != null)
@@ -81,7 +81,7 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
 
             if (obj.gameObject != _immunePlayer)
             {
-                if (obj.gameObject.GetComponent<CarHeatManager>() != null)
+                if (obj.gameObject.GetComponent<CarHealthBehavior>() != null)
                 {//if a car was hit
                   //  obj.gameObject.GetComponent<CarHeatManager>().DamageCar(_explosionDamage);
 

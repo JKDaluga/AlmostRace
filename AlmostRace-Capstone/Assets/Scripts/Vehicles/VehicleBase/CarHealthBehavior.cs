@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 /*
-    Some edits by Leonardo Caballero
+ * Written by Eddie Borissov initially, edited by basically everyone else on the team at one point.
 */
-public class CarHeatManager : MonoBehaviour
+public class CarHealthBehavior : Health
 {
    // StackTrace stackTrace;
     public GameObject respawnPlatform;
@@ -16,11 +16,10 @@ public class CarHeatManager : MonoBehaviour
     public GameObject explosionEffect;
     public GameObject teleportEffect;
     public GameObject deathFade;
+
     private float _extraHPMax = 120f;
     private float _extraHP = 0;
-    public float healthCurrent = 0f;
-    public float heatStallLimit = 100f;
-    public float healthMax = 120f;
+     
     public float healAmount = 1f;
     public float respawnSecs = 3f;
     public float teleportCooldown = 5f;
@@ -155,13 +154,8 @@ public class CarHeatManager : MonoBehaviour
         }
     }
 
-    public void Kill()
+    public override void Kill()
     {
-
-        // stackTrace = new StackTrace();
-        //print("KILL !! " + stackTrace.GetFrame(1).GetMethod().Name);
-
-        //AudioManager.instance.Play("Death");
         AudioManager.instance.Play("Death");
         isDead = true;
         Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);
@@ -169,7 +163,7 @@ public class CarHeatManager : MonoBehaviour
         GetComponent<RaycastCar>().enabled = false;
         GetComponent<VehicleAbilityBehavior>().enabled = false;
         GameObject respawnInstance = Instantiate(respawnPlatform);
-        respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject,  modelHolder);
+        respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
         carObject.GetComponent<Rigidbody>().useGravity = false;
         carObject.GetComponent<Rigidbody>().isKinematic = true;
 
@@ -201,6 +195,10 @@ public class CarHeatManager : MonoBehaviour
 
     }
 
+
+    /// <summary>
+    /// Teleports the player near the hotspot bot
+    /// </summary>
     public void Teleport()
     {
         if (_canTeleport)
@@ -222,6 +220,10 @@ public class CarHeatManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Prevents players from spamming the teleport functionality
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator teleportCooldownTimer()
     {
         float tempTime = teleportCooldown;
@@ -235,45 +237,34 @@ public class CarHeatManager : MonoBehaviour
         _canTeleport = true;
     }
 
+    /// <summary>
+    /// Provides a health regen effect
+    /// </summary>
     private void healthCooldown()
     {
         healthCurrent += healAmount;
     }
 
-    public void DamageCar(float damage)
+    /// <summary>
+    /// Depreciated damage function, delete where found and switch to DamageHealth(); Once all instances are found
+    /// and removed, delete this function.
+    /// </summary>
+    /// <param name="damage"></param>
+    /*public void DamageCar(float damage)
     {
+        Debug.Log("USING OLD DamageCar() FUNCTION, SWITCH IT TO DamageHealth()!!");
+    }*/
 
-        //stackTrace = new StackTrace();
-       // print("ADDHEAT !! " + stackTrace.GetFrame(1).GetMethod().Name);
-       if(_extraHP > 0)
-        { //if you have _extraHP
-            
-            //damage left over after it's delt to the _extraHP
-            float _tempDamage = damage - _extraHP;
-
-            if(_tempDamage < 0)
-            {//makes sure _tempDamage doesn't heal the player later on
-                _tempDamage = 0;
-            }
-
-            _extraHP -= damage; //deals the damage to the _extraHP
-
-            if(_extraHP <= 0)
-            { //If you have no _extraHP left
-                healthCurrent -= _tempDamage;
-            }
-        }
-        else
-        {
-            healthCurrent -= damage;
-        }
-       
-    }
-
-    public void DamageCarTrue(float damage)
+    /// <summary>
+    /// Depreciated damage function, delete where found and switch to DamageHealth(); Once all instances are found
+    /// and removed, delete this function.
+    /// </summary>
+    /// <param name="damage"></param>
+    /*public void DamageCarTrue(float damage)
     {
-        healthCurrent -= damage;
-    }
+        Debug.Log("USING OLD DamageCarTrue() FUNCTION, SWITCH IT TO DamageHealthTrue()!!");
+
+    }*/
 
     public float GetExtraHealth()
     {
@@ -301,6 +292,55 @@ public class CarHeatManager : MonoBehaviour
         {
             Kill();
         }
+    }
+
+    /// Inherited Functions!
+
+    public override void DamageHealth(float damageAmount)
+    {
+        if (_extraHP > 0)
+        { //if you have _extraHP
+
+            //damage left over after it's delt to the _extraHP
+            float _tempDamage = damageAmount - _extraHP;
+
+            if (_tempDamage < 0)
+            {//makes sure _tempDamage doesn't heal the player later on
+                _tempDamage = 0;
+            }
+
+            _extraHP -= damageAmount; //deals the damage to the _extraHP
+
+            if (_extraHP <= 0)
+            { //If you have no _extraHP left
+                healthCurrent -= _tempDamage;
+            }
+        }
+        else
+        {
+            healthCurrent -= damageAmount;
+        }
+
+    }
+
+    public override void DamageHealthTrue(float trueDamageAmount)
+    {
+        healthCurrent -= trueDamageAmount;
+    }
+
+    public override float GetHealth()
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void SetHealth(float newHealth)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public override void AddHealth(float healthToAdd)
+    {
+        throw new System.NotImplementedException();
     }
 }
 

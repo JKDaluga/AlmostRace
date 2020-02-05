@@ -46,7 +46,7 @@ public class Lux_OffensiveAbility : HeatAbility
     void Start()
     {
         _currentMuzzle = 1;
-        carHeatInfo = gameObject.GetComponent<CarHeatManager>();
+        carHeatInfo = gameObject.GetComponent<CarHealthBehavior>();
        // _aimPosActual = GetComponent<SphereCarController>().aimPos.transform;
         StartCoroutine(TurretAim());
 

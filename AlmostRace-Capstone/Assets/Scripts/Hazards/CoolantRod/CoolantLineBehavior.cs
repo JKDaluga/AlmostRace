@@ -20,12 +20,12 @@ public class CoolantLineBehavior : MonoBehaviour
     private Collider _coolantCollider;
     private GameObject _interactingPlayer;//the player that activated this object initially.
     public ParticleSystem fireWallParticle;
-    private List<CarHeatManager> _carsDamaged;
+    private List<CarHealthBehavior> _carsDamaged;
 
     public void Start()
     {
         _coolantCollider = gameObject.GetComponent<Collider>();
-        _carsDamaged = new List<CarHeatManager>();
+        _carsDamaged = new List<CarHealthBehavior>();
         DeactivateCoolantLine();
     }
 
@@ -65,10 +65,10 @@ public class CoolantLineBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.GetComponent<CarHeatManager>() != null)
+        if(other.gameObject.GetComponent<CarHealthBehavior>() != null)
         {//Checks if a car passes through. 
             //Debug.Log("Car Detected by fire!");
-            _carsDamaged.Add(other.gameObject.GetComponent<CarHeatManager>()); //Adds car to damage.
+            _carsDamaged.Add(other.gameObject.GetComponent<CarHealthBehavior>()); //Adds car to damage.
             if(_carsDamaged.Count == 1)
             {//If this is the first car added to the list, assume that cars aren't being damaged, start the invoke repeating.
                
@@ -80,9 +80,9 @@ public class CoolantLineBehavior : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<CarHeatManager>() != null && _carsDamaged.Contains(other.gameObject.GetComponent<CarHeatManager>()))
+        if (other.gameObject.GetComponent<CarHealthBehavior>() != null && _carsDamaged.Contains(other.gameObject.GetComponent<CarHealthBehavior>()))
         {//Checks if a car leaves the trigger and if it was already in the list.
-            _carsDamaged.Remove(other.gameObject.GetComponent<CarHeatManager>()); //Removes car from.
+            _carsDamaged.Remove(other.gameObject.GetComponent<CarHealthBehavior>()); //Removes car from.
             
             //Stopping the invoke repeating is handled internally in the DamageCars() function;
         }
@@ -92,7 +92,7 @@ public class CoolantLineBehavior : MonoBehaviour
     {
         if(_carsDamaged.Count > 0)//Make sure _carsDamaged isn't empty.
         {
-            foreach (CarHeatManager car in _carsDamaged)
+            foreach (CarHealthBehavior car in _carsDamaged)
             {
                 if(!car.isDead) //Make sure car is alive.
                 {

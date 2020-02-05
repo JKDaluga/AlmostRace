@@ -18,7 +18,7 @@ public class BoosterPadBehaviour : Interactable
     [Tooltip("Set the percentage of the boost can increase speed")]
     [Range(-100, 100)]
     public float speedMultiplier;
-    private List<CarHeatManager> _carsBoosted = new List<CarHeatManager>();
+    private List<CarHealthBehavior> _carsBoosted = new List<CarHealthBehavior>();
 
     private AudioSource powerUpSound;
 
@@ -30,7 +30,7 @@ public class BoosterPadBehaviour : Interactable
     
         if(other.gameObject.GetComponent<SphereCarController>() != null)
         {
-            _carsBoosted.Add(other.gameObject.GetComponent<CarHeatManager>());
+            _carsBoosted.Add(other.gameObject.GetComponent<CarHealthBehavior>());
             if(_carsBoosted.Count == 1)
             {
                 StartCoroutine(TrackCars());
@@ -49,7 +49,7 @@ public class BoosterPadBehaviour : Interactable
     {
         while(_carsBoosted.Count > 1)
         {
-            foreach(CarHeatManager car in _carsBoosted)
+            foreach(CarHealthBehavior car in _carsBoosted)
             {
                 if(car.isDead)
                 {
@@ -68,7 +68,7 @@ public class BoosterPadBehaviour : Interactable
         {
             // Reset the original values when leaving the boost pad
             other.gameObject.GetComponent<SphereCarController>().SetIsOnBoosterPad(false);
-            _carsBoosted.Remove(other.gameObject.GetComponent<CarHeatManager>());
+            _carsBoosted.Remove(other.gameObject.GetComponent<CarHealthBehavior>());
 
             // Turn off the boost effect
             other.gameObject.GetComponent<SphereCarController>().boostingParticles.Stop();

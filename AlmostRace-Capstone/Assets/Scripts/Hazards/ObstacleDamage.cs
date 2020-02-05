@@ -13,10 +13,10 @@ public class ObstacleDamage : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Vehicle"))
         {
-            if (other.gameObject.GetComponent<CarHeatManager>() != null)
+            if (other.gameObject.GetComponent<CarHealthBehavior>() != null)
             {
-                other.gameObject.GetComponent<CarHeatManager>().healthCurrent
-                = other.gameObject.GetComponent<CarHeatManager>().healthCurrent + damage;
+                other.gameObject.GetComponent<CarHealthBehavior>().healthCurrent
+                = other.gameObject.GetComponent<CarHealthBehavior>().healthCurrent + damage;
             }
         }
     }

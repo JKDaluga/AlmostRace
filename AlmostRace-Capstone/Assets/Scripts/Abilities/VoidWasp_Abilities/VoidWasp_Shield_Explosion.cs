@@ -23,7 +23,7 @@ public class VoidWasp_Shield_Explosion : MonoBehaviour
 
     private void OnTriggerEnter(Collider hit)
     {
-        if (hit.gameObject.GetComponent<CarHeatManager>() != null)
+        if (hit.gameObject.GetComponent<CarHealthBehavior>() != null)
         {
             _hitObjects.Add(hit.gameObject);
             //Debug.Log("Car added: " + hit.gameObject.name);
@@ -41,11 +41,11 @@ public class VoidWasp_Shield_Explosion : MonoBehaviour
         foreach (GameObject hit in _hitObjects)
         {
 
-            if (hit.gameObject.GetComponent<CarHeatManager>() != null)
+            if (hit.gameObject.GetComponent<CarHealthBehavior>() != null)
             {
                 if (hit.gameObject != immunePlayer)
                 {
-                    hit.gameObject.GetComponent<CarHeatManager>().DamageCar(damage / _hitObjects.Count);
+                    hit.gameObject.GetComponent<CarHealthBehavior>().DamageCar(damage / _hitObjects.Count);
                     Debug.Log("1 damage done: " + damage + " To " + hit.gameObject.transform.parent.name);
                 }
             }

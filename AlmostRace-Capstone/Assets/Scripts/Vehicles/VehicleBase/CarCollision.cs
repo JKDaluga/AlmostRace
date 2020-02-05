@@ -35,7 +35,7 @@ public class CarCollision : MonoBehaviour
             Rigidbody rb = GetComponent<Rigidbody>();
             Rigidbody other_rb = other.GetComponent<Rigidbody>();
             SphereCarController otherCar = other.car.GetComponent<SphereCarController>();
-            CarHeatManager otherCarHeat = other.car.GetComponent<CarHeatManager>();
+            CarHealthBehavior otherCarHeat = other.car.GetComponent<CarHealthBehavior>();
             Vector3 relativeVelocity = rb.velocity - other_rb.velocity;
             Vector3 relativePosition = rb.position - other_rb.position;
             collisionEffectsScript.CreateSparks(collision);
