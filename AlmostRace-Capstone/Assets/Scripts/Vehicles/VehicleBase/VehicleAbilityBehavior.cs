@@ -47,6 +47,8 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Header ("Boost Ability.................................................................................")]
     [Tooltip("Boost Ability Script Slot")]
     public Ability boostAbility;
+    [Tooltip("Length of ability cooldown in seconds.")]
+    public float boostAbilityRecharge = 5f;
     [Tooltip("Length of ability duration in seconds.")]
     public float boostAbilityDuration = 3f;
     private bool _canBoost = true;
@@ -164,18 +166,29 @@ public class VehicleAbilityBehavior : MonoBehaviour
         defensiveAbility.DeactivateAbility();
     }
 
+    private IEnumerator BoostAbilityCooldown()
+    {
+        float tempTime = boostAbilityRecharge;
+        while (tempTime > 0)
+        {
+            tempTime -= Time.deltaTime;
+            boostAbilityCooldown.fillAmount = tempTime / boostAbilityRecharge;
+            yield return null;
+        }
+        boostAbilityDark.SetActive(false);
+        _canBoost = true;
+        AudioManager.instance.Play("Ability Recharge");
+    }
+
     private IEnumerator BoostAbilityDuration()
     {
         _canBoost = false;
         float tempTime = boostAbilityDuration;
         while (tempTime > 0)
         {
-            boostAbilityCooldown.fillAmount = tempTime / boostAbilityDuration;
             tempTime -= Time.deltaTime;
             yield return null;
         }
-        _canBoost = true;
-        boostAbilityDark.SetActive(false);
         boostAbility.DeactivateAbility();
     }
 
