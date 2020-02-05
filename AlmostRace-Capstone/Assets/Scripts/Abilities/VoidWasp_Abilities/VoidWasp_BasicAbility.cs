@@ -42,7 +42,7 @@ public class VoidWasp_BasicAbility : HeatAbility
     void Start()
     {
         _originalPhysicsLayer = gameObject.layer;
-        carHeatInfo = gameObject.GetComponent<CarHeatManager>();
+        carHeatInfo = gameObject.GetComponent<CarHealthBehavior>();
         voidStepCollider.enabled = false;
     }
 

@@ -22,9 +22,9 @@ public class Lux_ProjectileBehavior : Projectile
     {   
         if (_isAlive)
         {
-            if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHeatManager>() != null)
+            if (other.gameObject != _immunePlayer && other.gameObject.GetComponent<CarHealthBehavior>() != null)
             {//Checks if the object isn't the immunePlayer and if they are a car.
-                other.gameObject.GetComponent<CarHeatManager>().DamageCar(_projectileDamage);
+                other.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
 
                 other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = .75f;
                 other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = .75f;

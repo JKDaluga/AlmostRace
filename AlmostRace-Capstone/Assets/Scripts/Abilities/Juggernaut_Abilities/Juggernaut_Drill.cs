@@ -9,7 +9,7 @@ using UnityEngine;
 
 public class Juggernaut_Drill : MonoBehaviour
 {
-    private CarHeatManager damagedCarScript;
+    private CarHealthBehavior damagedCarScript;
 
     private bool _isSpinning = false;
     private float _drillDamage;
@@ -100,9 +100,9 @@ public class Juggernaut_Drill : MonoBehaviour
         if (_isSpinning && collision.gameObject != _immunePlayer && !_isDrilling) //Makes sure the drill is spinning
         {
             _isDrilling = true;
-            if (collision.gameObject.GetComponent<CarHeatManager>() != null && damagedCarScript == null) //Makes sure we don't hit multiple cars at once
+            if (collision.gameObject.GetComponent<CarHealthBehavior>() != null && damagedCarScript == null) //Makes sure we don't hit multiple cars at once
             {
-                damagedCarScript = collision.gameObject.GetComponent<CarHeatManager>();
+                damagedCarScript = collision.gameObject.GetComponent<CarHealthBehavior>();
                 InvokeRepeating("DamageCar", 0, _drillFrequency);
             }
             else if (collision.gameObject.GetComponent<PickupBehavior>() != null)
@@ -114,7 +114,7 @@ public class Juggernaut_Drill : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        if(collision.gameObject.GetComponent<CarHeatManager>() != null == damagedCarScript)
+        if(collision.gameObject.GetComponent<CarHealthBehavior>() != null == damagedCarScript)
         {
             _isDrilling = false;
             Debug.Log("Collision with :" + collision.gameObject.name + " STOPPED!");

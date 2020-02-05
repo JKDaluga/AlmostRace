@@ -13,11 +13,11 @@ public class Lux_DefensiveAbility : CooldownAbility
 {
     public float shieldHealth;
     public List<GameObject> _shields;
-    private CarHeatManager _carHealthScript;
+    private CarHealthBehavior _carHealthScript;
  
     void Start()
     {
-        _carHealthScript = gameObject.GetComponent<CarHeatManager>();
+        _carHealthScript = gameObject.GetComponent<CarHealthBehavior>();
         foreach(GameObject shield in _shields)
         {
          

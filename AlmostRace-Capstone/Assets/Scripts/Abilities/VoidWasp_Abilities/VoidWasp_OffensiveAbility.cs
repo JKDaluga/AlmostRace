@@ -87,7 +87,7 @@ public class VoidWasp_OffensiveAbility : HeatAbility
     // Start is called before the first frame update
     void Start()
     {
-        carHeatInfo = gameObject.GetComponent<CarHeatManager>();
+        carHeatInfo = gameObject.GetComponent<CarHealthBehavior>();
         _aimPosActual = GetComponent<SphereCarController>().aimPos.transform;
         StartCoroutine(TurretAim());
 

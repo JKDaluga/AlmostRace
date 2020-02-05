@@ -7,7 +7,7 @@ using UnityEngine.UI;
 /*
     Some edits by Leonardo Caballero
 */
-public class CarHeatManager : MonoBehaviour
+public class CarHealthBehavior : MonoBehaviour
 {
    // StackTrace stackTrace;
     public GameObject respawnPlatform;
