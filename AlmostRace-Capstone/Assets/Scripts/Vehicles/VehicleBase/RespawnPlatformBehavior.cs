@@ -179,7 +179,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
         _movingCar = true;
         _carMesh.SetActive(true);
         yield return new WaitForSeconds(respawnSeconds / 5f);
-        _playerObject.GetComponent<CarHealthBehavior>().Respawn();
+        _playerObject.GetComponent<CarHeatManager>().Respawn();
         _movingCar = false;
     }
 

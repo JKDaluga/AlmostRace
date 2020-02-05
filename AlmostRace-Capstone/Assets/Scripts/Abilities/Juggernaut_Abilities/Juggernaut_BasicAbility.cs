@@ -32,7 +32,7 @@ public class Juggernaut_BasicAbility : HeatAbility
     {
         base.Initialize();
         SetDrillMovementInfo();
-        carHeatInfo = gameObject.GetComponent<CarHealthBehavior>();
+        carHeatInfo = gameObject.GetComponent<CarHeatManager>();
         drillScript.SetDrillInfo(drillDamage, drillFrequency, hypeGained, vehicleHypeScript, _immunePlayer);
     }
 

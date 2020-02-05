@@ -26,14 +26,14 @@ public abstract class CooldownAbility : Ability
 
 public abstract class HeatAbility : Ability
 {
-    protected CarHealthBehavior carHeatInfo;
+    protected CarHeatManager carHeatInfo;
     [Tooltip("How much damage is done to the player every X seconds")] public float selfHeatDamage;
     protected abstract void AddHeat();
 }
 
 public abstract class CooldownHeatAbility : Ability
 {
-    protected CarHealthBehavior carHeatInfo;
+    protected CarHeatManager carHeatInfo;
     [Tooltip("How much damage is done to the player every X seconds")] public float selfHeatDamage;
     protected abstract void AddHeat();
     protected float cooldown;

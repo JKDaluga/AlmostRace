@@ -64,7 +64,7 @@ public class HotSpotVehicleAdministration : MonoBehaviour
             && !holdingTheBot && HotSpotBotHeld == null)
             {
                 HoldTheBot(other.gameObject);
-                GetComponent<CarHealthBehavior>().healthCurrent = GetComponent<CarHealthBehavior>().healthMax;
+                GetComponent<CarHeatManager>().healthCurrent = GetComponent<CarHeatManager>().healthMax;
                 HypeGain(initialHypeGain);
                 hypeTimer = 0;
                 AudioManager.instance.Play("HotSpot Attachment");

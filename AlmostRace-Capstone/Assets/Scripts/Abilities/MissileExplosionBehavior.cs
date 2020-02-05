@@ -41,9 +41,9 @@ public class MissileExplosionBehavior : MonoBehaviour
         if (collision.gameObject != immunePlayer)
         {
           //  Debug.Log(explosionDamage + " damage was dealt to: " + collision.gameObject.name + "!");
-            if(collision.GetComponent<CarHealthBehavior>() != null )
+            if(collision.GetComponent<CarHeatManager>() != null )
             {
-                collision.GetComponent<CarHealthBehavior>().healthCurrent += explosionDamage;
+                collision.GetComponent<CarHeatManager>().healthCurrent += explosionDamage;
             }
         }
         else if(collision.gameObject == immunePlayer)

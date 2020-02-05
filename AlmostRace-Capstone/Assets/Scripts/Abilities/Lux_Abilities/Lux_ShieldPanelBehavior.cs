@@ -8,14 +8,14 @@ using UnityEngine;
 public class Lux_ShieldPanelBehavior : MonoBehaviour
 {
     public MeshRenderer _meshRender;
-    private CarHealthBehavior _carHealthScript;
+    private CarHeatManager _carHealthScript;
 
     private void Awake()
     {
         DestroyInteractable();
     }
 
-    public void GiveInfo(CarHealthBehavior carHealthScript)
+    public void GiveInfo(CarHeatManager carHealthScript)
     {
         _carHealthScript = carHealthScript;
     }

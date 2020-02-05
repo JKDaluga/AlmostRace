@@ -18,7 +18,7 @@ public class TurretAggroBehavior : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.GetComponent<CarHealthBehavior>() != null)
+        if(other.gameObject.GetComponent<CarHeatManager>() != null)
         {//if other is a car
             turret.currentTarget = other.gameObject;
             turret.TriggerInteractable();
@@ -27,7 +27,7 @@ public class TurretAggroBehavior : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<CarHealthBehavior>() != null)
+        if (other.gameObject.GetComponent<CarHeatManager>() != null)
         {//if other is a car
             if (turret.currentTarget == other.gameObject)
             {

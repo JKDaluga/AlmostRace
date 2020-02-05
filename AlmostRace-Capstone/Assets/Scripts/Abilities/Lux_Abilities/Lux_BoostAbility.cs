@@ -38,7 +38,7 @@ public class Lux_BoostAbility : CooldownHeatAbility
     private void Start()
     {
         carInfo = gameObject.GetComponent<RaycastCar>();
-        carHeatInfo = gameObject.GetComponent<CarHealthBehavior>();
+        carHeatInfo = gameObject.GetComponent<CarHeatManager>();
     }
 
     public override void ActivateAbility()

@@ -205,7 +205,7 @@ public class TurretBehavior2 : Interactable
         //Debug.Log("null target!");
         for (int i = 0; i < possibleTargets.Count; i++)
         {//Searches through possible targets, finds the first one that ISN'T the one that activated the turret
-            if (possibleTargets[i].GetComponent<CarHealthBehavior>().isDead)
+            if (possibleTargets[i].GetComponent<CarHeatManager>().isDead)
             {
                // Debug.Log("Dead player detected!");
                 possibleTargets.Remove(possibleTargets[i]); //should clean List of dead targets.

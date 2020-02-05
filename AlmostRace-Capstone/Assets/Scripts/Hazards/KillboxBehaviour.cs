@@ -11,9 +11,9 @@ public class KillboxBehaviour : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<CarHealthBehavior>() != null)
+        if (other.gameObject.GetComponent<CarHeatManager>() != null)
         {//if other is a car
-            other.gameObject.GetComponent<CarHealthBehavior>().Kill();
+            other.gameObject.GetComponent<CarHeatManager>().Kill();
         }
     }
 }
