@@ -26,6 +26,7 @@ public class AIBehaviour : MonoBehaviour
     private readonly int _hugeDistance = 9999;
     private readonly int _hugeTurn = 9999;
     private Vector3 closestVertex = Vector3.zero;
+    private Vector3 vertexAim = Vector3.zero;
     
 
     // Start is called before the first frame update
@@ -67,10 +68,7 @@ public class AIBehaviour : MonoBehaviour
                 //Run A.I in arena script
             }
 
-            if (inputForward < 1)
-            {
-                inputForward += .1f;
-            }
+            
         }
 
     }
@@ -81,6 +79,7 @@ public class AIBehaviour : MonoBehaviour
         float lastTurn = _hugeTurn;
 
         float currentPosition, angleBetween;
+        int placeHolder = 0;
 
         foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {
@@ -89,15 +88,22 @@ public class AIBehaviour : MonoBehaviour
                 currentPosition = Vector3.Distance(entry.Value.Vertices[j], transform.position);
 
                 if (closestVertex == Vector3.zero) {
+
                     closestVertex = entry.Value.Vertices[j];
                     lastDistance = currentPosition;
                     }
                 else if (currentPosition <= lastDistance)
                 {
                     thisCar.throttle = inputForward;
+                    thisCar.horizontal = inputTurn;
+
+                    placeHolder = j;
+                    placeHolder = Mathf.Clamp(placeHolder-3, 0, entry.Value.Vertices.Count-1);
+
+                    vertexAim = entry.Value.Vertices[placeHolder];
 
                     lastDistance = currentPosition;
-                    closestVertex = entry.Value.Vertices[j];
+                    closestVertex = vertexAim;
                 }
 
             }
@@ -105,16 +111,32 @@ public class AIBehaviour : MonoBehaviour
         currentPosition = Vector3.Distance(closestVertex, transform.position);
         angleBetween = Mathf.Acos(Vector3.Dot((closestVertex-transform.position).normalized, thisCar.transform.right)) * 180 / Mathf.PI;
 
-        if (angleBetween > 90)
+
+        print("Current Turn Angle = " + angleBetween);
+        print("Current Turn number = " + inputTurn);
+
+        if (angleBetween < 80)
         {
-            thisCar.turnSpeed = inputTurn;
+            inputTurn =  Mathf.Pow(((angleBetween - 90) / 90), (1/5));
+        }
+        else if (angleBetween > 100)
+        {
+            inputTurn =  -Mathf.Pow(((angleBetween - 90) / 90), (1/5));
         }
 
-        if (inputTurn < 1)
-        {
-            inputTurn += .1f;
-        }
+        
+
+
+        inputForward =  (1.5f) - Mathf.Abs(inputTurn);
+
     }
 
-   
+    private void OnDrawGizmos()
+    {
+        float angleBetween = Mathf.Acos(Vector3.Dot((closestVertex - transform.position).normalized, thisCar.transform.right)) * 180 / Mathf.PI;
+        Gizmos.color = new Color(0, 0, 1, 1);
+        Vector3 direction = (-Mathf.Pow(((angleBetween - 90) / 90), 3)*transform.right)*4;
+        Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z), direction);
+        Gizmos.DrawCube(vertexAim, new Vector3(4, 4, 4));
+    }
 }
