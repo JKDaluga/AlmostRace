@@ -19,6 +19,9 @@ public class Lux_Attack : Ability
     [Tooltip("How much damage the laser from the disk will deal.")]
     public float laserDamage;
 
+    [Tooltip("How often the laser deals damage per second.")]
+    public float laserDamageRate;
+
     [Tooltip("How much damage the disk itself can do on impact.")]
     public float diskDamage;
 
@@ -45,15 +48,15 @@ public class Lux_Attack : Ability
     {
         ///spawn the disk that goes forward and pass all of the information it needs to it.
         GameObject laserDiskRight = Instantiate(laserDisk, laserDiskSpawnRight.position, laserDiskSpawnRight.rotation);
-        laserDiskRight.GetComponent<Lux_LaserDiskCode>().SetProjectileInfo(laserDamage, laserDiskSpeed, laserHypeToGain);
-        laserDiskRight.GetComponent<Lux_LaserDiskCode>().SetImmunePlayer(gameObject);
-        laserDiskRight.GetComponent<Lux_LaserDiskCode>().SetDiskHype(diskHypeToGain);
+        laserDiskRight.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed, laserHypeToGain);
+        laserDiskRight.GetComponent<Lux_LaserDisk>().SetImmunePlayer(gameObject);
+        laserDiskRight.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserDamageRate, diskHypeToGain);
 
         ///spawn the disk that goes backward and pass all of the information it needs to it.
         GameObject laserDiskLeft = Instantiate(laserDisk, laserDiskSpawnLeft.position, laserDiskSpawnLeft.rotation);
-        laserDiskLeft.GetComponent<Lux_LaserDiskCode>().SetProjectileInfo(laserDamage, laserDiskSpeed, laserHypeToGain);
-        laserDiskLeft.GetComponent<Lux_LaserDiskCode>().SetImmunePlayer(gameObject);
-        laserDiskLeft.GetComponent<Lux_LaserDiskCode>().SetDiskHype(diskHypeToGain);
+        laserDiskLeft.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed, laserHypeToGain);
+        laserDiskLeft.GetComponent<Lux_LaserDisk>().SetImmunePlayer(gameObject);
+        laserDiskLeft.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserDamageRate, diskHypeToGain);
     }
 
     public override void DeactivateAbility()
