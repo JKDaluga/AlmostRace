@@ -26,7 +26,7 @@ public abstract class Projectile : MonoBehaviour
     protected bool _isAlive = true;
 
     // Start is called before the first frame update
-    public void Start()
+    public void OnEnable()
     {
         _collider = gameObject.GetComponent<Collider>();
         _rigidBody = gameObject.GetComponent<Rigidbody>();

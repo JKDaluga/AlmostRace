@@ -38,9 +38,9 @@ public class VoidWasp_ProjectileBehaviour : Projectile
     private float _explosionRadius;
 
 
-    private new void Start()
+    private void Start()
     {
-        base.Start();
+      
         GiveSpeed();
         AudioManager.instance.Play("VoidWasp Shot trail");
 

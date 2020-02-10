@@ -18,8 +18,9 @@ public class Lux_LaserDisk : Projectile
 
     private RaycastHit rayHit;
 
-    private void OnEnable()
+    private void Start()
     {
+        GiveSpeed();
         InvokeRepeating("PulseLasers", 0, _laserPulseRate);
     }
 
@@ -35,8 +36,12 @@ public class Lux_LaserDisk : Projectile
             //if it hit a car
             if (rayHit.collider.gameObject.GetComponent<CarHealthBehavior>() != null)
             {//hit a car
-                Debug.Log("Car found by laserEmitterLeft");
-                rayHit.collider.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
+                if(rayHit.collider.gameObject != _immunePlayer)
+                {
+                    Debug.Log("Car found by laserEmitterLeft");
+                    rayHit.collider.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
+                }
+           
             }
 
             //if it hit an interactable
@@ -55,8 +60,11 @@ public class Lux_LaserDisk : Projectile
             //if it hit a car
             if (rayHit.collider.gameObject.GetComponent<CarHealthBehavior>() != null)
             {//hit a car
-                Debug.Log("Car found by laserEmitterRight");
-                rayHit.collider.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
+                if (rayHit.collider.gameObject != _immunePlayer)
+                {
+                    Debug.Log("Car found by laserEmitterRight");
+                    rayHit.collider.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
+                }
             }
 
             //if it hit an interactable
@@ -84,5 +92,6 @@ public class Lux_LaserDisk : Projectile
         _laserHype = laserHype;
         _laserPulseRate = laserDamageRate;
     }
+
 
 }
