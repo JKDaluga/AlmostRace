@@ -8,37 +8,67 @@ using UnityEngine;
 
 public class Lux_LaserDisk : Projectile
 {
-    private float _diskHype;
-
-    private List<CarHealthBehavior> _carsDamaged = new List<CarHealthBehavior>();
+    private float _laserHype;
 
     public Transform laserEmitterLeft;
     public Transform laserEmitterRight;
 
     private float _laserDamage;
-    private float _laserDamageRate;
+    private float _laserPulseRate;
 
     private RaycastHit rayHit;
 
-    public void FixedUpdate()
+    private void OnEnable()
     {
+        InvokeRepeating("PulseLasers", 0, _laserPulseRate);
+    }
+
+    /// <summary>
+    /// This function is called frequently, many times a second, in order to spawn the laser code and damage anything it hits.
+    /// This is done in lue of DoT lists, such as the ones used with DoT colliders. Raycasts don't have an OnTriggerExit, after all.
+    /// </summary>
+    public void PulseLasers()
+    {
+        //Left laser code
         if (Physics.Raycast(laserEmitterLeft.position, laserEmitterLeft.TransformDirection(Vector3.forward), out rayHit, Mathf.Infinity))
         {
-            if(rayHit.collider.gameObject.GetComponent<CarHealthBehavior>() != null)
+            //if it hit a car
+            if (rayHit.collider.gameObject.GetComponent<CarHealthBehavior>() != null)
             {//hit a car
                 Debug.Log("Car found by laserEmitterLeft");
-                _carsDamaged.Add(rayHit.collider.gameObject.GetComponent<CarHealthBehavior>());
+                rayHit.collider.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
             }
+
+            //if it hit an interactable
+            if (rayHit.collider.gameObject.GetComponent<Interactable>() != null)
+            {//hit an interactable
+                Debug.Log("Interactable found by laserEmitterLeft");
+                rayHit.collider.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
+            }
+
             Debug.DrawRay(laserEmitterLeft.position, laserEmitterLeft.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
-           
         }
 
+        //Right laser code
         if (Physics.Raycast(laserEmitterRight.position, laserEmitterRight.TransformDirection(Vector3.forward), out rayHit, Mathf.Infinity))
         {
-            Debug.Log("Car found by laserEmitterRight");
-            _carsDamaged.Add(rayHit.collider.gameObject.GetComponent<CarHealthBehavior>());
+            //if it hit a car
+            if (rayHit.collider.gameObject.GetComponent<CarHealthBehavior>() != null)
+            {//hit a car
+                Debug.Log("Car found by laserEmitterRight");
+                rayHit.collider.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
+            }
+
+            //if it hit an interactable
+            if (rayHit.collider.gameObject.GetComponent<Interactable>() != null)
+            {//hit an interactable
+                Debug.Log("Interactable found by laserEmitterRight");
+                rayHit.collider.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
+            }
+
+            Debug.DrawRay(laserEmitterRight.position, laserEmitterRight.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
+
         }
-        Debug.DrawRay(laserEmitterRight.position, laserEmitterRight.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
 
     }
 
@@ -48,11 +78,11 @@ public class Lux_LaserDisk : Projectile
     /// which would make 0 sense, since most projectiles only have 1 hype variable (currently).
     /// </summary>
     /// <param name="diskHype"> The amount of hype you want to gain from scoring a direct hit </param>
-    public void SetDiskInfo(float laserDamage, float laserDamageRate, float diskHype)
+    public void SetDiskInfo(float laserDamage, float laserDamageRate, float laserHype)
     {
         _laserDamage = laserDamage;
-        _diskHype = diskHype;
-        _laserDamageRate = laserDamageRate;
+        _laserHype = laserHype;
+        _laserPulseRate = laserDamageRate;
     }
 
 }

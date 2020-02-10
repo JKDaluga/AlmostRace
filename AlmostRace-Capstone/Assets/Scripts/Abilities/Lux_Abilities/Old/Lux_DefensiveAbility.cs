@@ -20,7 +20,7 @@ public class Lux_DefensiveAbility : CooldownAbility
         _carHealthScript = gameObject.GetComponent<CarHealthBehavior>();
         foreach(GameObject shield in _shields)
         {
-         
+            shield.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 
@@ -28,23 +28,18 @@ public class Lux_DefensiveAbility : CooldownAbility
     { //DeactivateAbility called VehicleAbilityBehavior after the duration is over.
         AudioManager.instance.Play("Shield Activated");
         _carHealthScript.SetExtraHealth(shieldHealth);
-        _carHealthScript.SetExtraHealthMax(shieldHealth);
         foreach (GameObject shield in _shields)
         {
-            shield.GetComponent<Lux_ShieldPanelBehavior>().GiveInfo(_carHealthScript);
-            shield.GetComponent<Lux_ShieldPanelBehavior>().TriggerInteractable();     
-            
+            shield.GetComponent<MeshRenderer>().enabled = true;
         }
     }
 
     public override void DeactivateAbility()
     {
         _carHealthScript.SetExtraHealth(0);
-        _carHealthScript.SetExtraHealthMax(0);
         foreach (GameObject shield in _shields)
         {
-            shield.GetComponent<Lux_ShieldPanelBehavior>().DestroyInteractable();
-          
+            shield.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 

@@ -20,7 +20,7 @@ public class Lux_Attack : Ability
     public float laserDamage;
 
     [Tooltip("How often the laser deals damage per second.")]
-    public float laserDamageRate;
+    public float laserPulseRate;
 
     [Tooltip("How much damage the disk itself can do on impact.")]
     public float diskDamage;
@@ -50,13 +50,13 @@ public class Lux_Attack : Ability
         GameObject laserDiskRight = Instantiate(laserDisk, laserDiskSpawnRight.position, laserDiskSpawnRight.rotation);
         laserDiskRight.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed, laserHypeToGain);
         laserDiskRight.GetComponent<Lux_LaserDisk>().SetImmunePlayer(gameObject);
-        laserDiskRight.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserDamageRate, diskHypeToGain);
+        laserDiskRight.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserPulseRate, diskHypeToGain);
 
         ///spawn the disk that goes backward and pass all of the information it needs to it.
         GameObject laserDiskLeft = Instantiate(laserDisk, laserDiskSpawnLeft.position, laserDiskSpawnLeft.rotation);
         laserDiskLeft.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed, laserHypeToGain);
         laserDiskLeft.GetComponent<Lux_LaserDisk>().SetImmunePlayer(gameObject);
-        laserDiskLeft.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserDamageRate, diskHypeToGain);
+        laserDiskLeft.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserPulseRate, diskHypeToGain);
     }
 
     public override void DeactivateAbility()
