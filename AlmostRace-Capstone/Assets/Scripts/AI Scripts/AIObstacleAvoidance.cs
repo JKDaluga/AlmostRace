@@ -97,8 +97,8 @@ public class AIObstacleAvoidance : MonoBehaviour
             }
             else
             {
-                turnL = true;
-                turnR = false;
+                turnL = false;
+                turnR = true;
             }
         }
         else
@@ -120,8 +120,8 @@ public class AIObstacleAvoidance : MonoBehaviour
             }
             else
             {
-                turnL = false;
-                turnR = true;
+                turnL = true;
+                turnR = false;
             }
         }
 
