@@ -22,6 +22,24 @@ MonoBehaviour:
   diskHypeToGain: 0
   laserDiskSpawnLeft: {fileID: 3109604569233974240}
   laserDiskSpawnRight: {fileID: 3168776841901748804}
+--- !u!114 &8727588691981754784
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3432157089802618541}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bc0cf7929c951a448c9f0268994e98c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfHeatDamage: 0
+  boostSpeedPercentage: 50
+  jetParticles: {fileID: 2467148119179649648}
+  jetParticles2: {fileID: 2767922082680070379}
+  jetParticles3: {fileID: 4861745973755375299}
+  jetIncrease: 5.5
 --- !u!114 &8742145362392941992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -179,6 +197,16 @@ PrefabInstance:
       propertyPath: defensiveAbility
       value: 
       objectReference: {fileID: 8742145362392941992}
+    - target: {fileID: 3240311213283490686, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: boostAbility
+      value: 
+      objectReference: {fileID: 8727588691981754784}
+    - target: {fileID: 3240311213283490686, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: boostAbilityRecharge
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5145035194956675732, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -219,6 +247,24 @@ PrefabInstance:
 --- !u!1 &3432157089802618541 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 849574673130163026, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2624247393244253695}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2467148119179649648 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 456588959156825999, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2624247393244253695}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &2767922082680070379 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 144837986864557332, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    type: 3}
+  m_PrefabInstance: {fileID: 2624247393244253695}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &4861745973755375299 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7427376065356391228, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
     type: 3}
   m_PrefabInstance: {fileID: 2624247393244253695}
   m_PrefabAsset: {fileID: 0}
