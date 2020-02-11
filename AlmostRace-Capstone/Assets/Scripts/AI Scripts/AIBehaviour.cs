@@ -40,6 +40,8 @@ public class AIBehaviour : MonoBehaviour
 
         thisCar = GetComponent<RaycastCar>();
 
+        thisCar.drift = true;
+
         foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {
             for (int i = 0; i < entry.Value.Nodes.Count; i++)
@@ -96,7 +98,6 @@ public class AIBehaviour : MonoBehaviour
                 {
                     thisCar.throttle = inputForward;
                     thisCar.horizontal = inputTurn;
-                    thisCar.drift = true;
 
                     placeHolder = j;
                     placeHolder = Mathf.Clamp(placeHolder+10, 0, entry.Value.Vertices.Count-1);
