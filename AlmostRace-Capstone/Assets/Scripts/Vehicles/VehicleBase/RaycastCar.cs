@@ -280,4 +280,14 @@ public class RaycastCar : MonoBehaviour
             carRigidbody.velocity = maxSpeed * carRigidbody.velocity.normalized;
         }
     }
+
+    public void setBoostSpeed(float percentage)
+    {
+        boostSpeed = maxSpeed * percentage;
+    }
+
+    public void setBoostPadSpeed(float percentage)
+    {
+        boostPadSpeed = maxSpeed * percentage;
+    }
 }
