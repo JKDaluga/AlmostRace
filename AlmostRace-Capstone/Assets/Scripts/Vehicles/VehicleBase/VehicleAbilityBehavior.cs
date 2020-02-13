@@ -56,9 +56,10 @@ public class VehicleAbilityBehavior : MonoBehaviour
     public GameObject boostAbilityDark;
 
     private VehicleInput _vehicleInput;
-    private bool offensiveTrigger = false;
-    private bool defensiveTrigger = false;
-    private bool boostTrigger = false;
+    [HideInInspector] public bool offensiveTrigger = false;
+    [HideInInspector] public bool defensiveTrigger = false;
+    [HideInInspector] public bool boostTrigger = false;
+    private VehicleAwardsTracker tracker;
 
 
     private void Awake()
@@ -66,6 +67,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         _vehicleInput = GetComponent<VehicleInput>();
         defensiveAbilityDark.SetActive(false);
         boostAbilityDark.SetActive(false);
+        tracker = GetComponent<VehicleAwardsTracker>();
     }
 
     // Update is called once per frame
@@ -83,7 +85,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         // Basic Ability Call
         if (offensiveAbility != null && offensiveTrigger) //placed here just so that the BallCar prefab doesn't throw nulls
         {
-            if(fireAbility(offensiveAbility, _canUseBasic, offensiveAbilityCooldown, offensiveAbilityDark))
+            if(fireAbility(offensiveAbility, _canUseBasic, offensiveAbilityCooldown, offensiveAbilityDark, 'o'))
             {
                 _canUseBasic = false;
                 StartCoroutine(OffensiveAbilityCooldown());
@@ -93,7 +95,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         // Signature Ability Call
         if (defensiveAbility != null && defensiveTrigger)
         {
-            if (fireAbility(defensiveAbility, _canUseDefensiveAbility, defensiveAbilityCooldown, defensiveAbilityDark))
+            if (fireAbility(defensiveAbility, _canUseDefensiveAbility, defensiveAbilityCooldown, defensiveAbilityDark, 'd'))
             {
                 _canUseDefensiveAbility = false;
                 StartCoroutine(DefensiveAbilityCooldown());
@@ -104,7 +106,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         // Boost Ability Call
         if (boostAbility != null && boostTrigger)
         {
-            if (fireAbility(boostAbility, _canBoost, boostAbilityCooldown, boostAbilityDark))
+            if (fireAbility(boostAbility, _canBoost, boostAbilityCooldown, boostAbilityDark, 'b'))
             {
                 _canBoost = false;
                 StartCoroutine(BoostAbilityCooldown());
@@ -117,13 +119,14 @@ public class VehicleAbilityBehavior : MonoBehaviour
     }
 
     // Handles the ability call, on what input it is, if it can be used, and if it can be held down
-    private bool fireAbility(Ability ability, bool canFire, Image abilityCooldown, GameObject abilityDark)
+    private bool fireAbility(Ability ability, bool canFire, Image abilityCooldown, GameObject abilityDark, char flagChar)
     {
         if (canFire && ability != null)
         {
             abilityCooldown.fillAmount = 1;
             abilityDark.SetActive(true);
             ability.ActivateAbility();
+            tracker.awardUpdate(flagChar);
             return true;
         }
         return false;
