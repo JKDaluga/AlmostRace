@@ -2,7 +2,5 @@
 
 public interface IPooledObject
 {
-
-    void OnObjectActivate();
-    
+    void OnObjectActivate();   
 }

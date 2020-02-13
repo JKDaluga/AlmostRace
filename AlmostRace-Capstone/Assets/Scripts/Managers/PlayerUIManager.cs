@@ -154,6 +154,7 @@ public class PlayerUIManager : MonoBehaviour
                 }
             }
         }
+        
     }
 
     public void AddToAttacksInRange(Transform givenAttackTransform)

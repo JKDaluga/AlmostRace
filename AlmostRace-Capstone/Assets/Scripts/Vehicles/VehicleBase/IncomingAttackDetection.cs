@@ -25,5 +25,6 @@ public class IncomingAttackDetection : MonoBehaviour
     public void RemoveAttackIndicator(GameObject attackObject)
     {
         playerUIScript.RemoveAttackInRange(attackObject.gameObject.transform);
+        
     }
 }
