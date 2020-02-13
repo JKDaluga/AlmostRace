@@ -20,7 +20,7 @@ public class Lux_DefensiveAbility : CooldownAbility
         _carHealthScript = gameObject.GetComponent<CarHealthBehavior>();
         foreach(GameObject shield in _shields)
         {
-            shield.GetComponent<MeshRenderer>().enabled = false;
+            shield.GetComponent<ParticleSystem>().Stop();
         }
     }
 
@@ -30,7 +30,7 @@ public class Lux_DefensiveAbility : CooldownAbility
         _carHealthScript.SetExtraHealth(shieldHealth);
         foreach (GameObject shield in _shields)
         {
-            shield.GetComponent<MeshRenderer>().enabled = true;
+            shield.GetComponent<ParticleSystem>().Play();
         }
     }
 
@@ -39,7 +39,7 @@ public class Lux_DefensiveAbility : CooldownAbility
         _carHealthScript.SetExtraHealth(0);
         foreach (GameObject shield in _shields)
         {
-            shield.GetComponent<MeshRenderer>().enabled = false;
+            shield.GetComponent<ParticleSystem>().Stop();
         }
     }
 

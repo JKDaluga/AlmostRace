@@ -93,5 +93,27 @@ public class Lux_LaserDisk : Projectile
         _laserPulseRate = laserDamageRate;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        //oops
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
+            Destroy(gameObject);
+        }
+
+        if(collision.gameObject.GetComponent<CarHealthBehavior>() != null)
+        {
+            collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
+           
+        }
+
+        if(collision.gameObject.GetComponent<Interactable>() != null)
+        {
+            collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
+        }
+
+
+    }
+
 
 }

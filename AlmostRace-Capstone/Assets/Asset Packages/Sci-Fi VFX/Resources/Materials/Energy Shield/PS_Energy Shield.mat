@@ -4,12 +4,13 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: PS_Energy Shield
   m_Shader: {fileID: 4800000, guid: 13e9a51c250b40c3add5c91c36957a52, type: 3}
   m_ShaderKeywords: _BLENDHITPATTERN_ON _BLENDHITWAVEPATTERN_ON _MASKAPPEARAXIS_Y
-    _USESELFWORLDPOSITION_ON
+    _MASKAPPEARINVERT_ON _USESELFWORLDPOSITION_ON
   m_LightmapFlags: 0
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -148,18 +149,18 @@ Material:
     - _HitWaveRadius: 0.375
     - _HitsMaxCount: 0
     - _MaskAppearAxis: 2
-    - _MaskAppearInvert: 0
-    - _MaskAppearProgress: 0
-    - _MaskAppearStrength: 0.225
+    - _MaskAppearInvert: 1
+    - _MaskAppearProgress: -7
+    - _MaskAppearStrength: 1
     - _MaxDistance: 1.11
     - _Metallic: 0
     - _Mode: 0
     - _NoiseDistortionPower: 2
     - _NoiseDistortionTilling: 3.85
-    - _NoiseOffset: 0.024
+    - _NoiseOffset: 0.05
     - _NoisePower: 0.1
     - _NoiseSpeed: 0.52
-    - _NoiseTilling: 1.05
+    - _NoiseTilling: 10
     - _OcclusionStrength: 1.27
     - _OpacityPower: 1
     - _Parallax: 0.02
@@ -174,8 +175,8 @@ Material:
     - __dirty: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _DepthColor: {r: 0.8529408, g: 1.5257602, b: 4, a: 1}
-    - _DisotrionColor: {r: 1.3766438, g: 1.3766438, b: 1.3766438, a: 1}
+    - _DepthColor: {r: 2.5693963, g: 0, b: 0.070418656, a: 1}
+    - _DisotrionColor: {r: 1.3871151, g: 0.77861655, b: 0.77861655, a: 1}
     - _DistortionSpeed: {r: 0, g: 0.4, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _HitColor: {r: 1.492636, g: 3.3537521, b: 7.000021, a: 1}
@@ -186,7 +187,7 @@ Material:
     - _NoiseDistortionTilling: {r: 8, g: 8, b: 0, a: 0}
     - _NoiseSpeed: {r: 0, g: 0.15, b: 0, a: 0}
     - _NoiseTilling: {r: 10, g: 10, b: 0, a: 0}
-    - _ObjectWorldPosition: {r: 0, g: 0, b: 0, a: 0}
+    - _ObjectWorldPosition: {r: 0, g: -4.52, b: -0.32000002, a: 0}
     - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
-    - _TintColor: {r: 0.8529389, g: 1.9164275, b: 4, a: 1}
+    - _TintColor: {r: 1.9648322, g: 0.26702708, b: 0.25023806, a: 1}
     - _Vector0: {r: 0, g: 0, b: 0, a: 0}
