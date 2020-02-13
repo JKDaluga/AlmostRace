@@ -36,6 +36,10 @@ public class HotSpotVehicleAdministration : MonoBehaviour
         HotSpotBotHeld = theBot.transform.parent.gameObject;
         HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetBeingHeld(true);
         HotSpotBotHeld.SetActive(false);
+        GetComponent<CarHealthBehavior>().healthCurrent = GetComponent<CarHealthBehavior>().healthMax;
+        HypeGain(initialHypeGain);
+        hypeTimer = 0;
+        AudioManager.instance.Play("HotSpot Attachment");
         foreach (GameObject item in botCapturedAesthetic)
         {
             item.SetActive(true);
@@ -64,10 +68,6 @@ public class HotSpotVehicleAdministration : MonoBehaviour
             && !holdingTheBot && HotSpotBotHeld == null)
             {
                 HoldTheBot(other.gameObject);
-                GetComponent<CarHealthBehavior>().healthCurrent = GetComponent<CarHealthBehavior>().healthMax;
-                HypeGain(initialHypeGain);
-                hypeTimer = 0;
-                AudioManager.instance.Play("HotSpot Attachment");
             }
         }
     }
