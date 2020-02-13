@@ -40,6 +40,7 @@ public class Lux_DefensiveAbility : CooldownAbility
         foreach (GameObject shield in _shields)
         {
             shield.GetComponent<ParticleSystem>().Stop();
+            shield.GetComponent<ParticleSystem>().Clear();
         }
     }
 
