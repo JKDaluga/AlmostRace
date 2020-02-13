@@ -46,7 +46,8 @@ public class PlayerUIManager : MonoBehaviour
     public Camera localCam;
     public Transform thisVehicle;
     public float indicatorScaling = 1;
-    public List<Image> attackIndicators = new List<Image>();
+    public float toCloseDistance = 10;
+    public List<GameObject> attackIndicators = new List<GameObject>();
     private Vector3 offSetVector = Vector3.zero;
     private float _heightOffset = 0.06f;
 
@@ -123,23 +124,33 @@ public class PlayerUIManager : MonoBehaviour
                 {
                     Vector3 targetPos = _attacksInRange[i].transform.position;
                     Vector3 relativePos = thisVehicle.InverseTransformPoint(targetPos);
+                    float currentDistance = Mathf.Round(Vector3.Distance(thisVehicle.transform.position, targetPos));
 
                     float angle = Mathf.Atan2(relativePos.y, relativePos.x);
                     angle += 90 * Mathf.Deg2Rad;
-                    float x = Mathf.Clamp((relativePos.x * (localCam.pixelWidth/ indicatorScaling)) + localCam.pixelWidth / 2, localCam.pixelWidth * 0.02f, localCam.pixelWidth * 0.98f);
+                    float x = Mathf.Clamp((relativePos.x * (localCam.pixelWidth / indicatorScaling)) + localCam.pixelWidth / 2, localCam.pixelWidth * 0.02f, localCam.pixelWidth * 0.98f);
 
                     if (attackIndicators[i] != null)
                     { 
-                        if (attackIndicators[i].enabled == false)
+                        if (attackIndicators[i].activeSelf == false)
                         {
-                            attackIndicators[i].enabled = true;
+                            attackIndicators[i].SetActive(true);
                         }
                         attackIndicators[i].transform.position = new Vector3(x, localCam.pixelHeight * _heightOffset, 0) + offSetVector;
-                        //attackIndicators[i].transform.localRotation = Quaternion.Euler(0, 0, angle * Mathf.Rad2Deg);
+                        TextMeshProUGUI currentText = attackIndicators[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+                        if (currentDistance < toCloseDistance)
+                        {
+                            currentText.color = new Color32(160, 0, 0, 255);
+                        }
+                        else
+                        {
+                            currentText.color = new Color32(0, 0, 0, 255);
+                        }
+                        currentText.text = currentDistance.ToString() + "m";
                     }
                     else
                     {
-                        attackIndicators[i].enabled = false;
+                        attackIndicators[i].SetActive(false);
                     }
                 }
             }
@@ -148,9 +159,9 @@ public class PlayerUIManager : MonoBehaviour
         {
             for (int i = 0; i < attackIndicators.Count; i++)
             {
-                if (attackIndicators[i].enabled == true)
+                if (attackIndicators[i].activeSelf == true)
                 {
-                    attackIndicators[i].enabled = false;
+                    attackIndicators[i].SetActive(false);
                 }
             }
         }

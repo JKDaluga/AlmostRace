@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class IncomingAttackDetection : MonoBehaviour
 {
+    public GameObject thisVehicle;
     public PlayerUIManager playerUIScript;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Abilities"))
         {
-            playerUIScript.AddToAttacksInRange(other.gameObject.transform);
+            if (other.gameObject.GetComponent<Projectile>() != null)
+            {
+                if(thisVehicle != other.gameObject.GetComponent<Projectile>().getImmunePlayer())
+                {
+                    playerUIScript.AddToAttacksInRange(other.gameObject.transform);
+                }
+            }
+            else
+            {
+                playerUIScript.AddToAttacksInRange(other.gameObject.transform);
+            }
         }
     }
 
@@ -24,7 +35,7 @@ public class IncomingAttackDetection : MonoBehaviour
 
     public void RemoveAttackIndicator(GameObject attackObject)
     {
-        playerUIScript.RemoveAttackInRange(attackObject.gameObject.transform);
+        playerUIScript.RemoveAttackInRange(attackObject.transform);
         
     }
 }
