@@ -15,16 +15,15 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Header ("Offensive Ability.................................................................................")]
     [Tooltip("Offensive Ability Script Slot")]
     public Ability offensiveAbility;
+    [Tooltip("Length of ability cooldown in seconds.")]
+    public float offensiveAbilityRecharge = 5f;
     [Tooltip("Determines if the Offensive ability input can be held down")]
-    public bool canHoldBasic;
     private bool _canUseBasic = true;
 
     [Tooltip("Place UI element here.")]
-    public Image offensiveAbilityButtonUI;
-    [Tooltip("Place Offensive ability normal sprite here.")]
-    public Sprite offensiveAbilitySpriteReady;
-    [Tooltip("Place Offensive ability pressed down sprite here.")]
-    public Sprite offensiveAbilitySpritePressed;
+    public Image offensiveAbilityCooldown;
+    [Tooltip("Place dark version of UI element here.")]
+    public GameObject offensiveAbilityDark;
 
     [Header ("Defensive Ability.................................................................................")]
     [Tooltip("Defensive Ability Script Slot")]
@@ -33,8 +32,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
     public float defensiveAbilityRecharge = 5f;
     [Tooltip("Length of ability duration in seconds.")]
     public float defensiveAbilityDuration = 3f;
-    [Tooltip("Determines if the signature ability input can be held down")]
-    public bool canHoldDefensiveAbility;
 
     private bool _canUseDefensiveAbility = true;
 
@@ -59,6 +56,10 @@ public class VehicleAbilityBehavior : MonoBehaviour
     public GameObject boostAbilityDark;
 
     private VehicleInput _vehicleInput;
+    private bool offensiveTrigger = false;
+    private bool defensiveTrigger = false;
+    private bool boostTrigger = false;
+
 
     private void Awake()
     {
@@ -76,68 +77,71 @@ public class VehicleAbilityBehavior : MonoBehaviour
             {
                 return;
             }
+        }
+        getInput();
 
-
-            if (offensiveAbility != null && defensiveAbility != null) //placed here just so that the BallCar prefab doesn't throw nulls
+        // Basic Ability Call
+        if (offensiveAbility != null && offensiveTrigger) //placed here just so that the BallCar prefab doesn't throw nulls
+        {
+            if(fireAbility(offensiveAbility, _canUseBasic, offensiveAbilityCooldown, offensiveAbilityDark))
             {
-                // Basic Ability Call
-                checkFireAbility(offensiveAbility, _vehicleInput.basicAbilityInput, _canUseBasic, canHoldBasic);
-
-                // Signature Ability Call
-                if (checkFireAbility(defensiveAbility, _vehicleInput.signatureAbilityInput, _canUseDefensiveAbility, canHoldDefensiveAbility))
-                {
-                    _canUseDefensiveAbility = false;
-                    StartCoroutine(DefensiveAbilityCooldown());
-                    StartCoroutine(DefensiveAbilityDuration());
-                }
-            }
-
-
-            // Boost Ability Call
-            if (Input.GetButtonDown(_vehicleInput.pickupInput) && boostAbility != null)
-            {
-                if (_canBoost)
-                {
-                    _canBoost = true;
-                    boostAbilityDark.SetActive(true);
-                    boostAbility.ActivateAbility();
-                    StartCoroutine(BoostAbilityDuration());
-                    AudioManager.instance.Play("Boost");
-                }
-
+                _canUseBasic = false;
+                StartCoroutine(OffensiveAbilityCooldown());
             }
         }
+
+        // Signature Ability Call
+        if (defensiveAbility != null && defensiveTrigger)
+        {
+            if (fireAbility(defensiveAbility, _canUseDefensiveAbility, defensiveAbilityCooldown, defensiveAbilityDark))
+            {
+                _canUseDefensiveAbility = false;
+                StartCoroutine(DefensiveAbilityCooldown());
+                StartCoroutine(DefensiveAbilityDuration());
+            }
+        }
+
+        // Boost Ability Call
+        if (boostAbility != null && boostTrigger)
+        {
+            if (fireAbility(boostAbility, _canBoost, boostAbilityCooldown, boostAbilityDark))
+            {
+                _canBoost = false;
+                StartCoroutine(BoostAbilityCooldown());
+                StartCoroutine(BoostAbilityDuration());
+                AudioManager.instance.Play("Boost");
+            }
+
+        }
+        
     }
 
     // Handles the ability call, on what input it is, if it can be used, and if it can be held down
-    private bool checkFireAbility(Ability ability, string abilityInput, bool canFire, bool canHoldInput)
+    private bool fireAbility(Ability ability, bool canFire, Image abilityCooldown, GameObject abilityDark)
     {
-        if (canHoldInput) // currently ONLY used for basic
+        if (canFire && ability != null)
         {
-            if (Input.GetButton(abilityInput) && canFire && ability != null)
-            {
-                offensiveAbilityButtonUI.sprite = offensiveAbilitySpritePressed;
-                ability.ActivateAbility();
-                return true;
-            }
-            else if (Input.GetButtonUp(abilityInput) && ability != null)
-            {
-                offensiveAbilityButtonUI.sprite = offensiveAbilitySpriteReady;
-                ability.DeactivateAbility();
-                return false;
-            }
-        }
-        else // currently ONLY used for signature
-        {
-            if (Input.GetButtonDown(abilityInput) && canFire && ability != null)
-            {
-                defensiveAbilityCooldown.fillAmount = 1;
-                defensiveAbilityDark.SetActive(true);
-                ability.ActivateAbility();
-                return true;
-            }
+            abilityCooldown.fillAmount = 1;
+            abilityDark.SetActive(true);
+            ability.ActivateAbility();
+            return true;
         }
         return false;
+    }
+
+    // Countdown timer until reuse allowed for abilites that need a cooldown
+    private IEnumerator OffensiveAbilityCooldown()
+    {
+        float tempTime = offensiveAbilityRecharge;
+        while (tempTime > 0)
+        {
+            tempTime -= Time.deltaTime;
+            offensiveAbilityCooldown.fillAmount = tempTime / offensiveAbilityRecharge;
+            yield return null;
+        }
+        offensiveAbilityDark.SetActive(false);
+        _canUseBasic = true;
+        AudioManager.instance.Play("Ability Recharge");
     }
 
     // Countdown timer until reuse allowed for abilites that need a cooldown
@@ -193,9 +197,22 @@ public class VehicleAbilityBehavior : MonoBehaviour
         GetComponent<RaycastCar>().cheatPhysics();
     }
 
-    // Assigns the pickup slot with a given pickup
-    public void assignPickup(GameObject givenPickup)
+    private void getInput()
     {
-        boostAbility = givenPickup.GetComponent<Ability>();
+        if(_vehicleInput != null)
+        {
+            if (!_vehicleInput.getStatus())
+            {
+                offensiveTrigger = false;
+                defensiveTrigger = false;
+                boostTrigger = false;
+            }
+            else
+            {
+                offensiveTrigger = Input.GetButtonDown(_vehicleInput.basicAbilityInput);
+                defensiveTrigger = Input.GetButtonDown(_vehicleInput.signatureAbilityInput);
+                boostTrigger = Input.GetButtonDown(_vehicleInput.pickupInput);
+            }
+        }
     }
 }

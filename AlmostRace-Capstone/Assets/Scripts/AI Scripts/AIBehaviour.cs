@@ -33,12 +33,14 @@ public class AIBehaviour : MonoBehaviour
     void Start()
     {
         //Sets ai spline to find/follow hotspotspline
-        _aiSplineScript = GameObject.FindGameObjectWithTag("HotSpotSpline").GetComponent<SplinePlus>();
+        _aiSplineScript = GameObject.FindGameObjectWithTag("AISpline").GetComponent<SplinePlus>();
         //_aiSplineScript.SPData.Followers[0].Reverse = reverseDirection;
 
         _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
 
         thisCar = GetComponent<RaycastCar>();
+
+        thisCar.drift = true;
 
         foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {
@@ -98,7 +100,7 @@ public class AIBehaviour : MonoBehaviour
                     thisCar.horizontal = inputTurn;
 
                     placeHolder = j;
-                    placeHolder = Mathf.Clamp(placeHolder-3, 0, entry.Value.Vertices.Count-1);
+                    placeHolder = Mathf.Clamp(placeHolder+10, 0, entry.Value.Vertices.Count-1);
 
                     vertexAim = entry.Value.Vertices[placeHolder];
 
@@ -112,22 +114,26 @@ public class AIBehaviour : MonoBehaviour
         angleBetween = Mathf.Acos(Vector3.Dot((closestVertex-transform.position).normalized, thisCar.transform.right)) * 180 / Mathf.PI;
 
 
-        print("Current Turn Angle = " + angleBetween);
-        print("Current Turn number = " + inputTurn);
+        //print("Current Turn Angle = " + angleBetween);
+        //print("Current Turn number = " + inputTurn);
 
-        if (angleBetween < 80)
+        if (angleBetween < 84)
         {
-            inputTurn =  Mathf.Pow(((angleBetween - 90) / 90), (1/5));
+            inputTurn =  Mathf.Pow((-(angleBetween - 90) / 90), (1/2));
         }
         else if (angleBetween > 100)
         {
-            inputTurn =  -Mathf.Pow(((angleBetween - 90) / 90), (1/5));
+            inputTurn =  -Mathf.Pow(((angleBetween - 90) / 90), (1/2));
+        }
+        else
+        {
+            inputTurn = 0;
         }
 
         
 
 
-        inputForward =  (1.5f) - Mathf.Abs(inputTurn);
+        inputForward = Mathf.Clamp((1.2f) - Mathf.Abs(inputTurn), 0, 1);
 
     }
 

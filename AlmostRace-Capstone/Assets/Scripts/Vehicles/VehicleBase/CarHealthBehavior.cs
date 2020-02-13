@@ -16,11 +16,10 @@ public class CarHealthBehavior : MonoBehaviour
     public GameObject explosionEffect;
     public GameObject teleportEffect;
     public GameObject deathFade;
-    private float _extraHPMax = 120f;
-    private float _extraHP = 0;
-    public float healthCurrent = 0f;
-    public float heatStallLimit = 100f;
-    public float healthMax = 120f;
+    public float _extraHPMax = 100f;
+    public float _extraHP = 0;
+    public float healthCurrent = 100f;
+    public float healthMax = 100f;
     public float healAmount = 1f;
     public float respawnSecs = 3f;
     public float teleportCooldown = 5f;

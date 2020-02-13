@@ -52,6 +52,13 @@ public class DestructableBoulderBehaviour : Interactable
             {
                 collision.gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
             }
+
+            if (collision.gameObject.GetComponent<AIBehaviour>())
+            {
+                collision.gameObject.GetComponentInChildren<AIObstacleAvoidance>().turnR = false;
+                collision.gameObject.GetComponentInChildren<AIObstacleAvoidance>().turnL = false;
+            }
+
             collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(ramDamage);
             if (collision.gameObject.GetComponent<SphereCarController>() != null)
             {

@@ -18,8 +18,8 @@ public class Lux_BoostAbility : CooldownHeatAbility
     [Range(0, 100)]
     public float boostSpeedPercentage;
 
-    [Range(0, 100)]
-    public float boostTopSpeedPercentage;
+   //[Range(0, 100)]
+   //public float boostTopSpeedPercentage;
 
     [Header("Jet engine effect")]
     [Tooltip("Set Lux booster particle effect")]
@@ -46,6 +46,7 @@ public class Lux_BoostAbility : CooldownHeatAbility
        if(!isBoosting)
         {
             isBoosting = true;
+            carInfo.setBoostSpeed(boostSpeedPercentage);
             // Set the new jet particle speed
             var jpMain = jetParticles.main;
             var jpMain2 = jetParticles2.main;
@@ -67,6 +68,7 @@ public class Lux_BoostAbility : CooldownHeatAbility
     public override void DeactivateAbility()
     {
         // Reset the jet speed when you stop boosting
+        carInfo.setBoostSpeed(0);
         var jpMain = jetParticles.main;
         var jpMain2 = jetParticles2.main;
         var jpMain3 = jetParticles3.main;

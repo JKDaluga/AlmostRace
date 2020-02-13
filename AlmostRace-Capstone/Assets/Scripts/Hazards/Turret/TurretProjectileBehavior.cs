@@ -12,9 +12,8 @@ using Cinemachine;
 public class TurretProjectileBehavior : Projectile
 {
 
-    public new void Start()
+    public void Start()
     {
-        base.Start();
         GiveSpeed();
     }
 
