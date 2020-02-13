@@ -137,7 +137,7 @@ public class PlayerUIManager : MonoBehaviour
                             attackIndicators[i].SetActive(true);
                         }
                         attackIndicators[i].transform.position = new Vector3(x, localCam.pixelHeight * _heightOffset, 0) + offSetVector;
-                        TextMeshProUGUI currentText = attackIndicators[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+                        TextMeshProUGUI currentText = attackIndicators[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
                         if (currentDistance < toCloseDistance)
                         {
                             currentText.color = new Color32(160, 0, 0, 255);
