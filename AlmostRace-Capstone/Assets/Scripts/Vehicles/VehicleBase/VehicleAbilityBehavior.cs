@@ -56,9 +56,9 @@ public class VehicleAbilityBehavior : MonoBehaviour
     public GameObject boostAbilityDark;
 
     private VehicleInput _vehicleInput;
-    private bool offensiveTrigger = false;
-    private bool defensiveTrigger = false;
-    private bool boostTrigger = false;
+    [HideInInspector] public bool offensiveTrigger = false;
+    [HideInInspector] public bool defensiveTrigger = false;
+    [HideInInspector] public bool boostTrigger = false;
     private VehicleAwardsTracker tracker;
 
 

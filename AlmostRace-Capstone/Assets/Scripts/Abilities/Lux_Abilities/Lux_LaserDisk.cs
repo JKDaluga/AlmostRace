@@ -106,13 +106,15 @@ public class Lux_LaserDisk : Projectile
             if(collision.gameObject != _immunePlayer)
             {
                 collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
+                Destroy(gameObject);
             }
 
         }
 
         if(collision.gameObject.GetComponent<Interactable>() != null)
         {
-            collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
+            collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+            Destroy(gameObject);
         }
 
 

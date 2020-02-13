@@ -27,11 +27,14 @@ public class AIBehaviour : MonoBehaviour
     private readonly int _hugeTurn = 9999;
     private Vector3 closestVertex = Vector3.zero;
     private Vector3 vertexAim = Vector3.zero;
+
+    private AIObstacleAvoidance avo;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        avo = GetComponentInChildren<AIObstacleAvoidance>();
         //Sets ai spline to find/follow hotspotspline
         _aiSplineScript = GameObject.FindGameObjectWithTag("AISpline").GetComponent<SplinePlus>();
         //_aiSplineScript.SPData.Followers[0].Reverse = reverseDirection;
@@ -117,19 +120,21 @@ public class AIBehaviour : MonoBehaviour
         //print("Current Turn Angle = " + angleBetween);
         //print("Current Turn number = " + inputTurn);
 
-        if (angleBetween < 84)
+        if (!avo.turnL && !avo.turnR)
         {
-            inputTurn =  Mathf.Pow((-(angleBetween - 90) / 90), (1/2));
+            if (angleBetween < 87.5)
+            {
+                inputTurn = Mathf.Pow((-(angleBetween - 90) / 90), (1 / 2));
+            }
+            else if (angleBetween > 97.5)
+            {
+                inputTurn = -Mathf.Pow(((angleBetween - 90) / 90), (1 / 2));
+            }
+            else
+            {
+                inputTurn = 0;
+            }
         }
-        else if (angleBetween > 100)
-        {
-            inputTurn =  -Mathf.Pow(((angleBetween - 90) / 90), (1/2));
-        }
-        else
-        {
-            inputTurn = 0;
-        }
-
         
 
 
