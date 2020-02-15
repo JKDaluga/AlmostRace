@@ -93,7 +93,7 @@ public class Lux_LaserDisk : Projectile
         _laserPulseRate = laserDamageRate;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         //oops
         if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))

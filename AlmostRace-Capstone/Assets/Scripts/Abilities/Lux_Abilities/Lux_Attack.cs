@@ -48,15 +48,15 @@ public class Lux_Attack : Ability
     {
         ///spawn the disk that goes forward and pass all of the information it needs to it.
         GameObject laserDiskRight = Instantiate(laserDisk, laserDiskSpawnRight.position, laserDiskSpawnRight.rotation);
-        laserDiskRight.GetComponentInChildren<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed, laserHypeToGain);
-        laserDiskRight.GetComponentInChildren<Lux_LaserDisk>().SetImmunePlayer(gameObject);
-        laserDiskRight.GetComponentInChildren<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserPulseRate, diskHypeToGain);
+        laserDiskRight.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed, laserHypeToGain);
+        laserDiskRight.GetComponent<Lux_LaserDisk>().SetImmunePlayer(gameObject);
+        laserDiskRight.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserPulseRate, diskHypeToGain);
 
         ///spawn the disk that goes backward and pass all of the information it needs to it.
         GameObject laserDiskLeft = Instantiate(laserDisk, laserDiskSpawnLeft.position, laserDiskSpawnLeft.rotation);
-        laserDiskLeft.GetComponentInChildren<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed * -1, laserHypeToGain);
-        laserDiskLeft.GetComponentInChildren<Lux_LaserDisk>().SetImmunePlayer(gameObject);
-        laserDiskLeft.GetComponentInChildren<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserPulseRate, diskHypeToGain);
+        laserDiskLeft.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed * -1, laserHypeToGain);
+        laserDiskLeft.GetComponent<Lux_LaserDisk>().SetImmunePlayer(gameObject);
+        laserDiskLeft.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserPulseRate, diskHypeToGain);
         Destroy(laserDiskLeft, 10);
         Destroy(laserDiskRight, 10);
 
