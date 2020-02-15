@@ -15,23 +15,13 @@ public class ProjectileNormalizer : MonoBehaviour
     void Update()
     {
         RaycastHit hitNear;
-        Physics.Raycast(transform.position + (transform.forward * 1f), Vector3.down, out hitNear, 5.0f, layerMask);
+        Physics.Raycast(transform.position, Vector3.down, out hitNear, 5.0f, layerMask);
 
         if (hitNear.collider != null)
         {
-            float y = transform.eulerAngles.y;
             transform.up = hitNear.normal;
-            transform.Rotate(0, y, 0);
+            transform.position = transform.position + ((5f - hitNear.distance) * transform.up);
         }
-        else
-        {
-            Physics.Raycast(transform.position, Vector3.down, out hitNear, 5.0f, layerMask);
-            if (hitNear.collider != null)
-            {
-                float y = transform.eulerAngles.y;
-                transform.up = hitNear.normal;
-                transform.Rotate(0, y, 0);
-            }
-        }
+
     }
 }
