@@ -5,32 +5,27 @@ using UnityEngine;
 public class AIObstacleAvoidance : MonoBehaviour
 {
     public LayerMask wall;
-    public int obstLayer;
     RaycastHit left, right;
     public AIBehaviour handler;
 
     public bool turnL, turnR;
 
-    float rayAngle, forwardAngle;
-
-    public float turnAmount;
+    float rayAngle;
+    public float turnAmount, turnOverride;
 
     Vector3 vel;
-
-    public float turnOverride;
-    public float oneWallOvrd;
 
     private void FixedUpdate()
     {
         vel = GetComponentInParent<Rigidbody>().velocity;
-        vel = new Vector3(vel.x, 0, vel.z);
+        vel = new Vector3(vel.x, 0, vel.y);
         transform.parent.rotation = Quaternion.LookRotation(vel, transform.parent.up);
 
         if (turnL)
         {
             handler.inputTurn = -turnAmount;
-        }
-        if (turnR)
+        } 
+        else if (turnR)
         {
             handler.inputTurn = turnAmount;
         }
@@ -38,56 +33,22 @@ public class AIObstacleAvoidance : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Physics.Raycast(transform.parent.position, transform.right, out right, wall);
-        Physics.Raycast(transform.parent.position, -transform.right, out left, wall);
+        Physics.Raycast(handler.transform.position, handler.transform.right, out right, wall);
+        Physics.Raycast(handler.transform.position, -handler.transform.right, out left, wall);
 
-        //The Car only finds a wall on the left side
-        if ((left.collider != null && right.collider == null))
+        //Left Wall is Closer than Right Wall
+        if (left.distance > right.distance)
         {
-            //If the car is too far away, turn left
-            if (left.distance > oneWallOvrd)
+            rayAngle = Vector3.SignedAngle(right.normal, -handler.transform.right, handler.transform.forward);
+
+            //Car is moving at an angle
+            if (Mathf.Abs(rayAngle) > turnOverride)
             {
-                turnL = true;
-                turnR = false;
-            }
-            //Otherwise, turn right
-            else
-            {
-                turnL = false;
-                turnR = true;
-            }
-        }
-        else if ((left.collider == null && right.collider != null))
-        {
-            //Code block opposite to left wall only
-            if (right.distance > oneWallOvrd)
-            {
-                turnL = false;
-                turnR = true;
-            }
-            else
-            {
-                turnL = true;
-                turnR = false;
-            }
-        }
-        //Checks if the left wall is closer than the right
-        else if (left.distance > right.distance)
-        {
-            //Gets the angle between the left wall normal and the drawn ray
-            rayAngle = Vector3.Angle(left.normal, -transform.right);
-            
-            //Checks if the car is moving diagonal to the wall
-            if (rayAngle > turnOverride)
-            {
-                //Gets the angle between the car forward and the wall normal
-                forwardAngle = Vector3.Angle(left.normal, transform.forward);
-                
-                //If the car is heading toward the wall, turn away, else turn toward it
-                if (forwardAngle > 90)
+                //Sign determines movement direction, negative is right, positive is left
+                if (rayAngle > 0)
                 {
-                    turnL = false;
                     turnR = true;
+                    turnL = false;
                 }
                 else
                 {
@@ -97,39 +58,41 @@ public class AIObstacleAvoidance : MonoBehaviour
             }
             else
             {
-                turnL = false;
-                turnR = true;
+                turnL = true;
+                turnR = false;
             }
+
         }
         else
         {
-            rayAngle = Vector3.Angle(right.normal, transform.right);
-            if (rayAngle > turnOverride)
+            rayAngle = Vector3.SignedAngle(left.normal, handler.transform.right, handler.transform.forward);
+
+            if (Mathf.Abs(rayAngle) > turnOverride)
             {
-                forwardAngle = Vector3.Angle(right.normal, transform.forward);
-                if (forwardAngle > 90)
+                //Sign determines movement direction, negative is right, positive is left
+                if (rayAngle > 0)
+                {
+                    turnR = true;
+                    turnL = false;
+                }
+                else
                 {
                     turnL = true;
                     turnR = false;
                 }
-                else
-                {
-                    turnL = false;
-                    turnR = true;
-                }
             }
             else
             {
-                turnL = true;
-                turnR = false;
+                turnL = false;
+                turnR = true;
             }
         }
-
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         turnL = false;
         turnR = false;
+        rayAngle = 0;
     }
 }
