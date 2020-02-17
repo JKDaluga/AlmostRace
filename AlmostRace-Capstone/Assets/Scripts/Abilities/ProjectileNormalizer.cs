@@ -8,8 +8,13 @@ using UnityEngine;
 */
 public class ProjectileNormalizer : MonoBehaviour
 {
-
+    private Rigidbody rb;
     public LayerMask layerMask;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -20,7 +25,9 @@ public class ProjectileNormalizer : MonoBehaviour
         if (hitNear.collider != null)
         {
             transform.up = hitNear.normal;
-            transform.position = transform.position + ((5f - hitNear.distance) * transform.up);
+            transform.position = transform.position + ((4f - hitNear.distance) * transform.up);
+            rb.velocity = Vector3.ProjectOnPlane(rb.velocity, transform.up).normalized * rb.velocity.magnitude;
+            transform.rotation = Quaternion.LookRotation(rb.velocity, transform.up);
         }
 
     }
