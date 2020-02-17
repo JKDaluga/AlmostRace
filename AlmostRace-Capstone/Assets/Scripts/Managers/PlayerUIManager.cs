@@ -42,7 +42,7 @@ public class PlayerUIManager : MonoBehaviour
     public Image poleBean;
 
     [Header("Incoming Indicator Variables")]
-    [Space(20)]
+    [Space(30)]
     public Camera localCam;
     public Transform thisVehicle;
     public float indicatorScaling = 1;
@@ -111,7 +111,12 @@ public class PlayerUIManager : MonoBehaviour
 
     void Update()
     {
-        // Attack Indicators
+        UpdateAttackIndicators();
+    }
+
+    // Keeps track of, updates the position, and shows attack indicators
+    private void UpdateAttackIndicators()
+    {
         if (_attacksInRange.Count > 0)
         {
             for (int i = 0; i < _attacksInRange.Count; i++)
@@ -138,15 +143,18 @@ public class PlayerUIManager : MonoBehaviour
                         }
                         attackIndicators[i].transform.position = new Vector3(x, localCam.pixelHeight * _heightOffset, 0) + offSetVector;
                         TextMeshProUGUI currentText = attackIndicators[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                        if (currentDistance < toCloseDistance)
+                        GameObject currentExclamation = attackIndicators[i].transform.GetChild(2).gameObject;
+                        if (currentDistance > toCloseDistance)
                         {
+                            currentExclamation.SetActive(false);
                             currentText.color = new Color32(160, 0, 0, 255);
+                            currentText.text = currentDistance.ToString() + "m";
                         }
                         else
                         {
-                            currentText.color = new Color32(0, 0, 0, 255);
+                            currentText.text = "";
+                            currentExclamation.SetActive(true);
                         }
-                        currentText.text = currentDistance.ToString() + "m";
                     }
                     else
                     {
@@ -165,14 +173,15 @@ public class PlayerUIManager : MonoBehaviour
                 }
             }
         }
-        
     }
 
+    // Adds an attack to the list of incoming attacks
     public void AddToAttacksInRange(Transform givenAttackTransform)
     {
         _attacksInRange.Add(givenAttackTransform);
     }
 
+    // Removes an attack after the attack is over
     public void RemoveAttackInRange(Transform givenAttackTransform)
     {
         for(int i = _attacksInRange.Count - 1; i >= 0; i--)

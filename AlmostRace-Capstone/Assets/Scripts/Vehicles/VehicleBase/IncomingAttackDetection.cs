@@ -11,9 +11,9 @@ public class IncomingAttackDetection : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Abilities"))
         {
-            if (other.gameObject.GetComponent<Projectile>() != null)
+            if (other.gameObject.transform.root.GetComponent<Projectile>() != null)
             {
-                if(thisVehicle != other.gameObject.GetComponent<Projectile>().getImmunePlayer())
+                if(thisVehicle != other.gameObject.transform.root.GetComponent<Projectile>().getImmunePlayer())
                 {
                     playerUIScript.AddToAttacksInRange(other.gameObject.transform);
                 }
