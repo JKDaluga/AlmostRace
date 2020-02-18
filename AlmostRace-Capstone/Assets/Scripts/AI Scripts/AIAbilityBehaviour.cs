@@ -17,7 +17,7 @@ public class AIAbilityBehaviour : MonoBehaviour
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (Physics.Raycast(transform.position, transform.right, 100, targets))
+        if (Physics.Raycast(transform.position, transform.forward, 100, targets))
         {
             fireButton.offensiveTrigger = true;
         }
