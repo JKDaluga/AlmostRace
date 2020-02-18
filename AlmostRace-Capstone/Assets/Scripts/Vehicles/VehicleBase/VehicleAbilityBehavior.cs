@@ -123,8 +123,11 @@ public class VehicleAbilityBehavior : MonoBehaviour
     {
         if (canFire && ability != null)
         {
-            abilityCooldown.fillAmount = 1;
-            abilityDark.SetActive(true);
+            if (_vehicleInput != null)
+            {
+                abilityCooldown.fillAmount = 1;
+                abilityDark.SetActive(true);
+            }
             ability.ActivateAbility();
             tracker.awardUpdate(flagChar);
             return true;
@@ -139,10 +142,16 @@ public class VehicleAbilityBehavior : MonoBehaviour
         while (tempTime > 0)
         {
             tempTime -= Time.deltaTime;
-            offensiveAbilityCooldown.fillAmount = tempTime / offensiveAbilityRecharge;
+            if (_vehicleInput != null)
+            {
+                offensiveAbilityCooldown.fillAmount = tempTime / offensiveAbilityRecharge;
+            }
             yield return null;
         }
-        offensiveAbilityDark.SetActive(false);
+        if (_vehicleInput != null)
+        {
+            offensiveAbilityDark.SetActive(false);
+        }
         _canUseBasic = true;
         AudioManager.instance.Play("Ability Recharge");
     }
@@ -154,10 +163,16 @@ public class VehicleAbilityBehavior : MonoBehaviour
         while (tempTime > 0)
         {        
             tempTime -= Time.deltaTime;
-            defensiveAbilityCooldown.fillAmount = tempTime/defensiveAbilityRecharge;
+            if (_vehicleInput != null)
+            {
+                defensiveAbilityCooldown.fillAmount = tempTime / defensiveAbilityRecharge;
+            }
             yield return null;
         }
-        defensiveAbilityDark.SetActive(false);
+        if (_vehicleInput != null)
+        {
+            defensiveAbilityDark.SetActive(false);
+        }
         _canUseDefensiveAbility = true;
         AudioManager.instance.Play("Ability Recharge");
     }
@@ -179,10 +194,16 @@ public class VehicleAbilityBehavior : MonoBehaviour
         while (tempTime > 0)
         {
             tempTime -= Time.deltaTime;
-            boostAbilityCooldown.fillAmount = tempTime / boostAbilityRecharge;
+            if (_vehicleInput != null)
+            {
+                boostAbilityCooldown.fillAmount = tempTime / boostAbilityRecharge;
+            }
             yield return null;
         }
-        boostAbilityDark.SetActive(false);
+        if (_vehicleInput != null)
+        {
+            boostAbilityDark.SetActive(false);
+        }
         _canBoost = true;
         AudioManager.instance.Play("Ability Recharge");
     }
