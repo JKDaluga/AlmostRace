@@ -5,7 +5,7 @@ using UnityEngine;
 public class AIAbilityBehaviour : MonoBehaviour
 {
 
-    public LayerMask targets;
+    public LayerMask targets, carTargets;
     VehicleAbilityBehavior fireButton;
 
     // Start is called before the first frame update
@@ -20,25 +20,20 @@ public class AIAbilityBehaviour : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, 100, targets))
         {
             fireButton.offensiveTrigger = true;
+            print("Yes, We Fire");
+            if (Physics.Raycast(transform.position, transform.forward, 100, carTargets))
+            {
+                fireButton.boostTrigger = true;
+                
+            }
         }
         else
-            fireButton.offensiveTrigger = false;
-
-        //Distance Checker for boost abilities
-        
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.layer == LayerMask.GetMask("Abilities"))
         {
-            if (this != other.gameObject.transform.root.GetComponent<Projectile>())
-            {
-                fireButton.defensiveTrigger = true;
-                print("Defense is firing");
-            }
-                
+            fireButton.offensiveTrigger = false;
+            fireButton.boostTrigger = false;
         }
-        fireButton.defensiveTrigger = false;
+
     }
+
+    
 }
