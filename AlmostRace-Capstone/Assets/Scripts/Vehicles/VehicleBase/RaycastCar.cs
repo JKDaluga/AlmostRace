@@ -68,6 +68,7 @@ public class RaycastCar : MonoBehaviour
     private Vector3 carRight;
     private Vector3 carFwd;
     private Vector3 tempVEC;
+    private Vector3 gravityDirection;
 
     private VehicleInput input;
 
@@ -95,6 +96,7 @@ public class RaycastCar : MonoBehaviour
         frontRightRayCast = frontRightWheel.GetComponentInParent<RaycastWheel>();
         rearLeftRayCast = rearLeftWheel.GetComponentInParent<RaycastWheel>();
         rearRightRayCast = rearRightWheel.GetComponentInParent<RaycastWheel>();
+        gravityDirection = -transform.up;
     }
 
     void Update()
@@ -201,7 +203,16 @@ public class RaycastCar : MonoBehaviour
     void FixedUpdate()
     {
         //gravity
-        carRigidbody.AddForce(-carUp.normalized * gravity * carRigidbody.mass);
+        if(isCarGrounded())
+        {
+            carRigidbody.AddForce(-carUp.normalized * gravity * carRigidbody.mass);
+            gravityDirection = -carUp;
+        }
+        else
+        {
+            carRigidbody.AddForce(gravityDirection.normalized * gravity * carRigidbody.mass);
+        }
+        
 
         if (currentSpeed < maxSpeed + boostSpeed + boostPadSpeed)
         {
