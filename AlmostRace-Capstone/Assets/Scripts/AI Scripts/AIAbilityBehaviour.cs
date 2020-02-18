@@ -23,5 +23,22 @@ public class AIAbilityBehaviour : MonoBehaviour
         }
         else
             fireButton.offensiveTrigger = false;
+
+        //Distance Checker for boost abilities
+        
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.GetMask("Abilities"))
+        {
+            if (this != other.gameObject.transform.root.GetComponent<Projectile>())
+            {
+                fireButton.defensiveTrigger = true;
+                print("Defense is firing");
+            }
+                
+        }
+        fireButton.defensiveTrigger = false;
     }
 }
