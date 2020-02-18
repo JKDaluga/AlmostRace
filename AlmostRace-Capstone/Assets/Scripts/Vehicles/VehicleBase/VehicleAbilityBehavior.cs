@@ -64,10 +64,14 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     private void Awake()
     {
-        _vehicleInput = GetComponent<VehicleInput>();
-        defensiveAbilityDark.SetActive(false);
-        boostAbilityDark.SetActive(false);
-        tracker = GetComponent<VehicleAwardsTracker>();
+        if (gameObject.GetComponent<VehicleInput>())
+        {
+            _vehicleInput = GetComponent<VehicleInput>();
+
+            defensiveAbilityDark.SetActive(false);
+            boostAbilityDark.SetActive(false);
+            tracker = GetComponent<VehicleAwardsTracker>();
+        }
     }
 
     // Update is called once per frame

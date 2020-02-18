@@ -21,6 +21,9 @@ public class AIAbilityBehaviour : MonoBehaviour
         {
             fireButton.offensiveTrigger = true;
             print("Yes, We Fire");
+            GetComponentInChildren<AIObstacleAvoidance>().avoiding = false;
+            GetComponentInChildren<AIObstacleAvoidance>().turnL = false;
+            GetComponentInChildren<AIObstacleAvoidance>().turnR = false;
             if (Physics.Raycast(transform.position, transform.forward, 100, carTargets))
             {
                 fireButton.boostTrigger = true;

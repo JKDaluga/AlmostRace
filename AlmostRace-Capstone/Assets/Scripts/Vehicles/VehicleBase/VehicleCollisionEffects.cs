@@ -38,12 +38,17 @@ public class VehicleCollisionEffects : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 1;
-        GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 1;
-        GetComponent<CinemachineImpulseSource>().GenerateImpulse();
-        AudioManager.instance.Play("General collision");
-        CreateSparks(collision);
-        _sparksPlaying = true;
+        if (collision.gameObject.GetComponent<VehicleInput>())
+        {
+
+
+            GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 1;
+            GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 1;
+            GetComponent<CinemachineImpulseSource>().GenerateImpulse();
+            AudioManager.instance.Play("General collision");
+            CreateSparks(collision);
+            _sparksPlaying = true;
+        }
     }
 
     private void OnCollisionStay(Collision collision)

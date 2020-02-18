@@ -10,6 +10,8 @@ public class AIObstacleAvoidance : MonoBehaviour
 
     public bool turnL, turnR;
 
+    public bool avoiding = true;
+
     float rayAngle;
     public float turnAmount, turnOverride;
 
@@ -17,8 +19,8 @@ public class AIObstacleAvoidance : MonoBehaviour
 
     private void FixedUpdate()
     {
-        vel = GetComponentInParent<Rigidbody>().velocity;
-        vel = new Vector3(vel.x, 0, vel.y);
+        vel = handler.GetComponent<Rigidbody>().velocity;
+        vel = new Vector3(vel.x, 0, vel.z);
         transform.parent.rotation = Quaternion.LookRotation(vel, transform.parent.up);
 
         if (turnL)
@@ -33,66 +35,68 @@ public class AIObstacleAvoidance : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Physics.Raycast(handler.transform.position, handler.transform.right, out right, wall);
-        Physics.Raycast(handler.transform.position, -handler.transform.right, out left, wall);
-
-        //Left Wall is Closer than Right Wall
-        if (left.distance > right.distance)
+        if (avoiding)
         {
-            rayAngle = Vector3.SignedAngle(right.normal, -handler.transform.right, handler.transform.forward);
+            Physics.Raycast(handler.transform.position, handler.transform.right, out right, wall);
+            Physics.Raycast(handler.transform.position, -handler.transform.right, out left, wall);
 
-            //Car is moving at an angle
-            if (Mathf.Abs(rayAngle) > turnOverride)
+            //Left Wall is Closer than Right Wall
+            if (left.distance > right.distance)
             {
-                //Sign determines movement direction, negative is right, positive is left
-                if (rayAngle > 0)
+                rayAngle = Vector3.SignedAngle(right.normal, -handler.transform.right, handler.transform.forward);
+
+                //Car is moving at an angle
+                if (Mathf.Abs(rayAngle) > turnOverride)
                 {
-                    turnR = true;
-                    turnL = false;
+                    //Sign determines movement direction, negative is right, positive is left
+                    if (rayAngle > 0)
+                    {
+                        turnR = true;
+                        turnL = false;
+                    }
+                    else
+                    {
+                        turnL = true;
+                        turnR = false;
+                    }
                 }
                 else
                 {
                     turnL = true;
                     turnR = false;
                 }
+
             }
             else
             {
-                turnL = true;
-                turnR = false;
-            }
+                rayAngle = Vector3.SignedAngle(left.normal, handler.transform.right, handler.transform.forward);
 
-        }
-        else
-        {
-            rayAngle = Vector3.SignedAngle(left.normal, handler.transform.right, handler.transform.forward);
-
-            if (Mathf.Abs(rayAngle) > turnOverride)
-            {
-                //Sign determines movement direction, negative is right, positive is left
-                if (rayAngle > 0)
+                if (Mathf.Abs(rayAngle) > turnOverride)
                 {
-                    turnR = true;
-                    turnL = false;
+                    //Sign determines movement direction, negative is right, positive is left
+                    if (rayAngle > 0)
+                    {
+                        turnR = true;
+                        turnL = false;
+                    }
+                    else
+                    {
+                        turnL = true;
+                        turnR = false;
+                    }
                 }
                 else
                 {
-                    turnL = true;
-                    turnR = false;
+                    turnL = false;
+                    turnR = true;
                 }
-            }
-            else
-            {
-                turnL = false;
-                turnR = true;
             }
         }
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerExit(Collider other)
     {
-        turnL = false;
         turnR = false;
+        turnL = false;
         rayAngle = 0;
     }
 }
