@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class VoidWasp_AttackTargetDetector : MonoBehaviour
 {
-    private List<GameObject> _objectsInRange = new List<GameObject>();
+    public VoidWasp_Attack attackScript;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent("CarHealthBehavior") || other.gameObject.GetComponent("Interactable"))
         {
-            _objectsInRange.Add(other.gameObject);
+           attackScript.AddObjectInRange(other.gameObject);
         }
     }
 
@@ -18,13 +18,7 @@ public class VoidWasp_AttackTargetDetector : MonoBehaviour
     {
         if (other.gameObject.GetComponent("CarHealthBehavior") || other.gameObject.GetComponent("Interactable"))
         {
-            for(int i = _objectsInRange.Count - 1; i >= 0; i--)
-            {
-                if(_objectsInRange[i] == other.gameObject)
-                {
-                    _objectsInRange.RemoveAt(i);
-                }
-            }
+            attackScript.RemoveObjectInRange(other.gameObject);
         }
     }
 }
