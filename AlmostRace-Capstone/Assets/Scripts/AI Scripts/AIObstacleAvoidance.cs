@@ -17,6 +17,8 @@ public class AIObstacleAvoidance : MonoBehaviour
 
     Vector3 vel;
 
+    float timer = 0;
+
     private void FixedUpdate()
     {
         vel = handler.GetComponent<Rigidbody>().velocity;
@@ -27,9 +29,20 @@ public class AIObstacleAvoidance : MonoBehaviour
         {
             handler.inputTurn = -turnAmount;
         } 
-        else if (turnR)
+        if (turnR)
         {
             handler.inputTurn = turnAmount;
+        }
+
+        if (!avoiding)
+        {
+           
+            timer += Time.deltaTime;
+            if(timer > .5f)
+            {
+                avoiding = true;
+                timer = 0;
+            }
         }
     }
 
