@@ -23,7 +23,7 @@ public class NearestPlayerBonus : MonoBehaviour
     private void Start()
     {
         //Finds all existing objects with the car controller script, then saves the objects into an array
-        SphereCarController[] temp = FindObjectsOfType<SphereCarController>();
+        RaycastCar[] temp = FindObjectsOfType<RaycastCar>();
         players = new GameObject[temp.Length];
         distances = new float[players.Length];
         for(int i = 0; i < temp.Length; i++)
