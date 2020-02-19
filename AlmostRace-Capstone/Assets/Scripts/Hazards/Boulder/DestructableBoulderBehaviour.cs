@@ -48,11 +48,13 @@ public class DestructableBoulderBehaviour : Interactable
 
             interactingPlayer = collision.gameObject; // sets the person crashing with the boulder as the interacting player
             TriggerInteractable();
-            if(collision.gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Contains(gameObject))
+            if (collision.gameObject.GetComponent<VehicleInput>())
             {
-                collision.gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
+                if (collision.gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Contains(gameObject))
+                {
+                    collision.gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
+                }
             }
-
             if (collision.gameObject.GetComponent<AIBehaviour>())
             {
                 collision.gameObject.GetComponentInChildren<AIObstacleAvoidance>().turnR = false;
@@ -77,14 +79,21 @@ public class DestructableBoulderBehaviour : Interactable
             {   //makes sure that non-player agents can destroy the boulders without throwing null references.
                 interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(boulderDestroyedHype, "Vandal");
             }
-        
 
-        if (interactingPlayer.GetComponent<AimAssistant>().target == gameObject)
+            if (interactingPlayer.GetComponent<VehicleInput>())
             {
-                interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
-                interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().interactables.Remove(GetComponent<Collider>());
+                if (interactingPlayer.GetComponent<AimAssistant>().target == gameObject)
+                {
+                    interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
+                    interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().interactables.Remove(GetComponent<Collider>());
+                }
             }
 
+            if (interactingPlayer.GetComponent<AIBehaviour>())
+            {
+                interactingPlayer.GetComponentInChildren<AIObstacleAvoidance>().turnR = false;
+                interactingPlayer.GetComponentInChildren<AIObstacleAvoidance>().turnL = false;
+            }
         }
         AimCollider[] allPlayers = FindObjectsOfType<AimCollider>();
 
@@ -104,7 +113,17 @@ public class DestructableBoulderBehaviour : Interactable
 
     public override void DestroyInteractable()
     {
-        Destroy(transform.parent.gameObject);
+
+        if (interactingPlayer != null)
+        {
+            if (interactingPlayer.GetComponent<AIBehaviour>())
+            {
+                interactingPlayer.GetComponentInChildren<AIObstacleAvoidance>().turnR = false;
+                interactingPlayer.GetComponentInChildren<AIObstacleAvoidance>().turnL = false;
+            }
+        }
+
+            Destroy(transform.parent.gameObject);
     }
 
     public override void ResetInteractable()

@@ -164,26 +164,37 @@ public class CarHealthBehavior : MonoBehaviour
         AudioManager.instance.Play("Death");
         isDead = true;
         Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);
-        deathFade.GetComponent<Animator>().Play("DeathFadeIn");
+        if (GetComponent<VehicleInput>())
+        {
+            deathFade.GetComponent<Animator>().Play("DeathFadeIn");
+        }
         GetComponent<RaycastCar>().enabled = false;
         GetComponent<VehicleAbilityBehavior>().enabled = false;
         GameObject respawnInstance = Instantiate(respawnPlatform);
-        respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject,  modelHolder);
+        respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
         carObject.GetComponent<Rigidbody>().useGravity = false;
         carObject.GetComponent<Rigidbody>().isKinematic = true;
 
-        gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
+        if (gameObject.GetComponent<VehicleInput>())
+        {
+            gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
+        }
     }
 
     public void Respawn()
     {
         isFlashing = false;
+        
         CancelInvoke("FlashRedEngine");
-        engineImage.color = Color.white;
-        engineIsFlash = false;
-        healthCurrent = healthMax;
-        isDead = false;
-        deathFade.GetComponent<Animator>().Play("DeathFadeOut");
+        if (GetComponent<VehicleInput>())
+        {
+
+            engineImage.color = Color.white;
+            engineIsFlash = false;
+            healthCurrent = healthMax;
+            isDead = false;
+            deathFade.GetComponent<Animator>().Play("DeathFadeOut");
+        }
         GetComponent<RaycastCar>().enabled = true;
         GetComponent<VehicleAbilityBehavior>().enabled = true;
         carObject.GetComponent<Rigidbody>().useGravity = true;
@@ -194,7 +205,10 @@ public class CarHealthBehavior : MonoBehaviour
         {
             bAbility.DeactivateAbility();
         }
-        gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
+        if (gameObject.GetComponent<VehicleInput>())
+        {
+            gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
+        }
         //GetComponent<RaycastCar>().setDrifting(false);
        // GetComponent<RaycastCar>().SetIsBoosting(false);
 

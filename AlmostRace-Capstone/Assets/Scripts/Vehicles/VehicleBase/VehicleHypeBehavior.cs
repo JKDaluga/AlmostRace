@@ -46,7 +46,10 @@ public class VehicleHypeBehavior : MonoBehaviour
 
     private void Update()
     {
-        UpdateUI();
+        if (GetComponent<VehicleInput>())
+        {
+            UpdateUI();
+        }
     }
 
     public void UpdateUI()
@@ -56,8 +59,8 @@ public class VehicleHypeBehavior : MonoBehaviour
 
     public void AddHype(float hypeToAdd, string hypeType)
     {
-       // Debug.Log(hypeToAdd + " was added to " + gameObject.name + " from " + hypeType);
-       if(hypeToAdd >= bigHypeAmount)
+        // Debug.Log(hypeToAdd + " was added to " + gameObject.name + " from " + hypeType);
+        if (hypeToAdd >= bigHypeAmount)
         {
             AudioManager.instance.Play("Audience");
         }
@@ -68,10 +71,13 @@ public class VehicleHypeBehavior : MonoBehaviour
         //_hypeAmount += hypeToAdd;
         _hypeAmount = _hypeAmount + hypeToAdd;
         _hypeManagerScript.VehicleSort();
-        GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
-        spawnedPopUp.GetComponent<TextMeshProUGUI>().text = hypeType + ": " + hypeToAdd.ToString("F0");
-        spawnedPopUp.transform.SetParent(scalingPanel.transform);
-        spawnedPopUp.GetComponent<HypePopup>().GiveInfo(hypePopupSpawn, hypePopupEnd, 1f);
+        if (GetComponent<VehicleInput>())
+        {
+            GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
+            spawnedPopUp.GetComponent<TextMeshProUGUI>().text = hypeType + ": " + hypeToAdd.ToString("F0");
+            spawnedPopUp.transform.SetParent(scalingPanel.transform);
+            spawnedPopUp.GetComponent<HypePopup>().GiveInfo(hypePopupSpawn, hypePopupEnd, 1f);
+        }
     }
 
     public void SubtractHype(float hypeToSubtract)
