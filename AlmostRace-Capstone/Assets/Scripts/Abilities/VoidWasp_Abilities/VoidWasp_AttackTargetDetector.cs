@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+    /*
+    Author: Jake Velicer
+    Purpose: Adds and removes potential target objects for the VoidWasp Attack script;
+    */
 public class VoidWasp_AttackTargetDetector : MonoBehaviour
 {
     public VoidWasp_Attack attackScript;
