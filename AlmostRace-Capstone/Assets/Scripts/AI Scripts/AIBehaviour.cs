@@ -13,7 +13,7 @@ public class AIBehaviour : MonoBehaviour
     public bool _inArena;
     public bool canDrive = false;
 
-    RaycastCar thisCar;
+    public RaycastCar thisCar;
     
 
     //Copied from HotSpotBehaviour.cs script. It creates a spline that is capable of following the hotspot bot spline
@@ -32,7 +32,7 @@ public class AIBehaviour : MonoBehaviour
     private AIObstacleAvoidance avo;
 
     private GameObject[] _aiSplines;
-    public List<GameObject> orderedSplines = new List<GameObject>();
+    public GameObject[] orderedSplines;
     private int splineIndex;
     
 
@@ -40,7 +40,7 @@ public class AIBehaviour : MonoBehaviour
     void Start()
     {
         _aiSplines = GameObject.FindGameObjectsWithTag("AISpline");
-        Dictionary<float, GameObject> near = new Dictionary<float, GameObject>();
+        /*Dictionary<float, GameObject> near = new Dictionary<float, GameObject>();
 
         foreach(GameObject i in _aiSplines)
         {
@@ -51,8 +51,9 @@ public class AIBehaviour : MonoBehaviour
         {
             orderedSplines.Add(near[near.Keys.Min()]);
             near.Remove(near.Keys.Min());
-        }
-
+        }*/
+        RaceManager rc = FindObjectOfType<RaceManager>();
+        orderedSplines = rc.orderedSplines;
 
         splineIndex = 0;
         avo = GetComponentInChildren<AIObstacleAvoidance>();

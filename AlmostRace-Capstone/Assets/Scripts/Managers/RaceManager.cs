@@ -9,7 +9,7 @@ using UnityEngine;
 public class RaceManager : MonoBehaviour
 {
     private DataManager dm;
-
+    public GameObject[] orderedSplines;
     public bool spawnAI = false;
     public GameObject[] carPool;
 
