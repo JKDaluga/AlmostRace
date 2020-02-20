@@ -298,6 +298,11 @@ public class CarHealthBehavior : MonoBehaviour
         _extraHP = extraHP;
     }
 
+    public void AddExtraHealth(float extraHP)
+    {
+        _extraHP += extraHP;
+    }
+
     public float GetExtaHealthMax()
     {
         return _extraHPMax;
