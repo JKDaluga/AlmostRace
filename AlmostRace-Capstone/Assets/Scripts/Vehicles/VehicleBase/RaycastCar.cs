@@ -63,6 +63,10 @@ public class RaycastCar : MonoBehaviour
     public float springFallDisengangeSpeed = 50f;
     public float spring = 4000f;
 
+    public float deceleration = 5f;
+    public float turnBackMultiplier  = 1.5f;
+
+
     private float slideSpeed;
 
     private Vector3 carRight;
@@ -170,7 +174,7 @@ public class RaycastCar : MonoBehaviour
         // calculate relative velocity
         relativeVel = carTransform.InverseTransformDirection(vel);
         
-        if(relativeVel.y < -springFallDisengangeSpeed) setSpringForce(0f);
+        if(relativeVel.y < -springFallDisengangeSpeed) setSpringForce(spring/2f);
         else setSpringForce(spring);
 
         // calculate how much we are sliding (find out movement along our x axis)
@@ -229,7 +233,14 @@ public class RaycastCar : MonoBehaviour
 
         if (currentTurnSpeed < tempMaxTurnSpeed || carRigidbody.angularVelocity.y * horizontal < 0f)
         {
-            carRigidbody.AddTorque(turnVec * Time.deltaTime);
+            if(carRigidbody.angularVelocity.y * horizontal < 0f)
+            {
+                carRigidbody.AddTorque(turnBackMultiplier * turnVec * Time.deltaTime);
+            }
+            else
+            {
+                carRigidbody.AddTorque(turnVec * Time.deltaTime);
+            }
         }
 
         if (Mathf.Abs(horizontal) >= deadZone)
@@ -247,7 +258,7 @@ public class RaycastCar : MonoBehaviour
         }
         else
         {
-            carRigidbody.drag = 5f;
+            carRigidbody.drag = deceleration;
         }
 
         // apply forces to our rigidbody for grip
