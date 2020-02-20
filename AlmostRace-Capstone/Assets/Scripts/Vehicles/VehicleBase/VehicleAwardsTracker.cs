@@ -34,26 +34,26 @@ public class VehicleAwardsTracker : MonoBehaviour
 
     }
 
-    public void awardUpdate(char abilityType)
+    public void awardUpdate(char abilityType, int playerNumber)
     {
         if (abilityType == 'o')
         {
-            players.playerInfo[playerNum.playerNumber].offensiveAbilityUsed += 1;
+            players.playerInfo[playerNumber - 1].offensiveAbilityUsed += 1;
         }
         else if(abilityType=='d')
         {
-            players.playerInfo[playerNum.playerNumber].defenseAbilityUsed += 1;
+            players.playerInfo[playerNumber - 1].defenseAbilityUsed += 1;
         }
         else
         {
-            players.playerInfo[playerNum.playerNumber].boostAbilityUsed += 1;
+            players.playerInfo[playerNumber - 1].boostAbilityUsed += 1;
         }
     }
 
     private void driftUpdate()
     {
 
-        players.playerInfo[playerNum.playerNumber].driftTimer += .1f;
+        players.playerInfo[playerNum.getPlayerNum() - 1].driftTimer += .1f;
         
     }
 }

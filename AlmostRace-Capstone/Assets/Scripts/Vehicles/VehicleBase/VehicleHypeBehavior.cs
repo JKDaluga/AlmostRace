@@ -59,27 +59,34 @@ public class VehicleHypeBehavior : MonoBehaviour
 
     public void AddHype(float hypeToAdd, string hypeType)
     {
-        // Debug.Log(hypeToAdd + " was added to " + gameObject.name + " from " + hypeType);
-        if (hypeToAdd >= bigHypeAmount)
+        if(!_hypeManagerScript.isGameEnded)
         {
-            AudioManager.instance.Play("Audience");
-        }
-        else
-        {
-            AudioManager.instance.Play("Low Hype");
-        }
-        //_hypeAmount += hypeToAdd;
-        _hypeAmount = _hypeAmount + hypeToAdd;
-        _hypeManagerScript.VehicleSort();
-        if (GetComponent<VehicleInput>())
-        {
-            if(!hypeType.Equals("Award"))
+            // Debug.Log(hypeToAdd + " was added to " + gameObject.name + " from " + hypeType);
+            if (hypeToAdd >= bigHypeAmount)
             {
-                GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
-                spawnedPopUp.GetComponent<TextMeshProUGUI>().text = hypeType + ": " + hypeToAdd.ToString("F0");
-                spawnedPopUp.transform.SetParent(scalingPanel.transform);
-                spawnedPopUp.GetComponent<HypePopup>().GiveInfo(hypePopupSpawn, hypePopupEnd, 1f);
+                AudioManager.instance.Play("Audience");
             }
+            else
+            {
+                AudioManager.instance.Play("Low Hype");
+            }
+            //_hypeAmount += hypeToAdd;
+            _hypeAmount = _hypeAmount + hypeToAdd;
+            _hypeManagerScript.VehicleSort();
+            if (GetComponent<VehicleInput>())
+            {
+                if(!hypeType.Equals("Award"))
+                {
+                    GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
+                    spawnedPopUp.GetComponent<TextMeshProUGUI>().text = hypeType + ": " + hypeToAdd.ToString("F0");
+                    spawnedPopUp.transform.SetParent(scalingPanel.transform);
+                    spawnedPopUp.GetComponent<HypePopup>().GiveInfo(hypePopupSpawn, hypePopupEnd, 1f);
+                }
+            }
+        }
+        else if (hypeType.Equals("Award"))
+        {
+            _hypeAmount = _hypeAmount + hypeToAdd;
         }
     }
 

@@ -37,9 +37,11 @@ public class HypeManager : MonoBehaviour
     public GameObject countdownObj;
     public GameObject eventPanel;
     public GameObject winScreen;
+    public bool isGameEnded = false;
 
     public WinScreenBox[] winScreenBoxes;
-
+    public string[] awards;
+    public Color[] playerColors;
     
 
     private void Awake()
@@ -50,6 +52,7 @@ public class HypeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        awards = new string[4];
         StartCoroutine(TrackTotalHype());
     }
 
@@ -157,6 +160,7 @@ public class HypeManager : MonoBehaviour
 
     public void EndGame()
     {
+        isGameEnded = true;
         float highestHype = 0f;
         GameObject winner = this.gameObject;
         foreach (GameObject entry in vehicleList)
@@ -170,11 +174,14 @@ public class HypeManager : MonoBehaviour
         if(winner != this.gameObject)
         {
             eventPanel.SetActive(true);
+            
+            FindObjectOfType<WinScreen>().chooseWinners();
+            VehicleSort();
             populateWinScreen();
             winScreen.SetActive(true);
 
             Invoke("DisableEvents", 3);
-            Invoke("ReturnToMainMenu", 4);
+
             AudioManager.instance.Play("Victory Music");
         }
     }
@@ -192,6 +199,20 @@ public class HypeManager : MonoBehaviour
 
     public void populateWinScreen()
     {
-
+        for(int i = 0; i < winScreenBoxes.Length; i++)
+        {
+            if (i < vehicleList.Count)
+            {
+                int playerNum = vehicleList[i].GetComponent<VehicleInput>().getPlayerNum();
+                winScreenBoxes[i].background.color = playerColors[playerNum - 1];
+                winScreenBoxes[i].playerTag.text = "Player " + playerNum;
+                winScreenBoxes[i].hypeAmount.text = "Hype: " + vehicleList[i].GetComponent<VehicleHypeBehavior>().GetHypeAmount();
+                winScreenBoxes[i].Awards.text += awards[playerNum - 1];
+            }
+            else
+            {
+                winScreenBoxes[i].background.gameObject.SetActive(false);
+            }
+        }
     }
 }

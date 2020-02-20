@@ -30,14 +30,10 @@ public class WinScreen : MonoBehaviour
 
     public void chooseWinners()
     {
-        
-
-        for (int i = 0; i<awardList.Length; i++)
+        for (int i = 0; i < awardList.Length; i++)
         {
             maxValueWinner(awardList[i], i);
         }
-
-        
     }
 
     private void maxValueWinner(string awardName, int award)
@@ -69,8 +65,8 @@ public class WinScreen : MonoBehaviour
                 winningPlayer = i;
             }
         }
-        addHype(winningPlayer, smallHypeAward);
-
+        addHype(winningPlayer + 1, smallHypeAward, "Spray n' Pray");
+        print(winningPlayer);
         return winningPlayer;
     }
 
@@ -80,10 +76,11 @@ public class WinScreen : MonoBehaviour
         {
             if (players.playerInfo[i].defenseAbilityUsed > players.playerInfo[winningPlayer].defenseAbilityUsed)
             {
-                winningPlayer = i;
+                winningPlayer = i; 
             }
         }
-        addHype(winningPlayer, smallHypeAward);
+        addHype(winningPlayer + 1, smallHypeAward, "Shields Up");
+        print(winningPlayer);
         return winningPlayer;
     }
 
@@ -96,7 +93,8 @@ public class WinScreen : MonoBehaviour
                 winningPlayer = i;
             }
         }
-        addHype(winningPlayer, smallHypeAward);
+        addHype(winningPlayer + 1, smallHypeAward, "Speed Demon");
+        print(winningPlayer);
         return winningPlayer;
     }
 
@@ -109,11 +107,12 @@ public class WinScreen : MonoBehaviour
                 winningPlayer = i;
             }
         }
-        addHype(winningPlayer, smallHypeAward);
+        addHype(winningPlayer + 1, smallHypeAward, "Slippery");
+        print(winningPlayer);
         return winningPlayer;
     }
 
-    private void addHype(int playerNum, float amount)
+    private void addHype(int playerNum, float amount, string awardTitle)
     {
         VehicleInput input;
 
@@ -126,6 +125,7 @@ public class WinScreen : MonoBehaviour
                 if(input.playerNumber == playerNum)
                 {
                     input.gameObject.GetComponent<VehicleHypeBehavior>().AddHype(amount, "Award");
+                    playerHype.awards[input.getPlayerNum() - 1] += awardTitle + "\n";
                 }
             }
         }

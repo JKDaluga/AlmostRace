@@ -132,7 +132,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
             {
                 abilityCooldown.fillAmount = 1;
                 abilityDark.SetActive(true);
-                tracker.awardUpdate(flagChar);
+                tracker.awardUpdate(flagChar, _vehicleInput.getPlayerNum());
             }
             ability.ActivateAbility();
             
