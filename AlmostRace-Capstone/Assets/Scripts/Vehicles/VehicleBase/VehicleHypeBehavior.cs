@@ -73,10 +73,13 @@ public class VehicleHypeBehavior : MonoBehaviour
         _hypeManagerScript.VehicleSort();
         if (GetComponent<VehicleInput>())
         {
-            GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
-            spawnedPopUp.GetComponent<TextMeshProUGUI>().text = hypeType + ": " + hypeToAdd.ToString("F0");
-            spawnedPopUp.transform.SetParent(scalingPanel.transform);
-            spawnedPopUp.GetComponent<HypePopup>().GiveInfo(hypePopupSpawn, hypePopupEnd, 1f);
+            if(!hypeType.Equals("Award"))
+            {
+                GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
+                spawnedPopUp.GetComponent<TextMeshProUGUI>().text = hypeType + ": " + hypeToAdd.ToString("F0");
+                spawnedPopUp.transform.SetParent(scalingPanel.transform);
+                spawnedPopUp.GetComponent<HypePopup>().GiveInfo(hypePopupSpawn, hypePopupEnd, 1f);
+            }
         }
     }
 

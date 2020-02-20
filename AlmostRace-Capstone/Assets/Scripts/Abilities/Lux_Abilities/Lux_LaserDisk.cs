@@ -10,6 +10,8 @@ public class Lux_LaserDisk : Projectile
 {
     private float _laserHype;
 
+    public GameObject explodeVFX;
+
     public Transform laserEmitterLeft;
     public Transform laserEmitterRight;
 
@@ -51,7 +53,7 @@ public class Lux_LaserDisk : Projectile
                 rayHit.collider.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
             }
 
-            Debug.DrawRay(laserEmitterLeft.position, laserEmitterLeft.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
+            //Debug.DrawRay(laserEmitterLeft.position, laserEmitterLeft.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
         }
 
         //Right laser code
@@ -74,7 +76,7 @@ public class Lux_LaserDisk : Projectile
                 rayHit.collider.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
             }
 
-            Debug.DrawRay(laserEmitterRight.position, laserEmitterRight.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
+           // Debug.DrawRay(laserEmitterRight.position, laserEmitterRight.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
 
         }
 
@@ -95,9 +97,9 @@ public class Lux_LaserDisk : Projectile
 
     private void OnTriggerEnter(Collider collision)
     {
-        //oops
         if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
+            Instantiate(explodeVFX, transform.position, transform.rotation);
             Destroy(gameObject);
         }
 
@@ -105,6 +107,7 @@ public class Lux_LaserDisk : Projectile
         {
             if(collision.gameObject != _immunePlayer)
             {
+                Instantiate(explodeVFX, transform.position, transform.rotation);
                 collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
                 Destroy(gameObject);
             }
@@ -113,6 +116,7 @@ public class Lux_LaserDisk : Projectile
 
         if(collision.gameObject.GetComponent<Interactable>() != null)
         {
+            Instantiate(explodeVFX, transform.position, transform.rotation);
             collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
             Destroy(gameObject);
         }

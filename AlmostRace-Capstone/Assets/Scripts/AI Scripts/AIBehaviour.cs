@@ -65,7 +65,7 @@ public class AIBehaviour : MonoBehaviour
 
         thisCar = GetComponent<RaycastCar>();
 
-        thisCar.drift = true;
+        //thisCar.drift = true;
 
         foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {
@@ -138,7 +138,7 @@ public class AIBehaviour : MonoBehaviour
                     thisCar.horizontal = inputTurn;
 
                     placeHolder = j;
-                    placeHolder = Mathf.Clamp(placeHolder+10, 0, entry.Value.Vertices.Count-1);
+                    placeHolder = Mathf.Clamp(placeHolder+5, 0, entry.Value.Vertices.Count-1);
 
                     vertexAim = entry.Value.Vertices[placeHolder];
 
@@ -157,7 +157,7 @@ public class AIBehaviour : MonoBehaviour
 
         if (!avo.turnL && !avo.turnR)
         {
-            if (angleBetween < 87.5)
+            if (angleBetween < 82.5)
             {
                 inputTurn = Mathf.Pow((-(angleBetween - 90) / 90), (1 / 2));
             }
@@ -175,14 +175,5 @@ public class AIBehaviour : MonoBehaviour
 
         inputForward = Mathf.Clamp((1.2f) - Mathf.Abs(inputTurn), 0, 1);
 
-    }
-
-    private void OnDrawGizmos()
-    {
-        float angleBetween = Mathf.Acos(Vector3.Dot((closestVertex - transform.position).normalized, thisCar.transform.right)) * 180 / Mathf.PI;
-        Gizmos.color = new Color(0, 0, 1, 1);
-        Vector3 direction = (-Mathf.Pow(((angleBetween - 90) / 90), 3)*transform.right)*4;
-        Gizmos.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z), direction);
-        Gizmos.DrawCube(vertexAim, new Vector3(4, 4, 4));
     }
 }

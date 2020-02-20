@@ -174,7 +174,7 @@ public class RaycastCar : MonoBehaviour
         // calculate relative velocity
         relativeVel = carTransform.InverseTransformDirection(vel);
         
-        if(relativeVel.y < -springFallDisengangeSpeed) setSpringForce(spring/2f);
+        if(relativeVel.y < -springFallDisengangeSpeed) setSpringForce(spring);
         else setSpringForce(spring);
 
         // calculate how much we are sliding (find out movement along our x axis)
@@ -186,7 +186,7 @@ public class RaycastCar : MonoBehaviour
 
         // calculate engine force with our flat direction vector and acceleration
         engineForce = (flatDir * (power * (throttle - reverse)) * carMass);
-
+        
         // do turning
         actualTurn = horizontal;
 
@@ -263,6 +263,13 @@ public class RaycastCar : MonoBehaviour
 
         // apply forces to our rigidbody for grip
         carRigidbody.AddForce(imp * Time.deltaTime);
+
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, carUp, out hit, 5f, LayerMask.GetMask("Ground")))
+        {
+            GetComponent<CarHealthBehavior>().Kill();
+        }
     }
 
     public float getCarMass()
@@ -316,5 +323,11 @@ public class RaycastCar : MonoBehaviour
     public void setBoostPadSpeed(float percentage)
     {
         boostPadSpeed = maxSpeed * percentage;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(0, 0, 1, 1);
+        Gizmos.DrawRay(transform.position, engineForce.normalized * 15f);
     }
 }

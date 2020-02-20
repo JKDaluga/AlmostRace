@@ -10,7 +10,10 @@ public class RaceManager : MonoBehaviour
 {
     private DataManager dm;
 
+    public bool spawnAI = false;
     public GameObject[] carPool;
+
+    public GameObject AICar;
 
     public Transform[] spawnLocations;
 
@@ -40,6 +43,7 @@ public class RaceManager : MonoBehaviour
         {
             int playerCount = dm.getNumActivePlayers();
             int playerNum = 1;
+            int AINum = 0;
 
             foreach (PlayerInfo player in dm.playerInfo)
             {
@@ -47,6 +51,11 @@ public class RaceManager : MonoBehaviour
                 {
                     spawnPlayer(player, playerCount, playerNum);
                     playerNum++;
+                }
+                else
+                {
+                    Instantiate(AICar, spawnLocations[playerNum + AINum - 1].position, spawnLocations[playerNum + AINum - 1].rotation);
+                    AINum++;
                 }
             }
         }

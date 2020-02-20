@@ -14,7 +14,7 @@ public class HypeGateAggro : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.GetComponent<VehicleHypeBehavior>() != null)
+        if(other.gameObject.GetComponent<RaycastCar>() != null)
         {//if thing entering aggro is car
             if(!_hypeGate.carsInRange.Contains(other.gameObject)) //if car hasn't already been detected
             {
@@ -30,7 +30,7 @@ public class HypeGateAggro : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<VehicleHypeBehavior>() != null)
+        if (other.gameObject.GetComponent<RaycastCar>() != null)
         {//if thing entering aggro is car
             if (_hypeGate.carsInRange.Contains(other.gameObject)) //if car hasn't already been detected
             {
