@@ -46,7 +46,7 @@ public class VehicleCollisionEffects : MonoBehaviour
             GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 1;
             GetComponent<CinemachineImpulseSource>().GenerateImpulse();
             AudioManager.instance.Play("General collision");
-            CreateSparks(collision);
+            //CreateSparks(collision);
             _sparksPlaying = true;
         }
     }
@@ -55,7 +55,7 @@ public class VehicleCollisionEffects : MonoBehaviour
     {
         if (colliderRigidbody.velocity.magnitude > velocityRequirement)
         {
-            CreateSparks(collision);
+            //CreateSparks(collision);
             if (!_audioSource.isPlaying)
             {
                 _audioSource.Play();
