@@ -3311,6 +3311,7 @@ GameObject:
   - component: {fileID: 6403223517959016241}
   - component: {fileID: 2280357531516124063}
   - component: {fileID: 3125062516283925755}
+  - component: {fileID: 3461096293120017781}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -3353,6 +3354,7 @@ MonoBehaviour:
   countdownObj: {fileID: 3780414201012212067}
   eventPanel: {fileID: 0}
   winScreen: {fileID: 5225566718493286956}
+  isGameEnded: 0
   winScreenBoxes:
   - background: {fileID: 2958340545062709083}
     playerTag: {fileID: 7718506358609171195}
@@ -3423,10 +3425,10 @@ MonoBehaviour:
   - {fileID: 2690385120830635098, guid: c64d7870252f64e48b2ec46e75426198, type: 3}
   - {fileID: 2767845793760804251, guid: e03a8c9ce91ebaf43900f0f0ecd6b096, type: 3}
   - {fileID: 7912337847936575553, guid: eb406900cbf8374409f4060b5967c51f, type: 3}
-  - {fileID: 2095840184981448, guid: 0618fae8a41acdf44901bf2f48db52df, type: 3}
-  - {fileID: 2690385120830635098, guid: c64d7870252f64e48b2ec46e75426198, type: 3}
-  - {fileID: 2767845793760804251, guid: e03a8c9ce91ebaf43900f0f0ecd6b096, type: 3}
-  - {fileID: 7912337847936575553, guid: eb406900cbf8374409f4060b5967c51f, type: 3}
+  - {fileID: 5308903768475171968, guid: 9364609670290d94aa665f9f9f1d18bf, type: 3}
+  - {fileID: 8935987779023820343, guid: 2a4ae506f4ad733429c689947e73f137, type: 3}
+  - {fileID: 5597351937663495910, guid: 6ad9a1ac256cacb4996d917e147a19e4, type: 3}
+  - {fileID: 655806445608080656, guid: b76e088088abc054ea8d89dac9230b66, type: 3}
   AICar: {fileID: 3508958639666788513, guid: e1ef14ae1b0c31b4e9cb615f08165ebb, type: 3}
   spawnLocations:
   - {fileID: 6196485191558557733}
@@ -3436,6 +3438,21 @@ MonoBehaviour:
   twoPlayerUIScalingFactor: 0.7
   threePlusPlayerUIScalingFactor: 0.7
   fourthPlayerPanel: {fileID: 5933453679458905824}
+--- !u!114 &3461096293120017781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8447175210821411507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7e4518da70c9b4c9444faed05cf7e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  smallHypeAward: 100
+  mediumHypeAward: 200
+  largeHypeAward: 300
 --- !u!1 &8487120922117543807
 GameObject:
   m_ObjectHideFlags: 0
