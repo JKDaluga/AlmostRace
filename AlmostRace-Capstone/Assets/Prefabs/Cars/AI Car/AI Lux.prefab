@@ -14463,6 +14463,7 @@ MonoBehaviour:
   handler: {fileID: 3713964755092531435}
   turnL: 0
   turnR: 0
+  avoiding: 1
   turnAmount: 1.15
   turnOverride: 10
 --- !u!1 &2316511471277639881
@@ -29104,14 +29105,16 @@ MonoBehaviour:
   rearLeftRayCast: {fileID: 0}
   rearRightRayCast: {fileID: 0}
   gravity: 300
-  power: 5000
+  power: 3500
   maxSpeed: 260
-  maxTurnSpeed: 5
+  maxTurnSpeed: 1.25
   carGrip: 300
-  turnSpeed: 3.8
-  driftStrength: 8
+  turnSpeed: 3
+  driftStrength: 6
   springFallDisengangeSpeed: 50
   spring: 4000
+  deceleration: 2
+  turnBackMultiplier: 5
 --- !u!114 &5418076574753482654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29308,7 +29311,9 @@ MonoBehaviour:
   inputForward: 0
   inputTurn: 0
   inputBrake: 0
+  _inArena: 0
   canDrive: 0
+  orderedSplines: []
 --- !u!114 &3713964755092531434
 MonoBehaviour:
   m_ObjectHideFlags: 0
