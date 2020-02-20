@@ -54,7 +54,7 @@ public class VoidWasp_Attack : Ability
         for (int j = 0; j < missileDistributionCount; j++)
         {
             // Spawn the missile at the spawn position and set its values
-            spawnOffset = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), Random.Range(-2, 2));
+            spawnOffset = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), Random.Range(-.5f, .5f));
             GameObject currentProjectile = Instantiate(voidwaspProjectile, rocketSpawnPosition.position + spawnOffset, rocketSpawnPosition.rotation);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime);
