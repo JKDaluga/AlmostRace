@@ -34,8 +34,6 @@ public class VoidWasp_HomingMissile : Projectile
 
     private void OnTriggerEnter(Collider collision)
     {
-       
-    
         if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             Instantiate(explodeVFX, transform.position, transform.rotation);
@@ -46,6 +44,7 @@ public class VoidWasp_HomingMissile : Projectile
             if(collision.gameObject != _immunePlayer)
             {
                 collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
+                _immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_projectileHype, "Stinger");
                 Instantiate(explodeVFX, transform.position, transform.rotation);
                 Destroy(gameObject);
             }
