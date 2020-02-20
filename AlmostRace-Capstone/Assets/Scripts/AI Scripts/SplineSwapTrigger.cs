@@ -6,7 +6,6 @@ public class SplineSwapTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        print("Hit");
         if(other.gameObject.GetComponent<AIBehaviour>() != null)
         {
             other.gameObject.GetComponent<AIBehaviour>().SwapSpline();
