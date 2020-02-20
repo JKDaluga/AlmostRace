@@ -68,6 +68,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         {
             _vehicleInput = GetComponent<VehicleInput>();
 
+            offensiveAbilityDark.SetActive(false);
             defensiveAbilityDark.SetActive(false);
             boostAbilityDark.SetActive(false);
             tracker = GetComponent<VehicleAwardsTracker>();

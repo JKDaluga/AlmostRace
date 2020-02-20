@@ -29,8 +29,6 @@ public class HypeManager : MonoBehaviour
     public GameObject eventPanel;
     public GameObject winText;
 
-    
-
     private void Awake()
     {
         SetUpDisplay();
@@ -179,4 +177,6 @@ public class HypeManager : MonoBehaviour
         eventPanel.SetActive(false);
         winText.SetActive(false);
     }
+
+
 }
