@@ -52,6 +52,7 @@ public class VoidWasp_HomingMissile : Projectile
         if(collision.gameObject.GetComponent<Interactable>() != null)
         {
             collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+            _immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_projectileHype / 2, "Vandal!!");
             Instantiate(explodeVFX, transform.position, transform.rotation);
             Destroy(gameObject);
         }

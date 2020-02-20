@@ -49,9 +49,9 @@ public class Lux_Attack : Ability
         AudioManager.instance.Play("Lux Shooting");
         ///spawn the disk that goes forward and pass all of the information it needs to it.
         GameObject laserDiskRight = Instantiate(laserDisk, laserDiskSpawnRight.position, laserDiskSpawnRight.rotation);
-        laserDiskRight.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed, laserHypeToGain);
+        laserDiskRight.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed, diskHypeToGain);
         laserDiskRight.GetComponent<Lux_LaserDisk>().SetImmunePlayer(gameObject);
-        laserDiskRight.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserPulseRate, diskHypeToGain);
+        laserDiskRight.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserPulseRate, laserHypeToGain);
 
         ///spawn the disk that goes backward and pass all of the information it needs to it.
         GameObject laserDiskLeft = Instantiate(laserDisk, laserDiskSpawnLeft.position, laserDiskSpawnLeft.rotation);

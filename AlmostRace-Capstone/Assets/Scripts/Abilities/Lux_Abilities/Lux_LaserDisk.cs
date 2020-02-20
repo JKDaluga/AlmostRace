@@ -42,6 +42,7 @@ public class Lux_LaserDisk : Projectile
                 {
                     Debug.Log("Car found by laserEmitterLeft");
                     rayHit.collider.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
+                    _immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
                 }
            
             }
@@ -51,6 +52,7 @@ public class Lux_LaserDisk : Projectile
             {//hit an interactable
                 Debug.Log("Interactable found by laserEmitterLeft");
                 rayHit.collider.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
+                _immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
             }
 
             //Debug.DrawRay(laserEmitterLeft.position, laserEmitterLeft.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
@@ -66,6 +68,7 @@ public class Lux_LaserDisk : Projectile
                 {
                     Debug.Log("Car found by laserEmitterRight");
                     rayHit.collider.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
+                    _immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
                 }
             }
 
@@ -74,6 +77,7 @@ public class Lux_LaserDisk : Projectile
             {//hit an interactable
                 Debug.Log("Interactable found by laserEmitterRight");
                 rayHit.collider.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
+                _immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
             }
 
            // Debug.DrawRay(laserEmitterRight.position, laserEmitterRight.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
@@ -109,6 +113,7 @@ public class Lux_LaserDisk : Projectile
             {
                 Instantiate(explodeVFX, transform.position, transform.rotation);
                 collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
+                _immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_projectileHype, "Deadshot");
                 Destroy(gameObject);
             }
 
@@ -118,6 +123,7 @@ public class Lux_LaserDisk : Projectile
         {
             Instantiate(explodeVFX, transform.position, transform.rotation);
             collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+            _immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_projectileHype / 2, "Vandal!!");
             Destroy(gameObject);
         }
 
