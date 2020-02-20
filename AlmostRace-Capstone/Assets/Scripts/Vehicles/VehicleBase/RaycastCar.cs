@@ -186,7 +186,7 @@ public class RaycastCar : MonoBehaviour
 
         // calculate engine force with our flat direction vector and acceleration
         engineForce = (flatDir * (power * (throttle - reverse)) * carMass);
-
+        
         // do turning
         actualTurn = horizontal;
 
@@ -311,5 +311,11 @@ public class RaycastCar : MonoBehaviour
     public void setBoostPadSpeed(float percentage)
     {
         boostPadSpeed = maxSpeed * percentage;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(0, 0, 1, 1);
+        Gizmos.DrawRay(transform.position, engineForce.normalized * 15f);
     }
 }
