@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 
 public class AIBehaviour : MonoBehaviour
@@ -9,7 +10,7 @@ public class AIBehaviour : MonoBehaviour
     public bool reverseDirection;
     public float inputForward, inputTurn, inputBrake;
 
-    private bool _inArena;
+    public bool _inArena;
     public bool canDrive = false;
 
     RaycastCar thisCar;
@@ -29,14 +30,35 @@ public class AIBehaviour : MonoBehaviour
     private Vector3 vertexAim = Vector3.zero;
 
     private AIObstacleAvoidance avo;
+
+    private GameObject[] _aiSplines;
+    public List<GameObject> orderedSplines = new List<GameObject>();
+    private int splineIndex;
     
 
     // Start is called before the first frame update
     void Start()
     {
+        _aiSplines = GameObject.FindGameObjectsWithTag("AISpline");
+        Dictionary<float, GameObject> near = new Dictionary<float, GameObject>();
+
+        foreach(GameObject i in _aiSplines)
+        {
+            near.Add(Vector3.Distance(i.GetComponent<SplinePlus>().SPData.DictBranches[0].Vertices[0], transform.position), i);
+        }
+        int num = near.Count;
+        for(int i = 0; i < num; i++)
+        {
+            orderedSplines.Add(near[near.Keys.Min()]);
+            near.Remove(near.Keys.Min());
+        }
+
+
+        splineIndex = 0;
         avo = GetComponentInChildren<AIObstacleAvoidance>();
+        print(orderedSplines[splineIndex].name);
         //Sets ai spline to find/follow hotspotspline
-        _aiSplineScript = GameObject.FindGameObjectWithTag("AISpline").GetComponent<SplinePlus>();
+        _aiSplineScript = orderedSplines[splineIndex].GetComponent<SplinePlus>();
         //_aiSplineScript.SPData.Followers[0].Reverse = reverseDirection;
 
         _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
@@ -57,23 +79,36 @@ public class AIBehaviour : MonoBehaviour
         }
     }
 
+    public void SwapSpline()
+    {
+        splineIndex++;
+        _aiSplineScript = orderedSplines[splineIndex].GetComponent<SplinePlus>();
+
+        print(orderedSplines[splineIndex].name);
+        _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
+
+        foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
+        {
+            for (int i = 0; i < entry.Value.Nodes.Count; i++)
+            {
+                if (!_branchNodes.Contains(entry.Value.Nodes[i]))
+                {
+                    _branchNodes.Add(entry.Value.Nodes[i]);
+                }
+            }
+        }
+
+        _inArena = !_inArena;
+    }
+
     // Update is called once per frame
     void Update()
     {
 
         if (canDrive)
         {
-            if (!_inArena)
-            {
-                //A.I on single direction vehicle track
-                SetAiSpeed();
-            }
-            else
-            {
-                //Run A.I in arena script
-            }
-
-            
+            //A.I on single direction vehicle track
+            SetAiSpeed();
         }
 
     }
