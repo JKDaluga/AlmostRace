@@ -54,8 +54,11 @@ public class RaceManager : MonoBehaviour
                 }
                 else
                 {
-                    Instantiate(AICar, spawnLocations[playerNum + AINum - 1].position, spawnLocations[playerNum + AINum - 1].rotation);
-                    AINum++;
+                    if (spawnAI == true)
+                    {
+                        Instantiate(AICar, spawnLocations[playerNum + AINum - 1].position, spawnLocations[playerNum + AINum - 1].rotation);
+                        AINum++;
+                    }
                 }
             }
         }
