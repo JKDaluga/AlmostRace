@@ -210,7 +210,7 @@ public class HypeManager : MonoBehaviour
     {
         for(int i = 0; i < winScreenBoxes.Length; i++)
         {
-            if (i < vehicleList.Count)
+            if (i < vehicleList.Count && vehicleList[i].GetComponent<VehicleInput>() != null)
             {
                 int playerNum = vehicleList[i].GetComponent<VehicleInput>().getPlayerNum();
                 winScreenBoxes[i].background.color = playerColors[playerNum - 1];
