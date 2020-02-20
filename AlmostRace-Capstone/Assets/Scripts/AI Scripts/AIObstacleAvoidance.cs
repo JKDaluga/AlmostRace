@@ -22,7 +22,6 @@ public class AIObstacleAvoidance : MonoBehaviour
     private void FixedUpdate()
     {
         vel = handler.GetComponent<Rigidbody>().velocity;
-        vel = new Vector3(vel.x, 0, vel.z);
         transform.parent.rotation = Quaternion.LookRotation(vel, transform.parent.up);
 
         if (turnL)
@@ -33,8 +32,12 @@ public class AIObstacleAvoidance : MonoBehaviour
         {
             handler.inputTurn = turnAmount;
         }
+        if (GetComponent<AIBehaviour>()._inArena)
+        {
+            avoiding = false;
+        }
 
-        if (!avoiding)
+        if (!avoiding && !GetComponent<AIBehaviour>()._inArena)
         {
            
             timer += Time.deltaTime;
