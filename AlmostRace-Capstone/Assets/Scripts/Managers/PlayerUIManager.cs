@@ -119,6 +119,7 @@ public class PlayerUIManager : MonoBehaviour
     {
         if (_attacksInRange.Count > 0)
         {
+            Debug.Log(_attacksInRange.Count);
             for (int i = 0; i < _attacksInRange.Count; i++)
             {
                 if (_attacksInRange[i] == null)
@@ -147,12 +148,13 @@ public class PlayerUIManager : MonoBehaviour
                         if (currentDistance > toCloseDistance)
                         {
                             currentExclamation.SetActive(false);
-                            currentText.color = new Color32(160, 0, 0, 255);
+                            currentText.color = new Color32(0, 0, 0, 255);
                             currentText.text = currentDistance.ToString() + "m";
                         }
                         else
                         {
                             currentText.text = "";
+                            //currentText.color = new Color32(160, 0, 0, 255);
                             currentExclamation.SetActive(true);
                         }
                     }
