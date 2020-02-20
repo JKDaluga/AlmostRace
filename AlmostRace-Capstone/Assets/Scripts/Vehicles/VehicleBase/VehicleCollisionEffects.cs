@@ -60,6 +60,10 @@ public class VehicleCollisionEffects : MonoBehaviour
             {
                 _audioSource.Play();
             }
+            //foreach (ContactPoint contact in collision.contacts)
+            //{
+            //    Debug.DrawRay(contact.point, contact.normal, Color.white);
+            //} Collision Debug
         }
         else
         {

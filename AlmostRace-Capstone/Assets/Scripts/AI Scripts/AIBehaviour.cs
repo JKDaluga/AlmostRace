@@ -173,7 +173,7 @@ public class AIBehaviour : MonoBehaviour
         
 
 
-        inputForward = Mathf.Clamp((1.2f) - Mathf.Abs(inputTurn)/2, 0, 1);
+        inputForward = Mathf.Clamp((1.2f) - Mathf.Abs(inputTurn), 0, 1);
 
     }
 }
