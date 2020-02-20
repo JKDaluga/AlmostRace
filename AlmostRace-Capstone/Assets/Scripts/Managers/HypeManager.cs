@@ -16,7 +16,16 @@ using TMPro;
     Added a coroutine to track the total hype of the players. Needed for the HypeGates.
     Made sense to have the code happen once here as opposed to 4+ times across the board.
     */
-    
+
+[System.Serializable]
+public class WinScreenBox
+{
+    public Image background;
+    public TextMeshProUGUI playerTag;
+    public TextMeshProUGUI hypeAmount;
+    public TextMeshProUGUI Awards;
+}
+
 public class HypeManager : MonoBehaviour
 {
     public List<GameObject> vehicleList = new List<GameObject>();
@@ -27,7 +36,11 @@ public class HypeManager : MonoBehaviour
     private float tempTotal;
     public GameObject countdownObj;
     public GameObject eventPanel;
-    public GameObject winText;
+    public GameObject winScreen;
+
+    public WinScreenBox[] winScreenBoxes;
+
+    
 
     private void Awake()
     {
@@ -157,8 +170,8 @@ public class HypeManager : MonoBehaviour
         if(winner != this.gameObject)
         {
             eventPanel.SetActive(true);
-            winText.SetActive(true);
-            winText.GetComponent<TextMeshProUGUI>().text = "PLAYER=" + winner.GetComponent<VehicleInput>().playerNumber + "=WINS!";
+            populateWinScreen();
+            winScreen.SetActive(true);
 
             Invoke("DisableEvents", 3);
             Invoke("ReturnToMainMenu", 4);
@@ -169,14 +182,16 @@ public class HypeManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1f;
-        winText.gameObject.SetActive(false);
+        winScreen.gameObject.SetActive(false);
     }
 
     public void DisableEvents()
     {
         eventPanel.SetActive(false);
-        winText.SetActive(false);
     }
 
+    public void populateWinScreen()
+    {
 
+    }
 }
