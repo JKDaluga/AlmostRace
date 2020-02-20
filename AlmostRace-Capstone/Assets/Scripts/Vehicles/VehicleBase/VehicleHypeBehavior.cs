@@ -73,7 +73,7 @@ public class VehicleHypeBehavior : MonoBehaviour
         _hypeManagerScript.VehicleSort();
         if (GetComponent<VehicleInput>())
         {
-            if(!hypeType.Equals("Award")
+            if(!hypeType.Equals("Award"))
             {
                 GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
                 spawnedPopUp.GetComponent<TextMeshProUGUI>().text = hypeType + ": " + hypeToAdd.ToString("F0");
