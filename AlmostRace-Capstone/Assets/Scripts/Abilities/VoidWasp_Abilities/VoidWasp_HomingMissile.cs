@@ -11,14 +11,18 @@ using UnityEngine;
 public class VoidWasp_HomingMissile : Projectile
 {
     private GameObject _target;
-    private Quaternion _missileTargetRoation;
+    private Quaternion _missileTargetRotation;
     private float _turnRate;
     private float _hangTime;
     private bool _canTrack;
 
+    public GameObject explodeVFX;
+
     private void Start()
     {
+        GiveSpeed();
         StartCoroutine(hangTimeSequence());
+       
     }
 
     public void SetAdditionalInfo(GameObject giventTarget, float givenTurnRate, float givenHangTime)
@@ -30,8 +34,11 @@ public class VoidWasp_HomingMissile : Projectile
 
     private void OnTriggerEnter(Collider collision)
     {
+       
+    
         if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
+            Instantiate(explodeVFX, transform.position, transform.rotation);
             Destroy(gameObject);
         }
         if(collision.gameObject.GetComponent<CarHealthBehavior>() != null)
@@ -39,12 +46,14 @@ public class VoidWasp_HomingMissile : Projectile
             if(collision.gameObject != _immunePlayer)
             {
                 collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
+                Instantiate(explodeVFX, transform.position, transform.rotation);
                 Destroy(gameObject);
             }
         }
         if(collision.gameObject.GetComponent<Interactable>() != null)
         {
             collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+            Instantiate(explodeVFX, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }
@@ -60,8 +69,17 @@ public class VoidWasp_HomingMissile : Projectile
         _rigidBody.velocity = transform.forward * _projectileSpeed;
         if (_canTrack)
         {
-            _missileTargetRoation = Quaternion.LookRotation(_target.transform.position - transform.position);
-            _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, _missileTargetRoation, _turnRate));
+            if(_target != null)
+            {
+                _missileTargetRotation = Quaternion.LookRotation(_target.transform.position - transform.position);
+                _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, _missileTargetRotation, _turnRate));
+            }
+            else
+            {
+                Instantiate(explodeVFX, transform.position, transform.rotation);
+                Destroy(gameObject);
+            }
+         
         }
     }
 }

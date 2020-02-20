@@ -27,6 +27,8 @@ public class VoidWasp_Attack : Ability
     public float hypeToGain;
     private List<GameObject> _objectsInRange = new List<GameObject>();
 
+    private Vector3 spawnOffset;
+
     public override void ActivateAbility()
     {
         if (_objectsInRange.Count > 0)
@@ -52,7 +54,8 @@ public class VoidWasp_Attack : Ability
         for (int j = 0; j < missileDistributionCount; j++)
         {
             // Spawn the missile at the spawn position and set its values
-            GameObject currentProjectile = Instantiate(voidwaspProjectile, rocketSpawnPosition.position, rocketSpawnPosition.rotation);
+            spawnOffset = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), Random.Range(-2, 2));
+            GameObject currentProjectile = Instantiate(voidwaspProjectile, rocketSpawnPosition.position + spawnOffset, rocketSpawnPosition.rotation);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetImmunePlayer(gameObject);
