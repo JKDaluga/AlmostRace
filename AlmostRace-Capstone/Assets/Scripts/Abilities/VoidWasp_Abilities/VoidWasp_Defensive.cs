@@ -6,6 +6,7 @@ public class VoidWasp_Defensive : CooldownAbility
 {
     public float shieldHealth;
     public float siphonAmount;
+    public float siphonFrequency = 1;
     public List<GameObject> _shields;
     private CarHealthBehavior _carHealthScript;
     private List<GameObject> _objectsInRange = new List<GameObject>();
@@ -45,11 +46,11 @@ public class VoidWasp_Defensive : CooldownAbility
                     else
                     {
                         _objectsInRange[i].GetComponent<CarHealthBehavior>().DamageCar(siphonAmount);
-                        
+                        _carHealthScript.AddExtraHealth(siphonAmount);
                     }
                 }
             }
-            return null;
+            yield return new WaitForSeconds(siphonFrequency);
         }
     }
 
