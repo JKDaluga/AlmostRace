@@ -263,6 +263,13 @@ public class RaycastCar : MonoBehaviour
 
         // apply forces to our rigidbody for grip
         carRigidbody.AddForce(imp * Time.deltaTime);
+
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, carUp, out hit, 5f, LayerMask.GetMask("Ground")))
+        {
+            GetComponent<CarHealthBehavior>().Kill();
+        }
     }
 
     public float getCarMass()

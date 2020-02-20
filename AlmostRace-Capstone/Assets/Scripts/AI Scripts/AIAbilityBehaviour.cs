@@ -6,6 +6,7 @@ public class AIAbilityBehaviour : MonoBehaviour
 {
     
     public LayerMask targets, carTargets;
+    public AIObstacleAvoidance obstacleAvoidance;
     VehicleAbilityBehavior fireButton;
     RaycastHit targ;
 
@@ -26,13 +27,12 @@ public class AIAbilityBehaviour : MonoBehaviour
                 if (targ.collider.gameObject != gameObject)
                 {
                     fireButton.offensiveTrigger = true;
-                    GetComponentInChildren<AIObstacleAvoidance>().avoiding = false;
-                    GetComponentInChildren<AIObstacleAvoidance>().turnL = false;
-                    GetComponentInChildren<AIObstacleAvoidance>().turnR = false;
+                    obstacleAvoidance.avoiding = false;
+                    obstacleAvoidance.turnL = false;
+                    obstacleAvoidance.turnR = false;
                     if (Physics.Raycast(transform.position, transform.forward, 100, carTargets))
                     {
                         fireButton.boostTrigger = true;
-
                     }
                 }
                 else
