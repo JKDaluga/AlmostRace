@@ -185,6 +185,15 @@ public class HypeManager : MonoBehaviour
             AudioManager.instance.Play("Victory Music");
         }
     }
+
+    private void Update()
+    {
+        if(isGameEnded)
+        {
+            if(Input.anyKeyDown) ReturnToMainMenu();
+        }
+    }
+
     private void ReturnToMainMenu()
     {
         SceneManager.LoadScene("MainMenu");
