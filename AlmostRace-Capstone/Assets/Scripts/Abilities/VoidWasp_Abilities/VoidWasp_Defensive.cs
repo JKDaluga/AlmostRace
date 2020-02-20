@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+    /*
+    Author: Jake Velicer
+    Purpose: Contains the behavior for the Void Wasp shield.
+    In particular, when this script's activate ability is called, the shield is started.
+    Any enemy vehicles that that exist in objects in range are damaged over time.
+    At the same time, that same amount of health is applied to the players shields.
+    */
+
 public class VoidWasp_Defensive : CooldownAbility
 {
     public float shieldHealth;

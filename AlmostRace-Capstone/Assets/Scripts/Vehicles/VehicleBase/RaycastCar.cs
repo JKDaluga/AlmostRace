@@ -308,6 +308,11 @@ public class RaycastCar : MonoBehaviour
         boostSpeed = maxSpeed * percentage;
     }
 
+    public float getBoostSpeed()
+    {
+        return boostSpeed;
+    }
+
     public void setBoostPadSpeed(float percentage)
     {
         boostPadSpeed = maxSpeed * percentage;

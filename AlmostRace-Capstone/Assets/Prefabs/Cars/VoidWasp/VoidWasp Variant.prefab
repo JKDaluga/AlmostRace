@@ -92,44 +92,6 @@ Transform:
   m_Father: {fileID: 3515488990714737071}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &19240825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5118665948225132620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62e442bfb6a5abe4c9e3c3d10f793204, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  shieldHealth: 25
-  siphonAmount: 1
-  siphonFrequency: 0.1
-  _shields: []
---- !u!114 &1086902515053612487
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5118665948225132620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aaa790eded39fc40aaa1fb4203544f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  voidwaspProjectile: {fileID: 5603047786027838403, guid: a7cf83b4c6da25940ab3ed47d085fdab,
-    type: 3}
-  rocketSpawnPosition: {fileID: 7579997118822129727}
-  missileDamage: 10
-  missileSpeed: 160
-  projectileCount: 25
-  turnRate: 20
-  timeBetweenLaunch: 0.1
-  hangTime: 0.3
-  hypeToGain: 20
 --- !u!1 &5445097234548563753
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,6 +151,58 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defenseScript: {fileID: 19240825}
+--- !u!114 &19240825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5118665948225132620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62e442bfb6a5abe4c9e3c3d10f793204, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shieldHealth: 25
+  siphonAmount: 1
+  siphonFrequency: 0.1
+  _shields: []
+--- !u!114 &1086902515053612487
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5118665948225132620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aaa790eded39fc40aaa1fb4203544f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  voidwaspProjectile: {fileID: 5603047786027838403, guid: a7cf83b4c6da25940ab3ed47d085fdab,
+    type: 3}
+  rocketSpawnPosition: {fileID: 7579997118822129727}
+  missileDamage: 10
+  missileSpeed: 160
+  projectileCount: 25
+  turnRate: 20
+  timeBetweenLaunch: 0.1
+  hangTime: 0.3
+  hypeToGain: 20
+--- !u!114 &480119999394531013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5118665948225132620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2535cb7de3f0cd4a81785f0f44232f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfHeatDamage: 0
+  boostSpeedPercentage: 50
 --- !u!1 &6341530867107349506
 GameObject:
   m_ObjectHideFlags: 0
@@ -14181,7 +14195,7 @@ PrefabInstance:
     - target: {fileID: 644788421544090394, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_Name
-      value: VoidWasp Variant (1)
+      value: VoidWasp Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8938214498588058289, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
@@ -14268,6 +14282,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.2499999
       objectReference: {fileID: 0}
+    - target: {fileID: 716463124009632865, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3240311213283490686, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: offensiveAbility
@@ -14287,6 +14306,41 @@ PrefabInstance:
         type: 3}
       propertyPath: defensiveAbilityDuration
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3512233768307141550, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5145035194956675732, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5145035194956675732, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7246809434146495432, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7246809434146495432, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7246809434146495432, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7246809434146495432, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 28eb1ec0d234c8d49b746c202b4fabd8, type: 3}
