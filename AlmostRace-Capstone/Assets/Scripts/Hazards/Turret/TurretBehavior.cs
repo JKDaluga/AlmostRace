@@ -149,7 +149,7 @@ public class TurretBehavior : Interactable
                 turretHead.transform.rotation = Quaternion.RotateTowards(turretHead.transform.rotation, m_lookAtRotation, 30 * Time.deltaTime);
             }*/
 
-            Vector3 pos = predictedPosition(currentTarget.transform.position, turretMuzzle.position, currentTarget.GetComponent<SphereCarController>().sphere.velocity, turretProjectileSpeed);
+            Vector3 pos = predictedPosition(currentTarget.transform.position, turretMuzzle.position, currentTarget.GetComponent<RaycastCar>().GetRelativeVelocity(), turretProjectileSpeed);
 
             turretHead.LookAt(pos);//look at current target
         }
@@ -198,10 +198,6 @@ public class TurretBehavior : Interactable
                 extraSpawnedProjectile.transform.Rotate(Random.Range(-.5f, .5f), Random.Range(-2,2), Random.Range(-.5f, .5f));
             }
            
-
-
-           
-
         }
 
     }

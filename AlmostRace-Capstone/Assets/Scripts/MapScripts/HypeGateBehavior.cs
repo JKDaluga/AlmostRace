@@ -43,7 +43,7 @@ public class HypeGateBehavior : MonoBehaviour
     {
         _hypeManager = FindObjectOfType<HypeManager>();
         _hotSpotBotScript = GameObject.Find("HotSpotBot").GetComponent<HotSpotBotBehavior>();
-        if(_hypeManager != null)
+        if (_hypeManager != null)
         {
             _carsInGame = _hypeManager.vehicleList.Count;
         }
@@ -66,21 +66,25 @@ public class HypeGateBehavior : MonoBehaviour
             Debug.LogError("Hype Manager not found!");
         }
         float playerPercentage;
-        while(true)
+        while (true)
         {
             playerPercentage = ((float)carsInRange.Count / (float)_carsInGame);
             //Debug.Log((float)(carsInRange.Count / _carsInGame));
             if (carsInRange.Count < _carsInGame)
             {
-                foreach(GameObject car in _hypeManager.vehicleList)
+                foreach (GameObject car in _hypeManager.vehicleList)
                 {
-                    car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.ActivateArenaHypeDisplay();
-                    car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.arenaHypeText.text = "Arena Locked";
-                    car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockBottomFill.fillAmount = playerPercentage;
+                    if (car.gameObject.GetComponent<VehicleInput>() != null)
+                    {
+                        car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.ActivateArenaHypeDisplay();
+                        car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.arenaHypeText.text = "Arena Locked";
+                        car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockBottomFill.fillAmount = playerPercentage;
+                    }
+
                 }
                 yield return null;
             }
-            else if(carsInRange.Count == _carsInGame)
+            else if (carsInRange.Count == _carsInGame)
             {
                 eventPanel.SetActive(true);
                 arenaActiveText.SetActive(true);
@@ -90,15 +94,16 @@ public class HypeGateBehavior : MonoBehaviour
 
                 foreach (GameObject car in _hypeManager.vehicleList)
                 {
-                    car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockBottomFill.fillAmount = 1;
-                    
-
-                    car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.arenaHypeText.text = "Arena Hype";
+                    if (car.gameObject.GetComponent<VehicleInput>() != null)
+                    {
+                        car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockBottomFill.fillAmount = 1;
+                        car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.arenaHypeText.text = "Arena Hype";
+                    }
                 }
 
                 Invoke("CloseGate", 1);
 
-               
+
                 StopAllCoroutines();
                 StartCoroutine(TrackHype());
                 _hotSpotBotScript.SetVehiclesIn(true);
@@ -108,7 +113,7 @@ public class HypeGateBehavior : MonoBehaviour
             yield return null;
         }
     }
-    
+
     public void CloseGate()
     {
         gateToClose.SetActive(true);
@@ -123,7 +128,7 @@ public class HypeGateBehavior : MonoBehaviour
     }
 
     public IEnumerator TrackHype()
-    {    
+    {
         while (true)
         {
             _currentHype = _hypeManager.totalHype;
@@ -132,9 +137,9 @@ public class HypeGateBehavior : MonoBehaviour
                 UpdateDisplays();
                 yield return null;
             }
-            else if(_currentHype >= _hypeLimitActual)
+            else if (_currentHype >= _hypeLimitActual)
             {
-                if(isFinalHypeGate)
+                if (isFinalHypeGate)
                 {
                     FinishDisplays();
                     _hypeManager.StartCoroutine(_hypeManager.EndGameCountDown(5));
@@ -155,7 +160,7 @@ public class HypeGateBehavior : MonoBehaviour
                     arenaEndText.SetActive(true);
 
                     Invoke("DisableEvents", 3);
-                }  
+                }
                 //StopCoroutine(TrackHype());
                 StopAllCoroutines();
                 yield return null;
@@ -166,14 +171,18 @@ public class HypeGateBehavior : MonoBehaviour
 
     public void UpdateDisplays()
     {
-        foreach(TextMeshProUGUI displayText in displayTexts)
+        foreach (TextMeshProUGUI displayText in displayTexts)
         {
-            displayText.text = ((_currentHype - _displayHype) /  hypeLimit * 100).ToString("F0") + "%";
+            displayText.text = ((_currentHype - _displayHype) / hypeLimit * 100).ToString("F0") + "%";
         }
+
         foreach (GameObject car in _hypeManager.vehicleList)
         {
-            car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockTopFill.fillAmount = (_currentHype - _displayHype) / hypeLimit; 
-            car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.SetArenaHypeDisplayNumber(((_currentHype - _displayHype) / hypeLimit * 100));
+            if (car.gameObject.GetComponent<VehicleInput>() != null)
+            {
+                car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockTopFill.fillAmount = (_currentHype - _displayHype) / hypeLimit;
+                car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.SetArenaHypeDisplayNumber(((_currentHype - _displayHype) / hypeLimit * 100));
+            }
         }
     }
 
@@ -185,8 +194,11 @@ public class HypeGateBehavior : MonoBehaviour
         }
         foreach (GameObject car in _hypeManager.vehicleList)
         {
-            car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.SetArenaHypeDisplayNumber(100);
-            car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.UnlockArena();
+            if (car.gameObject.GetComponent<VehicleInput>() != null)
+            {
+                car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.SetArenaHypeDisplayNumber(100);
+                car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.UnlockArena();
+            }
 
         }
         Invoke("DisableDisplays", 1);
@@ -196,7 +208,10 @@ public class HypeGateBehavior : MonoBehaviour
     {
         foreach (GameObject car in _hypeManager.vehicleList)
         {
-            car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.DeactivateArenaHypeDisplay();
+            if (car.gameObject.GetComponent<VehicleInput>() != null)
+            {
+                car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.DeactivateArenaHypeDisplay();
+            }
         }
     }
 
