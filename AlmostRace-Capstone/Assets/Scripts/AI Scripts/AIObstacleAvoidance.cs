@@ -32,12 +32,13 @@ public class AIObstacleAvoidance : MonoBehaviour
         {
             handler.inputTurn = turnAmount;
         }
-        if (GetComponent<AIBehaviour>()._inArena)
+        AIBehaviour behavior = GetComponent<AIBehaviour>();
+        if (behavior != null && behavior._inArena)
         {
             avoiding = false;
         }
 
-        if (!avoiding && !GetComponent<AIBehaviour>()._inArena)
+        if (!avoiding && behavior != null && !behavior._inArena)
         {
            
             timer += Time.deltaTime;
