@@ -56,6 +56,7 @@ public class VoidWasp_Attack : Ability
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetImmunePlayer(gameObject);
+            AudioManager.instance.Play("VoidWasp Shot");
             Destroy(currentProjectile, 7);
             yield return new WaitForSeconds(timeBetweenLaunch);
         }

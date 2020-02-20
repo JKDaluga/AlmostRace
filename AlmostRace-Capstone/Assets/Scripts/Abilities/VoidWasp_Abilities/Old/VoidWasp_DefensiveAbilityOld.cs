@@ -10,7 +10,7 @@ using UnityEngine;
  *   Passes public shield variable settings into the shield behaviour.  
  * */
 
-public class VoidWasp_DefensiveAbility : CooldownAbility
+public class VoidWasp_DefensiveAbilityOld : CooldownAbility
 {
 
     [Tooltip("Set the max amount of damage the shield can absorb")]
