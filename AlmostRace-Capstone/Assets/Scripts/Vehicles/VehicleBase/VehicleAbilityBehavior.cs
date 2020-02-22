@@ -61,6 +61,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [HideInInspector] public bool boostTrigger = false;
     private VehicleAwardsTracker tracker;
 
+    public bool abilitiesActivated;
 
     private void Awake()
     {
@@ -88,7 +89,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         getInput();
 
         // Basic Ability Call
-        if (offensiveAbility != null && offensiveTrigger) //placed here just so that the BallCar prefab doesn't throw nulls
+        if (offensiveAbility != null && offensiveTrigger && abilitiesActivated) //placed here just so that the BallCar prefab doesn't throw nulls
         {
             if(fireAbility(offensiveAbility, _canUseBasic, offensiveAbilityCooldown, offensiveAbilityDark, 'o'))
             {
@@ -98,7 +99,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         }
 
         // Signature Ability Call
-        if (defensiveAbility != null && defensiveTrigger)
+        if (defensiveAbility != null && defensiveTrigger && abilitiesActivated)
         {
             if (fireAbility(defensiveAbility, _canUseDefensiveAbility, defensiveAbilityCooldown, defensiveAbilityDark, 'd'))
             {
@@ -109,7 +110,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         }
 
         // Boost Ability Call
-        if (boostAbility != null && boostTrigger)
+        if (boostAbility != null && boostTrigger && abilitiesActivated)
         {
             if (fireAbility(boostAbility, _canBoost, boostAbilityCooldown, boostAbilityDark, 'b'))
             {
@@ -244,5 +245,11 @@ public class VehicleAbilityBehavior : MonoBehaviour
                 boostTrigger = Input.GetButtonDown(_vehicleInput.pickupInput);
             }
         }
+    }
+
+    public void Activation()
+    {
+        abilitiesActivated = true;
+        print("Abilities on");
     }
 }
