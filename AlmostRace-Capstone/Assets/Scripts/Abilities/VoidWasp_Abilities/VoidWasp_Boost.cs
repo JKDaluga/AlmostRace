@@ -13,6 +13,7 @@ using UnityEngine;
 public class VoidWasp_Boost : CooldownHeatAbility
 {
     [Range(0, 100)] public float boostSpeedPercentage;
+    public float healthLossActivateAmount = 25;
     private float currentBoostPercentage;
     public GameObject[] companions;
     private RaycastCar carInfo;
@@ -42,13 +43,23 @@ public class VoidWasp_Boost : CooldownHeatAbility
     private IEnumerator CompanionBehavior()
     {
         float startHealth = carHeatInfo.healthCurrent;
+        float lastHealth = startHealth;
+        float difference = 0;
         while(true)
         {
-            if ((carHeatInfo.healthCurrent / startHealth) * 100 < 75)
+            startHealth = carHeatInfo.healthCurrent;
+            float healthToAdd = lastHealth - startHealth;
+            difference = Mathf.Abs(difference += healthToAdd);
+            lastHealth = startHealth;
+            
+            //if ((carHeatInfo.healthCurrent / startHealth) * 100 < 75)
+            if (difference > healthLossActivateAmount)
             {
                 currentBoostPercentage = currentBoostPercentage * 0.75f;
                 carInfo.setBoostSpeed(currentBoostPercentage);
-                startHealth = carHeatInfo.healthCurrent;
+                //startHealth = carHeatInfo.healthCurrent;
+                difference = 0;
+
                 for (int i = companions.Length - 1; i > 0; i--)
                 {
                     if(companions[i].activeSelf)
