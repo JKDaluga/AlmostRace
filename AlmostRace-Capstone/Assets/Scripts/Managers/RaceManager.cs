@@ -13,7 +13,8 @@ public class RaceManager : MonoBehaviour
     public bool spawnAI = false;
     public GameObject[] carPool;
 
-    public GameObject AICar;
+    public GameObject[] AICar;
+    private int AIindex;
 
     public Transform[] spawnLocations;
 
@@ -30,6 +31,7 @@ public class RaceManager : MonoBehaviour
     {
         fourthPlayerPanel.SetActive(false);
         eventPanel = GameObject.FindGameObjectWithTag("EventPanel");
+        AIindex = Random.Range(0, AICar.Length);
         rt = eventPanel.GetComponent<RectTransform>();
         rt.offsetMin = new Vector2(0, 0);
         rt.offsetMax = new Vector2(0, 0);
@@ -56,8 +58,13 @@ public class RaceManager : MonoBehaviour
                 {
                     if (spawnAI == true)
                     {
-                        Instantiate(AICar, spawnLocations[playerNum + AINum - 1].position, spawnLocations[playerNum + AINum - 1].rotation);
+                        Instantiate(AICar[AIindex], spawnLocations[playerNum + AINum - 1].position, spawnLocations[playerNum + AINum - 1].rotation);
                         AINum++;
+                        AIindex++;
+                        if(AIindex >= AICar.Length)
+                        {
+                            AIindex = 0;
+                        }
                     }
                 }
             }
