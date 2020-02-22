@@ -214,7 +214,7 @@ public class RaycastCar : MonoBehaviour
         }
         else
         {
-            carRigidbody.AddForce(gravityDirection.normalized * gravity * carRigidbody.mass);
+            carRigidbody.AddForce(Vector3.down * gravity * carRigidbody.mass);
         }
         
 
