@@ -21,24 +21,50 @@ public class AIAbilityBehaviour : MonoBehaviour
     {
         if (GetComponent<AIBehaviour>().canDrive)
         {
-
-            if (Physics.Raycast(transform.position, transform.forward, out targ, 100, targets))
+            if (GetComponent<VoidWasp_Attack>())
             {
-                if (targ.collider.gameObject != gameObject)
+                if(GetComponent<VoidWasp_Attack>().ObjectCount() > 0)
                 {
                     fireButton.offensiveTrigger = true;
                     obstacleAvoidance.avoiding = false;
                     obstacleAvoidance.turnL = false;
                     obstacleAvoidance.turnR = false;
-                    if (Physics.Raycast(transform.position, transform.forward, 100, carTargets))
-                    {
-                        fireButton.boostTrigger = true;
-                    }
+                    
                 }
                 else
                 {
                     fireButton.offensiveTrigger = false;
+                    
+                }
+                if (Physics.Raycast(transform.position, transform.forward, 100, carTargets))
+                {
+                    fireButton.boostTrigger = true;
+                }
+                else
+                {
                     fireButton.boostTrigger = false;
+                }
+            }
+            else
+            {
+                if (Physics.Raycast(transform.position, transform.forward, out targ, 100, targets))
+                {
+                    if (targ.collider.gameObject != gameObject)
+                    {
+                        fireButton.offensiveTrigger = true;
+                        obstacleAvoidance.avoiding = false;
+                        obstacleAvoidance.turnL = false;
+                        obstacleAvoidance.turnR = false;
+                        if (Physics.Raycast(transform.position, transform.forward, 100, carTargets))
+                        {
+                            fireButton.boostTrigger = true;
+                        }
+                    }
+                    else
+                    {
+                        fireButton.offensiveTrigger = false;
+                        fireButton.boostTrigger = false;
+                    }
                 }
             }
 

@@ -82,4 +82,9 @@ public class VoidWasp_Attack : Ability
             }
         }
     }
+
+    public int ObjectCount()
+    {
+        return _objectsInRange.Count;
+    }
 }
