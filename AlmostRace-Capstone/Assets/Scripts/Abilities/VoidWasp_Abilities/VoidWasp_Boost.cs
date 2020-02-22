@@ -45,6 +45,7 @@ public class VoidWasp_Boost : CooldownHeatAbility
         float startHealth = carHeatInfo.healthCurrent;
         float lastHealth = startHealth;
         float difference = 0;
+        
         while(true)
         {
             startHealth = carHeatInfo.healthCurrent;
@@ -52,12 +53,10 @@ public class VoidWasp_Boost : CooldownHeatAbility
             difference = Mathf.Abs(difference += healthToAdd);
             lastHealth = startHealth;
             
-            //if ((carHeatInfo.healthCurrent / startHealth) * 100 < 75)
             if (difference > healthLossActivateAmount)
             {
                 currentBoostPercentage = currentBoostPercentage * 0.75f;
                 carInfo.setBoostSpeed(currentBoostPercentage);
-                //startHealth = carHeatInfo.healthCurrent;
                 difference = 0;
 
                 for (int i = companions.Length - 1; i > 0; i--)
