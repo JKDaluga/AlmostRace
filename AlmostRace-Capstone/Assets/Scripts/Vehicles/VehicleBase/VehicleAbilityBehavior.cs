@@ -61,6 +61,8 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [HideInInspector] public bool boostTrigger = false;
     private VehicleAwardsTracker tracker;
 
+    [Header ("Ability Activator.................................................................................")]
+    [Tooltip("Boolean that lets cars use their abilities")]
     public bool abilitiesActivated;
 
     private void Awake()
