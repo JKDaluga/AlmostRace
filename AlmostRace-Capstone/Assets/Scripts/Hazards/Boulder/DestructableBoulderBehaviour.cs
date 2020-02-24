@@ -25,6 +25,9 @@ public class DestructableBoulderBehaviour : Interactable
     [Tooltip("Attach boulder particle effect.")]
     public ParticleSystem boulderParticles;
 
+    public GameObject speedCrystal;
+    private SpeedBoostCrystal speedCrystalScript;
+
     private MeshRenderer rend;
     private Collider coll;
 
@@ -38,6 +41,8 @@ public class DestructableBoulderBehaviour : Interactable
         coll = this.GetComponent<Collider>();
         rend.enabled = true;
         coll.enabled = true;
+
+        speedCrystalScript = speedCrystal.GetComponent<SpeedBoostCrystal>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -107,7 +112,8 @@ public class DestructableBoulderBehaviour : Interactable
         coll.enabled = false;
 
         AudioManager.instance.Play("RockExplosion");
-
+        speedCrystal.SetActive(true);
+        speedCrystalScript.ActivateCrystal();
         Invoke("DestroyInteractable", boulderParticles.main.startLifetime.constant);
     }
 
@@ -123,7 +129,7 @@ public class DestructableBoulderBehaviour : Interactable
             }
         }
 
-            Destroy(transform.parent.gameObject);
+            Destroy(gameObject);
     }
 
     public override void ResetInteractable()
