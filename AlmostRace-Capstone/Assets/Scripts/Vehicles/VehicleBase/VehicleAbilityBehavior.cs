@@ -119,6 +119,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
                 _canBoost = false;
                 StartCoroutine(BoostAbilityCooldown());
                 StartCoroutine(BoostAbilityDuration());
+                GetComponent<RaycastCar>().isBoosting = true;
                 AudioManager.instance.Play("Boost");
             }
 
@@ -228,6 +229,8 @@ public class VehicleAbilityBehavior : MonoBehaviour
         }
         boostAbility.DeactivateAbility();
         GetComponent<RaycastCar>().cheatPhysics();
+
+        GetComponent<RaycastCar>().isBoosting = false;
     }
 
     private void getInput()

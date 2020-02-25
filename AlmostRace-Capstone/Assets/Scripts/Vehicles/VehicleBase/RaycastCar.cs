@@ -66,9 +66,11 @@ public class RaycastCar : MonoBehaviour
 
     public float deceleration = 5f;
     public float turnBackMultiplier  = 1.5f;
+    public float boostAccelerationMulti = 1.5f;
 
 
     private float slideSpeed;
+    public bool isBoosting;
 
     private Vector3 carRight;
     private Vector3 carFwd;
@@ -188,7 +190,11 @@ public class RaycastCar : MonoBehaviour
 
         // calculate engine force with our flat direction vector and acceleration
         engineForce = (flatDir * (power * (throttle - reverse)) * carMass);
-        
+
+        if (isBoosting)
+        {
+            engineForce *= boostAccelerationMulti;
+        }
         // do turning
         actualTurn = horizontal;
 
