@@ -16,6 +16,7 @@ public class RaycastCar : MonoBehaviour
     public float currentSpeed;
     public float currentTurnSpeed;
     public float actualGrip;
+    public Vector3 relativeAngularVel;
     private float deadZone = .1f;
     private Vector3 myRight;
     private Vector3 vel;
@@ -182,7 +183,8 @@ public class RaycastCar : MonoBehaviour
 
         // calculate current speed (the magnitude of the flat velocity)
         currentSpeed = flatVel.magnitude;
-        currentTurnSpeed = Mathf.Abs(carRigidbody.angularVelocity.y);
+        relativeAngularVel = carTransform.InverseTransformDirection(carRigidbody.angularVelocity);
+        currentTurnSpeed = Mathf.Abs(relativeAngularVel.y);
 
         // calculate engine force with our flat direction vector and acceleration
         engineForce = (flatDir * (power * (throttle - reverse)) * carMass);
@@ -231,9 +233,11 @@ public class RaycastCar : MonoBehaviour
             tempMaxTurnSpeed *= driftStrength;
         }
 
-        if (currentTurnSpeed < tempMaxTurnSpeed || carRigidbody.angularVelocity.y * horizontal < 0f)
+        
+
+        if (currentTurnSpeed < tempMaxTurnSpeed || relativeAngularVel.y * horizontal < 0f)
         {
-            if(carRigidbody.angularVelocity.y * horizontal < 0f)
+            if(relativeAngularVel.y * horizontal < 0f)
             {
                 carRigidbody.AddTorque(turnBackMultiplier * turnVec * Time.deltaTime);
             }
