@@ -31,6 +31,8 @@ namespace QFX.SFX
 
         private LineRenderer _lineRenderer;
 
+        private int ignore = ~LayerMask.GetMask("AISight");
+
         public override void Setup()
         {
             base.Setup();
@@ -83,7 +85,7 @@ namespace QFX.SFX
             _appearProgress = Mathf.Clamp01(_appearProgress);
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, MaxDistance))
+            if (Physics.Raycast(transform.position, transform.forward, out hit, MaxDistance, ignore))
                 EndPosition = hit.point;
             else EndPosition = transform.position + transform.forward * MaxDistance;
 
