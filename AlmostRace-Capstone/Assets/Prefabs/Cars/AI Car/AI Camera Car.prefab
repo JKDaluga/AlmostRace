@@ -200,6 +200,7 @@ MonoBehaviour:
   handler: {fileID: 7657711622964808644}
   turnL: 0
   turnR: 0
+  avoiding: 1
   turnAmount: 1.15
   turnOverride: 10
 --- !u!1 &7396770869572084317
@@ -25155,7 +25156,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7657711622921208390}
   m_Layer: 0
-  m_Name: AICar
+  m_Name: AI Camera Car
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25437,6 +25438,7 @@ GameObject:
   - component: {fileID: 7657711622964808645}
   - component: {fileID: 7657711622964808644}
   - component: {fileID: 7762107824344671746}
+  - component: {fileID: 7799262274955937709}
   m_Layer: 0
   m_Name: Car
   m_TagString: Untagged
@@ -25523,6 +25525,7 @@ MonoBehaviour:
   currentSpeed: 0
   currentTurnSpeed: 0
   actualGrip: 0
+  relativeAngularVel: {x: 0, y: 0, z: 0}
   UIPanel: {fileID: 7657711624577727925}
   secondaryUIPanel: {fileID: 7657711622675721096}
   frontLeftWheel: {fileID: 7657711623652103336}
@@ -25542,6 +25545,10 @@ MonoBehaviour:
   driftStrength: 1.3
   springFallDisengangeSpeed: 50
   spring: 4000
+  deceleration: 5
+  turnBackMultiplier: 1.5
+  boostAccelerationMulti: 1.5
+  isBoosting: 0
 --- !u!114 &7657711622964808655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25676,6 +25683,7 @@ MonoBehaviour:
   offensiveTrigger: 0
   defensiveTrigger: 0
   boostTrigger: 0
+  abilitiesActivated: 0
 --- !u!114 &7657711622964808643
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25775,7 +25783,10 @@ MonoBehaviour:
   inputForward: 0
   inputTurn: 0
   inputBrake: 0
+  _inArena: 0
   canDrive: 0
+  thisCar: {fileID: 0}
+  orderedSplines: []
 --- !u!114 &7762107824344671746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25793,7 +25804,20 @@ MonoBehaviour:
     m_Bits: 4194560
   carTargets:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
+  obstacleAvoidance: {fileID: 0}
+--- !u!114 &7799262274955937709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7657711622964808667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd6f32c5403332c479b0a81dfc8ab814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7657711622995300319
 GameObject:
   m_ObjectHideFlags: 0
