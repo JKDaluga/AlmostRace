@@ -114572,6 +114572,7 @@ GameObject:
   - component: {fileID: 3878126120493501770}
   - component: {fileID: 9065056328527567040}
   - component: {fileID: 9065056328527567055}
+  - component: {fileID: 4935352460558107397}
   m_Layer: 8
   m_Name: Car
   m_TagString: Untagged
@@ -114656,6 +114657,7 @@ MonoBehaviour:
   currentSpeed: 0
   currentTurnSpeed: 0
   actualGrip: 0
+  relativeAngularVel: {x: 0, y: 0, z: 0}
   UIPanel: {fileID: 0}
   secondaryUIPanel: {fileID: 0}
   frontLeftWheel: {fileID: 9148350972848203864}
@@ -114677,6 +114679,10 @@ MonoBehaviour:
   spring: 3500
   deceleration: 2
   turnBackMultiplier: 5
+  boostAccelerationMulti: 1.5
+  isBoosting: 0
+  orderedSplines: []
+  closestIndex: 0
 --- !u!114 &394051805758969782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114802,6 +114808,7 @@ MonoBehaviour:
   offensiveTrigger: 0
   defensiveTrigger: 0
   boostTrigger: 0
+  abilitiesActivated: 0
 --- !u!114 &4234697827650344948
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114817,6 +114824,8 @@ MonoBehaviour:
   shieldHealth: 25
   siphonAmount: 1
   siphonFrequency: 0.1
+  minParticleCount: 20
+  maxParticleCount: 50
   _shields:
   - {fileID: 7117111851896915073}
 --- !u!114 &4354155813366580808
@@ -114833,11 +114842,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selfHeatDamage: 0
   boostSpeedPercentage: 50
+  healthLossActivateAmount: 25
   companions:
   - {fileID: 4234697826499089461}
   - {fileID: 4234697826077834461}
   - {fileID: 4234697826911689541}
   - {fileID: 4234697825983037756}
+  explodeVFX: {fileID: 0}
 --- !u!114 &3878126120493501770
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114879,6 +114890,7 @@ MonoBehaviour:
   _inArena: 0
   canDrive: 0
   thisCar: {fileID: 0}
+  closestIndex: 0
   orderedSplines: []
 --- !u!114 &9065056328527567055
 MonoBehaviour:
@@ -114899,6 +114911,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   obstacleAvoidance: {fileID: 6075043411905383103}
+--- !u!114 &4935352460558107397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9065056328527567041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd6f32c5403332c479b0a81dfc8ab814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  players: []
+  arena: {fileID: 0}
+  killDist: 40
 --- !u!1 &9148350971418689260
 GameObject:
   m_ObjectHideFlags: 0

@@ -29010,6 +29010,7 @@ GameObject:
   - component: {fileID: 7312026204521425900}
   - component: {fileID: 3713964755092531435}
   - component: {fileID: 3713964755092531434}
+  - component: {fileID: 1458886758787832873}
   m_Layer: 8
   m_Name: Car
   m_TagString: Untagged
@@ -29094,6 +29095,7 @@ MonoBehaviour:
   currentSpeed: 0
   currentTurnSpeed: 0
   actualGrip: 0
+  relativeAngularVel: {x: 0, y: 0, z: 0}
   UIPanel: {fileID: 0}
   secondaryUIPanel: {fileID: 0}
   frontLeftWheel: {fileID: 3508958639994034288}
@@ -29115,6 +29117,10 @@ MonoBehaviour:
   spring: 4000
   deceleration: 2
   turnBackMultiplier: 5
+  boostAccelerationMulti: 1.5
+  isBoosting: 0
+  orderedSplines: []
+  closestIndex: 0
 --- !u!114 &5418076574753482654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29240,6 +29246,7 @@ MonoBehaviour:
   offensiveTrigger: 0
   defensiveTrigger: 0
   boostTrigger: 0
+  abilitiesActivated: 0
 --- !u!114 &2972834113377361533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29314,6 +29321,7 @@ MonoBehaviour:
   _inArena: 0
   canDrive: 0
   thisCar: {fileID: 6894343742012296677}
+  closestIndex: 0
   orderedSplines: []
 --- !u!114 &3713964755092531434
 MonoBehaviour:
@@ -29334,6 +29342,21 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   obstacleAvoidance: {fileID: 2316511470187682136}
+--- !u!114 &1458886758787832873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713964755092531433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd6f32c5403332c479b0a81dfc8ab814, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  players: []
+  arena: {fileID: 0}
+  killDist: 40
 --- !u!1 &4105726568984030288
 GameObject:
   m_ObjectHideFlags: 0
