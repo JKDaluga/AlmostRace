@@ -42,6 +42,7 @@ public class CarHealthBehavior : MonoBehaviour
     public float engineFlashFreq = .4f;
     private bool engineIsFlash = false;
     private bool isFlashing = false;
+    
     private void Start()
     {
         _vehicleInput = GetComponent<VehicleInput>();
