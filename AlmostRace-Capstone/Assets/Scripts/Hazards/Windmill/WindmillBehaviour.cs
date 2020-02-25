@@ -2,40 +2,31 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WindmillBehaviour : Interactable
+public class WindmillBehaviour : MonoBehaviour
 {
+
+    public GameObject linkedLaser;
+    public GameObject interactingPlayer;
+    public float laserSpeed;
+    public float speedUpAmount;
+    public float extraShieldAmount;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        linkedLaser.GetComponent<WindmillLaserBehaviour>().UpdateBaseSpeed(laserSpeed);
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void OnTriggerEnter(Collider collision)
     {
+        if (collision.gameObject.GetComponent<CarHealthBehavior>() != null)
+        {
+            interactingPlayer = collision.gameObject;
+            interactingPlayer.GetComponent<CarHealthBehavior>().AddExtraHealth(extraShieldAmount);
 
+            linkedLaser.GetComponent<WindmillLaserBehaviour>().UpdateBaseSpeed(speedUpAmount);
+        }
     }
-
-    public override void DamageInteractable(float damageNumber)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void DestroyInteractable()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void ResetInteractable()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public override void TriggerInteractable()
-    {
-        throw new System.NotImplementedException();
-    }
-
 
 }
