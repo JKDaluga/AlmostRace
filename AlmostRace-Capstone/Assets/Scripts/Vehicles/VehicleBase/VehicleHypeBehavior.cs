@@ -64,11 +64,11 @@ public class VehicleHypeBehavior : MonoBehaviour
             // Debug.Log(hypeToAdd + " was added to " + gameObject.name + " from " + hypeType);
             if (hypeToAdd >= bigHypeAmount)
             {
-                AudioManager.instance.Play("Audience");
+                AudioManager.instance.PlayWithoutSpatial("Audience");
             }
             else
             {
-                AudioManager.instance.Play("Low Hype");
+                AudioManager.instance.PlayWithoutSpatial("Low Hype");
             }
             //_hypeAmount += hypeToAdd;
             _hypeAmount = _hypeAmount + hypeToAdd;

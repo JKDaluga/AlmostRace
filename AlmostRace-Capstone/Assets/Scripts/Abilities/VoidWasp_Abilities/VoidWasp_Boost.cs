@@ -66,7 +66,7 @@ public class VoidWasp_Boost : CooldownHeatAbility
                     {
                         companions[i].SetActive(false);
                         Instantiate(explodeVFX, companions[i].transform.position, companions[i].transform.rotation);
-                        AudioManager.instance.Play("VoidWasp Companion Death");
+                        AudioManager.instance.Play("VoidWasp Companion Death", transform);
                         break;
                     }
                 }
@@ -87,7 +87,7 @@ public class VoidWasp_Boost : CooldownHeatAbility
         {
             companions[i].SetActive(false);
             Instantiate(explodeVFX, companions[i].transform.position, companions[i].transform.rotation);
-            AudioManager.instance.Play("VoidWasp Companion Death");
+            AudioManager.instance.Play("VoidWasp Companion Death", transform);
         }
         isBoosting = false;
     }

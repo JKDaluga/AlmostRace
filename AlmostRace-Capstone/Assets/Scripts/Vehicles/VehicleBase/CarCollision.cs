@@ -39,7 +39,7 @@ public class CarCollision : MonoBehaviour
             Vector3 relativeVelocity = rb.velocity - other_rb.velocity;
             Vector3 relativePosition = rb.position - other_rb.position;
             collisionEffectsScript.CreateSparks(collision);
-            AudioManager.instance.Play("General collision");
+            AudioManager.instance.Play("General collision", transform);
 
             //calculating the angle in radians then converting it to degrees
             float angleBetween = Mathf.Acos(Vector3.Dot(relativeVelocity.normalized, relativePosition.normalized))* 180 / Mathf.PI;

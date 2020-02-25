@@ -32,7 +32,7 @@ public class VoidWasp_Defensive : CooldownAbility
 
     public override void ActivateAbility()
     {
-        AudioManager.instance.Play("Shield Activated");
+        AudioManager.instance.Play("Shield Activated", transform);
         _carHealthScript.SetExtraHealth(shieldHealth);
         foreach (GameObject shield in _shields)
         {

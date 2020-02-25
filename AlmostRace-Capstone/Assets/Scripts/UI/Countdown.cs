@@ -33,7 +33,7 @@ public class Countdown : MonoBehaviour
             _countText.text = count.ToString();
             yield return new WaitForSeconds(1);
             count--;
-            AudioManager.instance.Play("Countdown");
+            AudioManager.instance.PlayWithoutSpatial("Countdown");
         }
 
         _arrV = FindObjectsOfType<VehicleInput>();
@@ -42,7 +42,7 @@ public class Countdown : MonoBehaviour
         _startStatus = false;
 
         gameObject.SetActive(false);
-        AudioManager.instance.Play("Countdown End");
+        AudioManager.instance.PlayWithoutSpatial("Countdown End");
     }
 
     private void turnOff(bool stat)

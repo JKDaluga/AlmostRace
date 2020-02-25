@@ -161,7 +161,7 @@ public class VoidWasp_OffensiveAbility : HeatAbility
 
                 projectile.transform.Rotate(0, Random.Range(-shotSpread, shotSpread), 0);
                 //projectile.transform.rotation = Quaternion.RotateTowards(projectile.transform.rotation, _projectiles[i], shotSpread);
-                AudioManager.instance.Play("VoidWasp Shot");
+                AudioManager.instance.Play("VoidWasp Shot", transform);
             }
 
             _canFire = false;

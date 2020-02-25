@@ -49,7 +49,7 @@ public class HotSpotVehicleAdministration : MonoBehaviour
         HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetBeingHeld(false);
         StartCoroutine(HotSpotBotHeld.GetComponent<HotSpotBotBehavior>().SetPosition(transform.position));
         HotSpotBotHeld = null;
-        AudioManager.instance.Play("HotSpot Lost");
+        AudioManager.instance.PlayWithoutSpatial("HotSpot Lost");
         foreach (GameObject item in botCapturedAesthetic)
         {
             item.SetActive(false);
@@ -67,7 +67,7 @@ public class HotSpotVehicleAdministration : MonoBehaviour
                 GetComponent<CarHealthBehavior>().healthCurrent = GetComponent<CarHealthBehavior>().healthMax;
                 HypeGain(initialHypeGain);
                 hypeTimer = 0;
-                AudioManager.instance.Play("HotSpot Attachment");
+                AudioManager.instance.PlayWithoutSpatial("HotSpot Attachment");
             }
         }
     }

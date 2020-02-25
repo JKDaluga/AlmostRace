@@ -182,7 +182,7 @@ public class HypeManager : MonoBehaviour
 
             Invoke("DisableEvents", 3);
 
-            AudioManager.instance.Play("Victory Music");
+            AudioManager.instance.PlayWithoutSpatial("Victory Music");
         }
     }
 

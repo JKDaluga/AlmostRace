@@ -20,9 +20,15 @@ Jason/Jake heavily edited and changed this to suit our new audio needs
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
+
     private AudioSource source;
 
     public Sound[] sounds;
+
+    [Header("Pseudo-Spatial Sound Variables")]
+    public float innerSoundDistance = 0f;
+    public float maxSoundDistance = 0f;
+    private HypeManager hypeManager;
 
     void Awake()
     {
@@ -49,14 +55,58 @@ public class AudioManager : MonoBehaviour
             }
             DontDestroyOnLoad(gameObject);
         }
+        if(hypeManager == null)
+        {
+            hypeManager = FindObjectOfType<HypeManager>();
+        }
     }
 
-    public void Play(string sound)
+    public void Play(string sound, Transform soundTransform)
     {
         
         Sound s = FindSound(sound);
 
         if(sound == null)
+        {
+            return;
+        }
+
+        float spatialVolume = s.volume;
+        
+        if (hypeManager != null)
+        {
+            float distance = Mathf.Infinity;
+            foreach (GameObject gameobject in hypeManager.vehicleList)
+            {
+                float tempDistance = Vector3.Distance(gameObject.transform.position, soundTransform.position);
+                if (distance > tempDistance)
+                {
+                    distance = tempDistance;
+                    if(distance <= innerSoundDistance)
+                    {
+                        spatialVolume = s.volume;
+                    }
+                    else if (distance <= maxSoundDistance)
+                    {
+                        spatialVolume = s.volume * ((distance - innerSoundDistance) / (maxSoundDistance - innerSoundDistance));
+                    }
+                    else
+                    {
+                        spatialVolume = 0;
+                    }
+                }
+            }
+        }
+
+        source.PlayOneShot(s.clip, spatialVolume);
+    }
+
+    public void PlayWithoutSpatial(string sound)
+    {
+
+        Sound s = FindSound(sound);
+
+        if (sound == null)
         {
             return;
         }

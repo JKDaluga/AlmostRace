@@ -128,7 +128,7 @@ public void SlideRod()
             i.interactables.Add(GetComponent<Collider>());
         }
         InvokeRepeating("SlideRod", 0, slideRate); //make the rod go up
-        AudioManager.instance.Play("Cooling Rod Up");
+        AudioManager.instance.Play("Cooling Rod Up", transform);
         interactableHealth = _originalHealth;
     }
 

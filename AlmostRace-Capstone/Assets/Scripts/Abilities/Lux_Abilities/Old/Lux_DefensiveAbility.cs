@@ -26,7 +26,7 @@ public class Lux_DefensiveAbility : CooldownAbility
 
     public override void ActivateAbility()
     { //DeactivateAbility called VehicleAbilityBehavior after the duration is over.
-        AudioManager.instance.Play("Shield Activated");
+        AudioManager.instance.Play("Shield Activated", transform);
         _carHealthScript.AddExtraHealth(shieldHealth);
         foreach (GameObject shield in _shields)
         {

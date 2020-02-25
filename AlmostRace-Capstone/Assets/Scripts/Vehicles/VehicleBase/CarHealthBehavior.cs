@@ -162,7 +162,7 @@ public class CarHealthBehavior : MonoBehaviour
         //print("KILL !! " + stackTrace.GetFrame(1).GetMethod().Name);
 
         //AudioManager.instance.Play("Death");
-        AudioManager.instance.Play("Death");
+        AudioManager.instance.Play("Death", transform);
         isDead = true;
         Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);
         if (GetComponent<VehicleInput>())
@@ -201,7 +201,7 @@ public class CarHealthBehavior : MonoBehaviour
         carObject.GetComponent<Rigidbody>().useGravity = true;
         carObject.GetComponent<Rigidbody>().isKinematic = false;
         HeatAbility bAbility = GetComponent<HeatAbility>();
-        AudioManager.instance.Play("Respawn complete");
+        AudioManager.instance.Play("Respawn complete", transform);
         if (bAbility != null)
         {
             bAbility.DeactivateAbility();
@@ -223,7 +223,7 @@ public class CarHealthBehavior : MonoBehaviour
             isDead = true;
             teleportCDImage.fillAmount = 1;
             teleDark.SetActive(true);
-            AudioManager.instance.Play("Teleport");
+            AudioManager.instance.Play("Teleport", transform);
             StartCoroutine(teleportCooldownTimer());
             Instantiate(teleportEffect, gameObject.transform.position, gameObject.transform.rotation);
             deathFade.GetComponent<Animator>().Play("DeathFadeIn");

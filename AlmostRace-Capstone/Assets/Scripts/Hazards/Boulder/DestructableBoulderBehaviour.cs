@@ -111,7 +111,7 @@ public class DestructableBoulderBehaviour : Interactable
         rend.enabled = false;
         coll.enabled = false;
 
-        AudioManager.instance.Play("RockExplosion");
+        AudioManager.instance.Play("RockExplosion", transform);
         speedCrystal.SetActive(true);
         speedCrystalScript.ActivateCrystal();
         Invoke("DestroyInteractable", boulderParticles.main.startLifetime.constant);

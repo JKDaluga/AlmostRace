@@ -29,7 +29,7 @@ public class Lux_ProjectileBehavior : Projectile
                 other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = .75f;
                 other.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
                 _immunePlayerScript.AddHype(_projectileHype, "Damage:");
-                AudioManager.instance.Play("Bullet Impact Lux");
+                AudioManager.instance.Play("Bullet Impact Lux", transform);
                 //Debug.Log("Projectile destoryed by:" + other.gameObject.name);
 
                 StartCoroutine(ExplosionEffect());

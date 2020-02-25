@@ -46,7 +46,7 @@ public class Lux_Attack : Ability
 
     public override void ActivateAbility()
     {
-        AudioManager.instance.Play("Lux Shooting");
+        AudioManager.instance.Play("Lux Shooting", transform);
         ///spawn the disk that goes forward and pass all of the information it needs to it.
         GameObject laserDiskRight = Instantiate(laserDisk, laserDiskSpawnRight.position, laserDiskSpawnRight.rotation);
         laserDiskRight.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed, diskHypeToGain);

@@ -120,7 +120,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
                 StartCoroutine(BoostAbilityCooldown());
                 StartCoroutine(BoostAbilityDuration());
                 GetComponent<RaycastCar>().isBoosting = true;
-                AudioManager.instance.Play("Boost");
+                AudioManager.instance.Play("Boost", transform);
             }
 
         }
@@ -161,9 +161,9 @@ public class VehicleAbilityBehavior : MonoBehaviour
         if (_vehicleInput != null)
         {
             offensiveAbilityDark.SetActive(false);
+            AudioManager.instance.PlayWithoutSpatial("Ability Recharge");
         }
         _canUseBasic = true;
-        AudioManager.instance.Play("Ability Recharge");
     }
 
     // Countdown timer until reuse allowed for abilites that need a cooldown
@@ -182,9 +182,9 @@ public class VehicleAbilityBehavior : MonoBehaviour
         if (_vehicleInput != null)
         {
             defensiveAbilityDark.SetActive(false);
+            AudioManager.instance.PlayWithoutSpatial("Ability Recharge");
         }
         _canUseDefensiveAbility = true;
-        AudioManager.instance.Play("Ability Recharge");
     }
 
     private IEnumerator DefensiveAbilityDuration()
@@ -213,9 +213,9 @@ public class VehicleAbilityBehavior : MonoBehaviour
         if (_vehicleInput != null)
         {
             boostAbilityDark.SetActive(false);
+            AudioManager.instance.PlayWithoutSpatial("Ability Recharge");
         }
         _canBoost = true;
-        AudioManager.instance.Play("Ability Recharge");
     }
 
     private IEnumerator BoostAbilityDuration()
