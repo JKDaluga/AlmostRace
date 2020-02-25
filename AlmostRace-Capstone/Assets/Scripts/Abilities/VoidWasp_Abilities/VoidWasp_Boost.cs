@@ -16,6 +16,7 @@ public class VoidWasp_Boost : CooldownHeatAbility
     public float healthLossActivateAmount = 25;
     private float currentBoostPercentage;
     public GameObject[] companions;
+    public GameObject explodeVFX;
     private RaycastCar carInfo;
     private bool isBoosting = false;
 
@@ -64,6 +65,7 @@ public class VoidWasp_Boost : CooldownHeatAbility
                     if(companions[i].activeSelf)
                     {
                         companions[i].SetActive(false);
+                        Instantiate(explodeVFX, companions[i].transform.position, companions[i].transform.rotation);
                         break;
                     }
                 }
@@ -83,6 +85,7 @@ public class VoidWasp_Boost : CooldownHeatAbility
         for (int i = 0; i < companions.Length; i++)
         {
             companions[i].SetActive(false);
+            Instantiate(explodeVFX, companions[i].transform.position, companions[i].transform.rotation);
         }
         isBoosting = false;
     }
