@@ -79,6 +79,13 @@ public class RaycastCar : MonoBehaviour
 
     private VehicleInput input;
 
+    private SplinePlus _aiSplineScript;
+    private Dictionary<int, Branch> _branchesAtStart = new Dictionary<int, Branch>();
+    private Vector3 closestVertex = Vector3.zero;
+    [HideInInspector] public int closestIndex = 0;
+    private Vector3 vertexAim = Vector3.zero;
+
+
     void Start()
     {
         Initialize();
@@ -104,6 +111,60 @@ public class RaycastCar : MonoBehaviour
         rearLeftRayCast = rearLeftWheel.GetComponentInParent<RaycastWheel>();
         rearRightRayCast = rearRightWheel.GetComponentInParent<RaycastWheel>();
         gravityDirection = -transform.up;
+
+        if (GetComponent<VehicleInput>())
+        {
+            RaceManager rc = FindObjectOfType<RaceManager>();
+           
+
+          
+           
+          
+            //Sets ai spline to find/follow hotspotspline
+            _aiSplineScript = rc.orderedSplines[0].GetComponent<SplinePlus>();
+           
+
+            _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
+
+        }
+    }
+
+    public void findNearest()
+    {
+        float lastDistance = Mathf.Infinity;
+
+        float currentPosition;
+        int placeHolder = 0;
+
+
+        foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
+        {
+            for (int j = 0; j < entry.Value.Vertices.Count; j++)
+            {
+                currentPosition = Vector3.Distance(entry.Value.Vertices[j], transform.position);
+
+                if (closestVertex == Vector3.zero)
+                {
+
+                    closestVertex = entry.Value.Vertices[j];
+                    closestIndex = j;
+                    lastDistance = currentPosition;
+                }
+                else if (currentPosition <= lastDistance)
+                {
+
+                    placeHolder = j;
+                    placeHolder = Mathf.Clamp(placeHolder + 5, 0, entry.Value.Vertices.Count - 1);
+
+                    vertexAim = entry.Value.Vertices[placeHolder];
+
+                    lastDistance = currentPosition;
+                    closestVertex = vertexAim;
+                    closestIndex = placeHolder;
+                }
+
+            }
+        }
     }
 
     void Update()

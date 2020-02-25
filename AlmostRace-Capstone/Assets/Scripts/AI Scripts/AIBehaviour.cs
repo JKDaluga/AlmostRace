@@ -27,6 +27,7 @@ public class AIBehaviour : MonoBehaviour
     private readonly int _hugeDistance = 9999;
     private readonly int _hugeTurn = 9999;
     private Vector3 closestVertex = Vector3.zero;
+    [HideInInspector] public int closestIndex = 0;
     private Vector3 vertexAim = Vector3.zero;
 
     private AIObstacleAvoidance avo;
@@ -132,6 +133,7 @@ public class AIBehaviour : MonoBehaviour
 
                     closestVertex = entry.Value.Vertices[j];
                     lastDistance = currentPosition;
+                    closestIndex = j;
                     }
                 else if (currentPosition <= lastDistance)
                 {
@@ -145,6 +147,7 @@ public class AIBehaviour : MonoBehaviour
 
                     lastDistance = currentPosition;
                     closestVertex = vertexAim;
+                    closestIndex = placeHolder;
                 }
 
             }
