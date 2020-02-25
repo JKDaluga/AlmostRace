@@ -31,11 +31,12 @@ namespace QFX.SFX
 
         private LineRenderer _lineRenderer;
 
-        private int ignore =~ LayerMask.GetMask("AISight", "Detector", "Ignore Abilities");
+        private int ignore;
 
         public override void Setup()
         {
             base.Setup();
+            ignore = ~LayerMask.GetMask("AISight", "Detector", "Ignore Abilities");
 
             _lineRenderer = Instantiate(LineRenderer, transform, true);
 
