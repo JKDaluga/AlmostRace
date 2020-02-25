@@ -12,6 +12,8 @@ public class Lux_LaserDisk : Projectile
 
     public GameObject explodeVFX;
 
+    int ignore;
+
     public Transform laserEmitterLeft;
     public Transform laserEmitterRight;
 
@@ -22,6 +24,8 @@ public class Lux_LaserDisk : Projectile
 
     private void Start()
     {
+        ignore =~ LayerMask.GetMask("AISight");
+
         GiveSpeed();
         InvokeRepeating("PulseLasers", 0, _laserPulseRate);
     }
@@ -33,7 +37,7 @@ public class Lux_LaserDisk : Projectile
     public void PulseLasers()
     {
         //Left laser code
-        if (Physics.Raycast(laserEmitterLeft.position, laserEmitterLeft.TransformDirection(Vector3.forward), out rayHit, Mathf.Infinity))
+        if (Physics.Raycast(laserEmitterLeft.position, laserEmitterLeft.TransformDirection(Vector3.forward), out rayHit, Mathf.Infinity, ignore))
         {
             //if it hit a car
             if (rayHit.collider.gameObject.GetComponent<CarHealthBehavior>() != null)
@@ -59,7 +63,7 @@ public class Lux_LaserDisk : Projectile
         }
 
         //Right laser code
-        if (Physics.Raycast(laserEmitterRight.position, laserEmitterRight.TransformDirection(Vector3.forward), out rayHit, Mathf.Infinity))
+        if (Physics.Raycast(laserEmitterRight.position, laserEmitterRight.TransformDirection(Vector3.forward), out rayHit, Mathf.Infinity, ignore))
         {
             //if it hit a car
             if (rayHit.collider.gameObject.GetComponent<CarHealthBehavior>() != null)
