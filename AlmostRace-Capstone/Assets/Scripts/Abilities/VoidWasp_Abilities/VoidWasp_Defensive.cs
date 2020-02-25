@@ -15,6 +15,8 @@ public class VoidWasp_Defensive : CooldownAbility
     public float shieldHealth;
     public float siphonAmount;
     public float siphonFrequency = 1;
+    public float minParticleCount = 20;
+    public float maxParticleCount = 50;
     public List<GameObject> _shields;
     private CarHealthBehavior _carHealthScript;
     private List<GameObject> _objectsInRange = new List<GameObject>();
@@ -35,6 +37,7 @@ public class VoidWasp_Defensive : CooldownAbility
         foreach (GameObject shield in _shields)
         {
             shield.GetComponent<ParticleSystem>().Play();
+            ChangeEmissionCount(shield, _carHealthScript.GetExtraHealth());
         }
         StartCoroutine(ShieldEvent());
     }
@@ -56,15 +59,21 @@ public class VoidWasp_Defensive : CooldownAbility
                         if (!_objectsInRange[i].GetComponent<CarHealthBehavior>().isDead &&_objectsInRange[i] != null)
                         {
                             _objectsInRange[i].GetComponent<CarHealthBehavior>().DamageCar(siphonAmount);
-                            _carHealthScript.AddExtraHealth(siphonAmount);
+                            if ( _carHealthScript.GetExtraHealth() < _carHealthScript.GetExtaHealthMax())
+                            {
+                                _carHealthScript.AddExtraHealth(siphonAmount);
+                            }
                         }
                         else
                         {
                             _objectsInRange.RemoveAt(i);
                         }
-                      
                     }
                 }
+            }
+            foreach (GameObject shield in _shields)
+            {
+                ChangeEmissionCount(shield, _carHealthScript.GetExtraHealth());
             }
             yield return new WaitForSeconds(siphonFrequency);
         }
@@ -95,5 +104,11 @@ public class VoidWasp_Defensive : CooldownAbility
                 _objectsInRange.RemoveAt(i);
             }
         }
+    }
+
+    private void ChangeEmissionCount(GameObject givenShield, float givenAmount)
+    {
+        var em = givenShield.GetComponent<ParticleSystem>().emission;
+        em.rateOverTime = Mathf.Lerp(minParticleCount, maxParticleCount, (Mathf.Clamp(givenAmount, 0, 100)) / 100);
     }
 }
