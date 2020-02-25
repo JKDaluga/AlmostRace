@@ -24,7 +24,7 @@ public class Lux_LaserDisk : Projectile
 
     private void Start()
     {
-        ignore =~ LayerMask.GetMask("AISight");
+        ignore =~ LayerMask.GetMask("AISight", "Detector", "Ignore Abilities");
 
         GiveSpeed();
         InvokeRepeating("PulseLasers", 0, _laserPulseRate);
