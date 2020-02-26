@@ -52,7 +52,7 @@ public class Lux_LaserDisk : Projectile
             {//hit a car
                 if (rayHit.collider.gameObject != _immunePlayer)
                 {
-                    Debug.Log("Car found by laserEmitterLeft");
+                   // Debug.Log("Car found by laserEmitterLeft");
                     _leftLaserHit = rayHit.collider.gameObject;
                     // rayHit.collider.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
                     //_immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
@@ -63,13 +63,13 @@ public class Lux_LaserDisk : Projectile
             //if it hit an interactable
             if (rayHit.collider.gameObject.GetComponent<Interactable>() != null)
             {//hit an interactable
-                Debug.Log("Interactable found by laserEmitterLeft");
+               // Debug.Log("Interactable found by laserEmitterLeft");
                 _leftLaserHit = rayHit.collider.gameObject;
                 //rayHit.collider.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
                 //_immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
             }
 
-            //Debug.DrawRay(laserEmitterLeft.position, laserEmitterLeft.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
+            Debug.DrawRay(laserEmitterLeft.position, laserEmitterLeft.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
         }
 
         //Right laser code
@@ -96,7 +96,7 @@ public class Lux_LaserDisk : Projectile
                 //_immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
             }
 
-            // Debug.DrawRay(laserEmitterRight.position, laserEmitterRight.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
+             Debug.DrawRay(laserEmitterRight.position, laserEmitterRight.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
 
         }
 

@@ -137,7 +137,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 143310168942159788}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -25549,6 +25549,7 @@ MonoBehaviour:
   turnBackMultiplier: 1.5
   boostAccelerationMulti: 1.5
   isBoosting: 0
+  closestIndex: 0
 --- !u!114 &7657711622964808655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25786,6 +25787,7 @@ MonoBehaviour:
   _inArena: 0
   canDrive: 0
   thisCar: {fileID: 0}
+  closestIndex: 0
   orderedSplines: []
 --- !u!114 &7762107824344671746
 MonoBehaviour:
@@ -25818,6 +25820,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd6f32c5403332c479b0a81dfc8ab814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  players: []
+  arena: {fileID: 0}
+  killDist: 40
 --- !u!1 &7657711622995300319
 GameObject:
   m_ObjectHideFlags: 0
