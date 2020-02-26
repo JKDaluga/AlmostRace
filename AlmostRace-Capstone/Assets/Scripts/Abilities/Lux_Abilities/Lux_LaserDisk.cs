@@ -20,14 +20,22 @@ public class Lux_LaserDisk : Projectile
     private float _laserDamage;
     private float _laserPulseRate;
 
+    private GameObject _rightLaserHit;
+    private GameObject _leftLaserHit;
+
     private RaycastHit rayHit;
 
     private void Start()
     {
-        ignore =~ LayerMask.GetMask("AISight", "Detector", "Ignore Abilities");
+        ignore = ~LayerMask.GetMask("AISight", "Detector", "Ignore Abilities");
 
         GiveSpeed();
-        InvokeRepeating("PulseLasers", 0, _laserPulseRate);
+        InvokeRepeating("DealDamage", 0, _laserPulseRate);
+    }
+
+    private void Update()
+    {
+        PulseLasers();
     }
 
     /// <summary>
@@ -42,21 +50,23 @@ public class Lux_LaserDisk : Projectile
             //if it hit a car
             if (rayHit.collider.gameObject.GetComponent<CarHealthBehavior>() != null)
             {//hit a car
-                if(rayHit.collider.gameObject != _immunePlayer)
+                if (rayHit.collider.gameObject != _immunePlayer)
                 {
                     Debug.Log("Car found by laserEmitterLeft");
-                    rayHit.collider.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
-                    _immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
+                    _leftLaserHit = rayHit.collider.gameObject;
+                    // rayHit.collider.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
+                    //_immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
                 }
-           
+
             }
 
             //if it hit an interactable
             if (rayHit.collider.gameObject.GetComponent<Interactable>() != null)
             {//hit an interactable
                 Debug.Log("Interactable found by laserEmitterLeft");
-                rayHit.collider.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
-                _immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
+                _leftLaserHit = rayHit.collider.gameObject;
+                //rayHit.collider.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
+                //_immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
             }
 
             //Debug.DrawRay(laserEmitterLeft.position, laserEmitterLeft.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
@@ -71,8 +81,9 @@ public class Lux_LaserDisk : Projectile
                 if (rayHit.collider.gameObject != _immunePlayer)
                 {
                     Debug.Log("Car found by laserEmitterRight");
-                    rayHit.collider.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
-                    _immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
+                    _rightLaserHit = rayHit.collider.gameObject;
+                    //rayHit.collider.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
+                    //_immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
                 }
             }
 
@@ -80,11 +91,12 @@ public class Lux_LaserDisk : Projectile
             if (rayHit.collider.gameObject.GetComponent<Interactable>() != null)
             {//hit an interactable
                 Debug.Log("Interactable found by laserEmitterRight");
-                rayHit.collider.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
-                _immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
+                _rightLaserHit = rayHit.collider.gameObject;
+                //rayHit.collider.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
+                //_immunePlayer.GetComponent<VehicleHypeBehavior>().AddHype(_laserHype, "Zapped");
             }
 
-           // Debug.DrawRay(laserEmitterRight.position, laserEmitterRight.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
+            // Debug.DrawRay(laserEmitterRight.position, laserEmitterRight.TransformDirection(Vector3.forward) * rayHit.distance, Color.red);
 
         }
 
@@ -103,17 +115,66 @@ public class Lux_LaserDisk : Projectile
         _laserPulseRate = laserDamageRate;
     }
 
+    public void DealDamage()
+    {
+        if (_leftLaserHit != null)
+        {
+            if(_leftLaserHit.GetComponent<CarHealthBehavior>() != null)
+            {
+                _leftLaserHit.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
+
+                if (_leftLaserHit.GetComponent<CarHealthBehavior>().isDead)
+                {
+                    _leftLaserHit = null;
+                }
+            }
+
+            if (_leftLaserHit.GetComponent<Interactable>() != null)
+            {
+                _leftLaserHit.GetComponent<Interactable>().DamageInteractable(_laserDamage);
+
+                if (_leftLaserHit.GetComponent<Interactable>().interactableHealth <= 0)
+                {
+                    _leftLaserHit = null;
+                }
+            }
+        }
+
+        if (_rightLaserHit != null)
+        {
+            if (_rightLaserHit.GetComponent<CarHealthBehavior>() != null)
+            {
+                _rightLaserHit.GetComponent<CarHealthBehavior>().DamageCar(_laserDamage);
+
+                if (_rightLaserHit.GetComponent<CarHealthBehavior>().isDead)
+                {
+                    _rightLaserHit = null;
+                }
+            }
+
+            if (_rightLaserHit.GetComponent<Interactable>() != null)
+            {
+                _rightLaserHit.GetComponent<Interactable>().DamageInteractable(_laserDamage);
+
+                if (_rightLaserHit.GetComponent<Interactable>().interactableHealth <= 0)
+                {
+                    _rightLaserHit = null;
+                }
+            }
+        }
+    }
+
     private void OnTriggerEnter(Collider collision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             Instantiate(explodeVFX, transform.position, transform.rotation);
             Destroy(gameObject);
         }
 
-        if(collision.gameObject.GetComponent<CarHealthBehavior>() != null)
+        if (collision.gameObject.GetComponent<CarHealthBehavior>() != null)
         {
-            if(collision.gameObject != _immunePlayer)
+            if (collision.gameObject != _immunePlayer)
             {
                 Instantiate(explodeVFX, transform.position, transform.rotation);
                 collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
@@ -123,7 +184,7 @@ public class Lux_LaserDisk : Projectile
 
         }
 
-        if(collision.gameObject.GetComponent<Interactable>() != null)
+        if (collision.gameObject.GetComponent<Interactable>() != null)
         {
             Instantiate(explodeVFX, transform.position, transform.rotation);
             collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
