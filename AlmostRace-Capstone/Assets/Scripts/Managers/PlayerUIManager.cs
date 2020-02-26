@@ -119,7 +119,7 @@ public class PlayerUIManager : MonoBehaviour
     {
         if (_attacksInRange.Count > 0)
         {
-            Debug.Log(_attacksInRange.Count);
+            //Debug.Log(_attacksInRange.Count);
             for (int i = 0; i < _attacksInRange.Count; i++)
             {
                 if (_attacksInRange[i] == null)
