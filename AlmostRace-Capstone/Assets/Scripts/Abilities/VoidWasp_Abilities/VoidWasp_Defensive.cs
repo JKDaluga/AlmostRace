@@ -56,7 +56,7 @@ public class VoidWasp_Defensive : CooldownAbility
                     }
                     else
                     {
-                        if (!_objectsInRange[i].GetComponent<CarHealthBehavior>().isDead &&_objectsInRange[i] != null)
+                        if (_objectsInRange[i] != null && !_objectsInRange[i].GetComponent<CarHealthBehavior>().isDead)
                         {
                             _objectsInRange[i].GetComponent<CarHealthBehavior>().DamageCar(siphonAmount);
                             if ( _carHealthScript.GetExtraHealth() < _carHealthScript.GetExtaHealthMax())
