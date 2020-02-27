@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class AICheats : MonoBehaviour
 {
     public List<GameObject> players = new List<GameObject>();
     RaycastCar rearPlayer;
+    RaycastCar[] allCars;
+    bool playersIn;
 
     public HypeGateBehavior arena;
 
@@ -16,9 +17,9 @@ public class AICheats : MonoBehaviour
     private void Start()
     {
         arena = FindObjectOfType<HypeGateBehavior>();
-        RaycastCar[] temp = FindObjectsOfType<RaycastCar>();
+         allCars = FindObjectsOfType<RaycastCar>();
 
-        foreach(RaycastCar i in temp)
+        foreach(RaycastCar i in allCars)
         {
             if (i.GetComponent<VehicleInput>())
             {
@@ -28,15 +29,26 @@ public class AICheats : MonoBehaviour
         rearPlayer = players[0].GetComponent<RaycastCar>();
 
         InvokeRepeating("distanceKill", 0, 2);
+        InvokeRepeating("arenaWarp", 0, 2);
     }
 
     
     private void arenaWarp()
     {
-        if(arena.carsInRange.Intersect(players) == players && !arena.carsInRange.Contains(gameObject))
+        playersIn = true;
+        foreach(GameObject i in players)
+        {
+            if (!arena.carsInRange.Contains(i))
+            {
+                playersIn = false;
+            }
+        }
+
+        if(playersIn && arena.carsInRange.Count < allCars.Length)
         {
             GetComponent<CarHealthBehavior>().Kill();
             GetComponent<AIBehaviour>().SwapSpline();
+            print("arena Warp");
         }
     }
 
