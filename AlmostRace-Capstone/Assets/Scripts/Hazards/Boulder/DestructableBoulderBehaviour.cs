@@ -42,7 +42,10 @@ public class DestructableBoulderBehaviour : Interactable
         rend.enabled = true;
         coll.enabled = true;
 
-        speedCrystalScript = speedCrystal.GetComponent<SpeedBoostCrystal>();
+        if (speedCrystal != null)
+        {
+            speedCrystalScript = speedCrystal.GetComponent<SpeedBoostCrystal>();
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
