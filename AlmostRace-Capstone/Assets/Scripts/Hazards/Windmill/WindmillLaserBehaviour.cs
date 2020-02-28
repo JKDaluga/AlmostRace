@@ -5,35 +5,47 @@ using UnityEngine;
 public class WindmillLaserBehaviour : MonoBehaviour
 {
 
-    private float _laserSpeed;
-    private float _speedUpFactor = 1;
+
     private float _laserDamage,_laserDamageRate;
 
     private GameObject _interactingPlayer;
 
     private List<CarHealthBehavior> _damagedCars;
 
-    // Update is called once per frame
-    void FixedUpdate()
+    private void Start()
     {
-        transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, Mathf.Lerp(transform.localEulerAngles.z,transform.localEulerAngles.z+_laserSpeed,_speedUpFactor));
+        _damagedCars = new List<CarHealthBehavior>();
     }
 
 
-    public void UpdateBaseSpeed(float baseSpeed)
+    public void UpdateLaserDamage(float laserDmg)
     {
-        _laserSpeed = baseSpeed;
+        _laserDamage = laserDmg;
+    }
+
+    public void UpdateDamageRate(float laserDmgRate)
+    {
+        _laserDamageRate = laserDmgRate;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        
         if (other.gameObject.GetComponent<CarHealthBehavior>() != null)
         {
-            _damagedCars.Add(other.gameObject.GetComponent<CarHealthBehavior>()); //Adds car to damage.
+            _damagedCars.Add(other.gameObject.GetComponent<CarHealthBehavior>()); 
             if (_damagedCars.Count == 1)
             {
                 InvokeRepeating("DamageCars", 0, _laserDamageRate);
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<CarHealthBehavior>() != null && _damagedCars.Contains(other.gameObject.GetComponent<CarHealthBehavior>()))
+        {
+            _damagedCars.Remove(other.gameObject.GetComponent<CarHealthBehavior>());
         }
     }
 
@@ -46,6 +58,7 @@ public class WindmillLaserBehaviour : MonoBehaviour
                 if (!car.isDead)
                 {
                     car.DamageCar(_laserDamage);
+                    
                     if (_interactingPlayer != null)
                     {
                         if (!_interactingPlayer.Equals(car.gameObject))

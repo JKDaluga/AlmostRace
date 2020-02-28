@@ -82,7 +82,7 @@ public class RaycastCar : MonoBehaviour
     private SplinePlus _aiSplineScript;
     private Dictionary<int, Branch> _branchesAtStart = new Dictionary<int, Branch>();
     private Vector3 closestVertex = Vector3.zero;
-    [HideInInspector] public int closestIndex = 0;
+    public int closestIndex = 0;
     private Vector3 vertexAim = Vector3.zero;
 
 
@@ -116,16 +116,13 @@ public class RaycastCar : MonoBehaviour
         {
             RaceManager rc = FindObjectOfType<RaceManager>();
            
-
-          
-           
-          
             //Sets ai spline to find/follow hotspotspline
             _aiSplineScript = rc.orderedSplines[0].GetComponent<SplinePlus>();
            
 
             _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
 
+            InvokeRepeating("findNearest", 0, 2);
         }
     }
 

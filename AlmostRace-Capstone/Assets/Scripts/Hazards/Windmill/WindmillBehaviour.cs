@@ -5,16 +5,23 @@ using UnityEngine;
 public class WindmillBehaviour : MonoBehaviour
 {
 
-    public GameObject linkedLaser;
+    public GameObject linkedMill;
+    public GameObject[] linkedLaser;
     public GameObject interactingPlayer;
-    public float laserSpeed;
+    public float baseLaserSpeed;
     public float speedUpAmount;
     public float extraShieldAmount;
+    public float laserDamageAmount, laserDmgRate;
 
     // Start is called before the first frame update
     void Start()
     {
-        linkedLaser.GetComponent<WindmillLaserBehaviour>().UpdateBaseSpeed(laserSpeed);
+        linkedMill.GetComponent<WindmillSpeed>().UpdateBaseSpeed(baseLaserSpeed);
+        for (int i = 0; i < linkedLaser.Length; i++)
+        {
+            linkedLaser[i].GetComponent<WindmillLaserBehaviour>().UpdateLaserDamage(laserDamageAmount);
+            linkedLaser[i].GetComponent<WindmillLaserBehaviour>().UpdateDamageRate(laserDmgRate);
+        }
     }
 
 
@@ -25,8 +32,20 @@ public class WindmillBehaviour : MonoBehaviour
             interactingPlayer = collision.gameObject;
             interactingPlayer.GetComponent<CarHealthBehavior>().AddExtraHealth(extraShieldAmount);
 
-            linkedLaser.GetComponent<WindmillLaserBehaviour>().UpdateBaseSpeed(speedUpAmount);
+            linkedMill.GetComponent<WindmillSpeed>().UpdateBaseSpeed(speedUpAmount);
         }
     }
 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<CarHealthBehavior>() != null)
+        {
+            Invoke("slowDown", 6.0f);
+        }
+    }
+
+    void slowDown()
+    {
+        linkedMill.GetComponent<WindmillSpeed>().UpdateBaseSpeed(baseLaserSpeed);
+    }
 }
