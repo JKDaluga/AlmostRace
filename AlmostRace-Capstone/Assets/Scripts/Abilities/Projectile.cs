@@ -10,10 +10,9 @@ using UnityEngine;
 public abstract class Projectile : MonoBehaviour
 {
 
-    public GameObject sparkEffect;
     protected Collider _collider;
     public MeshRenderer meshRenderer;
-    public Light pointLight;
+  
     protected GameObject _immunePlayer;
     protected Vector3 _immunePlayerVelocity;
     protected float _speedActual;
@@ -94,20 +93,8 @@ public abstract class Projectile : MonoBehaviour
         _rigidBody.velocity = Vector3.zero;
         _rigidBody.useGravity = false;
         _rigidBody.isKinematic = true;
-         meshRenderer.enabled = false;
-        pointLight.enabled = false;
-        if(sparkEffect!= null)
-        {
-            sparkEffect.SetActive(true);
-        }
-      if(sparkEffect != null)
-        {
-            yield return new WaitForSeconds(sparkEffect.GetComponent<ParticleSystem>().main.duration);
-        }
-      else
-        {
+         meshRenderer.enabled = false;     
             yield return null;
-        }
         Destroy(gameObject);
     }
 }

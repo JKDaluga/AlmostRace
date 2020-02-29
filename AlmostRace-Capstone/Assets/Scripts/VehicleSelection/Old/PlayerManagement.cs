@@ -39,7 +39,7 @@ public class PlayerManagement : MonoBehaviour
         if(_isReady && !_isLoading && Input.GetButtonDown("Submit"))
         {
             _isLoading = true;
-            SceneManager.LoadSceneAsync("Mine Map");
+            SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 

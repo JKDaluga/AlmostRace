@@ -77,6 +77,7 @@ public class VoidWasp_HomingMissile : Projectile
             else
             {
                 Instantiate(explodeVFX, transform.position, transform.rotation);
+              //  AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot Hit");
                 Destroy(gameObject);
             }
          

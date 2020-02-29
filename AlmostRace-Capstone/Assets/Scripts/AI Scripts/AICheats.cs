@@ -44,7 +44,7 @@ public class AICheats : MonoBehaviour
             }
         }
 
-        if(playersIn && arena.carsInRange.Count < allCars.Length)
+        if(playersIn && arena.carsInRange.Count < allCars.Length && !arena.isActiveAndEnabled)
         {
             GetComponent<CarHealthBehavior>().Kill();
             GetComponent<AIBehaviour>().SwapSpline();

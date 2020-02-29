@@ -31,6 +31,7 @@ public class Lux_LaserDisk : Projectile
 
         GiveSpeed();
         InvokeRepeating("DealDamage", 0, _laserPulseRate);
+        Destroy(gameObject, 5);
     }
 
     private void Update()

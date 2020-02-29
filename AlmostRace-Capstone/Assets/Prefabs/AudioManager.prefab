@@ -105,7 +105,7 @@ MonoBehaviour:
     volume: 1
   - name: General collision
     clip: {fileID: 8300000, guid: cb89be4ec965b8443b578b6c519751ec, type: 3}
-    volume: 1
+    volume: 0.25
   - name: Lux Shooting
     clip: {fileID: 8300000, guid: 4f396ba69a7a3104a8b81624cb2a98eb, type: 3}
     volume: 1
@@ -175,8 +175,11 @@ MonoBehaviour:
   - name: VoidWasp Companion Death
     clip: {fileID: 8300000, guid: b1acecdf352627048b995eca86c0f8ec, type: 3}
     volume: 0.6
-  innerSoundDistance: 10
-  maxSoundDistance: 100
+  - name: Lux Laser
+    clip: {fileID: 8300000, guid: f4d3c2466e543c043a7e8872f290b84f, type: 3}
+    volume: 0.6
+  innerSoundDistance: 50
+  maxSoundDistance: 150
 --- !u!82 &7923551450835292693
 AudioSource:
   m_ObjectHideFlags: 0

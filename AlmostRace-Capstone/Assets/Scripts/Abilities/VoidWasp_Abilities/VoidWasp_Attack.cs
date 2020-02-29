@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-    /*
-    Author: Jake Velicer
-    Purpose: Contains the behavior for the VoidWasp missile attack.
-    In particular, when ActivateAbility is called on this script,
-    this script will check how many targets are available to shoot at, equally
-    distribute the amount of missiles allow to fire between them,
-    then spawn homing missiles and set their particular variables.
-    */
+/*
+Author: Jake Velicer
+Purpose: Contains the behavior for the VoidWasp missile attack.
+In particular, when ActivateAbility is called on this script,
+this script will check how many targets are available to shoot at, equally
+distribute the amount of missiles allow to fire between them,
+then spawn homing missiles and set their particular variables.
+*/
 
 public class VoidWasp_Attack : Ability
 {
@@ -17,7 +17,7 @@ public class VoidWasp_Attack : Ability
     [Header("Projectile Values")]
     [Space(5)]
     public GameObject voidwaspProjectile;
-    public Transform rocketSpawnPosition;
+    public Transform[] rocketSpawnPositions;
     [Tooltip("How much damage the missile does on impact.")] public float missileDamage;
     [Tooltip("How quickly each projectile moves.")] public float missileSpeed;
     [Tooltip("How many projectile it shoots in total")] public int projectileCount = 8;
@@ -51,17 +51,27 @@ public class VoidWasp_Attack : Ability
     {
         // Equally distribute the projectile count among the current targets
         int missileDistributionCount = projectileCount / _objectsInRange.Count;
+        int currentSpawnLocation = 0;
         for (int j = 0; j < missileDistributionCount; j++)
         {
             // Spawn the missile at the spawn position and set its values
             spawnOffset = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), Random.Range(-.5f, .5f));
-            GameObject currentProjectile = Instantiate(voidwaspProjectile, rocketSpawnPosition.position + spawnOffset, rocketSpawnPosition.rotation);
+            GameObject currentProjectile = Instantiate(voidwaspProjectile, rocketSpawnPositions[currentSpawnLocation].position /*+ spawnOffset*/, rocketSpawnPositions[currentSpawnLocation].rotation);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetImmunePlayer(gameObject);
-            AudioManager.instance.Play("VoidWasp Shot", transform);
+            //AudioManager.instance.Play("VoidWasp Shot", transform);
+            AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot");
             Destroy(currentProjectile, 7);
             yield return new WaitForSeconds(timeBetweenLaunch);
+            if((currentSpawnLocation + 1) < (rocketSpawnPositions.Length - 1))
+            { //makes sure we don't go out of bounds on our missile launcher muzzles
+                currentSpawnLocation++;
+            }
+            else
+            { //if we were about to go out of bounds, reset back to 0!
+                currentSpawnLocation = 0;
+            }
         }
     }
 

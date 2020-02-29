@@ -45,7 +45,7 @@ public class VehicleCollisionEffects : MonoBehaviour
             GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 1;
             GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 1;
             GetComponent<CinemachineImpulseSource>().GenerateImpulse();
-            AudioManager.instance.Play("General collision", transform);
+          //  AudioManager.instance.Play("General collision", transform);
             //CreateSparks(collision);
             _sparksPlaying = true;
         }
@@ -58,7 +58,7 @@ public class VehicleCollisionEffects : MonoBehaviour
             //CreateSparks(collision);
             if (!_audioSource.isPlaying)
             {
-                _audioSource.Play();
+              //  _audioSource.Play();
             }
             //foreach (ContactPoint contact in collision.contacts)
             //{
@@ -91,11 +91,11 @@ public class VehicleCollisionEffects : MonoBehaviour
         _playAudio = toggle;
         if(_playAudio && _sparksPlaying)
         {
-            _audioSource.Play();
+          //  _audioSource.Play();
         }
         else
         {
-            _audioSource.Stop();
+          //  _audioSource.Stop();
         }
     }
 }
