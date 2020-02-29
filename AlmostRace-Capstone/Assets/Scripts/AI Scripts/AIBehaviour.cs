@@ -58,7 +58,7 @@ public class AIBehaviour : MonoBehaviour
 
         splineIndex = 0;
         avo = GetComponentInChildren<AIObstacleAvoidance>();
-        print(orderedSplines[splineIndex].name);
+       // print(orderedSplines[splineIndex].name);
         //Sets ai spline to find/follow hotspotspline
         _aiSplineScript = orderedSplines[splineIndex].GetComponent<SplinePlus>();
         //_aiSplineScript.SPData.Followers[0].Reverse = reverseDirection;
@@ -86,7 +86,7 @@ public class AIBehaviour : MonoBehaviour
         splineIndex++;
         _aiSplineScript = orderedSplines[splineIndex].GetComponent<SplinePlus>();
 
-        print(orderedSplines[splineIndex].name);
+        //print(orderedSplines[splineIndex].name);
         _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
 
         foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
