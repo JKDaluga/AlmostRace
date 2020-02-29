@@ -13,13 +13,12 @@ public class AICheats : MonoBehaviour
 
     [Tooltip("Number of Vertices away the AI can be before being warped")]
     public float killDist = 40;
-
     private void Start()
     {
         arena = FindObjectOfType<HypeGateBehavior>();
-         allCars = FindObjectsOfType<RaycastCar>();
+        allCars = FindObjectsOfType<RaycastCar>();
 
-        foreach(RaycastCar i in allCars)
+        foreach (RaycastCar i in allCars)
         {
             if (i.GetComponent<VehicleInput>())
             {
@@ -28,43 +27,59 @@ public class AICheats : MonoBehaviour
         }
         rearPlayer = players[0].GetComponent<RaycastCar>();
 
-        InvokeRepeating("distanceKill", 0, 2);
-        InvokeRepeating("arenaWarp", 0, 2);
+        StartCoroutine(arenaWarp());
+        StartCoroutine(distanceKill());
     }
 
-    
-    private void arenaWarp()
+    private void Update()
     {
-        playersIn = true;
-        foreach(GameObject i in players)
+        if (arena.carsInRange.Count == allCars.Length)
         {
-            if (!arena.carsInRange.Contains(i))
-            {
-                playersIn = false;
-            }
-        }
-
-        if(playersIn && arena.carsInRange.Count < allCars.Length && !arena.isActiveAndEnabled)
-        {
-            GetComponent<CarHealthBehavior>().Kill();
-            GetComponent<AIBehaviour>().SwapSpline();
-            print("arena Warp");
+            StopAllCoroutines();
         }
     }
 
-    private void distanceKill()
+    IEnumerator arenaWarp()
     {
-        foreach(GameObject i in players)
+        while (true)
         {
-            if(i.GetComponent<RaycastCar>().closestIndex < rearPlayer.closestIndex)
+            yield return null;
+            playersIn = true;
+            foreach (GameObject i in players)
             {
-                rearPlayer = i.GetComponent<RaycastCar>();
+                if (!arena.carsInRange.Contains(i))
+                {
+                    playersIn = false;
+                }
             }
-        }
 
-        if(rearPlayer.closestIndex - GetComponent<AIBehaviour>().closestIndex > 40)
+            if (playersIn && !arena.carsInRange.Contains(gameObject))
+            {
+                GetComponent<CarHealthBehavior>().Kill();
+                GetComponent<AIBehaviour>().SwapSpline();
+            }
+            yield return new WaitForSeconds(2.0f);
+        }
+    }
+
+    IEnumerator distanceKill()
+    {
+        while (true)
         {
-            GetComponent<CarHealthBehavior>().Kill();
+            yield return null;
+            foreach (GameObject i in players)
+            {
+                if (i.GetComponent<RaycastCar>().closestIndex < rearPlayer.closestIndex)
+                {
+                    rearPlayer = i.GetComponent<RaycastCar>();
+                }
+            }
+
+            if (rearPlayer.closestIndex - GetComponent<AIBehaviour>().closestIndex > 40)
+            {
+                GetComponent<CarHealthBehavior>().Kill();
+            }
+            yield return new WaitForSeconds(2.0f);
         }
     }
 
