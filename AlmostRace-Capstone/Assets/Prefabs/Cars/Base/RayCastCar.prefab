@@ -10630,6 +10630,7 @@ MonoBehaviour:
   currentSpeed: 0
   currentTurnSpeed: 0
   actualGrip: 0
+  relativeAngularVel: {x: 0, y: 0, z: 0}
   UIPanel: {fileID: 4177144666104445511}
   secondaryUIPanel: {fileID: 1479380672437841465}
   frontLeftWheel: {fileID: 644788421216844747}
@@ -10640,17 +10641,20 @@ MonoBehaviour:
   frontRightRayCast: {fileID: 0}
   rearLeftRayCast: {fileID: 0}
   rearRightRayCast: {fileID: 0}
-  gravity: 300
+  gravity: 100
   power: 3500
   maxSpeed: 260
   maxTurnSpeed: 1.25
-  carGrip: 300
+  carGrip: 100
   turnSpeed: 3
-  driftStrength: 6
+  driftStrength: 1.5
   springFallDisengangeSpeed: 50
-  spring: 3500
-  deceleration: 2
+  spring: 1250
+  deceleration: 1
   turnBackMultiplier: 5
+  boostAccelerationMulti: 1.5
+  isBoosting: 0
+  closestIndex: 0
 --- !u!114 &8318204714915202085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10801,6 +10805,7 @@ MonoBehaviour:
   offensiveTrigger: 0
   defensiveTrigger: 0
   boostTrigger: 0
+  abilitiesActivated: 0
 --- !u!114 &2284106843419262158
 MonoBehaviour:
   m_ObjectHideFlags: 0
