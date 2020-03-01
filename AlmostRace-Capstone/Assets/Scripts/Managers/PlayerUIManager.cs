@@ -55,9 +55,23 @@ public class PlayerUIManager : MonoBehaviour
     void Start()
     {
         arenaHype.SetActive(false);
-        _hypeManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<HypeManager>();
-        DataManager dataManager = DataManager.instance;
-        int numPlayers = dataManager.getNumActivePlayers();
+        if (GameObject.FindGameObjectWithTag("GameManager") != null)
+        {
+            _hypeManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<HypeManager>();
+        }
+        else
+        {
+            Debug.LogError("Game Manager Can Not be Found");
+        }
+        int numPlayers = 1;
+        if (DataManager.instance != null)
+        {
+           numPlayers = DataManager.instance.getNumActivePlayers();
+        }
+        else
+        {
+            Debug.LogError("Data Manager Can Not be Found");
+        }
 
         int playerNum = vehicleInputScript.getPlayerNum();
 

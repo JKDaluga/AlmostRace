@@ -117,7 +117,7 @@ public class RaycastCar : MonoBehaviour
             RaceManager rc = FindObjectOfType<RaceManager>();
            
             //Sets ai spline to find/follow hotspotspline
-            if (rc.orderedSplines.Length != 0)
+            if (rc != null && rc.orderedSplines.Length != 0)
             {
                 _aiSplineScript = rc.orderedSplines[0].GetComponent<SplinePlus>();
                 _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
