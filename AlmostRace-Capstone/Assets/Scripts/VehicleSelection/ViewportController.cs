@@ -9,7 +9,7 @@ public class ViewportController : MonoBehaviour
     public GameObject activeStatus;
     private GameObject _vehicleSelected;
     private TextMeshProUGUI _text;
-    private RotateSelection rotateSelection;
+    public RotateSelection rotateSelection;
     public SelectionManager selectionManager;
     private PlayerInput _playerInput;
     private bool _confirmation;
@@ -23,18 +23,20 @@ public class ViewportController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetAxis(_playerInput.horizontal) > 0)
+        if (Input.GetAxis(_playerInput.horizontal) > 0.1f)
         {
             if(!rotateSelection.GetSwitching())
             {
-                StartCoroutine(rotateSelection.SwitchPlane(true));
+                rotateSelection.SetRightOrLeft(true);
+                rotateSelection.SetSwitching(true);
             }
         }
         else if (Input.GetAxis(_playerInput.horizontal) < 0)
         {
             if(!rotateSelection.GetSwitching())
             {
-                StartCoroutine(rotateSelection.SwitchPlane(false));
+                rotateSelection.SetRightOrLeft(false);
+                rotateSelection.SetSwitching(true);
             }
         }
     }

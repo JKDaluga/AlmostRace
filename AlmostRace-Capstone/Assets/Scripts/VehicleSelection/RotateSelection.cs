@@ -4,69 +4,68 @@ using UnityEngine;
 
 public class RotateSelection : MonoBehaviour
 {
-    public float speed = 300f;
+    readonly float speed = 150;
+    readonly float margin = 5;
     private Vector3 destination;
     private bool isSwitching;
+    private bool isRight;
+
+    public void SetSwitching(bool givenSwitch)
+    {
+        isSwitching = givenSwitch;
+        if (isRight)
+        {
+            if (transform.localEulerAngles.y < 270)
+            {
+                destination = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + 90f, transform.localEulerAngles.z);
+            }
+            else
+            {
+                destination = new Vector3(transform.localEulerAngles.x, 0, transform.localEulerAngles.z);
+            }
+        }
+        else if (!isRight)
+        {
+            if (transform.localEulerAngles.y <= margin && transform.localEulerAngles.y >= 0)
+            {
+                destination = new Vector3(transform.localEulerAngles.x, 270f, transform.localEulerAngles.z);
+            }
+            else
+            {
+                destination = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - 90f, transform.localEulerAngles.z);
+            }
+        }
+    }
 
     public bool GetSwitching()
     {
         return isSwitching;
     }
 
-    public IEnumerator SwitchPlane(bool isRight)
+    public void SetRightOrLeft(bool set)
     {
-        isSwitching = true;
-        if (isRight)
+        isRight = set;
+    }
+
+    private void FixedUpdate()
+    {
+        Debug.Log(transform.eulerAngles.y);
+        if (isSwitching)
         {
-            if (transform.localEulerAngles.z >= 270)
+            if (isRight)
             {
-                destination = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0.1f);
-                while(transform.eulerAngles.z > destination.z)
-                {
-                    transform.Rotate (Vector3.forward * (speed * Time.fixedDeltaTime));
-                    yield return null;
-                }
-                transform.eulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 0);
+                transform.Rotate (Vector3.up * (speed * Time.deltaTime));
             }
-            else
+            else if (!isRight)
             {
-                destination = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z + 90f);
-                while(transform.eulerAngles.z < destination.z)
-                {
-                    transform.Rotate (Vector3.forward * (speed * Time.fixedDeltaTime));
-                    yield return null;
-                }
-                transform.eulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, destination.z);
+                transform.Rotate (Vector3.down * (speed * Time.deltaTime));
             }
-        }
-        if (!isRight)
-        {
-            if (transform.localEulerAngles.z <= 5 && transform.localEulerAngles.z >= 0 )
+
+            if (transform.eulerAngles.y > destination.y - margin && transform.eulerAngles.y < destination.y + margin)
             {
-                destination = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, 270f);
-                while(transform.eulerAngles.z < destination.z)
-                {
-                    transform.Rotate (Vector3.back * (speed * Time.fixedDeltaTime));
-                    yield return null;
-                }
-                while(transform.eulerAngles.z > destination.z)
-                {
-                    transform.Rotate (Vector3.back * (speed * Time.fixedDeltaTime));
-                    yield return null;
-                }
-                transform.eulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, destination.z);
+                isSwitching = false;
+                transform.eulerAngles = new Vector3(transform.localEulerAngles.x, destination.y, transform.localEulerAngles.z);
             }
-            else
-            {
-                destination = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, transform.localEulerAngles.z - 90f);
-                while(transform.eulerAngles.z > destination.z)
-                {
-                    transform.Rotate (Vector3.back * (speed * Time.fixedDeltaTime));
-                    yield return null;
-                }
-                transform.eulerAngles = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y, destination.z);
-            }
-        }
-        isSwitching = false;
+        }     
     }
 }
