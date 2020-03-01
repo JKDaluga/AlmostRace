@@ -49,7 +49,6 @@ public class RotateSelection : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(transform.eulerAngles.y);
         if (isSwitching)
         {
             if (isRight)
