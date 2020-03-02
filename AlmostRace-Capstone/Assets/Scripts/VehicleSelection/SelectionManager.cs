@@ -6,8 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class SelectionManager : MonoBehaviour
 {
-    private PlayerInput _playerInput;
+    public int amountOfSelections = 2;
+    public string nextScene;
     private DataManager _data;
+    public ViewportController[] viewports;
     private GameObject[] _players = new GameObject[4];
     public GameObject[] _players2 = new GameObject[4];
     private static bool _isReady = false;
@@ -17,9 +19,7 @@ public class SelectionManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _playerInput = GetComponent<PlayerInput>();
         _data = DataManager.instance;
-        ViewportController[] viewports = FindObjectsOfType<ViewportController>();
         for (int i = 0; i < viewports.Length; i++)
         {
             _players[i] = viewports[i].gameObject;
@@ -33,16 +33,17 @@ public class SelectionManager : MonoBehaviour
         if(_isReady && !_isLoading && Input.GetButtonDown("Submit"))
         {
             _isLoading = true;
-            SceneManager.LoadSceneAsync("Mine Map");
+            SceneManager.LoadSceneAsync(nextScene);
         }
     }
 
     public void UpdateReady()
     {
+        /*
         int checker = 0;
         for(int i = 0; i != 4; i++)
         {
-            if (_players[i].GetComponent<ViewportController>().GetConfirmation())
+            if (_players[i].GetComponent<ViewportController>().GetReady())
             {
                 checker++;
             }
@@ -56,14 +57,15 @@ public class SelectionManager : MonoBehaviour
         {
             _isReady = false;
         }
+        */
     }
 
     private void addData()
     {
         for (int i = 0; i < 4; i++)
         {
-            _data.playerInfo[i].isActive = _players2[i].GetComponent<ViewportController>().GetReady();
-            //_data.playerInfo[i].carID = _players2[i].GetComponent<ViewportController>().GetVehicle();
+            //_data.playerInfo[i].isActive = _players2[i].GetComponent<ViewportController>().GetReady();
+           // _data.playerInfo[i].carID = _players2[i].GetComponent<ViewportController>().GetVehicle();
         }
         UpdatePlayerNums();
     }

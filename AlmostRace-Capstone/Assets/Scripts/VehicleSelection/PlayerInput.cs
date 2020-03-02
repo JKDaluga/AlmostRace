@@ -44,6 +44,10 @@ public class PlayerInput : MonoBehaviour
 
     public string vertical { get { return _verticalName; } }
     private string _verticalName;
+    public string bumperRight { get { return _bumperRightName; } }
+    private string _bumperRightName;
+    public string bumperLeft { get { return _bumperLeftName; } }
+    private string _bumperLeftName;
 
     private string[] _inputNum = new string[4] { "P1", "P2", "P3", "P4" };
 
@@ -64,6 +68,8 @@ public class PlayerInput : MonoBehaviour
         _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1];
         _verticalName = "VerticalUI" + _inputNum[playerNumber - 1];
         _respawn = "Respawn" + _inputNum[playerNumber - 1];
+        _bumperRightName = "BumperRight" + _inputNum[playerNumber - 1];
+        _bumperLeftName = "BumperLeft" + _inputNum[playerNumber - 1];
 #endif
 
 #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX

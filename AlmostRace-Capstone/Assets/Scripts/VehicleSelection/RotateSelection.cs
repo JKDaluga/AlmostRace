@@ -4,66 +4,100 @@ using UnityEngine;
 
 public class RotateSelection : MonoBehaviour
 {
-    readonly float speed = 150;
-    readonly float margin = 5;
-    private Vector3 destination;
-    private bool isSwitching;
-    private bool isRight;
+    private float _degreesToShift = 90;
+    private float _maxDegrees = 270;
+    readonly float _speed = 150;
+    readonly float _margin = 5;
+    private Vector3 _destination;
+    private bool _isSwitching;
+    private bool _isRight;
+    private int _vehicleCount;
+
+    private void Start()
+    {
+        _vehicleCount = GameObject.FindObjectOfType<SelectionManager>().amountOfSelections;
+        switch (_vehicleCount)
+        {
+            case 1:
+                _degreesToShift = 0;
+                _maxDegrees = 0;
+                break;
+
+            case 2:
+                _degreesToShift = 180;
+                _maxDegrees = 180;
+                break;
+
+            case 3:
+                _degreesToShift = 120;
+                _maxDegrees = 240;
+                break;
+
+            case 4:
+                _degreesToShift = 90;
+                _maxDegrees = 270;
+                break;
+
+            default:
+                Debug.LogError("Set a vehicle amount");
+                break;
+        }
+    }
 
     public void SetSwitching(bool givenSwitch)
     {
-        isSwitching = givenSwitch;
-        if (isRight)
+        _isSwitching = givenSwitch;
+        if (_isRight)
         {
-            if (transform.localEulerAngles.y < 270)
+            if (transform.localEulerAngles.y < _maxDegrees)
             {
-                destination = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + 90f, transform.localEulerAngles.z);
+                _destination = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y + _degreesToShift, transform.localEulerAngles.z);
             }
             else
             {
-                destination = new Vector3(transform.localEulerAngles.x, 0, transform.localEulerAngles.z);
+                _destination = new Vector3(transform.localEulerAngles.x, 0, transform.localEulerAngles.z);
             }
         }
-        else if (!isRight)
+        else if (!_isRight)
         {
-            if (transform.localEulerAngles.y <= margin && transform.localEulerAngles.y >= 0)
+            if (transform.localEulerAngles.y <= _margin && transform.localEulerAngles.y >= 0)
             {
-                destination = new Vector3(transform.localEulerAngles.x, 270f, transform.localEulerAngles.z);
+                _destination = new Vector3(transform.localEulerAngles.x, _maxDegrees, transform.localEulerAngles.z);
             }
             else
             {
-                destination = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - 90f, transform.localEulerAngles.z);
+                _destination = new Vector3(transform.localEulerAngles.x, transform.localEulerAngles.y - _degreesToShift, transform.localEulerAngles.z);
             }
         }
     }
 
     public bool GetSwitching()
     {
-        return isSwitching;
+        return _isSwitching;
     }
 
     public void SetRightOrLeft(bool set)
     {
-        isRight = set;
+        _isRight = set;
     }
 
     private void FixedUpdate()
     {
-        if (isSwitching)
+        if (_isSwitching)
         {
-            if (isRight)
+            if (_isRight)
             {
-                transform.Rotate (Vector3.up * (speed * Time.deltaTime));
+                transform.Rotate (Vector3.up * (_speed * Time.deltaTime));
             }
-            else if (!isRight)
+            else if (!_isRight)
             {
-                transform.Rotate (Vector3.down * (speed * Time.deltaTime));
+                transform.Rotate (Vector3.down * (_speed * Time.deltaTime));
             }
 
-            if (transform.eulerAngles.y > destination.y - margin && transform.eulerAngles.y < destination.y + margin)
+            if (transform.eulerAngles.y > _destination.y - _margin && transform.eulerAngles.y < _destination.y + _margin)
             {
-                isSwitching = false;
-                transform.eulerAngles = new Vector3(transform.localEulerAngles.x, destination.y, transform.localEulerAngles.z);
+                _isSwitching = false;
+                transform.eulerAngles = new Vector3(transform.localEulerAngles.x, _destination.y, transform.localEulerAngles.z);
             }
         }     
     }

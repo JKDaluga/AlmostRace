@@ -2,41 +2,144 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ViewportController : MonoBehaviour
 {
+    public int selectedCarID;
     public GameObject PlayerStatus;
     public GameObject activeStatus;
-    private GameObject _vehicleSelected;
-    private TextMeshProUGUI _text;
-    public RotateSelection rotateSelection;
     public SelectionManager selectionManager;
+    public RawImage[] InfoPanels = new RawImage[4];
+    public GameObject noPlayerPanel;
+    public GameObject vehicleRotationHolder;
+    private RotateSelection _rotateSelection;
+    private TextMeshProUGUI _text;
     private PlayerInput _playerInput;
-    private bool _confirmation;
     private bool _ready;
+    private bool _joined;
+    private int _vehicleCount;
+    private int _selectedInfoPanel;
 
     private void Start()
     {
         _playerInput = gameObject.GetComponent<PlayerInput>();
         _text = PlayerStatus.GetComponent<TextMeshProUGUI>();
+        _vehicleCount = selectionManager.amountOfSelections;
+        _rotateSelection = vehicleRotationHolder.GetComponent<RotateSelection>();
+        vehicleRotationHolder.SetActive(false);
+        noPlayerPanel.SetActive(true);
+        PlayerJoin(true);
     }
 
     private void Update()
     {
+        if (_joined)
+        {
+            if (!_ready)
+            {
+                VehicleScroll();
+                InfoScroll();
+
+                if (Input.GetButtonDown(_playerInput.selectButton))
+                {
+                    VehicleSelect(true);
+                }
+                else if (Input.GetButtonDown(_playerInput.backButton))
+                {
+                    PlayerJoin(false);
+                }
+            }
+            else
+            {
+                if (Input.GetButtonDown(_playerInput.backButton))
+                {
+                    VehicleSelect(false);
+                }
+            }
+        }
+    }
+
+    private void VehicleScroll()
+    {
         if (Input.GetAxis(_playerInput.horizontal) > 0.1f)
         {
-            if(!rotateSelection.GetSwitching())
+            if(!_rotateSelection.GetSwitching())
             {
-                rotateSelection.SetRightOrLeft(true);
-                rotateSelection.SetSwitching(true);
+                _rotateSelection.SetRightOrLeft(true);
+                _rotateSelection.SetSwitching(true);
+                if (selectedCarID >= _vehicleCount - 1)
+                {
+                    selectedCarID = 0;
+                }
+                else
+                {
+                    selectedCarID = selectedCarID + 1;
+                }
             }
         }
         else if (Input.GetAxis(_playerInput.horizontal) < 0)
         {
-            if(!rotateSelection.GetSwitching())
+            if(!_rotateSelection.GetSwitching())
             {
-                rotateSelection.SetRightOrLeft(false);
-                rotateSelection.SetSwitching(true);
+                _rotateSelection.SetRightOrLeft(false);
+                _rotateSelection.SetSwitching(true);
+                if (selectedCarID <= 0)
+                {
+                    selectedCarID = _vehicleCount - 1;
+                }
+                else
+                {
+                    selectedCarID = selectedCarID - 1;
+                }
+            }
+        }
+    }
+
+    private void InfoScroll()
+    {
+        if(Input.GetButtonDown(_playerInput.bumperRight))
+        {
+            if (_selectedInfoPanel >= InfoPanels.Length - 1)
+            {
+                _selectedInfoPanel = 0;
+            }
+            else
+            {
+                _selectedInfoPanel = _selectedInfoPanel + 1;
+            }
+            for (int i = 0; i < InfoPanels.Length; i++)
+            {
+                if (i == _selectedInfoPanel)
+                {
+                    InfoPanels[i].enabled = true;
+                }
+                else
+                {
+                     InfoPanels[i].enabled = false;
+                }
+            }
+        }
+        else if (Input.GetButtonDown(_playerInput.bumperLeft))
+        {
+            if (_selectedInfoPanel <= 0)
+            {
+                _selectedInfoPanel = InfoPanels.Length - 1;
+            }
+            else
+            {
+                _selectedInfoPanel = _selectedInfoPanel - 1;
+            }
+            for (int i = 0; i < InfoPanels.Length; i++)
+            {
+                if (i == _selectedInfoPanel)
+                {
+                    InfoPanels[i].enabled = true;
+                }
+                else
+                {
+                     InfoPanels[i].enabled = false;
+                }
             }
         }
     }
@@ -45,49 +148,41 @@ public class ViewportController : MonoBehaviour
     {
         if (status == true)
         {
+            _joined = true;
             _text.text = "PLAYER " + num;
             activeStatus.gameObject.SetActive(false);
+            vehicleRotationHolder.SetActive(true);
+            noPlayerPanel.SetActive(false);
             activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "SELECT A VEHICLE";
         }
         else if (status == false)
         {
+            _joined = false;
+            _ready = false;
             _text.text = "NO PLAYER";
             activeStatus.gameObject.SetActive(true);
-            _confirmation = false;
             selectionManager.UpdateReady();
+            vehicleRotationHolder.SetActive(false);
+            noPlayerPanel.SetActive(true);
             activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "PRESS Y TO JOIN";
         }
     }
 
-    public void VehicleSelect(bool status)
+    private void VehicleSelect(bool status)
     {
         if (status == true)
         {
+            _ready = true;
             activeStatus.gameObject.SetActive(true);
-            activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "PRESS A TO CONFIRM";
+            activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "READY";
+            selectionManager.UpdateReady();
         }
         else
         {
-            _confirmation = false;
+            _ready = false;
             selectionManager.UpdateReady();
             activeStatus.gameObject.SetActive(true);
             activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "SELECT A VEHICLE";
-        }
-    }
-
-    public void ConfirmVehicle(bool status)
-    {
-        if (status == true)
-        {
-            activeStatus.GetComponent<TextMeshProUGUI>().text = "READY";
-            _confirmation = status;
-            selectionManager.UpdateReady();
-        }
-        else
-        {
-            _confirmation = status;
-            selectionManager.UpdateReady();
-            activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "PRESS A TO CONFIRM";
         }
     }
 
@@ -98,21 +193,6 @@ public class ViewportController : MonoBehaviour
     public bool GetReady()
     {
         return _ready;
-    }
-
-    public void SetConfirmation(bool givenConfirm)
-    {
-        _confirmation = givenConfirm;
-    }
-
-    public bool GetConfirmation()
-    {
-        return _confirmation;
-    }
-
-    public GameObject GetVehicle()
-    {
-        return _vehicleSelected;
     }
 
 }
