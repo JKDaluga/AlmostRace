@@ -61,7 +61,7 @@ public class PlayerUIManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Game Manager Can Not be Found");
+            Debug.LogWarning("Game Manager Can Not be Found");
         }
         int numPlayers = 1;
         if (DataManager.instance != null)
@@ -70,7 +70,7 @@ public class PlayerUIManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Data Manager Can Not be Found");
+            Debug.LogWarning("Data Manager Can Not be Found");
         }
 
         int playerNum = vehicleInputScript.getPlayerNum();

@@ -27,7 +27,7 @@ public class VehicleCollisionEffects : MonoBehaviour
         }
         if(_audioManager == null)
         {
-            Debug.LogError("AudioManager Can Not be Found");
+            Debug.LogWarning("AudioManager Can Not be Found");
         }
         else
         {

@@ -40,7 +40,7 @@ public class VehicleHypeBehavior : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Hype Manager not found!");
+            Debug.LogWarning("Hype Manager not found!");
         }
     }
 
