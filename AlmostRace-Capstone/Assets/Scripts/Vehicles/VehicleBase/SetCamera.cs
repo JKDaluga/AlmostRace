@@ -26,18 +26,22 @@ public class SetCamera : MonoBehaviour
             case 1:
                 transform.parent.GetComponentInChildren<CinemachineImpulseListener>().m_ChannelMask = 1;
                 GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_ImpulseChannel = 1;
+                transform.parent.GetComponentInChildren<CinemachineVirtualCamera>().GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XAxis.m_InputAxisName = "HorizontalP1";
                 break;
             case 2:
                 transform.parent.GetComponentInChildren<CinemachineImpulseListener>().m_ChannelMask = 2;
                 GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_ImpulseChannel = 2;
+                transform.parent.GetComponentInChildren< CinemachineVirtualCamera >().GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XAxis.m_InputAxisName = "HorizontalP2";
                 break;
             case 3:
                 transform.parent.GetComponentInChildren<CinemachineImpulseListener>().m_ChannelMask = 4;
                 GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_ImpulseChannel = 4;
+                transform.parent.GetComponentInChildren< CinemachineVirtualCamera >().GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XAxis.m_InputAxisName = "HorizontalP3";
                 break;
             case 4:
                 transform.parent.GetComponentInChildren<CinemachineImpulseListener>().m_ChannelMask = 8;
                 GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_ImpulseChannel = 8;
+                transform.parent.GetComponentInChildren< CinemachineVirtualCamera >().GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XAxis.m_InputAxisName = "HorizontalP4";
                 break;
         }
 
