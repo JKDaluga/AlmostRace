@@ -14,7 +14,7 @@ public class PlayerInfo
     public bool isActive = false;
     public int playerID = 0;
     public int carID = 0;
-    public int colorID = 0;
+    public int controllerID = 0;
     public int boostAbilityUsed = 0;
     public int offensiveAbilityUsed = 0;
     public int defenseAbilityUsed = 0;
