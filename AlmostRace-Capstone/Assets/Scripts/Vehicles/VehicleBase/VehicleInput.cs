@@ -77,7 +77,7 @@ public class VehicleInput : MonoBehaviour
     {
         playerNumber = num;
 
-#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+#if !UNITY_EDITOR_OSX && !UNITY_STANDALONE_OSX
         _horizontalName = "Horizontal" + _inputNum[playerNumber - 1];
         _vertForwardName = "VerticalForwards" + _inputNum[playerNumber - 1];
         _vertBackwardName = "VerticalBackwards" + _inputNum[playerNumber - 1];
