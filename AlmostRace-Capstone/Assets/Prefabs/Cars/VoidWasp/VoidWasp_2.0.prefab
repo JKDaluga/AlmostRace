@@ -399,8 +399,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 556669993014030264}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.13749999, z: -0.29687878}
-  m_LocalScale: {x: 0.1, y: 0.021242695, z: 0.13276699}
+  m_LocalPosition: {x: 0, y: -0.39285713, z: -0.29688177}
+  m_LocalScale: {x: 0.10000011, y: 0.060693413, z: 0.1327671}
   m_Children:
   - {fileID: 1562347026623630395}
   - {fileID: 976990362875955382}
@@ -4467,7 +4467,7 @@ ParticleSystem:
         m_RotationOrder: 4
     maxLights: 20
   TrailModule:
-    enabled: 0
+    enabled: 1
     mode: 0
     ratio: 1
     lifetime:
@@ -4601,7 +4601,7 @@ ParticleSystem:
     widthOverTrail:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1
+      scalar: 0.15
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -5299,7 +5299,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 79db916e235d31d4ca56819bfca3f32f, type: 2}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: bc14231efc40c384ea470e5c723215de, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5896,7 +5896,7 @@ MonoBehaviour:
   - {fileID: 110497243306967676}
   - {fileID: 696108663396961435}
   - {fileID: 6667582302060644946}
-  missileDamage: 15
+  missileDamage: 25
   missileSpeed: 300
   projectileCount: 15
   turnRate: 50
@@ -11459,6 +11459,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.3
       objectReference: {fileID: 0}
+    - target: {fileID: 8938214498588058289, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 644788422693019630, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -11502,22 +11507,22 @@ PrefabInstance:
     - target: {fileID: 8028647169396267673, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.08
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 8028647169396267673, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8028647169396267673, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.5
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 8028647169396267673, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.9
+      value: 4.03
       objectReference: {fileID: 0}
     - target: {fileID: 6599933181260147352, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}

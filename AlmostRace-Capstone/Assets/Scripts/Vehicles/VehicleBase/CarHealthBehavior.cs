@@ -185,15 +185,14 @@ public class CarHealthBehavior : MonoBehaviour
     public void Respawn()
     {
         isFlashing = false;
-        
+        isDead = false;
+        healthCurrent = healthMax;
         CancelInvoke("FlashRedEngine");
         if (GetComponent<VehicleInput>())
         {
 
             engineImage.color = Color.white;
-            engineIsFlash = false;
-            healthCurrent = healthMax;
-            isDead = false;
+            engineIsFlash = false;              
             deathFade.GetComponent<Animator>().Play("DeathFadeOut");
         }
         GetComponent<RaycastCar>().enabled = true;
