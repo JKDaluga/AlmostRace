@@ -51,7 +51,7 @@ public class RaceManager : MonoBehaviour
             {
                 if(player.isActive)
                 {
-                    spawnPlayer(player, playerCount, playerNum);
+                    spawnPlayer(player, playerCount);
                     playerNum++;
                 }
                 else
@@ -72,14 +72,14 @@ public class RaceManager : MonoBehaviour
         eventPanel.SetActive(false);
     }
 
-    void spawnPlayer(PlayerInfo player, int playerCount, int playerNum)
+    void spawnPlayer(PlayerInfo player, int playerCount)
     {
         // spawns the car on the map in the right spot
         GameObject car = Instantiate(carPool[player.carID * 4 + player.playerID - 1], spawnLocations[player.playerID - 1].position, spawnLocations[player.playerID - 1].rotation);
 
         RaycastCar raycastCar = car.GetComponentInChildren<RaycastCar>();
         VehicleInput v = car.GetComponentInChildren<VehicleInput>();
-        v.setPlayerNum(playerNum);
+        v.setPlayerNum(player.controllerID);
         if (raycastCar != null)
         {
             Camera c = raycastCar.gameObject.transform.parent.GetComponentInChildren<Camera>();
