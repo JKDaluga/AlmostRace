@@ -40,7 +40,7 @@ public class VirtualMouse : UIBehaviour
         if (Input.GetButtonDown(_playerInput.awakeButton) == true && _mouse.activeSelf == false && _ready == false)
         {
             _mouse.SetActive(true);
-            Grid.GetComponent<Display>().changeStatus(true, _playerInput.getPlayerNum()); ;
+            Grid.GetComponent<Display>().changeStatus(true, _playerInput.GetPlayerNum()); ;
             Grid.GetComponent<Display>().addedCar(false);
 
         }

@@ -10,76 +10,74 @@ public class SelectionManager : MonoBehaviour
     public string nextScene;
     private DataManager _data;
     public ViewportController[] viewports;
-    private GameObject[] _players = new GameObject[4];
-    public GameObject[] _players2 = new GameObject[4];
-    private static bool _isReady = false;
+    private static bool _readyToStart = false;
     private static bool _isLoading = false;
+    public PlayerInput[] _playerInputs;
 
 
     // Start is called before the first frame update
     void Start()
     {
         _data = DataManager.instance;
-        for (int i = 0; i < viewports.Length; i++)
-        {
-            _players[i] = viewports[i].gameObject;
-        }
         _isLoading = false;
         _data.resetData();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
-        if(_isReady && !_isLoading && Input.GetButtonDown("Submit"))
+        for (int i = 0; i < _playerInputs.Length; i++)
+        {
+            if (Input.GetButtonDown(_playerInputs[i].awakeButton))
+            {
+                AssignPlayer(_playerInputs[i]);
+            }
+        }
+
+        if(_readyToStart && !_isLoading && Input.GetButtonDown("Submit"))
         {
             _isLoading = true;
             SceneManager.LoadSceneAsync(nextScene);
         }
     }
 
-    public void UpdateReady()
+    private void AssignPlayer(PlayerInput givenController)
     {
-        /*
-        int checker = 0;
-        for(int i = 0; i != 4; i++)
+        for (int i = 0; i < viewports.Length; i++)
         {
-            if (_players[i].GetComponent<ViewportController>().GetReady())
+            if (!viewports[i].GetJoined())
             {
-                checker++;
+                viewports[i].PlayerJoin(true, givenController);
+                break;
             }
         }
-        if(checker == 4)
-        {
-            addData();
-            _isReady = true;
-        }
-        else
-        {
-            _isReady = false;
-        }
-        */
     }
 
-    private void addData()
+    public void UpdateData(int playerNumber, bool isReady, int givenCarID, int givenControllerID)
     {
-        for (int i = 0; i < 4; i++)
+        _data.playerInfo[playerNumber].isActive = isReady;
+        _data.playerInfo[playerNumber].carID = givenCarID;
+        _data.playerInfo[playerNumber].playerID = playerNumber;
+        _data.playerInfo[playerNumber].controllerID = givenControllerID;
+        if (IsReady())
         {
-            //_data.playerInfo[i].isActive = _players2[i].GetComponent<ViewportController>().GetReady();
-           // _data.playerInfo[i].carID = _players2[i].GetComponent<ViewportController>().GetVehicle();
+            _readyToStart = true;
+            //Put UI stuff here
         }
-        UpdatePlayerNums();
     }
-    
-    private void UpdatePlayerNums()
+
+    private bool IsReady()
     {
-        int i = 1;
-        foreach(PlayerInfo player in _data.playerInfo)
+        for(int i = 0; i < viewports.Length; i++)
         {
-            if(player.isActive)
+            if (viewports[i].GetJoined())
             {
-                player.playerID = i;
-                i++;
+                if (!viewports[i].GetReady())
+                {
+                    return false;
+                }
             }
         }
+        return true;
     }
+    
 }

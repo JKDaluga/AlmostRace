@@ -86,7 +86,7 @@ public class PlayerInput : MonoBehaviour
     }
 
 
-    public int getPlayerNum()
+    public int GetPlayerNum()
     {
         return playerNumber;
     }

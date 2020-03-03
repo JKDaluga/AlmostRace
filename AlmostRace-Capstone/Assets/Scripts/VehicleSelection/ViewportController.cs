@@ -6,8 +6,9 @@ using UnityEngine.UI;
 
 public class ViewportController : MonoBehaviour
 {
+    public int playerID;
     public int selectedCarID;
-    public GameObject PlayerStatus;
+    public GameObject playerStatus;
     public GameObject activeStatus;
     public SelectionManager selectionManager;
     public RawImage[] InfoPanels = new RawImage[4];
@@ -23,13 +24,11 @@ public class ViewportController : MonoBehaviour
 
     private void Start()
     {
-        _playerInput = gameObject.GetComponent<PlayerInput>();
-        _text = PlayerStatus.GetComponent<TextMeshProUGUI>();
+        _text = playerStatus.GetComponent<TextMeshProUGUI>();
         _vehicleCount = selectionManager.amountOfSelections;
         _rotateSelection = vehicleRotationHolder.GetComponent<RotateSelection>();
         vehicleRotationHolder.SetActive(false);
         noPlayerPanel.SetActive(true);
-        PlayerJoin(true);
     }
 
     private void Update()
@@ -47,7 +46,7 @@ public class ViewportController : MonoBehaviour
                 }
                 else if (Input.GetButtonDown(_playerInput.backButton))
                 {
-                    PlayerJoin(false);
+                    PlayerJoin(false, null);
                 }
             }
             else
@@ -116,7 +115,7 @@ public class ViewportController : MonoBehaviour
                 }
                 else
                 {
-                     InfoPanels[i].enabled = false;
+                    InfoPanels[i].enabled = false;
                 }
             }
         }
@@ -138,18 +137,19 @@ public class ViewportController : MonoBehaviour
                 }
                 else
                 {
-                     InfoPanels[i].enabled = false;
+                    InfoPanels[i].enabled = false;
                 }
             }
         }
     }
     
-    public void PlayerJoin(bool status, int num = 0)
+    public void PlayerJoin(bool status, PlayerInput controllerNumber)
     {
         if (status == true)
         {
+            _playerInput = controllerNumber;
             _joined = true;
-            _text.text = "PLAYER " + num;
+            _text.text = "PLAYER " + playerID;
             activeStatus.gameObject.SetActive(false);
             vehicleRotationHolder.SetActive(true);
             noPlayerPanel.SetActive(false);
@@ -161,7 +161,7 @@ public class ViewportController : MonoBehaviour
             _ready = false;
             _text.text = "NO PLAYER";
             activeStatus.gameObject.SetActive(true);
-            selectionManager.UpdateReady();
+            selectionManager.UpdateData(playerID, _ready, selectedCarID, _playerInput.GetPlayerNum());
             vehicleRotationHolder.SetActive(false);
             noPlayerPanel.SetActive(true);
             activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "PRESS Y TO JOIN";
@@ -175,24 +175,25 @@ public class ViewportController : MonoBehaviour
             _ready = true;
             activeStatus.gameObject.SetActive(true);
             activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "READY";
-            selectionManager.UpdateReady();
+            selectionManager.UpdateData(playerID, _ready, selectedCarID, _playerInput.GetPlayerNum());
         }
         else
         {
             _ready = false;
-            selectionManager.UpdateReady();
+            selectionManager.UpdateData(playerID, _ready, selectedCarID, _playerInput.GetPlayerNum());
             activeStatus.gameObject.SetActive(true);
             activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "SELECT A VEHICLE";
         }
     }
 
-    public void SetReady(bool stat)
-    {
-        _ready = stat;
-    }
     public bool GetReady()
     {
         return _ready;
+    }
+
+    public bool GetJoined()
+    {
+        return _joined;
     }
 
 }
