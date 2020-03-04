@@ -66,7 +66,7 @@ public class RaycastCar : MonoBehaviour
 
     public float deceleration = 5f;
     public float turnBackMultiplier  = 1.5f;
-    public float boostAccelerationMulti = 1.5f;
+    public float boostAccelerationMulti = .5f;
 
 
     private float slideSpeed;
@@ -251,8 +251,11 @@ public class RaycastCar : MonoBehaviour
 
         if (isBoosting)
         {
-            engineForce *= boostAccelerationMulti;
+            
+            engineForce += (flatDir * (power * boostAccelerationMulti )* carMass);
+            print((flatDir * (power * (throttle - reverse)) * carMass) - ((flatDir * (power * boostAccelerationMulti) * carMass)));
         }
+        
         // do turning
         actualTurn = horizontal;
 
@@ -324,7 +327,7 @@ public class RaycastCar : MonoBehaviour
             carRigidbody.angularDrag = 10f;
         }
 
-        if ((Mathf.Abs(throttle) >= deadZone && Mathf.Abs(reverse) <= deadZone || Mathf.Abs(reverse) >= deadZone && Mathf.Abs(throttle) <= deadZone) || !isCarGrounded())
+        if ((Mathf.Abs(throttle) >= deadZone && Mathf.Abs(reverse) <= deadZone || Mathf.Abs(reverse) >= deadZone && Mathf.Abs(throttle) <= deadZone) || !isCarGrounded() || isBoosting)
         {
             carRigidbody.drag = 0f;
         }
