@@ -215,7 +215,7 @@ public class HypeManager : MonoBehaviour
                 int playerNum = vehicleList[i].GetComponent<VehicleInput>().getPlayerNum();
                 winScreenBoxes[i].background.color = playerColors[playerNum - 1];
                 winScreenBoxes[i].playerTag.text = "Player " + playerNum;
-                winScreenBoxes[i].hypeAmount.text = "Hype: " + vehicleList[i].GetComponent<VehicleHypeBehavior>().GetHypeAmount();
+                winScreenBoxes[i].hypeAmount.text = vehicleList[i].GetComponent<VehicleHypeBehavior>().GetHypeAmount().ToString();
                 winScreenBoxes[i].Awards.text += awards[playerNum - 1];
             }
             else
