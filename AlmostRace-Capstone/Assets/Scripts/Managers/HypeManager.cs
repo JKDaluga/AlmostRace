@@ -15,6 +15,9 @@ using TMPro;
     Edited 11/10/2019: Eddie B
     Added a coroutine to track the total hype of the players. Needed for the HypeGates.
     Made sense to have the code happen once here as opposed to 4+ times across the board.
+
+    Edited 3/4/2020: Robyn R
+    Adjusted script to account for the new ways we'll be tracking score.
     */
 
 [System.Serializable]
@@ -23,6 +26,8 @@ public class WinScreenBox
     public Image background;
     public TextMeshProUGUI playerTag;
     public TextMeshProUGUI hypeAmount;
+    public TextMeshProUGUI finishTime;
+    public TextMeshProUGUI numKills;
     public TextMeshProUGUI Awards;
 }
 
@@ -216,6 +221,8 @@ public class HypeManager : MonoBehaviour
                 winScreenBoxes[i].background.color = playerColors[playerNum - 1];
                 winScreenBoxes[i].playerTag.text = "Player " + playerNum;
                 winScreenBoxes[i].hypeAmount.text = vehicleList[i].GetComponent<VehicleHypeBehavior>().GetHypeAmount().ToString();
+                winScreenBoxes[i].finishTime.text = "0"; //Fill with Player's Time later
+                winScreenBoxes[i].numKills.text = "0"; //Fill with Player's kill count later
                 winScreenBoxes[i].Awards.text += awards[playerNum - 1];
             }
             else
