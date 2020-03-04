@@ -15,7 +15,7 @@ public class Lux_BoostAbility : CooldownHeatAbility
     private RaycastCar carInfo;
     private bool isBoosting = false;
 
-    [Range(0, 100)]
+    [Range(0, 1)]
     public float boostSpeedPercentage;
 
    //[Range(0, 100)]

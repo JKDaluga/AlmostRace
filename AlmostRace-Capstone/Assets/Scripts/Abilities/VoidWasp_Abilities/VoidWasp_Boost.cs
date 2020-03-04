@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class VoidWasp_Boost : CooldownHeatAbility
 {
-    [Range(0, 100)] public float boostSpeedPercentage;
+    [Range(0, 1)] public float boostSpeedPercentage;
     public float healthLossActivateAmount = 25;
     private float currentBoostPercentage;
     public GameObject[] companions;
@@ -33,6 +33,7 @@ public class VoidWasp_Boost : CooldownHeatAbility
             isBoosting = true;
             currentBoostPercentage = boostSpeedPercentage;
             carInfo.setBoostSpeed(currentBoostPercentage);
+            print(currentBoostPercentage);
             for (int i = 0; i < companions.Length; i++)
             {
                 companions[i].SetActive(true);
