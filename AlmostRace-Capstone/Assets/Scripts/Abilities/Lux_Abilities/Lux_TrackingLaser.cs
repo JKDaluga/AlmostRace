@@ -25,6 +25,11 @@ public class Lux_TrackingLaser : MonoBehaviour
         gameObject.transform.position = _target.transform.position;
     }
 
+    public void GiveInfo()
+    {
+
+    }
+
     public void SetTarget(GameObject target)
     {
         _target = target;

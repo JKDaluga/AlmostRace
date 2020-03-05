@@ -26,7 +26,8 @@ public class Lux_TrackingDart : Projectile
         {
             _hitObject = other.gameObject;
             
-            Instantiate(laser);
+           Lux_TrackingLaser spawnedLaser =  Instantiate(laser, transform.position, transform.rotation);
+            spawnedLaser.GiveInfo();
             laser.SetTarget(_hitObject);
             Destroy(gameObject, 5.0f);
         }
