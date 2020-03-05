@@ -21,10 +21,9 @@ public class CamLock : MonoBehaviour
     {
         if (Mathf.Abs(follow.m_XAxis.m_InputAxisValue) < .5f)
         {
-            if (Mathf.Abs(follow.m_XAxis.Value) < 2)
+            if (Mathf.Abs(follow.m_XAxis.Value) > .5f)
             {
-                follow.m_XAxis.m_MaxValue = 0;
-                follow.m_XAxis.m_MinValue = 0;
+                StartCoroutine(decreaseAxis(follow.m_XAxis.m_MaxValue));
             }
         }
         else
@@ -32,5 +31,16 @@ public class CamLock : MonoBehaviour
             follow.m_XAxis.m_MaxValue = range;
             follow.m_XAxis.m_MinValue = -range;
         }
+    }
+
+    IEnumerator decreaseAxis(float oldValue)
+    {
+        for (float t = 0f; t < follow.m_RecenterToTargetHeading.m_RecenteringTime; t += Time.deltaTime)
+        {
+            follow.m_XAxis.m_MaxValue = Mathf.Lerp(oldValue, 0, t / follow.m_RecenterToTargetHeading.m_RecenteringTime);
+            follow.m_XAxis.m_MinValue = -follow.m_XAxis.m_MaxValue;
+            yield return null;
+        }
+
     }
 }
