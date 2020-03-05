@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6872566e8da423b4d823bc828c6f4e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserDisk: {fileID: 7787442200148596291, guid: 52811f33782857143a91d83e0a8a27ee,
+  trackingDart: {fileID: 6351142652642015883, guid: be83f93fc25a3814eb8909d58bc0e61d,
     type: 3}
-  laserDamage: 20
-  laserPulseRate: 0.01
+  laserDamage: 10
+  laserPulseRate: 0.1
   diskDamage: 100
-  laserDiskSpeed: 200
+  laserDartSpeed: 200
+  laserTrackingSpeed: 25
   laserHypeToGain: 30
   diskHypeToGain: 50
-  laserDiskSpawnLeft: {fileID: 3109604569233974240}
-  laserDiskSpawnRight: {fileID: 3168776841901748804}
+  muzzle: {fileID: 7649423301481602494}
 --- !u!114 &8727588691981754784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84,6 +84,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3805994587338594370}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &7009669165798967950
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7649423301481602494}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7649423301481602494
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7009669165798967950}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 4.93}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8544926258419931848}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8467956174726912219
 GameObject:
@@ -5147,6 +5177,7 @@ Transform:
   m_Children:
   - {fileID: 8544850751133008314}
   - {fileID: 8544934594695533632}
+  - {fileID: 7649423301481602494}
   m_Father: {fileID: 3805994587338594370}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

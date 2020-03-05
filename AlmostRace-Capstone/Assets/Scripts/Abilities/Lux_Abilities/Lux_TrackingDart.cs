@@ -28,6 +28,7 @@ public class Lux_TrackingDart : Projectile
             
             Instantiate(laser);
             laser.SetTarget(_hitObject);
+            Destroy(gameObject, 5.0f);
         }
 
     }

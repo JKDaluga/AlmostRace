@@ -26,7 +26,7 @@ public class Lux_Attack : Ability
     public float diskDamage;
 
     [Tooltip("How fast the laser disk will move.")]
-    public float laserDiskSpeed;
+    public float laserDartSpeed;
 
     [Tooltip("How fast the laser will chase its target.")]
     public float laserTrackingSpeed;
@@ -40,19 +40,16 @@ public class Lux_Attack : Ability
     [Header("Spawning and Visuals variables")]
     [Space(30)]
 
-    [Tooltip("Put the disk you want to go backwards here.")]
-    public Transform laserDiskSpawnLeft; //make sure the Z axis is pointing backwards on this one
-
     [Tooltip("Put the disk you want to go forward here.")]
-    public Transform laserDiskSpawnRight;
+    public Transform muzzle;
 
 
     public override void ActivateAbility()
     {
         AudioManager.instance.Play("Lux Shooting", transform);
 
-        GameObject trackingDartForward = Instantiate(trackingDart, laserDiskSpawnRight.position, laserDiskSpawnRight.rotation);
-        trackingDartForward.GetComponent<Lux_TrackingDart>().SetProjectileInfo(diskDamage, laserDiskSpeed, laserHypeToGain);
+        GameObject trackingDartForward = Instantiate(trackingDart, muzzle.position, muzzle.rotation);
+        trackingDartForward.GetComponent<Lux_TrackingDart>().SetProjectileInfo(diskDamage, laserDartSpeed, laserHypeToGain);
         trackingDartForward.GetComponent<Lux_TrackingDart>().SetImmunePlayer(gameObject);
         trackingDartForward.GetComponent<Lux_TrackingDart>().setDartInfo(laserDamage, laserPulseRate, diskHypeToGain, laserTrackingSpeed);
         Destroy(trackingDartForward, 10);
