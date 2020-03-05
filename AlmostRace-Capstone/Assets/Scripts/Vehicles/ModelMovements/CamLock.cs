@@ -8,7 +8,7 @@ public class CamLock : MonoBehaviour
     private CinemachineVirtualCamera cam;
     private CinemachineOrbitalTransposer follow;
     private string input;
-    public float range = 20;
+    public float range = 35;
 
     private void Start()
     {

@@ -53,11 +53,11 @@ public class ModelBehavior : MonoBehaviour
   
         if (Mathf.Sign(Input.GetAxis(ins.horizontal)) == Mathf.Sign(dir))
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(Input.GetAxis(ins.horizontal) * maxPitch, transform.eulerAngles.y, transform.eulerAngles.z)), pitchSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.Euler(new Vector3(transform.eulerAngles.x, transform.eulerAngles.y, -Input.GetAxis(ins.horizontal) * maxPitch)), pitchSpeed * Time.deltaTime);
         }
         else
         {
-            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(new Vector3(0, 90, 0)), pitchSpeed * Time.deltaTime);
+            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(new Vector3(0, 0, 0)), pitchSpeed * Time.deltaTime);
         }
 
         //Sets appropriate drifting particles based on direction
@@ -74,7 +74,7 @@ public class ModelBehavior : MonoBehaviour
 
         if (Input.GetAxis(ins.horizontal) == 0)
         {
-            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(new Vector3(0, 90, 0)), pitchSpeed * Time.deltaTime);
+            transform.localRotation = Quaternion.RotateTowards(transform.localRotation, Quaternion.Euler(new Vector3(0, 0, 0)), pitchSpeed * Time.deltaTime);
         }
    
     }
