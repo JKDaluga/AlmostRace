@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 598783574474825415}
   - component: {fileID: 598783574474825414}
   - component: {fileID: 598783574474825409}
+  - component: {fileID: 1956223580525279875}
   m_Layer: 0
   m_Name: Collider_Laser3
   m_TagString: Untagged
@@ -92,6 +93,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1956223580525279875
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598783574474825411}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c65262afdd0be0468f3f8caae970818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &598783574509299754
 GameObject:
   m_ObjectHideFlags: 0
@@ -196,6 +209,7 @@ GameObject:
   - component: {fileID: 598783574751457647}
   - component: {fileID: 598783574751457646}
   - component: {fileID: 598783574751457641}
+  - component: {fileID: 5291686396293503674}
   m_Layer: 0
   m_Name: SpinningObject
   m_TagString: Untagged
@@ -280,6 +294,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5291686396293503674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598783574751457643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b200758fa69555c44a1ce9c288c8cf35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &598783574782558101
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,6 +318,7 @@ GameObject:
   - component: {fileID: 598783574782558121}
   - component: {fileID: 598783574782558120}
   - component: {fileID: 598783574782558123}
+  - component: {fileID: 2293550458434900898}
   m_Layer: 0
   m_Name: Collider_Laser4
   m_TagString: Untagged
@@ -372,6 +399,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2293550458434900898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598783574782558101}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c65262afdd0be0468f3f8caae970818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &598783574884809727
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,6 +423,7 @@ GameObject:
   - component: {fileID: 598783574884809715}
   - component: {fileID: 598783574884809714}
   - component: {fileID: 598783574884809725}
+  - component: {fileID: 1259573871760412040}
   m_Layer: 0
   m_Name: Deco_Base
   m_TagString: Untagged
@@ -464,6 +504,30 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1259573871760412040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598783574884809727}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed5b5781aa54bdd418852f829e5e577b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  linkedMill: {fileID: 598783574751457643}
+  linkedLaser:
+  - {fileID: 598783576162325963}
+  - {fileID: 598783575175650308}
+  - {fileID: 598783574474825411}
+  - {fileID: 598783574782558101}
+  interactingPlayer: {fileID: 0}
+  baseLaserSpeed: 0
+  speedUpAmount: 0
+  extraShieldAmount: 0
+  laserDamageAmount: 0
+  laserDmgRate: 0
 --- !u!1 &598783575175650308
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,6 +540,7 @@ GameObject:
   - component: {fileID: 598783575175650328}
   - component: {fileID: 598783575175650331}
   - component: {fileID: 598783575175650330}
+  - component: {fileID: 5708179818236495358}
   m_Layer: 0
   m_Name: Collider_Laser2
   m_TagString: Untagged
@@ -556,6 +621,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5708179818236495358
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598783575175650308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c65262afdd0be0468f3f8caae970818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &598783575890261951
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,6 +678,7 @@ GameObject:
   - component: {fileID: 598783576162325967}
   - component: {fileID: 598783576162325966}
   - component: {fileID: 598783576162325961}
+  - component: {fileID: 7930553279069312887}
   m_Layer: 0
   m_Name: Collider_Laser
   m_TagString: Untagged
@@ -681,3 +759,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7930553279069312887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 598783576162325963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c65262afdd0be0468f3f8caae970818, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

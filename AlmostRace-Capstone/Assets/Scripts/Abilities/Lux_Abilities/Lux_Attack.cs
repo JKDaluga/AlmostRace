@@ -14,7 +14,7 @@ public class Lux_Attack : Ability
     [Space(30)]
 
     [Tooltip("Put laser disk prefab here.")]
-    public GameObject laserDisk;
+    public GameObject trackingDart;
 
     [Tooltip("How much damage the laser from the disk will deal.")]
     public float laserDamage;
@@ -47,19 +47,26 @@ public class Lux_Attack : Ability
     public override void ActivateAbility()
     {
         AudioManager.instance.Play("Lux Shooting", transform);
+
+        GameObject trackingDartForward = Instantiate(trackingDart, laserDiskSpawnRight.position, laserDiskSpawnRight.rotation);
+        trackingDartForward.GetComponent<Lux_TrackingDart>().SetProjectileInfo(diskDamage, laserDiskSpeed, laserHypeToGain);
+        trackingDartForward.GetComponent<Lux_TrackingDart>().SetImmunePlayer(gameObject);
+        trackingDartForward.GetComponent<Lux_TrackingDart>().setDartInfo(laserDamage, laserPulseRate, diskHypeToGain);
+        Destroy(trackingDartForward, 10);
+
         ///spawn the disk that goes forward and pass all of the information it needs to it.
-        GameObject laserDiskRight = Instantiate(laserDisk, laserDiskSpawnRight.position, laserDiskSpawnRight.rotation);
-        laserDiskRight.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed, diskHypeToGain);
-        laserDiskRight.GetComponent<Lux_LaserDisk>().SetImmunePlayer(gameObject);
-        laserDiskRight.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserPulseRate, laserHypeToGain);
+        //GameObject laserDiskRight = Instantiate(laserDisk, laserDiskSpawnRight.position, laserDiskSpawnRight.rotation);
+        //laserDiskRight.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed, diskHypeToGain);
+        //laserDiskRight.GetComponent<Lux_LaserDisk>().SetImmunePlayer(gameObject);
+        //laserDiskRight.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserPulseRate, laserHypeToGain);
 
         ///spawn the disk that goes backward and pass all of the information it needs to it.
-        GameObject laserDiskLeft = Instantiate(laserDisk, laserDiskSpawnLeft.position, laserDiskSpawnLeft.rotation);
-        laserDiskLeft.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed * -1, laserHypeToGain);
-        laserDiskLeft.GetComponent<Lux_LaserDisk>().SetImmunePlayer(gameObject);
-        laserDiskLeft.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserPulseRate, diskHypeToGain);
-        Destroy(laserDiskLeft, 10);
-        Destroy(laserDiskRight, 10);
+        //GameObject laserDiskLeft = Instantiate(laserDisk, laserDiskSpawnLeft.position, laserDiskSpawnLeft.rotation);
+        //laserDiskLeft.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed * -1, laserHypeToGain);
+        //laserDiskLeft.GetComponent<Lux_LaserDisk>().SetImmunePlayer(gameObject);
+        //laserDiskLeft.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserPulseRate, diskHypeToGain);
+        //Destroy(laserDiskLeft, 10);
+        //Destroy(laserDiskRight, 10);
 
     }
 
