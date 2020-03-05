@@ -4938,6 +4938,36 @@ Light:
   m_UseBoundingSphereOverride: 0
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &830884340395102483
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6780230889848814553}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6780230889848814553
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 830884340395102483}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -1.9, y: 0.85, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8711273926201749479}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &1064816457367265748
 GameObject:
   m_ObjectHideFlags: 0
@@ -29258,16 +29288,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6872566e8da423b4d823bc828c6f4e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laserDisk: {fileID: 7787442200148596291, guid: 52811f33782857143a91d83e0a8a27ee,
+  trackingDart: {fileID: 6351142652642015883, guid: be83f93fc25a3814eb8909d58bc0e61d,
     type: 3}
-  laserDamage: 1
-  laserPulseRate: 0.01
+  laserDamage: 10
+  laserPulseRate: 0.1
   diskDamage: 100
-  laserDiskSpeed: 200
-  laserHypeToGain: 0
-  diskHypeToGain: 0
-  laserDiskSpawnLeft: {fileID: 3966641121215712676}
-  laserDiskSpawnRight: {fileID: 4022310726991600640}
+  laserDartSpeed: 200
+  laserTrackingSpeed: 40
+  laserHypeToGain: 50
+  diskHypeToGain: 50
+  muzzle: {fileID: 6780230889848814553}
 --- !u!114 &7292805920643583972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57822,6 +57852,7 @@ Transform:
   m_LocalScale: {x: 2.5000024, y: 1, z: 2.5000024}
   m_Children:
   - {fileID: 7651102441245607959}
+  - {fileID: 6780230889848814553}
   m_Father: {fileID: 1948993165029661135}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
