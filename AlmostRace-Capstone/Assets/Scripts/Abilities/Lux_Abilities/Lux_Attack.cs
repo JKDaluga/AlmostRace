@@ -28,6 +28,9 @@ public class Lux_Attack : Ability
     [Tooltip("How fast the laser disk will move.")]
     public float laserDiskSpeed;
 
+    [Tooltip("How fast the laser will chase its target.")]
+    public float laserTrackingSpeed;
+
     [Tooltip("How much hype is given per thing lasered.")]
     public float laserHypeToGain;
 
@@ -51,7 +54,7 @@ public class Lux_Attack : Ability
         GameObject trackingDartForward = Instantiate(trackingDart, laserDiskSpawnRight.position, laserDiskSpawnRight.rotation);
         trackingDartForward.GetComponent<Lux_TrackingDart>().SetProjectileInfo(diskDamage, laserDiskSpeed, laserHypeToGain);
         trackingDartForward.GetComponent<Lux_TrackingDart>().SetImmunePlayer(gameObject);
-        trackingDartForward.GetComponent<Lux_TrackingDart>().setDartInfo(laserDamage, laserPulseRate, diskHypeToGain);
+        trackingDartForward.GetComponent<Lux_TrackingDart>().setDartInfo(laserDamage, laserPulseRate, diskHypeToGain, laserTrackingSpeed);
         Destroy(trackingDartForward, 10);
 
         ///spawn the disk that goes forward and pass all of the information it needs to it.

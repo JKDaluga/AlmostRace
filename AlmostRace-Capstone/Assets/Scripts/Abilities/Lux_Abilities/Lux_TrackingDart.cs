@@ -6,11 +6,12 @@ public class Lux_TrackingDart : Projectile
 {
     
     public GameObject _hitObject;
-    public GameObject laser;
+    public Lux_TrackingLaser laser;
 
     public float laserHype;
     public float laserDamage;
     public float laserDamageRate;
+    public float laserDmgSpeed;
     private bool hitTest;
 
     void Start()
@@ -24,16 +25,18 @@ public class Lux_TrackingDart : Projectile
         if (other.gameObject.GetComponent<CarHealthBehavior>() != null || other.gameObject.GetComponent<Interactable>()!=null)
         {
             _hitObject = other.gameObject;
+            laser.SetTarget(_hitObject);
             Instantiate(laser);
         }
 
     }
 
-    public void setDartInfo(float damage, float damageRate, float hype)
+    public void setDartInfo(float damage, float damageRate, float hype, float speed)
     {
         laserDamage = damage;
         laserHype = hype;
         laserDamageRate = damageRate;
+        laserDmgSpeed = speed;
     }
 
     void FixedUpdate()
