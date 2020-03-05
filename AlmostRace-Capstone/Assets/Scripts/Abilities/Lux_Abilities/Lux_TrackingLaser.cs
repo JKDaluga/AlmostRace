@@ -9,25 +9,20 @@ public class Lux_TrackingLaser : MonoBehaviour
 
     float _laserDamageRate,_laserDamage;
     float _laserSpeed;
-
+    private GameObject _immunePlayer;
     private List<CarHealthBehavior> _damagedCars;
+    private Interactable hitInteractable;
 
     // Start is called before the first frame update
     void Start()
     {
         _damagedCars = new List<CarHealthBehavior>();
-        Destroy(gameObject, 10);
-        _target = Lux_TrackingDart.FindObjectOfType<Lux_TrackingDart>()._hitObject;
-        _laserDamageRate = Lux_TrackingDart.FindObjectOfType<Lux_TrackingDart>().laserDamageRate;
-        _laserDamage = Lux_TrackingDart.FindObjectOfType<Lux_TrackingDart>().laserDamage;
-        _laserSpeed = Lux_TrackingDart.FindObjectOfType<Lux_TrackingDart>().laserDmgSpeed;
-
-        gameObject.transform.position = _target.transform.position;
     }
 
-    public void GiveInfo()
+    public void GiveInfo( float laserDamageRate, float laserDamage, GameObject immunePlayer)
     {
-
+        _laserDamageRate = laserDamageRate;
+        _laserDamage = laserDamage;
     }
 
     public void SetTarget(GameObject target)
@@ -35,20 +30,13 @@ public class Lux_TrackingLaser : MonoBehaviour
         _target = target;
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        gameObject.transform.LookAt(_target.transform.position);
-
-        gameObject.transform.position += transform.forward * _laserSpeed * Time.deltaTime;
-    }
-
     private void OnTriggerEnter(Collider other)
     {
 
-        if (other.gameObject.GetComponent<CarHealthBehavior>() != null)
+        if (other.gameObject.GetComponent<CarHealthBehavior>() != null && other.gameObject != _immunePlayer)
         {
             _damagedCars.Add(other.gameObject.GetComponent<CarHealthBehavior>());
+
             if (_damagedCars.Count == 1)
             {
                 InvokeRepeating("DamageCars", 0, _laserDamageRate);
@@ -56,8 +44,8 @@ public class Lux_TrackingLaser : MonoBehaviour
         }
         else if (other.gameObject.GetComponent<Interactable>() != null)
         {
-            other.gameObject.GetComponent<Interactable>().DamageInteractable(_laserDamage);
-            Destroy(gameObject);
+            hitInteractable = other.gameObject.GetComponent<Interactable>();
+            hitInteractable.DamageInteractable(hitInteractable.interactableHealth);
         }
     }
 

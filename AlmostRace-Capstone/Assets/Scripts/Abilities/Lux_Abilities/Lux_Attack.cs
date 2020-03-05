@@ -16,26 +16,17 @@ public class Lux_Attack : Ability
     [Tooltip("Put laser disk prefab here.")]
     public GameObject trackingDart;
 
+    [Tooltip("How fast the dart will fly.")]
+    public float dartSpeed;
+
     [Tooltip("How much damage the laser from the disk will deal.")]
     public float laserDamage;
 
     [Tooltip("How often the laser deals damage per second.")]
-    public float laserPulseRate;
+    public float laserDamageRate;
 
-    [Tooltip("How much damage the disk itself can do on impact.")]
-    public float diskDamage;
-
-    [Tooltip("How fast the laser disk will move.")]
-    public float laserDartSpeed;
-
-    [Tooltip("How fast the laser will chase its target.")]
-    public float laserTrackingSpeed;
-
-    [Tooltip("How much hype is given per thing lasered.")]
-    public float laserHypeToGain;
-
-    [Tooltip("How much hype is given if the disk direct impacts a car.")]
-    public float diskHypeToGain;
+    [Tooltip("How long the laser lasts.")]
+    public float laserDuration;
 
     [Header("Spawning and Visuals variables")]
     [Space(30)]
@@ -43,17 +34,17 @@ public class Lux_Attack : Ability
     [Tooltip("Put the disk you want to go forward here.")]
     public Transform muzzle;
 
-
     public override void ActivateAbility()
     {
         AudioManager.instance.Play("Lux Shooting", transform);
 
-        GameObject trackingDartForward = Instantiate(trackingDart, muzzle.position, muzzle.rotation);
-        trackingDartForward.GetComponent<Lux_TrackingDart>().SetProjectileInfo(diskDamage, laserDartSpeed, laserHypeToGain);
-        trackingDartForward.GetComponent<Lux_TrackingDart>().SetImmunePlayer(gameObject);
-        trackingDartForward.GetComponent<Lux_TrackingDart>().setDartInfo(laserDamage, laserPulseRate, diskHypeToGain, laserTrackingSpeed);
-        Destroy(trackingDartForward, 10);
+        GameObject spawnedDart = Instantiate(trackingDart, muzzle.position, muzzle.rotation);
+        spawnedDart.GetComponent<Lux_TrackingDart>().SetProjectileInfo(0, dartSpeed, 0);
+        spawnedDart.GetComponent<Lux_TrackingDart>().SetImmunePlayer(gameObject);
+        spawnedDart.GetComponent<Lux_TrackingDart>().setDartInfo(laserDamage, laserDamageRate, laserDuration);
+        
 
+        #region Old Lux Attack
         ///spawn the disk that goes forward and pass all of the information it needs to it.
         //GameObject laserDiskRight = Instantiate(laserDisk, laserDiskSpawnRight.position, laserDiskSpawnRight.rotation);
         //laserDiskRight.GetComponent<Lux_LaserDisk>().SetProjectileInfo(diskDamage, laserDiskSpeed, diskHypeToGain);
@@ -67,7 +58,7 @@ public class Lux_Attack : Ability
         //laserDiskLeft.GetComponent<Lux_LaserDisk>().SetDiskInfo(laserDamage, laserPulseRate, diskHypeToGain);
         //Destroy(laserDiskLeft, 10);
         //Destroy(laserDiskRight, 10);
-
+        #endregion
     }
 
     public override void DeactivateAbility()
