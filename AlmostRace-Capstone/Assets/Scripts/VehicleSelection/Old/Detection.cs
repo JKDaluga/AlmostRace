@@ -13,7 +13,7 @@ using UnityEngine.UI;
 public class Detection : MonoBehaviour
 {
 
-    private PlayerInput input;
+    private VehicleInput input;
     private VirtualMouse mouse;
     private GraphicRaycaster gr;
     private PointerEventData pointerEventData = new PointerEventData(null);
@@ -21,7 +21,7 @@ public class Detection : MonoBehaviour
     void Start()
     {
         mouse = GetComponentInParent<VirtualMouse>();
-        input = GetComponentInParent<PlayerInput>();
+        input = GetComponentInParent<VehicleInput>();
         gr = GetComponentInParent<GraphicRaycaster>();
         
     }

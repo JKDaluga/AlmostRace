@@ -16,7 +16,7 @@ public class ViewportController : MonoBehaviour
     public GameObject vehicleRotationHolder;
     private RotateSelection _rotateSelection;
     private TextMeshProUGUI _text;
-    private PlayerInput _playerInput;
+    private VehicleInput _playerInput;
     private bool _ready;
     private bool _joined;
     private int _vehicleCount;
@@ -143,7 +143,7 @@ public class ViewportController : MonoBehaviour
         }
     }
     
-    public void PlayerJoin(bool status, PlayerInput controllerNumber)
+    public void PlayerJoin(bool status, VehicleInput controllerNumber)
     {
         if (status == true)
         {
@@ -196,7 +196,7 @@ public class ViewportController : MonoBehaviour
         return _joined;
     }
 
-    public PlayerInput GetInput()
+    public VehicleInput GetInput()
     {
         return _playerInput;
     }

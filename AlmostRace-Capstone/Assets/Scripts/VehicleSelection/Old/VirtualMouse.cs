@@ -15,7 +15,7 @@ public class VirtualMouse : UIBehaviour
 
     public int currentVehicle;
 
-    private PlayerInput _playerInput;
+    private VehicleInput _playerInput;
     public GameObject _mouse;
     public GameObject Grid;
     private bool _ready = false;
@@ -32,7 +32,7 @@ public class VirtualMouse : UIBehaviour
 
     protected override void Start()
     {
-        _playerInput = GetComponent<PlayerInput>();
+        _playerInput = GetComponent<VehicleInput>();
     }
 
     private void Update()

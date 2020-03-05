@@ -12,7 +12,7 @@ public class SelectionManager : MonoBehaviour
     public ViewportController[] viewports;
     private static bool _readyToStart = false;
     private static bool _isLoading = false;
-    public PlayerInput[] _playerInputs;
+    public VehicleInput[] _playerInputs;
 
 
     // Start is called before the first frame update
@@ -40,7 +40,7 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
-    private void CheckController(PlayerInput givenController)
+    private void CheckController(VehicleInput givenController)
     {
         bool inUse = false;
         for (int i = 0; i < viewports.Length; i++)
@@ -57,7 +57,7 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
-    private void AssignPlayer(PlayerInput givenController)
+    private void AssignPlayer(VehicleInput givenController)
     {
         for (int i = 0; i < viewports.Length; i++)
         {
