@@ -25,8 +25,9 @@ public class Lux_TrackingDart : Projectile
         if (other.gameObject.GetComponent<CarHealthBehavior>() != null || other.gameObject.GetComponent<Interactable>()!=null)
         {
             _hitObject = other.gameObject;
-            laser.SetTarget(_hitObject);
+            
             Instantiate(laser);
+            laser.SetTarget(_hitObject);
         }
 
     }
