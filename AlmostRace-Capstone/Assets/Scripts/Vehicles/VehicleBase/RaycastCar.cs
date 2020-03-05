@@ -253,7 +253,7 @@ public class RaycastCar : MonoBehaviour
         {
             
             engineForce += (flatDir * (power * boostAccelerationMulti )* carMass);
-            print((flatDir * (power * (throttle - reverse)) * carMass) - ((flatDir * (power * boostAccelerationMulti) * carMass)));
+            //print((flatDir * (power * (throttle - reverse)) * carMass) - ((flatDir * (power * boostAccelerationMulti) * carMass)));
         }
         
         // do turning
