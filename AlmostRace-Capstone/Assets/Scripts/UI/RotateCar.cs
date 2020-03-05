@@ -8,11 +8,10 @@ using UnityEngine;
 */
 public class RotateCar : MonoBehaviour
 {
-    float speed = .5f;
+    public float rotateSpeed = .5f;
 
-    // Update is called once per frame
     void FixedUpdate()
     {
-        this.transform.Rotate(speed * new Vector3(0,1,0));
+        this.transform.Rotate(rotateSpeed * new Vector3(0,1,0));
     }
 }

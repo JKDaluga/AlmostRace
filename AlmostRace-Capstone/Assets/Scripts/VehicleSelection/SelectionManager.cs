@@ -29,7 +29,7 @@ public class SelectionManager : MonoBehaviour
         {
             if (Input.GetButtonDown(_playerInputs[i].awakeButton))
             {
-                AssignPlayer(_playerInputs[i]);
+                CheckController(_playerInputs[i]);
             }
         }
 
@@ -37,6 +37,23 @@ public class SelectionManager : MonoBehaviour
         {
             _isLoading = true;
             SceneManager.LoadSceneAsync(nextScene);
+        }
+    }
+
+    private void CheckController(PlayerInput givenController)
+    {
+        bool inUse = false;
+        for (int i = 0; i < viewports.Length; i++)
+        {
+            if (viewports[i].GetJoined() && viewports[i].GetInput() == givenController)
+            {
+                inUse = true;
+                break;
+            }
+        }
+        if (!inUse)
+        {
+            AssignPlayer(givenController);
         }
     }
 
@@ -54,10 +71,10 @@ public class SelectionManager : MonoBehaviour
 
     public void UpdateData(int playerNumber, bool isReady, int givenCarID, int givenControllerID)
     {
-        _data.playerInfo[playerNumber].isActive = isReady;
-        _data.playerInfo[playerNumber].carID = givenCarID;
-        _data.playerInfo[playerNumber].playerID = playerNumber;
-        _data.playerInfo[playerNumber].controllerID = givenControllerID;
+        _data.playerInfo[playerNumber - 1].isActive = isReady;
+        _data.playerInfo[playerNumber - 1].carID = givenCarID;
+        _data.playerInfo[playerNumber - 1].playerID = playerNumber;
+        _data.playerInfo[playerNumber - 1].controllerID = givenControllerID;
         if (IsReady())
         {
             _readyToStart = true;

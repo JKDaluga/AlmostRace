@@ -39,7 +39,7 @@ public class RotateSelection : MonoBehaviour
                 break;
 
             default:
-                Debug.LogError("Set a vehicle amount");
+                Debug.LogError("Set a proper vehicle amount");
                 break;
         }
     }

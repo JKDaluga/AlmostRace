@@ -8,7 +8,7 @@ public class ViewportController : MonoBehaviour
 {
     public int playerID;
     public int selectedCarID;
-    public GameObject playerStatus;
+     public GameObject playerStatus;
     public GameObject activeStatus;
     public SelectionManager selectionManager;
     public RawImage[] InfoPanels = new RawImage[4];
@@ -61,7 +61,7 @@ public class ViewportController : MonoBehaviour
 
     private void VehicleScroll()
     {
-        if (Input.GetAxis(_playerInput.horizontal) > 0.1f)
+        if (Input.GetAxis(_playerInput.horizontal) > 0.3f)
         {
             if(!_rotateSelection.GetSwitching())
             {
@@ -77,7 +77,7 @@ public class ViewportController : MonoBehaviour
                 }
             }
         }
-        else if (Input.GetAxis(_playerInput.horizontal) < 0)
+        else if (Input.GetAxis(_playerInput.horizontal) < -0.3f)
         {
             if(!_rotateSelection.GetSwitching())
             {
@@ -161,7 +161,7 @@ public class ViewportController : MonoBehaviour
             _ready = false;
             _text.text = "NO PLAYER";
             activeStatus.gameObject.SetActive(true);
-            selectionManager.UpdateData(playerID, _ready, selectedCarID, _playerInput.GetPlayerNum());
+            selectionManager.UpdateData(playerID, _ready, selectedCarID, 0);
             vehicleRotationHolder.SetActive(false);
             noPlayerPanel.SetActive(true);
             activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "PRESS Y TO JOIN";
@@ -194,6 +194,11 @@ public class ViewportController : MonoBehaviour
     public bool GetJoined()
     {
         return _joined;
+    }
+
+    public PlayerInput GetInput()
+    {
+        return _playerInput;
     }
 
 }
