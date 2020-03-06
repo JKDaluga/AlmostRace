@@ -6,19 +6,22 @@ using UnityEngine.SceneManagement;
 
 using TMPro;
 
-    /*
-    Author: Jake Velicer
-    Purpose: Stores each vehicle object in a list,
-    called to keep that list ordered by the vehicles with the most hype,
-    updates the UI accordingly.
+/*
+Author: Jake Velicer
+Purpose: Stores each vehicle object in a list,
+called to keep that list ordered by the vehicles with the most hype,
+updates the UI accordingly.
 
-    Edited 11/10/2019: Eddie B
-    Added a coroutine to track the total hype of the players. Needed for the HypeGates.
-    Made sense to have the code happen once here as opposed to 4+ times across the board.
+Edited 11/10/2019: Eddie B
+Added a coroutine to track the total hype of the players. Needed for the HypeGates.
+Made sense to have the code happen once here as opposed to 4+ times across the board.
 
-    Edited 3/4/2020: Robyn R
-    Adjusted script to account for the new ways we'll be tracking score.
-    */
+Edited 3/4/2020: Robyn R
+Adjusted script to account for the new ways we'll be tracking score.
+
+Edited 3/5/2020: Jason D
+Refactoring for our simplified game loop
+*/
 
 [System.Serializable]
 public class WinScreenBox
@@ -34,9 +37,7 @@ public class WinScreenBox
 public class HypeManager : MonoBehaviour
 {
     public List<GameObject> vehicleList = new List<GameObject>();
-    private Text[] _hypeAmountDisplay;
     public float totalHype;
-    //public float maxHype; //Essentially a win condition
     public Text winnerText;
     private float tempTotal;
     public GameObject countdownObj;
@@ -47,16 +48,19 @@ public class HypeManager : MonoBehaviour
     public WinScreenBox[] winScreenBoxes;
     public string[] awards;
     public Color[] playerColors;
-    
+    //amount of time between when end screen pops up and the player is allowed to press any button to continue
+    public float inputDelayMax = 3f;
+    private float inputDelay;
 
-    private void Awake()
-    {
-        SetUpDisplay();
-    }
+    [Header(" Variables")]
+    public float hypePerKill;
+    public float[] hypeForRacePosition;
+    public float hypeLosePerDeath;
 
     // Start is called before the first frame update
     void Start()
     {
+        inputDelay = 0;
         awards = new string[4];
         StartCoroutine(TrackTotalHype());
     }
@@ -70,9 +74,9 @@ public class HypeManager : MonoBehaviour
             {
                 tempTotal += vehicle.GetComponent<VehicleHypeBehavior>().GetHypeAmount();
             }
-            //Debug.Log("tempTotal: " + tempTotal);
+
             totalHype = tempTotal;
-            //Debug.Log("totalHype:" + totalHype);
+
             yield return null;
         }
     }
@@ -93,15 +97,6 @@ public class HypeManager : MonoBehaviour
         EndGame();
     }
 
-    private void SetUpDisplay()
-    {
-        _hypeAmountDisplay = new Text[vehicleList.Count];
-        for (int i = 0; i < _hypeAmountDisplay.Length; i++)
-        {
-            _hypeAmountDisplay[i] = GameObject.Find("HypeDisplay" + (i + 1)).GetComponent<Text>();
-        }
-    }
-
     // Called to add the given vehicle to the vehicle list
     public void VehicleAssign(GameObject player)
     {
@@ -120,8 +115,6 @@ public class HypeManager : MonoBehaviour
         );
         // Put in descending order
         vehicleList.Reverse();
-        //checkWinCondition(); Doesn't need to be here, since we are moving away from the hype limit. - Eddie
-      //  UIupdate();
     }
 
     // Sorts the list at the beginning of the game based on player number rather than hype amount
@@ -134,33 +127,6 @@ public class HypeManager : MonoBehaviour
                 .CompareTo(p2.GetComponent<VehicleInput>().playerNumber);
             }
         );
-
-        //UIupdate();
-    }
-
-    private void UIupdate()
-    {
-        int i = 0;
-        foreach(GameObject entry in vehicleList)
-        {
-            _hypeAmountDisplay[i].text = entry.name.ToString() + ": " +
-           // _hypeAmountDisplay[i].text = "Hype: " +
-            entry.GetComponent<VehicleHypeBehavior>().GetHypeAmount().ToString();
-            i++;
-        }
-    }
-
-    private void checkWinCondition()
-    {
-        foreach(GameObject entry in vehicleList)
-        {
-           // if(entry.GetComponent<VehicleHypeBehavior>().GetHypeAmount() >= maxHype)
-           // {
-            //    Time.timeScale = 0.0f;
-           //     winnerText.text = "PLAYER " + entry.GetComponent<VehicleInput>().playerNumber + " WINS!";
-            //    winnerText.gameObject.SetActive(true);
-          //  }
-        }
     }
 
     public void EndGame()
@@ -179,7 +145,7 @@ public class HypeManager : MonoBehaviour
         if(winner != this.gameObject)
         {
             eventPanel.SetActive(true);
-            
+            calculateHype();
             FindObjectOfType<WinScreen>().chooseWinners();
             VehicleSort();
             populateWinScreen();
@@ -195,7 +161,14 @@ public class HypeManager : MonoBehaviour
     {
         if(isGameEnded)
         {
-            if(Input.anyKeyDown) ReturnToMainMenu();
+            if(inputDelay <= inputDelayMax)
+            {
+                if (Input.anyKeyDown) ReturnToMainMenu();
+            }
+            else
+            {
+                inputDelay += Time.deltaTime;
+            }
         }
     }
 
@@ -209,6 +182,12 @@ public class HypeManager : MonoBehaviour
     public void DisableEvents()
     {
         eventPanel.SetActive(false);
+    }
+
+    public void calculateHype()
+    {
+        DataManager dataManager = FindObjectOfType<DataManager>();
+        
     }
 
     public void populateWinScreen()

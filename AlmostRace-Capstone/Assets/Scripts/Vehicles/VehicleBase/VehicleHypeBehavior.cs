@@ -22,14 +22,8 @@ public class VehicleHypeBehavior : MonoBehaviour
 {
     private HypeManager _hypeManagerScript;
     public PlayerUIManager playerUIManagerScript;
-    public GameObject scalingPanel;
     public float _hypeAmount;
-    public TextMeshProUGUI hypeText;
-    public GameObject hypePopup;
-    public Transform hypePopupSpawn;
-    public Transform hypePopupEnd;
     public float bigHypeAmount = 50f;
-    
 
     void Start()
     {
@@ -44,24 +38,10 @@ public class VehicleHypeBehavior : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (GetComponent<VehicleInput>())
-        {
-            UpdateUI();
-        }
-    }
-
-    public void UpdateUI()
-    {
-        hypeText.text = "" + _hypeAmount.ToString("F0");
-    }
-
     public void AddHype(float hypeToAdd, string hypeType)
     {
         if(!_hypeManagerScript.isGameEnded)
         {
-            // Debug.Log(hypeToAdd + " was added to " + gameObject.name + " from " + hypeType);
             if (hypeToAdd >= bigHypeAmount)
             {
                 AudioManager.instance.PlayWithoutSpatial("Audience");
@@ -70,19 +50,7 @@ public class VehicleHypeBehavior : MonoBehaviour
             {
                 AudioManager.instance.PlayWithoutSpatial("Low Hype");
             }
-            //_hypeAmount += hypeToAdd;
             _hypeAmount = _hypeAmount + hypeToAdd;
-            _hypeManagerScript.VehicleSort();
-            if (GetComponent<VehicleInput>())
-            {
-                if(!hypeType.Equals("Award"))
-                {
-                    GameObject spawnedPopUp = Instantiate(hypePopup, hypePopupSpawn.position, hypePopupSpawn.rotation);
-                    spawnedPopUp.GetComponent<TextMeshProUGUI>().text = hypeType + ": " + hypeToAdd.ToString("F0");
-                    spawnedPopUp.transform.SetParent(scalingPanel.transform);
-                    spawnedPopUp.GetComponent<HypePopup>().GiveInfo(hypePopupSpawn, hypePopupEnd, 1f);
-                }
-            }
         }
         else if (hypeType.Equals("Award"))
         {
@@ -92,8 +60,10 @@ public class VehicleHypeBehavior : MonoBehaviour
 
     public void SubtractHype(float hypeToSubtract)
     {
-        _hypeAmount -= hypeToSubtract;
-        _hypeManagerScript.VehicleSort();
+        if (!_hypeManagerScript.isGameEnded)
+        {
+            _hypeAmount -= hypeToSubtract;
+        }
     }
 
     public float GetHypeAmount()
