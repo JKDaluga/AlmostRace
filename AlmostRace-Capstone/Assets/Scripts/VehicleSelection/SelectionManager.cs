@@ -89,17 +89,26 @@ public class SelectionManager : MonoBehaviour
 
     private bool IsReady()
     {
+        bool enoughPlayers = false;
         for(int i = 0; i < viewports.Length; i++)
         {
             if (viewports[i].GetJoined())
             {
+                enoughPlayers = true;
                 if (!viewports[i].GetReady())
                 {
                     return false;
                 }
             }
         }
-        return true;
+        if (enoughPlayers)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
 
     public bool GetReadyToStart()
