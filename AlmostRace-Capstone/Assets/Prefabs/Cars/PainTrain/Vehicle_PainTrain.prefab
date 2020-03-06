@@ -379,13 +379,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6163574465874372591}
-  - component: {fileID: 6390239003783688019}
   - component: {fileID: 4943340166367490451}
   - component: {fileID: 1244853936071007363}
   - component: {fileID: 2802128396150855688}
-  - component: {fileID: 3933921283755764868}
+  - component: {fileID: 3472607612231415705}
   m_Layer: 11
-  m_Name: ShockField
+  m_Name: BoostShockField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -405,19 +404,6 @@ Transform:
   m_Father: {fileID: 7360550566265133025}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6390239003783688019
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1227828136789151717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef7bbd0570a6ec14987ac2a11c5c8584, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lightningBall: {fileID: 0}
 --- !u!33 &4943340166367490451
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -477,7 +463,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.49999997
   m_Center: {x: 0, y: -0.000000029802322, z: 0}
---- !u!114 &3933921283755764868
+--- !u!114 &3472607612231415705
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -486,10 +472,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1227828136789151717}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ef7bbd0570a6ec14987ac2a11c5c8584, type: 3}
+  m_Script: {fileID: 11500000, guid: d1542528f2f5079479fed6bc636ea1c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightningBall: {fileID: 0}
 --- !u!1 &1651453246020180430
 GameObject:
   m_ObjectHideFlags: 0
@@ -1494,8 +1479,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selfHeatDamage: 0
   boostField: {fileID: 1227828136789151717}
-  _boostDamageRate: 0.1
-  _boostDamage: 10
+  boostDamageRate: 0.5
+  boostDamage: 10
   boostSpeedPercentage: 0.3
 --- !u!114 &5530304377845725064
 MonoBehaviour:
@@ -1622,12 +1607,12 @@ PrefabInstance:
     - target: {fileID: 644788422693019630, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000037697927
+      value: 0.000000037921442
       objectReference: {fileID: 0}
     - target: {fileID: 644788422693019630, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000012207897
+      value: -0.00000012212202
       objectReference: {fileID: 0}
     - target: {fileID: 644788422693019630, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
