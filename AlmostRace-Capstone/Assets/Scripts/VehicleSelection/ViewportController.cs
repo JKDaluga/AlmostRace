@@ -6,16 +6,26 @@ using UnityEngine.UI;
 
 public class ViewportController : MonoBehaviour
 {
+    [Header("Player Values")]
     public int playerID;
     public int selectedCarID;
-     public GameObject playerStatus;
-    public GameObject activeStatus;
     public SelectionManager selectionManager;
+
+    [Header("UI Values")]
+    [Space(20)]
+    public GameObject playerNumDisplay;
+    public GameObject cover;
+    public RawImage inactiveImage;
+    public RawImage readyImage;
+    public GameObject InfoPanelHolder;
     public RawImage[] InfoPanels = new RawImage[4];
-    public GameObject noPlayerPanel;
+    private TextMeshProUGUI _text;
+
+    [Header("Display Vehicle Values")]
+    [Space(20)]
     public GameObject vehicleRotationHolder;
     private RotateSelection _rotateSelection;
-    private TextMeshProUGUI _text;
+
     private VehicleInput _playerInput;
     private bool _ready;
     private bool _joined;
@@ -24,16 +34,20 @@ public class ViewportController : MonoBehaviour
 
     private void Start()
     {
-        _text = playerStatus.GetComponent<TextMeshProUGUI>();
+        _text = playerNumDisplay.GetComponent<TextMeshProUGUI>();
         _vehicleCount = selectionManager.amountOfSelections;
         _rotateSelection = vehicleRotationHolder.GetComponent<RotateSelection>();
+
+        cover.SetActive(true);
         vehicleRotationHolder.SetActive(false);
-        noPlayerPanel.SetActive(true);
+        inactiveImage.enabled = true;
+        readyImage.enabled = false;
+        InfoPanelHolder.SetActive(false);
     }
 
     private void Update()
     {
-        if (_joined)
+        if (_joined && !selectionManager.GetReadyToStart())
         {
             if (!_ready)
             {
@@ -150,21 +164,22 @@ public class ViewportController : MonoBehaviour
             _playerInput = controllerNumber;
             _joined = true;
             _text.text = "PLAYER " + playerID;
-            activeStatus.gameObject.SetActive(false);
             vehicleRotationHolder.SetActive(true);
-            noPlayerPanel.SetActive(false);
-            activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "SELECT A VEHICLE";
+            inactiveImage.enabled = false;
+            InfoPanelHolder.SetActive(true);
+            cover.SetActive(false);
+
         }
         else if (status == false)
         {
             _joined = false;
             _ready = false;
             _text.text = "NO PLAYER";
-            activeStatus.gameObject.SetActive(true);
-            selectionManager.UpdateData(playerID, _ready, selectedCarID, 0);
+            cover.SetActive(true);
             vehicleRotationHolder.SetActive(false);
-            noPlayerPanel.SetActive(true);
-            activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "PRESS Y TO JOIN";
+            inactiveImage.enabled = true;
+            InfoPanelHolder.SetActive(false);
+            selectionManager.UpdateData(playerID, _ready, selectedCarID, 0);
         }
     }
 
@@ -173,16 +188,17 @@ public class ViewportController : MonoBehaviour
         if (status == true)
         {
             _ready = true;
-            activeStatus.gameObject.SetActive(true);
-            activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "READY";
+            readyImage.enabled = true;
+            InfoPanelHolder.SetActive(false);
             selectionManager.UpdateData(playerID, _ready, selectedCarID, _playerInput.GetPlayerNum());
         }
         else
         {
             _ready = false;
+            readyImage.enabled = false;
+            InfoPanelHolder.SetActive(true);
             selectionManager.UpdateData(playerID, _ready, selectedCarID, _playerInput.GetPlayerNum());
-            activeStatus.gameObject.SetActive(true);
-            activeStatus.gameObject.GetComponent<TextMeshProUGUI>().text = "SELECT A VEHICLE";
+            
         }
     }
 

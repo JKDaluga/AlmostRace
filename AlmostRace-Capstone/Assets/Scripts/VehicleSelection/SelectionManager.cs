@@ -8,11 +8,12 @@ public class SelectionManager : MonoBehaviour
 {
     public int amountOfSelections = 2;
     public string nextScene;
-    private DataManager _data;
     public ViewportController[] viewports;
+    public VehicleInput[] playerInputs;
+    public GameObject allReadyImage;
+    private DataManager _data;
     private static bool _readyToStart = false;
     private static bool _isLoading = false;
-    public VehicleInput[] _playerInputs;
 
 
     // Start is called before the first frame update
@@ -21,15 +22,19 @@ public class SelectionManager : MonoBehaviour
         _data = DataManager.instance;
         _isLoading = false;
         _data.resetData();
+        allReadyImage.SetActive(false);
     }
 
     private void Update()
     {
-        for (int i = 0; i < _playerInputs.Length; i++)
+        if (!_readyToStart)
         {
-            if (Input.GetButtonDown(_playerInputs[i].awakeButton))
+            for (int i = 0; i < playerInputs.Length; i++)
             {
-                CheckController(_playerInputs[i]);
+                if (Input.GetButtonDown(playerInputs[i].awakeButton))
+                {
+                    CheckController(playerInputs[i]);
+                }
             }
         }
 
@@ -78,7 +83,7 @@ public class SelectionManager : MonoBehaviour
         if (IsReady())
         {
             _readyToStart = true;
-            //Put UI stuff here
+            allReadyImage.SetActive(true);
         }
     }
 
@@ -95,6 +100,11 @@ public class SelectionManager : MonoBehaviour
             }
         }
         return true;
+    }
+
+    public bool GetReadyToStart()
+    {
+        return _readyToStart;
     }
     
 }
