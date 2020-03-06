@@ -44,16 +44,36 @@ public class CarHealthBehavior : MonoBehaviour
     public float engineFlashFreq = .4f;
     private bool engineIsFlash = false;
     private bool isFlashing = false;
-    
+
+
+
+    Gradient gradient;
+    GradientColorKey[] colorKey;
+    GradientAlphaKey[] alphaKey;
+    float extra = 0;
+
+
     private void Start()
     {
         _vehicleInput = GetComponent<VehicleInput>();
         //InvokeRepeating("healthCooldown", 0, healFreq);
         healthCurrent = healthMax;
-        if (GetComponent<VehicleInput>())
-        {
-            StartCoroutine(setVignette());
-        }
+
+        gradient = new Gradient();
+
+        // Populate the color keys at the relative time 0 and 1 (0 and 100%)
+        colorKey = new GradientColorKey[1];
+        colorKey[0].color = vignetteColor;
+        colorKey[0].time = 0.0f;
+
+        // Populate the alpha  keys at relative time 0 and 1  (0 and 100%)
+        alphaKey = new GradientAlphaKey[2];
+        alphaKey[0].alpha = 1.0f;
+        alphaKey[0].time = 0.0f;
+        alphaKey[1].alpha = 0.0f;
+        alphaKey[1].time = 1.0f;
+
+        gradient.SetKeys(colorKey, alphaKey);
     }
     // Update is called once per frame
     void Update()
@@ -131,6 +151,23 @@ public class CarHealthBehavior : MonoBehaviour
             if(extraHealthFillBar != null)
             {
                 extraHealthFillBar.fillAmount = _extraHP / _extraHPMax;
+            }
+            #endregion
+
+            #region Vignette
+            if (GetComponent<VehicleInput>())
+            {
+                extra += Time.deltaTime;
+
+                if (extra > 0)
+                {
+                    extra = 0;
+                }
+
+                damageVignette.color = gradient.Evaluate((healthCurrent + extra) / healthMax);
+                float scale = Mathf.Lerp(1, 2.5f, (healthCurrent + extra) / healthMax);
+                damageVignette.gameObject.transform.localScale = new Vector3(scale, scale, scale);
+                
             }
             #endregion
         }
@@ -285,6 +322,7 @@ public class CarHealthBehavior : MonoBehaviour
         else
         {
             healthCurrent -= damage;
+            extra = -20;
         }
        
     }
@@ -327,39 +365,6 @@ public class CarHealthBehavior : MonoBehaviour
         }
     }
 
-
-
-    Gradient gradient;
-    GradientColorKey[] colorKey;
-    GradientAlphaKey[] alphaKey;
-
-    IEnumerator setVignette()
-    {
-        while (true)
-        {
-            gradient = new Gradient();
-
-            // Populate the color keys at the relative time 0 and 1 (0 and 100%)
-            colorKey = new GradientColorKey[1];
-            colorKey[0].color = vignetteColor;
-            colorKey[0].time = 0.0f;
-
-            // Populate the alpha  keys at relative time 0 and 1  (0 and 100%)
-            alphaKey = new GradientAlphaKey[2];
-            alphaKey[0].alpha = 1.0f;
-            alphaKey[0].time = 0.0f;
-            alphaKey[1].alpha = 0.0f;
-            alphaKey[1].time = 1.0f;
-
-            gradient.SetKeys(colorKey, alphaKey);
-
-
-            damageVignette.color = gradient.Evaluate(healthCurrent / healthMax);
-            float scale = Mathf.Lerp(1, 2.5f, healthCurrent / healthMax);
-            damageVignette.gameObject.transform.localScale = new Vector3(scale, scale, scale);
-            yield return null;
-        }
-    }
 
 }
 
