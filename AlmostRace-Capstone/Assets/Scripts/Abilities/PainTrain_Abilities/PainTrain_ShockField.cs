@@ -8,6 +8,13 @@ public class PainTrain_ShockField : MonoBehaviour
 
     private Interactable tempInteractable;
 
+    private CarHealthBehavior _immunePlayer;
+
+    private void Start()
+    {
+        _immunePlayer = gameObject.GetComponent<CarHealthBehavior>();
+    }
+
     public void OnTriggerEnter(Collider other)
     {
 

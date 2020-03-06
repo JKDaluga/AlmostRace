@@ -1480,6 +1480,23 @@ MonoBehaviour:
   shockShield: {fileID: 605558829172065089}
   zapDamage: 10
   zapCoolDown: 0.75
+--- !u!114 &3339663664685297937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9031141000880245006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d65c4297928d404cb54230918ef6b95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  selfHeatDamage: 0
+  boostField: {fileID: 1227828136789151717}
+  _boostDamageRate: 0.1
+  _boostDamage: 10
+  boostSpeedPercentage: 0.3
 --- !u!114 &5530304377845725064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1605,12 +1622,12 @@ PrefabInstance:
     - target: {fileID: 644788422693019630, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000033175976
+      value: 0.000000037697927
       objectReference: {fileID: 0}
     - target: {fileID: 644788422693019630, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000012120812
+      value: -0.00000012207897
       objectReference: {fileID: 0}
     - target: {fileID: 644788422693019630, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
@@ -1637,6 +1654,16 @@ PrefabInstance:
       propertyPath: defensiveAbility
       value: 
       objectReference: {fileID: 1520084558096495808}
+    - target: {fileID: 3240311213283490686, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: boostAbility
+      value: 
+      objectReference: {fileID: 3339663664685297937}
+    - target: {fileID: 8574603337716842063, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5145035194956675732, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_SizeDelta.x
@@ -1683,11 +1710,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7781585145764726960, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8574603337716842063, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_IsActive
       value: 0
