@@ -22,10 +22,10 @@ public class PainTrain_Boost : CooldownHeatAbility
     // Start is called before the first frame update
     void Start()
     {
-        _immunePlayer = gameObject.GetComponent<CarHealthBehavior>();
+        _damagedCars = new List<CarHealthBehavior>();
         carInfo = gameObject.GetComponent<RaycastCar>();
         carHeatInfo = gameObject.GetComponent<CarHealthBehavior>();
-        _damagedCars = new List<CarHealthBehavior>();
+        _immunePlayer = gameObject.GetComponent<CarHealthBehavior>();
     }
 
     public override void ActivateAbility()
@@ -36,8 +36,6 @@ public class PainTrain_Boost : CooldownHeatAbility
             carInfo.setBoostSpeed(boostSpeedPercentage);
 
             boostField.SetActive(true);
-
-            AddHeat();
         }
     }
 
@@ -80,7 +78,6 @@ public class PainTrain_Boost : CooldownHeatAbility
                         if (car.healthCurrent <= 0)
                         {
                             _damagedCars.Remove(car);
-                            Destroy(gameObject);
                         }
                 }
             }
@@ -102,6 +99,5 @@ public class PainTrain_Boost : CooldownHeatAbility
 
     protected override void AddHeat()
     {
-        carHeatInfo.DamageCarTrue(selfHeatDamage);
     }
 }
