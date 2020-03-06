@@ -7,8 +7,7 @@ public class Lux_TrackingLaser : MonoBehaviour
 
     private GameObject _target;
 
-    float _laserDamageRate,_laserDamage;
-    float _laserSpeed;
+    float _laserDamageRate,_laserDamage, _laserDuration, _laserSpeed;
     private GameObject _immunePlayer;
     private List<CarHealthBehavior> _damagedCars;
     private Interactable hitInteractable;
@@ -16,18 +15,33 @@ public class Lux_TrackingLaser : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _damagedCars = new List<CarHealthBehavior>();
+        _damagedCars = new List<CarHealthBehavior>();     
     }
 
-    public void GiveInfo( float laserDamageRate, float laserDamage, GameObject immunePlayer)
+    public void GiveInfo( float laserDamageRate, float laserDamage, float laserDuration, GameObject immunePlayer)
     {
         _laserDamageRate = laserDamageRate;
         _laserDamage = laserDamage;
+        _laserDuration = laserDuration;
+        Destroy(gameObject, _laserDuration);
     }
 
     public void SetTarget(GameObject target)
     {
         _target = target;
+      
+        StartCoroutine(FollowTargetCar());
+    }
+
+    public IEnumerator FollowTargetCar()
+    {
+        while (true)
+        {
+            gameObject.transform.position = _target.transform.position;
+            gameObject.transform.rotation = _target.transform.rotation;
+
+            yield return null;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -35,8 +49,9 @@ public class Lux_TrackingLaser : MonoBehaviour
 
         if (other.gameObject.GetComponent<CarHealthBehavior>() != null && other.gameObject != _immunePlayer)
         {
+          
             _damagedCars.Add(other.gameObject.GetComponent<CarHealthBehavior>());
-
+          //  Debug.Log("Laser Added: " + other.name);
             if (_damagedCars.Count == 1)
             {
                 InvokeRepeating("DamageCars", 0, _laserDamageRate);

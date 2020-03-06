@@ -9,7 +9,6 @@ public class Lux_TrackingDart : Projectile
     public GameObject laser;
     private Lux_TrackingLaser _laserScript;
     private Collider objCollider;
-    private bool hasStuckCar;
 
     private float _laserDamage;
     private float _laserDamageRate;
@@ -18,20 +17,12 @@ public class Lux_TrackingDart : Projectile
 
     void Start()
     {
+        _laserScript = laser.GetComponent<Lux_TrackingLaser>();
+        objCollider = gameObject.GetComponent<Collider>();
         hitTest = false;
         GiveSpeed();
-        _laserScript = laser.GetComponent<Lux_TrackingLaser>();
-        _laserScript.GiveInfo(_laserDamageRate, _laserDamage, _immunePlayer);
     }
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.GetComponent<CarHealthBehavior>() != null || other.gameObject.GetComponent<Interactable>()!=null)
-        {
-
-        }
-
-    }
 
     public void setDartInfo(float damage, float damageRate, float laserDuration)
     {
@@ -40,38 +31,39 @@ public class Lux_TrackingDart : Projectile
         _laserDuration = laserDuration;
     }
 
+
+
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Vehicle") && collision.gameObject != _immunePlayer)
         {
             objCollider.isTrigger = true;
-            transform.SetParent(collision.gameObject.transform);
-            hasStuckCar = true;
-
-            laser.SetActive(true);
-            _laserScript.SetTarget(collision.gameObject);
-            Destroy(gameObject, _laserDuration);
-            // StopCoroutine(TrackTargetCar());
-            // StartCoroutine(FollowTargetCar());
-
-            _rigidBody.velocity = new Vector3(0, 0, 0);
+            /* GameObject _spawnedLaser = Instantiate(laser, transform.position, transform.rotation);
+             _laserScript = _spawnedLaser.GetComponent<Lux_TrackingLaser>();
+             _spawnedLaser.transform.SetParent(collision.gameObject.transform);
+             _laserScript.GiveInfo(_laserDamageRate, _laserDamage, _laserDuration, _immunePlayer);
+             _laserScript.SetTarget(collision.gameObject);*/
+            Lux_TrackingLaser _spawnedLaser = Instantiate(_laserScript, transform.position, transform.rotation);
+            _spawnedLaser.transform.SetParent(null);
+            _spawnedLaser.GiveInfo(_laserDamageRate, _laserDamage, _laserDuration, _immunePlayer);
+            _spawnedLaser.SetTarget(collision.gameObject);
+            Destroy(gameObject);
         }
 
         if (collision.gameObject.CompareTag("Interactable"))
         {
             objCollider.isTrigger = true;
-            _hitObject = collision.gameObject;
-            transform.SetParent(collision.gameObject.transform);
-            hasStuckCar = true;
+            /* GameObject _spawnedLaser = Instantiate(laser, transform.position, transform.rotation);
+             _laserScript = _spawnedLaser.GetComponent<Lux_TrackingLaser>();
+             _spawnedLaser.transform.SetParent(collision.gameObject.transform);
+             _laserScript.GiveInfo(_laserDamageRate, _laserDamage, _laserDuration, _immunePlayer);
+             _laserScript.SetTarget(collision.gameObject);*/
+            Lux_TrackingLaser _spawnedLaser = Instantiate(_laserScript, transform.position, transform.rotation);
+            _spawnedLaser.transform.SetParent(null);
+            _spawnedLaser.GiveInfo(_laserDamageRate, _laserDamage, _laserDuration, _immunePlayer);
+            _spawnedLaser.SetTarget(collision.gameObject);
+            Destroy(gameObject);
 
-            laser.SetActive(true);
-            _laserScript.SetTarget(collision.gameObject);
-            Destroy(gameObject, _laserDuration);
-
-
-            //  StopCoroutine(TrackTargetCar());
-            // StartCoroutine(FollowTargetCar());
-            _rigidBody.velocity = new Vector3(0, 0, 0);
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
