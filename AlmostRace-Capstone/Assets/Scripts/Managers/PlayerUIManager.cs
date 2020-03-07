@@ -26,7 +26,7 @@ public class PlayerUIManager : MonoBehaviour
 
     [Header("ArenaHype Variables")]
     [Space(30)]
-    public GameObject arenaHype;
+    public GameObject arenaStatus;
     public Image lockImage;
     public Sprite lockSprite;
     public Sprite unlockSprite;
@@ -54,7 +54,7 @@ public class PlayerUIManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        arenaHype.SetActive(false);
+        arenaStatus.SetActive(false);
         if (GameObject.FindGameObjectWithTag("GameManager") != null)
         {
             _hypeManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<HypeManager>();
@@ -211,13 +211,13 @@ public class PlayerUIManager : MonoBehaviour
 
     public void ActivateArenaHypeDisplay()
     {
-        arenaHype.SetActive(true);
+        arenaStatus.SetActive(true);
     }
 
     public void DeactivateArenaHypeDisplay()
     {
         LockArena();
-        arenaHype.SetActive(false);
+        arenaStatus.SetActive(false);
     }
 
     public void LockArena()
@@ -233,8 +233,8 @@ public class PlayerUIManager : MonoBehaviour
         lockImage.sprite = unlockSprite;
     }
 
-    public void SetArenaHypeDisplayNumber(float hypePercentage)
+    public void SetArenaHypeDisplayNumber(float minutes, float seconds)
     {
-        arenaHypeNumber.text = "" + hypePercentage.ToString("F0") + "%";
+        arenaHypeNumber.text = string.Format("{0}:{1}", minutes.ToString("0"), seconds.ToString("00"));
     }
 }

@@ -3,31 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-/*
- 
-    Eddie B
+    /*
+    Author: Eddie B & Jake Velicer
+    Purpose: Contains the behavior for the hot spot bot. This includes its behavior for setting
+    its position back on the spline after it has been dropped, if it is being held, a function
+    for finding the nearest point on the hot spot bot spline, and the hot spot bot behavior in arenas.
+    Script that handles how the Arena Gates behave in each arena. Tracks vehicles in arena, closes the door to the arena, counts down the timer, and opens up the area after it is done
+    */
 
-    Script that handles how the Hype Gates behave in each arena. More specific functionality will probably
-    need to be added once the other arenas are finalized.
-
-     */
-
-public class HypeGateBehavior : MonoBehaviour
+public class HypeGateTimeBehavior : MonoBehaviour
 {
-    public bool isFinalHypeGate = false;
+    public bool isFinalArenaGate = false;
     private HypeManager _hypeManager;
-    private float _currentHype; // tracks current total hype of cars inside of arena
-    private float _displayHype; //used in showing hype in text
+    public float startTime = 60;
+    private float _currentTime;
+    private float _displayTime;
 
-    [Tooltip("The amount of Hype players need to generate in this arena to proceed")]
-    public float hypeLimit;
-
-    [Tooltip("The gameobject to remove once hypeLimit is reached")]
-    public GameObject gateToOpen; //might be changed per hype gate for specific behavior
+    [Tooltip("The gameobject to remove once time is counted down")]
+    public GameObject gateToOpen;
     public GameObject gateToClose;
     public Transform hotSpotLocation;
     public Transform[] spawnPoints;
-    private float _hypeLimitActual;
     public List<TextMeshProUGUI> displayTexts;
     private int _carsInGame;
     public List<GameObject> carsInRange;
@@ -56,7 +52,6 @@ public class HypeGateBehavior : MonoBehaviour
 
     public IEnumerator CheckCars()
     {
-        _hotSpotBotScript.DetachFromSpline(this);
         if (_hypeManager != null)
         {
             _carsInGame = _hypeManager.vehicleList.Count;
@@ -91,7 +86,6 @@ public class HypeGateBehavior : MonoBehaviour
 
                 Invoke("DisableEvents", 3);
 
-
                 foreach (GameObject car in _hypeManager.vehicleList)
                 {
                     if (car.gameObject.GetComponent<VehicleInput>() != null)
@@ -122,28 +116,27 @@ public class HypeGateBehavior : MonoBehaviour
     public void InitializeHypeGate(GameObject aggroSphere)
     {
         _aggroSphere = aggroSphere;
-        _currentHype = _hypeManager.totalHype; //initial get of total hype, for display purposes
-        _displayHype = _currentHype;
-        _hypeLimitActual = _currentHype + hypeLimit;
+        _currentTime = startTime; //initial get of total hype, for display purposes
+        _displayTime = _currentTime;
     }
 
     public IEnumerator TrackHype()
     {
         while (true)
         {
-            _currentHype = _hypeManager.totalHype;
-            if (_currentHype < _hypeLimitActual)
+            if (_currentTime > 0)
             {
+                _currentTime--;
                 UpdateDisplays();
-                yield return null;
+                yield return new WaitForSeconds(1);
             }
-            else if (_currentHype >= _hypeLimitActual)
+            else if (_currentTime <= 0)
             {
-                if (isFinalHypeGate)
+                if (isFinalArenaGate)
                 {
                     FinishDisplays();
                     _hypeManager.StartCoroutine(_hypeManager.EndGameCountDown(5));
-                    isFinalHypeGate = false;
+                    isFinalArenaGate = false;
                     //StopAllCoroutines();
                 }
                 else
@@ -171,17 +164,20 @@ public class HypeGateBehavior : MonoBehaviour
 
     public void UpdateDisplays()
     {
+        float minutes = Mathf.Floor(_currentTime / 60);
+        float seconds = (_currentTime % 60);
+
         foreach (TextMeshProUGUI displayText in displayTexts)
         {
-            displayText.text = ((_currentHype - _displayHype) / hypeLimit * 100).ToString("F0") + "%";
+            displayText.text = string.Format("{0}:{1}", minutes.ToString("0"), seconds.ToString("00"));
         }
 
         foreach (GameObject car in _hypeManager.vehicleList)
         {
             if (car.gameObject.GetComponent<VehicleInput>() != null)
             {
-                car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockTopFill.fillAmount = (_currentHype - _displayHype) / hypeLimit;
-                car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.SetArenaHypeDisplayNumber(((_currentHype - _displayHype) / hypeLimit * 100), 0);
+                car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.lockTopFill.fillAmount = _currentTime / startTime;
+                car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.SetArenaHypeDisplayNumber(minutes, seconds);
             }
         }
     }
@@ -196,7 +192,7 @@ public class HypeGateBehavior : MonoBehaviour
         {
             if (car.gameObject.GetComponent<VehicleInput>() != null)
             {
-                car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.SetArenaHypeDisplayNumber(100 , 0);
+                car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.SetArenaHypeDisplayNumber(0, 0);
                 car.gameObject.GetComponent<VehicleHypeBehavior>().playerUIManagerScript.UnlockArena();
             }
 

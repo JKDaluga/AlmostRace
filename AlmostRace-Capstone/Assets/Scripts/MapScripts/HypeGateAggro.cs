@@ -10,7 +10,7 @@ using UnityEngine;
 
 public class HypeGateAggro : MonoBehaviour
 {
-    public HypeGateBehavior _hypeGate;
+    public HypeGateTimeBehavior _hypeGate;
 
     private void OnTriggerEnter(Collider other)
     {
