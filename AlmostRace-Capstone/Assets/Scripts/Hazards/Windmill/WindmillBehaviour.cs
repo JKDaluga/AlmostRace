@@ -8,7 +8,7 @@ public class WindmillBehaviour : MonoBehaviour
     public GameObject linkedMill;
     public GameObject[] linkedLaser;
     public GameObject interactingPlayer;
-    public float baseLaserSpeed;
+    public float laserSpinSpeed;
     public float speedUpAmount;
     public float extraShieldAmount;
     public float laserDamageAmount, laserDmgRate;
@@ -16,7 +16,7 @@ public class WindmillBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        linkedMill.GetComponent<WindmillSpeed>().UpdateBaseSpeed(baseLaserSpeed);
+        linkedMill.GetComponent<WindmillSpeed>().UpdateBaseSpeed(laserSpinSpeed);
         for (int i = 0; i < linkedLaser.Length; i++)
         {
             linkedLaser[i].GetComponent<WindmillLaserBehaviour>().UpdateLaserDamage(laserDamageAmount);
@@ -46,6 +46,6 @@ public class WindmillBehaviour : MonoBehaviour
 
     void slowDown()
     {
-        linkedMill.GetComponent<WindmillSpeed>().UpdateBaseSpeed(baseLaserSpeed);
+        linkedMill.GetComponent<WindmillSpeed>().UpdateBaseSpeed(laserSpinSpeed);
     }
 }

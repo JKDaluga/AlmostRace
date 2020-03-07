@@ -7,7 +7,7 @@ namespace QFX.SFX
     {
         public Transform StartTransform;
 
-        [HideInInspector] public Vector3 EndPosition;
+      public Vector3 EndPosition;
 
         public GameObject LaunchParticleSystem;
         public Light LaunchLight;
