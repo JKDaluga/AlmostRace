@@ -11,12 +11,14 @@ public class RaycastCar : MonoBehaviour
     public float reverse;
     public float horizontal;
     public bool drift;
+    public PlayerUIManager playerUIManagerScript;
 
     [Header("Car Testing Variables")]
     public float currentSpeed;
     public float currentTurnSpeed;
     public float actualGrip;
     public Vector3 relativeAngularVel;
+    public int playerID = 0;
     private float deadZone = .1f;
     private Vector3 myRight;
     private Vector3 vel;
@@ -84,7 +86,7 @@ public class RaycastCar : MonoBehaviour
     private Vector3 closestVertex = Vector3.zero;
     public int closestIndex = 0;
     private Vector3 vertexAim = Vector3.zero;
-
+    
 
     void Start()
     {
@@ -404,9 +406,36 @@ public class RaycastCar : MonoBehaviour
         boostPadSpeed = maxSpeed * percentage;
     }
 
+    public Vector3 getClosestVertex()
+    {
+        return closestVertex;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(0, 0, 1, 1);
         Gizmos.DrawRay(transform.position, engineForce.normalized * 15f);
+    }
+
+    public Vector3 GetNearestPointOnSpline(int vectorsBack)
+    {
+        Vector3 closestWorldPoint = new Vector3();
+        float lastDistance = int.MaxValue;
+        int vectorsBackAdjustment;
+
+        foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
+        {
+            for (int j = 0; j < entry.Value.Vertices.Count; j++)
+            {
+                float distance = Vector3.Distance(entry.Value.Vertices[j], transform.position);
+                if (distance <= lastDistance)
+                {
+                    lastDistance = distance;
+                    vectorsBackAdjustment = Mathf.Clamp(j + vectorsBack, 1, entry.Value.Vertices.Count - 1);
+                    closestWorldPoint = entry.Value.Vertices[vectorsBackAdjustment];
+                }
+            }
+        }
+        return closestWorldPoint;
     }
 }

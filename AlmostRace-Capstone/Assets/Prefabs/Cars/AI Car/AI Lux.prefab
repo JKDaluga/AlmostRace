@@ -29032,8 +29032,6 @@ GameObject:
   - component: {fileID: 6894343742012296677}
   - component: {fileID: 5418076574753482654}
   - component: {fileID: 1255605946283217071}
-  - component: {fileID: 5151304251785980546}
-  - component: {fileID: 5569534397418544134}
   - component: {fileID: 1492671752817465541}
   - component: {fileID: 2972834113377361533}
   - component: {fileID: 7292805920643583972}
@@ -29126,6 +29124,7 @@ MonoBehaviour:
   currentTurnSpeed: 0
   actualGrip: 0
   relativeAngularVel: {x: 0, y: 0, z: 0}
+  playerID: 0
   UIPanel: {fileID: 0}
   secondaryUIPanel: {fileID: 0}
   frontLeftWheel: {fileID: 3508958639994034288}
@@ -29201,45 +29200,13 @@ MonoBehaviour:
   extraHealthFillBar: {fileID: 0}
   healthFillBar: {fileID: 0}
   engineImage: {fileID: 0}
+  damageVignette: {fileID: 0}
+  vignetteColor: {r: 0, g: 0, b: 0, a: 0}
   engineGreen: {fileID: 21300000, guid: edc31ed20f3016643814a8f5a41abf28, type: 3}
   engineYellow: {fileID: 21300000, guid: 0c2caae368d6f6345b426397ab6860b0, type: 3}
   engineOrange: {fileID: 21300000, guid: b67cd094ae517ce45b665e51b8b16208, type: 3}
   engineRed: {fileID: 21300000, guid: cc3f3593777b8214eaa14f3c7a09857f, type: 3}
   engineFlashFreq: 0.4
---- !u!114 &5151304251785980546
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3713964755092531433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff5f17f286ddc4c29845b30cc5051567, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerUIManagerScript: {fileID: 0}
-  _hypeAmount: 0
-  bigHypeAmount: 150
---- !u!114 &5569534397418544134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3713964755092531433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e71782f70c48043d7bb995e2d8ae2e5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdingTheBot: 0
-  initialHypeGain: 50
-  gradualHypeGain: 15
-  hypeWaitTime: 1
-  botCapturedAesthetic:
-  - {fileID: 1204620762283236240}
-  - {fileID: 3184148521094428109}
 --- !u!114 &1492671752817465541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29340,6 +29307,7 @@ MonoBehaviour:
   inputBrake: 0
   _inArena: 0
   canDrive: 0
+  sensitivity: 10
   thisCar: {fileID: 6894343742012296677}
   closestIndex: 0
   orderedSplines: []

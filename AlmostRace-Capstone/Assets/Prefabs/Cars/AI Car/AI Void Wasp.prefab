@@ -114736,8 +114736,6 @@ GameObject:
   - component: {fileID: 1290996992956317133}
   - component: {fileID: 394051805758969782}
   - component: {fileID: 6857826660583137415}
-  - component: {fileID: 664896788804606634}
-  - component: {fileID: 220075985295715374}
   - component: {fileID: 6552775920022153453}
   - component: {fileID: 4234697827650344948}
   - component: {fileID: 4354155813366580808}
@@ -114830,6 +114828,7 @@ MonoBehaviour:
   currentTurnSpeed: 0
   actualGrip: 0
   relativeAngularVel: {x: 0, y: 0, z: 0}
+  playerID: 0
   UIPanel: {fileID: 0}
   secondaryUIPanel: {fileID: 0}
   frontLeftWheel: {fileID: 9148350972848203864}
@@ -114905,51 +114904,13 @@ MonoBehaviour:
   extraHealthFillBar: {fileID: 0}
   healthFillBar: {fileID: 0}
   engineImage: {fileID: 0}
+  damageVignette: {fileID: 0}
+  vignetteColor: {r: 0, g: 0, b: 0, a: 0}
   engineGreen: {fileID: 21300000, guid: edc31ed20f3016643814a8f5a41abf28, type: 3}
   engineYellow: {fileID: 21300000, guid: 0c2caae368d6f6345b426397ab6860b0, type: 3}
   engineOrange: {fileID: 21300000, guid: b67cd094ae517ce45b665e51b8b16208, type: 3}
   engineRed: {fileID: 21300000, guid: cc3f3593777b8214eaa14f3c7a09857f, type: 3}
   engineFlashFreq: 0.4
---- !u!114 &664896788804606634
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9065056328527567041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff5f17f286ddc4c29845b30cc5051567, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerUIManagerScript: {fileID: 0}
-  scalingPanel: {fileID: 0}
-  _hypeAmount: 0
-  hypeText: {fileID: 0}
-  hypePopup: {fileID: 5949011031299857024, guid: daf8942438d6b9b4ea20282998216f54,
-    type: 3}
-  hypePopupSpawn: {fileID: 0}
-  hypePopupEnd: {fileID: 0}
-  bigHypeAmount: 150
---- !u!114 &220075985295715374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9065056328527567041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e71782f70c48043d7bb995e2d8ae2e5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdingTheBot: 0
-  initialHypeGain: 50
-  gradualHypeGain: 15
-  hypeWaitTime: 1
-  botCapturedAesthetic:
-  - {fileID: 6841117112638204856}
-  - {fileID: 7095269215954634213}
 --- !u!114 &6552775920022153453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115065,6 +115026,7 @@ MonoBehaviour:
   inputBrake: 0
   _inArena: 0
   canDrive: 0
+  sensitivity: 10
   thisCar: {fileID: 0}
   closestIndex: 0
   orderedSplines: []

@@ -20,7 +20,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
     public int distanceBehind;
     [Tooltip("Amount of distance forward to make the platform look at, used when spawning after holding the bot or if there is no bot in the scene")]
     public int lookDistanceForward;
-    private HotSpotBotBehavior _hotSpotBotScript;
+    private HypeGateTimeBehavior arena;
     private HypeManager _hypeManagerScript;
     private GameObject _playerObject;
    // private GameObject _ballCollider;
@@ -39,45 +39,20 @@ public class RespawnPlatformBehavior : MonoBehaviour
         {
             Debug.LogError("Hype Manager not found!");
         }
-        if (HotSpotBotBehavior.instance != null)
+        if (arena != null)
         {
-            _hotSpotBotScript = HotSpotBotBehavior.instance;
+            arena = FindObjectOfType<HypeGateTimeBehavior>();
         }
 
-        if (GameObject.FindGameObjectWithTag("HotSpotSpline") != null)
+        if (GameObject.FindGameObjectWithTag("AISpline") != null)
         {
-            if (GameObject.FindGameObjectWithTag("HotSpotSpline").GetComponent<SplinePlus>().SPData.Followers[0].FollowerGO != null && !_hotSpotBotScript.GetInArena())
-            {
-                if (_hotSpotBotScript.GetBeingHeld())
-                {
-                    if (_playerObject.GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
-                    {
-                        SpawnBehindBotAfterDropping();
-                    }
-                    else
-                    {
-                        SpawnBehindEnemyWithBot();
-                    }
-                }
-                else if (!_hotSpotBotScript.GetBeingHeld())
-                {
-                    SpawnBehindBot();
-                }
-            }
-            else if(_hotSpotBotScript.GetInArena())
+            if(arena != null && arena.isActivated)
             {
                 SpawnOnArenaSpawnPoint();
             }
             else
             {
-                if (_playerObject.GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
-                {
-                    SpawnBehindBotAfterDropping();
-                }
-                else
-                {
-                    SpawnOnNearestSplinePoint();
-                }
+            SpawnOnNearestSplinePoint();
             }
         }
         else
@@ -98,68 +73,24 @@ public class RespawnPlatformBehavior : MonoBehaviour
         
     }
 
-    // Vehicle respawning had the HotsSpotBot, spawn it behind the dropped bot
-    private void SpawnBehindBotAfterDropping()
-    {
-        _playerObject.GetComponent<HotSpotVehicleAdministration>().DropTheBot();
-        Vector3 nearestPointOnSpline = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, distanceBehind);
-        transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
-
-        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(transform.position, lookDistanceForward);
-        transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
-    }
-
-    // No one had the HotsSpotBot, spawn the vehicle behind it
-    private void SpawnBehindBot()
-    {
-        Transform bot = GameObject.Find("HotSpotBot").transform;
-        Vector3 nearestPointOnSpline = _hotSpotBotScript.GetNearestPointOnSpline(bot.position, distanceBehind);
-        
-        transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
-        transform.LookAt(new Vector3(bot.transform.position.x, transform.position.y, bot.transform.position.z));
-    }
-
-    // Another vehicle has the HotSpotBot, spawn the vehicle respawning behind the vehicle with the HotSpotBot
-    private void SpawnBehindEnemyWithBot()
-    {
-        for(int i = 0; i < _hypeManagerScript.vehicleList.Count; i++)
-        {
-            if (_hypeManagerScript.vehicleList[i].GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
-            {
-                _otherVehicle = _hypeManagerScript.vehicleList[i];
-            }
-        }
-        Vector3 nearestPointOnSpline = _hotSpotBotScript.GetNearestPointOnSpline(_otherVehicle.transform.position, distanceBehind);
-        transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
-
-        _spawnOnEnemy = true;
-        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(_otherVehicle.transform.position, lookDistanceForward);
-        transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
-    }
-
     // If we are in an arena, vehicle drops the bot if they have it, the vehicle spawns at a random spawn point in the arena
     private void SpawnOnArenaSpawnPoint()
     {
-        if (_playerObject.GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
-        {
-            _playerObject.GetComponent<HotSpotVehicleAdministration>().DropTheBot();
-        }
-
-        Transform randomSpawnPoint = _hotSpotBotScript.GetCurrentArena().
-        spawnPoints[Random.Range(0, _hotSpotBotScript.GetCurrentArena().spawnPoints.Length)];
-        Transform botHoldLocation = _hotSpotBotScript.GetCurrentArenaDesignation();
+        HypeGateTimeBehavior arena = FindObjectOfType<HypeGateTimeBehavior>();
+        Transform randomSpawnPoint = arena.spawnPoints[Random.Range(0, arena.spawnPoints.Length)];
 
         transform.position = new Vector3(randomSpawnPoint.position.x, randomSpawnPoint.position.y + spawnHeight, randomSpawnPoint.position.z);
-        transform.LookAt(new Vector3(botHoldLocation.position.x, transform.position.y, botHoldLocation.position.z));
+        transform.rotation = randomSpawnPoint.rotation;
     }
 
     // If there is no HotSpotBot, spawn the vehicle at the nearest point on the spline from its death location
     private void SpawnOnNearestSplinePoint()
     {
-        Vector3 nearestPointOnSpline = _hotSpotBotScript.GetNearestPointOnSpline(_playerObject.transform.position, distanceBehind);
+        RaycastCar car = _playerObject.GetComponent<RaycastCar>();
+        Vector3 nearestPointOnSpline = car.GetNearestPointOnSpline(0);
         transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
-
-        Vector3 pointOnSplineForward = _hotSpotBotScript.GetNearestPointOnSpline(transform.position, lookDistanceForward);
+        
+        Vector3 pointOnSplineForward = car.GetNearestPointOnSpline(lookDistanceForward);
         transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
     }
 

@@ -66,11 +66,6 @@ public class BoulderBehaviour : Interactable
     {
         if (interactingPlayer != null)
         {
-            if (interactingPlayer.GetComponent<VehicleHypeBehavior>() != null)
-            {   //makes sure that non-player agents can destroy the boulders without throwing null references.
-                interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(boulderDestroyedHype, "Vandal");
-            }
-
             if (interactingPlayer.GetComponent<VehicleInput>())
             {
                 if (interactingPlayer.GetComponent<AimAssistant>().target == gameObject)

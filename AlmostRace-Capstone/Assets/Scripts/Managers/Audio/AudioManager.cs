@@ -28,7 +28,7 @@ public class AudioManager : MonoBehaviour
     [Header("Pseudo-Spatial Sound Variables")]
     public float innerSoundDistance = 0f;
     public float maxSoundDistance = 0f;
-    private HypeManager hypeManager;
+    private RaceManager _raceManager;
 
     void Awake()
     {
@@ -55,9 +55,9 @@ public class AudioManager : MonoBehaviour
             }
             DontDestroyOnLoad(gameObject);
         }
-        if(hypeManager == null)
+        if(_raceManager == null)
         {
-            hypeManager = FindObjectOfType<HypeManager>();
+            _raceManager = FindObjectOfType<RaceManager>();
         }
     }
 
@@ -73,26 +73,29 @@ public class AudioManager : MonoBehaviour
 
         float spatialVolume = s.volume;
         
-        if (hypeManager != null)
+        if (_raceManager != null)
         {
             float distance = Mathf.Infinity;
-            foreach (GameObject gameobject in hypeManager.vehicleList)
+            foreach (RaycastCar car in _raceManager.cars)
             {
-                float tempDistance = Vector3.Distance(gameObject.transform.position, soundTransform.position);
-                if (distance > tempDistance)
+                if(car != null)
                 {
-                    distance = tempDistance;
-                    if(distance <= innerSoundDistance)
+                    float tempDistance = Vector3.Distance(car.transform.position, soundTransform.position);
+                    if (distance > tempDistance)
                     {
-                        spatialVolume = s.volume;
-                    }
-                    else if (distance <= maxSoundDistance)
-                    {
-                        spatialVolume = s.volume * ((distance - innerSoundDistance) / (maxSoundDistance - innerSoundDistance));
-                    }
-                    else
-                    {
-                        spatialVolume = 0;
+                        distance = tempDistance;
+                        if (distance <= innerSoundDistance)
+                        {
+                            spatialVolume = s.volume;
+                        }
+                        else if (distance <= maxSoundDistance)
+                        {
+                            spatialVolume = s.volume * ((distance - innerSoundDistance) / (maxSoundDistance - innerSoundDistance));
+                        }
+                        else
+                        {
+                            spatialVolume = 0;
+                        }
                     }
                 }
             }

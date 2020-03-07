@@ -36,7 +36,7 @@ public class WinScreenBox
 
 public class HypeManager : MonoBehaviour
 {
-    public List<GameObject> vehicleList = new List<GameObject>();
+    public List<PlayerInfo> vehicleList = new List<PlayerInfo>();
     public float totalHype;
     public Text winnerText;
     private float tempTotal;
@@ -51,8 +51,9 @@ public class HypeManager : MonoBehaviour
     //amount of time between when end screen pops up and the player is allowed to press any button to continue
     public float inputDelayMax = 3f;
     private float inputDelay;
+    private DataManager dm;
 
-    [Header(" Variables")]
+    [Header("Hype Value Variables")]
     public float hypePerKill;
     public float[] hypeForRacePosition;
     public float hypeLosePerDeath;
@@ -62,22 +63,10 @@ public class HypeManager : MonoBehaviour
     {
         inputDelay = 0;
         awards = new string[4];
-        StartCoroutine(TrackTotalHype());
-    }
-
-    public IEnumerator TrackTotalHype()
-    {
-        while(true)
+        dm = DataManager.instance;
+        if (dm == null)
         {
-            tempTotal = 0;
-            foreach (GameObject vehicle in vehicleList)
-            {
-                tempTotal += vehicle.GetComponent<VehicleHypeBehavior>().GetHypeAmount();
-            }
-
-            totalHype = tempTotal;
-
-            yield return null;
+            Debug.LogError("Cannot find DataManager");
         }
     }
 
@@ -97,64 +86,41 @@ public class HypeManager : MonoBehaviour
         EndGame();
     }
 
-    // Called to add the given vehicle to the vehicle list
-    public void VehicleAssign(GameObject player)
-    {
-        vehicleList.Add(player);
-    }
-
     // Sorts the list based upon which game object has the most hype in their VehicleHypeBehavior script
-    public void VehicleSort()
+    public void HypeListSort()
     {
         vehicleList.Sort(
-            delegate(GameObject p1, GameObject p2)
+            delegate(PlayerInfo p1, PlayerInfo p2)
             {
-                return p1.GetComponent<VehicleHypeBehavior>().GetHypeAmount()
-                .CompareTo(p2.GetComponent<VehicleHypeBehavior>().GetHypeAmount());
+                return p1.hypeAmount.CompareTo(p2.hypeAmount);
             }
         );
         // Put in descending order
         vehicleList.Reverse();
     }
 
-    // Sorts the list at the beginning of the game based on player number rather than hype amount
-    private void BeginningVehicleSort()
+    public void HypeListAssign()
     {
-        vehicleList.Sort(
-            delegate(GameObject p1, GameObject p2)
-            {
-                return p1.GetComponent<VehicleInput>().playerNumber
-                .CompareTo(p2.GetComponent<VehicleInput>().playerNumber);
-            }
-        );
+        foreach(PlayerInfo player in dm.playerInfo)
+        {
+
+        }
     }
 
     public void EndGame()
     {
         isGameEnded = true;
-        float highestHype = 0f;
-        GameObject winner = this.gameObject;
-        foreach (GameObject entry in vehicleList)
-        {
-            if (entry.GetComponent<VehicleHypeBehavior>().GetHypeAmount() > highestHype)
-            {
-                highestHype = entry.GetComponent<VehicleHypeBehavior>().GetHypeAmount();
-                winner = entry;
-            }
-        }
-        if(winner != this.gameObject)
-        {
-            eventPanel.SetActive(true);
-            calculateHype();
-            FindObjectOfType<WinScreen>().chooseWinners();
-            VehicleSort();
-            populateWinScreen();
-            winScreen.SetActive(true);
+        eventPanel.SetActive(true);
+        calculateHype();
+        FindObjectOfType<WinScreen>().chooseWinners();
+        HypeListAssign();
+        HypeListSort();
+        populateWinScreen();
+        winScreen.SetActive(true);
 
-            Invoke("DisableEvents", 3);
+        Invoke("DisableEvents", 3);
 
-            AudioManager.instance.PlayWithoutSpatial("Victory Music");
-        }
+        AudioManager.instance.PlayWithoutSpatial("Victory Music");
     }
 
     private void Update()
@@ -187,19 +153,22 @@ public class HypeManager : MonoBehaviour
     public void calculateHype()
     {
         DataManager dataManager = FindObjectOfType<DataManager>();
-        
+        foreach(PlayerInfo player in vehicleList)
+        {
+            player.hypeAmount = (player.numKills * hypePerKill) + hypeForRacePosition[player.placeRace1] + hypeForRacePosition[player.placeRace2] - (player.numDeaths * hypeLosePerDeath);
+        }
     }
 
     public void populateWinScreen()
     {
-        for(int i = 0; i < winScreenBoxes.Length; i++)
+        for(int i = 0; i < winScreenBoxes.Length && i < 4; i++)
         {
-            if (i < vehicleList.Count && vehicleList[i].GetComponent<VehicleInput>() != null)
+            if (i < vehicleList.Count)
             {
-                int playerNum = vehicleList[i].GetComponent<VehicleInput>().getPlayerNum();
+                int playerNum = vehicleList[i].playerID;
                 winScreenBoxes[i].background.color = playerColors[playerNum - 1];
                 winScreenBoxes[i].playerTag.text = "Player " + playerNum;
-                winScreenBoxes[i].hypeAmount.text = vehicleList[i].GetComponent<VehicleHypeBehavior>().GetHypeAmount().ToString();
+                winScreenBoxes[i].hypeAmount.text = vehicleList[i].hypeAmount.ToString();
                 winScreenBoxes[i].finishTime.text = "0"; //Fill with Player's Time later
                 winScreenBoxes[i].numKills.text = "0"; //Fill with Player's kill count later
                 winScreenBoxes[i].Awards.text += awards[playerNum - 1];

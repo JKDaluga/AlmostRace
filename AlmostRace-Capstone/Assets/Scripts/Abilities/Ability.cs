@@ -10,11 +10,11 @@ public abstract class Ability : MonoBehaviour
 {
     public abstract void ActivateAbility();
     public abstract void DeactivateAbility();
-    protected VehicleHypeBehavior vehicleHypeScript;
+    protected RaycastCar car;
 
     protected void Initialize()
     {
-        vehicleHypeScript = gameObject.GetComponent<VehicleHypeBehavior>();
+        car = gameObject.GetComponent<RaycastCar>();
     }
 }
 

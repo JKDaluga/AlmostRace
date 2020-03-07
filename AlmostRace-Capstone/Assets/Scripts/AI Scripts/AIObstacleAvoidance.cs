@@ -22,7 +22,7 @@ public class AIObstacleAvoidance : MonoBehaviour
     private void FixedUpdate()
     {
         vel = handler.GetComponent<Rigidbody>().velocity;
-        transform.parent.rotation = Quaternion.LookRotation(vel, transform.parent.up);
+        if(vel.magnitude != 0) transform.parent.rotation = Quaternion.LookRotation(vel, transform.parent.up);
 
         if (turnL)
         {

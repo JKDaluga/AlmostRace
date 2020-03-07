@@ -96,7 +96,7 @@ public class VoidWasp_ProjectileBehaviour : Projectile
                 collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 4f;
 
                 collision.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
-                _immunePlayerScript.AddHype(_projectileHype, "Damage:");
+                //_immunePlayerScript.AddHype(_projectileHype, "Damage:");
 
                 AudioManager.instance.Play("VoidWasp Shot hit", transform);
             }

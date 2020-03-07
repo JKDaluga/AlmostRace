@@ -6,26 +6,22 @@ public class AICheats : MonoBehaviour
 {
     public List<GameObject> players = new List<GameObject>();
     RaycastCar rearPlayer;
-    RaycastCar[] allCars;
     bool playersIn;
 
-    public HypeGateBehavior arena;
+    private RaceManager _raceManager;
+    public HypeGateTimeBehavior arena;
 
     [Tooltip("Number of Vertices away the AI can be before being warped")]
     public float killDist = 40;
     private void Start()
     {
-        arena = FindObjectOfType<HypeGateBehavior>();
-        allCars = FindObjectsOfType<RaycastCar>();
+        arena = FindObjectOfType<HypeGateTimeBehavior>();
 
-        foreach (RaycastCar i in allCars)
+        _raceManager = FindObjectOfType<RaceManager>();
+        if (_raceManager == null)
         {
-            if (i.GetComponent<VehicleInput>())
-            {
-                players.Add(i.gameObject);
-            }
+            Debug.LogError("Race Manager not found!");
         }
-        rearPlayer = players[0].GetComponent<RaycastCar>();
 
         StartCoroutine(arenaWarp());
         StartCoroutine(distanceKill());
@@ -33,7 +29,7 @@ public class AICheats : MonoBehaviour
 
     private void Update()
     {
-        if (arena.carsInRange.Count == allCars.Length)
+        if (arena != null && arena.isActivated)
         {
             StopAllCoroutines();
         }
@@ -44,19 +40,22 @@ public class AICheats : MonoBehaviour
         while (true)
         {
             yield return null;
-            playersIn = true;
-            foreach (GameObject i in players)
+            if (arena != null && arena.isActivated)
             {
-                if (!arena.carsInRange.Contains(i))
+                playersIn = true;
+                foreach (GameObject i in players)
                 {
-                    playersIn = false;
+                    if (!arena.carsInRange.Contains(i))
+                    {
+                        playersIn = false;
+                    }
                 }
-            }
 
-            if (playersIn && !arena.carsInRange.Contains(gameObject))
-            {
-                GetComponent<CarHealthBehavior>().Kill();
-                GetComponent<AIBehaviour>().SwapSpline();
+                if (playersIn && !arena.carsInRange.Contains(gameObject))
+                {
+                    GetComponent<CarHealthBehavior>().Kill();
+                    GetComponent<AIBehaviour>().SwapSpline();
+                }
             }
             yield return new WaitForSeconds(2.0f);
         }
@@ -67,19 +66,23 @@ public class AICheats : MonoBehaviour
         while (true)
         {
             yield return null;
-            foreach (GameObject i in players)
+            if (_raceManager != null)
             {
-                if (i.GetComponent<RaycastCar>().closestIndex < rearPlayer.closestIndex)
+                rearPlayer = _raceManager.cars[0];
+                foreach (GameObject i in players)
                 {
-                    rearPlayer = i.GetComponent<RaycastCar>();
+                    if (i.GetComponent<RaycastCar>().closestIndex < rearPlayer.closestIndex)
+                    {
+                        rearPlayer = i.GetComponent<RaycastCar>();
+                    }
                 }
-            }
 
-            if (rearPlayer.closestIndex - GetComponent<AIBehaviour>().closestIndex > 40)
-            {
-                GetComponent<CarHealthBehavior>().Kill();
+                if (rearPlayer.closestIndex - GetComponent<AIBehaviour>().closestIndex > 40)
+                {
+                    GetComponent<CarHealthBehavior>().Kill();
+                }
+                yield return new WaitForSeconds(2.0f);
             }
-            yield return new WaitForSeconds(2.0f);
         }
     }
 

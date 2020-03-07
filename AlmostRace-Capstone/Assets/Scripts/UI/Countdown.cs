@@ -15,7 +15,6 @@ public class Countdown : MonoBehaviour
     public int timeLeft = 3;
     private TextMeshProUGUI _countText;
     private VehicleInput[] _arrV;
-    private HotSpotBotBehavior _botBehaviorScript;
     private bool _startStatus = true;
 
     void Start()    
@@ -37,7 +36,6 @@ public class Countdown : MonoBehaviour
         }
 
         _arrV = FindObjectsOfType<VehicleInput>();
-        _botBehaviorScript = FindObjectOfType<HotSpotBotBehavior>();
         turnOff(true);
         _startStatus = false;
 
@@ -51,7 +49,6 @@ public class Countdown : MonoBehaviour
         {
             t.setStatus(stat);
         }
-        _botBehaviorScript.SetCanGoForward(stat);
         AIBehaviour[] bots = FindObjectsOfType<AIBehaviour>();
         foreach(AIBehaviour go in bots)
         {

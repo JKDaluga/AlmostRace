@@ -78,14 +78,6 @@ public class CarHealthBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_vehicleInput != null)
-        {
-            if (Input.GetAxis(_vehicleInput.respawn) > 0 && _vehicleInput.getStatus() && !GetComponent<HotSpotVehicleAdministration>().holdingTheBot)
-            {
-                Teleport();
-            }
-        }
-
         if (!isDead)
         {
             if (healthCurrent > healthMax)

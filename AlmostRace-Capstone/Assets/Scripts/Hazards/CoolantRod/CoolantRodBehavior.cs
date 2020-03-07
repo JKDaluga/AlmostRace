@@ -101,7 +101,6 @@ public void SlideRod()
     {
         if(interactingPlayer != null)
         {
-            interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(coolantExplosionHype, "Vandal");
             if (interactingPlayer.GetComponent<AimAssistant>().target == gameObject)
             {
                 interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);

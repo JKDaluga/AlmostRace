@@ -14,11 +14,18 @@ public class PlayerInfo
     public bool isActive = false;
     public int playerID = 0;
     public int carID = 0;
+    public float hypeAmount = 0f;
     public int controllerID = 0;
+
+    //stats used for awards
     public int boostAbilityUsed = 0;
     public int offensiveAbilityUsed = 0;
     public int defenseAbilityUsed = 0;
     public float driftTimer = 0;
+    public float numKills = 0f;
+    public float numDeaths = 0f;
+    public int placeRace1 = 0;
+    public int placeRace2 = 0;
 }
 
 public class DataManager : MonoBehaviour
@@ -56,6 +63,7 @@ public class DataManager : MonoBehaviour
         {
             playerInfo[i] = new PlayerInfo();
             playerInfo[i].playerID = i + 1;
+            playerInfo[i].hypeAmount = 0f;
         }
     }
 }

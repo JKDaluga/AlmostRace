@@ -16,7 +16,7 @@ public abstract class Projectile : MonoBehaviour
     protected GameObject _immunePlayer;
     protected Vector3 _immunePlayerVelocity;
     protected float _speedActual;
-    protected VehicleHypeBehavior _immunePlayerScript;
+    protected RaycastCar _immunePlayerScript;
     protected Rigidbody _rigidBody;
 
     protected float _projectileDamage;
@@ -36,8 +36,6 @@ public abstract class Projectile : MonoBehaviour
         }
      
         _speedActual = _rigidBody.velocity.magnitude;
-
-       // Destroy(gameObject, 15.0f);
     }
 
     protected void GiveSpeed()
@@ -45,7 +43,7 @@ public abstract class Projectile : MonoBehaviour
 
         if (_immunePlayer != null && _immunePlayerScript != null)
         {
-            _immunePlayerVelocity = _immunePlayer.gameObject.GetComponent<RaycastCar>().GetFlatVelocity();
+            _immunePlayerVelocity = _immunePlayerScript.GetFlatVelocity();
             _rigidBody.velocity = transform.TransformDirection(Vector3.forward * _projectileSpeed) + _immunePlayerVelocity;
         }
         else
@@ -57,9 +55,9 @@ public abstract class Projectile : MonoBehaviour
     public void SetImmunePlayer(GameObject immunePlayer)
     {
         _immunePlayer = immunePlayer;
-        if (_immunePlayer.GetComponent<VehicleHypeBehavior>() != null)
+        if (_immunePlayer.GetComponent<RaycastCar>() != null)
         {
-            _immunePlayerScript = _immunePlayer.GetComponent<VehicleHypeBehavior>();
+            _immunePlayerScript = _immunePlayer.GetComponent<RaycastCar>();
         }
     }
 

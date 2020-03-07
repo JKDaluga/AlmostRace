@@ -27,7 +27,7 @@ public class ProjectileNormalizer : MonoBehaviour
             transform.up = hitNear.normal;
             transform.position = transform.position + ((4f - hitNear.distance) * transform.up);
             rb.velocity = Vector3.ProjectOnPlane(rb.velocity, transform.up).normalized * rb.velocity.magnitude;
-            transform.rotation = Quaternion.LookRotation(rb.velocity, transform.up);
+            if(rb.velocity.magnitude != 0) transform.rotation = Quaternion.LookRotation(rb.velocity, transform.up);
         }
 
     }

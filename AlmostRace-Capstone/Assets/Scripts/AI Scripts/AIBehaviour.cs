@@ -12,6 +12,7 @@ public class AIBehaviour : MonoBehaviour
 
     public bool _inArena;
     public bool canDrive = false;
+    public float sensitivity = 10f;
 
     public RaycastCar thisCar;
     
@@ -84,6 +85,7 @@ public class AIBehaviour : MonoBehaviour
     public void SwapSpline()
     {
         splineIndex++;
+        print("SPLINE SWAPPED : " + splineIndex);
         _aiSplineScript = orderedSplines[splineIndex].GetComponent<SplinePlus>();
 
         //print(orderedSplines[splineIndex].name);
@@ -161,11 +163,11 @@ public class AIBehaviour : MonoBehaviour
 
         if (!avo.turnL && !avo.turnR)
         {
-            if (angleBetween < 82.5)
+            if (angleBetween < 90 - sensitivity)
             {
                 inputTurn = Mathf.Pow((-(angleBetween - 90) / 90), (1 / 2));
             }
-            else if (angleBetween > 97.5)
+            else if (angleBetween > 90 + sensitivity)
             {
                 inputTurn = -Mathf.Pow(((angleBetween - 90) / 90), (1 / 2));
             }

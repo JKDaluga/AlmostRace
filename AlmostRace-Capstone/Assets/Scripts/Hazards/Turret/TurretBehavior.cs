@@ -101,7 +101,6 @@ public class TurretBehavior : Interactable
         //turretFirePillar.Activate(); //activate fire pillar
         if (interactingPlayer != null)
         {
-            interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(destroyTurretHype, "Turret Destroyed");//award hype to interacting player
             if (interactingPlayer.GetComponent<AimAssistant>().target == gameObject)
             {
                 interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);

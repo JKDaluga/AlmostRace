@@ -122,7 +122,6 @@ public class TurretBehavior3 : Interactable
 
     public override void DestroyInteractable()
     {
-        interactingPlayer.GetComponent<VehicleHypeBehavior>().AddHype(tagTurretHype, "Turret Tag");//award hype to interacting player
         Invoke("ResetInteractable", turretResetTime);
     }
 

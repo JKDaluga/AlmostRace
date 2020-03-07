@@ -60,7 +60,6 @@ public class DriftingBonus : MonoBehaviour
         {
             startDrift = true;
             finalHype =Mathf.Floor( hypeToAdd * hypeMultiplier);
-            car.gameObject.GetComponent<VehicleHypeBehavior>().AddHype(finalHype, "Drift");
             hypeMultiplier = 0;
         }
     }

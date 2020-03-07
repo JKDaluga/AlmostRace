@@ -26,6 +26,8 @@ public class RaceManager : MonoBehaviour
     private RectTransform rt;
     public GameObject fourthPlayerPanel;
 
+    public RaycastCar[] cars;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,7 +37,7 @@ public class RaceManager : MonoBehaviour
         rt = eventPanel.GetComponent<RectTransform>();
         rt.offsetMin = new Vector2(0, 0);
         rt.offsetMax = new Vector2(0, 0);
-
+        
         dm = DataManager.instance;
         if(dm == null)
         {
@@ -43,6 +45,7 @@ public class RaceManager : MonoBehaviour
         }
         else
         {
+            cars = new RaycastCar[dm.playerInfo.Length];
             int playerCount = dm.getNumActivePlayers();
             int playerNum = 1;
             int AINum = 0;
@@ -58,7 +61,9 @@ public class RaceManager : MonoBehaviour
                 {
                     if (spawnAI == true)
                     {
-                        Instantiate(AICar[AIindex], spawnLocations[playerNum + AINum - 1].position, spawnLocations[playerNum + AINum - 1].rotation);
+                        RaycastCar aiCar = Instantiate(AICar[AIindex], spawnLocations[playerNum + AINum - 1].position, spawnLocations[playerNum + AINum - 1].rotation).GetComponentInChildren<RaycastCar>();
+                        cars[playerNum + AINum - 1] = aiCar;
+                        aiCar.playerID = player.playerID;
                         AINum++;
                         AIindex++;
                         if(AIindex >= AICar.Length)
@@ -68,6 +73,7 @@ public class RaceManager : MonoBehaviour
                     }
                 }
             }
+            
         }
         eventPanel.SetActive(false);
     }
@@ -76,8 +82,9 @@ public class RaceManager : MonoBehaviour
     {
         // spawns the car on the map in the right spot
         GameObject car = Instantiate(carPool[player.carID * 4 + player.playerID - 1], spawnLocations[player.playerID - 1].position, spawnLocations[player.playerID - 1].rotation);
-
         RaycastCar raycastCar = car.GetComponentInChildren<RaycastCar>();
+        cars[player.playerID - 1] = raycastCar;
+        raycastCar.playerID = player.playerID;
         VehicleInput v = car.GetComponentInChildren<VehicleInput>();
         v.setPlayerNum(player.controllerID);
         if (raycastCar != null)

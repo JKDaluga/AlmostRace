@@ -7,7 +7,6 @@ public class WinScreen : MonoBehaviour
 
     DataManager players;
     VehicleInput playerNum;
-    VehicleHypeBehavior hypeBonus;
     HypeManager playerHype;
 
     string[] awardList = {"Spray n' Pray", "Speed Demon", "Shields Up", "Slippery"};
@@ -24,7 +23,6 @@ public class WinScreen : MonoBehaviour
         playerNum = FindObjectOfType<VehicleInput>();
         awardWinners = new int[awardList.Length];
         winningPlayer = 0;
-        hypeBonus = GetComponent<VehicleHypeBehavior>();
         playerHype = GetComponent<HypeManager>();
     }
 
@@ -114,21 +112,7 @@ public class WinScreen : MonoBehaviour
 
     private void addHype(int playerNum, float amount, string awardTitle)
     {
-        VehicleInput input;
-
-        //Get the correct cars VehicleHypeBehavior
-        foreach (GameObject car in playerHype.vehicleList)
-        {
-            input = car.GetComponent<VehicleInput>();
-            if(input != null)
-            {
-                if(input.playerNumber == playerNum)
-                {
-                    input.gameObject.GetComponent<VehicleHypeBehavior>().AddHype(amount, "Award");
-                    playerHype.awards[input.getPlayerNum() - 1] += awardTitle + "\n";
-                }
-            }
-        }
-
+        DataManager.instance.playerInfo[playerNum - 1].hypeAmount += amount;
+        playerHype.awards[playerNum - 1] += awardTitle + "\n";
     }
 }
