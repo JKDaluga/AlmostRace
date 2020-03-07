@@ -45,8 +45,15 @@ public class RaceManager : MonoBehaviour
         }
         else
         {
-            cars = new RaycastCar[dm.playerInfo.Length];
             int playerCount = dm.getNumActivePlayers();
+            if (spawnAI)
+            {
+                cars = new RaycastCar[dm.playerInfo.Length];
+            }
+            else
+            {
+                cars = new RaycastCar[playerCount];
+            }
             int playerNum = 1;
             int AINum = 0;
 

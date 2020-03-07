@@ -73,7 +73,7 @@ public class HypeGateTimeBehavior : MonoBehaviour
             {
                 foreach (RaycastCar car in _raceManager.cars)
                 {
-                    if (car.gameObject.GetComponent<VehicleInput>() != null)
+                    if (car != null && car.gameObject.GetComponent<VehicleInput>() != null)
                     {
                         car.gameObject.GetComponent<RaycastCar>().playerUIManagerScript.ActivateArenaHypeDisplay();
                         car.gameObject.GetComponent<RaycastCar>().playerUIManagerScript.arenaHypeText.text = "Arena Locked";
