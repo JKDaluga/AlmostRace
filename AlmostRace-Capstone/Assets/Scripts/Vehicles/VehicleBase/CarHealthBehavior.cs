@@ -347,10 +347,9 @@ public class CarHealthBehavior : MonoBehaviour
 
     public void DamageCarTrue(float damage)
     {
-        if (_canTakeDamage)
-        {
+
             healthCurrent -= damage;
-        }
+        
     }
 
     public float GetExtraHealth()
