@@ -27,12 +27,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196752518893532860}
-  m_LocalRotation: {x: -0, y: 0.9998967, z: -0, w: -0.014373568}
-  m_LocalPosition: {x: 0, y: -15.7, z: 190.1001}
-  m_LocalScale: {x: 10, y: 1, z: 30}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.51}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1196752519466674108}
-  m_RootOrder: 1
+  m_Father: {fileID: 1989695726596894687}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 181.64699, z: 0}
 --- !u!33 &1196752518893532857
 MeshFilter:
@@ -139,7 +139,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1196752519628986490}
-  - {fileID: 1196752518893532861}
+  - {fileID: 1989695726596894687}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -171,7 +171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196752519628986481}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -13.9, z: 74.9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 1, z: 10}
   m_Children: []
   m_Father: {fileID: 1196752519466674108}
@@ -202,7 +202,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 5561349426305759274, guid: ab1c449ca6b2caa49a5e10f12fba1970, type: 3}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -252,5 +252,36 @@ MonoBehaviour:
   interactableHealth: 0
   interactingPlayer: {fileID: 0}
   rotationTime: 2
-  rotationAmount: 30
-  ramp: {fileID: 1196752518893532860}
+  rotationAmount: -30
+  ramp: {fileID: 5519289646764989348}
+--- !u!1 &5519289646764989348
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1989695726596894687}
+  m_Layer: 0
+  m_Name: Ramp_Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1989695726596894687
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5519289646764989348}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 190.1001}
+  m_LocalScale: {x: 28.02, y: 1, z: 30}
+  m_Children:
+  - {fileID: 1196752518893532861}
+  m_Father: {fileID: 1196752519466674108}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

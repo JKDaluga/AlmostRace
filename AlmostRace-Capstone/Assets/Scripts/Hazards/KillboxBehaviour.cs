@@ -13,7 +13,7 @@ public class KillboxBehaviour : MonoBehaviour
     {
         if (other.gameObject.GetComponent<CarHealthBehavior>() != null)
         {//if other is a car
-            other.gameObject.GetComponent<CarHealthBehavior>().Kill();
+            other.gameObject.GetComponent<CarHealthBehavior>().DamageCarTrue(other.gameObject.GetComponent<CarHealthBehavior>().healthCurrent);
         }
     }
 }

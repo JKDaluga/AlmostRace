@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 //using System.Diagnostics;
 using UnityEngine;
@@ -16,10 +17,16 @@ public class CarHealthBehavior : MonoBehaviour
     public GameObject explosionEffect;
     public GameObject teleportEffect;
     public GameObject deathFade;
-    public float _extraHPMax = 100f;
-    public float _extraHP = 0;
+
+    public float invulnerabilityTime = 3f;
+    private float _invulnerabilityTimer = 0f;
+    private bool _canTakeDamage = true;
+
+    public float extraHPMax = 100f;
+    public float extraHP = 0;
     public float healthCurrent = 100f;
     public float healthMax = 100f;
+
     public float healAmount = 1f;
     public float respawnSecs = 3f;
     public float teleportCooldown = 5f;
@@ -142,7 +149,7 @@ public class CarHealthBehavior : MonoBehaviour
             #region ExtraHealthFillBar
             if(extraHealthFillBar != null)
             {
-                extraHealthFillBar.fillAmount = _extraHP / _extraHPMax;
+                extraHealthFillBar.fillAmount = extraHP / extraHPMax;
             }
             #endregion
 
@@ -221,6 +228,8 @@ public class CarHealthBehavior : MonoBehaviour
     {
         isFlashing = false;
         isDead = false;
+        _canTakeDamage = false;
+        StartCoroutine(Invulnerability());
         healthCurrent = healthMax;
         CancelInvoke("FlashRedEngine");
         if (GetComponent<VehicleInput>())
@@ -247,6 +256,20 @@ public class CarHealthBehavior : MonoBehaviour
         //GetComponent<RaycastCar>().setDrifting(false);
        // GetComponent<RaycastCar>().SetIsBoosting(false);
 
+    }
+
+    private IEnumerator Invulnerability()
+    {
+        _invulnerabilityTimer = invulnerabilityTime;
+        while(!_canTakeDamage)
+        {
+            _invulnerabilityTimer -= Time.deltaTime;
+            if(_invulnerabilityTimer <= 0)
+            {
+                _canTakeDamage = true;
+            }
+            yield return null;
+        }
     }
 
     public void Teleport()
@@ -290,63 +313,68 @@ public class CarHealthBehavior : MonoBehaviour
 
     public void DamageCar(float damage)
     {
-
-        //stackTrace = new StackTrace();
-       // print("ADDHEAT !! " + stackTrace.GetFrame(1).GetMethod().Name);
-       if(_extraHP > 0)
-        { //if you have _extraHP
-            
-            //damage left over after it's delt to the _extraHP
-            float _tempDamage = damage - _extraHP;
-
-            if(_tempDamage < 0)
-            {//makes sure _tempDamage doesn't heal the player later on
-                _tempDamage = 0;
-            }
-
-            _extraHP -= damage; //deals the damage to the _extraHP
-
-            if(_extraHP <= 0)
-            { //If you have no _extraHP left
-                healthCurrent -= _tempDamage;
-            }
-        }
-        else
+        if(_canTakeDamage)
         {
-            healthCurrent -= damage;
-            extra = -20;
+            //stackTrace = new StackTrace();
+            // print("ADDHEAT !! " + stackTrace.GetFrame(1).GetMethod().Name);
+            if (extraHP > 0)
+            { //if you have _extraHP
+
+                //damage left over after it's delt to the _extraHP
+                float _tempDamage = damage - extraHP;
+
+                if (_tempDamage < 0)
+                {//makes sure _tempDamage doesn't heal the player later on
+                    _tempDamage = 0;
+                }
+
+                extraHP -= damage; //deals the damage to the _extraHP
+
+                if (extraHP <= 0)
+                { //If you have no _extraHP left
+                    healthCurrent -= _tempDamage;
+                }
+            }
+            else
+            {
+                healthCurrent -= damage;
+                extra = -20;
+            }
+
         }
-       
+
     }
 
     public void DamageCarTrue(float damage)
     {
-        healthCurrent -= damage;
+
+            healthCurrent -= damage;
+        
     }
 
     public float GetExtraHealth()
     {
-        return _extraHP;
+        return extraHP;
     }
 
     public void SetExtraHealth(float extraHP)
     {
-        _extraHP = extraHP;
+        this.extraHP = extraHP;
     }
 
     public void AddExtraHealth(float extraHP)
     {
-        _extraHP += extraHP;
+        this.extraHP += extraHP;
     }
 
     public float GetExtaHealthMax()
     {
-        return _extraHPMax;
+        return extraHPMax;
     }
 
     public void SetExtraHealthMax(float extraHealthMax)
     {
-        _extraHPMax = extraHealthMax;
+        extraHPMax = extraHealthMax;
     }
 
     private void OnCollisionEnter(Collision collision)
