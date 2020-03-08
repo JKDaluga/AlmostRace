@@ -59,7 +59,7 @@ public class RaycastCar : MonoBehaviour
     public float gravity = 200f;
     public float power = 300;
     public float maxSpeed = 50;
-    public float maxTurnSpeed = 10;
+    public float maxTurnAngle = 10;
     public float carGrip = 70;
     public float turnSpeed = 3.0f;  //keep this value somewhere between 2.5f and 6.0f
     public float driftStrength = 1.5f; //this number should be greater than 1f
@@ -300,7 +300,7 @@ public class RaycastCar : MonoBehaviour
         }
 
         // turn car
-        float tempMaxTurnSpeed = maxTurnSpeed;
+        float tempMaxTurnSpeed = maxTurnAngle;
         if(drift)
         {
             tempMaxTurnSpeed *= driftStrength;
