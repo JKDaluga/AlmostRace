@@ -163,9 +163,10 @@ public class CarHealthBehavior : MonoBehaviour
                     extra = 0;
                 }
 
-                damageVignette.color = gradient.Evaluate((healthCurrent + extra) / healthMax);
-                float scale = Mathf.Lerp(1, 2.5f, (healthCurrent + extra) / healthMax);
-                damageVignette.gameObject.transform.localScale = new Vector3(scale, scale, scale);
+                damageVignette.color = new Color(damageVignette.color.r, damageVignette.color.g, damageVignette.color.b, 1- (healthCurrent / healthMax));
+              //  damageVignette.color = gradient.Evaluate((healthCurrent + extra) / healthMax);
+              //  float scale = Mathf.Lerp(1, 2.5f, (healthCurrent + extra) / healthMax);
+              //  damageVignette.gameObject.transform.localScale = new Vector3(scale, scale, scale);
                 
             }
             #endregion
