@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 /*
     Creator and developer of script: Leonardo Caballero
@@ -10,9 +11,11 @@ using UnityEngine.UI;
 public class MenuController : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public GameObject resumeButton;
     public Text winText;
     public GameObject Countdown;
     private VehicleInput[] arrV;
+    private EventSystem _eventSystem;
     private EngineAudio[] _engineSoundsToControl;
     private VehicleCollisionEffects[] _sparkSoundsToControl;
     private SphereCarController[] _sphereCarController;
@@ -21,6 +24,7 @@ public class MenuController : MonoBehaviour
     private void Start()
     {
         arrV = FindObjectsOfType<VehicleInput>();
+        _eventSystem = FindObjectOfType<EventSystem>();
         _engineSoundsToControl = FindObjectsOfType<EngineAudio>();
         _sparkSoundsToControl = FindObjectsOfType<VehicleCollisionEffects>();
         _sphereCarController = FindObjectsOfType<SphereCarController>();
@@ -32,13 +36,9 @@ public class MenuController : MonoBehaviour
         {
             if (pauseMenu.activeSelf == true)
             {
-                if (Countdown.activeSelf == true)
+                if (!Countdown.activeSelf)
                 {
-                    //doNothing
-                }
-                else
-                {
-                    turnOff(true);
+                    turnOnOff(true);
                 }
                 _vehicleInput = FindObjectsOfType<VehicleInput>();
                 foreach(VehicleInput car in _vehicleInput)
@@ -51,7 +51,7 @@ public class MenuController : MonoBehaviour
             }
             else
             {
-                turnOff(false);
+                turnOnOff(false);
                 Time.timeScale = 0f;
                 pauseMenu.SetActive(true);
                 foreach (EngineAudio engineSound in _engineSoundsToControl)
@@ -71,6 +71,8 @@ public class MenuController : MonoBehaviour
                 {
                     car.setStatus(false);
                 }
+                _eventSystem.SetSelectedGameObject(null);
+                _eventSystem.SetSelectedGameObject(resumeButton);
             }
         }
     }
@@ -80,7 +82,6 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
-        winText.gameObject.SetActive(false);
     }
 
     public void mainMenu()
@@ -88,7 +89,6 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
-        winText.gameObject.SetActive(false);
     }
 
 
@@ -98,12 +98,12 @@ public class MenuController : MonoBehaviour
         Time.timeScale = 1f;
         if (Countdown.activeSelf == false)
         {
-            turnOff(true);
+            turnOnOff(true);
         }
         UnpauseSoundHandle();
     }
 
-    private void turnOff(bool stat)
+    private void turnOnOff(bool stat)
     {
         foreach (VehicleInput t in arrV)
         {
