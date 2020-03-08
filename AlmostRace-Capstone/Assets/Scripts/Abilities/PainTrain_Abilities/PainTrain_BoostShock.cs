@@ -2,13 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Eddie and Greg
+
 public class PainTrain_BoostShock : MonoBehaviour
 {
 
 
     private Interactable hitInteractable;
 
-    private List<CarHealthBehavior> _damagedCars;
+    private List<CarHealthBehavior> _carsToDamage;
 
     private GameObject _immunePlayer;
 
@@ -19,7 +21,7 @@ public class PainTrain_BoostShock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _damagedCars = new List<CarHealthBehavior>();
+        _carsToDamage = new List<CarHealthBehavior>();
     }
 
     public void GiveInfo(GameObject immunePlayer, float shockDamage, float shockRate)
@@ -33,9 +35,9 @@ public class PainTrain_BoostShock : MonoBehaviour
     {
         if (other.CompareTag("Vehicle") && other.gameObject != _immunePlayer)
         {
-            _damagedCars.Add(other.GetComponent<CarHealthBehavior>());
+            _carsToDamage.Add(other.GetComponent<CarHealthBehavior>());
 
-            if (_damagedCars.Count == 1)
+            if (_carsToDamage.Count == 1)
             {
                 InvokeRepeating("DamageCars", 0, _shockRate);
             }
@@ -49,30 +51,30 @@ public class PainTrain_BoostShock : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent<CarHealthBehavior>() != null && _damagedCars.Contains(other.gameObject.GetComponent<CarHealthBehavior>()))
+        if (other.gameObject.GetComponent<CarHealthBehavior>() != null && _carsToDamage.Contains(other.gameObject.GetComponent<CarHealthBehavior>()))
         {
-            _damagedCars.Remove(other.gameObject.GetComponent<CarHealthBehavior>());
+            _carsToDamage.Remove(other.gameObject.GetComponent<CarHealthBehavior>());
         }
     }
 
     public void ClearCarList()
     {
-        _damagedCars.Clear();
+        _carsToDamage.Clear();
         CancelInvoke("DamageCars");
     }
 
     void DamageCars()
     {
-        if (_damagedCars.Count != 0)
+        if (_carsToDamage.Count != 0)
         {
-            foreach (CarHealthBehavior car in _damagedCars)
+            foreach (CarHealthBehavior car in _carsToDamage)
             {
                 if (!car.isDead)
                 {
                     car.DamageCar(_shockDamage);
                     if (car.healthCurrent <= 0)
                     {
-                        _damagedCars.Remove(car);
+                        _carsToDamage.Remove(car);
                     }
                 }
             }
