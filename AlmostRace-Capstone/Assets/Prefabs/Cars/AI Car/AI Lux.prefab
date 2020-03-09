@@ -29120,6 +29120,7 @@ MonoBehaviour:
   reverse: 0
   horizontal: 0
   drift: 0
+  playerUIManagerScript: {fileID: 0}
   currentSpeed: 0
   currentTurnSpeed: 0
   actualGrip: 0
@@ -29138,7 +29139,7 @@ MonoBehaviour:
   gravity: 300
   power: 3500
   maxSpeed: 260
-  maxTurnSpeed: 1.25
+  maxTurnAngle: 10
   carGrip: 300
   turnSpeed: 3
   driftStrength: 6
@@ -29186,8 +29187,9 @@ MonoBehaviour:
   teleportEffect: {fileID: 2810214832798839782, guid: b6e063dae0c218940ad8af9105a63dba,
     type: 3}
   deathFade: {fileID: 0}
-  _extraHPMax: 100
-  _extraHP: 0
+  invulnerabilityTime: 3
+  extraHPMax: 100
+  extraHP: 0
   healthCurrent: 100
   healthMax: 100
   healAmount: 0.05
