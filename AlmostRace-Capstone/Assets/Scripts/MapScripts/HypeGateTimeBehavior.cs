@@ -155,6 +155,12 @@ public class HypeGateTimeBehavior : MonoBehaviour
                     arenaEndText.SetActive(true);
 
                     Invoke("DisableEvents", 3);
+
+                    AIBehaviour[] aiCars = FindObjectsOfType<AIBehaviour>();
+                    foreach(AIBehaviour i in aiCars)
+                    {
+                        i.SwapSpline();
+                    }
                 }
                 //StopCoroutine(TrackHype());
                 StopAllCoroutines();
