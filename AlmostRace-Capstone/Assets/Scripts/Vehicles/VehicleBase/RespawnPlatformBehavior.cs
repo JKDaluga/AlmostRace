@@ -16,14 +16,13 @@ public class RespawnPlatformBehavior : MonoBehaviour
     public int respawnSeconds;
     [Tooltip("Amount of height off the ground the platform spawns at")]
     public float spawnHeight;
-    [Tooltip("Amount of distance to spawn behind the hot spot")]
+    [Tooltip("Amount of distance to spawn behind the player")]
     public int distanceBehind;
     [Tooltip("Amount of distance forward to make the platform look at, used when spawning after holding the bot or if there is no bot in the scene")]
     public int lookDistanceForward;
     private HypeGateTimeBehavior arena;
     private HypeManager _hypeManagerScript;
     private GameObject _playerObject;
-   // private GameObject _ballCollider;
     private GameObject _carMesh;
     private GameObject _otherVehicle;
     private Transform _previousNode;
@@ -72,7 +71,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
             }
             else
             {
-                //Spawn On Last Player
+                SpawnBehindPlayer();
             }
         }
         StartCoroutine(RespawnSequence());
@@ -137,9 +136,6 @@ public class RespawnPlatformBehavior : MonoBehaviour
         // Move the vehicle logic object to the platform position which includes the camera
         if (_movingCar)
         {
-          //  _ballCollider.transform.position = new Vector3
-                //(transform.position.x, transform.position.y + 2, transform.position.z);
-        //    _ballCollider.transform.rotation = transform.rotation;
             _carMesh.transform.rotation = transform.rotation;
             _playerObject.transform.position = new Vector3
                 (transform.position.x, transform.position.y + 2, transform.position.z);
@@ -153,6 +149,20 @@ public class RespawnPlatformBehavior : MonoBehaviour
         if (other.gameObject.CompareTag("Vehicle"))
         {
             Destroy(gameObject, 3);
+        }
+    }
+
+    // AI uses this method to cheat to catch up to the players
+    private void SpawnBehindPlayer()
+    {
+        AICheats cheats = _playerObject.GetComponent<AICheats>();
+        if (cheats != null)
+        {
+            Vector3 nearestPointOnSpline = cheats.getRearPlayer().GetNearestPointOnSpline(distanceBehind);
+            transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
+
+            Vector3 pointOnSplineForward = cheats.getRearPlayer().GetNearestPointOnSpline(lookDistanceForward);
+            transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
         }
     }
 }
