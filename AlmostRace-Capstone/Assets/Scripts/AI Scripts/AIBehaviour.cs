@@ -164,11 +164,11 @@ public class AIBehaviour : MonoBehaviour
 
         if (!avo.turnL && !avo.turnR)
         {
-            if (angleBetween < 90 - sensitivity)
+            if (angleBetween < 90 - offsetAngle)
             {
                 inputTurn = Mathf.Pow((-(angleBetween - 90) / 90), (1 / 2));
             }
-            else if (angleBetween > 90 + sensitivity)
+            else if (angleBetween > 90 + offsetAngle)
             {
                 inputTurn = -Mathf.Pow(((angleBetween - 90) / 90), (1 / 2));
             }
