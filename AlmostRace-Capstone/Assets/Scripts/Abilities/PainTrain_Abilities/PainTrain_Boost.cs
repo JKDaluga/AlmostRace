@@ -14,6 +14,8 @@ public class PainTrain_Boost : CooldownHeatAbility
     public float boostDamageRate;
     public float boostDamage;
 
+    public List<GameObject> vfxToActivate = new List<GameObject>();
+
     [Range(0, 1)]
     public float boostSpeedPercentage;
 
@@ -36,6 +38,10 @@ public class PainTrain_Boost : CooldownHeatAbility
 
             boostField.SetActive(true);
         }
+        foreach(GameObject vfxObj in vfxToActivate)
+        {
+            vfxObj.SetActive(true);
+        }
     }
 
     public override void DeactivateAbility()
@@ -45,6 +51,11 @@ public class PainTrain_Boost : CooldownHeatAbility
         boostField.SetActive(false);
 
         isBoosting = false;
+
+        foreach (GameObject vfxObj in vfxToActivate)
+        {
+            vfxObj.SetActive(false);
+        }
 
     }
 
