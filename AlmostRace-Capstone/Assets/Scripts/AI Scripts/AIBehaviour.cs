@@ -12,7 +12,8 @@ public class AIBehaviour : MonoBehaviour
 
     public bool _inArena;
     public bool canDrive = false;
-    public float sensitivity = 10f;
+    public float offsetAngle = 10f;
+    public int nodesToLookAhead = 5;
 
     public RaycastCar thisCar;
     
@@ -143,7 +144,7 @@ public class AIBehaviour : MonoBehaviour
                     thisCar.horizontal = inputTurn;
 
                     placeHolder = j;
-                    placeHolder = Mathf.Clamp(placeHolder+5, 0, entry.Value.Vertices.Count-1);
+                    placeHolder = Mathf.Clamp(placeHolder+nodesToLookAhead, 0, entry.Value.Vertices.Count-1);
 
                     vertexAim = entry.Value.Vertices[placeHolder];
 
