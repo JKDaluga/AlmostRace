@@ -17,6 +17,8 @@ public class PainTrain_LightningBall : Projectile
     public Transform targetCar;
     private bool hasStuckCar;
 
+    public GameObject lightningBoom;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -125,6 +127,8 @@ public class PainTrain_LightningBall : Projectile
 
     private void OnCollisionEnter(Collision collision)
     {
+
+        lightningBoom.SetActive(true);
         if (collision.gameObject.CompareTag("Vehicle"))
         {
             objCollider.isTrigger = true;
