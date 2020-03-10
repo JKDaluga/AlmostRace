@@ -237,7 +237,7 @@ public class CarHealthBehavior : MonoBehaviour
         }
         GetComponent<RaycastCar>().enabled = false;
         GetComponent<VehicleAbilityBehavior>().enabled = false;
-        GameObject respawnInstance = Instantiate(respawnPlatform);
+        GameObject respawnInstance = Instantiate(cheatRespawnPlatform);
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
         carObject.GetComponent<Rigidbody>().useGravity = false;
         carObject.GetComponent<Rigidbody>().isKinematic = true;
