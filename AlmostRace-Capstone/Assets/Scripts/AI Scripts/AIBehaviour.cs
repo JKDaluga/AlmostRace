@@ -1,7 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using UnityEngine.SceneManagement;
+
+/*
+ * NOTE FROM ROBYN 3/9/2020
+ * When we have a map select screen implemented, we will need to re-update the AI to make their values set based on the selected map, rather than arbitrarily like now
+ */
 
 
 public class AIBehaviour : MonoBehaviour
@@ -14,6 +19,15 @@ public class AIBehaviour : MonoBehaviour
     public bool canDrive = false;
     public float offsetAngle = 10f;
     public int nodesToLookAhead = 5;
+
+    [Header("Values for specific Maps")]
+    [Tooltip("OffsetAngle values for each map")]
+    public int MineOffset;
+    public int InterstellarOffset;
+    [Tooltip("NodestoLookAhead values for each map")]
+    public int MineNodes, InterstellarNodes;
+
+    public string MineMap, Interstellar;
 
     public RaycastCar thisCar;
     
@@ -57,6 +71,17 @@ public class AIBehaviour : MonoBehaviour
         }*/
         RaceManager rc = FindObjectOfType<RaceManager>();
         orderedSplines = rc.orderedSplines;
+
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName(MineMap))
+        {
+            nodesToLookAhead = MineNodes;
+            offsetAngle = MineOffset;
+        }
+        else
+        {
+            nodesToLookAhead = InterstellarNodes;
+            offsetAngle = InterstellarNodes;
+        }
 
         splineIndex = 0;
         avo = GetComponentInChildren<AIObstacleAvoidance>();
