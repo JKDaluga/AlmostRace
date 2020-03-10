@@ -12,6 +12,7 @@ public class CarHealthBehavior : MonoBehaviour
 {
    // StackTrace stackTrace;
     public GameObject respawnPlatform;
+    public GameObject cheatRespawnPlatform;
     public GameObject modelHolder;
     public GameObject carObject;
     public GameObject explosionEffect;
@@ -205,6 +206,28 @@ public class CarHealthBehavior : MonoBehaviour
         //print("KILL !! " + stackTrace.GetFrame(1).GetMethod().Name);
 
         //AudioManager.instance.Play("Death");
+        AudioManager.instance.Play("Death", transform);
+        isDead = true;
+        Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);
+        if (GetComponent<VehicleInput>())
+        {
+            deathFade.GetComponent<Animator>().Play("DeathFadeIn");
+        }
+        GetComponent<RaycastCar>().enabled = false;
+        GetComponent<VehicleAbilityBehavior>().enabled = false;
+        GameObject respawnInstance = Instantiate(respawnPlatform);
+        respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
+        carObject.GetComponent<Rigidbody>().useGravity = false;
+        carObject.GetComponent<Rigidbody>().isKinematic = true;
+
+        if (gameObject.GetComponent<VehicleInput>())
+        {
+            gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
+        }
+    }
+
+    public void AICheatKill()
+    {
         AudioManager.instance.Play("Death", transform);
         isDead = true;
         Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);

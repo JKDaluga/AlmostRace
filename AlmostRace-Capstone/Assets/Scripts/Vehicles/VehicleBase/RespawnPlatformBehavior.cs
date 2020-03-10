@@ -31,6 +31,8 @@ public class RespawnPlatformBehavior : MonoBehaviour
     private bool _movingCar;
     private bool _spawnOnEnemy;
 
+    public bool respawnOverride;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -43,22 +45,35 @@ public class RespawnPlatformBehavior : MonoBehaviour
         {
             arena = FindObjectOfType<HypeGateTimeBehavior>();
         }
-
-        if (GameObject.FindGameObjectWithTag("AISpline") != null)
+        if (!respawnOverride)
         {
-            if(arena != null && arena.isActivated)
+            if (GameObject.FindGameObjectWithTag("AISpline") != null)
+            {
+                if (arena != null && arena.isActivated)
+                {
+                    SpawnOnArenaSpawnPoint();
+                }
+                else
+                {
+                    SpawnOnNearestSplinePoint();
+                }
+            }
+            else
+            {
+                Debug.Log("There is no hot spot in the scene");
+                SpawnOnSelf();
+            }
+        }
+        else
+        {
+            if (_playerObject.GetComponent<AICheats>().getPlayersIn())
             {
                 SpawnOnArenaSpawnPoint();
             }
             else
             {
-            SpawnOnNearestSplinePoint();
+                //Spawn On Last Player
             }
-        }
-        else
-        {
-            Debug.Log("There is no hot spot in the scene");
-            SpawnOnSelf();
         }
         StartCoroutine(RespawnSequence());
         Destroy(gameObject, 5);
@@ -100,6 +115,8 @@ public class RespawnPlatformBehavior : MonoBehaviour
         transform.position = new Vector3(_playerObject.transform.position.x,
             _playerObject.transform.position.y + spawnHeight, _playerObject.transform.position.z);
     }
+
+
 
     // The time sequence for setting when to move the vehicle and when the vehicle runs its respawn function
     private IEnumerator RespawnSequence()

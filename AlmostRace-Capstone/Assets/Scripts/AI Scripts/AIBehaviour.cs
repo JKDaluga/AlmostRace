@@ -77,7 +77,7 @@ public class AIBehaviour : MonoBehaviour
             nodesToLookAhead = MineNodes;
             offsetAngle = MineOffset;
         }
-        else
+        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName(Interstellar))
         {
             nodesToLookAhead = InterstellarNodes;
             offsetAngle = InterstellarNodes;

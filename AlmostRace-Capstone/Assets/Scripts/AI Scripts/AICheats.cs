@@ -86,4 +86,14 @@ public class AICheats : MonoBehaviour
         }
     }
 
+    public RaycastCar getRearPlayer()
+    {
+        return rearPlayer;
+    }
+
+    public bool getPlayersIn()
+    {
+        return playersIn;
+    }
+
 }
