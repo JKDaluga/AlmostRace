@@ -84,4 +84,20 @@ public class Lux_BoostAbility : CooldownHeatAbility
     {
        carHeatInfo.DamageCarTrue(selfHeatDamage);
     }
+
+
+    public override void AbilityOnCooldown()
+    {
+
+    }
+
+    public override void AbilityOffOfCooldown()
+    {
+
+    }
+
+    public override void AbilityInUse()
+    {
+
+    }
 }

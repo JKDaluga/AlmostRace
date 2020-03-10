@@ -34,6 +34,21 @@ public class Lux_Attack : Ability
     [Tooltip("Put the disk you want to go forward here.")]
     public Transform muzzle;
 
+    public override void AbilityInUse()
+    {
+
+    }
+
+    public override void AbilityOffOfCooldown()
+    {
+
+    }
+
+    public override void AbilityOnCooldown()
+    {
+
+    }
+
     public override void ActivateAbility()
     {
         AudioManager.instance.Play("Lux Shooting", transform);

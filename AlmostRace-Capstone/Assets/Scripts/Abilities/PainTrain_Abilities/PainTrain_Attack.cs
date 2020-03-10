@@ -34,6 +34,13 @@ public class PainTrain_Attack : Ability
     /// </summary>
     public float lightningBallSpeed;
 
+
+    [Header("Skull Variables")]
+
+    public Animator skull;
+
+    public List<SpinObject> gearsToSpin = new List<SpinObject>();
+
     public override void ActivateAbility()
     {
         Debug.Log("Ability should be activated!");
@@ -44,11 +51,36 @@ public class PainTrain_Attack : Ability
 
         spawnedLightningBall.GetComponent<PainTrain_LightningBall>().GiveInfo(lightningBallDamage, lightningBallDuration, lightningBallFrequency);
         Destroy(spawnedLightningBall, 10);
+
+     
+       
+       
     }
 
     public override void DeactivateAbility()
     {
-        //shouldn't be needed, as the cooldown stuff should be handled externally
+
+    }
+
+    public override void AbilityInUse()
+    {
+        skull.SetTrigger("SkullUp");
+        //skull.StartCoroutine(skull.RaiseSkull());
+       //skull.StartCoroutine(skull.FaceSkullUp());
+    }
+
+    public override void AbilityOffOfCooldown()
+    {
+        skull.SetTrigger("SkullDown");
+        //skull.StartCoroutine(skull.LowerSkull());
+        //skull.StartCoroutine(skull.FaceSkullDown());
+    }
+
+    public override void AbilityOnCooldown()
+    {
+        skull.SetTrigger("SkullDown");
+        //skull.StartCoroutine(skull.RaiseSkull());
+        //skull.StartCoroutine(skull.FaceSkullUp());
     }
 
 }

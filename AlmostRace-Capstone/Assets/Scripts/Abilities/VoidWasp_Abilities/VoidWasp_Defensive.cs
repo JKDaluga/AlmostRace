@@ -115,4 +115,19 @@ public class VoidWasp_Defensive : CooldownAbility
         var em = givenShield.GetComponent<ParticleSystem>().emission;
         em.rateOverTime = Mathf.Lerp(minParticleCount, maxParticleCount, (Mathf.Clamp(givenAmount, 0, 100)) / 100);
     }
+
+    public override void AbilityOnCooldown()
+    {
+
+    }
+
+    public override void AbilityOffOfCooldown()
+    {
+
+    }
+
+    public override void AbilityInUse()
+    {
+
+    }
 }

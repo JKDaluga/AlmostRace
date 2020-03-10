@@ -194,6 +194,18 @@ public class VoidWasp_OffensiveAbility : HeatAbility
         carHeatInfo.DamageCar(selfHeatDamage);
     }
 
+    public override void AbilityOnCooldown()
+    {
 
+    }
 
+    public override void AbilityOffOfCooldown()
+    {
+
+    }
+
+    public override void AbilityInUse()
+    {
+
+    }
 }

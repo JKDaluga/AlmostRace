@@ -10,6 +10,21 @@ public class MissileAbility : Ability
     public GameObject missile;
     public Transform spawnLocation;
 
+    public override void AbilityInUse()
+    {
+
+    }
+
+    public override void AbilityOffOfCooldown()
+    {
+
+    }
+
+    public override void AbilityOnCooldown()
+    {
+
+    }
+
     public override void ActivateAbility()
     {
         if (spawnLocation == null)

@@ -65,4 +65,21 @@ public class Lux_Attack2 : Ability
     {
         bladesToSpawn = bladesToSpawnActual;
     }
+
+
+
+    public override void AbilityOnCooldown()
+    {
+
+    }
+
+    public override void AbilityOffOfCooldown()
+    {
+
+    }
+
+    public override void AbilityInUse()
+    {
+
+    }
 }

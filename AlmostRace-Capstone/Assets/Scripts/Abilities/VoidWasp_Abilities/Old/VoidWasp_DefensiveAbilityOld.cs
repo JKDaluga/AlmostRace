@@ -39,4 +39,19 @@ public class VoidWasp_DefensiveAbilityOld : CooldownAbility
     {
         surgeObject.GetComponent<VoidWasp_ShieldBehaviour>().DestroyInteractable();
     }
+
+    public override void AbilityOnCooldown()
+    {
+
+    }
+
+    public override void AbilityOffOfCooldown()
+    {
+
+    }
+
+    public override void AbilityInUse()
+    {
+
+    }
 }

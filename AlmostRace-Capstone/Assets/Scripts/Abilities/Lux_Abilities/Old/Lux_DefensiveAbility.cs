@@ -44,4 +44,18 @@ public class Lux_DefensiveAbility : CooldownAbility
         }
     }
 
+    public override void AbilityOnCooldown()
+    {
+
+    }
+
+    public override void AbilityOffOfCooldown()
+    {
+
+    }
+
+    public override void AbilityInUse()
+    {
+
+    }
 }

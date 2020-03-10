@@ -94,4 +94,21 @@ public class VoidWasp_Boost : CooldownHeatAbility
 
     protected override void AddHeat() {}
 
+
+
+
+    public override void AbilityOnCooldown()
+    {
+
+    }
+
+    public override void AbilityOffOfCooldown()
+    {
+
+    }
+
+    public override void AbilityInUse()
+    {
+
+    }
 }

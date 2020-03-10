@@ -10,6 +10,9 @@ public abstract class Ability : MonoBehaviour
 {
     public abstract void ActivateAbility();
     public abstract void DeactivateAbility();
+    public abstract void AbilityOnCooldown();
+    public abstract void AbilityOffOfCooldown();
+    public abstract void AbilityInUse();
     protected RaycastCar car;
 
     protected void Initialize()
