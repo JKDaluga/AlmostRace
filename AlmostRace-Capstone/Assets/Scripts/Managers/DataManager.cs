@@ -64,6 +64,8 @@ public class DataManager : MonoBehaviour
             playerInfo[i] = new PlayerInfo();
             playerInfo[i].playerID = i + 1;
             playerInfo[i].hypeAmount = 0f;
+            playerInfo[i].placeRace1 = playerInfo.Length;
+            playerInfo[i].placeRace2 = playerInfo.Length;
         }
     }
 }
