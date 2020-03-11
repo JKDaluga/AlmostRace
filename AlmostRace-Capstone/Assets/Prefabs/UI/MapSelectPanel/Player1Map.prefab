@@ -184,7 +184,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 90, y: 0}
-  m_SizeDelta: {x: 110, y: 110}
+  m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1447529920589827855
 CanvasRenderer:
@@ -259,7 +259,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 560, y: 341}
+  m_SizeDelta: {x: 559, y: 341}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1447529920835248973
 CanvasRenderer:
@@ -335,7 +335,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 560, y: 341}
+  m_SizeDelta: {x: 559, y: 341}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1447529920936710489
 CanvasRenderer:
@@ -747,8 +747,8 @@ MonoBehaviour:
   coverBox: {fileID: 1447529921599508752}
   mineSnapshot: {fileID: 1447529920835248972}
   stellarSnapshot: {fileID: 1447529920936710488}
-  mineSnapshotBackground: {fileID: 0}
-  stellarSnapshotBackground: {fileID: 0}
+  mineSnapshotBehind: []
+  stellarSnapshotBehind: []
   _statusText: {fileID: 1014121183372274206}
 --- !u!1 &1447529921698277691
 GameObject:
@@ -1125,7 +1125,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: PRESS A TO CONFIRM
+  m_text: PRESS A TO CONFIRM MAP
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c761a777537f0094081a564939b0a661, type: 2}
   m_sharedMaterial: {fileID: -6254251597788995096, guid: c761a777537f0094081a564939b0a661,
@@ -1195,10 +1195,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1014121183372274206}
-    characterCount: 18
+    characterCount: 22
     spriteCount: 0
-    spaceCount: 3
-    wordCount: 4
+    spaceCount: 4
+    wordCount: 5
     linkCount: 0
     lineCount: 1
     pageCount: 1

@@ -16,8 +16,8 @@ public class MapSelectManager : MonoBehaviour
     public TextMeshProUGUI _stellarMapVoteText;
     public GameObject allReadyImage;
     private DataManager _data;
-    private static bool _readyToStart = false;
-    private static bool _isLoading = false;
+    private bool _readyToStart = false;
+    private bool _isLoading = false;
     private int mineMapVotes = 0;
     private int stellarMapVotes = 0;
 

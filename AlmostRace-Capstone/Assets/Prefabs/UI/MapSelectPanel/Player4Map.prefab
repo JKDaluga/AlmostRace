@@ -229,8 +229,8 @@ MonoBehaviour:
   coverBox: {fileID: 2414940257527310307}
   mineSnapshot: {fileID: 7751687061326981166}
   stellarSnapshot: {fileID: 7751687060944948869}
-  mineSnapshotBackground: {fileID: 0}
-  stellarSnapshotBackground: {fileID: 0}
+  mineSnapshotBehind: []
+  stellarSnapshotBehind: []
   _statusText: {fileID: 7751687061508430066}
 --- !u!1 &3796633542356649451
 GameObject:
@@ -717,7 +717,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 564, y: 343.1}
+  m_SizeDelta: {x: 559, y: 341}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7751687060944948870
 CanvasRenderer:
@@ -869,7 +869,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 564, y: 343.1}
+  m_SizeDelta: {x: 559, y: 341}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7751687061326981167
 CanvasRenderer:
@@ -976,7 +976,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_text: PRESS A TO CONFIRM
+  m_text: PRESS A TO CONFIRM MAP
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c761a777537f0094081a564939b0a661, type: 2}
   m_sharedMaterial: {fileID: -6254251597788995096, guid: c761a777537f0094081a564939b0a661,
@@ -1046,10 +1046,10 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 7751687061508430066}
-    characterCount: 18
+    characterCount: 22
     spriteCount: 0
-    spaceCount: 3
-    wordCount: 4
+    spaceCount: 4
+    wordCount: 5
     linkCount: 0
     lineCount: 1
     pageCount: 1

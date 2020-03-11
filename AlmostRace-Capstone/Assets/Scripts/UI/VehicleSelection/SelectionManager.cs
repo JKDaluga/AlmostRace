@@ -12,8 +12,8 @@ public class SelectionManager : MonoBehaviour
     public VehicleInput[] playerInputs;
     public GameObject allReadyImage;
     private DataManager _data;
-    private static bool _readyToStart = false;
-    private static bool _isLoading = false;
+    private bool _readyToStart = false;
+    private bool _isLoading = false;
 
 
     // Start is called before the first frame update

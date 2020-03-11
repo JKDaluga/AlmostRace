@@ -58,14 +58,18 @@ public class DataManager : MonoBehaviour
 
     public void resetData()
     {
-        playerInfo = new PlayerInfo[4];
         for (int i = 0; i < playerInfo.Length; i++)
         {
-            playerInfo[i] = new PlayerInfo();
             playerInfo[i].playerID = i + 1;
+            playerInfo[i].controllerID = 0;
             playerInfo[i].hypeAmount = 0f;
             playerInfo[i].placeRace1 = playerInfo.Length;
             playerInfo[i].placeRace2 = playerInfo.Length;
+            playerInfo[i].boostAbilityUsed = 0;
+            playerInfo[i].offensiveAbilityUsed = 0;
+            playerInfo[i].defenseAbilityUsed = 0;
+            playerInfo[i].numKills = 0f;
+            playerInfo[i].numDeaths = 0f;
         }
     }
 }
