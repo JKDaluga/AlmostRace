@@ -14525,7 +14525,7 @@ Transform:
   m_Children:
   - {fileID: 2316511470187682143}
   m_Father: {fileID: 1948993165029661135}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2717448462104653970
 GameObject:
@@ -29033,12 +29033,12 @@ GameObject:
   - component: {fileID: 5418076574753482654}
   - component: {fileID: 1255605946283217071}
   - component: {fileID: 1492671752817465541}
-  - component: {fileID: 2972834113377361533}
   - component: {fileID: 7292805920643583972}
   - component: {fileID: 7312026204521425900}
   - component: {fileID: 3713964755092531435}
   - component: {fileID: 3713964755092531434}
   - component: {fileID: 1458886758787832873}
+  - component: {fileID: 4263317506323444682}
   m_Layer: 8
   m_Name: Car
   m_TagString: Vehicle
@@ -29223,7 +29223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ceda1c616fee4c0abcad4bdc27e75ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  offensiveAbility: {fileID: 2972834113377361533}
+  offensiveAbility: {fileID: 0}
   offensiveAbilityRecharge: 5
   offensiveAbilityCooldown: {fileID: 0}
   offensiveAbilityDark: {fileID: 0}
@@ -29241,25 +29241,6 @@ MonoBehaviour:
   defensiveTrigger: 0
   boostTrigger: 0
   abilitiesActivated: 0
---- !u!114 &2972834113377361533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3713964755092531433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6872566e8da423b4d823bc828c6f4e1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  trackingDart: {fileID: 6351142652642015883, guid: be83f93fc25a3814eb8909d58bc0e61d,
-    type: 3}
-  dartSpeed: 0
-  laserDamage: 10
-  laserDamageRate: 0
-  laserDuration: 0
-  muzzle: {fileID: 6780230889848814553}
 --- !u!114 &7292805920643583972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29356,6 +29337,29 @@ MonoBehaviour:
   players: []
   arena: {fileID: 0}
   killDist: 40
+--- !u!114 &4263317506323444682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3713964755092531433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52d7ee9d4c3ed16488bd1671c32745ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  energyBlade: {fileID: 2681802009530974934, guid: 7bd4cdd5e64c6be47aecacda47fa20b7,
+    type: 3}
+  muzzle: {fileID: 519927895297784814}
+  bladesToSpawn: 3
+  bladeDamage: 50
+  bladeSpeed: 300
+  bladeOffset: 0.75
+  bladeDuration: 10
+  growthRate: 0.01
+  growthAmount: 0.0005
+  growthLimit: 0.04
 --- !u!1 &4105726568984030288
 GameObject:
   m_ObjectHideFlags: 0
@@ -38972,6 +38976,36 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &4739228599242607570
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 519927895297784814}
+  m_Layer: 0
+  m_Name: Muzzle
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &519927895297784814
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4739228599242607570}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.85, z: 4.61}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1948993165029661135}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4822986228128398654
 GameObject:
   m_ObjectHideFlags: 0
@@ -76804,6 +76838,7 @@ Transform:
   - {fileID: 6281273523935951138}
   - {fileID: 2952747400193259014}
   - {fileID: 7194290051182283043}
+  - {fileID: 519927895297784814}
   - {fileID: 2316511471277639882}
   m_Father: {fileID: 4920752514780725514}
   m_RootOrder: 4
