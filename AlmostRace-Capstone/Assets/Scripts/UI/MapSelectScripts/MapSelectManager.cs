@@ -27,7 +27,6 @@ public class MapSelectManager : MonoBehaviour
     {
         _data = DataManager.instance;
         _isLoading = false;
-        _data.resetData();
 
         foreach(GameObject layout in playerLayouts)
         {
@@ -37,28 +36,27 @@ public class MapSelectManager : MonoBehaviour
         int numPlayers = _data.getNumActivePlayers();
         switch (numPlayers)
         {
-            case 0:
+            case 1:
                 viewports = new MapSelectViewport[1];
                 break;
-            case 1:
+            case 2:
                 viewports = new MapSelectViewport[2];
                 break;
-            case 2:
+            case 3:
                 viewports = new MapSelectViewport[3];
                 break;
-            case 3:
+            case 4:
                 viewports = new MapSelectViewport[4];
                 break;
             default:
-                Debug.LogError("Incorrect amount of players recieved");
                 break;
         }
-        viewports = playerLayouts[numPlayers].GetComponentsInChildren<MapSelectViewport>();
-        playerLayouts[numPlayers].SetActive(true);
+        viewports = playerLayouts[numPlayers - 1].GetComponentsInChildren<MapSelectViewport>();
+        playerLayouts[numPlayers - 1].SetActive(true);
         allReadyImage.SetActive(false);
         for (int i = 0; i < viewports.Length; i++)
         {
-           CheckController(playerInputs[_data.playerInfo[i].controllerID]);
+            CheckController(playerInputs[_data.playerInfo[i].controllerID - 1]);
         }
     }
 
@@ -89,6 +87,7 @@ public class MapSelectManager : MonoBehaviour
         {
             if (viewports[i].GetOccupied() && viewports[i].GetInput() == givenController)
             {
+                Debug.Log("ishapp");
                 inUse = true;
                 break;
             }
