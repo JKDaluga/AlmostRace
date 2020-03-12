@@ -60,6 +60,8 @@ public class PlayerUIManager : MonoBehaviour
     private Vector3 offSetVector = Vector3.zero;
     private float _heightOffset = 0.06f;
 
+    private RaycastCar _raycastCarHolder;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -86,6 +88,8 @@ public class PlayerUIManager : MonoBehaviour
 
         int playerNum = vehicleInputScript.getPlayerNum();
         _chb = vehicleInputScript.GetComponent<CarHealthBehavior>();
+
+        _raycastCarHolder = vehicleInputScript.GetComponent<RaycastCar>();
 
         if (numPlayers > 1)
         {
@@ -137,7 +141,7 @@ public class PlayerUIManager : MonoBehaviour
 
     void Update()
     {
-        KillCount.text = "KILLS\n" + _dm.playerInfo[vehicleInputScript.GetComponent<RaycastCar>().playerID - 1].numKills;
+        KillCount.text = "KILLS\n" + _dm.playerInfo[_raycastCarHolder.playerID - 1].numKills;
         LapTimer.text = _rm.timeText;
 
         if(_chb.healthCurrent <= 0)
@@ -154,6 +158,8 @@ public class PlayerUIManager : MonoBehaviour
         GameObject currentExclamation;
         Vector3 targetPos, relativePos;
 
+        float currentDistance, x;
+
         if (_attacksInRange.Count > 0)
         {
             //Debug.Log(_attacksInRange.Count);
@@ -167,11 +173,9 @@ public class PlayerUIManager : MonoBehaviour
                 {
                     targetPos = _attacksInRange[i].transform.position;
                     relativePos = thisVehicle.InverseTransformPoint(targetPos);
-                    float currentDistance = Mathf.Round(Vector3.Distance(thisVehicle.transform.position, targetPos));
+                    currentDistance = Mathf.Round(Vector3.Distance(thisVehicle.transform.position, targetPos));
 
-                    float angle = Mathf.Atan2(relativePos.y, relativePos.x);
-                    angle += 90 * Mathf.Deg2Rad;
-                    float x = Mathf.Clamp((relativePos.x * (localCam.pixelWidth / indicatorScaling)) + localCam.pixelWidth / 2, localCam.pixelWidth * 0.02f, localCam.pixelWidth * 0.98f);
+                    x = Mathf.Clamp((relativePos.x * (localCam.pixelWidth / indicatorScaling)) + localCam.pixelWidth / 2, localCam.pixelWidth * 0.02f, localCam.pixelWidth * 0.98f);
 
                     if (attackIndicators[i] != null)
                     {
