@@ -9321,12 +9321,12 @@ MonoBehaviour:
   - {r: 0.29045033, g: 0.5754717, b: 0.31579325, a: 1}
   - {r: 0.5377358, g: 0.2916963, b: 0.2916963, a: 1}
   inputDelayMax: 3
-  hypePerKill: 0
+  hypePerKill: 150
   hypeForRacePosition:
-  - 0
-  - 0
-  - 0
-  - 0
+  - 750
+  - 400
+  - 300
+  - 100
   hypeLosePerDeath: 0
 --- !u!114 &6403223517959016241
 MonoBehaviour:
@@ -10074,16 +10074,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3888146201418055542}
     m_Modifications:
-    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
-        type: 3}
-      propertyPath: m_Name
-      value: Countdown
-      objectReference: {fileID: 0}
-    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7992159949368064935, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10188,6 +10178,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
+        type: 3}
+      propertyPath: m_Name
+      value: Countdown
+      objectReference: {fileID: 0}
+    - target: {fileID: 7992159949368064952, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73b8c8bd3e1ed3548b80ab1d1dc9e02e, type: 3}
