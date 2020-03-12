@@ -30,7 +30,7 @@ public class Lux_EnergyBlade : Projectile
     {
         _growthRate = growthRate;
         _growthAmount = growthAmount;
-        _growthLimit = growthLimit;
+        _growthLimit = transform.localScale.x + growthLimit;
     }
 
     public void Grow()
