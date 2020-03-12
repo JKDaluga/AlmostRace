@@ -153,10 +153,10 @@ public class VehicleAbilityBehavior : MonoBehaviour
     // Countdown timer until reuse allowed for abilites that need a cooldown
     private IEnumerator OffensiveAbilityCooldown()
     {
-        float tempTime = offensiveAbilityRecharge;
-        while (tempTime > 0)
+        float tempTime = 0;
+        while (tempTime < offensiveAbilityRecharge)
         {
-            tempTime -= Time.deltaTime;
+            tempTime += Time.deltaTime;
             if (_vehicleInput != null)
             {
                 offensiveAbilityCooldown.fillAmount = tempTime / offensiveAbilityRecharge;
@@ -175,10 +175,10 @@ public class VehicleAbilityBehavior : MonoBehaviour
     // Countdown timer until reuse allowed for abilites that need a cooldown
     private IEnumerator DefensiveAbilityCooldown()
     {
-        float tempTime = defensiveAbilityRecharge;
-        while (tempTime > 0)
+        float tempTime = 0;
+        while (tempTime < defensiveAbilityRecharge)
         {        
-            tempTime -= Time.deltaTime;
+            tempTime += Time.deltaTime;
             if (_vehicleInput != null)
             {
                 defensiveAbilityCooldown.fillAmount = tempTime / defensiveAbilityRecharge;
@@ -208,10 +208,10 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     private IEnumerator BoostAbilityCooldown()
     {
-        float tempTime = boostAbilityRecharge;
-        while (tempTime > 0)
+        float tempTime = 0;
+        while (tempTime < boostAbilityRecharge)
         {
-            tempTime -= Time.deltaTime;
+            tempTime += Time.deltaTime;
             if (_vehicleInput != null)
             {
                 boostAbilityCooldown.fillAmount = tempTime / boostAbilityRecharge;
