@@ -10109,12 +10109,12 @@ PrefabInstance:
     - target: {fileID: 644788422693019630, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000033704687
+      value: 0.000000036923094
       objectReference: {fileID: 0}
     - target: {fileID: 644788422693019630, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.00000012130997
+      value: -0.00000012192977
       objectReference: {fileID: 0}
     - target: {fileID: 644788422693019630, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
@@ -10139,7 +10139,32 @@ PrefabInstance:
     - target: {fileID: 7488727476820995678, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: boostAccelerationMulti
-      value: 1
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7488727476820995678, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: maxSpeed
+      value: 250
+      objectReference: {fileID: 0}
+    - target: {fileID: 7488727476820995678, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: maxTurnAngle
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7488727476820995678, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: carGrip
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 7488727476820995678, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: turnSpeed
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7488727476820995678, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: driftStrength
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3240311213283490686, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
@@ -10181,12 +10206,7 @@ PrefabInstance:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3512233768307141550, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8840104850272968325, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 7781585145764726960, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -10195,6 +10215,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8840104850272968325, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3512233768307141550, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7246809434146495432, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
@@ -10216,57 +10246,52 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7781585145764726960, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9184730671607950611, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 7594075756255921315, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_SortingFudge
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 9184730671607950611, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 7594075756255921315, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9184730671607950611, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 7594075756255921315, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_SortingLayerID
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9184730671607950611, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 7594075756255921315, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9184730671607950611, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 7594075756255921315, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_SortingOrder
       value: 17
       objectReference: {fileID: 0}
-    - target: {fileID: 7594075756255921315, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 9184730671607950611, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_SortingFudge
       value: -1
       objectReference: {fileID: 0}
-    - target: {fileID: 7594075756255921315, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 9184730671607950611, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_ReceiveShadows
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7594075756255921315, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 9184730671607950611, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_SortingLayerID
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7594075756255921315, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 9184730671607950611, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_SortingLayer
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7594075756255921315, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 9184730671607950611, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_SortingOrder
       value: 17
