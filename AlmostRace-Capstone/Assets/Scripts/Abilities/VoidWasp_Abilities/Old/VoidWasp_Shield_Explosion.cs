@@ -45,7 +45,7 @@ public class VoidWasp_Shield_Explosion : MonoBehaviour
             {
                 if (hit.gameObject != immunePlayer)
                 {
-                    hit.gameObject.GetComponent<CarHealthBehavior>().DamageCar(damage / _hitObjects.Count);
+                   // hit.gameObject.GetComponent<CarHealthBehavior>().DamageCar(damage / _hitObjects.Count);
                     Debug.Log("1 damage done: " + damage + " To " + hit.gameObject.transform.parent.name);
                 }
             }

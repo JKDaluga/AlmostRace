@@ -13,6 +13,7 @@ public class PainTrain_BoostShock : MonoBehaviour
     private List<CarHealthBehavior> _carsToDamage;
 
     private GameObject _immunePlayer;
+    private CarHealthBehavior _carHealthScript;
 
     private float _shockDamage;
 
@@ -21,6 +22,7 @@ public class PainTrain_BoostShock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        _carHealthScript = _immunePlayer.GetComponent<CarHealthBehavior>();
         _carsToDamage = new List<CarHealthBehavior>();
     }
 
@@ -71,7 +73,7 @@ public class PainTrain_BoostShock : MonoBehaviour
             {
                 if (!car.isDead)
                 {
-                    car.DamageCar(_shockDamage);
+                    car.DamageCar(_shockDamage, _carHealthScript.raycastCarHolder.playerID);
                     if (car.healthCurrent <= 0)
                     {
                         _carsToDamage.Remove(car);

@@ -18,6 +18,8 @@ public class VoidWasp_HomingMissile : Projectile
 
     public GameObject explodeVFX;
 
+    private CarHealthBehavior carHit;
+
     private void Start()
     {
         GiveSpeed();
@@ -43,11 +45,8 @@ public class VoidWasp_HomingMissile : Projectile
         {
             if(collision.gameObject != _immunePlayer)
             {
-                collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
-                if(collision.gameObject.GetComponent<CarHealthBehavior>().healthCurrent <= 0 && !collision.gameObject.GetComponent<CarHealthBehavior>().isDead)
-                {
-                    DataManager.instance.playerInfo[_immunePlayerScript.playerID - 1].numKills++;
-                }
+                carHit = collision.gameObject.GetComponent<CarHealthBehavior>();
+                carHit.DamageCar(_projectileDamage, _immunePlayerScript.playerID);
                 Instantiate(explodeVFX, transform.position, transform.rotation);
                 Destroy(gameObject);
             }

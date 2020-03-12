@@ -62,7 +62,7 @@ public class ShockRodSphere : MonoBehaviour
             {
                 if (!car.isDead)
                 {
-                    car.DamageCar(_shockDamage);
+                    car.DamageCar(_shockDamage, 100);
                     if (car.healthCurrent <= 0)
                     {
                         _carsToDamage.Remove(car);

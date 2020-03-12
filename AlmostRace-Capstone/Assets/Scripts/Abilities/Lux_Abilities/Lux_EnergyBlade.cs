@@ -17,6 +17,8 @@ public class Lux_EnergyBlade : Projectile
 
     private int _debugInt;
 
+    private CarHealthBehavior carHit;
+
     void Start()
     {
         _immuneCars = new List<GameObject>();
@@ -50,7 +52,8 @@ public class Lux_EnergyBlade : Projectile
     {
         if(other.CompareTag("Vehicle") && other.gameObject != _immunePlayer && !_immuneCars.Contains(other.gameObject))
         {
-            other.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
+            carHit = other.gameObject.GetComponent<CarHealthBehavior>();
+            carHit.DamageCar(_projectileDamage, _immunePlayerScript.playerID);
             _immuneCars.Add(other.gameObject);
         }
         if(other.CompareTag("Interactable"))

@@ -191,7 +191,7 @@ public class VoidWasp_OffensiveAbility : HeatAbility
 
     protected override void AddHeat()
     {
-        carHeatInfo.DamageCar(selfHeatDamage);
+       // carHeatInfo.DamageCar(selfHeatDamage);
     }
 
     public override void AbilityOnCooldown()

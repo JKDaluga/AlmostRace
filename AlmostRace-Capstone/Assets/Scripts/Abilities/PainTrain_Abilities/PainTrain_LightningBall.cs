@@ -42,7 +42,7 @@ public class PainTrain_LightningBall : Projectile
             {
                 if (!car.isDead) //Make sure car is alive.
                 {
-                    car.DamageCar(_lightningBallDamage); //Damage car.
+                    car.DamageCar(_lightningBallDamage, _immunePlayerScript.playerID); //Damage car.
 
                     if (car.healthCurrent <= 0) //See if car was killed by the damage.
                     {

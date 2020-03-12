@@ -57,18 +57,22 @@ public class WindmillLaserBehaviour : MonoBehaviour
             {
                 if (!car.isDead)
                 {
-                    car.DamageCar(_laserDamage);
+                   
                     
                     if (_interactingPlayer != null)
                     {
                         if (!_interactingPlayer.Equals(car.gameObject))
                         {
-
+                            car.DamageCar(_laserDamage, _interactingPlayer.GetComponent<CarHealthBehavior>().raycastCarHolder.playerID);
                         }
                         if(car.healthCurrent <= 0)
                         {
                             _damagedCars.Remove(car);
                         }
+                    }
+                    else
+                    {
+                        car.DamageCar(_laserDamage, 100);
                     }
                 }
             }

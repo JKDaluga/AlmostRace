@@ -24,7 +24,7 @@ public class VoidWasp_Defensive : CooldownAbility
     void Start()
     {
         _carHealthScript = gameObject.GetComponent<CarHealthBehavior>();
-        foreach(GameObject shield in _shields)
+        foreach (GameObject shield in _shields)
         {
             shield.GetComponent<ParticleSystem>().Stop();
         }
@@ -60,7 +60,7 @@ public class VoidWasp_Defensive : CooldownAbility
                         {
                             if(!_objectsInRange[i].GetComponent<CarHealthBehavior>().isDead)
                             {
-                                _objectsInRange[i].GetComponent<CarHealthBehavior>().DamageCar(siphonAmount);
+                                _objectsInRange[i].GetComponent<CarHealthBehavior>().DamageCar(siphonAmount, _carHealthScript.raycastCarHolder.playerID);
                                 if (_carHealthScript.GetExtraHealth() < _carHealthScript.GetExtaHealthMax())
                                 {
                                     _carHealthScript.AddExtraHealth(siphonAmount);

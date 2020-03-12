@@ -83,7 +83,7 @@ public class VoidWasp_BoostAbility : CooldownHeatAbility
 
     protected override void AddHeat()
     {
-        carHeatInfo.DamageCar(selfHeatDamage);
+       // carHeatInfo.DamageCar(selfHeatDamage);
     }
 
     void SetMaterials(List<GameObject> parts, Material mat)

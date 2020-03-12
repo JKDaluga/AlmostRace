@@ -90,7 +90,7 @@ public class VoidWasp_ProjectileBehaviour : Projectile
         {
             if (collision.gameObject.GetComponent<CarHealthBehavior>() != null)
             {//Checks if the object isn't the immunePlayer and if they are a car.
-                collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
+                //collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
 
                 collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 4f;
                 collision.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 4f;

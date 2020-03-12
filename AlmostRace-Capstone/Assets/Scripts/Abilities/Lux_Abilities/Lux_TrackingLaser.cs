@@ -81,7 +81,7 @@ public class Lux_TrackingLaser : MonoBehaviour
             {
                 if (!car.isDead)
                 {
-                    car.DamageCar(_laserDamage);
+                   // car.DamageCar(_laserDamage);
 
                     if (_target != null)
                     {

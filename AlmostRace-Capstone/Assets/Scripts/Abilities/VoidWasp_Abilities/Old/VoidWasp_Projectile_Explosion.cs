@@ -50,7 +50,7 @@ public class VoidWasp_Projectile_Explosion : MonoBehaviour
             if (hit.gameObject.GetComponent<CarHealthBehavior>() != null)
             {
                 _hitObjects.Add(hit.gameObject);
-                hit.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_explosionDamage);
+              //  hit.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_explosionDamage);
                 // Debug.Log("Car added: " + hit.gameObject.transform.parent.name);
             }
             else if (hit.gameObject.GetComponent<Interactable>() != null)

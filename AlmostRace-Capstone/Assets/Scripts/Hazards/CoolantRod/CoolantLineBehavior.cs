@@ -96,7 +96,7 @@ public class CoolantLineBehavior : MonoBehaviour
             {
                 if(!car.isDead) //Make sure car is alive.
                 {
-                    car.DamageCar(_coolantDamage); //Damage car.
+                    car.DamageCar(_coolantDamage, 100); //Damage car.
                     if(_interactingPlayer != null)
                     {
                         if (car.healthCurrent <= 0) //See if car was killed by the damage.

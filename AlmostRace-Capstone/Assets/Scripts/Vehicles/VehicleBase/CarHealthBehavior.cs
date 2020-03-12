@@ -61,7 +61,7 @@ public class CarHealthBehavior : MonoBehaviour
     float extra = 0;
 
     Rigidbody _carBodyHolder;
-    RaycastCar _raycastCarHolder;
+    public RaycastCar raycastCarHolder;
 
 
     private void Start()
@@ -87,7 +87,7 @@ public class CarHealthBehavior : MonoBehaviour
         gradient.SetKeys(colorKey, alphaKey);
 
         _carBodyHolder = carObject.GetComponent<Rigidbody>();
-        _raycastCarHolder = GetComponent<RaycastCar>();
+        raycastCarHolder = GetComponent<RaycastCar>();
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -97,11 +97,6 @@ public class CarHealthBehavior : MonoBehaviour
             if (healthCurrent > healthMax)
             {
                 healthCurrent = healthMax;
-            }
-
-            if (healthCurrent <= 0)
-            {
-                Kill();
             }
 
             if (healthCurrent == healthMax && gameObject.activeSelf == false)
@@ -226,7 +221,7 @@ public class CarHealthBehavior : MonoBehaviour
         {
             deathFade.GetComponent<Animator>().Play("DeathFadeIn");
         }
-        _raycastCarHolder.enabled = false;
+        raycastCarHolder.enabled = false;
         GetComponent<VehicleAbilityBehavior>().enabled = false;
         GameObject respawnInstance = Instantiate(respawnPlatform);
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
@@ -248,7 +243,7 @@ public class CarHealthBehavior : MonoBehaviour
         {
             deathFade.GetComponent<Animator>().Play("DeathFadeIn");
         }
-        _raycastCarHolder.enabled = false;
+        raycastCarHolder.enabled = false;
         GetComponent<VehicleAbilityBehavior>().enabled = false;
         GameObject respawnInstance = Instantiate(cheatRespawnPlatform);
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
@@ -280,7 +275,7 @@ public class CarHealthBehavior : MonoBehaviour
             engineIsFlash = false;              
             deathFade.GetComponent<Animator>().Play("DeathFadeOut");
         }
-        _raycastCarHolder.enabled = true;
+        raycastCarHolder.enabled = true;
         GetComponent<VehicleAbilityBehavior>().enabled = true;
         _carBodyHolder.useGravity = true;
         _carBodyHolder.isKinematic = false;
@@ -325,7 +320,7 @@ public class CarHealthBehavior : MonoBehaviour
             StartCoroutine(teleportCooldownTimer());
             Instantiate(teleportEffect, gameObject.transform.position, gameObject.transform.rotation);
             deathFade.GetComponent<Animator>().Play("DeathFadeIn");
-            _raycastCarHolder.enabled = false;
+            raycastCarHolder.enabled = false;
             GetComponent<VehicleAbilityBehavior>().enabled = false;
             GameObject respawnInstance = Instantiate(respawnPlatform);
             respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
@@ -352,7 +347,7 @@ public class CarHealthBehavior : MonoBehaviour
         healthCurrent += healAmount;
     }
 
-    public void DamageCar(float damage)
+    public void DamageCar(float damage, int killerID)
     {
         if(_canTakeDamage)
         {
@@ -391,6 +386,18 @@ public class CarHealthBehavior : MonoBehaviour
                         damageVignette.color = new Color(damageVignette.color.r, damageVignette.color.g, damageVignette.color.b, 1 - ((healthCurrent + extra) / healthMax));
                     }
                 }
+            }
+
+            if(healthCurrent <= 0)
+            {
+                Debug.Log("Player: " + gameObject.transform.parent.name + " should be killed by car # : " + killerID);
+                if(killerID <= DataManager.instance.playerInfo.Length && killerID != raycastCarHolder.playerID && !isDead)
+                { //if someone killed you and you didn't cause your death.
+                    Debug.Log("Kill was properly awareded!");
+                    DataManager.instance.playerInfo[killerID - 1].numKills++;
+                }
+               
+                Kill();
             }
 
         }

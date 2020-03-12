@@ -44,7 +44,7 @@ public class TurretProjectileBehavior : Projectile
         }
         else if (other.gameObject.GetComponent<CarHealthBehavior>() != null)
         {//if other is a car
-            other.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
+            other.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage, 100);
             other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = .4f;
             other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = .4f;
 

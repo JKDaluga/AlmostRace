@@ -52,7 +52,7 @@ public class BoulderBehaviour : Interactable
                 collision.gameObject.GetComponentInChildren<AIObstacleAvoidance>().turnL = false;
             }
 
-            collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(ramDamage);
+            collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(ramDamage, 100);
             if (collision.gameObject.GetComponent<SphereCarController>() != null)
             {
                 collision.gameObject.GetComponent<SphereCarController>().currentSpeed -=
