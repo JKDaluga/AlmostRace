@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
@@ -11,25 +12,33 @@ public class SimpleLineRenderer : MonoBehaviour {
 	private int currentVertexPointCount;
 	[HideInInspector] public Transform cacheTransform;
 	public LayerMask layerMask = -1;
+    Camera[] c;
 
-	public bool hardEdge;
+    public bool hardEdge;
 
-	void Awake() {
+	void Awake()
+    {
 		mesh = new Mesh();
 		points = new List<Vertex>();
 		GetComponent<MeshFilter>().sharedMesh = mesh;
 		cacheTransform = transform;
-	}
+        c = Camera.allCameras;
+        StartCoroutine(UpdateCameras());
+    }
 
-	void LateUpdate()
-	{
-		Camera[] c = Camera.allCameras;
-		for (int i = 0; i < c.Length; i++)
-		{
-			if (c[i].isActiveAndEnabled && layerMask == (layerMask | (1 << c[i].gameObject.layer)))
-				UpdateLineMesh(c[i]);
-		}
-	}
+    private IEnumerator UpdateCameras()
+    {
+        while(true)
+        {
+            for (int i = 0; i < c.Length; i++)
+            {
+                if (c[i].isActiveAndEnabled && layerMask == (layerMask | (1 << c[i].gameObject.layer)))
+                    UpdateLineMesh(c[i]);
+            }
+            yield return null;
+        }
+
+    }
 
 	void EditorInit(){
 		if (points == null) points = new List<Vertex>();

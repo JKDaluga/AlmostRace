@@ -43,7 +43,7 @@ public class PainTrain_Shield : CooldownAbility
 
     public override void DeactivateAbility()
     {
-        _carHealthScript.AddExtraHealth(0);
+        _carHealthScript.SetExtraHealth(0);
         _shockShieldScript.TurnOffShieldShock();
         shockShield.SetActive(false);
     }

@@ -161,14 +161,21 @@ public class CarHealthBehavior : MonoBehaviour
 
                 if (extra > 0)
                 {
+
                     extra = 0;
                 }
 
-                damageVignette.color = new Color(damageVignette.color.r, damageVignette.color.g, damageVignette.color.b, 1- ((healthCurrent+extra) / healthMax));
-              //  damageVignette.color = gradient.Evaluate((healthCurrent + extra) / healthMax);
-              //  float scale = Mathf.Lerp(1, 2.5f, (healthCurrent + extra) / healthMax);
-              //  damageVignette.gameObject.transform.localScale = new Vector3(scale, scale, scale);
+       
                 
+
+                if (damageVignette.color.a > 0)
+                {
+                    //Debug.Log(damageVignette.color.a);
+                    damageVignette.color -= new Color(0, 0, 0, .002f);
+                }//damageVignette.color = gradient.Evaluate((healthCurrent + extra) / healthMax);
+                 //float scale = Mathf.Lerp(1, 2.5f, (healthCurrent + extra) / healthMax);
+                 //  damageVignette.gameObject.transform.localScale = new Vector3(scale, scale, scale);
+
             }
             #endregion
         }
@@ -250,6 +257,7 @@ public class CarHealthBehavior : MonoBehaviour
 
     public void Respawn()
     {
+        damageVignette.color -= new Color(0, 0, 0, damageVignette.color.a);
         isFlashing = false;
         isDead = false;
         _canTakeDamage = false;
@@ -357,12 +365,16 @@ public class CarHealthBehavior : MonoBehaviour
                 if (extraHP <= 0)
                 { //If you have no _extraHP left
                     healthCurrent -= _tempDamage;
+                    damageVignette.color = new Color(damageVignette.color.r, damageVignette.color.g, damageVignette.color.b, 1 - ((healthCurrent + extra) / healthMax));
+
                 }
             }
             else
             {
                 healthCurrent -= damage;
                 extra = -20;
+                damageVignette.color = new Color(damageVignette.color.r, damageVignette.color.g, damageVignette.color.b, 1 - ((healthCurrent + extra) / healthMax));
+
             }
 
         }

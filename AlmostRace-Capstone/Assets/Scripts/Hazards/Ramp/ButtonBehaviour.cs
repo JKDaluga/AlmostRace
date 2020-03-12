@@ -41,8 +41,10 @@ public class ButtonBehaviour : Interactable
 
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Ramp collided with: " + other.name);
         if (other.gameObject.GetComponent<CarHealthBehavior>() != null && !wasRecentlyActivated)
         {
+            Debug.Log("Ramp collided with car: " + other.name);
             interactingPlayer = other.gameObject;
             wasRecentlyActivated = true;
             TriggerInteractable();
