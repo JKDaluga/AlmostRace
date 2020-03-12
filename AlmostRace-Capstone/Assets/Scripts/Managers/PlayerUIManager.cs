@@ -142,7 +142,7 @@ public class PlayerUIManager : MonoBehaviour
 
         if(_chb.healthCurrent <= 0)
         {
-            _attacksInRange.RemoveAll();
+            _attacksInRange.Clear();
         }
         UpdateAttackIndicators();
     }
