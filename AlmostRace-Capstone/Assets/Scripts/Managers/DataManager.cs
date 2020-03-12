@@ -70,6 +70,17 @@ public class DataManager : MonoBehaviour
         return timeText;
     }
 
+    public string convertTimeSeconds(float time)
+    {
+        float minutes = Mathf.Floor(time / 60);
+        float seconds = time % 60;
+
+
+        string timeText = minutes.ToString("00") + ":" + seconds.ToString("00");
+
+        return timeText;
+    }
+
     public void resetData()
     {
         for (int i = 0; i < playerInfo.Length; i++)

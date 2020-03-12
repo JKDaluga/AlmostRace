@@ -16,6 +16,7 @@ public class PlayerUIManager : MonoBehaviour
     private HypeManager _hypeManager;
     private RaceManager _rm;
     private DataManager _dm;
+    private CarHealthBehavior _chb;
     private List<Transform> _attacksInRange = new List<Transform>();
 
     [Header("HypeDisplay Variables")]
@@ -84,6 +85,7 @@ public class PlayerUIManager : MonoBehaviour
         }
 
         int playerNum = vehicleInputScript.getPlayerNum();
+        _chb = vehicleInputScript.GetComponent<CarHealthBehavior>();
 
         if (numPlayers > 1)
         {
@@ -136,7 +138,12 @@ public class PlayerUIManager : MonoBehaviour
     void Update()
     {
         KillCount.text = "KILLS\n" + _dm.playerInfo[vehicleInputScript.GetComponent<RaycastCar>().playerID - 1].numKills;
-       // LapTimer.text = _rm.minutes.ToString("00") + ":" + _rm.seconds.ToString("00") + ":" + _rm.milliseconds.ToString("000");
+        LapTimer.text = _rm.timeText;
+
+        if(_chb.healthCurrent <= 0)
+        {
+            _attacksInRange.RemoveAll();
+        }
         UpdateAttackIndicators();
     }
 
@@ -219,6 +226,11 @@ public class PlayerUIManager : MonoBehaviour
                 _attacksInRange.RemoveAt(i);
             }
         }
+    }
+
+    public int AttacksInRangeCount()
+    {
+        return _attacksInRange.Count;
     }
 
     public void ActivateArenaHypeDisplay()

@@ -28,6 +28,7 @@ public class MenuController : MonoBehaviour
         _engineSoundsToControl = FindObjectsOfType<EngineAudio>();
         _sparkSoundsToControl = FindObjectsOfType<VehicleCollisionEffects>();
         _sphereCarController = FindObjectsOfType<SphereCarController>();
+        _vehicleInput = FindObjectsOfType<VehicleInput>();
     }
 
     void Update()
@@ -40,7 +41,6 @@ public class MenuController : MonoBehaviour
                 {
                     turnOnOff(true);
                 }
-                _vehicleInput = FindObjectsOfType<VehicleInput>();
                 foreach(VehicleInput car in _vehicleInput)
                 {
                     car.setStatus(true);
@@ -94,12 +94,16 @@ public class MenuController : MonoBehaviour
 
     public void close()
     {
-        pauseMenu.SetActive(false);
-        Time.timeScale = 1f;
-        if (Countdown.activeSelf == false)
+        if (!Countdown.activeSelf)
         {
             turnOnOff(true);
         }
+        foreach (VehicleInput car in _vehicleInput)
+        {
+            car.setStatus(true);
+        }
+        Time.timeScale = 1f;
+        pauseMenu.SetActive(false);
         UnpauseSoundHandle();
     }
 
