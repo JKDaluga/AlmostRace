@@ -154,16 +154,20 @@ public class AIBehaviour : MonoBehaviour
 
         float currentPosition, angleBetween;
         int placeHolder = 0;
+        int entryHolder;
+        Vector3 vertexHolder;
 
         foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {
-            for (int j = 0; j < entry.Value.Vertices.Count; j++)
+            entryHolder = entry.Value.Vertices.Count;
+            for (int j = 0; j < entryHolder; j++)
             {
-                currentPosition = Vector3.Distance(entry.Value.Vertices[j], currentLocation);
+                vertexHolder = entry.Value.Vertices[j];
+                currentPosition = Vector3.Distance(vertexHolder , currentLocation);
 
                 if (test == true && closestVertex == Vector3.zero) {
 
-                    closestVertex = entry.Value.Vertices[j];
+                    closestVertex = vertexHolder;
                     lastDistance = currentPosition;
                     closestIndex = j;
                     test = false;
@@ -174,7 +178,7 @@ public class AIBehaviour : MonoBehaviour
                     thisCar.horizontal = inputTurn;
 
                     placeHolder = j;
-                    placeHolder = Mathf.Clamp(placeHolder+nodesToLookAhead, 0, entry.Value.Vertices.Count-1);
+                    placeHolder = Mathf.Clamp(placeHolder+nodesToLookAhead, 0, entryHolder - 1);
 
                     vertexAim = entry.Value.Vertices[placeHolder];
 
