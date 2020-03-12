@@ -301,10 +301,10 @@ public class RaycastCar : MonoBehaviour
 
         // turn car
         float tempMaxTurnSpeed = maxTurnAngle;
-        if(drift)
-        {
-            tempMaxTurnSpeed *= driftStrength;
-        }
+        //if(drift)
+        //{
+        //    tempMaxTurnSpeed *= driftStrength;
+        //}
 
         
 
