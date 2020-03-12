@@ -10,7 +10,7 @@ using UnityEngine.UI;
 */
 public class CarHealthBehavior : MonoBehaviour
 {
-   // StackTrace stackTrace;
+    // StackTrace stackTrace;
     public GameObject respawnPlatform;
     public GameObject cheatRespawnPlatform;
     public GameObject modelHolder;
@@ -106,16 +106,16 @@ public class CarHealthBehavior : MonoBehaviour
             #region HealthFillBar
             if (healthFillBar != null)
             {
-                healthFillBar.fillAmount = healthCurrent/healthMax ;
+                healthFillBar.fillAmount = healthCurrent / healthMax;
 
                 if (healthFillBar.fillAmount <= 0.20)
                 {
-                    if(!isFlashing)
+                    if (!isFlashing)
                     {
                         isFlashing = true;
                         InvokeRepeating("FlashRedEngine", 0, engineFlashFreq);
                     }
-                  
+
                 }
                 else if (healthFillBar.fillAmount < 0.33)
                 {
@@ -149,7 +149,7 @@ public class CarHealthBehavior : MonoBehaviour
             #endregion
 
             #region ExtraHealthFillBar
-            if(extraHealthFillBar != null)
+            if (extraHealthFillBar != null)
             {
                 extraHealthFillBar.fillAmount = extraHP / extraHPMax;
             }
@@ -166,8 +166,8 @@ public class CarHealthBehavior : MonoBehaviour
                     extra = 0;
                 }
 
-       
-                
+
+
 
                 if (damageVignette.color.a > 0)
                 {
@@ -213,7 +213,7 @@ public class CarHealthBehavior : MonoBehaviour
         // stackTrace = new StackTrace();
         //print("KILL !! " + stackTrace.GetFrame(1).GetMethod().Name);
 
-        //AudioManager.instance.Play("Death");
+
         AudioManager.instance.Play("Death", transform);
         isDead = true;
         Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);
@@ -272,7 +272,7 @@ public class CarHealthBehavior : MonoBehaviour
         {
 
             engineImage.color = Color.white;
-            engineIsFlash = false;              
+            engineIsFlash = false;
             deathFade.GetComponent<Animator>().Play("DeathFadeOut");
         }
         raycastCarHolder.enabled = true;
@@ -290,17 +290,17 @@ public class CarHealthBehavior : MonoBehaviour
             gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
         }
         //GetComponent<RaycastCar>().setDrifting(false);
-       // GetComponent<RaycastCar>().SetIsBoosting(false);
+        // GetComponent<RaycastCar>().SetIsBoosting(false);
 
     }
 
     private IEnumerator Invulnerability()
     {
         _invulnerabilityTimer = invulnerabilityTime;
-        while(!_canTakeDamage)
+        while (!_canTakeDamage)
         {
             _invulnerabilityTimer -= Time.deltaTime;
-            if(_invulnerabilityTimer <= 0)
+            if (_invulnerabilityTimer <= 0)
             {
                 _canTakeDamage = true;
             }
@@ -349,7 +349,7 @@ public class CarHealthBehavior : MonoBehaviour
 
     public void DamageCar(float damage, int killerID)
     {
-        if(_canTakeDamage)
+        if (_canTakeDamage)
         {
             //stackTrace = new StackTrace();
             // print("ADDHEAT !! " + stackTrace.GetFrame(1).GetMethod().Name);
@@ -388,15 +388,15 @@ public class CarHealthBehavior : MonoBehaviour
                 }
             }
 
-            if(healthCurrent <= 0)
+            if (healthCurrent <= 0)
             {
-                Debug.Log("Player: " + gameObject.transform.parent.name + " should be killed by car # : " + killerID);
-                if(killerID <= DataManager.instance.playerInfo.Length && killerID != raycastCarHolder.playerID && !isDead)
+                //Debug.Log("Player: " + gameObject.transform.parent.name + " should be killed by car # : " + killerID);
+                if (killerID <= DataManager.instance.playerInfo.Length && killerID != raycastCarHolder.playerID && !isDead)
                 { //if someone killed you and you didn't cause your death.
-                    Debug.Log("Kill was properly awareded!");
+                  //    Debug.Log("Kill was properly awareded!");
                     DataManager.instance.playerInfo[killerID - 1].numKills++;
                 }
-               
+
                 Kill();
             }
 
@@ -406,9 +406,11 @@ public class CarHealthBehavior : MonoBehaviour
 
     public void DamageCarTrue(float damage)
     {
-
-            healthCurrent -= damage;
-        
+        healthCurrent -= damage;
+        if (healthCurrent <= 0)
+        {
+            Kill();
+        }
     }
 
     public float GetExtraHealth()
