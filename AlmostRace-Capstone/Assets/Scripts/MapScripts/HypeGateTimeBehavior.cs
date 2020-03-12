@@ -13,7 +13,6 @@ using TMPro;
 
 public class HypeGateTimeBehavior : MonoBehaviour
 {
-    public bool isFinalArenaGate = false;
     private HypeManager _hypeManager;
     private RaceManager _raceManager;
     public float startTime = 60;
@@ -21,15 +20,14 @@ public class HypeGateTimeBehavior : MonoBehaviour
     private float _displayTime;
 
     [Tooltip("The gameobject to remove once time is counted down")]
-    public GameObject gateToOpen;
-    public GameObject gateToClose;
+    public Animator[] gateToOpen;
+    public Animator[] gateToClose;
     public Transform[] spawnPoints;
     public List<TextMeshProUGUI> displayTexts;
     private int _carsInGame;
     public List<GameObject> carsInRange;
     private GameObject _aggroSphere;
     public GameObject eventPanel;
-    public GameObject playerWinText;
     public GameObject arenaActiveText;
     public GameObject arenaEndText;
     public bool isActivated;
@@ -51,7 +49,7 @@ public class HypeGateTimeBehavior : MonoBehaviour
         {
             Debug.LogError("Hype Manager not found!");
         }
-        gateToClose.SetActive(false);
+        CloseArena();
     }
 
     public IEnumerator CheckCars()
@@ -64,11 +62,11 @@ public class HypeGateTimeBehavior : MonoBehaviour
         {
             Debug.LogError("Race Manager not found!");
         }
+
         float playerPercentage;
         while (true)
         {
             playerPercentage = ((float)carsInRange.Count / (float)_carsInGame);
-            //Debug.Log((float)(carsInRange.Count / _carsInGame));
             if (carsInRange.Count < _carsInGame)
             {
                 foreach (RaycastCar car in _raceManager.cars)
@@ -99,8 +97,7 @@ public class HypeGateTimeBehavior : MonoBehaviour
                     }
                 }
 
-                Invoke("CloseGate", 1);
-
+                Invoke("CloseArena", 1);
 
                 StopAllCoroutines();
                 StartCoroutine(TrackHype());
@@ -111,9 +108,20 @@ public class HypeGateTimeBehavior : MonoBehaviour
         }
     }
 
-    public void CloseGate()
+    public void CloseArena()
     {
-        gateToClose.SetActive(true);
+        foreach (Animator anim in gateToClose)
+        {
+            anim.Play("Close");
+        }
+    }
+
+    public void OpenArena()
+    {
+        foreach (Animator anim in gateToOpen)
+        {
+            anim.Play("Open");
+        }
     }
 
     public void InitializeHypeGate(GameObject aggroSphere)
@@ -135,16 +143,7 @@ public class HypeGateTimeBehavior : MonoBehaviour
             }
             else if (_currentTime <= 0)
             {
-                if (isFinalArenaGate)
-                {
-                    FinishDisplays();
-                    _hypeManager.StartCoroutine(_hypeManager.EndGameCountDown(5));
-                    isFinalArenaGate = false;
-                    //StopAllCoroutines();
-                }
-                else
-                {
-                    gateToOpen.SetActive(false);
+                    OpenArena();
                     AudioManager.instance.PlayWithoutSpatial("ArenaCleared");
                     FinishDisplays();
                     _aggroSphere.SetActive(false);
@@ -161,7 +160,6 @@ public class HypeGateTimeBehavior : MonoBehaviour
                     {
                         i.SwapSpline();
                     }
-                }
                 //StopCoroutine(TrackHype());
                 StopAllCoroutines();
                 isActivated = false;
@@ -195,7 +193,7 @@ public class HypeGateTimeBehavior : MonoBehaviour
     {
         foreach (TextMeshProUGUI displayText in displayTexts)
         {
-            displayText.text = "100%";
+            displayText.text = "0:00";
         }
         foreach (RaycastCar car in _raceManager.cars)
         {
