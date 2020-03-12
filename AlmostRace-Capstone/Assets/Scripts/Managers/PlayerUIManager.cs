@@ -136,7 +136,7 @@ public class PlayerUIManager : MonoBehaviour
     void Update()
     {
         KillCount.text = "KILLS\n" + _dm.playerInfo[vehicleInputScript.GetComponent<RaycastCar>().playerID - 1].numKills;
-       // LapTimer.text = _rm.minutes.ToString("00") + ":" + _rm.seconds.ToString("00") + ":" + _rm.milliseconds.ToString("000");
+        LapTimer.text = _rm.timeText;
         UpdateAttackIndicators();
     }
 
