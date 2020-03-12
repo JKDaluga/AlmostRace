@@ -151,10 +151,10 @@ public class VehicleAbilityBehavior : MonoBehaviour
                 abilityCooldown.fillAmount = 1;
                 abilityDark.SetActive(true);
                 abilityBG.SetActive(true);
+                StartCoroutine(FillReset(abilityBG));
                 tracker.awardUpdate(flagChar, _vehicleInput.getPlayerNum());
             }
             ability.ActivateAbility();
-            StartCoroutine(FillReset(abilityBG));
 
             return true;
 
