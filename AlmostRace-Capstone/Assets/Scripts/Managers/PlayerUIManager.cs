@@ -150,6 +150,10 @@ public class PlayerUIManager : MonoBehaviour
     // Keeps track of, updates the position, and shows attack indicators
     private void UpdateAttackIndicators()
     {
+        TextMeshProUGUI currentText;
+        GameObject currentExclamation;
+        Vector3 targetPos, relativePos;
+
         if (_attacksInRange.Count > 0)
         {
             //Debug.Log(_attacksInRange.Count);
@@ -161,8 +165,8 @@ public class PlayerUIManager : MonoBehaviour
                 }
                 else
                 {
-                    Vector3 targetPos = _attacksInRange[i].transform.position;
-                    Vector3 relativePos = thisVehicle.InverseTransformPoint(targetPos);
+                    targetPos = _attacksInRange[i].transform.position;
+                    relativePos = thisVehicle.InverseTransformPoint(targetPos);
                     float currentDistance = Mathf.Round(Vector3.Distance(thisVehicle.transform.position, targetPos));
 
                     float angle = Mathf.Atan2(relativePos.y, relativePos.x);
@@ -170,14 +174,14 @@ public class PlayerUIManager : MonoBehaviour
                     float x = Mathf.Clamp((relativePos.x * (localCam.pixelWidth / indicatorScaling)) + localCam.pixelWidth / 2, localCam.pixelWidth * 0.02f, localCam.pixelWidth * 0.98f);
 
                     if (attackIndicators[i] != null)
-                    { 
+                    {
                         if (attackIndicators[i].activeSelf == false)
                         {
                             attackIndicators[i].SetActive(true);
                         }
                         attackIndicators[i].transform.position = new Vector3(x, localCam.pixelHeight * _heightOffset, 0) + offSetVector;
-                        TextMeshProUGUI currentText = attackIndicators[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-                        GameObject currentExclamation = attackIndicators[i].transform.GetChild(2).gameObject;
+                        currentText = attackIndicators[i].transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+                        currentExclamation = attackIndicators[i].transform.GetChild(2).gameObject;
                         if (currentDistance > toCloseDistance)
                         {
                             currentExclamation.SetActive(false);

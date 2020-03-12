@@ -10,20 +10,32 @@ public class AIAbilityBehaviour : MonoBehaviour
     VehicleAbilityBehavior fireButton;
     RaycastHit targ;
 
+    private AIBehaviour _carHolder;
+    private VoidWasp_Attack _attackHolder;
+    private bool isVoidWasp = false;
+
     // Start is called before the first frame update
     void Start()
     {
         fireButton = GetComponent<VehicleAbilityBehavior>();
+
+        _carHolder = GetComponent<AIBehaviour>();
+
+        if (_carHolder.GetComponent<VoidWasp_Attack>() == true)
+        {
+            _attackHolder = _carHolder.GetComponent<VoidWasp_Attack>();
+            isVoidWasp = true;
+        }
     }
 
     // Update is called once per frame
     private void FixedUpdate()
     {
-        if (GetComponent<AIBehaviour>().canDrive)
+        if (_carHolder.canDrive)
         {
-            if (GetComponent<VoidWasp_Attack>())
+            if (isVoidWasp)
             {
-                if(GetComponent<VoidWasp_Attack>().ObjectCount() > 0)
+                if(_attackHolder.ObjectCount() > 0)
                 {
                     fireButton.offensiveTrigger = true;
                     obstacleAvoidance.avoiding = false;
