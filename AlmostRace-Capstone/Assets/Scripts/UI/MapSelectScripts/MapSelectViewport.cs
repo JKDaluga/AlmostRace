@@ -115,7 +115,7 @@ public class MapSelectViewport : MonoBehaviour
         {
             _occupied = true;
             _playerInput = controllerNumber;
-            _statusText.text = "PRESS A TO CONFIRM";
+            _statusText.text = "PRESS A TO CONFIRM MAP";
             coverBox.enabled = false;
             mineMapSelect.enabled = true;
             stellarMapSelect.enabled = false;
@@ -181,7 +181,7 @@ public class MapSelectViewport : MonoBehaviour
         {
             _selected = false;
             coverBox.enabled = false;
-            _statusText.text = "PRESS A TO CONFIRM";
+            _statusText.text = "PRESS A TO CONFIRM MAP";
             foreach (Image snapshot in mineSnapshotBehind)
             {
                 snapshot.enabled = false;
