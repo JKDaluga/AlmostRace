@@ -13,6 +13,7 @@ public class ShockRod : Interactable
     public float shockDuration;
 
     public GameObject shockSphere;
+    public GameObject bigShockVFX;
 
     private void Start()
     {
@@ -38,11 +39,13 @@ public class ShockRod : Interactable
     {
         canBeDamaged = true;
         shockSphere.SetActive(false);
+        bigShockVFX.SetActive(false);
     }
 
     public override void TriggerInteractable()
     {
         shockSphere.SetActive(true);
+        bigShockVFX.SetActive(true);
         Invoke("ResetInteractable", shockDuration);
     }
 
