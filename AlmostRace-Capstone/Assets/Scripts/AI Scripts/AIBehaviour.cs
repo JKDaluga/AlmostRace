@@ -111,7 +111,7 @@ public class AIBehaviour : MonoBehaviour
     public void SwapSpline()
     {
         splineIndex++;
-        print("SPLINE SWAPPED : " + splineIndex);
+        //print("SPLINE SWAPPED : " + splineIndex);
         _aiSplineScript = orderedSplines[splineIndex].GetComponent<SplinePlus>();
 
         //print(orderedSplines[splineIndex].name);
@@ -132,7 +132,7 @@ public class AIBehaviour : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
 
         if (canDrive)
