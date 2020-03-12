@@ -52,6 +52,8 @@ public class AIBehaviour : MonoBehaviour
     private GameObject[] _aiSplines;
     public GameObject[] orderedSplines;
     private int splineIndex;
+
+    bool test = true;
     
 
     // Start is called before the first frame update
@@ -136,7 +138,7 @@ public class AIBehaviour : MonoBehaviour
     void FixedUpdate()
     {
 
-        if (canDrive)
+        if (canDrive && ((Time.frameCount%3)==0))
         {
             currentLocation = transform.position;
             //A.I on single direction vehicle track
@@ -159,11 +161,12 @@ public class AIBehaviour : MonoBehaviour
             {
                 currentPosition = Vector3.Distance(entry.Value.Vertices[j], currentLocation);
 
-                if (closestVertex == Vector3.zero) {
+                if (test == true && closestVertex == Vector3.zero) {
 
                     closestVertex = entry.Value.Vertices[j];
                     lastDistance = currentPosition;
                     closestIndex = j;
+                    test = false;
                     }
                 else if (currentPosition <= lastDistance)
                 {

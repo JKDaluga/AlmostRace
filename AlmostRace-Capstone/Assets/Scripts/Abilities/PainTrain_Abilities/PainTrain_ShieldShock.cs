@@ -44,10 +44,10 @@ public class PainTrain_ShieldShock : MonoBehaviour
 
     public void Zap()
     {
-        Debug.Log("Zap should have happened!");
+        //Debug.Log("Zap should have happened!");
         if(_carsToDamage.Count > 0)
         {
-            Debug.Log("Zap part 2 should have happened!");
+            //Debug.Log("Zap part 2 should have happened!");
             randomTarget = Random.Range(0, _carsToDamage.Count - 1);
             if (_carsToDamage[randomTarget].healthCurrent > 0)
             {

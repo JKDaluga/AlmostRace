@@ -218,7 +218,7 @@ public class ParticleLines : MonoBehaviour {
 		SetLine();
 	}
 
-	public void Update() {
+	public void FixedUpdate() {
 
 #if UNITY_EDITOR
 		if (!executeInEditMode && !Application.isPlaying) {
@@ -231,7 +231,10 @@ public class ParticleLines : MonoBehaviour {
 
 		if (!_ps.IsAlive()) return;
 
-		LinePos();
+        if ((Time.frameCount+1 % 3) == 0)
+        {
+            LinePos();
+        }
 		if (_gradients) {
 			if (_gradientCounter < 1)
 				_gradientCounter += Time.deltaTime * _gradientSpeed;
