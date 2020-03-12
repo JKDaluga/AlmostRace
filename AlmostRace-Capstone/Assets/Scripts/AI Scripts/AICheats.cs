@@ -33,6 +33,11 @@ public class AICheats : MonoBehaviour
         {
             StopAllCoroutines();
         }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            GetComponent<CarHealthBehavior>().AICheatKill();
+            GetComponent<AIBehaviour>().SwapSpline();
+        }
     }
 
     IEnumerator arenaWarp()
