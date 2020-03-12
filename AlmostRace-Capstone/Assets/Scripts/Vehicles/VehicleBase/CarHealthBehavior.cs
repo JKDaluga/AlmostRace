@@ -257,7 +257,10 @@ public class CarHealthBehavior : MonoBehaviour
 
     public void Respawn()
     {
-        damageVignette.color -= new Color(0, 0, 0, damageVignette.color.a);
+        if (GetComponent<VehicleInput>())
+        {
+            damageVignette.color -= new Color(0, 0, 0, damageVignette.color.a);
+        }
         isFlashing = false;
         isDead = false;
         _canTakeDamage = false;
@@ -365,8 +368,10 @@ public class CarHealthBehavior : MonoBehaviour
                 if (extraHP <= 0)
                 { //If you have no _extraHP left
                     healthCurrent -= _tempDamage;
-                    damageVignette.color = new Color(damageVignette.color.r, damageVignette.color.g, damageVignette.color.b, 1 - ((healthCurrent + extra) / healthMax));
-
+                    if (GetComponent<VehicleInput>())
+                    {
+                        damageVignette.color = new Color(damageVignette.color.r, damageVignette.color.g, damageVignette.color.b, 1 - ((healthCurrent + extra) / healthMax));
+                    }
                 }
             }
             else
@@ -375,7 +380,10 @@ public class CarHealthBehavior : MonoBehaviour
                 extra = -20;
                 if (healthCurrent > 0)
                 {
-                    damageVignette.color = new Color(damageVignette.color.r, damageVignette.color.g, damageVignette.color.b, 1 - ((healthCurrent + extra) / healthMax));
+                    if (GetComponent<VehicleInput>())
+                    {
+                        damageVignette.color = new Color(damageVignette.color.r, damageVignette.color.g, damageVignette.color.b, 1 - ((healthCurrent + extra) / healthMax));
+                    }
                 }
             }
 

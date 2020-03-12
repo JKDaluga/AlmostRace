@@ -25,7 +25,9 @@ public class PlayerInfo
     public float numKills = 0f;
     public float numDeaths = 0f;
     public int placeRace1 = 0;
+    public float timerRace1 = 0;
     public int placeRace2 = 0;
+    public float timerRace2 = 0;
 }
 
 public class DataManager : MonoBehaviour

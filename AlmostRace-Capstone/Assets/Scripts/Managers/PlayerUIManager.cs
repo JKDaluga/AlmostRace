@@ -14,6 +14,8 @@ public class PlayerUIManager : MonoBehaviour
     [Space(30)]
     public VehicleInput vehicleInputScript;
     private HypeManager _hypeManager;
+    private RaceManager _rm;
+    private DataManager _dm;
     private List<Transform> _attacksInRange = new List<Transform>();
 
     [Header("HypeDisplay Variables")]
@@ -22,6 +24,12 @@ public class PlayerUIManager : MonoBehaviour
     public Image hypeDisplay;
     public List<Vector3> hypeTextColors;
     public TextMeshProUGUI hypeText;
+
+
+    [Header("Scoring Variables")]
+    [Space(30)]
+    public TextMeshProUGUI KillCount;
+    public TextMeshProUGUI LapTimer;
 
 
     [Header("ArenaHype Variables")]
@@ -58,6 +66,7 @@ public class PlayerUIManager : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("GameManager") != null)
         {
             _hypeManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<HypeManager>();
+            _rm = GameObject.FindGameObjectWithTag("GameManager").GetComponent<RaceManager>();
         }
         else
         {
@@ -67,6 +76,7 @@ public class PlayerUIManager : MonoBehaviour
         if (DataManager.instance != null)
         {
            numPlayers = DataManager.instance.getNumActivePlayers();
+            _dm = DataManager.instance;
         }
         else
         {
@@ -80,7 +90,7 @@ public class PlayerUIManager : MonoBehaviour
             _heightOffset = 0.09f;
         }
 
-        switch(playerNum)
+       /* switch(playerNum)
         {
             case 1: //is player 1
                 hypeText.color = Color.cyan;
@@ -120,11 +130,13 @@ public class PlayerUIManager : MonoBehaviour
                 offSetVector = new Vector3(localCam.pixelWidth, 0, 0);
                 break;
 
-        }
+        }*/
     }
 
     void Update()
     {
+        KillCount.text = "KILLS\n" + _dm.playerInfo[vehicleInputScript.GetComponent<RaycastCar>().playerID - 1].numKills;
+        LapTimer.text = _rm.minutes.ToString("00") + ":" + _rm.seconds.ToString("00") + ":" + _rm.milliseconds.ToString("000");
         UpdateAttackIndicators();
     }
 

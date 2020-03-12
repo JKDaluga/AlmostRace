@@ -44,7 +44,10 @@ public class VoidWasp_HomingMissile : Projectile
             if(collision.gameObject != _immunePlayer)
             {
                 collision.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage);
-                DataManager.instance.playerInfo[_immunePlayerScript.playerID - 1].numKills++;
+                if(collision.gameObject.GetComponent<CarHealthBehavior>().healthCurrent <= 0 && !collision.gameObject.GetComponent<CarHealthBehavior>().isDead)
+                {
+                    DataManager.instance.playerInfo[_immunePlayerScript.playerID - 1].numKills++;
+                }
                 Instantiate(explodeVFX, transform.position, transform.rotation);
                 Destroy(gameObject);
             }
