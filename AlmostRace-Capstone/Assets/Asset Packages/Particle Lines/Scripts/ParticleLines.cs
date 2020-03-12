@@ -61,7 +61,10 @@ public class ParticleLines : MonoBehaviour {
 	float _randomNumber;                        //Random value generated at start (Used to avoid uniformed scaling and light flicker on lines that are instantiated on the same frame)
 	float _saveLightIntensity;                  //Saves the initial light intensity at start
 
-	int _randomInt;
+    float n; // used in line rendering and generation
+
+
+    int _randomInt;
 
 	public int _cutEndSegments;
 	public int _lineResolution = 150;                           //Reduces lenght of line to avoid looping back to start segment
@@ -121,17 +124,21 @@ public class ParticleLines : MonoBehaviour {
 			_gradientCounter = _randomNumber;
 	}
 
-	public int GetFrameCount() {
+	public int GetFrameCount()
+    {
 		return Time.frameCount + _randomInt;    //Randomize framecount to avoid all instances of ParticleLines to sort on the same frame. (reduce performance spikes)
 	}
 
-	public int Compare(float first, float second) {
+	public int Compare(float first, float second)
+    {
 		return second.CompareTo(first);
 	}
 
 	public void SetLine() {
 		if (myParticlesX == null) return;
-		for (int j = 0; j < _lineVertex - _cutEndSegments; j++) {
+
+		for (int j = 0; j < _lineVertex - _cutEndSegments; j++)
+        {
 			if (j < myParticlesX.Length)
 				_line.SetPosition(j, myParticlesX[j].position);
 			else
@@ -153,18 +160,26 @@ public class ParticleLines : MonoBehaviour {
 	public void CreateLine() {
 		if (myParticles.Length == 0) return;
 		myParticlesX = new ParticleSystem.Particle[_lineVertex];
-		float n = myParticles.Length / _lineVertex;
-		for (int i = 0; i < _lineVertex; i++) {
-			int nn = (int)(i * n);
+	    n = myParticles.Length / _lineVertex;
+
+        int nn;
+
+        for (int i = 0; i < _lineVertex; i++)
+        {
+			 nn = (int)(i * n);
 			if (nn < myParticles.Length) myParticlesX[i] = myParticles[nn];
 		}
 	}
 
 	public void LerpLine() {
 		if (myParticles.Length == 0) return;
-		float n = myParticlesX.Length / _lineVertex;
-		for (int i = 0; i < myParticlesX.Length; i++) {
-			int nn = (int)(i * n);
+		 n = myParticlesX.Length / _lineVertex;
+
+        int nn;
+
+        for (int i = 0; i < myParticlesX.Length; i++)
+        {
+			nn = (int)(i * n);
 			myParticlesX[i].position = Vector3.Lerp(myParticlesX[i].position, myParticlesX[Mathf.Min(nn, myParticlesX.Length - 1)].position, 1.0f);
 		}
 	}
