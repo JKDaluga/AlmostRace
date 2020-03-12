@@ -28,6 +28,8 @@ public class RaceManager : MonoBehaviour
 
     public RaycastCar[] cars;
 
+    public bool inArena;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -91,7 +93,7 @@ public class RaceManager : MonoBehaviour
 
     private void Update()
     {
-        if (FindObjectOfType<Countdown>() == null)
+        if (FindObjectOfType<Countdown>() == null && !inArena)
         {
             time += Time.deltaTime;
             timeText = DataManager.instance.convertTime(time);

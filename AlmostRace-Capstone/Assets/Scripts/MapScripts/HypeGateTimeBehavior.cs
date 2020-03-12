@@ -100,6 +100,8 @@ public class HypeGateTimeBehavior : MonoBehaviour
                 Invoke("CloseArena", 1);
 
                 StopAllCoroutines();
+
+                _raceManager.inArena = true;
                 StartCoroutine(TrackHype());
                 yield return null;
 
@@ -160,6 +162,9 @@ public class HypeGateTimeBehavior : MonoBehaviour
                     {
                         i.SwapSpline();
                     }
+
+                _raceManager.time = 0;
+                _raceManager.inArena = false;
                 //StopCoroutine(TrackHype());
                 StopAllCoroutines();
                 isActivated = false;
