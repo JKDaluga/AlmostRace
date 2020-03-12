@@ -60,6 +60,9 @@ public class CarHealthBehavior : MonoBehaviour
     GradientAlphaKey[] alphaKey;
     float extra = 0;
 
+    Rigidbody _carBodyHolder;
+    RaycastCar _raycastCarHolder;
+
 
     private void Start()
     {
@@ -82,9 +85,12 @@ public class CarHealthBehavior : MonoBehaviour
         alphaKey[1].time = 1.0f;
 
         gradient.SetKeys(colorKey, alphaKey);
+
+        _carBodyHolder = carObject.GetComponent<Rigidbody>();
+        _raycastCarHolder = GetComponent<RaycastCar>();
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         if (!isDead)
         {
@@ -155,7 +161,7 @@ public class CarHealthBehavior : MonoBehaviour
             #endregion
 
             #region Vignette
-            if (GetComponent<VehicleInput>())
+            if (_vehicleInput)
             {
                 extra += Time.deltaTime;
 
@@ -216,18 +222,18 @@ public class CarHealthBehavior : MonoBehaviour
         AudioManager.instance.Play("Death", transform);
         isDead = true;
         Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);
-        if (GetComponent<VehicleInput>())
+        if (_vehicleInput)
         {
             deathFade.GetComponent<Animator>().Play("DeathFadeIn");
         }
-        GetComponent<RaycastCar>().enabled = false;
+        _raycastCarHolder.enabled = false;
         GetComponent<VehicleAbilityBehavior>().enabled = false;
         GameObject respawnInstance = Instantiate(respawnPlatform);
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
-        carObject.GetComponent<Rigidbody>().useGravity = false;
-        carObject.GetComponent<Rigidbody>().isKinematic = true;
+        _carBodyHolder.useGravity = false;
+        _carBodyHolder.isKinematic = true;
 
-        if (gameObject.GetComponent<VehicleInput>())
+        if (_vehicleInput)
         {
             gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
         }
@@ -238,18 +244,18 @@ public class CarHealthBehavior : MonoBehaviour
         AudioManager.instance.Play("Death", transform);
         isDead = true;
         Instantiate(explosionEffect, gameObject.transform.position, gameObject.transform.rotation);
-        if (GetComponent<VehicleInput>())
+        if (_vehicleInput)
         {
             deathFade.GetComponent<Animator>().Play("DeathFadeIn");
         }
-        GetComponent<RaycastCar>().enabled = false;
+        _raycastCarHolder.enabled = false;
         GetComponent<VehicleAbilityBehavior>().enabled = false;
         GameObject respawnInstance = Instantiate(cheatRespawnPlatform);
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
-        carObject.GetComponent<Rigidbody>().useGravity = false;
-        carObject.GetComponent<Rigidbody>().isKinematic = true;
+        _carBodyHolder.useGravity = false;
+        _carBodyHolder.isKinematic = true;
 
-        if (gameObject.GetComponent<VehicleInput>())
+        if (_vehicleInput)
         {
             gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
         }
@@ -257,7 +263,7 @@ public class CarHealthBehavior : MonoBehaviour
 
     public void Respawn()
     {
-        if (GetComponent<VehicleInput>())
+        if (_vehicleInput)
         {
             damageVignette.color -= new Color(0, 0, 0, damageVignette.color.a);
         }
@@ -267,24 +273,24 @@ public class CarHealthBehavior : MonoBehaviour
         StartCoroutine(Invulnerability());
         healthCurrent = healthMax;
         CancelInvoke("FlashRedEngine");
-        if (GetComponent<VehicleInput>())
+        if (_vehicleInput)
         {
 
             engineImage.color = Color.white;
             engineIsFlash = false;              
             deathFade.GetComponent<Animator>().Play("DeathFadeOut");
         }
-        GetComponent<RaycastCar>().enabled = true;
+        _raycastCarHolder.enabled = true;
         GetComponent<VehicleAbilityBehavior>().enabled = true;
-        carObject.GetComponent<Rigidbody>().useGravity = true;
-        carObject.GetComponent<Rigidbody>().isKinematic = false;
+        _carBodyHolder.useGravity = true;
+        _carBodyHolder.isKinematic = false;
         HeatAbility bAbility = GetComponent<HeatAbility>();
         AudioManager.instance.Play("Respawn complete", transform);
         if (bAbility != null)
         {
             bAbility.DeactivateAbility();
         }
-        if (gameObject.GetComponent<VehicleInput>())
+        if (_vehicleInput)
         {
             gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
         }
@@ -319,12 +325,12 @@ public class CarHealthBehavior : MonoBehaviour
             StartCoroutine(teleportCooldownTimer());
             Instantiate(teleportEffect, gameObject.transform.position, gameObject.transform.rotation);
             deathFade.GetComponent<Animator>().Play("DeathFadeIn");
-            GetComponent<RaycastCar>().enabled = false;
+            _raycastCarHolder.enabled = false;
             GetComponent<VehicleAbilityBehavior>().enabled = false;
             GameObject respawnInstance = Instantiate(respawnPlatform);
             respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
-            carObject.GetComponent<Rigidbody>().useGravity = false;
-            carObject.GetComponent<Rigidbody>().isKinematic = true;
+            _carBodyHolder.useGravity = false;
+            _carBodyHolder.isKinematic = true;
         }
     }
 
@@ -368,7 +374,7 @@ public class CarHealthBehavior : MonoBehaviour
                 if (extraHP <= 0)
                 { //If you have no _extraHP left
                     healthCurrent -= _tempDamage;
-                    if (GetComponent<VehicleInput>())
+                    if (_vehicleInput)
                     {
                         damageVignette.color = new Color(damageVignette.color.r, damageVignette.color.g, damageVignette.color.b, 1 - ((healthCurrent + extra) / healthMax));
                     }
@@ -380,7 +386,7 @@ public class CarHealthBehavior : MonoBehaviour
                 extra = -20;
                 if (healthCurrent > 0)
                 {
-                    if (GetComponent<VehicleInput>())
+                    if (_vehicleInput)
                     {
                         damageVignette.color = new Color(damageVignette.color.r, damageVignette.color.g, damageVignette.color.b, 1 - ((healthCurrent + extra) / healthMax));
                     }

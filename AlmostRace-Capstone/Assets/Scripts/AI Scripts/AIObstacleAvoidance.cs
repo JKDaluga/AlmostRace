@@ -6,7 +6,7 @@ public class AIObstacleAvoidance : MonoBehaviour
 {
     public LayerMask wall;
     RaycastHit left, right;
-    public AIBehaviour handler;
+    public AIBehaviour handler, behaviour;
 
     public bool turnL, turnR;
 
@@ -17,11 +17,21 @@ public class AIObstacleAvoidance : MonoBehaviour
 
     Vector3 vel;
 
+    Rigidbody velHolder;
+
     float timer = 0;
+
+
+    private void Start()
+    {
+        velHolder = handler.GetComponent<Rigidbody>();
+
+        behaviour = GetComponent<AIBehaviour>();
+    }
 
     private void FixedUpdate()
     {
-        vel = handler.GetComponent<Rigidbody>().velocity;
+        vel = velHolder.velocity;
         if(vel.magnitude != 0) transform.parent.rotation = Quaternion.LookRotation(vel, transform.parent.up);
 
         if (turnL)
@@ -32,13 +42,13 @@ public class AIObstacleAvoidance : MonoBehaviour
         {
             handler.inputTurn = turnAmount;
         }
-        AIBehaviour behavior = GetComponent<AIBehaviour>();
-        if (behavior != null && behavior._inArena)
+        
+        if (behaviour != null && behaviour._inArena)
         {
             avoiding = false;
         }
 
-        if (!avoiding && behavior != null && !behavior._inArena)
+        if (!avoiding && behaviour != null && !behaviour._inArena)
         {
            
             timer += Time.deltaTime;
