@@ -265,6 +265,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
     public void Activation()
     {
         abilitiesActivated = true;
-        print("Abilities on");
+        //print("Abilities on");
     }
 }

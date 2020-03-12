@@ -43,6 +43,7 @@ public class AIBehaviour : MonoBehaviour
     private readonly int _hugeDistance = 9999;
     private readonly int _hugeTurn = 9999;
     private Vector3 closestVertex = Vector3.zero;
+    private Vector3 currentLocation;
     [HideInInspector] public int closestIndex = 0;
     private Vector3 vertexAim = Vector3.zero;
 
@@ -137,6 +138,7 @@ public class AIBehaviour : MonoBehaviour
 
         if (canDrive)
         {
+            currentLocation = transform.position;
             //A.I on single direction vehicle track
             SetAiSpeed();
         }
@@ -155,7 +157,7 @@ public class AIBehaviour : MonoBehaviour
         {
             for (int j = 0; j < entry.Value.Vertices.Count; j++)
             {
-                currentPosition = Vector3.Distance(entry.Value.Vertices[j], transform.position);
+                currentPosition = Vector3.Distance(entry.Value.Vertices[j], currentLocation);
 
                 if (closestVertex == Vector3.zero) {
 
@@ -180,8 +182,8 @@ public class AIBehaviour : MonoBehaviour
 
             }
         }
-        currentPosition = Vector3.Distance(closestVertex, transform.position);
-        angleBetween = Mathf.Acos(Vector3.Dot((closestVertex-transform.position).normalized, thisCar.transform.right)) * 180 / Mathf.PI;
+        currentPosition = Vector3.Distance(closestVertex, currentLocation);
+        angleBetween = Mathf.Acos(Vector3.Dot((closestVertex- currentLocation).normalized, thisCar.transform.right)) * 180 / Mathf.PI;
 
 
         //print("Current Turn Angle = " + angleBetween);

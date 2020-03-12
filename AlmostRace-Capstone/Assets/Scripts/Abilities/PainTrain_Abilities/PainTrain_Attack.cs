@@ -43,7 +43,7 @@ public class PainTrain_Attack : Ability
 
     public override void ActivateAbility()
     {
-        Debug.Log("Ability should be activated!");
+        //Debug.Log("Ability should be activated!");
         GameObject spawnedLightningBall = Instantiate(lightningBall, muzzle.position, muzzle.rotation);
 
         spawnedLightningBall.GetComponent<PainTrain_LightningBall>().SetProjectileInfo(0, lightningBallSpeed, 0);

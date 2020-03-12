@@ -14,6 +14,8 @@ public class SimpleLineRenderer : MonoBehaviour {
 	public LayerMask layerMask = -1;
     Camera[] c;
 
+    private Vector3 dir;
+
     public bool hardEdge;
 
 	void Awake()
@@ -99,11 +101,12 @@ public class SimpleLineRenderer : MonoBehaviour {
 		Color[] colors = mesh.colors;
 		Vector3 prevTan = Vector3.zero;
 		Vector3 prevDir = Vector3.zero;
-		for (int i = 0; i < points.Count - 1; i++) {
+        Vector3 offset;
+        for (int i = 0; i < points.Count - 1; i++) {
 			Vector3 faceNormal = (localViewPos - points[i].position).normalized;
-			Vector3 dir = (points[i + 1].position - points[i].position);
+			dir = (points[i + 1].position - points[i].position);
 			Vector3 tan = Vector3.Cross(dir, faceNormal).normalized;
-			Vector3 offset;
+
 			if (hardEdge){
 				offset = (prevTan + tan).normalized * points[i].width / 2.0f;
 				prevTan = tan;
@@ -115,15 +118,16 @@ public class SimpleLineRenderer : MonoBehaviour {
 			vertices[i * 2 + 1] = points[i].position + offset;
 			normals[i * 2] = normals[i * 2 + 1] = faceNormal;
 			colors[i * 2] = colors[i * 2 + 1] = points[i].color;
-			if (i == points.Count - 2) {
-				vertices[i * 2 + 2] = points[i + 1].position - tan * points[i + 1].width / 2.0f;
-				vertices[i * 2 + 3] = points[i + 1].position + tan * points[i + 1].width / 2.0f;
-				normals[i * 2 + 2] = normals[i * 2 + 3] = faceNormal;
-				colors[i * 2 + 2] = colors[i * 2 + 3] = points[i + 1].color;
-			}
-			prevDir = dir;
+            if (i == points.Count - 2)
+            {
+                vertices[i * 2 + 2] = points[i + 1].position - tan * points[i + 1].width / 2.0f;
+                vertices[i * 2 + 3] = points[i + 1].position + tan * points[i + 1].width / 2.0f;
+                normals[i * 2 + 2] = normals[i * 2 + 3] = faceNormal;
+                colors[i * 2 + 2] = colors[i * 2 + 3] = points[i + 1].color;
+            }
 		}
-		mesh.vertices = vertices;
+        prevDir = dir;
+        mesh.vertices = vertices;
 		mesh.normals = normals;
 		mesh.colors = colors;
 		mesh.uv = uvs;

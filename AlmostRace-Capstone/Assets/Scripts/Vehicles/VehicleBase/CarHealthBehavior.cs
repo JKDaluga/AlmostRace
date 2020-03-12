@@ -373,8 +373,10 @@ public class CarHealthBehavior : MonoBehaviour
             {
                 healthCurrent -= damage;
                 extra = -20;
-                damageVignette.color = new Color(damageVignette.color.r, damageVignette.color.g, damageVignette.color.b, 1 - ((healthCurrent + extra) / healthMax));
-
+                if (healthCurrent > 0)
+                {
+                    damageVignette.color = new Color(damageVignette.color.r, damageVignette.color.g, damageVignette.color.b, 1 - ((healthCurrent + extra) / healthMax));
+                }
             }
 
         }

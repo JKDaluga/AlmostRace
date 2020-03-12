@@ -20,7 +20,7 @@ public class PainTrain_ShockField : MonoBehaviour
 
         if (other.CompareTag("Vehicle") && other.gameObject != lightningBall.getImmunePlayer())
         {
-            Debug.Log(other.name + " was detected! " + other.transform.parent.name);
+            //Debug.Log(other.name + " was detected! " + other.transform.parent.name);
 
             lightningBall.AddCarToDamage(other.GetComponent<CarHealthBehavior>());
 
@@ -45,7 +45,7 @@ public class PainTrain_ShockField : MonoBehaviour
     {
         if (other.CompareTag("Vehicle") && other.gameObject != lightningBall.getImmunePlayer())
         {
-            Debug.Log(other.name + " was detected! " + other.transform.parent.name);
+            //Debug.Log(other.name + " was detected! " + other.transform.parent.name);
 
             lightningBall.RemoveCarFromDamage(other.GetComponent<CarHealthBehavior>());
         }
