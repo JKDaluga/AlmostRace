@@ -64,8 +64,8 @@ public class DataManager : MonoBehaviour
             playerInfo[i].playerID = i + 1;
             playerInfo[i].controllerID = 0;
             playerInfo[i].hypeAmount = 0f;
-            playerInfo[i].placeRace1 = playerInfo.Length;
-            playerInfo[i].placeRace2 = playerInfo.Length;
+            playerInfo[i].placeRace1 = playerInfo.Length - 1;
+            playerInfo[i].placeRace2 = playerInfo.Length - 1;
             playerInfo[i].boostAbilityUsed = 0;
             playerInfo[i].offensiveAbilityUsed = 0;
             playerInfo[i].defenseAbilityUsed = 0;

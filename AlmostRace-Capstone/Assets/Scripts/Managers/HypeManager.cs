@@ -30,6 +30,7 @@ public class WinScreenBox
     public TextMeshProUGUI playerTag;
     public TextMeshProUGUI hypeAmount;
     public TextMeshProUGUI finishTime;
+    public TextMeshProUGUI finishTime2;
     public TextMeshProUGUI numKills;
     public TextMeshProUGUI Awards;
 }
@@ -103,7 +104,7 @@ public class HypeManager : MonoBehaviour
     {
         foreach(PlayerInfo player in dm.playerInfo)
         {
-
+            vehicleList.Add(player);
         }
     }
 
@@ -136,6 +137,10 @@ public class HypeManager : MonoBehaviour
                 inputDelay += Time.deltaTime;
             }
         }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            EndGame();
+        }
     }
 
     private void ReturnToMainMenu()
@@ -152,8 +157,7 @@ public class HypeManager : MonoBehaviour
 
     public void calculateHype()
     {
-        DataManager dataManager = FindObjectOfType<DataManager>();
-        foreach(PlayerInfo player in vehicleList)
+        foreach(PlayerInfo player in DataManager.instance.playerInfo)
         {
             player.hypeAmount = (player.numKills * hypePerKill) + hypeForRacePosition[player.placeRace1] + hypeForRacePosition[player.placeRace2] - (player.numDeaths * hypeLosePerDeath);
         }
@@ -161,16 +165,24 @@ public class HypeManager : MonoBehaviour
 
     public void populateWinScreen()
     {
-        for(int i = 0; i < winScreenBoxes.Length && i < 4; i++)
+        for(int i = 0; i < winScreenBoxes.Length; i++)
         {
             if (i < vehicleList.Count)
             {
                 int playerNum = vehicleList[i].playerID;
                 winScreenBoxes[i].background.color = playerColors[playerNum - 1];
-                winScreenBoxes[i].playerTag.text = "Player " + playerNum;
+                if(vehicleList[i].isActive)
+                {
+                    winScreenBoxes[i].playerTag.text = "Player " + playerNum;
+                }
+                else
+                {
+                    winScreenBoxes[i].playerTag.text = "BOT";
+                }
                 winScreenBoxes[i].hypeAmount.text = vehicleList[i].hypeAmount.ToString();
-                winScreenBoxes[i].finishTime.text = "0"; //Fill with Player's Time later
-                winScreenBoxes[i].numKills.text = "0"; //Fill with Player's kill count later
+                winScreenBoxes[i].finishTime.text = vehicleList[i].placeRace1.ToString();
+                winScreenBoxes[i].numKills.text = vehicleList[i].numKills.ToString();
+                winScreenBoxes[i].finishTime2.text = vehicleList[i].placeRace2.ToString();
                 winScreenBoxes[i].Awards.text += awards[playerNum - 1];
             }
             else

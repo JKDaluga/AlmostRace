@@ -64,7 +64,6 @@ public class WinScreen : MonoBehaviour
             }
         }
         addHype(winningPlayer + 1, smallHypeAward, "Spray n' Pray");
-        print(winningPlayer);
         return winningPlayer;
     }
 
@@ -78,7 +77,6 @@ public class WinScreen : MonoBehaviour
             }
         }
         addHype(winningPlayer + 1, smallHypeAward, "Shields Up");
-        print(winningPlayer);
         return winningPlayer;
     }
 
@@ -92,7 +90,6 @@ public class WinScreen : MonoBehaviour
             }
         }
         addHype(winningPlayer + 1, smallHypeAward, "Speed Demon");
-        print(winningPlayer);
         return winningPlayer;
     }
 
@@ -106,7 +103,6 @@ public class WinScreen : MonoBehaviour
             }
         }
         addHype(winningPlayer + 1, smallHypeAward, "Slippery");
-        print(winningPlayer);
         return winningPlayer;
     }
 
