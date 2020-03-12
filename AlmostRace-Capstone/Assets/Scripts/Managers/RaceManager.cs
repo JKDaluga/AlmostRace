@@ -86,8 +86,6 @@ public class RaceManager : MonoBehaviour
         eventPanel.SetActive(false);
     }
 
-
-    [HideInInspector] public float minutes, seconds, milliseconds;
     public float time;
     public string timeText;
 
@@ -96,13 +94,7 @@ public class RaceManager : MonoBehaviour
         if (FindObjectOfType<Countdown>() == null)
         {
             time += Time.deltaTime;
-
-            minutes = Mathf.Floor(time / 60);
-            seconds = time % 60;
-            milliseconds = (time * 1000) % 1000;
-
-
-            timeText = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliseconds.ToString("000");
+            timeText = DataManager.instance.convertTime(time);
         }
 
     }

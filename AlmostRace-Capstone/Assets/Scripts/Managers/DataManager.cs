@@ -58,6 +58,18 @@ public class DataManager : MonoBehaviour
         return count;
     }
 
+    public string convertTime(float time)
+    {
+        float minutes = Mathf.Floor(time / 60);
+        float seconds = time % 60;
+        float milliseconds = (time * 1000) % 1000;
+
+
+        string timeText = minutes.ToString("00") + ":" + seconds.ToString("00") + ":" + milliseconds.ToString("000");
+
+        return timeText;
+    }
+
     public void resetData()
     {
         for (int i = 0; i < playerInfo.Length; i++)
