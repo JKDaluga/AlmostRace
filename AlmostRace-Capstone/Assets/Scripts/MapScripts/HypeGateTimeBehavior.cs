@@ -20,8 +20,8 @@ public class HypeGateTimeBehavior : MonoBehaviour
     private float _displayTime;
 
     [Tooltip("The gameobject to remove once time is counted down")]
-    public Animator[] gateToOpen;
-    public Animator[] gateToClose;
+    public GameObject[] gateToOpen;
+    public GameObject[] gateToClose;
     public Transform[] spawnPoints;
     public List<TextMeshProUGUI> displayTexts;
     private int _carsInGame;
@@ -49,7 +49,6 @@ public class HypeGateTimeBehavior : MonoBehaviour
         {
             Debug.LogError("Hype Manager not found!");
         }
-        CloseArena();
     }
 
     public IEnumerator CheckCars()
@@ -112,17 +111,18 @@ public class HypeGateTimeBehavior : MonoBehaviour
 
     public void CloseArena()
     {
-        foreach (Animator anim in gateToClose)
+        foreach (GameObject gate in gateToClose)
         {
-            anim.Play("Close");
+            gate.SetActive(true);
+            gate.GetComponent<Animator>().Play("Close");
         }
     }
 
     public void OpenArena()
     {
-        foreach (Animator anim in gateToOpen)
+        foreach (GameObject gate in gateToOpen)
         {
-            anim.Play("Open");
+            gate.GetComponent<Animator>().Play("Open");
         }
     }
 
