@@ -224,6 +224,11 @@ MonoBehaviour:
   _mineMapVoteText: {fileID: 1275424974}
   _stellarMapVoteText: {fileID: 343857961}
   allReadyImage: {fileID: 1653700100}
+  voteTextCircles:
+  - {fileID: 743668071}
+  - {fileID: 1286222421}
+  - {fileID: 1275424973}
+  - {fileID: 343857960}
 --- !u!4 &40982680
 Transform:
   m_ObjectHideFlags: 0
@@ -547,6 +552,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
+      propertyPath: voteCircles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
       propertyPath: mapSelectManager
       value: 
       objectReference: {fileID: 40982679}
@@ -575,6 +585,26 @@ PrefabInstance:
       propertyPath: stellarSnapshotBehind.Array.data[0]
       value: 
       objectReference: {fileID: 6089327301277704310}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[0]
+      value: 
+      objectReference: {fileID: 743668071}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1286222421}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1275424973}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[3]
+      value: 
+      objectReference: {fileID: 343857960}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0d15fd0b0071c24bb09282cc430a402, type: 3}
 --- !u!224 &108406204 stripped
@@ -901,6 +931,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
         type: 3}
+      propertyPath: voteCircles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
       propertyPath: mapSelectManager
       value: 
       objectReference: {fileID: 40982679}
@@ -929,6 +964,26 @@ PrefabInstance:
       propertyPath: stellarSnapshotBehind.Array.data[1]
       value: 
       objectReference: {fileID: 1934937193783511471}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[0]
+      value: 
+      objectReference: {fileID: 743668071}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1286222421}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1275424973}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[3]
+      value: 
+      objectReference: {fileID: 343857960}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a42d3cf39a1b7640acf1408c2606bc7, type: 3}
 --- !u!224 &306413446 stripped
@@ -1263,12 +1318,12 @@ PrefabInstance:
     - target: {fileID: 1447529921608233698, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1128
+      value: 1920
       objectReference: {fileID: 0}
     - target: {fileID: 1447529921608233698, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 686
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 1447529921608233698, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
@@ -1347,6 +1402,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
+      propertyPath: voteCircles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
       propertyPath: mapSelectManager
       value: 
       objectReference: {fileID: 40982679}
@@ -1400,35 +1460,55 @@ PrefabInstance:
       propertyPath: stellarSnapshotBehind.Array.data[3]
       value: 
       objectReference: {fileID: 1934937193783511471}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[0]
+      value: 
+      objectReference: {fileID: 743668071}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1286222421}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1275424973}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[3]
+      value: 
+      objectReference: {fileID: 343857960}
     - target: {fileID: 1447529920835248975, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1680
+      value: 1920
       objectReference: {fileID: 0}
     - target: {fileID: 1447529920835248975, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1023
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 1447529920936710491, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1680
+      value: 1920
       objectReference: {fileID: 0}
     - target: {fileID: 1447529920936710491, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1023
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 1447529921599508755, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1680
+      value: 1920
       objectReference: {fileID: 0}
     - target: {fileID: 1447529921599508755, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1023
+      value: 1080
       objectReference: {fileID: 0}
     - target: {fileID: 5576099371194798378, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
@@ -1488,22 +1568,22 @@ PrefabInstance:
     - target: {fileID: 1447529920315455880, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -517
+      value: -631
       objectReference: {fileID: 0}
     - target: {fileID: 1447529920315455880, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -412
+      value: -441
       objectReference: {fileID: 0}
     - target: {fileID: 1447529921431510568, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1680
+      value: 1921
       objectReference: {fileID: 0}
     - target: {fileID: 1447529921431510568, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1023
+      value: 1081
       objectReference: {fileID: 0}
     - target: {fileID: 1447529921698277688, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
@@ -1538,12 +1618,17 @@ PrefabInstance:
     - target: {fileID: 1447529921561525490, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 1680
+      value: 1921
       objectReference: {fileID: 0}
     - target: {fileID: 1447529921561525490, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 1023
+      value: 1081
+      objectReference: {fileID: 0}
+    - target: {fileID: 1447529921599508754, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1447529920259013875, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
@@ -1759,7 +1844,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1785.3, y: 937}
+  m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &954693244
 PrefabInstance:
@@ -1945,6 +2030,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
         type: 3}
+      propertyPath: voteCircles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
       propertyPath: mapSelectManager
       value: 
       objectReference: {fileID: 40982679}
@@ -1963,6 +2053,26 @@ PrefabInstance:
       propertyPath: stellarSnapshotBehind.Array.data[0]
       value: 
       objectReference: {fileID: 5412685561870359116}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[0]
+      value: 
+      objectReference: {fileID: 743668071}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1286222421}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1275424973}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[3]
+      value: 
+      objectReference: {fileID: 343857960}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0a42d3cf39a1b7640acf1408c2606bc7, type: 3}
 --- !u!224 &954693245 stripped
@@ -2111,6 +2221,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
+      propertyPath: voteCircles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
       propertyPath: mapSelectManager
       value: 
       objectReference: {fileID: 40982679}
@@ -2144,6 +2259,26 @@ PrefabInstance:
       propertyPath: mineSnapshotBehind.Array.data[1]
       value: 
       objectReference: {fileID: 6056864938103449022}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[0]
+      value: 
+      objectReference: {fileID: 743668071}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1286222421}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1275424973}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[3]
+      value: 
+      objectReference: {fileID: 343857960}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c0d15fd0b0071c24bb09282cc430a402, type: 3}
 --- !u!224 &1140212735 stripped
@@ -2836,6 +2971,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4820365852714214752, guid: caa3524ec23088d4aa189f3c1a1039d7,
         type: 3}
+      propertyPath: voteCircles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820365852714214752, guid: caa3524ec23088d4aa189f3c1a1039d7,
+        type: 3}
       propertyPath: mapSelectManager
       value: 
       objectReference: {fileID: 40982679}
@@ -2864,6 +3004,26 @@ PrefabInstance:
       propertyPath: stellarSnapshotBehind.Array.data[1]
       value: 
       objectReference: {fileID: 1934937193783511471}
+    - target: {fileID: 4820365852714214752, guid: caa3524ec23088d4aa189f3c1a1039d7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[0]
+      value: 
+      objectReference: {fileID: 743668071}
+    - target: {fileID: 4820365852714214752, guid: caa3524ec23088d4aa189f3c1a1039d7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1286222421}
+    - target: {fileID: 4820365852714214752, guid: caa3524ec23088d4aa189f3c1a1039d7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1275424973}
+    - target: {fileID: 4820365852714214752, guid: caa3524ec23088d4aa189f3c1a1039d7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[3]
+      value: 
+      objectReference: {fileID: 343857960}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: caa3524ec23088d4aa189f3c1a1039d7, type: 3}
 --- !u!224 &1454021249 stripped
@@ -2907,8 +3067,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 650, y: 650}
+  m_AnchoredPosition: {x: 0, y: -191}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1653700102
 MonoBehaviour:
@@ -3484,8 +3644,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 32.4
-  m_fontSizeBase: 32.4
+  m_fontSize: 16.1
+  m_fontSizeBase: 16.1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3530,7 +3690,7 @@ MonoBehaviour:
     spaceCount: 5
     wordCount: 5
     linkCount: 0
-    lineCount: 5
+    lineCount: 4
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -3756,6 +3916,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
+      propertyPath: voteCircles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
       propertyPath: mapSelectManager
       value: 
       objectReference: {fileID: 40982679}
@@ -3784,6 +3949,26 @@ PrefabInstance:
       propertyPath: mineSnapshotBehind.Array.data[0]
       value: 
       objectReference: {fileID: 6056080758233715174}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[0]
+      value: 
+      objectReference: {fileID: 743668071}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1286222421}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1275424973}
+    - target: {fileID: 468667739686731286, guid: c0d15fd0b0071c24bb09282cc430a402,
+        type: 3}
+      propertyPath: voteCircles.Array.data[3]
+      value: 
+      objectReference: {fileID: 343857960}
     - target: {fileID: 1447529920835248972, guid: c0d15fd0b0071c24bb09282cc430a402,
         type: 3}
       propertyPath: m_Enabled
@@ -4417,6 +4602,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
         type: 3}
+      propertyPath: voteCircles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
       propertyPath: mapSelectManager
       value: 
       objectReference: {fileID: 40982679}
@@ -4435,6 +4625,26 @@ PrefabInstance:
       propertyPath: mineSnapshotBehind.Array.data[0]
       value: 
       objectReference: {fileID: 6056864938103449022}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[0]
+      value: 
+      objectReference: {fileID: 743668071}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1286222421}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1275424973}
+    - target: {fileID: 746530025977296223, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[3]
+      value: 
+      objectReference: {fileID: 343857960}
     - target: {fileID: 3963374060174957294, guid: 0a42d3cf39a1b7640acf1408c2606bc7,
         type: 3}
       propertyPath: m_Enabled
@@ -5128,6 +5338,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4820365852714214752, guid: caa3524ec23088d4aa189f3c1a1039d7,
         type: 3}
+      propertyPath: voteCircles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4820365852714214752, guid: caa3524ec23088d4aa189f3c1a1039d7,
+        type: 3}
       propertyPath: mapSelectManager
       value: 
       objectReference: {fileID: 40982679}
@@ -5146,6 +5361,26 @@ PrefabInstance:
       propertyPath: mineSnapshotBehind.Array.data[0]
       value: 
       objectReference: {fileID: 8624333936307704607}
+    - target: {fileID: 4820365852714214752, guid: caa3524ec23088d4aa189f3c1a1039d7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[0]
+      value: 
+      objectReference: {fileID: 743668071}
+    - target: {fileID: 4820365852714214752, guid: caa3524ec23088d4aa189f3c1a1039d7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1286222421}
+    - target: {fileID: 4820365852714214752, guid: caa3524ec23088d4aa189f3c1a1039d7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1275424973}
+    - target: {fileID: 4820365852714214752, guid: caa3524ec23088d4aa189f3c1a1039d7,
+        type: 3}
+      propertyPath: voteCircles.Array.data[3]
+      value: 
+      objectReference: {fileID: 343857960}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: caa3524ec23088d4aa189f3c1a1039d7, type: 3}
 --- !u!1001 &7751687061496381904
@@ -5277,6 +5512,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9065244972514540929, guid: 1f9bf7040484be045a8b4b00181ecc1d,
         type: 3}
+      propertyPath: voteCircles.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 9065244972514540929, guid: 1f9bf7040484be045a8b4b00181ecc1d,
+        type: 3}
       propertyPath: mapSelectManager
       value: 
       objectReference: {fileID: 40982679}
@@ -5295,6 +5535,26 @@ PrefabInstance:
       propertyPath: stellarSnapshotBehind.Array.data[0]
       value: 
       objectReference: {fileID: 1934937193783511471}
+    - target: {fileID: 9065244972514540929, guid: 1f9bf7040484be045a8b4b00181ecc1d,
+        type: 3}
+      propertyPath: voteCircles.Array.data[0]
+      value: 
+      objectReference: {fileID: 743668071}
+    - target: {fileID: 9065244972514540929, guid: 1f9bf7040484be045a8b4b00181ecc1d,
+        type: 3}
+      propertyPath: voteCircles.Array.data[1]
+      value: 
+      objectReference: {fileID: 1286222421}
+    - target: {fileID: 9065244972514540929, guid: 1f9bf7040484be045a8b4b00181ecc1d,
+        type: 3}
+      propertyPath: voteCircles.Array.data[2]
+      value: 
+      objectReference: {fileID: 1275424973}
+    - target: {fileID: 9065244972514540929, guid: 1f9bf7040484be045a8b4b00181ecc1d,
+        type: 3}
+      propertyPath: voteCircles.Array.data[3]
+      value: 
+      objectReference: {fileID: 343857960}
     - target: {fileID: 7751687061558688255, guid: 1f9bf7040484be045a8b4b00181ecc1d,
         type: 3}
       propertyPath: m_Enabled

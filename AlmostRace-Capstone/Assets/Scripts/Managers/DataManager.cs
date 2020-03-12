@@ -60,6 +60,7 @@ public class DataManager : MonoBehaviour
     {
         for (int i = 0; i < playerInfo.Length; i++)
         {
+            playerInfo[i].isActive = false;
             playerInfo[i].playerID = i + 1;
             playerInfo[i].controllerID = 0;
             playerInfo[i].hypeAmount = 0f;

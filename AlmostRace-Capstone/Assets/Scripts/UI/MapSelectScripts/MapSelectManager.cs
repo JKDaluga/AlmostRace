@@ -15,6 +15,7 @@ public class MapSelectManager : MonoBehaviour
     public TextMeshProUGUI _mineMapVoteText;
     public TextMeshProUGUI _stellarMapVoteText;
     public GameObject allReadyImage;
+    public RectTransform[] voteTextCircles;
     private DataManager _data;
     private bool _readyToStart = false;
     private bool _isLoading = false;
@@ -38,6 +39,10 @@ public class MapSelectManager : MonoBehaviour
         {
             case 1:
                 viewports = new MapSelectViewport[1];
+                foreach (RectTransform voteComponent in voteTextCircles)
+                {
+                    voteComponent.localPosition = new Vector3(0, 2000, 0);
+                }
                 break;
             case 2:
                 viewports = new MapSelectViewport[2];

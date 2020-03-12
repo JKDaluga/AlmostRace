@@ -143,7 +143,10 @@ public class MapSelectViewport : MonoBehaviour
         if (status == true)
         {
             _selected = true;
-            coverBox.enabled = true;
+            if (DataManager.instance.getNumActivePlayers() == 1)
+            {
+                coverBox.enabled = true;
+            }
             _statusText.text = "PRESS B TO UNCONFIRM";
             if (_mapSelected == 1)
             {
@@ -167,6 +170,11 @@ public class MapSelectViewport : MonoBehaviour
                     snapshot.enabled = true;
                 }
             }
+            if (DataManager.instance.getNumActivePlayers() == 1)
+            {
+                mineSnapshot.enabled = false;
+                stellarSnapshot.enabled = false;
+            }
             mapSelectManager.UpdateData(_selected, _mapSelected);
         }
         else
@@ -181,6 +189,17 @@ public class MapSelectViewport : MonoBehaviour
             foreach (Image snapshot in stellarSnapshotBehind)
             {
                 snapshot.enabled = false;
+            }
+            if (DataManager.instance.getNumActivePlayers() == 1)
+            {
+                if (_mapSelected == 1)
+                {
+                    mineSnapshot.enabled = true;
+                }
+                else if (_mapSelected == 2)
+                {
+                    stellarSnapshot.enabled = true;
+                }
             }
             mapSelectManager.UpdateData(_selected, _mapSelected);
             
