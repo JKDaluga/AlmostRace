@@ -42,9 +42,9 @@ public class VehicleCollisionEffects : MonoBehaviour
         {
 
 
-            GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 1;
-            GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 1;
-            GetComponent<CinemachineImpulseSource>().GenerateImpulse();
+           // //GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 1;
+           // GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 1;
+           // GetComponent<CinemachineImpulseSource>().GenerateImpulse();
           //  AudioManager.instance.Play("General collision", transform);
             //CreateSparks(collision);
             _sparksPlaying = true;

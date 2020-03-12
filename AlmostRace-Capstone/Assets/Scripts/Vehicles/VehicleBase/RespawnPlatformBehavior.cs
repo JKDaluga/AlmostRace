@@ -59,7 +59,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
             }
             else
             {
-                Debug.Log("There is no hot spot in the scene");
+                Debug.Log("There is no AI Spline in the scene");
                 SpawnOnSelf();
             }
         }

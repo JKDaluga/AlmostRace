@@ -301,10 +301,10 @@ public class RaycastCar : MonoBehaviour
 
         // turn car
         float tempMaxTurnSpeed = maxTurnAngle;
-        //if(drift)
-        //{
-        //    tempMaxTurnSpeed *= driftStrength;
-        //}
+        if(drift)
+        {
+            tempMaxTurnSpeed *= driftStrength;
+        }
 
         
 
@@ -422,20 +422,24 @@ public class RaycastCar : MonoBehaviour
         Vector3 closestWorldPoint = new Vector3();
         float lastDistance = int.MaxValue;
         int vectorsBackAdjustment;
-
-        foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
+        RaceManager rc = FindObjectOfType<RaceManager>();
+        foreach (GameObject spline in rc.orderedSplines)
         {
-            for (int j = 0; j < entry.Value.Vertices.Count; j++)
+            foreach (KeyValuePair<int, Branch> entry in spline.GetComponent<SplinePlus>().SPData.DictBranches)
             {
-                float distance = Vector3.Distance(entry.Value.Vertices[j], transform.position);
-                if (distance <= lastDistance)
+                for (int j = 0; j < entry.Value.Vertices.Count; j++)
                 {
-                    lastDistance = distance;
-                    vectorsBackAdjustment = Mathf.Clamp(j + vectorsBack, 1, entry.Value.Vertices.Count - 1);
-                    closestWorldPoint = entry.Value.Vertices[vectorsBackAdjustment];
+                    float distance = Vector3.Distance(entry.Value.Vertices[j], transform.position);
+                    if (distance <= lastDistance)
+                    {
+                        lastDistance = distance;
+                        vectorsBackAdjustment = Mathf.Clamp(j + vectorsBack, 1, entry.Value.Vertices.Count - 1);
+                        closestWorldPoint = entry.Value.Vertices[vectorsBackAdjustment];
+                    }
                 }
             }
         }
+        
         return closestWorldPoint;
     }
 }
