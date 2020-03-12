@@ -27,7 +27,7 @@ public class AIBehaviour : MonoBehaviour
     [Tooltip("NodestoLookAhead values for each map")]
     public int MineNodes, InterstellarNodes;
 
-    public string MineMap, Interstellar;
+    public int MineMap, Interstellar;
 
     public RaycastCar thisCar;
     
@@ -75,12 +75,12 @@ public class AIBehaviour : MonoBehaviour
         RaceManager rc = FindObjectOfType<RaceManager>();
         orderedSplines = rc.orderedSplines;
 
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName(MineMap))
+        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(MineMap))
         {
             nodesToLookAhead = MineNodes;
             offsetAngle = MineOffset;
         }
-        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByName(Interstellar))
+        else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(Interstellar))
         {
             nodesToLookAhead = InterstellarNodes;
             offsetAngle = InterstellarNodes;

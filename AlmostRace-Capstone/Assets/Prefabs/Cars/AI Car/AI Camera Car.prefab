@@ -198,6 +198,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 16777217
   handler: {fileID: 7657711622964808644}
+  behaviour: {fileID: 0}
   turnL: 0
   turnR: 0
   avoiding: 1
@@ -14787,6 +14788,8 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   hypeText: {fileID: 7657711624173174944}
+  KillCount: {fileID: 0}
+  LapTimer: {fileID: 0}
   arenaStatus: {fileID: 0}
   lockImage: {fileID: 7657711624273739352}
   lockSprite: {fileID: 21300000, guid: 8b991d7a77e31474db021d7bc35a6005, type: 3}
@@ -25635,16 +25638,19 @@ MonoBehaviour:
   offensiveAbilityRecharge: 5
   offensiveAbilityCooldown: {fileID: 0}
   offensiveAbilityDark: {fileID: 0}
+  offensiveAbilityBG: {fileID: 0}
   defensiveAbility: {fileID: 0}
   defensiveAbilityRecharge: 5
   defensiveAbilityDuration: 3
   defensiveAbilityCooldown: {fileID: 7657711622610799381}
   defensiveAbilityDark: {fileID: 7657711623685682206}
+  DefensiveAbilityBG: {fileID: 0}
   boostAbility: {fileID: 0}
   boostAbilityRecharge: 5
   boostAbilityDuration: 3
   boostAbilityCooldown: {fileID: 7657711622868483895}
   boostAbilityDark: {fileID: 7762107824635070032}
+  BoostAbilityBG: {fileID: 0}
   offensiveTrigger: 0
   defensiveTrigger: 0
   boostTrigger: 0
@@ -25732,8 +25738,8 @@ MonoBehaviour:
   InterstellarOffset: 5
   MineNodes: 5
   InterstellarNodes: 20
-  MineMap: Mine Map_Content Complete
-  Interstellar: 
+  MineMap: 3
+  Interstellar: 4
   thisCar: {fileID: 0}
   closestIndex: 0
   orderedSplines: []
