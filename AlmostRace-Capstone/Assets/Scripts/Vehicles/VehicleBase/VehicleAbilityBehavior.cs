@@ -24,6 +24,8 @@ public class VehicleAbilityBehavior : MonoBehaviour
     public Image offensiveAbilityCooldown;
     [Tooltip("Place dark version of UI element here.")]
     public GameObject offensiveAbilityDark;
+    [Tooltip("Place Background Fill of UI element here.")]
+    public GameObject offensiveAbilityBG;
 
     [Header ("Defensive Ability.................................................................................")]
     [Tooltip("Defensive Ability Script Slot")]
@@ -41,6 +43,10 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Tooltip("Place dark version of UI element here.")]
     public GameObject defensiveAbilityDark;
 
+
+    [Tooltip("Place Background Fill of UI element here.")]
+    public GameObject DefensiveAbilityBG;
+
     [Header ("Boost Ability.................................................................................")]
     [Tooltip("Boost Ability Script Slot")]
     public Ability boostAbility;
@@ -54,6 +60,9 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     [Tooltip("Place dark version of UI element here.")]
     public GameObject boostAbilityDark;
+
+    [Tooltip("Place Background Fill of UI element here.")]
+    public GameObject BoostAbilityBG;
 
     private VehicleInput _vehicleInput;
     [HideInInspector] public bool offensiveTrigger = false;
@@ -93,7 +102,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         // Basic Ability Call
         if (offensiveAbility != null && offensiveTrigger && abilitiesActivated) //placed here just so that the BallCar prefab doesn't throw nulls
         {
-            if(fireAbility(offensiveAbility, _canUseBasic, offensiveAbilityCooldown, offensiveAbilityDark, 'o'))
+            if(fireAbility(offensiveAbility, _canUseBasic, offensiveAbilityCooldown, offensiveAbilityDark, offensiveAbilityBG, 'o'))
             {
                 _canUseBasic = false;
                 offensiveAbility.AbilityInUse();
@@ -106,7 +115,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         // Signature Ability Call
         if (defensiveAbility != null && defensiveTrigger && abilitiesActivated)
         {
-            if (fireAbility(defensiveAbility, _canUseDefensiveAbility, defensiveAbilityCooldown, defensiveAbilityDark, 'd'))
+            if (fireAbility(defensiveAbility, _canUseDefensiveAbility, defensiveAbilityCooldown, defensiveAbilityDark, DefensiveAbilityBG, 'd'))
             {
                 _canUseDefensiveAbility = false;
                 defensiveAbility.AbilityInUse();
@@ -118,7 +127,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         // Boost Ability Call
         if (boostAbility != null && boostTrigger && abilitiesActivated)
         {
-            if (fireAbility(boostAbility, _canBoost, boostAbilityCooldown, boostAbilityDark, 'b'))
+            if (fireAbility(boostAbility, _canBoost, boostAbilityCooldown, boostAbilityDark, BoostAbilityBG, 'b'))
             {
                 _canBoost = false;
                 boostAbility.AbilityInUse();
@@ -133,7 +142,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
     }
 
     // Handles the ability call, on what input it is, if it can be used, and if it can be held down
-    private bool fireAbility(Ability ability, bool canFire, Image abilityCooldown, GameObject abilityDark, char flagChar)
+    private bool fireAbility(Ability ability, bool canFire, Image abilityCooldown, GameObject abilityDark, GameObject abilityBG, char flagChar)
     {
         if (canFire && ability != null)
         {
@@ -141,11 +150,14 @@ public class VehicleAbilityBehavior : MonoBehaviour
             {
                 abilityCooldown.fillAmount = 1;
                 abilityDark.SetActive(true);
+                abilityBG.SetActive(true);
                 tracker.awardUpdate(flagChar, _vehicleInput.getPlayerNum());
             }
             ability.ActivateAbility();
-            
+            StartCoroutine(FillReset(abilityBG));
+
             return true;
+
         }
         return false;
     }
@@ -262,6 +274,13 @@ public class VehicleAbilityBehavior : MonoBehaviour
         }
     }
 
+
+    private IEnumerator FillReset(GameObject abilityBG)
+    {
+        yield return new WaitForSeconds(.1f);
+
+        abilityBG.SetActive(false);
+    }
     public void Activation()
     {
         abilitiesActivated = true;
