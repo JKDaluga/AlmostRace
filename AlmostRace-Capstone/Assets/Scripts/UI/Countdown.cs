@@ -16,9 +16,11 @@ public class Countdown : MonoBehaviour
     private TextMeshProUGUI _countText;
     private VehicleInput[] _arrV;
     private bool _startStatus = true;
+    RaceManager CountDownTrigger;
 
     void Start()    
     {
+        CountDownTrigger = FindObjectOfType<RaceManager>();
         _countText = GetComponent<TextMeshProUGUI>();
         StartCoroutine(countDown(timeLeft));
     }
@@ -38,6 +40,8 @@ public class Countdown : MonoBehaviour
         _arrV = FindObjectsOfType<VehicleInput>();
         turnOff(true);
         _startStatus = false;
+
+        CountDownTrigger.SetCountDown();
 
         gameObject.SetActive(false);
         AudioManager.instance.PlayWithoutSpatial("Countdown End");

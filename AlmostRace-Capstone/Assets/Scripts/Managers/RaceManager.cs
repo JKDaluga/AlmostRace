@@ -30,6 +30,8 @@ public class RaceManager : MonoBehaviour
 
     public bool inArena;
 
+    private bool inCountDown = true;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -88,12 +90,17 @@ public class RaceManager : MonoBehaviour
         eventPanel.SetActive(false);
     }
 
+    public void SetCountDown()
+    {
+        inCountDown = false;
+    }
+
     public float time;
     public string timeText;
 
     private void Update()
     {
-        if (FindObjectOfType<Countdown>() == null && !inArena)
+        if (inCountDown == false && !inArena)
         {
             time += Time.deltaTime;
             timeText = DataManager.instance.convertTime(time);

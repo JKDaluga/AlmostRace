@@ -17,7 +17,7 @@ public class ProjectileNormalizer : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         RaycastHit hitNear;
         Physics.Raycast(transform.position, Vector3.down, out hitNear, 5.0f, layerMask);
