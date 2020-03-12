@@ -60,7 +60,10 @@ public class PositionSetTrigger : MonoBehaviour
                     DataManager.instance.playerInfo[temp.playerID - 1].timerRace2 = rm.time;
                     previousPlace++;
                     place++;
-                    humansFinish++;
+                    if(DataManager.instance.playerInfo[temp.playerID - 1].isActive)
+                    {
+                        humansFinish++;
+                    }
                     if(humansFinish >= numHumans)
                     {
                         for(int i = temp.playerID; i < hm.vehicleList.Count; i++)

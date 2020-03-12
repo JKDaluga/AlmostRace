@@ -155,7 +155,7 @@ public class TurretBehavior2 : Interactable
             }
             else if (currentTarget != null)
             {
-                turretHead.LookAt(currentTarget.transform.position + (aimOffset * currentTarget.GetComponent<SphereCarController>().sphere.velocity));//look at current target
+               // turretHead.LookAt(currentTarget.transform.position + (aimOffset * currentTarget.GetComponent<SphereCarController>().sphere.velocity));//look at current target
             }
         }
         else
