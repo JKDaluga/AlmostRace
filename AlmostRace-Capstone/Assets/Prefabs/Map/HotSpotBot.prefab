@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 4423017334254600637}
   - component: {fileID: 4423017334254600624}
   - component: {fileID: 4423017334254600625}
-  - component: {fileID: 4026231163189118101}
   m_Layer: 0
   m_Name: HotSpotBot
   m_TagString: Untagged
@@ -64,26 +63,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &4026231163189118101
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4423017334254600627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e70e00590fe5c4459a9d0d7f24902f60, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  chaseSpeed: 100
-  farSpeed: 70
-  dropGracePeriod: 3
-  branchesToPlaceAhead: 1
-  setPositionSpeedMultiplier: 2
-  meshRenderer: {fileID: 536717341388879480}
-  botCollider: {fileID: 4423017334254600624}
-  hypeColliderObject: {fileID: 4423017334284669334}
 --- !u!1 &4423017334284669334
 GameObject:
   m_ObjectHideFlags: 0
@@ -285,12 +264,6 @@ PrefabInstance:
 --- !u!4 &1979343445534775327 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 34f9069eabbd74f6e9474a4c5389a4ba,
-    type: 3}
-  m_PrefabInstance: {fileID: 6774186448045257477}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &536717341388879480 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 6444777763475162493, guid: 34f9069eabbd74f6e9474a4c5389a4ba,
     type: 3}
   m_PrefabInstance: {fileID: 6774186448045257477}
   m_PrefabAsset: {fileID: 0}
