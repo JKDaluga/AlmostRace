@@ -17,8 +17,11 @@ public class ViewportController : MonoBehaviour
     public GameObject cover;
     public RawImage inactiveImage;
     public RawImage readyImage;
-    public GameObject InfoPanelHolder;
-    public RawImage[] InfoPanels = new RawImage[4];
+    public GameObject infoPanelHolder;
+    public GameObject[] infoPanels = new GameObject[4];
+    public GameObject[] vehicleDescriptionText;
+    public TextMeshProUGUI selectedVehicleText;
+    private TextMeshProUGUI[] _infoText;
     private TextMeshProUGUI _text;
 
     [Header("Display Vehicle Values")]
@@ -37,12 +40,17 @@ public class ViewportController : MonoBehaviour
         _text = playerNumDisplay.GetComponent<TextMeshProUGUI>();
         _vehicleCount = selectionManager.amountOfSelections;
         _rotateSelection = vehicleRotationHolder.GetComponent<RotateSelection>();
+        _infoText = new TextMeshProUGUI[infoPanels.Length];
+        for(int i = 0; i < _infoText.Length; i++)
+        {
+            _infoText[i] = infoPanels[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        }
 
         cover.SetActive(true);
         vehicleRotationHolder.SetActive(false);
         inactiveImage.enabled = true;
         readyImage.enabled = false;
-        InfoPanelHolder.SetActive(false);
+        infoPanelHolder.SetActive(false);
     }
 
     private void Update()
@@ -89,6 +97,7 @@ public class ViewportController : MonoBehaviour
                 {
                     selectedCarID = selectedCarID + 1;
                 }
+                AbilityInfoViewState();
             }
         }
         else if (Input.GetAxis(_playerInput.horizontal) < -0.3f)
@@ -105,6 +114,7 @@ public class ViewportController : MonoBehaviour
                 {
                     selectedCarID = selectedCarID - 1;
                 }
+                AbilityInfoViewState();
             }
         }
     }
@@ -113,7 +123,7 @@ public class ViewportController : MonoBehaviour
     {
         if(Input.GetButtonDown(_playerInput.bumperRight))
         {
-            if (_selectedInfoPanel >= InfoPanels.Length - 1)
+            if (_selectedInfoPanel >= infoPanels.Length - 1)
             {
                 _selectedInfoPanel = 0;
             }
@@ -121,39 +131,43 @@ public class ViewportController : MonoBehaviour
             {
                 _selectedInfoPanel = _selectedInfoPanel + 1;
             }
-            for (int i = 0; i < InfoPanels.Length; i++)
-            {
-                if (i == _selectedInfoPanel)
-                {
-                    InfoPanels[i].enabled = true;
-                }
-                else
-                {
-                    InfoPanels[i].enabled = false;
-                }
-            }
+            PanelViewState();
         }
         else if (Input.GetButtonDown(_playerInput.bumperLeft))
         {
             if (_selectedInfoPanel <= 0)
             {
-                _selectedInfoPanel = InfoPanels.Length - 1;
+                _selectedInfoPanel = infoPanels.Length - 1;
             }
             else
             {
                 _selectedInfoPanel = _selectedInfoPanel - 1;
             }
-            for (int i = 0; i < InfoPanels.Length; i++)
+            PanelViewState();
+        }
+    }
+
+    private void PanelViewState()
+    {
+        for (int i = 0; i < infoPanels.Length; i++)
+        {
+            if (i == _selectedInfoPanel)
             {
-                if (i == _selectedInfoPanel)
-                {
-                    InfoPanels[i].enabled = true;
-                }
-                else
-                {
-                    InfoPanels[i].enabled = false;
-                }
+                infoPanels[i].SetActive(true);
             }
+            else
+            {
+                infoPanels[i].SetActive(false);
+            }
+        }
+    }
+
+    private void AbilityInfoViewState()
+    {
+        selectedVehicleText.text = vehicleDescriptionText[selectedCarID].GetComponent<VehicleAbilityDescriptions>().GetVehicleName();
+        for (int i = 0; i < _infoText.Length; i++)
+        {
+            _infoText[i].text = vehicleDescriptionText[selectedCarID].GetComponent<VehicleAbilityDescriptions>().GetSelectecAbilityText(i).text;
         }
     }
     
@@ -166,7 +180,8 @@ public class ViewportController : MonoBehaviour
             _text.text = "PLAYER " + playerID;
             vehicleRotationHolder.SetActive(true);
             inactiveImage.enabled = false;
-            InfoPanelHolder.SetActive(true);
+            infoPanelHolder.SetActive(true);
+            AbilityInfoViewState();
             cover.SetActive(false);
 
         }
@@ -178,7 +193,7 @@ public class ViewportController : MonoBehaviour
             cover.SetActive(true);
             vehicleRotationHolder.SetActive(false);
             inactiveImage.enabled = true;
-            InfoPanelHolder.SetActive(false);
+            infoPanelHolder.SetActive(false);
             selectionManager.UpdateData(playerID, _ready, selectedCarID, 0);
         }
     }
@@ -189,14 +204,14 @@ public class ViewportController : MonoBehaviour
         {
             _ready = true;
             readyImage.enabled = true;
-            InfoPanelHolder.SetActive(false);
+            infoPanelHolder.SetActive(false);
             selectionManager.UpdateData(playerID, _ready, selectedCarID, _playerInput.GetPlayerNum());
         }
         else
         {
             _ready = false;
             readyImage.enabled = false;
-            InfoPanelHolder.SetActive(true);
+            infoPanelHolder.SetActive(true);
             selectionManager.UpdateData(playerID, _ready, selectedCarID, _playerInput.GetPlayerNum());
             
         }
