@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Cinemachine;
 
     /*
     Author: Jake Velicer
@@ -12,6 +13,8 @@ using UnityEngine.UI;
 
 public class VehicleAbilityBehavior : MonoBehaviour
 {
+    private RaycastCar rayCastCar;
+
     [Header ("Offensive Ability.................................................................................")]
     [Tooltip("Offensive Ability Script Slot")]
     public Ability offensiveAbility;
@@ -55,6 +58,11 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Tooltip("Length of ability duration in seconds.")]
     public float boostAbilityDuration = 3f;
     private bool _canBoost = true;
+    public CinemachineVirtualCamera cineCamera;
+    public float carFovStandard = 50f;
+    public float carFovBoost = 80f;
+    public float carFovChangeAmount = .1f;
+    public float carFovChangeRate = .1f;
     [Tooltip("Place UI element here.")]
     public Image boostAbilityCooldown;
 
@@ -84,6 +92,8 @@ public class VehicleAbilityBehavior : MonoBehaviour
             defensiveAbilityDark.SetActive(false);
             boostAbilityDark.SetActive(false);
             tracker = GetComponent<VehicleAwardsTracker>();
+
+            rayCastCar = GetComponent<RaycastCar>();
         }
     }
 
@@ -106,9 +116,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
             {
                 _canUseBasic = false;
                 offensiveAbility.AbilityInUse();
-                StartCoroutine(OffensiveAbilityCooldown());
-                
-                
+                StartCoroutine(OffensiveAbilityCooldown());              
             }
         }
 
@@ -130,15 +138,53 @@ public class VehicleAbilityBehavior : MonoBehaviour
             if (fireAbility(boostAbility, _canBoost, boostAbilityCooldown, boostAbilityDark, BoostAbilityBG, 'b'))
             {
                 _canBoost = false;
-                boostAbility.AbilityInUse();
+                boostAbility.AbilityInUse(); 
                 StartCoroutine(BoostAbilityCooldown());
                 StartCoroutine(BoostAbilityDuration());
-                GetComponent<RaycastCar>().isBoosting = true;
+                rayCastCar.isBoosting = true;
+                StartCoroutine(ChangeFOV());
                 AudioManager.instance.Play("Boost", transform);
             }
 
         }
         
+    }
+
+    private IEnumerator ChangeFOV()
+    {
+        Debug.Log("Change FOV was called!");
+        while(true)
+        {
+            if(rayCastCar.isBoosting == true)
+            {//you are boosting
+                Debug.Log("Car is boosting!");
+
+                if (cineCamera.m_Lens.FieldOfView < carFovBoost)
+                {
+                    Debug.Log("Car FOV was increased from: " + cineCamera.m_Lens.FieldOfView);
+                    cineCamera.m_Lens.FieldOfView += carFovChangeAmount;
+                    Debug.Log(" to: " + cineCamera.m_Lens.FieldOfView);
+                }
+                else
+                {
+                    cineCamera.m_Lens.FieldOfView = carFovBoost;
+                    yield break;
+                }
+            }
+            if(rayCastCar.isBoosting == false)
+            {
+                if (cineCamera.m_Lens.FieldOfView > carFovStandard)
+                {
+                    cineCamera.m_Lens.FieldOfView -= carFovChangeAmount;
+                }
+                else
+                {
+                    cineCamera.m_Lens.FieldOfView = carFovStandard;
+                    yield break;
+                }
+            }
+            yield return new WaitForSeconds(carFovChangeRate);
+        }
     }
 
     // Handles the ability call, on what input it is, if it can be used, and if it can be held down
@@ -250,9 +296,9 @@ public class VehicleAbilityBehavior : MonoBehaviour
         }
         boostAbility.DeactivateAbility();
         boostAbility.AbilityOnCooldown();
-        GetComponent<RaycastCar>().cheatPhysics();
-
-        GetComponent<RaycastCar>().isBoosting = false;
+        rayCastCar.cheatPhysics();
+        rayCastCar.isBoosting = false;
+        StartCoroutine(ChangeFOV());
     }
 
     private void getInput()
