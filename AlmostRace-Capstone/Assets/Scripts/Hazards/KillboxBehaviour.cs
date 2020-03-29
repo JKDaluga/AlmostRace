@@ -11,8 +11,10 @@ public class KillboxBehaviour : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Collided: " + other);
         if (other.gameObject.GetComponent<CarHealthBehavior>() != null)
-        {//if other is a car
+        {
+            //if other is a car
             other.gameObject.GetComponent<CarHealthBehavior>().DamageCarTrue(other.gameObject.GetComponent<CarHealthBehavior>().healthCurrent);
         }
     }
