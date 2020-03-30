@@ -24,6 +24,7 @@ public class VoidWasp_Attack : Ability
     [Tooltip("How fast the projectile corrects its direction toward the target")] public float turnRate;
     [Tooltip("Wait time between each projectile fired in a sequence")] public float timeBetweenLaunch = 0.15f;
     [Tooltip("How long the projectile waits till it tracks")] public float hangTime;
+    [Tooltip("How long the projectile lives max")] public float maxLifeTime = 7;
     public float hypeToGain;
     private List<GameObject> _objectsInRange = new List<GameObject>();
 
@@ -62,7 +63,7 @@ public class VoidWasp_Attack : Ability
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetImmunePlayer(gameObject);
             //AudioManager.instance.Play("VoidWasp Shot", transform);
             AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot");
-            Destroy(currentProjectile, 7);
+            Destroy(currentProjectile, maxLifeTime);
             yield return new WaitForSeconds(timeBetweenLaunch);
             if((currentSpawnLocation + 1) < (rocketSpawnPositions.Length - 1))
             { //makes sure we don't go out of bounds on our missile launcher muzzles

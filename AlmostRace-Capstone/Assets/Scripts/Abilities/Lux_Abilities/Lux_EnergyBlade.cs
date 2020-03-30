@@ -6,17 +6,13 @@ using UnityEngine;
 
 public class Lux_EnergyBlade : Projectile
 {
-    // Start is called before the first frame update
+    public int lifeTime = 7;
     private List<GameObject> _immuneCars;
     private Interactable hitInteractable;
     private float _growthRate;
-
     private float _growthAmount;
-
     private float _growthLimit;
-
     private int _debugInt;
-
     private CarHealthBehavior carHit;
 
     void Start()
@@ -24,6 +20,7 @@ public class Lux_EnergyBlade : Projectile
         _immuneCars = new List<GameObject>();
         GiveSpeed();
         InvokeRepeating("Grow", 0, _growthRate);
+        Destroy(gameObject, lifeTime);
     }
 
     public void GiveInfo(float growthRate, float growthAmount, float growthLimit)

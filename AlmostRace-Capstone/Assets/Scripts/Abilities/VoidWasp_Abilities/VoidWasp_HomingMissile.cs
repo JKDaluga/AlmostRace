@@ -10,21 +10,18 @@ using UnityEngine;
 
 public class VoidWasp_HomingMissile : Projectile
 {
+    public GameObject explodeVFX;
     private GameObject _target;
     private Quaternion _missileTargetRotation;
     private float _turnRate;
     private float _hangTime;
     private bool _canTrack;
 
-    public GameObject explodeVFX;
-
     private CarHealthBehavior carHit;
-
     private void Start()
     {
         GiveSpeed();
         StartCoroutine(hangTimeSequence());
-       
     }
 
     public void SetAdditionalInfo(GameObject giventTarget, float givenTurnRate, float givenHangTime)
@@ -78,7 +75,7 @@ public class VoidWasp_HomingMissile : Projectile
             else
             {
                 Instantiate(explodeVFX, transform.position, transform.rotation);
-              //  AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot Hit");
+                //AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot Hit");
                 Destroy(gameObject);
             }
          

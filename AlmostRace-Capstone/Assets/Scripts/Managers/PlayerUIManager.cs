@@ -96,12 +96,9 @@ public class PlayerUIManager : MonoBehaviour
             _heightOffset = 0.09f;
         }
 
-       /* switch(playerNum)
+        switch(playerNum)
         {
             case 1: //is player 1
-                hypeText.color = Color.cyan;
-                hypeDisplay.sprite = hypeDisplayColors[playerNum - 1];
-                poleBean.sprite = beanSprites[playerNum - 1];
                 if (numPlayers == 2)
                 {
                     offSetVector = new Vector3(0, localCam.pixelHeight, 0);
@@ -113,9 +110,6 @@ public class PlayerUIManager : MonoBehaviour
                 break;
 
             case 2: //is player 2
-                hypeText.color = Color.yellow;
-                hypeDisplay.sprite = hypeDisplayColors[playerNum - 1];
-                poleBean.sprite = beanSprites[playerNum - 1];
                 if(numPlayers >= 3)
                 {
                     offSetVector = new Vector3(localCam.pixelWidth, localCam.pixelHeight, 0);
@@ -123,20 +117,18 @@ public class PlayerUIManager : MonoBehaviour
                 break;
 
             case 3: //is player 3
-                hypeText.color = Color.green;
-                hypeDisplay.sprite = hypeDisplayColors[playerNum - 1];
-                poleBean.sprite = beanSprites[playerNum - 1];
                 offSetVector = new Vector3(0, 0, 0);
                 break;
 
             case 4: //is player 4
-                hypeText.color = Color.red;
-                hypeDisplay.sprite = hypeDisplayColors[playerNum - 1];
-                poleBean.sprite = beanSprites[playerNum - 1];
                 offSetVector = new Vector3(localCam.pixelWidth, 0, 0);
                 break;
 
-        }*/
+        }
+        //Legacy Hype and Pole position Setters, Assigned per player
+        //hypeText.color = Color.cyan;
+        //hypeDisplay.sprite = hypeDisplayColors[playerNum - 1];
+        //poleBean.sprite = beanSprites[playerNum - 1];
     }
 
     void Update()
@@ -157,12 +149,10 @@ public class PlayerUIManager : MonoBehaviour
         TextMeshProUGUI currentText;
         GameObject currentExclamation;
         Vector3 targetPos, relativePos;
-
         float currentDistance, x;
 
         if (_attacksInRange.Count > 0)
         {
-            //Debug.Log(_attacksInRange.Count);
             for (int i = 0; i < _attacksInRange.Count; i++)
             {
                 if (_attacksInRange[i] == null)
