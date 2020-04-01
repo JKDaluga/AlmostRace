@@ -15,13 +15,19 @@ public class Lux_BoostAbility : CooldownHeatAbility
     private RaycastCar carInfo;
     private bool isBoosting = false;
 
-    [Range(0, 1)]
+    [Header("Movement Values")]
+    [Range(0, 100)]
+    [Tooltip("The percentage speed increase added to the top speed while boosting.")]
     public float boostSpeedPercentage;
 
+    [Tooltip("The percentage of the original maxTurnAngle the car is allowed during a boost.")]
+    [Range(0, 100)]
+    public float maxBoostTurnAngle;
+    private float originalMaxTurnAngle;
    //[Range(0, 100)]
    //public float boostTopSpeedPercentage;
 
-    [Header("Jet engine effect")]
+    [Header("Visuals: Jet engine effect")]
     [Tooltip("Set Lux booster particle effect")]
     public ParticleSystem jetParticles;
     public ParticleSystem jetParticles2;
@@ -39,6 +45,8 @@ public class Lux_BoostAbility : CooldownHeatAbility
     {
         carInfo = gameObject.GetComponent<RaycastCar>();
         carHeatInfo = gameObject.GetComponent<CarHealthBehavior>();
+        originalMaxTurnAngle = carInfo.maxTurnAngle;
+
     }
 
     public override void ActivateAbility()
@@ -46,7 +54,7 @@ public class Lux_BoostAbility : CooldownHeatAbility
        if(!isBoosting)
         {
             isBoosting = true;
-            carInfo.setBoostSpeed(boostSpeedPercentage);
+            carInfo.setBoostSpeed(boostSpeedPercentage / 100);
             // Set the new jet particle speed
             var jpMain = jetParticles.main;
             var jpMain2 = jetParticles2.main;
@@ -58,8 +66,8 @@ public class Lux_BoostAbility : CooldownHeatAbility
             jpMain.startSpeed = jetIncrease;
             jpMain2.startSpeed = jetIncrease;
             jpMain3.startSpeed = jetIncrease;
-
-            AddHeat();
+            carInfo.maxTurnAngle = originalMaxTurnAngle * (maxBoostTurnAngle / 100);
+            //AddHeat();
         }
        
        //carInfo.SetBoostInfo(boostSpeedPercentage);              
@@ -78,11 +86,12 @@ public class Lux_BoostAbility : CooldownHeatAbility
         jpMain3.startSpeed = _originalJetSpeed2;
 
         isBoosting = false;
+        carInfo.maxTurnAngle = originalMaxTurnAngle;
     }
 
     protected override void AddHeat()
     {
-       carHeatInfo.DamageCarTrue(selfHeatDamage);
+      // carHeatInfo.DamageCarTrue(selfHeatDamage);
     }
 
 
