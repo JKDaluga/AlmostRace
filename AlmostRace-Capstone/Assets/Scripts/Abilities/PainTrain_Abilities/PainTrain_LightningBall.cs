@@ -106,7 +106,10 @@ public class PainTrain_LightningBall : Projectile
     {
         while(hasStuckCar)
         {
-            gameObject.transform.position = gameObject.transform.parent.position;
+            if(gameObject.transform.parent != null)
+            {
+                gameObject.transform.position = gameObject.transform.parent.position;
+            }         
             yield return null;
         }
     }
