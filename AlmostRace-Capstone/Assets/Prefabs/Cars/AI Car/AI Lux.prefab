@@ -29137,18 +29137,18 @@ MonoBehaviour:
   frontRightRayCast: {fileID: 0}
   rearLeftRayCast: {fileID: 0}
   rearRightRayCast: {fileID: 0}
-  gravity: 300
-  power: 3500
-  maxSpeed: 260
-  maxTurnAngle: 10
-  carGrip: 300
-  turnSpeed: 3
-  driftStrength: 6
+  gravity: 100
+  power: 4000
+  maxSpeed: 200
+  maxTurnAngle: 1.25
+  carGrip: 100
+  turnSpeed: 2
+  driftStrength: 1.5
   springFallDisengangeSpeed: 50
-  spring: 4000
-  deceleration: 2
+  spring: 1250
+  deceleration: 1
   turnBackMultiplier: 5
-  boostAccelerationMulti: 1.5
+  boostAccelerationMulti: 1
   isBoosting: 0
   closestIndex: 0
 --- !u!114 &5418076574753482654
@@ -29265,8 +29265,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selfHeatDamage: 0
-  boostSpeedPercentage: 50
-  maxBoostTurnAngle: 0
+  boostSpeedPercentage: 25
+  maxBoostTurnAngle: 50
   jetParticles: {fileID: 4473989575951486004}
   jetParticles2: {fileID: 4198055843456913071}
   jetParticles3: {fileID: 6869040291610198151}
@@ -29307,9 +29307,9 @@ MonoBehaviour:
   offsetAngle: 10
   nodesToLookAhead: 5
   MineOffset: 10
-  InterstellarOffset: 5
+  InterstellarOffset: 10
   MineNodes: 5
-  InterstellarNodes: 20
+  InterstellarNodes: 5
   MineMap: 3
   Interstellar: 4
   thisCar: {fileID: 6894343742012296677}

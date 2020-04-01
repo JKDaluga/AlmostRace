@@ -75,6 +75,8 @@ public class AIBehaviour : MonoBehaviour
         RaceManager rc = FindObjectOfType<RaceManager>();
         orderedSplines = rc.orderedSplines;
 
+        print(SceneManager.GetActiveScene().buildIndex == Interstellar);
+
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(MineMap))
         {
             nodesToLookAhead = MineNodes;
@@ -83,7 +85,7 @@ public class AIBehaviour : MonoBehaviour
         else if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(Interstellar))
         {
             nodesToLookAhead = InterstellarNodes;
-            offsetAngle = InterstellarNodes;
+            offsetAngle = InterstellarOffset;
         }
 
         splineIndex = 0;
