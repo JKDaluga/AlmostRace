@@ -13,7 +13,7 @@ using Cinemachine;
 
 public class VehicleAbilityBehavior : MonoBehaviour
 {
-    private RaycastCar rayCastCar;
+    public RaycastCar rayCastCar;
 
     [Header ("Offensive Ability.................................................................................")]
     [Tooltip("Offensive Ability Script Slot")]
@@ -93,7 +93,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
             boostAbilityDark.SetActive(false);
             tracker = GetComponent<VehicleAwardsTracker>();
 
-            rayCastCar = GetComponent<RaycastCar>();
+            //rayCastCar = GetComponent<RaycastCar>();
         }
     }
 
@@ -152,35 +152,41 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     private IEnumerator ChangeFOV()
     {
-        Debug.Log("Change FOV was called!");
+       // Debug.Log("Change FOV was called!");
         while(true)
         {
             if(rayCastCar.isBoosting == true)
             {//you are boosting
-                Debug.Log("Car is boosting!");
-
-                if (cineCamera.m_Lens.FieldOfView < carFovBoost)
-                {
-                    Debug.Log("Car FOV was increased from: " + cineCamera.m_Lens.FieldOfView);
-                    cineCamera.m_Lens.FieldOfView += carFovChangeAmount;
-                    Debug.Log(" to: " + cineCamera.m_Lens.FieldOfView);
+               // Debug.Log("Car is boosting!");
+               if(_vehicleInput != null)
+                { // if human player
+                    if (cineCamera.m_Lens.FieldOfView < carFovBoost)
+                    {
+                        //Debug.Log("Car FOV was increased from: " + cineCamera.m_Lens.FieldOfView);
+                        cineCamera.m_Lens.FieldOfView += carFovChangeAmount;
+                        // Debug.Log(" to: " + cineCamera.m_Lens.FieldOfView);
+                    }
+                    else
+                    {
+                        cineCamera.m_Lens.FieldOfView = carFovBoost;
+                        yield break;
+                    }
                 }
-                else
-                {
-                    cineCamera.m_Lens.FieldOfView = carFovBoost;
-                    yield break;
-                }
+               
             }
             if(rayCastCar.isBoosting == false)
             {
-                if (cineCamera.m_Lens.FieldOfView > carFovStandard)
-                {
-                    cineCamera.m_Lens.FieldOfView -= carFovChangeAmount;
-                }
-                else
-                {
-                    cineCamera.m_Lens.FieldOfView = carFovStandard;
-                    yield break;
+                if (_vehicleInput != null)
+                { // if human player
+                    if (cineCamera.m_Lens.FieldOfView > carFovStandard)
+                    {
+                        cineCamera.m_Lens.FieldOfView -= carFovChangeAmount;
+                    }
+                    else
+                    {
+                        cineCamera.m_Lens.FieldOfView = carFovStandard;
+                        yield break;
+                    }
                 }
             }
             yield return new WaitForSeconds(carFovChangeRate);

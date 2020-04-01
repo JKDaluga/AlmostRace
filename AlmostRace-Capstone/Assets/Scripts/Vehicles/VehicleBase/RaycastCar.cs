@@ -406,6 +406,11 @@ public class RaycastCar : MonoBehaviour
         boostPadSpeed = maxSpeed * percentage;
     }
 
+    public void resetBoostPadSpeed()
+    {
+        boostPadSpeed = 0;
+    }
+
     public Vector3 getClosestVertex()
     {
         return closestVertex;

@@ -136,7 +136,7 @@ Transform:
   m_GameObject: {fileID: 586460630184781704}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 411.62, y: 2.17, z: -4096.1343}
-  m_LocalScale: {x: 0.1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1, y: 10, z: 1}
   m_Children:
   - {fileID: 1326825698491232393}
   - {fileID: 8086804919771748265}
@@ -247,6 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 6906157179175926569}
+  lifeTime: 7
 --- !u!1001 &8086804919772138797
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -306,6 +307,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 400002, guid: c51df3b8c3de09b42aaea401cde32ac7, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c51df3b8c3de09b42aaea401cde32ac7, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 100002, guid: c51df3b8c3de09b42aaea401cde32ac7, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 19800000, guid: c51df3b8c3de09b42aaea401cde32ac7, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
       value: 1
@@ -362,18 +375,6 @@ PrefabInstance:
     - target: {fileID: 19800000, guid: c51df3b8c3de09b42aaea401cde32ac7, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 400002, guid: c51df3b8c3de09b42aaea401cde32ac7, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100002, guid: c51df3b8c3de09b42aaea401cde32ac7, type: 3}
-      propertyPath: m_Layer
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 100000, guid: c51df3b8c3de09b42aaea401cde32ac7, type: 3}
-      propertyPath: m_Layer
-      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: c51df3b8c3de09b42aaea401cde32ac7, type: 3}
       propertyPath: _sortParticleOnDistance

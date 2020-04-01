@@ -28,7 +28,7 @@ public class TurretProjectileBehavior : Projectile
     private void OnTriggerEnter(Collider other)
     {
 
-        Debug.Log("laserbolt collided with: " + other.gameObject.name);
+        //Debug.Log("laserbolt collided with: " + other.gameObject.name);
         if (other.gameObject.GetComponent<Interactable>() != null && other.gameObject != _aggroObject)
         {//Checks if the object isn't the immunePlayer and if they are an interactable object.
 
@@ -37,7 +37,7 @@ public class TurretProjectileBehavior : Projectile
                 //  Debug.Log("Damage done to: " + other.gameObject.name + " " + _projectileDamage);
                 if (other.gameObject.GetComponent<TurretBehavior>() == null)
                 {
-                   // Debug.Log("object hit:" + other.gameObject.name);
+                    // Debug.Log("object hit:" + other.gameObject.name);
                     other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
                     Destroy(gameObject);
                     // StartCoroutine(ExplosionEffect());
@@ -52,8 +52,12 @@ public class TurretProjectileBehavior : Projectile
             other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = .4f;
 
             other.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
-            
+
             //Debug.Log("Damage done to player: " + _projectileDamage);
+            StartCoroutine(ExplosionEffect());
+        }
+        else if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        {
             StartCoroutine(ExplosionEffect());
         }
         else
