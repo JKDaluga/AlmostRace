@@ -11,22 +11,25 @@ using Cinemachine;
 
 public class TurretProjectileBehavior : Projectile
 {
-
+    private GameObject _aggroObject;
     public void Start()
     {
         GiveSpeed();
     }
 
-    public void SetProjectileInfo(float projectileDamage, float projectileSpeed, GameObject immunePlayer)
+    public void SetProjectileInfo(float projectileDamage, float projectileSpeed, GameObject immunePlayer, GameObject aggroObject)
     {
         _projectileDamage = projectileDamage;
         _projectileSpeed = projectileSpeed;
         _immunePlayer = immunePlayer;
+        _aggroObject = aggroObject;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Interactable>() != null)
+
+        Debug.Log("laserbolt collided with: " + other.gameObject.name);
+        if (other.gameObject.GetComponent<Interactable>() != null && other.gameObject != _aggroObject)
         {//Checks if the object isn't the immunePlayer and if they are an interactable object.
 
             if (!other.gameObject.CompareTag("Projectile"))
@@ -55,7 +58,7 @@ public class TurretProjectileBehavior : Projectile
         }
         else
         {
-            StartCoroutine(ExplosionEffect());
+            Destroy(gameObject, 10);
         }
 
 
