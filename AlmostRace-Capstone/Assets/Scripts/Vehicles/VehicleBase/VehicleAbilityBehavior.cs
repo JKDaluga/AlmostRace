@@ -58,11 +58,11 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Tooltip("Length of ability duration in seconds.")]
     public float boostAbilityDuration = 3f;
     private bool _canBoost = true;
-    public CinemachineVirtualCamera cineCamera;
-    public float carFovStandard = 50f;
-    public float carFovBoost = 80f;
-    public float carFovChangeAmount = .1f;
-    public float carFovChangeRate = .1f;
+    //public CinemachineVirtualCamera cineCamera;
+   // public float carFovStandard = 50f;
+   // public float carFovBoost = 80f;
+   // public float carFovChangeAmount = .1f;
+   // public float carFovChangeRate = .1f;
     [Tooltip("Place UI element here.")]
     public Image boostAbilityCooldown;
 
@@ -142,7 +142,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
                 StartCoroutine(BoostAbilityCooldown());
                 StartCoroutine(BoostAbilityDuration());
                 rayCastCar.isBoosting = true;
-                StartCoroutine(ChangeFOV());
+            //    StartCoroutine(ChangeFOV());
                 AudioManager.instance.Play("Boost", transform);
             }
 
@@ -150,7 +150,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         
     }
 
-    private IEnumerator ChangeFOV()
+    /*private IEnumerator ChangeFOV()
     {
        // Debug.Log("Change FOV was called!");
         while(true)
@@ -191,7 +191,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
             }
             yield return new WaitForSeconds(carFovChangeRate);
         }
-    }
+    }*/
 
     // Handles the ability call, on what input it is, if it can be used, and if it can be held down
     private bool fireAbility(Ability ability, bool canFire, Image abilityCooldown, GameObject abilityDark, GameObject abilityBG, char flagChar)
@@ -304,7 +304,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         boostAbility.AbilityOnCooldown();
         rayCastCar.cheatPhysics();
         rayCastCar.isBoosting = false;
-        StartCoroutine(ChangeFOV());
+        //StartCoroutine(ChangeFOV());
     }
 
     private void getInput()

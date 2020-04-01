@@ -7,8 +7,8 @@ public class SpeedBoostCrystal : MonoBehaviour
     public float speedBoostPercentage;
     public float boostTime = 3f;
     public bool isActive = false;
-    private List<RaycastCar> _boostedCars;
-    private RaycastCar carToAdd;
+    private List<RaycastCar> _boostedCars = new List<RaycastCar>();
+    private RaycastCar _carToAdd;
 
     public void ActivateCrystal()
     {
@@ -21,17 +21,24 @@ public class SpeedBoostCrystal : MonoBehaviour
         {
             if(other.gameObject.GetComponent<RaycastCar>() != null)
             {
-                carToAdd = other.gameObject.GetComponent<RaycastCar>();
-                if (_boostedCars.Contains(carToAdd))
-                _boostedCars.Add(carToAdd);
-                other.gameObject.GetComponent<RaycastCar>().setBoostPadSpeed(speedBoostPercentage);
+                _carToAdd = other.gameObject.GetComponent<RaycastCar>();
+                if (_boostedCars.Contains(_carToAdd))
+                {
+                    _boostedCars.Add(_carToAdd);
+                    other.gameObject.GetComponent<RaycastCar>().SetBoostPadSpeed(speedBoostPercentage);
+                    StartCoroutine(ResetBoost(boostTime, _carToAdd));
+                }
+              
             }
         }
-       // StartCoroutine(ResetBoost());
+        
     }
 
-   // public IEnumerator ResetBoost()
-   // {
-        //other.gameObject.GetComponent<RaycastCar>().res
-    //}
+    public IEnumerator ResetBoost(float timeToReset, RaycastCar carToReset)
+    {
+        yield return new WaitForSeconds(timeToReset);
+
+        carToReset.gameObject.GetComponent<RaycastCar>().ResetBoostPadSpeed();
+        _boostedCars.Remove(carToReset);
+    }
 }

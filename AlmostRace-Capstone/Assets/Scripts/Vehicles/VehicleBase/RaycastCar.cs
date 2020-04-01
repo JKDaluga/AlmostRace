@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Cinemachine;
 
 public class RaycastCar : MonoBehaviour
 {
@@ -44,6 +45,7 @@ public class RaycastCar : MonoBehaviour
 
     // the physical transforms for the car's wheels
     [Header("Wheels")]
+    RaycastHit hit;
     public Transform frontLeftWheel;
     public Transform frontRightWheel;
     public Transform rearLeftWheel;
@@ -73,6 +75,12 @@ public class RaycastCar : MonoBehaviour
 
     private float slideSpeed;
     public bool isBoosting;
+
+    [Header("FOV Variables")]
+    public CinemachineVirtualCamera cineCamera;
+    public float minFOV = 40;
+    public float maxFOV = 70;
+    public float currentFOV = 40;
 
     private Vector3 carRight;
     private Vector3 carFwd;
@@ -248,6 +256,8 @@ public class RaycastCar : MonoBehaviour
         relativeAngularVel = carTransform.InverseTransformDirection(carRigidbody.angularVelocity);
         currentTurnSpeed = Mathf.Abs(relativeAngularVel.y);
 
+
+
         // calculate engine force with our flat direction vector and acceleration
         engineForce = (flatDir * (power * (throttle - reverse)) * carMass);
 
@@ -257,7 +267,16 @@ public class RaycastCar : MonoBehaviour
             engineForce += (flatDir * (power * boostAccelerationMulti )* carMass);
             //print((flatDir * (power * (throttle - reverse)) * carMass) - ((flatDir * (power * boostAccelerationMulti) * carMass)));
         }
-        
+
+        ///FOV STUFF
+        if(input != null)
+        {
+            cineCamera.m_Lens.FieldOfView = (maxFOV - minFOV) * (currentSpeed / maxSpeed) + minFOV;
+            currentFOV = (maxFOV - minFOV) * (currentSpeed / maxSpeed) + minFOV;
+        }
+
+
+
         // do turning
         actualTurn = horizontal;
 
@@ -342,7 +361,7 @@ public class RaycastCar : MonoBehaviour
         carRigidbody.AddForce(imp * Time.deltaTime);
 
 
-        RaycastHit hit;
+ 
         if (Physics.Raycast(transform.position, carUp, out hit, 5f, LayerMask.GetMask("Ground")))
         {
             GetComponent<CarHealthBehavior>().Kill();
@@ -401,12 +420,12 @@ public class RaycastCar : MonoBehaviour
         return boostSpeed;
     }
 
-    public void setBoostPadSpeed(float percentage)
+    public void SetBoostPadSpeed(float percentage)
     {
         boostPadSpeed = maxSpeed * percentage;
     }
 
-    public void resetBoostPadSpeed()
+    public void ResetBoostPadSpeed()
     {
         boostPadSpeed = 0;
     }
