@@ -90,7 +90,7 @@ public abstract class Projectile : MonoBehaviour
         _isAlive = false;
         _rigidBody.velocity = Vector3.zero;
         _rigidBody.useGravity = false;
-        _rigidBody.isKinematic = true;
+       // _rigidBody.isKinematic = true;
          meshRenderer.enabled = false;     
             yield return null;
         Destroy(gameObject);

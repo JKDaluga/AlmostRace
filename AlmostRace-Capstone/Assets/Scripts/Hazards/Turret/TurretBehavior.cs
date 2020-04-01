@@ -136,7 +136,7 @@ public class TurretBehavior : Interactable
     {
         if(currentTarget != null)
         {
-
+            //  Debug.Log("Turret should be aiming");
             /*if (m_lastKnownPosition != currentTarget.transform.position)
             {
                 m_lastKnownPosition = currentTarget.transform.position;
@@ -151,6 +151,9 @@ public class TurretBehavior : Interactable
             Vector3 pos = predictedPosition(currentTarget.transform.position, turretMuzzle.position, currentTarget.GetComponent<RaycastCar>().GetRelativeVelocity(), turretProjectileSpeed);
 
             turretHead.LookAt(pos);//look at current target
+
+
+            //turretHead.LookAt(currentTarget.transform);
         }
         else
         {
@@ -176,16 +179,20 @@ public class TurretBehavior : Interactable
 
     public void FireTurret()
     {
+        Debug.Log("Turret should be firing!");
         AudioManager.instance.Play("Turret Shot", transform);//play firing sound
         GameObject spawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
         if(!shootsBoulders)
         {
-            spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
+            spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject, aggroObject);
+           // Debug.Log("Turret fired a laser!");
 
         }
         else
         {
             spawnedProjectile.GetComponent<Rigidbody>().velocity = transform.TransformDirection(Vector3.forward * turretProjectileSpeed);
+           // Debug.Log("Turret fired a boulder!");
+
         }
         if (spraysBullets && !shootsBoulders)
         {
@@ -193,7 +200,7 @@ public class TurretBehavior : Interactable
             for(int i = 0; i < extraBulletsToSpray; i++)
             {
                 GameObject extraSpawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
-                extraSpawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject);
+                extraSpawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject, aggroObject);
                 extraSpawnedProjectile.transform.Rotate(Random.Range(-.5f, .5f), Random.Range(-2,2), Random.Range(-.5f, .5f));
             }
            
