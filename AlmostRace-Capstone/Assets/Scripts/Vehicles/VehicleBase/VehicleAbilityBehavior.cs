@@ -152,18 +152,18 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     private IEnumerator ChangeFOV()
     {
-        Debug.Log("Change FOV was called!");
+       // Debug.Log("Change FOV was called!");
         while(true)
         {
             if(rayCastCar.isBoosting == true)
             {//you are boosting
-                Debug.Log("Car is boosting!");
+               // Debug.Log("Car is boosting!");
 
                 if (cineCamera.m_Lens.FieldOfView < carFovBoost)
                 {
                     Debug.Log("Car FOV was increased from: " + cineCamera.m_Lens.FieldOfView);
                     cineCamera.m_Lens.FieldOfView += carFovChangeAmount;
-                    Debug.Log(" to: " + cineCamera.m_Lens.FieldOfView);
+                   // Debug.Log(" to: " + cineCamera.m_Lens.FieldOfView);
                 }
                 else
                 {

@@ -28,7 +28,7 @@ public class TurretProjectileBehavior : Projectile
     private void OnTriggerEnter(Collider other)
     {
 
-        Debug.Log("laserbolt collided with: " + other.gameObject.name);
+        //Debug.Log("laserbolt collided with: " + other.gameObject.name);
         if (other.gameObject.GetComponent<Interactable>() != null && other.gameObject != _aggroObject)
         {//Checks if the object isn't the immunePlayer and if they are an interactable object.
 

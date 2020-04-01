@@ -27,11 +27,11 @@ public class SpeedBoostCrystal : MonoBehaviour
                 other.gameObject.GetComponent<RaycastCar>().setBoostPadSpeed(speedBoostPercentage);
             }
         }
-        Invoke("ResetBoost", boostTime);
+       // StartCoroutine(ResetBoost());
     }
 
-    public void ResetBoost()
-    {
-        other.gameObject.GetComponent<RaycastCar>().res
-    }
+   // public IEnumerator ResetBoost()
+   // {
+        //other.gameObject.GetComponent<RaycastCar>().res
+    //}
 }
