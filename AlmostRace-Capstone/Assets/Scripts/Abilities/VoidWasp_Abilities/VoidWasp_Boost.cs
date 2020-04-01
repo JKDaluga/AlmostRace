@@ -12,7 +12,19 @@ using UnityEngine;
 
 public class VoidWasp_Boost : CooldownHeatAbility
 {
-    [Range(0, 1)] public float boostSpeedPercentage;
+
+    [Header("Movement Values")]
+
+    [Tooltip("The percentage speed increase added to the top speed while boosting.")]
+    [Range(0, 100)] public float boostSpeedPercentage;
+
+    [Tooltip("The percentage of the original maxTurnAngle the car is allowed during a boost.")]
+    [Range(0, 100)]
+    public float maxBoostTurnAngle;
+
+    private float originalMaxTurnAngle;
+
+    [Header("Combat Values")]
     public float healthLossActivateAmount = 25;
     private float currentBoostPercentage;
     public GameObject[] companions;
@@ -24,6 +36,7 @@ public class VoidWasp_Boost : CooldownHeatAbility
     {
         carInfo = gameObject.GetComponent<RaycastCar>();
         carHeatInfo = gameObject.GetComponent<CarHealthBehavior>();
+        originalMaxTurnAngle = carInfo.maxTurnAngle;
     }
 
     public override void ActivateAbility()
@@ -31,8 +44,9 @@ public class VoidWasp_Boost : CooldownHeatAbility
         if(!isBoosting)
         {
             isBoosting = true;
-            currentBoostPercentage = boostSpeedPercentage;
+            currentBoostPercentage = (boostSpeedPercentage / 100);
             carInfo.setBoostSpeed(currentBoostPercentage);
+            carInfo.maxTurnAngle = originalMaxTurnAngle * (maxBoostTurnAngle / 100);
             for (int i = 0; i < companions.Length; i++)
             {
                 companions[i].SetActive(true);
@@ -71,7 +85,7 @@ public class VoidWasp_Boost : CooldownHeatAbility
                     }
                 }
             }
-            if (currentBoostPercentage <= boostSpeedPercentage * 0.50f)
+            if (currentBoostPercentage <= (boostSpeedPercentage/ 100) * 0.50f)
             {
                 DeactivateAbility();
             }
@@ -89,6 +103,8 @@ public class VoidWasp_Boost : CooldownHeatAbility
             Instantiate(explodeVFX, companions[i].transform.position, companions[i].transform.rotation);
             AudioManager.instance.Play("VoidWasp Companion Death", transform);
         }
+
+        carInfo.maxTurnAngle = originalMaxTurnAngle;
         isBoosting = false;
     }
 
