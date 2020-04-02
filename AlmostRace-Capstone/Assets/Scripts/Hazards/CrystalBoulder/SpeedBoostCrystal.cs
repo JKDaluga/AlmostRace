@@ -25,7 +25,7 @@ public class SpeedBoostCrystal : MonoBehaviour
                 if (!_boostedCars.Contains(_carToAdd))
                 {
                     _boostedCars.Add(_carToAdd);
-                    other.gameObject.GetComponent<RaycastCar>().SetBoostPadSpeed(speedBoostPercentage);
+                    other.gameObject.GetComponent<RaycastCar>().SetBoostPadSpeed(speedBoostPercentage / 100);
                     StartCoroutine(ResetBoost(boostTime, _carToAdd));
                 }
               
