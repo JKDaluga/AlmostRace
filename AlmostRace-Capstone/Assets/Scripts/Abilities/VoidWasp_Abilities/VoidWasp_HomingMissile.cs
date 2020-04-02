@@ -13,6 +13,7 @@ public class VoidWasp_HomingMissile : Projectile
     public GameObject explodeVFX;
     private GameObject _target;
     private Quaternion _missileTargetRotation;
+    private CarHealthBehavior _carHealthStatus;
     private float _turnRate;
     private float _hangTime;
     private bool _canTrack;
@@ -22,6 +23,7 @@ public class VoidWasp_HomingMissile : Projectile
     {
         GiveSpeed();
         StartCoroutine(hangTimeSequence());
+        _carHealthStatus = _target.GetComponent<CarHealthBehavior>();
     }
 
     public void SetAdditionalInfo(GameObject giventTarget, float givenTurnRate, float givenHangTime)
@@ -69,6 +71,11 @@ public class VoidWasp_HomingMissile : Projectile
         {
             if(_target != null)
             {
+                if (_carHealthStatus != null && _carHealthStatus.healthCurrent <= 0)
+                {
+                    Destroy(gameObject);
+                }
+
                 _missileTargetRotation = Quaternion.LookRotation(_target.transform.position - transform.position);
                 _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, _missileTargetRotation, _turnRate));
             }
