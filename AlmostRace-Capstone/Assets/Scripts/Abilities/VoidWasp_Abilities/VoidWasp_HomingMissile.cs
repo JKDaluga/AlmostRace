@@ -71,10 +71,7 @@ public class VoidWasp_HomingMissile : Projectile
         {
             if(_target != null)
             {
-                if (_carHealthStatus != null && _carHealthStatus.healthCurrent <= 0)
-                {
-                    Destroy(gameObject);
-                }
+                
 
                 _missileTargetRotation = Quaternion.LookRotation(_target.transform.position - transform.position);
                 _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, _missileTargetRotation, _turnRate));
@@ -86,6 +83,11 @@ public class VoidWasp_HomingMissile : Projectile
                 Destroy(gameObject);
             }
          
+        }
+
+        if (_carHealthStatus != null && _carHealthStatus.healthCurrent <= 0)
+        {
+            Destroy(gameObject);
         }
     }
 }
