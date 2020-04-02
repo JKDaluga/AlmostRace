@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 /*
     Author: Eddie Borrisov
@@ -18,6 +19,7 @@ public class PlayerUIManager : MonoBehaviour
     private DataManager _dm;
     private CarHealthBehavior _chb;
     private List<Transform> _attacksInRange = new List<Transform>();
+    public GameObject weaponsActivatedText;
 
     [Header("HypeDisplay Variables")]
     [Space(30)]
@@ -43,6 +45,17 @@ public class PlayerUIManager : MonoBehaviour
     public Image lockTopFill;
 
     public TextMeshProUGUI arenaHypeText;
+
+    public void ResetWeaponText(float time)
+    {
+        Invoke("ResetWeaponTextActual", time);
+    }
+
+    private void ResetWeaponTextActual()
+    {
+        weaponsActivatedText.SetActive(false);
+    }
+
     public TextMeshProUGUI arenaHypeNumber;
 
     [Header("Pole Position Variables")]

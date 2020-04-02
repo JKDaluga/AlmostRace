@@ -10,8 +10,8 @@ public class ActivationEvent : UnityEvent<GameObject>
 
 public class ActivateAbilities : MonoBehaviour
 {
-    private List<RaycastCar> _cars = new List<RaycastCar>();
     public ActivationEvent _ability;
+    private RaycastCar _carToAdd;
     private void Start()
     {
         if(_ability == null)
@@ -26,11 +26,14 @@ public class ActivateAbilities : MonoBehaviour
     {
         if (other.GetComponent<VehicleAbilityBehavior>())
         {
-            if(!_cars.Contains(other.gameObject.GetComponent<RaycastCar>()))
-            {
-
-            }
             _ability.Invoke(other.gameObject);
+            if(other.GetComponent<VehicleInput>() != null)
+            {//if it's a player
+                _carToAdd = other.gameObject.GetComponent<RaycastCar>();
+                    _carToAdd.playerUIManagerScript.weaponsActivatedText.SetActive(true);
+                    _carToAdd.playerUIManagerScript.ResetWeaponText(4);
+        
+            }        
         }
     }
 
