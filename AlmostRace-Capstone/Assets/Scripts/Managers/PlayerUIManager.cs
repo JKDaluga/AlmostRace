@@ -172,7 +172,7 @@ public class PlayerUIManager : MonoBehaviour
                 {
                     _attacksInRange.RemoveAt(i);
                 }
-                else
+                else if (i < attackIndicators.Count)
                 {
                     targetPos = _attacksInRange[i].transform.position;
                     relativePos = thisVehicle.InverseTransformPoint(targetPos);
