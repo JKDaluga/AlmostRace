@@ -48,10 +48,14 @@ public class TurretProjectileBehavior : Projectile
         else if (other.gameObject.GetComponent<CarHealthBehavior>() != null)
         {//if other is a car
             other.gameObject.GetComponent<CarHealthBehavior>().DamageCar(_projectileDamage, 100);
-            other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = .4f;
-            other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = .4f;
 
-            other.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
+            if(other.GetComponent<VehicleInput>())
+            {
+                other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = .4f;
+                other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = .4f;
+                other.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
+            }
+            
 
             //Debug.Log("Damage done to player: " + _projectileDamage);
             StartCoroutine(ExplosionEffect());
