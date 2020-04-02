@@ -276,7 +276,7 @@ public class RaycastCar : MonoBehaviour
         if(resetBoostTrigger)
         {
             resetBoostTime += Time.deltaTime;
-            boostSpeed = Mathf.Lerp(boostSpeed, 0f, (1 / 5f) * resetBoostTime);
+            boostSpeed = Mathf.Lerp(boostSpeed, 0f, (1 / 3f) * resetBoostTime);
             if(boostSpeed <= 0f)
             {
                 boostSpeed = 0f;
@@ -287,7 +287,7 @@ public class RaycastCar : MonoBehaviour
         if(resetBoostPadTrigger)
         {
             resetBoostPadTime += Time.deltaTime;
-            boostPadSpeed = Mathf.Lerp(boostSpeed, 0f, (1/5f)*resetBoostPadTime);
+            boostPadSpeed = Mathf.Lerp(boostSpeed, 0f, (1/3f)*resetBoostPadTime);
             if (boostPadSpeed <= 0f)
             {
                 boostPadSpeed = 0f;
