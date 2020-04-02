@@ -22,7 +22,7 @@ public class SpeedBoostCrystal : MonoBehaviour
             if(other.gameObject.GetComponent<RaycastCar>() != null)
             {
                 _carToAdd = other.gameObject.GetComponent<RaycastCar>();
-                if (_boostedCars.Contains(_carToAdd))
+                if (!_boostedCars.Contains(_carToAdd))
                 {
                     _boostedCars.Add(_carToAdd);
                     other.gameObject.GetComponent<RaycastCar>().SetBoostPadSpeed(speedBoostPercentage);
