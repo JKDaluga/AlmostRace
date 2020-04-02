@@ -70,7 +70,7 @@ public class PainTrain_Boost : CooldownHeatAbility
 
     public override void DeactivateAbility()
     {
-        carInfo.setBoostSpeed(0);
+        carInfo.ResetBoostSpeed();
         boostField.GetComponent<PainTrain_BoostShock>().ClearCarList();
         boostField.SetActive(false);
 

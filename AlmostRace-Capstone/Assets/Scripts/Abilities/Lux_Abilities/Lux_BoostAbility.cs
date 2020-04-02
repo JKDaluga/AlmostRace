@@ -76,7 +76,7 @@ public class Lux_BoostAbility : CooldownHeatAbility
     public override void DeactivateAbility()
     {
         // Reset the jet speed when you stop boosting
-        carInfo.setBoostSpeed(0);
+        carInfo.ResetBoostSpeed();
         var jpMain = jetParticles.main;
         var jpMain2 = jetParticles2.main;
         var jpMain3 = jetParticles3.main;
