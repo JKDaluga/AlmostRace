@@ -75,7 +75,7 @@ public class AIBehaviour : MonoBehaviour
         RaceManager rc = FindObjectOfType<RaceManager>();
         orderedSplines = rc.orderedSplines;
 
-        print(SceneManager.GetActiveScene().buildIndex == Interstellar);
+        //print(SceneManager.GetActiveScene().buildIndex == Interstellar);
 
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(MineMap))
         {

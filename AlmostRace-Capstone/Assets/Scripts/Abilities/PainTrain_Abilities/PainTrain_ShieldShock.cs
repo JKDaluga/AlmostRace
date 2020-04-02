@@ -51,7 +51,7 @@ public class PainTrain_ShieldShock : MonoBehaviour
             randomTarget = Random.Range(0, _carsToDamage.Count - 1);
             if (_carsToDamage[randomTarget].healthCurrent > 0)
             {
-                Debug.Log("Car should have been damaged!");
+               // Debug.Log("Car should have been damaged!");
                 _carsToDamage[randomTarget].DamageCar(_zapDamage, _playerPainTrainScript.raycastCarHolder.playerID);
                 if(_carsToDamage[randomTarget].healthCurrent < 0)
                 {

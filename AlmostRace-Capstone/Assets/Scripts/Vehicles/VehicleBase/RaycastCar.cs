@@ -439,7 +439,7 @@ public class RaycastCar : MonoBehaviour
     {
         if (currentSpeed > maxSpeed + boostSpeed + boostPadSpeed)
         {
-            Debug.Log("but why");
+            //Debug.Log("but why");
             //get relative down velocity vector
             Vector3 downSpeed = transform.InverseTransformDirection(carRigidbody.velocity);
             downSpeed.x = 0;
