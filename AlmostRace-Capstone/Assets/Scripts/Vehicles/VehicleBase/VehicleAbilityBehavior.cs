@@ -92,8 +92,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
             defensiveAbilityDark.SetActive(false);
             boostAbilityDark.SetActive(false);
             tracker = GetComponent<VehicleAwardsTracker>();
-
-            //rayCastCar = GetComponent<RaycastCar>();
         }
     }
 
