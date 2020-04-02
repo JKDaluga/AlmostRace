@@ -300,9 +300,9 @@ public class RaycastCar : MonoBehaviour
         if(input != null)
         {
             currentFOV = (maxFOV - minFOV) * (currentSpeed / maxSpeed) + minFOV;
-            if((boostSpeed > 0 || boostPadSpeed> 0) && currentSpeed > maxSpeed)
+            if((boostSpeed > 0 || boostPadSpeed> 0))
             {
-                currentFOV += (currentSpeed - maxSpeed) / boostFOV;
+                currentFOV += boostFOV * (boostSpeed/50) * (currentSpeed / maxSpeed);
             }
             cineCamera.m_Lens.FieldOfView = currentFOV;
             if (boostPadSpeed <= 0f)
