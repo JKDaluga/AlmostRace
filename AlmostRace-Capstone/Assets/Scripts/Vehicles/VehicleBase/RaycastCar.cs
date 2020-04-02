@@ -194,6 +194,13 @@ public class RaycastCar : MonoBehaviour
 
         // call the function to start processing all vehicle physics
         carPhysicsUpdate();
+
+
+        if (currentSpeed > maxSpeed + boostSpeed + boostPadSpeed)
+        {
+            cheatPhysics();
+           
+        }
     }
 
     void setUpWheels()
@@ -350,10 +357,10 @@ public class RaycastCar : MonoBehaviour
             // apply the engine force to the rigidbody
             carRigidbody.AddForce(engineForce * Time.deltaTime);
         }
-        else
-        {
-            cheatPhysics();
-        }
+       // else
+       // {
+        //    cheatPhysics();
+       // }
 
         // turn car
         float tempMaxTurnSpeed = maxTurnAngle;
