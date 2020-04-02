@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class KillBoxBehaviorCollider : MonoBehaviour
 {
-    private void OnColliderEnter(Collision other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.gameObject.GetComponent<CarHealthBehavior>() != null)
-        {  
-            //if other is a car
-            other.gameObject.GetComponent<CarHealthBehavior>().DamageCarTrue(other.gameObject.GetComponent<CarHealthBehavior>().healthCurrent);
+        if (collision.gameObject.GetComponent<CarHealthBehavior>() != null)
+        {
+            collision.gameObject.GetComponent<CarHealthBehavior>().DamageCarTrue(collision.gameObject.GetComponent<CarHealthBehavior>().healthCurrent);
         }
     }
 }
