@@ -38,6 +38,8 @@ public class PainTrain_LightningBall : Projectile
     {
         while (_carsToDamage.Count > 0)
         {
+           
+
             foreach (CarHealthBehavior car in _carsToDamage)
             {
                 if (!car.isDead) //Make sure car is alive.
@@ -144,6 +146,7 @@ public class PainTrain_LightningBall : Projectile
             StartCoroutine(FollowTargetCar());
 
             _rigidBody.velocity = new Vector3(0, 0, 0);
+            Destroy(gameObject, _lightningBallDuration);
         }
 
         if (collision.gameObject.CompareTag("Interactable"))
@@ -155,12 +158,14 @@ public class PainTrain_LightningBall : Projectile
             StopCoroutine(TrackTargetCar());
             StartCoroutine(FollowTargetCar());
             _rigidBody.velocity = new Vector3(0, 0, 0);
+            Destroy(gameObject, _lightningBallDuration);
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             _rigidBody.velocity = new Vector3(0, 0, 0);
             targetCar = collision.gameObject.transform;
+            Destroy(gameObject, _lightningBallDuration);
         }
     }
 
