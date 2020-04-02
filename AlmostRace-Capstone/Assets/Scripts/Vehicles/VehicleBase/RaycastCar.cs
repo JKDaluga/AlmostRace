@@ -85,6 +85,7 @@ public class RaycastCar : MonoBehaviour
     public CinemachineVirtualCamera cineCamera;
     public float minFOV = 40;
     public float maxFOV = 70;
+    public float boostFOV = 10;
     public float currentFOV = 40;
 
     private Vector3 carRight;
@@ -299,6 +300,10 @@ public class RaycastCar : MonoBehaviour
         if(input != null)
         {
             currentFOV = (maxFOV - minFOV) * (currentSpeed / maxSpeed) + minFOV;
+            if((boostSpeed > 0 || boostPadSpeed> 0) && currentSpeed > maxSpeed)
+            {
+                currentFOV += (currentSpeed - maxSpeed) / boostFOV;
+            }
             cineCamera.m_Lens.FieldOfView = currentFOV;
             if (boostPadSpeed <= 0f)
             {
