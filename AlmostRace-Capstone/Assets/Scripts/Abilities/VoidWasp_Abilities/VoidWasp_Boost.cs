@@ -96,7 +96,7 @@ public class VoidWasp_Boost : CooldownHeatAbility
     public override void DeactivateAbility()
     {
         StopAllCoroutines();
-        carInfo.setBoostSpeed(0);
+        carInfo.ResetBoostSpeed();
         for (int i = 0; i < companions.Length; i++)
         {
             companions[i].SetActive(false);

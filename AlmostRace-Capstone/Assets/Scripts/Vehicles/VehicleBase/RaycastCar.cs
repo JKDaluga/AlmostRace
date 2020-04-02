@@ -39,6 +39,11 @@ public class RaycastCar : MonoBehaviour
     private float boostSpeed = 0f;
     private float boostPadSpeed = 0f;
 
+    private bool resetBoostTrigger = false;
+    private float resetBoostTime = 0f;
+    private bool resetBoostPadTrigger = false;
+    private float resetBoostPadTime = 0f;
+
     [Header("Car UI")]
     public RectTransform UIPanel;
     public RectTransform secondaryUIPanel;
@@ -80,6 +85,7 @@ public class RaycastCar : MonoBehaviour
     public CinemachineVirtualCamera cineCamera;
     public float minFOV = 40;
     public float maxFOV = 70;
+    public float boostFOV = 10;
     public float currentFOV = 40;
 
     private Vector3 carRight;
@@ -265,16 +271,47 @@ public class RaycastCar : MonoBehaviour
         {
             
             engineForce += (flatDir * (power * boostAccelerationMulti )* carMass);
-            //print((flatDir * (power * (throttle - reverse)) * carMass) - ((flatDir * (power * boostAccelerationMulti) * carMass)));
+        }
+
+        if(resetBoostTrigger)
+        {
+            resetBoostTime += Time.deltaTime;
+            boostSpeed = Mathf.Lerp(boostSpeed, 0f, (1 / 3f) * resetBoostTime);
+            if(boostSpeed <= 0f)
+            {
+                boostSpeed = 0f;
+                resetBoostTime = 0f;
+                resetBoostTrigger = false;
+            }
+        }
+        if(resetBoostPadTrigger)
+        {
+            resetBoostPadTime += Time.deltaTime;
+            boostPadSpeed = Mathf.Lerp(boostSpeed, 0f, (1/3f)*resetBoostPadTime);
+            if (boostPadSpeed <= 0f)
+            {
+                boostPadSpeed = 0f;
+                resetBoostPadTime = 0f;
+                resetBoostPadTrigger = false;
+            }
         }
 
         ///FOV STUFF
         if(input != null)
         {
-            cineCamera.m_Lens.FieldOfView = (maxFOV - minFOV) * (currentSpeed / maxSpeed) + minFOV;
             currentFOV = (maxFOV - minFOV) * (currentSpeed / maxSpeed) + minFOV;
+            if((boostSpeed > 0 || boostPadSpeed> 0))
+            {
+                currentFOV += boostFOV * (boostSpeed/50) * (currentSpeed / maxSpeed);
+            }
+            cineCamera.m_Lens.FieldOfView = currentFOV;
+            if (boostPadSpeed <= 0f)
+            {
+                boostPadSpeed = 0f;
+                resetBoostPadTime = 0f;
+                resetBoostPadTrigger = false;
+            }
         }
-
 
 
         // do turning
@@ -415,6 +452,11 @@ public class RaycastCar : MonoBehaviour
         boostSpeed = maxSpeed * percentage;
     }
 
+    public void ResetBoostSpeed()
+    {
+        resetBoostTrigger = true;
+    }
+
     public float getBoostSpeed()
     {
         return boostSpeed;
@@ -427,7 +469,7 @@ public class RaycastCar : MonoBehaviour
 
     public void ResetBoostPadSpeed()
     {
-        boostPadSpeed = 0;
+        resetBoostPadTrigger = true;
     }
 
     public Vector3 getClosestVertex()
