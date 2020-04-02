@@ -51,6 +51,9 @@ public class PainTrain_LightningBall : Projectile
                         {
                             gameObject.transform.SetParent(null);
                             StopCoroutine(FollowTargetCar());
+                            StopCoroutine(TrackTargetCar());
+                            targetCar = null;
+                            GetComponent<Rigidbody>().useGravity = true;
                         }
                     }
                 }
