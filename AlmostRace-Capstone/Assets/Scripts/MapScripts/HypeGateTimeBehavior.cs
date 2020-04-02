@@ -92,7 +92,7 @@ public class HypeGateTimeBehavior : MonoBehaviour
                     if (car.gameObject.GetComponent<VehicleInput>() != null)
                     {
                         car.gameObject.GetComponent<RaycastCar>().playerUIManagerScript.lockBottomFill.fillAmount = 1;
-                        car.gameObject.GetComponent<RaycastCar>().playerUIManagerScript.arenaHypeText.text = "Arena Hype";
+                        car.gameObject.GetComponent<RaycastCar>().playerUIManagerScript.arenaHypeText.text = "Arena Time";
                     }
                 }
 
