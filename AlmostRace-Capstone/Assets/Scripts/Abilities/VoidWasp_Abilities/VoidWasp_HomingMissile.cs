@@ -18,29 +18,33 @@ public class VoidWasp_HomingMissile : Projectile
     private float _turnRate;
     private float _hangTime;
     private bool _canTrack;
+    private bool _canLockOn;
 
     private CarHealthBehavior carHit;
     private void Start()
     {
         GiveSpeed();
-        StartCoroutine(hangTimeSequence());
-        _carHealthStatus = _target.GetComponent<CarHealthBehavior>();
-        _interactableStatus = _target.GetComponent<Interactable>();
+        if (_canLockOn)
+        {
+            StartCoroutine(hangTimeSequence());
+            _carHealthStatus = _target.GetComponent<CarHealthBehavior>();
+            _interactableStatus = _target.GetComponent<Interactable>();
+        }
     }
 
-    public void SetAdditionalInfo(GameObject giventTarget, float givenTurnRate, float givenHangTime)
+    public void SetAdditionalInfo(GameObject giventTarget, float givenTurnRate, float givenHangTime, bool givenlockOn)
     {
         _target = giventTarget;
         _turnRate = givenTurnRate;
         _hangTime = givenHangTime;
+        _canLockOn = givenlockOn;
     }
 
     private void OnTriggerEnter(Collider collision)
     {
         if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            Instantiate(explodeVFX, transform.position, transform.rotation);
-            Destroy(gameObject);
+            Explode();
         }
         if(collision.gameObject.GetComponent<CarHealthBehavior>() != null)
         {
@@ -48,15 +52,13 @@ public class VoidWasp_HomingMissile : Projectile
             {
                 carHit = collision.gameObject.GetComponent<CarHealthBehavior>();
                 carHit.DamageCar(_projectileDamage, _immunePlayerScript.playerID);
-                Instantiate(explodeVFX, transform.position, transform.rotation);
-                Destroy(gameObject);
+                Explode();
             }
         }
         if(collision.gameObject.GetComponent<Interactable>() != null)
         {
             collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
-            Instantiate(explodeVFX, transform.position, transform.rotation);
-            Destroy(gameObject);
+            Explode();
         }
     }
 
@@ -78,21 +80,32 @@ public class VoidWasp_HomingMissile : Projectile
             }
             else
             {
-                Instantiate(explodeVFX, transform.position, transform.rotation);
-                //AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot Hit");
-                Destroy(gameObject);
+                _canTrack = false;
             }
-         
-        }
-
-        if (_carHealthStatus != null && _carHealthStatus.healthCurrent <= 0 && _interactableStatus==null)
-        {
-            Destroy(gameObject);
-        }
-
-        if (_interactableStatus!=null && _interactableStatus.interactableHealth<=0 && _carHealthStatus == null)
-        {
-            Destroy(gameObject);
         }
     }
+
+    private void Update()
+    {
+        if (_canLockOn)
+        {
+            if (_carHealthStatus != null && _carHealthStatus.healthCurrent <= 0 && _interactableStatus == null)
+            {
+                Explode();
+            }
+
+            if (_interactableStatus != null && _interactableStatus.interactableHealth <= 0 && _carHealthStatus == null)
+            {
+                Explode();
+            }
+        }        
+    }
+
+    private void Explode()
+    {
+        Instantiate(explodeVFX, transform.position, transform.rotation);
+        AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot Hit");
+        Destroy(gameObject);
+    }
+
 }
