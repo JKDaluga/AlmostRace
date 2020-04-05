@@ -19,7 +19,7 @@ public class RaycastCar : MonoBehaviour
     public float currentTurnSpeed;
     public float actualGrip;
     public Vector3 relativeAngularVel;
-    public int playerID = 0;
+    public int playerID = 1;
     private float deadZone = .1f;
     private Vector3 myRight;
     private Vector3 vel;
