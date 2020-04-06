@@ -13,6 +13,16 @@ public class RaycastWheel : MonoBehaviour
     private bool grounded = false;
     private float equilibrium;
     private RaycastCar car;
+    RaycastHit hit;
+    Vector3 downwards;
+    Vector3 down;
+    Vector3 velocityAtTouch;
+    float compression;
+    Vector3 force;
+    Vector3 t;
+    Vector3 damping;
+    Vector3 finalForce;
+    float speed;
 
     private void Awake()
     {
@@ -36,22 +46,22 @@ public class RaycastWheel : MonoBehaviour
     void GetGround()
     {
         grounded = false;
-        Vector3 downwards = transform.TransformDirection(-Vector3.up);
-        RaycastHit hit;
+        downwards = transform.TransformDirection(-Vector3.up);
+       
 
         // down = local downwards direction
-        Vector3 down = transform.TransformDirection(Vector3.down);
+        down = transform.TransformDirection(Vector3.down);
 
         if (Physics.Raycast(transform.position, downwards, out hit, maxSuspension, layerMask))
         {
 
             grounded = true;
             // the velocity at point of contact
-            Vector3 velocityAtTouch = parent.GetPointVelocity(hit.point);
+            velocityAtTouch = parent.GetPointVelocity(hit.point);
 
             // calculate spring compression
             // difference in positions divided by total suspension range
-            float compression = Mathf.Pow(hit.distance / maxSuspension, 2);
+           compression = Mathf.Pow(hit.distance / maxSuspension, 2);
 
             compression = -compression + 1;
 
@@ -61,22 +71,22 @@ public class RaycastWheel : MonoBehaviour
             }
 
             // final force
-            Vector3 force = -downwards * compression * spring;
+            force = -downwards * compression * spring;
             // velocity at point of contact transformed into local space
             
-            Vector3 t = transform.InverseTransformDirection(velocityAtTouch);
+            t = transform.InverseTransformDirection(velocityAtTouch);
 
             // local x and z directions = 0
             t = Vector3.Project(velocityAtTouch, downwards);
             
             // back to world space * -damping
-            Vector3 damping = t * -damper;
-            Vector3 finalForce = force + damping;
+            damping = t * -damper;
+            finalForce = force + damping;
 
             parent.AddForceAtPosition(finalForce, hit.point);
         }
 
-        float speed = parent.velocity.magnitude;
+        speed = parent.velocity.magnitude;
     }
 
     public void setSpring(float springForce)

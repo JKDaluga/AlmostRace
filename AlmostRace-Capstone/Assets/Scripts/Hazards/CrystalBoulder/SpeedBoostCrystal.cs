@@ -5,7 +5,6 @@ using UnityEngine;
 public class SpeedBoostCrystal : MonoBehaviour
 {
     public float speedBoostPercentage;
-    public float boostTime = 3f;
     public bool isActive = false;
     private List<RaycastCar> _boostedCars = new List<RaycastCar>();
     private RaycastCar _carToAdd;
@@ -17,21 +16,21 @@ public class SpeedBoostCrystal : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if(isActive)
+        if (isActive)
         {
-            if(other.gameObject.GetComponent<RaycastCar>() != null)
+            if (other.gameObject.GetComponent<RaycastCar>() != null)
             {
                 _carToAdd = other.gameObject.GetComponent<RaycastCar>();
                 if (!_boostedCars.Contains(_carToAdd))
                 {
                     _boostedCars.Add(_carToAdd);
                     other.gameObject.GetComponent<RaycastCar>().SetBoostPadSpeed(speedBoostPercentage / 100);
-                    StartCoroutine(ResetBoost(boostTime, _carToAdd));
+                    //   StartCoroutine(ResetBoost(boostTime, _carToAdd));
                 }
-              
+
             }
         }
-        
+
     }
 
     public IEnumerator ResetBoost(float timeToReset, RaycastCar carToReset)

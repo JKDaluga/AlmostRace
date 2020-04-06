@@ -27,7 +27,7 @@ public class Lux_DefensiveAbility : CooldownAbility
     public override void ActivateAbility()
     { //DeactivateAbility called VehicleAbilityBehavior after the duration is over.
         AudioManager.instance.Play("Shield Activated", transform);
-        _carHealthScript.AddExtraHealth(shieldHealth);
+        _carHealthScript.AddPersonalShields(shieldHealth);
         foreach (GameObject shield in _shields)
         {
             shield.GetComponent<ParticleSystem>().Play();
@@ -36,7 +36,7 @@ public class Lux_DefensiveAbility : CooldownAbility
 
     public override void DeactivateAbility()
     {
-        _carHealthScript.SetExtraHealth(0);
+        _carHealthScript.SetPersonalShieldAmount(0);
         foreach (GameObject shield in _shields)
         {
             shield.GetComponent<ParticleSystem>().Stop();
