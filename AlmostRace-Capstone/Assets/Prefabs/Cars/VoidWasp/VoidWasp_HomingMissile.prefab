@@ -43,7 +43,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 50
+  m_Radius: 35
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5278292691738350433
 MonoBehaviour:
@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 5603047786027838406}
   - component: {fileID: 5603047786027838407}
   - component: {fileID: 8049606830503730626}
+  - component: {fileID: 3948173011897156384}
   m_Layer: 11
   m_Name: VoidWasp_HomingMissile
   m_TagString: Untagged
@@ -260,6 +261,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 4367906347061738705}
   explodeVFX: {fileID: 132352, guid: 3e0755099bc7d5a42933e1bdadf8b004, type: 3}
+--- !u!114 &3948173011897156384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5603047786027838403}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 332c1ae300b2c8b4683a300dec462d3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 8388609
 --- !u!1 &8286332241671575673
 GameObject:
   m_ObjectHideFlags: 0

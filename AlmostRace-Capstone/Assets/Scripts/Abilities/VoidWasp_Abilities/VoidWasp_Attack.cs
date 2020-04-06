@@ -59,10 +59,12 @@ public class VoidWasp_Attack : Ability
         int currentSpawnLocation = 0;
         for (int j = 0; j < missileDistributionCount; j++)
         {
+            /* If we want to never have the missile spawn if the specific target is dead
             if (CheckTargetAlive(target) == false)
             {
                 break;
             }
+            */
             
             // Spawn the missile at the spawn position and set its values
             //spawnOffset = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), Random.Range(-.5f, .5f));
