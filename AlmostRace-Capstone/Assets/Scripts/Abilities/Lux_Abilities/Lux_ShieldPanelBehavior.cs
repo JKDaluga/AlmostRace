@@ -24,7 +24,7 @@ public class Lux_ShieldPanelBehavior : MonoBehaviour
     {
         while(true)
         {
-            if(_carHealthScript.GetExtraHealth() <= 0)
+            if(_carHealthScript.GetPersonalShieldAmount() <= 0)
             {
                 Debug.Log("Track Health should have happened");
                 DestroyInteractable();

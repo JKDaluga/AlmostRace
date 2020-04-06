@@ -8,12 +8,18 @@ public class WindmillBehaviour : MonoBehaviour
 {
 
     public GameObject linkedMill;
+    [Header("Laser Variables")]
     public GameObject[] linkedLaser;
     public GameObject interactingPlayer;
     public float laserSpinSpeed;
-    public float speedUpAmount;
-    public float extraShieldAmount;
+    public float laserSpeedUpAmount;
     public float laserDamageAmount, laserDmgRate;
+
+    [Header("ShieldVariables")]
+    public float extraShieldAmount;
+    public float shieldDuration = 3f;
+    private List<CarHealthBehavior> _shieldedCars = new List<CarHealthBehavior>();
+    private CarHealthBehavior _carToAdd;
 
     // Start is called before the first frame update
     void Start()
@@ -32,9 +38,15 @@ public class WindmillBehaviour : MonoBehaviour
         if (collision.gameObject.GetComponent<CarHealthBehavior>() != null)
         {
             interactingPlayer = collision.gameObject;
-            interactingPlayer.GetComponent<CarHealthBehavior>().AddExtraHealth(extraShieldAmount);
+            _carToAdd = collision.gameObject.GetComponent<CarHealthBehavior>();
+            if (!_shieldedCars.Contains(_carToAdd))
+            {
+                _shieldedCars.Add(_carToAdd);
+                _carToAdd.AddExtraShields(extraShieldAmount);
+                StartCoroutine(ResetShield(shieldDuration, _carToAdd));
+            }
 
-            linkedMill.GetComponent<WindmillSpeed>().UpdateBaseSpeed(speedUpAmount);
+            linkedMill.GetComponent<WindmillSpeed>().UpdateBaseSpeed(laserSpeedUpAmount);
         }
     }
 
@@ -49,5 +61,13 @@ public class WindmillBehaviour : MonoBehaviour
     void slowDown()
     {
         linkedMill.GetComponent<WindmillSpeed>().UpdateBaseSpeed(laserSpinSpeed);
+    }
+
+    public IEnumerator ResetShield(float timeToReset, CarHealthBehavior carToReset)
+    {
+        yield return new WaitForSeconds(timeToReset);
+        carToReset.RemoveExtraShields(extraShieldAmount);
+        _shieldedCars.Remove(carToReset);
+       
     }
 }
