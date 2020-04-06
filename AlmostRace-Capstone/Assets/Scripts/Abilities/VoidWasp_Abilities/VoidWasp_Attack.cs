@@ -17,7 +17,8 @@ public class VoidWasp_Attack : Ability
     [Header("Projectile Values")]
     [Space(5)]
     public GameObject voidwaspProjectile;
-    public Transform[] rocketSpawnPositions;
+    public Transform[] targetRocketSpawnPositions;
+    public Transform[] staticRocketSpawnPositions;
     [Tooltip("How much damage the missile does on impact.")] public float missileDamage;
     [Tooltip("How quickly each projectile moves.")] public float missileSpeed;
     [Tooltip("How many projectile it shoots in total")] public int projectileCount = 8;
@@ -27,7 +28,6 @@ public class VoidWasp_Attack : Ability
     [Tooltip("How long the projectile lives max")] public float maxLifeTime = 7;
     public float hypeToGain;
     private List<GameObject> _objectsInRange = new List<GameObject>();
-
     private Vector3 spawnOffset;
 
     public override void ActivateAbility()
@@ -46,6 +46,10 @@ public class VoidWasp_Attack : Ability
                 }
             }
         }
+        else
+        {
+            StartCoroutine(LaunchSequence());
+        }
     }
 
     private IEnumerator LaunchSequence(GameObject target)
@@ -55,25 +59,74 @@ public class VoidWasp_Attack : Ability
         int currentSpawnLocation = 0;
         for (int j = 0; j < missileDistributionCount; j++)
         {
+            /* If we want to never have the missile spawn if the specific target is dead
+            if (CheckTargetAlive(target) == false)
+            {
+                break;
+            }
+            */
+            
             // Spawn the missile at the spawn position and set its values
-            spawnOffset = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), Random.Range(-.5f, .5f));
-            GameObject currentProjectile = Instantiate(voidwaspProjectile, rocketSpawnPositions[currentSpawnLocation].position /*+ spawnOffset*/, rocketSpawnPositions[currentSpawnLocation].rotation);
+            //spawnOffset = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), Random.Range(-.5f, .5f));
+            GameObject currentProjectile = Instantiate(voidwaspProjectile, targetRocketSpawnPositions[currentSpawnLocation].position /*+ spawnOffset*/, targetRocketSpawnPositions[currentSpawnLocation].rotation);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetImmunePlayer(gameObject);
-            //AudioManager.instance.Play("VoidWasp Shot", transform);
+
             AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot");
             Destroy(currentProjectile, maxLifeTime);
             yield return new WaitForSeconds(timeBetweenLaunch);
-            if((currentSpawnLocation + 1) < (rocketSpawnPositions.Length - 1))
-            { //makes sure we don't go out of bounds on our missile launcher muzzles
+            if((currentSpawnLocation + 1) < (targetRocketSpawnPositions.Length - 1))
+            {
+                //makes sure we don't go out of bounds on our missile launcher muzzles
                 currentSpawnLocation++;
             }
             else
-            { //if we were about to go out of bounds, reset back to 0!
+            {
+                //if we were about to go out of bounds, reset back to 0!
                 currentSpawnLocation = 0;
             }
         }
+    }
+
+    private IEnumerator LaunchSequence()
+    {
+        int currentSpawnLocation = 0;
+        for (int j = 0; j < projectileCount; j++)
+        {
+            // Spawn the missile at the spawn position and set its values
+            GameObject currentProjectile = Instantiate(voidwaspProjectile, staticRocketSpawnPositions[currentSpawnLocation].position, staticRocketSpawnPositions[currentSpawnLocation].rotation);
+            currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
+            currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(null, turnRate, 0);
+            currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetImmunePlayer(gameObject);
+
+            AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot");
+            Destroy(currentProjectile, maxLifeTime);
+            yield return new WaitForSeconds(timeBetweenLaunch);
+            if((currentSpawnLocation + 1) < (staticRocketSpawnPositions.Length - 1))
+            {
+                //makes sure we don't go out of bounds on our missile launcher muzzles
+                currentSpawnLocation++;
+            }
+            else
+            {
+                //if we were about to go out of bounds, reset back to 0!
+                currentSpawnLocation = 0;
+            }
+        }
+    }
+
+    private bool CheckTargetAlive(GameObject givenTarget)
+    {
+        if (givenTarget.GetComponent<CarHealthBehavior>() != null && givenTarget.GetComponent<CarHealthBehavior>().healthCurrent <= 0)
+        {
+            return false;
+        }
+        else if (givenTarget.GetComponent<Interactable>() != null && givenTarget.GetComponent<Interactable>().interactableHealth <= 0)
+        {
+            return false;
+        }
+        return true;
     }
 
     public override void DeactivateAbility() {}

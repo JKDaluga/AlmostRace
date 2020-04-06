@@ -46,15 +46,6 @@ public class PlayerUIManager : MonoBehaviour
 
     public TextMeshProUGUI arenaHypeText;
 
-    public void ResetWeaponText(float time)
-    {
-        Invoke("ResetWeaponTextActual", time);
-    }
-
-    private void ResetWeaponTextActual()
-    {
-        weaponsActivatedText.SetActive(false);
-    }
 
     public TextMeshProUGUI arenaHypeNumber;
 
@@ -69,11 +60,23 @@ public class PlayerUIManager : MonoBehaviour
     public Transform thisVehicle;
     public float indicatorScaling = 1;
     public float toCloseDistance = 10;
+    public Vector3 onePlayerScale = new Vector3(0.8f, 0.8f, 1.0f);
+    public Vector3 multiplePlayerScale = new Vector3(1f, 1f, 1f);
     public List<GameObject> attackIndicators = new List<GameObject>();
     private Vector3 offSetVector = Vector3.zero;
-    private float _heightOffset = 0.06f;
+    private float _heightOffset = 0.045f;
 
     private RaycastCar _raycastCarHolder;
+
+    public void ResetWeaponText(float time)
+    {
+        Invoke("ResetWeaponTextActual", time);
+    }
+
+    private void ResetWeaponTextActual()
+    {
+        weaponsActivatedText.SetActive(false);
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -106,7 +109,18 @@ public class PlayerUIManager : MonoBehaviour
 
         if (numPlayers > 1)
         {
-            _heightOffset = 0.09f;
+            _heightOffset = 0.057f;
+            for (int i = 0; i < attackIndicators.Count; i++)
+            {
+                attackIndicators[i].transform.localScale = multiplePlayerScale;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < attackIndicators.Count; i++)
+            {
+                attackIndicators[i].transform.localScale = onePlayerScale;
+            }
         }
 
         switch(playerNum)
