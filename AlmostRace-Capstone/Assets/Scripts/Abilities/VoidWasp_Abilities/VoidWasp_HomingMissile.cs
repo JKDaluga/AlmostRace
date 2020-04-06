@@ -18,13 +18,12 @@ public class VoidWasp_HomingMissile : Projectile
     private float _turnRate;
     private float _hangTime;
     private bool _canTrack;
-    private bool _canLockOn;
 
     private CarHealthBehavior carHit;
     private void Start()
     {
         GiveSpeed();
-        if (_canLockOn)
+        if (_target != null)
         {
             StartCoroutine(hangTimeSequence());
             _carHealthStatus = _target.GetComponent<CarHealthBehavior>();
@@ -32,32 +31,31 @@ public class VoidWasp_HomingMissile : Projectile
         }
     }
 
-    public void SetAdditionalInfo(GameObject giventTarget, float givenTurnRate, float givenHangTime, bool givenlockOn)
+    public void SetAdditionalInfo(GameObject giventTarget, float givenTurnRate, float givenHangTime)
     {
         _target = giventTarget;
         _turnRate = givenTurnRate;
         _hangTime = givenHangTime;
-        _canLockOn = givenlockOn;
     }
 
-    private void OnTriggerEnter(Collider collision)
+    public void AttackTriggered(GameObject givenCollision)
     {
-        if(collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
+        if(givenCollision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             Explode();
         }
-        if(collision.gameObject.GetComponent<CarHealthBehavior>() != null)
+        if(givenCollision.gameObject.GetComponent<CarHealthBehavior>() != null)
         {
-            if(collision.gameObject != _immunePlayer)
+            if(givenCollision.gameObject != _immunePlayer)
             {
-                carHit = collision.gameObject.GetComponent<CarHealthBehavior>();
+                carHit = givenCollision.gameObject.GetComponent<CarHealthBehavior>();
                 carHit.DamageCar(_projectileDamage, _immunePlayerScript.playerID);
                 Explode();
             }
         }
-        if(collision.gameObject.GetComponent<Interactable>() != null)
+        if(givenCollision.gameObject.GetComponent<Interactable>() != null)
         {
-            collision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+            givenCollision.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
             Explode();
         }
     }
@@ -71,7 +69,7 @@ public class VoidWasp_HomingMissile : Projectile
     private void FixedUpdate()
     {
         _rigidBody.velocity = transform.forward * _projectileSpeed;
-        if (_canTrack)
+        if(_canTrack)
         {
             if(_target != null)
             {
@@ -87,18 +85,25 @@ public class VoidWasp_HomingMissile : Projectile
 
     private void Update()
     {
-        if (_canLockOn)
+        if(_target != null)
         {
-            if (_carHealthStatus != null && _carHealthStatus.healthCurrent <= 0 && _interactableStatus == null)
+            if(_carHealthStatus != null && _carHealthStatus.healthCurrent <= 0 && _interactableStatus == null)
             {
-                Explode();
+                _canTrack = false;
             }
-
-            if (_interactableStatus != null && _interactableStatus.interactableHealth <= 0 && _carHealthStatus == null)
+            else if(_interactableStatus != null && _interactableStatus.interactableHealth <= 0 && _carHealthStatus == null)
             {
-                Explode();
+                _canTrack = false;
             }
         }        
+    }
+
+    public void TrackDuringRuntime(GameObject givenTarget)
+    {
+        _target = givenTarget;
+        _carHealthStatus = _target.GetComponent<CarHealthBehavior>();
+        _interactableStatus = _target.GetComponent<Interactable>();
+        _canTrack = true;
     }
 
     private void Explode()
@@ -106,6 +111,21 @@ public class VoidWasp_HomingMissile : Projectile
         Instantiate(explodeVFX, transform.position, transform.rotation);
         AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot Hit");
         Destroy(gameObject);
+    }
+
+    public GameObject GetImmunePlayer()
+    {
+        return _immunePlayer;
+    }
+
+    public GameObject GetTarget()
+    {
+        return _target;
+    }
+
+    public bool GetTracking()
+    {
+        return _canTrack;
     }
 
 }

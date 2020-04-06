@@ -68,7 +68,7 @@ public class VoidWasp_Attack : Ability
             //spawnOffset = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), Random.Range(-.5f, .5f));
             GameObject currentProjectile = Instantiate(voidwaspProjectile, targetRocketSpawnPositions[currentSpawnLocation].position /*+ spawnOffset*/, targetRocketSpawnPositions[currentSpawnLocation].rotation);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
-            currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime, true);
+            currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetImmunePlayer(gameObject);
 
             AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot");
@@ -95,7 +95,7 @@ public class VoidWasp_Attack : Ability
             // Spawn the missile at the spawn position and set its values
             GameObject currentProjectile = Instantiate(voidwaspProjectile, staticRocketSpawnPositions[currentSpawnLocation].position, staticRocketSpawnPositions[currentSpawnLocation].rotation);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
-            currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(null, turnRate, 0, false);
+            currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(null, turnRate, 0);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetImmunePlayer(gameObject);
 
             AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot");
