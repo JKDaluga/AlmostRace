@@ -36,7 +36,6 @@ public class AICheats : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.K))
         {
             GetComponent<CarHealthBehavior>().AICheatKill();
-            GetComponent<AIBehaviour>().SwapSpline();
         }
     }
 
@@ -59,7 +58,6 @@ public class AICheats : MonoBehaviour
                 if (playersIn && !arena.carsInRange.Contains(gameObject))
                 {
                     GetComponent<CarHealthBehavior>().AICheatKill();
-                    GetComponent<AIBehaviour>().SwapSpline();
                 }
             }
             yield return new WaitForSeconds(2.0f);
