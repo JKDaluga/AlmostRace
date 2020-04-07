@@ -162,6 +162,10 @@ public class HypeGateTimeBehavior : MonoBehaviour
 
                 _raceManager.time = 0;
                 _raceManager.inArena = false;
+                foreach(RaycastCar i in _raceManager.cars)
+                {
+                    i.inArena = false;
+                }
                 //StopCoroutine(TrackHype());
                 StopAllCoroutines();
                 isActivated = false;

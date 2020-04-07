@@ -100,7 +100,8 @@ public class RaycastCar : MonoBehaviour
     private Vector3 closestVertex = Vector3.zero;
     public int closestIndex = 0;
     private Vector3 vertexAim = Vector3.zero;
-    
+
+    [HideInInspector] public bool inArena = false, finished = false;
 
     void Start()
     {
