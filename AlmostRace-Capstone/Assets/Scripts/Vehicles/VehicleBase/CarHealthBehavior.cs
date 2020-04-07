@@ -23,10 +23,13 @@ public class CarHealthBehavior : MonoBehaviour
     private float _invulnerabilityTimer = 0f;
     private bool _canTakeDamage = true;
 
-    public float extraHPMax = 100f;
-    public float extraHP = 0;
+    public float shieldsMax = 100f;
+    public float currentExtraShields = 0;
+    public float currentPersonalShields = 0;
     public float healthCurrent = 100f;
     public float healthMax = 100f;
+    private float _tempDamage;
+    private float _shieldTotal;
 
     public float healAmount = 1f;
     public float respawnSecs = 3f;
@@ -151,7 +154,7 @@ public class CarHealthBehavior : MonoBehaviour
             #region ExtraHealthFillBar
             if (extraHealthFillBar != null)
             {
-                extraHealthFillBar.fillAmount = extraHP / extraHPMax;
+                extraHealthFillBar.fillAmount = _shieldTotal / shieldsMax;
             }
             #endregion
 
@@ -351,23 +354,59 @@ public class CarHealthBehavior : MonoBehaviour
     {
         if (_canTakeDamage)
         {
-            //stackTrace = new StackTrace();
-            // print("ADDHEAT !! " + stackTrace.GetFrame(1).GetMethod().Name);
-            if (extraHP > 0)
-            { //if you have _extraHP
 
-                //damage left over after it's delt to the _extraHP
-                float _tempDamage = damage - extraHP;
+            if (_shieldTotal > 0)
+            { //if you have shields
 
-                if (_tempDamage < 0)
-                {//makes sure _tempDamage doesn't heal the player later on
-                    _tempDamage = 0;
+                _tempDamage = damage;
+
+                if (currentExtraShields > 0)
+                {//if you have extra shields
+
+                    _tempDamage = damage - currentExtraShields; // amount of damage left over after abosrbed by shields
+
+                    currentExtraShields -= damage;
+
+                    if (currentExtraShields < 0)
+                    {
+                        currentExtraShields = 0;
+                    }
+                    if (_tempDamage < 0)
+                    {//makes sure we don't heal player later on.
+                        _tempDamage = 0;
+                    }
                 }
 
-                extraHP -= damage; //deals the damage to the _extraHP
+                if (currentPersonalShields > 0 && _tempDamage > 0)
+                { // if you have personal shields and the damage wasn't absorbed already.
+                    if (_tempDamage != damage)
+                    {//if some damage has already been absorbed, we assume tempDamage is valid
 
-                if (extraHP <= 0)
-                { //If you have no _extraHP left
+                        float _tD = _tempDamage;
+                        _tempDamage -= currentPersonalShields;
+
+                        currentPersonalShields -= _tD;
+                    }
+                    else
+                    {
+                        _tempDamage = damage - currentPersonalShields; // amount of damage left over after absorbed by shields
+
+                        currentPersonalShields -= damage;
+
+                    }
+
+                    if (_tempDamage < 0)
+                    {//makes sure _tempDamage doesn't heal the player later on
+                        _tempDamage = 0;
+                    }
+                    if (currentPersonalShields < 0)
+                    {
+                        currentPersonalShields = 0;
+                    }
+                }
+                _shieldTotal = currentPersonalShields + currentExtraShields;
+                if (_tempDamage > 0)
+                { //If any damage got through
                     healthCurrent -= _tempDamage;
                     if (_vehicleInput)
                     {
@@ -375,8 +414,9 @@ public class CarHealthBehavior : MonoBehaviour
                     }
                 }
             }
+
             else
-            {
+            { //if no shields
                 healthCurrent -= damage;
                 extra = -20;
                 if (healthCurrent > 0)
@@ -389,7 +429,7 @@ public class CarHealthBehavior : MonoBehaviour
             }
 
             if (healthCurrent <= 0)
-            {
+            { //kill player
                 //Debug.Log("Player: " + gameObject.transform.parent.name + " should be killed by car # : " + killerID);
                 if (killerID <= DataManager.instance.playerInfo.Length && killerID != raycastCarHolder.playerID && !isDead)
                 { //if someone killed you and you didn't cause your death.
@@ -399,9 +439,7 @@ public class CarHealthBehavior : MonoBehaviour
 
                 Kill();
             }
-
         }
-
     }
 
     public void DamageCarTrue(float damage)
@@ -413,29 +451,67 @@ public class CarHealthBehavior : MonoBehaviour
         }
     }
 
-    public float GetExtraHealth()
+    public float GetPersonalShieldAmount()
     {
-        return extraHP;
+        return currentPersonalShields;
     }
 
-    public void SetExtraHealth(float extraHP)
+    public void SetPersonalShieldAmount(float extraHP)
     {
-        this.extraHP = extraHP;
+        currentPersonalShields = extraHP;
+        _shieldTotal = currentPersonalShields + currentExtraShields;
     }
 
-    public void AddExtraHealth(float extraHP)
+    public void AddPersonalShields(float personalShields)
     {
-        this.extraHP += extraHP;
+        if ((currentExtraShields + currentPersonalShields + personalShields) <= shieldsMax)
+        {//if you wouldn't gain too much shield
+            currentPersonalShields += personalShields;
+        }
+        else
+        {//otherwise, just gain up to the max
+            currentPersonalShields += (shieldsMax - currentPersonalShields - currentExtraShields);
+        }
+        _shieldTotal = currentPersonalShields + currentExtraShields;
+    }
+
+    public void AddExtraShields(float extraShields)
+    {
+        if ((currentExtraShields + currentPersonalShields + extraShields) <= shieldsMax)
+        {//if you wouldn't gain too much shield
+            currentExtraShields += extraShields;
+        }
+        else
+        {//otherwise, just gain up to the max
+            currentExtraShields += (shieldsMax - currentPersonalShields - currentExtraShields);
+        }
+        _shieldTotal = currentPersonalShields + currentExtraShields;
+    }
+
+    public void RemoveExtraShields(float extraShields)
+    {
+        if(currentExtraShields > 0)
+        {
+            currentExtraShields -= extraShields;
+            if(currentExtraShields < 0)
+            {
+                currentExtraShields = 0;
+            }
+
+            _shieldTotal = currentPersonalShields + currentExtraShields; // this line is in the IF so that we avoid unnecessary UI redraws
+
+        }
     }
 
     public float GetExtaHealthMax()
     {
-        return extraHPMax;
+        return shieldsMax;
     }
 
     public void SetExtraHealthMax(float extraHealthMax)
     {
-        extraHPMax = extraHealthMax;
+        shieldsMax = extraHealthMax;
+
     }
 
     private void OnCollisionEnter(Collision collision)

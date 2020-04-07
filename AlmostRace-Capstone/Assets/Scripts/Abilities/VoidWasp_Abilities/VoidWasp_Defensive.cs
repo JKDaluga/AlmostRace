@@ -33,11 +33,11 @@ public class VoidWasp_Defensive : CooldownAbility
     public override void ActivateAbility()
     {
         AudioManager.instance.Play("Shield Activated", transform);
-        _carHealthScript.SetExtraHealth(shieldHealth);
+        _carHealthScript.SetPersonalShieldAmount(shieldHealth);
         foreach (GameObject shield in _shields)
         {
             shield.GetComponent<ParticleSystem>().Play();
-            ChangeEmissionCount(shield, _carHealthScript.GetExtraHealth());
+            ChangeEmissionCount(shield, _carHealthScript.GetPersonalShieldAmount());
         }
         StartCoroutine(ShieldEvent());
     }
@@ -61,9 +61,9 @@ public class VoidWasp_Defensive : CooldownAbility
                             if(!_objectsInRange[i].GetComponent<CarHealthBehavior>().isDead)
                             {
                                 _objectsInRange[i].GetComponent<CarHealthBehavior>().DamageCar(siphonAmount, _carHealthScript.raycastCarHolder.playerID);
-                                if (_carHealthScript.GetExtraHealth() < _carHealthScript.GetExtaHealthMax())
+                                if (_carHealthScript.GetPersonalShieldAmount() < _carHealthScript.GetExtaHealthMax())
                                 {
-                                    _carHealthScript.AddExtraHealth(siphonAmount);
+                                    _carHealthScript.AddPersonalShields(siphonAmount);
                                 }
                             }
                     
@@ -77,7 +77,7 @@ public class VoidWasp_Defensive : CooldownAbility
             }
             foreach (GameObject shield in _shields)
             {
-                ChangeEmissionCount(shield, _carHealthScript.GetExtraHealth());
+                ChangeEmissionCount(shield, _carHealthScript.GetPersonalShieldAmount());
             }
             yield return new WaitForSeconds(siphonFrequency);
         }
@@ -85,7 +85,7 @@ public class VoidWasp_Defensive : CooldownAbility
 
     public override void DeactivateAbility()
     {
-        _carHealthScript.SetExtraHealth(0);
+        _carHealthScript.SetPersonalShieldAmount(0);
         StopAllCoroutines();
         foreach (GameObject shield in _shields)
         {
