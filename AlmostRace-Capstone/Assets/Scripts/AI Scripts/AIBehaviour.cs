@@ -54,7 +54,7 @@ public class AIBehaviour : MonoBehaviour
     //public GameObject[] orderedSplines;
     //public int splineIndex;
 
-    //bool test = true;
+    bool test = true;
     
 
     // Start is called before the first frame update
@@ -99,32 +99,11 @@ public class AIBehaviour : MonoBehaviour
 
        // //thisCar.drift = true;
 
-       // foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
-       // {
-       //     for (int i = 0; i < entry.Value.Nodes.Count; i++)
-       //     {
-       //         if (!_branchNodes.Contains(entry.Value.Nodes[i]))
-       //         {
-       //             _branchNodes.Add(entry.Value.Nodes[i]);
-       //         }
-       //     }
-       // }
     }
 
     public void SwapSpline(SplinePlus newSpline)
     {
         _branchesAtStart = new Dictionary<int, Branch>(newSpline.SPData.DictBranches);
-
-        //foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
-        //{
-        //    for (int i = 0; i < entry.Value.Nodes.Count; i++)
-        //    {
-        //        if (!_branchNodes.Contains(entry.Value.Nodes[i]))
-        //        {
-        //            _branchNodes.Add(entry.Value.Nodes[i]);
-        //        }
-        //    }
-        //}
 
         _inArena = !_inArena;
     }
