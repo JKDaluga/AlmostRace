@@ -78,7 +78,7 @@ public class AudioManager : MonoBehaviour
             float distance = Mathf.Infinity;
             foreach (RaycastCar car in _raceManager.cars)
             {
-                if(car != null)
+                if(car != null && car.GetComponent<VehicleInput>()!=null)
                 {
                     float tempDistance = Vector3.Distance(car.transform.position, soundTransform.position);
                     if (distance > tempDistance)
