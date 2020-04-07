@@ -164,6 +164,8 @@ public class ViewportController : MonoBehaviour
 
     private void AbilityInfoViewState()
     {
+        _selectedInfoPanel = 0;
+        PanelViewState();
         selectedVehicleText.text = vehicleDescriptionText[selectedCarID].GetComponent<VehicleAbilityDescriptions>().GetVehicleName();
         for (int i = 0; i < _infoText.Length; i++)
         {
