@@ -4,11 +4,37 @@ using UnityEngine;
 
 public class SplineSwapTrigger : MonoBehaviour
 {
+    public GameObject[] orderedSplines;
+    public List<RaycastCar> aiCars;
+    public int currSpline;
+
+    private void Awake()
+    {
+        aiCars = new List<RaycastCar>();
+        currSpline = 0;
+       
+    }
+
+    private void Start()
+    {
+        updateAI();
+    }
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.GetComponent<AIBehaviour>() != null)
+        if (other.GetComponent<RaycastCar>())
         {
-            other.gameObject.GetComponent<AIBehaviour>().SwapSpline();
+            currSpline++;
+            updateAI();
+
+            GetComponent<Collider>().enabled = false;
+        }
+    }
+
+    public void updateAI()
+    {
+        foreach (RaycastCar i in aiCars)
+        {
+            i.GetComponent<AIBehaviour>().SwapSpline(orderedSplines[currSpline].GetComponent<SplinePlus>());
         }
     }
 }

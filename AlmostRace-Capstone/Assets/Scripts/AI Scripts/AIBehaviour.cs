@@ -51,7 +51,7 @@ public class AIBehaviour : MonoBehaviour
 
     private GameObject[] _aiSplines;
     public GameObject[] orderedSplines;
-    private int splineIndex;
+    public int splineIndex;
 
     bool test = true;
     
@@ -59,7 +59,6 @@ public class AIBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _aiSplines = GameObject.FindGameObjectsWithTag("AISpline");
         /*Dictionary<float, GameObject> near = new Dictionary<float, GameObject>();
 
         foreach(GameObject i in _aiSplines)
@@ -72,8 +71,6 @@ public class AIBehaviour : MonoBehaviour
             orderedSplines.Add(near[near.Keys.Min()]);
             near.Remove(near.Keys.Min());
         }*/
-        RaceManager rc = FindObjectOfType<RaceManager>();
-        orderedSplines = rc.orderedSplines;
 
         //print(SceneManager.GetActiveScene().buildIndex == Interstellar);
 
@@ -88,39 +85,34 @@ public class AIBehaviour : MonoBehaviour
             offsetAngle = InterstellarOffset;
         }
 
-        splineIndex = 0;
-        avo = GetComponentInChildren<AIObstacleAvoidance>();
-       // print(orderedSplines[splineIndex].name);
-        //Sets ai spline to find/follow hotspotspline
-        _aiSplineScript = orderedSplines[splineIndex].GetComponent<SplinePlus>();
-        //_aiSplineScript.SPData.Followers[0].Reverse = reverseDirection;
+       // splineIndex = 0;
+       avo = GetComponentInChildren<AIObstacleAvoidance>();
+       //// print(orderedSplines[splineIndex].name);
+       // //Sets ai spline to find/follow hotspotspline
+       // _aiSplineScript = orderedSplines[splineIndex].GetComponent<SplinePlus>();
+       // //_aiSplineScript.SPData.Followers[0].Reverse = reverseDirection;
 
-        _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
+       // _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
 
-        thisCar = GetComponent<RaycastCar>();
+       thisCar = GetComponent<RaycastCar>();
 
-        //thisCar.drift = true;
+       // //thisCar.drift = true;
 
-        foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
-        {
-            for (int i = 0; i < entry.Value.Nodes.Count; i++)
-            {
-                if (!_branchNodes.Contains(entry.Value.Nodes[i]))
-                {
-                    _branchNodes.Add(entry.Value.Nodes[i]);
-                }
-            }
-        }
+       // foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
+       // {
+       //     for (int i = 0; i < entry.Value.Nodes.Count; i++)
+       //     {
+       //         if (!_branchNodes.Contains(entry.Value.Nodes[i]))
+       //         {
+       //             _branchNodes.Add(entry.Value.Nodes[i]);
+       //         }
+       //     }
+       // }
     }
 
-    public void SwapSpline()
+    public void SwapSpline(SplinePlus newSpline)
     {
-        splineIndex++;
-        //print("SPLINE SWAPPED : " + splineIndex);
-        _aiSplineScript = orderedSplines[splineIndex].GetComponent<SplinePlus>();
-
-        //print(orderedSplines[splineIndex].name);
-        _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
+        _branchesAtStart = new Dictionary<int, Branch>(newSpline.SPData.DictBranches);
 
         foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {
