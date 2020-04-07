@@ -15,10 +15,6 @@ public class SplineSwapTrigger : MonoBehaviour
        
     }
 
-    private void Start()
-    {
-        updateAI();
-    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<RaycastCar>())

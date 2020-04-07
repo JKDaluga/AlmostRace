@@ -40,7 +40,6 @@ public class AIBehaviour : MonoBehaviour
     //From hotspotbehaviour script, I believe this is a dictionary of all branches on the map
     private Dictionary<int, Branch> _branchesAtStart = new Dictionary<int, Branch>();
 
-    //private float _currentBranchOfBot;
     private readonly int _hugeDistance = 9999;
     private readonly int _hugeTurn = 9999;
     private Vector3 closestVertex = Vector3.zero;
@@ -50,9 +49,6 @@ public class AIBehaviour : MonoBehaviour
 
     private AIObstacleAvoidance avo;
 
-    //private GameObject[] _aiSplines;
-    //public GameObject[] orderedSplines;
-    //public int splineIndex;
 
     bool test = true;
     
@@ -60,20 +56,6 @@ public class AIBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        /*Dictionary<float, GameObject> near = new Dictionary<float, GameObject>();
-
-        foreach(GameObject i in _aiSplines)
-        {
-            near.Add(Vector3.Distance(i.GetComponent<SplinePlus>().SPData.DictBranches[0].Vertices[0], transform.position), i);
-        }
-        int num = near.Count;
-        for(int i = 0; i < num; i++)
-        {
-            orderedSplines.Add(near[near.Keys.Min()]);
-            near.Remove(near.Keys.Min());
-        }*/
-
-        //print(SceneManager.GetActiveScene().buildIndex == Interstellar);
 
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(MineMap))
         {
@@ -86,14 +68,7 @@ public class AIBehaviour : MonoBehaviour
             offsetAngle = InterstellarOffset;
         }
 
-       // splineIndex = 0;
        avo = GetComponentInChildren<AIObstacleAvoidance>();
-       //// print(orderedSplines[splineIndex].name);
-       // //Sets ai spline to find/follow hotspotspline
-       // _aiSplineScript = orderedSplines[splineIndex].GetComponent<SplinePlus>();
-       // //_aiSplineScript.SPData.Followers[0].Reverse = reverseDirection;
-
-       // _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
 
        thisCar = GetComponent<RaycastCar>();
 
@@ -104,7 +79,6 @@ public class AIBehaviour : MonoBehaviour
     public void SwapSpline(SplinePlus newSpline)
     {
         _branchesAtStart = new Dictionary<int, Branch>(newSpline.SPData.DictBranches);
-
         _inArena = !_inArena;
     }
 

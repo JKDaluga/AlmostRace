@@ -93,6 +93,7 @@ public class RaceManager : MonoBehaviour
             
         }
         eventPanel.SetActive(false);
+        aiMan.updateAI();
     }
 
     public void SetCountDown()
