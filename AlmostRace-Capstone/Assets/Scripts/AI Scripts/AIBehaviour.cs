@@ -33,13 +33,14 @@ public class AIBehaviour : MonoBehaviour
     
 
     //Copied from HotSpotBehaviour.cs script. It creates a spline that is capable of following the hotspot bot spline
-    private SplinePlus _aiSplineScript;
-    private List<Node> _branchNodes = new List<Node>();
+    
+    //private SplinePlus _aiSplineScript;
+    //private List<Node> _branchNodes = new List<Node>();
 
     //From hotspotbehaviour script, I believe this is a dictionary of all branches on the map
     private Dictionary<int, Branch> _branchesAtStart = new Dictionary<int, Branch>();
 
-    private float _currentBranchOfBot;
+    //private float _currentBranchOfBot;
     private readonly int _hugeDistance = 9999;
     private readonly int _hugeTurn = 9999;
     private Vector3 closestVertex = Vector3.zero;
@@ -49,11 +50,11 @@ public class AIBehaviour : MonoBehaviour
 
     private AIObstacleAvoidance avo;
 
-    private GameObject[] _aiSplines;
-    public GameObject[] orderedSplines;
-    public int splineIndex;
+    //private GameObject[] _aiSplines;
+    //public GameObject[] orderedSplines;
+    //public int splineIndex;
 
-    bool test = true;
+    //bool test = true;
     
 
     // Start is called before the first frame update
@@ -114,16 +115,16 @@ public class AIBehaviour : MonoBehaviour
     {
         _branchesAtStart = new Dictionary<int, Branch>(newSpline.SPData.DictBranches);
 
-        foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
-        {
-            for (int i = 0; i < entry.Value.Nodes.Count; i++)
-            {
-                if (!_branchNodes.Contains(entry.Value.Nodes[i]))
-                {
-                    _branchNodes.Add(entry.Value.Nodes[i]);
-                }
-            }
-        }
+        //foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
+        //{
+        //    for (int i = 0; i < entry.Value.Nodes.Count; i++)
+        //    {
+        //        if (!_branchNodes.Contains(entry.Value.Nodes[i]))
+        //        {
+        //            _branchNodes.Add(entry.Value.Nodes[i]);
+        //        }
+        //    }
+        //}
 
         _inArena = !_inArena;
     }
