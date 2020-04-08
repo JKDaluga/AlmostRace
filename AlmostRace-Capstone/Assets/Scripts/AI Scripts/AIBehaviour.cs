@@ -33,13 +33,13 @@ public class AIBehaviour : MonoBehaviour
     
 
     //Copied from HotSpotBehaviour.cs script. It creates a spline that is capable of following the hotspot bot spline
-    private SplinePlus _aiSplineScript;
-    private List<Node> _branchNodes = new List<Node>();
+    
+    //private SplinePlus _aiSplineScript;
+    //private List<Node> _branchNodes = new List<Node>();
 
     //From hotspotbehaviour script, I believe this is a dictionary of all branches on the map
     private Dictionary<int, Branch> _branchesAtStart = new Dictionary<int, Branch>();
 
-    private float _currentBranchOfBot;
     private readonly int _hugeDistance = 9999;
     private readonly int _hugeTurn = 9999;
     private Vector3 closestVertex = Vector3.zero;
@@ -49,9 +49,6 @@ public class AIBehaviour : MonoBehaviour
 
     private AIObstacleAvoidance avo;
 
-    private GameObject[] _aiSplines;
-    public GameObject[] orderedSplines;
-    private int splineIndex;
 
     bool test = true;
     
@@ -59,23 +56,6 @@ public class AIBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _aiSplines = GameObject.FindGameObjectsWithTag("AISpline");
-        /*Dictionary<float, GameObject> near = new Dictionary<float, GameObject>();
-
-        foreach(GameObject i in _aiSplines)
-        {
-            near.Add(Vector3.Distance(i.GetComponent<SplinePlus>().SPData.DictBranches[0].Vertices[0], transform.position), i);
-        }
-        int num = near.Count;
-        for(int i = 0; i < num; i++)
-        {
-            orderedSplines.Add(near[near.Keys.Min()]);
-            near.Remove(near.Keys.Min());
-        }*/
-        RaceManager rc = FindObjectOfType<RaceManager>();
-        orderedSplines = rc.orderedSplines;
-
-        //print(SceneManager.GetActiveScene().buildIndex == Interstellar);
 
         if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(MineMap))
         {
@@ -88,51 +68,17 @@ public class AIBehaviour : MonoBehaviour
             offsetAngle = InterstellarOffset;
         }
 
-        splineIndex = 0;
-        avo = GetComponentInChildren<AIObstacleAvoidance>();
-       // print(orderedSplines[splineIndex].name);
-        //Sets ai spline to find/follow hotspotspline
-        _aiSplineScript = orderedSplines[splineIndex].GetComponent<SplinePlus>();
-        //_aiSplineScript.SPData.Followers[0].Reverse = reverseDirection;
+       avo = GetComponentInChildren<AIObstacleAvoidance>();
 
-        _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
+       thisCar = GetComponent<RaycastCar>();
 
-        thisCar = GetComponent<RaycastCar>();
+       // //thisCar.drift = true;
 
-        //thisCar.drift = true;
-
-        foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
-        {
-            for (int i = 0; i < entry.Value.Nodes.Count; i++)
-            {
-                if (!_branchNodes.Contains(entry.Value.Nodes[i]))
-                {
-                    _branchNodes.Add(entry.Value.Nodes[i]);
-                }
-            }
-        }
     }
 
-    public void SwapSpline()
+    public void SwapSpline(SplinePlus newSpline)
     {
-        splineIndex++;
-        //print("SPLINE SWAPPED : " + splineIndex);
-        _aiSplineScript = orderedSplines[splineIndex].GetComponent<SplinePlus>();
-
-        //print(orderedSplines[splineIndex].name);
-        _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
-
-        foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
-        {
-            for (int i = 0; i < entry.Value.Nodes.Count; i++)
-            {
-                if (!_branchNodes.Contains(entry.Value.Nodes[i]))
-                {
-                    _branchNodes.Add(entry.Value.Nodes[i]);
-                }
-            }
-        }
-
+        _branchesAtStart = new Dictionary<int, Branch>(newSpline.SPData.DictBranches);
         _inArena = !_inArena;
     }
 

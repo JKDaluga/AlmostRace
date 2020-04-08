@@ -32,9 +32,13 @@ public class RaceManager : MonoBehaviour
 
     private bool inCountDown = true;
 
+    private SplineSwapTrigger aiMan;
+
     // Start is called before the first frame update
     void Start()
     {
+        aiMan = FindObjectOfType<SplineSwapTrigger>();
+        aiMan.orderedSplines = orderedSplines;
         fourthPlayerPanel.SetActive(false);
         eventPanel = GameObject.FindGameObjectWithTag("EventPanel");
         AIindex = Random.Range(0, AICar.Length);
@@ -75,6 +79,7 @@ public class RaceManager : MonoBehaviour
                     {
                         RaycastCar aiCar = Instantiate(AICar[AIindex], spawnLocations[playerNum + AINum - 1].position, spawnLocations[playerNum + AINum - 1].rotation).GetComponentInChildren<RaycastCar>();
                         cars[playerNum + AINum - 1] = aiCar;
+                        aiMan.aiCars.Add(aiCar);
                         aiCar.playerID = player.playerID;
                         AINum++;
                         AIindex++;
@@ -88,6 +93,7 @@ public class RaceManager : MonoBehaviour
             
         }
         eventPanel.SetActive(false);
+        aiMan.updateAI();
     }
 
     public void SetCountDown()
