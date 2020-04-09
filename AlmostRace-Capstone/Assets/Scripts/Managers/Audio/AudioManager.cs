@@ -23,6 +23,8 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource source;
 
+    private float audioMultiplier;
+
     public Sound[] sounds;
 
     [Header("Pseudo-Spatial Sound Variables")]
@@ -90,7 +92,7 @@ public class AudioManager : MonoBehaviour
                         }
                         else if (distance <= maxSoundDistance)
                         {
-                            spatialVolume = s.volume * ((distance - innerSoundDistance) / (maxSoundDistance - innerSoundDistance));
+                            spatialVolume = s.volume * (innerSoundDistance/distance);
                         }
                         else
                         {
@@ -114,7 +116,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        source.PlayOneShot(s.clip, s.volume);
+        source.PlayOneShot(s.clip, s.volume*audioMultiplier);
     }
 
     public Sound FindSound(string sound)
@@ -126,5 +128,10 @@ public class AudioManager : MonoBehaviour
             return null;
         }
         return s;
+    }
+
+    public void updateSoundVolume(float soundMultiplier)
+    {
+        audioMultiplier = soundMultiplier;
     }
 }
