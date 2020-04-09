@@ -18,8 +18,6 @@ public class SettingsMenuScript : MonoBehaviour
         musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
         soundFXSlider.value = PlayerPrefs.GetFloat("SoundFXVolume", 1f);
 
-        VolumeMusic = FindObjectOfType<AudioSource>();
-
         volumeControl = FindObjectOfType<AudioManager>();
 
         volumeControl.updateSoundVolume(soundFXSlider.value);
@@ -30,9 +28,9 @@ public class SettingsMenuScript : MonoBehaviour
 
     }
 
-    void SetMusicVolume(float SliderValue)
+    public void SetMusicVolume(float SliderValue)
     {
-        VolumeMusic.volume = (Mathf.Log10(SliderValue)*20);
+        VolumeMusic.volume = SliderValue;
         PlayerPrefs.SetFloat("MusicVolume", SliderValue);
     }
 
