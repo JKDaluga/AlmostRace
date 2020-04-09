@@ -23,7 +23,7 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource source;
 
-    private float audioMultiplier;
+    private float audioMultiplier=1f;
 
     public Sound[] sounds;
 
@@ -103,7 +103,7 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        source.PlayOneShot(s.clip, spatialVolume);
+        source.PlayOneShot(s.clip, spatialVolume*audioMultiplier);
     }
 
     public void PlayWithoutSpatial(string sound)
