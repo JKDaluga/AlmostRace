@@ -28,8 +28,8 @@ public class PainTrain_Shield : CooldownAbility
 
     public override void ActivateAbility()
     {
-       
-  
+        AudioManager.instance.Play("Pain Train Shield", transform);
+
         _carHealthScript.AddPersonalShields(shieldHealth);
         shockShield.SetActive(true);
         _shockShieldScript.TurnOnShieldShock();
