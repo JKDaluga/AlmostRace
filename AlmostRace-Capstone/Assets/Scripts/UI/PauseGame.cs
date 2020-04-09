@@ -19,8 +19,8 @@ public class PauseGame : MonoBehaviour
 		||	Input.GetButtonDown("PauseMac"))
         {
         	pausePanel.SetActive(!pausePanel.activeSelf);
-
-        	if(pausePanel.activeSelf == false)
+            AudioManager.instance.Play("Pause Sound", transform);
+            if (pausePanel.activeSelf == false)
         	{
         		Time.timeScale = 1;
         	}
