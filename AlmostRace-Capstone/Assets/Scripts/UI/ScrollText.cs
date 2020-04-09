@@ -1,43 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ScrollText : MonoBehaviour
 {
-    public TextMeshProUGUI text;
-    public float speed = 2;
+    public ScrollRect field;
 
-    public float height;
-    Vector3 startPos;
-    public float scrollPos;
+    public float scrollSpeed = .005f;
+
 
     private void Start()
     {
-        height = text.preferredHeight;
-        startPos = text.rectTransform.localPosition;
+        field = GetComponent<ScrollRect>();
 
-        scrollPos = height * 2 / 3;
+        field.verticalNormalizedPosition = 1;
 
         StartCoroutine(scrollIt());
     }
 
-    private void Update()
-    {
-        Vector2 textSize = text.GetPreferredValues(text.text);
-        // Adjust the button size / scale.
-        text.rectTransform.localScale = textSize;
-    }
+
     IEnumerator scrollIt()
     {
         yield return new WaitForSeconds(1);
-
         while (true)
         {
-            text.rectTransform.localPosition = new Vector3(startPos.x, scrollPos % height, startPos.z);
-
-            scrollPos += speed * 20 * Time.deltaTime;
+            field.verticalNormalizedPosition -= scrollSpeed;
             yield return null;
+            if (field.verticalNormalizedPosition < 0)
+            {
+                field.verticalNormalizedPosition = 1.5f;
+            }
         }
     }
 }
