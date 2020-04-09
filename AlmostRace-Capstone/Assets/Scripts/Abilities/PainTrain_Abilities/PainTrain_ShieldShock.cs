@@ -47,8 +47,19 @@ public class PainTrain_ShieldShock : MonoBehaviour
         //Debug.Log("Zap should have happened!");
         if(_carsToDamage.Count > 0)
         {
-            //Debug.Log("Zap part 2 should have happened!");
-            randomTarget = Random.Range(0, _carsToDamage.Count - 1);
+            foreach(CarHealthBehavior car in _carsToDamage)
+            {
+                if(car.healthCurrent > 0)
+                {
+                    car.DamageCar(_zapDamage, _playerPainTrainScript.raycastCarHolder.playerID);
+                    if(car.healthCurrent <= 0 )
+                    {
+                        _carsToDamage.Remove(car);
+                    }
+                }
+            }
+            //old zap code
+        /* randomTarget = Random.Range(0, _carsToDamage.Count - 1);
             if (_carsToDamage[randomTarget].healthCurrent > 0)
             {
                // Debug.Log("Car should have been damaged!");
@@ -57,7 +68,7 @@ public class PainTrain_ShieldShock : MonoBehaviour
                 {
                     _carsToDamage.RemoveAt(randomTarget);
                 }
-            }
+            }*/
         }
 
     }

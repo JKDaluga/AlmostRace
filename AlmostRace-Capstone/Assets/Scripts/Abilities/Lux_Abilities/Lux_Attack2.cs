@@ -52,6 +52,8 @@ public class Lux_Attack2 : Ability
             _energyBladeScript.GiveInfo(growthRate, growthAmount, growthLimit);
 
             _energyBladeScript.SetImmunePlayer(gameObject);
+
+            AudioManager.instance.Play("Lux Shooting", transform);
         }
         else
         {
