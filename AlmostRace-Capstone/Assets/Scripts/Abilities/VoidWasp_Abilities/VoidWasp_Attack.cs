@@ -73,7 +73,7 @@ public class VoidWasp_Attack : Ability
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetImmunePlayer(gameObject);
 
-            AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot");
+            AudioManager.instance.Play("VoidWasp Shot", this.transform);
             Destroy(currentProjectile, maxLifeTime);
             yield return new WaitForSeconds(timeBetweenLaunch);
             if((currentSpawnLocation + 1) < (targetRocketSpawnPositions.Length - 1))
@@ -100,7 +100,7 @@ public class VoidWasp_Attack : Ability
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(null, turnRate, 0);
             currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetImmunePlayer(gameObject);
 
-            AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot");
+            AudioManager.instance.Play("VoidWasp Shot", this.transform);
             Destroy(currentProjectile, maxLifeTime);
             yield return new WaitForSeconds(timeBetweenLaunch);
             if((currentSpawnLocation + 1) < (staticRocketSpawnPositions.Length - 1))
