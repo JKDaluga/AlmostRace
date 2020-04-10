@@ -43,6 +43,7 @@ public class PainTrain_Attack : Ability
 
     public override void ActivateAbility()
     {
+        AudioManager.instance.Play("Pain Train Attack", transform);
         //Debug.Log("Ability should be activated!");
         GameObject spawnedLightningBall = Instantiate(lightningBall, muzzle.position, muzzle.rotation);
 

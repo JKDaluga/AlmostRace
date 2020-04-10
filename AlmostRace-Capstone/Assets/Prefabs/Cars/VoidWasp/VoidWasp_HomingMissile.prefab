@@ -261,6 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 4367906347061738705}
   explodeVFX: {fileID: 132352, guid: 3e0755099bc7d5a42933e1bdadf8b004, type: 3}
+  normalizerScript: {fileID: 3948173011897156384}
 --- !u!114 &3948173011897156384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -268,7 +269,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5603047786027838403}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 332c1ae300b2c8b4683a300dec462d3f, type: 3}
   m_Name: 
@@ -314,11 +315,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990814346630139042}
     m_Modifications:
-    - target: {fileID: 986596068398015174, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
-        type: 3}
-      propertyPath: m_Name
-      value: VoidWasp_Trail
-      objectReference: {fileID: 0}
     - target: {fileID: 986596068398382822, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -373,6 +369,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 986596068398015174, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
+        type: 3}
+      propertyPath: m_Name
+      value: VoidWasp_Trail
       objectReference: {fileID: 0}
     - target: {fileID: 986596068378983334, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
         type: 3}

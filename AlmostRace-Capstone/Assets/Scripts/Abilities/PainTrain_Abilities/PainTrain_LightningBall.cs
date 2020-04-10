@@ -38,8 +38,7 @@ public class PainTrain_LightningBall : Projectile
     {
         while (_carsToDamage.Count > 0)
         {
-           
-
+       
             foreach (CarHealthBehavior car in _carsToDamage)
             {
                 if (!car.isDead) //Make sure car is alive.
@@ -135,6 +134,7 @@ public class PainTrain_LightningBall : Projectile
 
     private void OnCollisionEnter(Collision collision)
     {
+        AudioManager.instance.Play("Pain Train Lightning Ball", transform);
 
         lightningBoom.SetActive(true);
         if (collision.gameObject.CompareTag("Vehicle"))

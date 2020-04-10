@@ -53,6 +53,7 @@ public class PainTrain_Boost : CooldownHeatAbility
 
     public override void ActivateAbility()
     {
+        AudioManager.instance.Play("Pain Train Boost", transform);
         if (!isBoosting)
         {
             isBoosting = true;

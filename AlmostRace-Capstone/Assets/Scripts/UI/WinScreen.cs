@@ -110,5 +110,6 @@ public class WinScreen : MonoBehaviour
     {
         DataManager.instance.playerInfo[playerNum - 1].hypeAmount += amount;
         playerHype.awards[playerNum - 1] += awardTitle + "\n";
+        playerHype.awardsNumbers[playerNum - 1] += amount + "\n";
     }
 }

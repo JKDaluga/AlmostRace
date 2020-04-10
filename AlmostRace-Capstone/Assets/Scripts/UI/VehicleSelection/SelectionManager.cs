@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class SelectionManager : MonoBehaviour
 {
     public int amountOfSelections = 2;
-    public string nextScene;
+    public int nextSceneIndex = 2;
     public int mainMenuIndex = 0;
     public ViewportController[] viewports;
     public VehicleInput[] playerInputs;
@@ -46,7 +46,7 @@ public class SelectionManager : MonoBehaviour
         if(_readyToStart && !_isLoading && Input.GetButtonDown("Submit"))
         {
             _isLoading = true;
-            SceneManager.LoadSceneAsync(nextScene);
+            SceneManager.LoadSceneAsync(nextSceneIndex);
         }
     }
 
