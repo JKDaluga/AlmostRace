@@ -33,6 +33,13 @@ public class Lux_BoostAbility : CooldownHeatAbility
     public ParticleSystem jetParticles2;
     public ParticleSystem jetParticles3;
 
+    public bool shouldAnimate = true;
+    public Animator leftWingAnimator;
+    public Animator rightWingAnimator;
+    public GameObject cooldownPulseVFXLeft;
+    public GameObject cooldownPulseVFXRight;
+    public List<GameObject> vfxToActivate = new List<GameObject>();
+
     [Tooltip("Set the amount boosting increases the jet length")]
     [Range(2, 10)]
     public float jetIncrease;
@@ -97,16 +104,41 @@ public class Lux_BoostAbility : CooldownHeatAbility
 
     public override void AbilityOnCooldown()
     {
-
+        if (shouldAnimate)
+        {
+          
+            foreach (GameObject vfx in vfxToActivate)
+            {
+                vfx.SetActive(false);
+            }
+        }
     }
 
     public override void AbilityOffOfCooldown()
     {
+        if(shouldAnimate)
+        {
+            cooldownPulseVFXLeft.SetActive(false);
+            cooldownPulseVFXRight.SetActive(false);
+            leftWingAnimator.SetTrigger("WingDownLeft");
+            rightWingAnimator.SetTrigger("WingDownRight");
+
+        }
 
     }
 
     public override void AbilityInUse()
     {
-
+        if (shouldAnimate)
+        {
+            cooldownPulseVFXLeft.SetActive(true);
+            cooldownPulseVFXRight.SetActive(true);
+            leftWingAnimator.SetTrigger("WingUpLeft");
+            rightWingAnimator.SetTrigger("WingUpRight");
+            foreach (GameObject vfx in vfxToActivate)
+            {
+                vfx.SetActive(true);
+            }
+        }
     }
 }
