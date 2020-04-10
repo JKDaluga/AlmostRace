@@ -19,6 +19,8 @@ public abstract class Projectile : MonoBehaviour
     protected RaycastCar _immunePlayerScript;
     protected Rigidbody _rigidBody;
 
+
+
     protected float _projectileDamage;
     protected float _projectileSpeed;
     protected float _projectileHype;
