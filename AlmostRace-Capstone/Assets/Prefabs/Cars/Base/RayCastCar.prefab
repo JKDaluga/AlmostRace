@@ -6215,10 +6215,12 @@ MonoBehaviour:
   isBoosting: 0
   cineCamera: {fileID: 644788422693019624}
   minFOV: 40
-  maxFOV: 55
+  maxFOV: 50
   boostFOV: 15
   currentFOV: 40
   closestIndex: 0
+  inArena: 0
+  finished: 0
 --- !u!114 &8318204714915202085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6259,8 +6261,9 @@ MonoBehaviour:
     type: 3}
   deathFade: {fileID: 6120193507529506824}
   invulnerabilityTime: 3
-  extraHPMax: 100
-  extraHP: 0
+  shieldsMax: 100
+  currentExtraShields: 0
+  currentPersonalShields: 0
   healthCurrent: 100
   healthMax: 100
   healAmount: 0.05
@@ -12317,6 +12320,8 @@ MonoBehaviour:
   thisVehicle: {fileID: 8938214498588058289}
   indicatorScaling: 30
   toCloseDistance: 40
+  onePlayerScale: {x: 0.8, y: 0.8, z: 1}
+  multiplePlayerScale: {x: 1, y: 1, z: 1}
   attackIndicators:
   - {fileID: 4479574534721900832}
   - {fileID: 7068288313438341451}
