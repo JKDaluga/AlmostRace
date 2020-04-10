@@ -29150,7 +29150,14 @@ MonoBehaviour:
   turnBackMultiplier: 5
   boostAccelerationMulti: 1
   isBoosting: 0
+  cineCamera: {fileID: 0}
+  minFOV: 40
+  maxFOV: 70
+  boostFOV: 10
+  currentFOV: 40
   closestIndex: 0
+  inArena: 0
+  finished: 0
 --- !u!114 &5418076574753482654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29191,8 +29198,9 @@ MonoBehaviour:
     type: 3}
   deathFade: {fileID: 0}
   invulnerabilityTime: 3
-  extraHPMax: 100
-  extraHP: 0
+  shieldsMax: 100
+  currentExtraShields: 0
+  currentPersonalShields: 0
   healthCurrent: 100
   healthMax: 100
   healAmount: 0.05
@@ -29240,11 +29248,6 @@ MonoBehaviour:
   boostAbility: {fileID: 7292805920643583972}
   boostAbilityRecharge: 8
   boostAbilityDuration: 3
-  cineCamera: {fileID: 0}
-  carFovStandard: 50
-  carFovBoost: 80
-  carFovChangeAmount: 0.1
-  carFovChangeRate: 0.1
   boostAbilityCooldown: {fileID: 0}
   boostAbilityDark: {fileID: 0}
   BoostAbilityBG: {fileID: 0}
@@ -29270,6 +29273,10 @@ MonoBehaviour:
   jetParticles: {fileID: 4473989575951486004}
   jetParticles2: {fileID: 4198055843456913071}
   jetParticles3: {fileID: 6869040291610198151}
+  shouldAnimate: 0
+  leftWingAnimator: {fileID: 0}
+  rightWingAnimator: {fileID: 0}
+  vfxToActivate: []
   jetIncrease: 5.5
 --- !u!114 &7312026204521425900
 MonoBehaviour:
@@ -29284,8 +29291,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shieldHealth: 75
-  _shields:
-  - {fileID: 3109227943948650775}
+  shields: []
+  vfxToActivate: []
+  hoodAnimator: {fileID: 0}
+  shouldAnimate: 0
 --- !u!114 &3713964755092531435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29314,7 +29323,6 @@ MonoBehaviour:
   Interstellar: 4
   thisCar: {fileID: 6894343742012296677}
   closestIndex: 0
-  orderedSplines: []
 --- !u!114 &3713964755092531434
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29363,6 +29371,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   energyBlade: {fileID: 2681802009530974934, guid: 7bd4cdd5e64c6be47aecacda47fa20b7,
     type: 3}
+  shouldAnimate: 0
+  laserBlastLeft: {fileID: 0}
+  laserBlastRight: {fileID: 0}
+  laserSmokeLeft: {fileID: 0}
+  laserSmokeRight: {fileID: 0}
+  leftGunAnimator: {fileID: 0}
+  rightGunAnimator: {fileID: 0}
+  leftCap: {fileID: 0}
+  rightCap: {fileID: 0}
   muzzle: {fileID: 519927895297784814}
   bladesToSpawn: 3
   bladeDamage: 50
