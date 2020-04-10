@@ -11,6 +11,7 @@ using UnityEngine;
 public class VoidWasp_HomingMissile : Projectile
 {
     public GameObject explodeVFX;
+    public ProjectileNormalizer normalizerScript;
     private GameObject _target;
     private Quaternion _missileTargetRotation;
     private CarHealthBehavior _carHealthStatus;
@@ -26,8 +27,13 @@ public class VoidWasp_HomingMissile : Projectile
         if (_target != null)
         {
             StartCoroutine(hangTimeSequence());
+            normalizerScript.enabled = false;
             _carHealthStatus = _target.GetComponent<CarHealthBehavior>();
             _interactableStatus = _target.GetComponent<Interactable>();
+        }
+        else
+        {
+            normalizerScript.enabled = true;
         }
     }
 
@@ -90,10 +96,12 @@ public class VoidWasp_HomingMissile : Projectile
             if(_carHealthStatus != null && _carHealthStatus.healthCurrent <= 0 && _interactableStatus == null)
             {
                 _canTrack = false;
+                normalizerScript.enabled = true;
             }
             else if(_interactableStatus != null && _interactableStatus.interactableHealth <= 0 && _carHealthStatus == null)
             {
                 _canTrack = false;
+                normalizerScript.enabled = true;
             }
         }        
     }
@@ -104,6 +112,7 @@ public class VoidWasp_HomingMissile : Projectile
         _carHealthStatus = _target.GetComponent<CarHealthBehavior>();
         _interactableStatus = _target.GetComponent<Interactable>();
         _canTrack = true;
+        normalizerScript.enabled = false;
     }
 
     private void Explode()

@@ -7,6 +7,18 @@ public class Lux_Attack2 : Ability
     public GameObject energyBlade;
     private Lux_EnergyBlade _energyBladeScript;
 
+    public bool shouldAnimate = true;
+
+    public ParticleSystem laserBlastLeft;
+    public ParticleSystem laserBlastRight;
+    public ParticleSystem laserSmokeLeft;
+    public ParticleSystem laserSmokeRight;
+
+    public Animator leftGunAnimator;
+    public Animator rightGunAnimator;
+    public Animator leftCap;
+    public Animator rightCap;
+
     public Transform muzzle;
     
     public int bladesToSpawn = 3;
@@ -37,6 +49,7 @@ public class Lux_Attack2 : Ability
         InvokeRepeating("SpawnBlade", 0, bladeOffset);
     }
 
+
     public void SpawnBlade()
     {
         if(bladesToSpawn > 0)
@@ -44,7 +57,8 @@ public class Lux_Attack2 : Ability
             bladesToSpawn--;
 
             GameObject spawnedBlade = Instantiate(energyBlade, muzzle.position, muzzle.rotation);
-
+            laserBlastLeft.Play();
+            laserBlastRight.Play();
             _energyBladeScript = spawnedBlade.GetComponent<Lux_EnergyBlade>();
 
             _energyBladeScript.SetProjectileInfo(bladeDamage, bladeSpeed, 0);
@@ -77,11 +91,29 @@ public class Lux_Attack2 : Ability
 
     public override void AbilityOffOfCooldown()
     {
+        if(shouldAnimate)
+        {
+            leftGunAnimator.SetTrigger("LeftGunDown");
+            rightGunAnimator.SetTrigger("RightGunDown");
+            leftCap.SetTrigger("LeftCapClose");
+            rightCap.SetTrigger("RightCapClose");
+            laserSmokeLeft.gameObject.SetActive(false);
+            laserSmokeRight.gameObject.SetActive(false);
+        }
 
     }
 
     public override void AbilityInUse()
     {
+        if (shouldAnimate)
+        {
+            leftGunAnimator.SetTrigger("LeftGunUp");
+            rightGunAnimator.SetTrigger("RightGunUp");
+            leftCap.SetTrigger("LeftCapOpen");
+            rightCap.SetTrigger("RightCapOpen");
+            laserSmokeLeft.gameObject.SetActive(true);
+            laserSmokeRight.gameObject.SetActive(true);
+        }
 
     }
 }
