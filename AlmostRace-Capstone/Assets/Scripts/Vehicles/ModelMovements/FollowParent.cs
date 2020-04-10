@@ -5,13 +5,14 @@ using UnityEngine;
 public class FollowParent : MonoBehaviour
 {
     public Transform target;
+    public Rigidbody rb;
     public RaycastCar raycastCarScript;
     public float moveSpeed = 10;
     public float rotationSpeed = 10;
     public float stopDistance = 7;
     public float stopParentSpeed = 12;
-    public Rigidbody rb;
     private float _distance;
+    private float _yRotation;
 
     void Start()
     {
@@ -40,6 +41,8 @@ public class FollowParent : MonoBehaviour
             rb.velocity = new Vector3(0f,0f,0f); 
             rb.angularVelocity = new Vector3(0f,0f,0f);
         }
+        //_yRotation = Mathf.Clamp(transform.rotation.y, -45, 45);
+        //transform.rotation = Quaternion.Euler(transform.rotation.x, _yRotation, transform.rotation.z);
     }
 
     void Update()
