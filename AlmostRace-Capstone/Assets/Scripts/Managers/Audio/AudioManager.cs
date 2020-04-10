@@ -23,8 +23,6 @@ public class AudioManager : MonoBehaviour
 
     private AudioSource source;
 
-    private float audioMultiplier=1f;
-
     public Sound[] sounds;
 
     [Header("Pseudo-Spatial Sound Variables")]
@@ -80,7 +78,7 @@ public class AudioManager : MonoBehaviour
             float distance = Mathf.Infinity;
             foreach (RaycastCar car in _raceManager.cars)
             {
-                if(car != null && car.GetComponent<VehicleInput>()!=null)
+                if(car != null)
                 {
                     float tempDistance = Vector3.Distance(car.transform.position, soundTransform.position);
                     if (distance > tempDistance)
@@ -92,7 +90,7 @@ public class AudioManager : MonoBehaviour
                         }
                         else if (distance <= maxSoundDistance)
                         {
-                            spatialVolume = s.volume * (innerSoundDistance/distance);
+                            spatialVolume = s.volume * ((distance - innerSoundDistance) / (maxSoundDistance - innerSoundDistance));
                         }
                         else
                         {
@@ -103,7 +101,7 @@ public class AudioManager : MonoBehaviour
             }
         }
 
-        source.PlayOneShot(s.clip, spatialVolume*audioMultiplier);
+        source.PlayOneShot(s.clip, spatialVolume);
     }
 
     public void PlayWithoutSpatial(string sound)
@@ -116,7 +114,7 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
-        source.PlayOneShot(s.clip, s.volume*audioMultiplier);
+        source.PlayOneShot(s.clip, s.volume);
     }
 
     public Sound FindSound(string sound)
@@ -128,10 +126,5 @@ public class AudioManager : MonoBehaviour
             return null;
         }
         return s;
-    }
-
-    public void updateSoundVolume(float soundMultiplier)
-    {
-        audioMultiplier = soundMultiplier;
     }
 }

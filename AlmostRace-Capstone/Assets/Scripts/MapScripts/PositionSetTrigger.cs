@@ -26,11 +26,10 @@ public class PositionSetTrigger : MonoBehaviour
     }
 
 
-    private float supplyTime(int index, float previousTime)
+    private void supplyTime(int index)
     {
-        float fin = previousTime + Random.Range(1f, 7.5f);
+        float fin = DataManager.instance.playerInfo[index-1].timerRace2 + Random.Range(0.5f, 7.5f);
         DataManager.instance.playerInfo[index].timerRace2 = fin;
-        return fin;
     }
 
 
@@ -55,7 +54,6 @@ public class PositionSetTrigger : MonoBehaviour
         {
             if (temp != null)
             {
-                temp.finished = true;
                 if ((DataManager.instance.playerInfo[temp.playerID - 1].placeRace2 > previousPlace))
                 {
                     DataManager.instance.playerInfo[temp.playerID - 1].placeRace2 = place;
@@ -68,16 +66,9 @@ public class PositionSetTrigger : MonoBehaviour
                     }
                     if(humansFinish >= numHumans)
                     {
-                        // give all AI that havent finshed yet a time
-                        float previousTime = rm.time;
-                        for (int i = 0; i < DataManager.instance.playerInfo.Length; i++)
+                        for(int i = temp.playerID; i < hm.vehicleList.Count; i++)
                         {
-                            //If they haven't finished the race yet
-                            if(DataManager.instance.playerInfo[i].placeRace2 == 3 && DataManager.instance.playerInfo[i].timerRace2 == 0f)
-                            {
-                                previousTime = supplyTime(i, previousTime);
-                                place++;
-                            }
+                            supplyTime(i);
                         }
                         hm.EndGame();
                     }

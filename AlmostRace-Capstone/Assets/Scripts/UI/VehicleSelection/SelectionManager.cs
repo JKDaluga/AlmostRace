@@ -8,7 +8,6 @@ public class SelectionManager : MonoBehaviour
 {
     public int amountOfSelections = 2;
     public string nextScene;
-    public int mainMenuIndex = 0;
     public ViewportController[] viewports;
     public VehicleInput[] playerInputs;
     public GameObject allReadyImage;
@@ -28,17 +27,13 @@ public class SelectionManager : MonoBehaviour
 
     private void Update()
     {
-        if (!_readyToStart && !_isLoading)
+        if (!_readyToStart)
         {
             for (int i = 0; i < playerInputs.Length; i++)
             {
                 if (Input.GetButtonDown(playerInputs[i].awakeButton))
                 {
-                    CheckController(playerInputs[i], "AwakeButtonTriggered");
-                }
-                if (Input.GetButtonDown(playerInputs[i].backButton))
-                {
-                    CheckController(playerInputs[i], "BackButtonTriggered");
+                    CheckController(playerInputs[i]);
                 }
             }
         }
@@ -50,36 +45,20 @@ public class SelectionManager : MonoBehaviour
         }
     }
 
-    private void CheckController(VehicleInput givenController, string givenCommand)
+    private void CheckController(VehicleInput givenController)
     {
         bool inUse = false;
-        ViewportController selectedViewport = null;
-
         for (int i = 0; i < viewports.Length; i++)
         {
             if (viewports[i].GetJoined() && viewports[i].GetInput() == givenController)
             {
                 inUse = true;
-                selectedViewport = viewports[i];
                 break;
             }
         }
-
-        if (!inUse && givenCommand == "AwakeButtonTriggered")
+        if (!inUse)
         {
             AssignPlayer(givenController);
-        }
-        else if (givenCommand == "BackButtonTriggered")
-        {
-            if (inUse)
-            {
-                selectedViewport.PlayerJoin(false, null);
-            }
-            else if (!inUse)
-            {
-                _isLoading = true;
-                SceneManager.LoadSceneAsync(mainMenuIndex);
-            }
         }
     }
 

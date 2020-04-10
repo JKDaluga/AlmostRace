@@ -44,9 +44,8 @@ public class PainTrain_ShieldShock : MonoBehaviour
 
     public void Zap()
     {
-        AudioManager.instance.Play("Pain Train Shield Shock", transform);
         //Debug.Log("Zap should have happened!");
-        if (_carsToDamage.Count > 0)
+        if(_carsToDamage.Count > 0)
         {
             foreach(CarHealthBehavior car in _carsToDamage)
             {

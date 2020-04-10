@@ -161,18 +161,7 @@ public class PlayerUIManager : MonoBehaviour
     void Update()
     {
         KillCount.text = "KILLS\n" + _dm.playerInfo[_raycastCarHolder.playerID - 1].numKills;
-        if (_raycastCarHolder.inArena)
-        {
-            LapTimer.text = DataManager.instance.convertTime(DataManager.instance.playerInfo[_raycastCarHolder.playerID-1].timerRace1);
-        }
-        else if (_raycastCarHolder.finished)
-        {
-            LapTimer.text = DataManager.instance.convertTime(DataManager.instance.playerInfo[_raycastCarHolder.playerID-1].timerRace2);
-        }
-        else
-        {
-            LapTimer.text = _rm.timeText;
-        }
+        LapTimer.text = _rm.timeText;
 
         if(_chb.healthCurrent <= 0)
         {

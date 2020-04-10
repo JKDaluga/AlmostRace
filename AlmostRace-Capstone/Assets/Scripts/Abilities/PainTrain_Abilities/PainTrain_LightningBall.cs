@@ -134,7 +134,6 @@ public class PainTrain_LightningBall : Projectile
 
     private void OnCollisionEnter(Collision collision)
     {
-        AudioManager.instance.Play("Pain Train Lightning Ball", transform);
 
         lightningBoom.SetActive(true);
         if (collision.gameObject.CompareTag("Vehicle"))
