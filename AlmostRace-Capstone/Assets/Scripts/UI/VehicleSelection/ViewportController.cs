@@ -66,10 +66,6 @@ public class ViewportController : MonoBehaviour
                 {
                     VehicleSelect(true);
                 }
-                else if (Input.GetButtonDown(_playerInput.backButton))
-                {
-                    PlayerJoin(false, null);
-                }
             }
             else
             {
@@ -196,6 +192,7 @@ public class ViewportController : MonoBehaviour
             vehicleRotationHolder.SetActive(false);
             inactiveImage.enabled = true;
             infoPanelHolder.SetActive(false);
+            _playerInput = null;
             selectionManager.UpdateData(playerID, _ready, selectedCarID, 0);
         }
     }
