@@ -43,6 +43,7 @@ public class FollowParent : MonoBehaviour
         }
         //_yRotation = Mathf.Clamp(transform.rotation.y, -45, 45);
         //transform.rotation = Quaternion.Euler(transform.rotation.x, _yRotation, transform.rotation.z);
+        //Vector3.Lerp(transform.position, target.position, 0.5f);
     }
 
     void Update()
