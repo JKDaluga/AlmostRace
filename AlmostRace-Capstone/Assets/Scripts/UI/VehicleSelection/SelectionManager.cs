@@ -34,10 +34,12 @@ public class SelectionManager : MonoBehaviour
             {
                 if (Input.GetButtonDown(playerInputs[i].awakeButton))
                 {
+                    AudioManager.instance.Play("Menu Selection", this.transform);
                     CheckController(playerInputs[i], "AwakeButtonTriggered");
                 }
                 if (Input.GetButtonDown(playerInputs[i].backButton))
                 {
+                    AudioManager.instance.Play("Menu Selection", this.transform);
                     CheckController(playerInputs[i], "BackButtonTriggered");
                 }
             }
@@ -45,6 +47,7 @@ public class SelectionManager : MonoBehaviour
 
         if(_readyToStart && !_isLoading && Input.GetButtonDown("Submit"))
         {
+            AudioManager.instance.Play("Menu Selection", this.transform);
             _isLoading = true;
             SceneManager.LoadSceneAsync(nextSceneIndex);
         }
@@ -67,10 +70,12 @@ public class SelectionManager : MonoBehaviour
 
         if (!inUse && givenCommand == "AwakeButtonTriggered")
         {
+            AudioManager.instance.Play("Menu Selection", this.transform);
             AssignPlayer(givenController);
         }
         else if (givenCommand == "BackButtonTriggered")
         {
+            AudioManager.instance.Play("Menu Selection", this.transform);
             if (inUse)
             {
                 selectedViewport.PlayerJoin(false, null);
