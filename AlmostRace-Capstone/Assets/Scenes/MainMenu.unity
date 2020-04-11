@@ -355,13 +355,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 499859716}
-        m_MethodName: PlayOneShot
-        m_Mode: 2
+      - m_Target: {fileID: 696389384}
+        m_MethodName: Beep
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: f4d3c2466e543c043a7e8872f290b84f,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -895,6 +894,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 696389384}
+        m_MethodName: Beep
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!1 &430767475
@@ -1093,12 +1103,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb3e548f859be774499c2ef31c8e1799, type: 3}
---- !u!82 &499859716 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 7923551450835292693, guid: bb3e548f859be774499c2ef31c8e1799,
-    type: 3}
-  m_PrefabInstance: {fileID: 499859715}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &501964505
 GameObject:
   m_ObjectHideFlags: 0
@@ -1744,6 +1748,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e97333567a0e334baa3cd24999433bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: Menu Selection
 --- !u!1 &711212551
 GameObject:
   m_ObjectHideFlags: 0
@@ -2712,13 +2717,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 499859716}
-        m_MethodName: PlayOneShot
-        m_Mode: 2
+      - m_Target: {fileID: 696389384}
+        m_MethodName: Beep
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 8300000, guid: 9e7961238941d794f8194cc8f6d6df8f,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.AudioClip, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -3682,6 +3686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e97333567a0e334baa3cd24999433bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  button: Menu Selection
 --- !u!1 &1834014853
 GameObject:
   m_ObjectHideFlags: 0
