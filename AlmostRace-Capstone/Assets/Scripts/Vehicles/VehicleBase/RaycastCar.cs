@@ -251,9 +251,16 @@ public class RaycastCar : MonoBehaviour
         
         // calculate relative velocity
         relativeVel = carTransform.InverseTransformDirection(vel);
-        
-        if(relativeVel.y < -springFallDisengangeSpeed) setSpringForce(0f);
-        else setSpringForce(spring);
+
+        if (relativeVel.y < -springFallDisengangeSpeed)
+        {
+            setSpringForce(0f);
+        }
+        else
+        {
+            setSpringForce(spring);
+        }
+      
 
         // calculate how much we are sliding (find out movement along our x axis)
         slideSpeed = Vector3.Dot(myRight, flatVel);
