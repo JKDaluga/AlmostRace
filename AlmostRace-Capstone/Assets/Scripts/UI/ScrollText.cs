@@ -8,7 +8,7 @@ public class ScrollText : MonoBehaviour
 {
     public ScrollRect field;
 
-    public float scrollSpeed = .005f;
+    WinScreen wN;
 
 
     private void Start()
@@ -16,6 +16,7 @@ public class ScrollText : MonoBehaviour
         field = GetComponent<ScrollRect>();
 
         field.verticalNormalizedPosition = 1;
+        wN = GetComponentInParent<WinScreen>();
 
         StartCoroutine(scrollIt());
     }
@@ -23,10 +24,10 @@ public class ScrollText : MonoBehaviour
 
     IEnumerator scrollIt()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(wN.scrollPause);
         while (true)
         {
-            field.verticalNormalizedPosition -= scrollSpeed;
+            field.verticalNormalizedPosition -= wN.scrollSpeed;
             yield return null;
             if (field.verticalNormalizedPosition < 0)
             {
