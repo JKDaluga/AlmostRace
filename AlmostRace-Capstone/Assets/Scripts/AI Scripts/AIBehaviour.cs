@@ -57,7 +57,7 @@ public class AIBehaviour : MonoBehaviour
     void Start()
     {
 
-        if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(MineMap))
+        /*if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(MineMap))
         {
             nodesToLookAhead = MineNodes;
             offsetAngle = MineOffset;
@@ -66,9 +66,13 @@ public class AIBehaviour : MonoBehaviour
         {
             nodesToLookAhead = InterstellarNodes;
             offsetAngle = InterstellarOffset;
-        }
+        }*/
 
-       avo = GetComponentInChildren<AIObstacleAvoidance>();
+
+        nodesToLookAhead = InterstellarNodes;
+        offsetAngle = InterstellarOffset;
+
+        avo = GetComponentInChildren<AIObstacleAvoidance>();
 
        thisCar = GetComponent<RaycastCar>();
 

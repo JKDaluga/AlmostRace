@@ -16,6 +16,10 @@ public class WinScreen : MonoBehaviour
 
     int winningPlayer;
 
+    [Header("Scrolling Text Values")]
+    public float scrollPause = 2.5f;
+    public float scrollSpeed = .0025f;
+
     // Start is called before the first frame update
     void Start()
     {
