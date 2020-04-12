@@ -136,7 +136,7 @@ public class RaycastCar : MonoBehaviour
             //Sets ai spline to find/follow hotspotspline
             if (rc != null && rc.orderedSplines.Length != 0)
             {
-                _aiSplineScript = rc.orderedSplines[0].GetComponent<SplinePlus>();
+                _aiSplineScript = rc.orderedSplines[rc.AISplineIndex].GetComponent<SplinePlus>();
                 _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
                 InvokeRepeating("findNearest", 0, 2);
             }

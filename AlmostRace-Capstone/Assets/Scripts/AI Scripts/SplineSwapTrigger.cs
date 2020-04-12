@@ -6,20 +6,35 @@ public class SplineSwapTrigger : MonoBehaviour
 {
     public GameObject[] orderedSplines;
     public List<RaycastCar> aiCars;
-    public int currSpline;
+
+    RaceManager rM;
+
+    public bool arenaEntrance;
 
     private void Awake()
     {
         aiCars = new List<RaycastCar>();
-        currSpline = 0;
-       
+
+        rM = FindObjectOfType<RaceManager>();
+
+        orderedSplines = rM.orderedSplines;
+    }
+
+    private void Update()
+    {
+
+        if(aiCars.Count == 0)
+        {
+            SplineSwapTrigger temp = FindObjectOfType<SplineSwapTrigger>();
+            aiCars = temp.aiCars;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<RaycastCar>())
         {
-            currSpline++;
+            rM.AISplineIndex++;
             updateAI();
 
             GetComponent<Collider>().enabled = false;
@@ -30,7 +45,7 @@ public class SplineSwapTrigger : MonoBehaviour
     {
         foreach (RaycastCar i in aiCars)
         {
-            i.GetComponent<AIBehaviour>().SwapSpline(orderedSplines[currSpline].GetComponent<SplinePlus>());
+            i.GetComponent<AIBehaviour>().SwapSpline(orderedSplines[rM.AISplineIndex].GetComponent<SplinePlus>(), arenaEntrance);
         }
     }
 }
