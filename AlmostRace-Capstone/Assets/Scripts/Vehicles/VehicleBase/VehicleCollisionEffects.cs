@@ -10,6 +10,7 @@ public class VehicleCollisionEffects : MonoBehaviour
     public GameObject sparks;
     public Rigidbody colliderRigidbody;
     public GameObject sparkSoundObject;
+    public CinemachineImpulseSource cinemachineImpusleSource;
     private AudioManager _audioManager;
     private AudioSource _audioSource;
     private bool _sparksPlaying;
