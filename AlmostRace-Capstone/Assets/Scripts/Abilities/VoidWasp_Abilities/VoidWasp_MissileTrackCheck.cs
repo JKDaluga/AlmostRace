@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VoidWasp_MissileTrackCheck : MonoBehaviour
 {
-    public VoidWasp_HomingMissile homingMissileScript;
+    public SolarCycle_HomingMissile homingMissileScript;
 
     private void OnTriggerEnter(Collider collision)
     {

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1944102579850453346}
   - component: {fileID: 5800018799653160620}
-  - component: {fileID: 5278292691738350433}
+  - component: {fileID: 5802961625792285176}
   m_Layer: 11
   m_Name: TrackChecker
   m_TagString: Untagged
@@ -45,7 +45,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 35
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5278292691738350433
+--- !u!114 &5802961625792285176
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -54,10 +54,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 464536122031885371}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d83f9e578e98c0b48821b698508639d0, type: 3}
+  m_Script: {fileID: 11500000, guid: c57166e7edd360744854cd7d61562efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  homingMissileScript: {fileID: 8049606830503730626}
+  homingMissileScript: {fileID: 8017632590897639621}
 --- !u!1 &1403974008717634351
 GameObject:
   m_ObjectHideFlags: 0
@@ -68,7 +68,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3841831886217172622}
   - component: {fileID: 121919610670817236}
-  - component: {fileID: 7170409100728543980}
+  - component: {fileID: 895219162688873894}
   m_Layer: 11
   m_Name: AttackChecker
   m_TagString: Untagged
@@ -103,7 +103,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 2.17}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7170409100728543980
+--- !u!114 &895219162688873894
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -112,10 +112,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1403974008717634351}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d1d0f5b4eeabd4943a0a4f5d79bd64e3, type: 3}
+  m_Script: {fileID: 11500000, guid: 8621573fd9dec6541b876b057c62147e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  homingMissileScript: {fileID: 8049606830503730626}
+  homingMissileScript: {fileID: 8017632590897639621}
 --- !u!1 &4739551890406899780
 GameObject:
   m_ObjectHideFlags: 0
@@ -204,7 +204,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5603047786027838406}
   - component: {fileID: 5603047786027838407}
-  - component: {fileID: 8049606830503730626}
+  - component: {fileID: 8017632590897639621}
   - component: {fileID: 3948173011897156384}
   m_Layer: 11
   m_Name: SolarCycle_HomingMissile
@@ -247,7 +247,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8049606830503730626
+--- !u!114 &8017632590897639621
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -256,11 +256,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 5603047786027838403}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f6e67b19ab0c4c418898295c5e0a888, type: 3}
+  m_Script: {fileID: 11500000, guid: 785fba9b76a9d054aab50a3721cb8c3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   meshRenderer: {fileID: 4367906347061738705}
-  explodeVFX: {fileID: 132352, guid: 3e0755099bc7d5a42933e1bdadf8b004, type: 3}
+  explodeVFX: {fileID: 132352, guid: 697d3f7b824fee44b8616e97dfebfc11, type: 3}
   normalizerScript: {fileID: 3948173011897156384}
 --- !u!114 &3948173011897156384
 MonoBehaviour:
@@ -315,6 +315,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1990814346630139042}
     m_Modifications:
+    - target: {fileID: 986596068398015174, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
+        type: 3}
+      propertyPath: m_Name
+      value: VoidWasp_Trail
+      objectReference: {fileID: 0}
     - target: {fileID: 986596068398382822, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -369,11 +374,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 986596068398015174, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
-        type: 3}
-      propertyPath: m_Name
-      value: VoidWasp_Trail
       objectReference: {fileID: 0}
     - target: {fileID: 986596068378983334, guid: 06a5dc1fb4efd3d458def5f9cc4a9f2e,
         type: 3}
