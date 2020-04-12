@@ -119,6 +119,7 @@ public class HypeManager : MonoBehaviour
     public void EndGame()
     {
         isGameEnded = true;
+        MenuController.setIsGamePaused(true);
         eventPanel.SetActive(true);
         calculateHype();
         FindObjectOfType<WinScreen>().chooseWinners();

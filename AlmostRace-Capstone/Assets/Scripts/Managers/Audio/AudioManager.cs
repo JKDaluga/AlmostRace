@@ -68,42 +68,12 @@ public class AudioManager : MonoBehaviour
         
         Sound s = FindSound(sound);
 
-        if(sound == null)
+        if(sound == null || MenuController.isPaused())
         {
             return;
         }
 
-        float spatialVolume = s.volume;
-        
-        if (_raceManager != null)
-        {
-            float distance = Mathf.Infinity;
-            foreach (RaycastCar car in _raceManager.cars)
-            {
-                if(car != null && car.GetComponent<VehicleInput>()!=null)
-                {
-                    float tempDistance = Vector3.Distance(car.transform.position, soundTransform.position);
-                    if (distance > tempDistance)
-                    {
-                        distance = tempDistance;
-                        if (distance <= innerSoundDistance)
-                        {
-                            spatialVolume = s.volume;
-                        }
-                        else if (distance <= maxSoundDistance)
-                        {
-                            spatialVolume = s.volume * (innerSoundDistance/distance);
-                        }
-                        else
-                        {
-                            spatialVolume = 0;
-                        }
-                    }
-                }
-            }
-        }
-
-        source.PlayOneShot(s.clip, spatialVolume*audioMultiplier);
+        source.PlayOneShot(s.clip, calcSpatialVolume(s.volume, soundTransform) * audioMultiplier);
     }
 
     public void PlayWithoutSpatial(string sound)
@@ -133,5 +103,39 @@ public class AudioManager : MonoBehaviour
     public void updateSoundVolume(float soundMultiplier)
     {
         audioMultiplier = soundMultiplier;
+    }
+
+    public float calcSpatialVolume(float defaultVolume, Transform soundTransform)
+    {
+        float spatialVolume = defaultVolume;
+
+        if (_raceManager != null)
+        {
+            float distance = Mathf.Infinity;
+            foreach (RaycastCar car in _raceManager.cars)
+            {
+                if (car != null && car.GetComponent<VehicleInput>() != null)
+                {
+                    float tempDistance = Vector3.Distance(car.transform.position, soundTransform.position);
+                    if (distance > tempDistance)
+                    {
+                        distance = tempDistance;
+                        if (distance <= innerSoundDistance)
+                        {
+                            spatialVolume = defaultVolume;
+                        }
+                        else if (distance <= maxSoundDistance)
+                        {
+                            spatialVolume = defaultVolume * (innerSoundDistance / distance);
+                        }
+                        else
+                        {
+                            spatialVolume = 0;
+                        }
+                    }
+                }
+            }
+        }
+        return spatialVolume;
     }
 }

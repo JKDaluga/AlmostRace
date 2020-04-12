@@ -40,8 +40,6 @@ public class VehicleCollisionEffects : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<VehicleInput>())
         {
-
-
             GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 1;
             GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 1;
             GetComponent<CinemachineImpulseSource>().GenerateImpulse();
@@ -53,17 +51,13 @@ public class VehicleCollisionEffects : MonoBehaviour
 
     private void OnCollisionStay(Collision collision)
     {
-        if (colliderRigidbody.velocity.magnitude > velocityRequirement)
+        if (colliderRigidbody.velocity.magnitude > velocityRequirement && !MenuController.isPaused())
         {
             CreateSparks(collision);
             if (!_audioSource.isPlaying)
             {
                 _audioSource.Play();
             }
-            //foreach (ContactPoint contact in collision.contacts)
-            //{
-            //    Debug.DrawRay(contact.point, contact.normal, Color.white);
-            //} Collision Debug
         }
         else
         {
@@ -91,11 +85,11 @@ public class VehicleCollisionEffects : MonoBehaviour
         _playAudio = toggle;
         if(_playAudio && _sparksPlaying)
         {
-          //  _audioSource.Play();
+            _audioSource.Play();
         }
         else
         {
-          //  _audioSource.Stop();
+            _audioSource.Stop();
         }
     }
 }

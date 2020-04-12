@@ -20,9 +20,11 @@ public class MenuController : MonoBehaviour
     private VehicleCollisionEffects[] _sparkSoundsToControl;
     private SphereCarController[] _sphereCarController;
     private VehicleInput[] _vehicleInput;
+    private static bool isGamePaused = true;
 
     private void Start()
     {
+        isGamePaused = false;
         arrV = FindObjectsOfType<VehicleInput>();
         _eventSystem = FindObjectOfType<EventSystem>();
         _engineSoundsToControl = FindObjectsOfType<EngineAudio>();
@@ -47,6 +49,7 @@ public class MenuController : MonoBehaviour
                 }
                 Time.timeScale = 1f;
                 pauseMenu.SetActive(false);
+                isGamePaused = false;
                 UnpauseSoundHandle();
             }
             else
@@ -54,18 +57,17 @@ public class MenuController : MonoBehaviour
                 turnOnOff(false);
                 Time.timeScale = 0f;
                 pauseMenu.SetActive(true);
+                isGamePaused = true;
+                _engineSoundsToControl = FindObjectsOfType<EngineAudio>();
                 foreach (EngineAudio engineSound in _engineSoundsToControl)
-				{
-					engineSound.toggleEngine(false);
-				}
+                {
+                    engineSound.toggleEngine(false);
+                }
+                _sparkSoundsToControl = FindObjectsOfType<VehicleCollisionEffects>();
                 foreach (VehicleCollisionEffects sparkSound in _sparkSoundsToControl)
-				{
-					sparkSound.toggleSparksSound(false);
-				}
-                foreach (SphereCarController driftSound in _sphereCarController)
-				{
-                    driftSound.DriftAudioSource.enabled = false;
-				}
+                {
+                    sparkSound.toggleSparksSound(false);
+                }
                 _vehicleInput = FindObjectsOfType<VehicleInput>();
                 foreach (VehicleInput car in _vehicleInput)
                 {
@@ -125,5 +127,15 @@ public class MenuController : MonoBehaviour
         {
             sparkSound.toggleSparksSound(true);
         }
+    }
+
+    public static bool isPaused()
+    {
+        return isGamePaused;
+    }
+
+    public static void setIsGamePaused(bool isPaused)
+    {
+        isGamePaused = isPaused;
     }
 }
