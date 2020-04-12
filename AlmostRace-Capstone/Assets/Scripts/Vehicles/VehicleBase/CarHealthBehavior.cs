@@ -229,6 +229,8 @@ public class CarHealthBehavior : MonoBehaviour
         GameObject respawnInstance = Instantiate(respawnPlatform);
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
         //_carBodyHolder.isKinematic = true;
+        _carBodyHolder.velocity = Vector3.zero;
+        _carBodyHolder.angularVelocity = Vector3.zero;
 
         if (_vehicleInput)
         {
