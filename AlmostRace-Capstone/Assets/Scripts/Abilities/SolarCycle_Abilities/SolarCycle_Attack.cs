@@ -50,7 +50,7 @@ public class SolarCycle_Attack : Ability
                     StartCoroutine(LaunchSequence(_objectsInRange[i]));
                 }
             }
-            if (curentTargetCount == testForTargetMatchCount)
+            if (curentTargetCount <= testForTargetMatchCount)
             {
                 StartCoroutine(LaunchSequence());
             }
@@ -68,7 +68,7 @@ public class SolarCycle_Attack : Ability
         int currentSpawnLocation = 0;
         for (int j = 0; j < missileDistributionCount; j++)
         {
-            /* If we want to never have the missile spawn if the specific target is dead
+            /* If we want to never have the missile spawn if the specific target is dead before launching
             if (CheckTargetAlive(target) == false)
             {
                 break;
