@@ -643,6 +643,57 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1 &1238560088012541880
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4267348005460933389}
+  - component: {fileID: 851423690096705073}
+  m_Layer: 0
+  m_Name: SC Engine Boost Companion 1 Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4267348005460933389
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238560088012541880}
+  m_LocalRotation: {x: -0.38268343, y: 0.92387956, z: 0.00000007165881, w: -0.00000017299969}
+  m_LocalPosition: {x: -3.3279998, y: 4.896319, z: 0}
+  m_LocalScale: {x: 21.840023, y: 21.84, z: 21.840065}
+  m_Children:
+  - {fileID: 8628462139355903643}
+  m_Father: {fileID: 5381424535137708509}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: -45}
+--- !u!95 &851423690096705073
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1238560088012541880}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d66d087afa3100c45aca851c99e17d88, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1810017010153335397
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,7 +705,6 @@ GameObject:
   - component: {fileID: 8628462139355903643}
   - component: {fileID: 5513685553824389563}
   - component: {fileID: 7095829419463606904}
-  - component: {fileID: 144580041658016045}
   m_Layer: 0
   m_Name: SC Engine Boost Companion 1
   m_TagString: Untagged
@@ -669,14 +719,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1810017010153335397}
-  m_LocalRotation: {x: -0.38268343, y: 0.92387956, z: 0.00000007165881, w: -0.00000017299969}
-  m_LocalPosition: {x: -3.3279998, y: 4.89632, z: 0}
-  m_LocalScale: {x: 21.840008, y: 21.84, z: 21.840023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1393052494149687046}
-  m_Father: {fileID: 5381424535137708509}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: -45}
+  m_Father: {fileID: 4267348005460933389}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &5513685553824389563
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -723,25 +773,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!95 &144580041658016045
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1810017010153335397}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d66d087afa3100c45aca851c99e17d88, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2945551248166701102
 GameObject:
   m_ObjectHideFlags: 0
@@ -5494,7 +5525,6 @@ GameObject:
   - component: {fileID: 2138646192240309250}
   - component: {fileID: 7272413596133884448}
   - component: {fileID: 8317220108447780948}
-  - component: {fileID: 9056482317839703625}
   m_Layer: 0
   m_Name: SC Engine Boost Companion 2
   m_TagString: Untagged
@@ -5509,14 +5539,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3644919581834046109}
-  m_LocalRotation: {x: 0.38268343, y: 0.92387956, z: -0.00000007165881, w: -0.00000017299969}
-  m_LocalPosition: {x: 3.3279998, y: 4.89632, z: 0}
-  m_LocalScale: {x: 21.840008, y: 21.84, z: 21.840023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6487241093135396364}
-  m_Father: {fileID: 5381424535137708509}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: 45}
+  m_Father: {fileID: 2292455907286228329}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7272413596133884448
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5563,14 +5593,46 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!95 &9056482317839703625
+--- !u!1 &4705557545906110467
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2292455907286228329}
+  - component: {fileID: 5246276261778014762}
+  m_Layer: 0
+  m_Name: SC Engine Boost Companion 2 Holder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2292455907286228329
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4705557545906110467}
+  m_LocalRotation: {x: 0.38268343, y: 0.92387956, z: -0.00000007165881, w: -0.00000017299969}
+  m_LocalPosition: {x: 3.3279998, y: 4.896319, z: 0}
+  m_LocalScale: {x: 21.840023, y: 21.84, z: 21.840065}
+  m_Children:
+  - {fileID: 2138646192240309250}
+  m_Father: {fileID: 5381424535137708509}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 180.00002, z: 45}
+--- !u!95 &5246276261778014762
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3644919581834046109}
+  m_GameObject: {fileID: 4705557545906110467}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 0a63d9effcc42a54bbcb2c9db746728b, type: 2}
@@ -5826,8 +5888,8 @@ MonoBehaviour:
   - {fileID: 74677431672801978}
   - {fileID: 1694028635873903184}
   - {fileID: 7009434993388894650}
-  - {fileID: 144580041658016045}
-  - {fileID: 9056482317839703625}
+  - {fileID: 851423690096705073}
+  - {fileID: 5246276261778014762}
   hypeToGain: 5
 --- !u!1 &5791374003481530145
 GameObject:
@@ -5859,8 +5921,8 @@ Transform:
   - {fileID: 5006512734906361963}
   - {fileID: 1528141697}
   - {fileID: 1011136676}
-  - {fileID: 8628462139355903643}
-  - {fileID: 2138646192240309250}
+  - {fileID: 4267348005460933389}
+  - {fileID: 2292455907286228329}
   m_Father: {fileID: 1647175589}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -25325,17 +25387,17 @@ PrefabInstance:
     - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.230375
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.13499996
+      value: 2.33
       objectReference: {fileID: 0}
     - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.6710134
+      value: -10.07
       objectReference: {fileID: 0}
     - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
