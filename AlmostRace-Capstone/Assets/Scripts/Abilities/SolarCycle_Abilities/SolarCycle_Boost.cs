@@ -32,11 +32,24 @@ public class SolarCycle_Boost : CooldownHeatAbility
     private RaycastCar carInfo;
     private bool isBoosting = false;
 
+    [Header("ParticleValues")]
+    public ParticleSystem[] jetParticles;
+    public ParticleSystem.MinMaxCurve boostParticleSpeed;
+    public ParticleSystem.MinMaxCurve zeroParticleSpeed;
+    public GameObject[] boostCones;
+    private ParticleSystem.MinMaxCurve[] _startParticleLifetimes;
+
     private void Start()
     {
         carInfo = gameObject.GetComponent<RaycastCar>();
         carHeatInfo = gameObject.GetComponent<CarHealthBehavior>();
         originalMaxTurnAngle = carInfo.maxTurnAngle;
+        _startParticleLifetimes = new ParticleSystem.MinMaxCurve[jetParticles.Length];
+        for (int i = 0; i < jetParticles.Length; i++)
+        {
+            _startParticleLifetimes[i] = jetParticles[i].GetComponent<ParticleSystem>().main.startLifetime;
+            boostCones[i].SetActive(true);
+        }
     }
 
     public override void ActivateAbility()
@@ -50,6 +63,11 @@ public class SolarCycle_Boost : CooldownHeatAbility
             for (int i = 0; i < companions.Length; i++)
             {
                 companions[i].SetActive(true);
+            }
+            for (int i = 0; i < jetParticles.Length; i++)
+            {
+                var particle = jetParticles[i].main;
+                particle.startLifetime = boostParticleSpeed;
             }
             StartCoroutine(CompanionBehavior());
         }
@@ -103,7 +121,12 @@ public class SolarCycle_Boost : CooldownHeatAbility
             Instantiate(explodeVFX, companions[i].transform.position, companions[i].transform.rotation);
             AudioManager.instance.Play("VoidWasp Companion Death", transform);
         }
-
+        for (int i = 0; i < jetParticles.Length; i++)
+        {
+            var particle = jetParticles[i].main;
+            particle.startLifetime = zeroParticleSpeed;
+            boostCones[i].SetActive(false);
+        }
         carInfo.maxTurnAngle = originalMaxTurnAngle;
         isBoosting = false;
     }
@@ -120,7 +143,12 @@ public class SolarCycle_Boost : CooldownHeatAbility
 
     public override void AbilityOffOfCooldown()
     {
-
+        for (int i = 0; i < jetParticles.Length; i++)
+        {
+            boostCones[i].SetActive(true);
+            var particle = jetParticles[i].main;
+            particle.startLifetime = _startParticleLifetimes[i];
+        }
     }
 
     public override void AbilityInUse()

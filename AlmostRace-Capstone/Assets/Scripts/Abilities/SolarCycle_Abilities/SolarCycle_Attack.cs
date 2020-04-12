@@ -34,6 +34,8 @@ public class SolarCycle_Attack : Ability
 
     public override void ActivateAbility()
     {
+        int curentTargetCount = _objectsInRange.Count;
+        int testForTargetMatchCount = 0;
         if (_objectsInRange.Count > 0)
         {
             for (int i = 0; i < _objectsInRange.Count; i++)
@@ -41,11 +43,16 @@ public class SolarCycle_Attack : Ability
                 if (_objectsInRange[i] == null)
                 {
                     _objectsInRange.RemoveAt(i);
+                   testForTargetMatchCount = testForTargetMatchCount + 1;
                 }
                 else
                 {
                     StartCoroutine(LaunchSequence(_objectsInRange[i]));
                 }
+            }
+            if (curentTargetCount == testForTargetMatchCount)
+            {
+                StartCoroutine(LaunchSequence());
             }
         }
         else
