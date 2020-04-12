@@ -26,6 +26,8 @@ public class SolarCycle_Attack : Ability
     [Tooltip("Wait time between each projectile fired in a sequence")] public float timeBetweenLaunch = 0.15f;
     [Tooltip("How long the projectile waits till it tracks")] public float hangTime;
     [Tooltip("How long the projectile lives max")] public float maxLifeTime = 7;
+    public Animator attackAnimator;
+    public Animator[] engineAnimators;
     public float hypeToGain;
     private List<GameObject> _objectsInRange = new List<GameObject>();
     private Vector3 spawnOffset;
@@ -87,6 +89,11 @@ public class SolarCycle_Attack : Ability
                 currentSpawnLocation = 0;
             }
         }
+        attackAnimator.SetTrigger("CoolDownStart");
+        foreach (Animator engineAnimation in engineAnimators)
+        {
+            engineAnimation.Play("EngineDown");
+        }
     }
 
     private IEnumerator LaunchSequence()
@@ -113,6 +120,11 @@ public class SolarCycle_Attack : Ability
                 //if we were about to go out of bounds, reset back to 0!
                 currentSpawnLocation = 0;
             }
+        }
+        attackAnimator.SetTrigger("CoolDownStart");
+        foreach (Animator engineAnimation in engineAnimators)
+        {
+            engineAnimation.Play("EngineDown");
         }
     }
 
@@ -159,11 +171,15 @@ public class SolarCycle_Attack : Ability
 
     public override void AbilityOffOfCooldown()
     {
-
+        attackAnimator.SetTrigger("CoolDownEnd");
     }
 
     public override void AbilityInUse()
     {
-
+        attackAnimator.SetTrigger("AttackStart");
+        foreach (Animator engineAnimation in engineAnimators)
+        {
+            engineAnimation.Play("EngineUp");
+        }
     }
 }
