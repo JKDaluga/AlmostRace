@@ -48,14 +48,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
         {
             if (GameObject.FindGameObjectWithTag("AISpline") != null)
             {
-                if (arena != null && arena.isActivated)
-                {
-                    SpawnOnArenaSpawnPoint();
-                }
-                else
-                {
-                    SpawnOnNearestSplinePoint();
-                }
+                SpawnOnNearestSplinePoint();
             }
             else
             {
