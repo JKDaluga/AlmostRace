@@ -149,7 +149,11 @@ public class RaycastCar : MonoBehaviour
 
         float currentPosition;
         int placeHolder = 0;
+        RaceManager rc = FindObjectOfType<RaceManager>();
 
+
+        _aiSplineScript = rc.orderedSplines[rc.AISplineIndex].GetComponent<SplinePlus>();
+        _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
 
         foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
         {

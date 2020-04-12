@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class AICheats : MonoBehaviour
 {
-    public List<GameObject> players = new List<GameObject>();
     RaycastCar rearPlayer;
-    bool playersIn;
+    public bool playersIn;
 
     private RaceManager _raceManager;
     public HypeGateTimeBehavior arena;
@@ -23,13 +22,14 @@ public class AICheats : MonoBehaviour
             Debug.LogError("Race Manager not found!");
         }
 
+
         StartCoroutine(arenaWarp());
         StartCoroutine(distanceKill());
     }
 
     private void Update()
     {
-        if (arena != null && arena.isActivated)
+        if (arena != null && arena.carsInRange.Count == 4)
         {
             StopAllCoroutines();
         }
@@ -37,6 +37,11 @@ public class AICheats : MonoBehaviour
         {
             GetComponent<CarHealthBehavior>().AICheatKill();
         }
+    }
+
+    public void startCheating()
+    {
+        StartCoroutine(distanceKill());
     }
 
     IEnumerator arenaWarp()
@@ -47,9 +52,9 @@ public class AICheats : MonoBehaviour
             if (arena != null && arena.isActivated)
             {
                 playersIn = true;
-                foreach (GameObject i in players)
+                foreach (RaycastCar i in _raceManager.playerCars)
                 {
-                    if (!arena.carsInRange.Contains(i))
+                    if (!arena.carsInRange.Contains(i.gameObject))
                     {
                         playersIn = false;
                     }
@@ -57,6 +62,7 @@ public class AICheats : MonoBehaviour
 
                 if (playersIn && !arena.carsInRange.Contains(gameObject))
                 {
+                    print("Arena Warping");
                     GetComponent<CarHealthBehavior>().AICheatKill();
                 }
             }
@@ -72,9 +78,9 @@ public class AICheats : MonoBehaviour
             if (_raceManager != null)
             {
                 rearPlayer = _raceManager.cars[0];
-                foreach (GameObject i in players)
+                foreach (RaycastCar i in _raceManager.playerCars)
                 {
-                    if (i.GetComponent<RaycastCar>().closestIndex < rearPlayer.closestIndex)
+                    if (i.closestIndex < rearPlayer.closestIndex)
                     {
                         rearPlayer = i.GetComponent<RaycastCar>();
                     }

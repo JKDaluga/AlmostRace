@@ -167,6 +167,10 @@ public class HypeGateTimeBehavior : MonoBehaviour
                 foreach(RaycastCar i in _raceManager.cars)
                 {
                     i.inArena = false;
+                    if (!i.GetComponent<VehicleInput>())
+                    {
+                        i.GetComponent<AICheats>().startCheating();
+                    }
                 }
                 //StopCoroutine(TrackHype());
                 StopAllCoroutines();

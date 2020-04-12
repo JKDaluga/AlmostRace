@@ -28,6 +28,8 @@ public class RaceManager : MonoBehaviour
 
     public RaycastCar[] cars;
 
+    public List<RaycastCar> playerCars;
+
     public bool inArena;
 
     private bool inCountDown = true;
@@ -47,6 +49,7 @@ public class RaceManager : MonoBehaviour
         rt.offsetMin = new Vector2(0, 0);
         rt.offsetMax = new Vector2(0, 0);
         time = 0;
+        playerCars = new List<RaycastCar>();
         
         dm = DataManager.instance;
         if(dm == null)
@@ -121,6 +124,7 @@ public class RaceManager : MonoBehaviour
         GameObject car = Instantiate(carPool[player.carID * 4 + player.playerID - 1], spawnLocations[player.playerID - 1].position, spawnLocations[player.playerID - 1].rotation);
         RaycastCar raycastCar = car.GetComponentInChildren<RaycastCar>();
         cars[player.playerID - 1] = raycastCar;
+        playerCars.Add(raycastCar);
         raycastCar.playerID = player.playerID;
         VehicleInput v = car.GetComponentInChildren<VehicleInput>();
         v.setPlayerNum(player.controllerID);
