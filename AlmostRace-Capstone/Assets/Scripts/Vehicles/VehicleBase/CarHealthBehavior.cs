@@ -228,8 +228,7 @@ public class CarHealthBehavior : MonoBehaviour
         GetComponent<VehicleAbilityBehavior>().enabled = false;
         GameObject respawnInstance = Instantiate(respawnPlatform);
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
-        _carBodyHolder.useGravity = false;
-        _carBodyHolder.isKinematic = true;
+        //_carBodyHolder.isKinematic = true;
 
         if (_vehicleInput)
         {
@@ -250,8 +249,7 @@ public class CarHealthBehavior : MonoBehaviour
         GetComponent<VehicleAbilityBehavior>().enabled = false;
         GameObject respawnInstance = Instantiate(cheatRespawnPlatform);
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
-        _carBodyHolder.useGravity = false;
-        _carBodyHolder.isKinematic = true;
+        //_carBodyHolder.isKinematic = true;
 
         if (_vehicleInput)
         {
@@ -280,8 +278,7 @@ public class CarHealthBehavior : MonoBehaviour
         }
         raycastCarHolder.enabled = true;
         GetComponent<VehicleAbilityBehavior>().enabled = true;
-        _carBodyHolder.useGravity = true;
-        _carBodyHolder.isKinematic = false;
+        //_carBodyHolder.isKinematic = false;
         HeatAbility bAbility = GetComponent<HeatAbility>();
         AudioManager.instance.Play("Respawn complete", transform);
         if (bAbility != null)
@@ -327,7 +324,6 @@ public class CarHealthBehavior : MonoBehaviour
             GetComponent<VehicleAbilityBehavior>().enabled = false;
             GameObject respawnInstance = Instantiate(respawnPlatform);
             respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
-            _carBodyHolder.useGravity = false;
             _carBodyHolder.isKinematic = true;
         }
     }
