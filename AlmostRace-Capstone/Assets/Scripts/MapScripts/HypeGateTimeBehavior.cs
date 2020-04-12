@@ -32,10 +32,13 @@ public class HypeGateTimeBehavior : MonoBehaviour
     public GameObject arenaEndText;
     public bool isActivated;
 
+    SplineSwapTrigger aiMan;
+
     // Start is called before the first frame update
     void Start()
     {
         _raceManager = FindObjectOfType<RaceManager>();
+        aiMan = _raceManager.aiMan;
         if (_raceManager != null)
         {
             _carsInGame = _raceManager.cars.Length;
@@ -156,8 +159,7 @@ public class HypeGateTimeBehavior : MonoBehaviour
                     arenaEndText.SetActive(true);
 
                     Invoke("DisableEvents", 3);
-                SplineSwapTrigger aiMan = FindObjectOfType<SplineSwapTrigger>();
-                aiMan.currSpline++;
+                _raceManager.AISplineIndex++;
                 aiMan.updateAI();
 
                 _raceManager.time = 0;

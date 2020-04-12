@@ -80,10 +80,10 @@ public class AIBehaviour : MonoBehaviour
 
     }
 
-    public void SwapSpline(SplinePlus newSpline)
+    public void SwapSpline(SplinePlus newSpline, bool arena)
     {
         _branchesAtStart = new Dictionary<int, Branch>(newSpline.SPData.DictBranches);
-        _inArena = !_inArena;
+        _inArena = arena;
     }
 
     // Update is called once per frame

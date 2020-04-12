@@ -32,13 +32,14 @@ public class RaceManager : MonoBehaviour
 
     private bool inCountDown = true;
 
-    private SplineSwapTrigger aiMan;
+    public SplineSwapTrigger aiMan;
+
+    public int AISplineIndex;
 
     // Start is called before the first frame update
     void Start()
     {
         aiMan = FindObjectOfType<SplineSwapTrigger>();
-        aiMan.orderedSplines = orderedSplines;
         fourthPlayerPanel.SetActive(false);
         eventPanel = GameObject.FindGameObjectWithTag("EventPanel");
         AIindex = Random.Range(0, AICar.Length);

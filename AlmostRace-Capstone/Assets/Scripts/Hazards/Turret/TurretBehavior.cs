@@ -137,7 +137,7 @@ public class TurretBehavior : Interactable
         if(currentTarget != null)
         {
             //  Debug.Log("Turret should be aiming");
-            /*if (m_lastKnownPosition != currentTarget.transform.position)
+            if (m_lastKnownPosition != currentTarget.transform.position)
             {
                 m_lastKnownPosition = currentTarget.transform.position;
                 m_lookAtRotation = Quaternion.LookRotation(m_lastKnownPosition - turretHead.transform.position);
@@ -146,9 +146,9 @@ public class TurretBehavior : Interactable
             if (transform.rotation != m_lookAtRotation)
             {
                 turretHead.transform.rotation = Quaternion.RotateTowards(turretHead.transform.rotation, m_lookAtRotation, 30 * Time.deltaTime);
-            }*/
+            }
 
-            Vector3 pos = predictedPosition(currentTarget.transform.position, turretMuzzle.position, currentTarget.GetComponent<RaycastCar>().GetRelativeVelocity(), turretProjectileSpeed);
+            Vector3 pos = predictedPosition(currentTarget.transform.position, turretMuzzle.position, currentTarget.GetComponent<RaycastCar>().GetFlatVelocity(), turretProjectileSpeed);
 
             turretHead.LookAt(pos);//look at current target
 
