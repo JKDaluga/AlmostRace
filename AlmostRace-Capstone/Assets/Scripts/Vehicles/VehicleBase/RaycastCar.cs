@@ -216,7 +216,7 @@ public class RaycastCar : MonoBehaviour
                 horizontal = Input.GetAxis(input.horizontal);
                 throttle = Input.GetAxis(input.verticalForward);
                 reverse = Input.GetAxis(input.verticalBackward);
-                drift = Input.GetButton(input.brake);
+                //drift = Input.GetButton(input.brake);
             }
             else
             {
@@ -351,9 +351,10 @@ public class RaycastCar : MonoBehaviour
         {
             carRigidbody.AddForce(Vector3.down * gravity * carRigidbody.mass);
         }
-        
 
-        if (currentSpeed < maxSpeed + boostSpeed + boostPadSpeed)
+        float angleBetween = Mathf.Acos(Vector3.Dot(Vector3.up, transform.up)) * 180 / Mathf.PI;
+
+        if (currentSpeed < maxSpeed + boostSpeed + boostPadSpeed && (isCarGrounded() || angleBetween< 20))
         {
             // apply the engine force to the rigidbody
             carRigidbody.AddForce(engineForce * Time.deltaTime);
