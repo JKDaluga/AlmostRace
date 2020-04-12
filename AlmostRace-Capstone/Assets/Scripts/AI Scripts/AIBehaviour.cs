@@ -84,7 +84,6 @@ public class AIBehaviour : MonoBehaviour
     {
         _branchesAtStart = new Dictionary<int, Branch>(newSpline.SPData.DictBranches);
         _inArena = arena;
-        print(newSpline.name);
     }
 
     // Update is called once per frame
