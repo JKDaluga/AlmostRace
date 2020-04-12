@@ -10,7 +10,6 @@ public class VehicleCollisionEffects : MonoBehaviour
     public GameObject sparks;
     public Rigidbody colliderRigidbody;
     public GameObject sparkSoundObject;
-    public CinemachineImpulseSource cinemachineImpusleSource;
     private AudioManager _audioManager;
     private AudioSource _audioSource;
     private bool _sparksPlaying;
@@ -41,9 +40,6 @@ public class VehicleCollisionEffects : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<VehicleInput>())
         {
-            cinemachineImpusleSource.m_ImpulseDefinition.m_AmplitudeGain = 1;
-            cinemachineImpusleSource.m_ImpulseDefinition.m_FrequencyGain = 1;
-            cinemachineImpusleSource.GenerateImpulse();
             AudioManager.instance.Play("General collision", transform);
             CreateSparks(collision);
             _sparksPlaying = true;
