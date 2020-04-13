@@ -17,7 +17,9 @@ public class SolarCycle_Defensive : CooldownAbility
     public float siphonFrequency = 1;
     public float minSimSpeed = 0.6f;
     public float maxSimSpeed = 1;
-    public List<GameObject> _shields;
+    public List<GameObject> shields;
+    public List<Animator> shieldGenerators;
+    public GameObject explodeVFX;
     private CarHealthBehavior _carHealthScript;
     private List<GameObject> _objectsInRange = new List<GameObject>();
     private float[] _startParticleLifetimes;
@@ -26,10 +28,10 @@ public class SolarCycle_Defensive : CooldownAbility
     void Start()
     {
         _carHealthScript = gameObject.GetComponent<CarHealthBehavior>();
-        _startParticleLifetimes = new float[_shields.Count];
-        for (int i = 0; i < _shields.Count; i++)
+        _startParticleLifetimes = new float[shields.Count];
+        for (int i = 0; i < shields.Count; i++)
         {
-            _startParticleLifetimes[i] = _shields[i].GetComponent<ParticleSystem>().main.startLifetime.constant;
+            _startParticleLifetimes[i] = shields[i].GetComponent<ParticleSystem>().main.startLifetime.constant;
         }
     }
 
@@ -38,10 +40,14 @@ public class SolarCycle_Defensive : CooldownAbility
         AudioManager.instance.Play("Shield Activated", transform);
         _carHealthScript.SetPersonalShieldAmount(shieldHealth);
         _isActive = true;
-        foreach (GameObject shield in _shields)
+        foreach (GameObject shield in shields)
         {
             shield.GetComponent<ParticleSystem>().Play();
             ChangeSimSpeed(shield);
+        }
+        foreach (Animator shieldGen in shieldGenerators)
+        {
+            shieldGen.Play("SCShieldGenActive");
         }
         StartCoroutine(ShieldEvent());
     }
@@ -88,10 +94,16 @@ public class SolarCycle_Defensive : CooldownAbility
     {
         _carHealthScript.SetPersonalShieldAmount(0);
         StopAllCoroutines();
-        foreach (GameObject shield in _shields)
+        foreach (GameObject shield in shields)
         {
             shield.GetComponent<ParticleSystem>().Stop();
             shield.GetComponent<ParticleSystem>().Clear();
+        }
+        foreach (Animator shieldGen in shieldGenerators)
+        {
+            shieldGen.Play("SCShieldGenCooldown");
+            Instantiate(explodeVFX, shieldGen.transform.position, shieldGen.transform.rotation);
+            AudioManager.instance.Play("VoidWasp Companion Death", transform);
         }
         _isActive = false;
     }
@@ -114,11 +126,11 @@ public class SolarCycle_Defensive : CooldownAbility
 
     private void ActiveShieldParticleChanges()
     {
-        for (int i = 0; i < _shields.Count; i++)
+        for (int i = 0; i < shields.Count; i++)
         {
-            var shieldsMain = _shields[i].GetComponent<ParticleSystem>().main;
+            var shieldsMain = shields[i].GetComponent<ParticleSystem>().main;
             //shieldsMain.startLifetime = _startParticleLifetimes[i];
-            ChangeSimSpeed(_shields[i]);
+            ChangeSimSpeed(shields[i]);
         }
     }
 
@@ -135,7 +147,10 @@ public class SolarCycle_Defensive : CooldownAbility
 
     public override void AbilityOffOfCooldown()
     {
-
+        foreach (Animator shieldGen in shieldGenerators)
+        {
+            shieldGen.Play("SCShieldGenIdle");
+        }
     }
 
     public override void AbilityInUse()

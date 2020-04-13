@@ -33,7 +33,8 @@ public class SolarCycle_Boost : CooldownHeatAbility
     private bool isBoosting = false;
 
     [Header("ParticleValues")]
-    public Animator[] jetParticles;
+    public Animator[] frontJetParticles;
+    public Animator[] backJetParticles;
     public Animator[] boostCones;
     public List<GameObject> shieldsDuringBoost;
     public SolarCycle_Defensive scDefensiveScript;
@@ -57,9 +58,13 @@ public class SolarCycle_Boost : CooldownHeatAbility
             {
                 companions[i].SetActive(true);
             }
-            for (int i = 0; i < jetParticles.Length; i++)
+            for (int i = 0; i < frontJetParticles.Length; i++)
             {
-                jetParticles[i].Play("FireEffectBoosting");
+                frontJetParticles[i].Play("FireEffectBoosting");
+            }
+            for (int i = 0; i < backJetParticles.Length; i++)
+            {
+                backJetParticles[i].Play("FireEffectBoosting");
             }
             if (scDefensiveScript.GetActive())
             {
@@ -121,9 +126,10 @@ public class SolarCycle_Boost : CooldownHeatAbility
             Instantiate(explodeVFX, companions[i].transform.position, companions[i].transform.rotation);
             AudioManager.instance.Play("VoidWasp Companion Death", transform);
         }
-        for (int i = 0; i < jetParticles.Length; i++)
+        for (int i = 0; i < backJetParticles.Length; i++)
         {
-            jetParticles[i].Play("FireEffectCoolingDown");
+            if (backJetParticles[i].gameObject.activeSelf == true)
+                backJetParticles[i].Play("FireEffectCoolingDown");
         }
         for (int i = 0; i < boostCones.Length; i++)
         {
@@ -145,9 +151,10 @@ public class SolarCycle_Boost : CooldownHeatAbility
 
     public override void AbilityOffOfCooldown()
     {
-        for (int i = 0; i < jetParticles.Length; i++)
+        for (int i = 0; i < backJetParticles.Length; i++)
         {
-            jetParticles[i].Play("FireEffectIdle");
+            if (backJetParticles[i].gameObject.activeSelf == true)
+                backJetParticles[i].Play("FireEffectIdle");
         }
         for (int i = 0; i < boostCones.Length; i++)
         {
