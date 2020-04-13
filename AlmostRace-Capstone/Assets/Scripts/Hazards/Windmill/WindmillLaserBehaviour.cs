@@ -73,6 +73,10 @@ public class WindmillLaserBehaviour : MonoBehaviour
                     else
                     {
                         car.DamageCar(_laserDamage, 100);
+                        if (car.healthCurrent <= 0)
+                        {
+                            _damagedCars.Remove(car);
+                        }
                     }
                 }
             }

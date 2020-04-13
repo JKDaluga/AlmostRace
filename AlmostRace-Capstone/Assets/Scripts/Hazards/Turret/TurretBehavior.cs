@@ -149,9 +149,16 @@ public class TurretBehavior : Interactable
             }
 
             Vector3 pos = predictedPosition(currentTarget.transform.position, turretMuzzle.position, currentTarget.GetComponent<RaycastCar>().GetFlatVelocity(), turretProjectileSpeed);
-
+            BoxCollider box = aggroObject.GetComponent<BoxCollider>();
+            Vector3 relPos = turretHead.InverseTransformPoint(pos);
+            if (box.bounds.Contains(relPos))
+            {
+                CancelInvoke("AimTurret");//stop aiming
+                CancelInvoke("FireTurret");//stop firing
+                currentTarget = null;
+            }
             turretHead.LookAt(pos);//look at current target
-
+            
 
             //turretHead.LookAt(currentTarget.transform);
         }
