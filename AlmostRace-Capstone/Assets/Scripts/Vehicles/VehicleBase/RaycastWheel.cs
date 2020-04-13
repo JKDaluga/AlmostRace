@@ -84,6 +84,12 @@ public class RaycastWheel : MonoBehaviour
             finalForce = force + damping;
 
             parent.AddForceAtPosition(finalForce, hit.point);
+
+            //corkscrew workaround
+            if(hit.collider.gameObject.tag.Equals("Corkscrew") && car.gravity < 500)
+            {
+                car.gravity += 10;
+            }
         }
 
         speed = parent.velocity.magnitude;
