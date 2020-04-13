@@ -29,7 +29,6 @@ public class SolarCycle_Defensive : CooldownAbility
         for (int i = 0; i < _shields.Count; i++)
         {
             _startParticleLifetimes[i] = _shields[i].GetComponent<ParticleSystem>().main.startLifetime.constant;
-            SetStartLifetimeZero(_shields[i]);
         }
     }
 
@@ -39,6 +38,7 @@ public class SolarCycle_Defensive : CooldownAbility
         _carHealthScript.SetPersonalShieldAmount(shieldHealth);
         foreach (GameObject shield in _shields)
         {
+            shield.GetComponent<ParticleSystem>().Play();
             ChangeSimSpeed(shield, _carHealthScript.GetPersonalShieldAmount());
         }
         StartCoroutine(ShieldEvent());
@@ -88,8 +88,8 @@ public class SolarCycle_Defensive : CooldownAbility
         StopAllCoroutines();
         foreach (GameObject shield in _shields)
         {
-            SetStartLifetimeZero(shield);
-            //shield.GetComponent<ParticleSystem>().Clear();
+            shield.GetComponent<ParticleSystem>().Stop();
+            shield.GetComponent<ParticleSystem>().Clear();
         }
     }
 
@@ -109,26 +109,20 @@ public class SolarCycle_Defensive : CooldownAbility
         }
     }
 
-    private void ChangeSimSpeed(GameObject givenShield, float givenAmount)
-    {
-        var em = givenShield.GetComponent<ParticleSystem>().main;
-        em.simulationSpeed = Mathf.Lerp(minSimSpeed, maxSimSpeed, (Mathf.Clamp(givenAmount, 0, 100)) / 100);
-    }
-    
-    private void SetStartLifetimeZero(GameObject givenShield)
-    {
-        var em = givenShield.GetComponent<ParticleSystem>().main;
-        em.startLifetime = 0;
-    }
-
     private void ActiveShieldParticleChanges()
     {
         for (int i = 0; i < _shields.Count; i++)
         {
-            var shieldsMain= _shields[i].GetComponent<ParticleSystem>().main;
-            shieldsMain.startLifetime = _startParticleLifetimes[i];
+            var shieldsMain = _shields[i].GetComponent<ParticleSystem>().main;
+            //shieldsMain.startLifetime = _startParticleLifetimes[i];
             ChangeSimSpeed(_shields[i], _carHealthScript.GetPersonalShieldAmount());
         }
+    }
+
+    private void ChangeSimSpeed(GameObject givenShield, float givenAmount)
+    {
+        var em = givenShield.GetComponent<ParticleSystem>().main;
+        em.simulationSpeed = Mathf.Lerp(minSimSpeed, maxSimSpeed, (Mathf.Clamp(givenAmount, 0, 100)) / 100);
     }
 
     public override void AbilityOnCooldown()
