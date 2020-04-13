@@ -21,6 +21,7 @@ public class SolarCycle_Defensive : CooldownAbility
     private CarHealthBehavior _carHealthScript;
     private List<GameObject> _objectsInRange = new List<GameObject>();
     private float[] _startParticleLifetimes;
+    private bool _isActive;
  
     void Start()
     {
@@ -36,10 +37,11 @@ public class SolarCycle_Defensive : CooldownAbility
     {
         AudioManager.instance.Play("Shield Activated", transform);
         _carHealthScript.SetPersonalShieldAmount(shieldHealth);
+        _isActive = true;
         foreach (GameObject shield in _shields)
         {
             shield.GetComponent<ParticleSystem>().Play();
-            ChangeSimSpeed(shield, _carHealthScript.GetPersonalShieldAmount());
+            ChangeSimSpeed(shield);
         }
         StartCoroutine(ShieldEvent());
     }
@@ -91,6 +93,7 @@ public class SolarCycle_Defensive : CooldownAbility
             shield.GetComponent<ParticleSystem>().Stop();
             shield.GetComponent<ParticleSystem>().Clear();
         }
+        _isActive = false;
     }
 
     public void AddObjectInRange(GameObject objectToAdd)
@@ -115,14 +118,14 @@ public class SolarCycle_Defensive : CooldownAbility
         {
             var shieldsMain = _shields[i].GetComponent<ParticleSystem>().main;
             //shieldsMain.startLifetime = _startParticleLifetimes[i];
-            ChangeSimSpeed(_shields[i], _carHealthScript.GetPersonalShieldAmount());
+            ChangeSimSpeed(_shields[i]);
         }
     }
 
-    private void ChangeSimSpeed(GameObject givenShield, float givenAmount)
+    public void ChangeSimSpeed(GameObject givenShield)
     {
         var em = givenShield.GetComponent<ParticleSystem>().main;
-        em.simulationSpeed = Mathf.Lerp(minSimSpeed, maxSimSpeed, (Mathf.Clamp(givenAmount, 0, 100)) / 100);
+        em.simulationSpeed = Mathf.Lerp(minSimSpeed, maxSimSpeed, (Mathf.Clamp(_carHealthScript.GetPersonalShieldAmount(), 0, 100)) / 100);
     }
 
     public override void AbilityOnCooldown()
@@ -138,5 +141,10 @@ public class SolarCycle_Defensive : CooldownAbility
     public override void AbilityInUse()
     {
 
+    }
+
+    public bool GetActive()
+    {
+        return _isActive;
     }
 }

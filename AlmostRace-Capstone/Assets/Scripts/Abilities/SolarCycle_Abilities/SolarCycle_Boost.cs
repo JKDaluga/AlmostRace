@@ -37,6 +37,8 @@ public class SolarCycle_Boost : CooldownHeatAbility
     public ParticleSystem.MinMaxCurve boostParticleSpeed;
     public ParticleSystem.MinMaxCurve zeroParticleSpeed;
     public GameObject[] boostCones;
+    public List<GameObject> shieldsDuringBoost;
+    public SolarCycle_Defensive scDefensiveScript;
     private ParticleSystem.MinMaxCurve[] _startParticleLifetimes;
 
     private void Start()
@@ -69,6 +71,15 @@ public class SolarCycle_Boost : CooldownHeatAbility
                 var particle = jetParticles[i].main;
                 particle.startLifetime = boostParticleSpeed;
             }
+            if (scDefensiveScript.GetActive())
+            {
+            foreach (GameObject shield in shieldsDuringBoost)
+                {
+                    shield.GetComponent<ParticleSystem>().Play();
+                    scDefensiveScript.ChangeSimSpeed(shield);
+                }
+            }
+
             StartCoroutine(CompanionBehavior());
         }
     }
