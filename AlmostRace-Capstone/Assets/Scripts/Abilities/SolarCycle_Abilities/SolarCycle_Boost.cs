@@ -33,25 +33,16 @@ public class SolarCycle_Boost : CooldownHeatAbility
     private bool isBoosting = false;
 
     [Header("ParticleValues")]
-    public ParticleSystem[] jetParticles;
-    public ParticleSystem.MinMaxCurve boostParticleSpeed;
-    public ParticleSystem.MinMaxCurve zeroParticleSpeed;
-    public GameObject[] boostCones;
+    public Animator[] jetParticles;
+    public Animator[] boostCones;
     public List<GameObject> shieldsDuringBoost;
     public SolarCycle_Defensive scDefensiveScript;
-    private ParticleSystem.MinMaxCurve[] _startParticleLifetimes;
 
     private void Start()
     {
         carInfo = gameObject.GetComponent<RaycastCar>();
         carHeatInfo = gameObject.GetComponent<CarHealthBehavior>();
         originalMaxTurnAngle = carInfo.maxTurnAngle;
-        _startParticleLifetimes = new ParticleSystem.MinMaxCurve[jetParticles.Length];
-        for (int i = 0; i < jetParticles.Length; i++)
-        {
-            _startParticleLifetimes[i] = jetParticles[i].GetComponent<ParticleSystem>().main.startLifetime;
-            boostCones[i].SetActive(true);
-        }
     }
 
     public override void ActivateAbility()
@@ -68,18 +59,16 @@ public class SolarCycle_Boost : CooldownHeatAbility
             }
             for (int i = 0; i < jetParticles.Length; i++)
             {
-                var particle = jetParticles[i].main;
-                particle.startLifetime = boostParticleSpeed;
+                jetParticles[i].Play("FireEffectBoosting");
             }
             if (scDefensiveScript.GetActive())
             {
-            foreach (GameObject shield in shieldsDuringBoost)
+                foreach (GameObject shield in shieldsDuringBoost)
                 {
                     shield.GetComponent<ParticleSystem>().Play();
                     scDefensiveScript.ChangeSimSpeed(shield);
                 }
             }
-
             StartCoroutine(CompanionBehavior());
         }
     }
@@ -134,9 +123,11 @@ public class SolarCycle_Boost : CooldownHeatAbility
         }
         for (int i = 0; i < jetParticles.Length; i++)
         {
-            var particle = jetParticles[i].main;
-            particle.startLifetime = zeroParticleSpeed;
-            boostCones[i].SetActive(false);
+            jetParticles[i].Play("FireEffectCoolingDown");
+        }
+        for (int i = 0; i < boostCones.Length; i++)
+        {
+            boostCones[i].Play("GlowConeCoolingDown");
         }
         carInfo.maxTurnAngle = originalMaxTurnAngle;
         isBoosting = false;
@@ -156,9 +147,11 @@ public class SolarCycle_Boost : CooldownHeatAbility
     {
         for (int i = 0; i < jetParticles.Length; i++)
         {
-            boostCones[i].SetActive(true);
-            var particle = jetParticles[i].main;
-            particle.startLifetime = _startParticleLifetimes[i];
+            jetParticles[i].Play("FireEffectIdle");
+        }
+        for (int i = 0; i < boostCones.Length; i++)
+        {
+            boostCones[i].Play("GlowConeReturnIdle");
         }
     }
 
