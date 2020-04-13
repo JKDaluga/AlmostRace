@@ -86,6 +86,10 @@ public class Lux_Attack2 : Ability
 
     public override void AbilityOnCooldown()
     {
+        if (shouldAnimate)
+        {
+            Debug.Log("AbilityOnCooldown");
+        }
 
     }
 
@@ -93,6 +97,7 @@ public class Lux_Attack2 : Ability
     {
         if(shouldAnimate)
         {
+            Debug.Log("AbilityOffOfCooldown");
             leftGunAnimator.SetTrigger("LeftGunDown");
             rightGunAnimator.SetTrigger("RightGunDown");
             leftCap.SetTrigger("LeftCapClose");
@@ -107,6 +112,7 @@ public class Lux_Attack2 : Ability
     {
         if (shouldAnimate)
         {
+            Debug.Log("AbilityInUse");
             leftGunAnimator.SetTrigger("LeftGunUp");
             rightGunAnimator.SetTrigger("RightGunUp");
             leftCap.SetTrigger("LeftCapOpen");

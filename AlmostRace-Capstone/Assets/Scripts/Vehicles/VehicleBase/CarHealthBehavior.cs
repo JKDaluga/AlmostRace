@@ -5,9 +5,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-/*
-    Some edits by Leonardo Caballero
-*/
 public class CarHealthBehavior : MonoBehaviour
 {
     // StackTrace stackTrace;
@@ -65,6 +62,7 @@ public class CarHealthBehavior : MonoBehaviour
 
     Rigidbody _carBodyHolder;
     public RaycastCar raycastCarHolder;
+    private Collider _carCollider;
 
 
     private void Start()
@@ -91,6 +89,7 @@ public class CarHealthBehavior : MonoBehaviour
 
         _carBodyHolder = carObject.GetComponent<Rigidbody>();
         raycastCarHolder = GetComponent<RaycastCar>();
+        _carCollider = raycastCarHolder.GetComponent<Collider>();
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -224,13 +223,22 @@ public class CarHealthBehavior : MonoBehaviour
         {
             deathFade.GetComponent<Animator>().Play("DeathFadeIn");
         }
-        raycastCarHolder.enabled = false;
-        GetComponent<VehicleAbilityBehavior>().enabled = false;
+        raycastCarHolder.frontLeftRayCast.gameObject.SetActive(false);
+        raycastCarHolder.frontRightRayCast.gameObject.SetActive(false);
+        raycastCarHolder.rearLeftRayCast.gameObject.SetActive(false);
+        raycastCarHolder.rearRightRayCast.gameObject.SetActive(false);
+       raycastCarHolder.enabled = false;
+        //GetComponent<VehicleAbilityBehavior>().enabled = false;
+        GetComponent<VehicleAbilityBehavior>().abilitiesActivated = false;
+
+        _carCollider.enabled = false;
+
         GameObject respawnInstance = Instantiate(respawnPlatform);
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
         //_carBodyHolder.isKinematic = true;
         _carBodyHolder.velocity = Vector3.zero;
         _carBodyHolder.angularVelocity = Vector3.zero;
+        
 
         if (_vehicleInput)
         {
@@ -247,8 +255,17 @@ public class CarHealthBehavior : MonoBehaviour
         {
             deathFade.GetComponent<Animator>().Play("DeathFadeIn");
         }
+
+        raycastCarHolder.frontLeftRayCast.gameObject.SetActive(false);
+        raycastCarHolder.frontRightRayCast.gameObject.SetActive(false);
+        raycastCarHolder.rearLeftRayCast.gameObject.SetActive(false);
+        raycastCarHolder.rearRightRayCast.gameObject.SetActive(false);
         raycastCarHolder.enabled = false;
-        GetComponent<VehicleAbilityBehavior>().enabled = false;
+        // GetComponent<VehicleAbilityBehavior>().enabled = false;
+        GetComponent<VehicleAbilityBehavior>().abilitiesActivated = false;
+
+        _carCollider.enabled = false;
+
         GameObject respawnInstance = Instantiate(cheatRespawnPlatform);
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
         //_carBodyHolder.isKinematic = true;
@@ -279,8 +296,21 @@ public class CarHealthBehavior : MonoBehaviour
             deathFade.GetComponent<Animator>().Play("DeathFadeOut");
         }
         raycastCarHolder.enabled = true;
-        GetComponent<VehicleAbilityBehavior>().enabled = true;
+
+        raycastCarHolder.frontLeftRayCast.gameObject.SetActive(true);
+        raycastCarHolder.frontRightRayCast.gameObject.SetActive(true);
+        raycastCarHolder.rearLeftRayCast.gameObject.SetActive(true);
+        raycastCarHolder.rearRightRayCast.gameObject.SetActive(true);
+        // GetComponent<VehicleAbilityBehavior>().enabled = true;
+        GetComponent<VehicleAbilityBehavior>().abilitiesActivated = true;
+
+        _carCollider.enabled = true;
         //_carBodyHolder.isKinematic = false;
+        // GetComponent<VehicleAbilityBehavior>().ResetAbilityAnims();
+
+        _carBodyHolder.velocity = Vector3.zero;
+        _carBodyHolder.angularVelocity = Vector3.zero;
+
         HeatAbility bAbility = GetComponent<HeatAbility>();
         AudioManager.instance.Play("Respawn complete", transform);
         if (bAbility != null)
@@ -323,7 +353,8 @@ public class CarHealthBehavior : MonoBehaviour
             Instantiate(teleportEffect, gameObject.transform.position, gameObject.transform.rotation);
             deathFade.GetComponent<Animator>().Play("DeathFadeIn");
             raycastCarHolder.enabled = false;
-            GetComponent<VehicleAbilityBehavior>().enabled = false;
+            //GetComponent<VehicleAbilityBehavior>().enabled = false;
+            GetComponent<VehicleAbilityBehavior>().abilitiesActivated = false;
             GameObject respawnInstance = Instantiate(respawnPlatform);
             respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
             _carBodyHolder.isKinematic = true;

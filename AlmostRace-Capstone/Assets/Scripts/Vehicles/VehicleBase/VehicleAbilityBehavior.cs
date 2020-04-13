@@ -325,6 +325,13 @@ public class VehicleAbilityBehavior : MonoBehaviour
     }
 
 
+    public void ResetAbilityAnims()
+    {
+        offensiveAbility.AbilityOffOfCooldown();
+        defensiveAbility.AbilityOffOfCooldown();
+        boostAbility.AbilityOffOfCooldown();
+    }
+
     private IEnumerator FillReset(GameObject abilityBG)
     {
         yield return new WaitForSeconds(.1f);

@@ -114,10 +114,10 @@ public class RespawnPlatformBehavior : MonoBehaviour
     private IEnumerator RespawnSequence()
     {
         yield return new WaitForSeconds(0.1f);
-        _carMesh.SetActive(false);
+       // _carMesh.SetActive(false);
         yield return new WaitForSeconds(respawnSeconds / 2f);
         _movingCar = true;
-        _carMesh.SetActive(true);
+       // _carMesh.SetActive(true);
         yield return new WaitForSeconds(respawnSeconds / 5f);
         _playerObject.GetComponent<CarHealthBehavior>().Respawn();
         _movingCar = false;
