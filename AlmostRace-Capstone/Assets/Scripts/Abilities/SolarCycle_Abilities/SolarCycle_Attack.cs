@@ -29,6 +29,7 @@ public class SolarCycle_Attack : Ability
     public Animator attackAnimator;
     public Animator[] engineAnimators;
     public float hypeToGain;
+    public Collider attackDetectionCollider;
     private List<GameObject> _objectsInRange = new List<GameObject>();
     private Vector3 spawnOffset;
 
@@ -40,7 +41,7 @@ public class SolarCycle_Attack : Ability
         {
             for (int i = 0; i < _objectsInRange.Count; i++)
             {
-                if (_objectsInRange[i] == null)
+                if (_objectsInRange[i] == null || !attackDetectionCollider.bounds.Contains(_objectsInRange[i].transform.position))
                 {
                     _objectsInRange.RemoveAt(i);
                    testForTargetMatchCount = testForTargetMatchCount + 1;
