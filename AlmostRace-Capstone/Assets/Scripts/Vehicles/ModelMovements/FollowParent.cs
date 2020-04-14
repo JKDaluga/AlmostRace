@@ -33,17 +33,15 @@ public class FollowParent : MonoBehaviour
         if (_distance > stopDistance || raycastCarScript.currentSpeed > stopParentSpeed)
         {
             rb.velocity = (target.position - transform.position) * moveSpeed;
+            transform.rotation = Quaternion.LookRotation(target.position - transform.position, target.up);
         }
         else
         {
             transform.position = target.position;
             transform.rotation = target.rotation;
-            rb.velocity = new Vector3(0f,0f,0f); 
+            rb.velocity = new Vector3(0f,0f,0f);
             rb.angularVelocity = new Vector3(0f,0f,0f);
         }
-        //_yRotation = Mathf.Clamp(transform.rotation.y, -45, 45);
-        //transform.rotation = Quaternion.Euler(transform.rotation.x, _yRotation, transform.rotation.z);
-        //Vector3.Lerp(transform.position, target.position, 0.5f);
     }
 
     void Update()
