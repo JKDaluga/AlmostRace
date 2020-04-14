@@ -10,6 +10,8 @@ public class AICheats : MonoBehaviour
     private RaceManager _raceManager;
     public HypeGateTimeBehavior arena;
 
+    public bool cheating;
+
     [Tooltip("Number of Vertices away the AI can be before being warped")]
     public float killDist = 40;
     private void Start()
@@ -21,7 +23,7 @@ public class AICheats : MonoBehaviour
         {
             Debug.LogError("Race Manager not found!");
         }
-
+        cheating = true;
 
         StartCoroutine(arenaWarp());
         StartCoroutine(distanceKill());
@@ -29,18 +31,16 @@ public class AICheats : MonoBehaviour
 
     private void Update()
     {
-        if (arena != null && arena.carsInRange.Count == 4)
+        if (arena != null && arena.carsInRange.Count == 4 && arena.isActivated && cheating)
         {
+            cheating = false;
             StopAllCoroutines();
-        }
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            GetComponent<CarHealthBehavior>().AICheatKill();
         }
     }
 
     public void startCheating()
     {
+        cheating = true;
         StartCoroutine(distanceKill());
     }
 
@@ -62,7 +62,6 @@ public class AICheats : MonoBehaviour
 
                 if (playersIn && !arena.carsInRange.Contains(gameObject))
                 {
-                    print("Arena Warping");
                     GetComponent<CarHealthBehavior>().AICheatKill();
                 }
             }

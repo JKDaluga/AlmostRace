@@ -32,7 +32,7 @@ public class HypeGateTimeBehavior : MonoBehaviour
     public GameObject arenaEndText;
     public bool isActivated;
 
-    SplineSwapTrigger aiMan;
+    public SplineSwapTrigger aiMan;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +53,7 @@ public class HypeGateTimeBehavior : MonoBehaviour
             Debug.LogError("Hype Manager not found!");
         }
     }
+
 
     public IEnumerator CheckCars()
     {
@@ -164,7 +165,12 @@ public class HypeGateTimeBehavior : MonoBehaviour
 
                 _raceManager.time = 0;
                 _raceManager.inArena = false;
-                foreach(RaycastCar i in _raceManager.cars)
+             
+                //StopCoroutine(TrackHype());
+                StopAllCoroutines();
+                isActivated = false;
+
+                foreach (RaycastCar i in _raceManager.cars)
                 {
                     i.inArena = false;
                     if (!i.GetComponent<VehicleInput>())
@@ -172,9 +178,6 @@ public class HypeGateTimeBehavior : MonoBehaviour
                         i.GetComponent<AICheats>().startCheating();
                     }
                 }
-                //StopCoroutine(TrackHype());
-                StopAllCoroutines();
-                isActivated = false;
                 yield return null;
             }
             yield return null;
