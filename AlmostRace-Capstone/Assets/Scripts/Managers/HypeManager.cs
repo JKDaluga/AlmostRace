@@ -146,10 +146,6 @@ public class HypeManager : MonoBehaviour
                 inputDelay += Time.deltaTime;
             }
         }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            EndGame();
-        }
     }
 
     private void ReturnToMainMenu()
