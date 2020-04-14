@@ -51,10 +51,13 @@ public class WindmillLaserBehaviour : MonoBehaviour
 
     private void DamageCars()
     {
+        CarHealthBehavior car;
+
         if (_damagedCars.Count != 0)
         {
-            foreach(CarHealthBehavior car in _damagedCars)
+            for(int i = 0; i < _damagedCars.Count; i++)
             {
+                car = _damagedCars[i];
                 if (!car.isDead)
                 {
                    
