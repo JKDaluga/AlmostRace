@@ -38,10 +38,15 @@ public class RaceManager : MonoBehaviour
 
     public int AISplineIndex;
 
+    private void Awake()
+    {
+
+        aiMan = FindObjectOfType<SplineSwapTrigger>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        aiMan = FindObjectOfType<SplineSwapTrigger>();
         fourthPlayerPanel.SetActive(false);
         eventPanel = GameObject.FindGameObjectWithTag("EventPanel");
         AIindex = Random.Range(0, AICar.Length);

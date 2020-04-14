@@ -36,11 +36,15 @@ public class PainTrain_LightningBall : Projectile
 
     public IEnumerator DamageCars()
     {
+        CarHealthBehavior car;
+
         while (_carsToDamage.Count > 0)
         {
-       
-            foreach (CarHealthBehavior car in _carsToDamage)
+
+            for (int i = 0; i < _carsToDamage.Count; i++)
             {
+                car = _carsToDamage[i];
+
                 if (!car.isDead) //Make sure car is alive.
                 {
                     car.DamageCar(_lightningBallDamage, _immunePlayerScript.playerID); //Damage car.

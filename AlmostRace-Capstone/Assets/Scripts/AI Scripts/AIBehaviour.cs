@@ -56,7 +56,7 @@ public class AIBehaviour : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        _inArena = false;
         /*if (SceneManager.GetActiveScene() == SceneManager.GetSceneByBuildIndex(MineMap))
         {
             nodesToLookAhead = MineNodes;
@@ -96,6 +96,7 @@ public class AIBehaviour : MonoBehaviour
             //A.I on single direction vehicle track
             SetAiSpeed();
         }
+
 
     }
 
