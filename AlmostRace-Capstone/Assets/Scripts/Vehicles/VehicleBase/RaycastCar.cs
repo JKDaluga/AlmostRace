@@ -76,6 +76,7 @@ public class RaycastCar : MonoBehaviour
     public float deceleration = 5f;
     public float turnBackMultiplier  = 1.5f;
     public float boostAccelerationMulti = .5f;
+    public float inAirTurnMultiplier = 0f;
 
 
     private float slideSpeed;
@@ -379,6 +380,10 @@ public class RaycastCar : MonoBehaviour
 
         if (currentTurnSpeed < tempMaxTurnSpeed || relativeAngularVel.y * horizontal < 0f)
         {
+            if(!isCarGrounded())
+            {
+                turnVec = turnVec * inAirTurnMultiplier;
+            }
             if(relativeAngularVel.y * horizontal < 0f)
             {
                 carRigidbody.AddTorque(turnBackMultiplier * turnVec * Time.deltaTime);
@@ -389,7 +394,7 @@ public class RaycastCar : MonoBehaviour
             }
         }
 
-        if (Mathf.Abs(horizontal) >= deadZone)
+        if (Mathf.Abs(horizontal) >= deadZone && isCarGrounded())
         {
             carRigidbody.angularDrag = 0f;
         }
