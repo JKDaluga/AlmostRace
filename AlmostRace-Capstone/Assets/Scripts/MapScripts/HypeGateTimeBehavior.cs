@@ -160,8 +160,6 @@ public class HypeGateTimeBehavior : MonoBehaviour
                     arenaEndText.SetActive(true);
 
                     Invoke("DisableEvents", 3);
-                _raceManager.AISplineIndex++;
-                aiMan.updateAI();
 
                 _raceManager.time = 0;
                 _raceManager.inArena = false;
@@ -173,9 +171,11 @@ public class HypeGateTimeBehavior : MonoBehaviour
                 foreach (RaycastCar i in _raceManager.cars)
                 {
                     i.inArena = false;
+                    i.activeSpline++;
                     if (!i.GetComponent<VehicleInput>())
                     {
                         i.GetComponent<AICheats>().startCheating();
+                        aiMan.updateAI(i.GetComponent<AIBehaviour>());
                     }
                 }
                 yield return null;

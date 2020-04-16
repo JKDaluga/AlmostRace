@@ -98,9 +98,14 @@ public class RaycastCar : MonoBehaviour
 
     private SplinePlus _aiSplineScript;
     private Dictionary<int, Branch> _branchesAtStart = new Dictionary<int, Branch>();
-    private Vector3 closestVertex = Vector3.zero;
+    public Vector3 closestVertex = Vector3.zero;
     public int closestIndex = 0;
     private Vector3 vertexAim = Vector3.zero;
+
+    public int activeSpline = 0;
+    RaceManager rc;
+
+    public Vector3 lastSafePos;
 
     [HideInInspector] public bool inArena = false, finished = false;
 
@@ -130,14 +135,17 @@ public class RaycastCar : MonoBehaviour
         rearRightRayCast = rearRightWheel.GetComponentInParent<RaycastWheel>();
         gravityDirection = -transform.up;
 
+        lastSafePos = carTransform.position;
+
+        rc = FindObjectOfType<RaceManager>();
+
         if (GetComponent<VehicleInput>())
         {
-            RaceManager rc = FindObjectOfType<RaceManager>();
            
             //Sets ai spline to find/follow hotspotspline
             if (rc != null && rc.orderedSplines.Length != 0)
             {
-                _aiSplineScript = rc.orderedSplines[rc.AISplineIndex].GetComponent<SplinePlus>();
+                _aiSplineScript = rc.orderedSplines[activeSpline].GetComponent<SplinePlus>();
                 _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
                 InvokeRepeating("findNearest", 0, 2);
             }
@@ -153,7 +161,7 @@ public class RaycastCar : MonoBehaviour
         RaceManager rc = FindObjectOfType<RaceManager>();
 
 
-        _aiSplineScript = rc.orderedSplines[rc.AISplineIndex].GetComponent<SplinePlus>();
+        _aiSplineScript = rc.orderedSplines[activeSpline].GetComponent<SplinePlus>();
         _branchesAtStart = new Dictionary<int, Branch>(_aiSplineScript.SPData.DictBranches);
 
         foreach (KeyValuePair<int, Branch> entry in _branchesAtStart)
@@ -194,6 +202,11 @@ public class RaycastCar : MonoBehaviour
         carFwd = Vector3.forward;
         // cache the World Right Vector for our car
         carRight = Vector3.right;
+
+        if (isCarGrounded())
+        {
+            lastSafePos = carTransform.position;
+        }
 
         //call the function to see what input we are using and apply it
         checkInput();
@@ -507,24 +520,21 @@ public class RaycastCar : MonoBehaviour
         Vector3 closestWorldPoint = new Vector3();
         float lastDistance = int.MaxValue;
         int vectorsBackAdjustment;
-        RaceManager rc = FindObjectOfType<RaceManager>();
-        foreach (GameObject spline in rc.orderedSplines)
+        foreach (KeyValuePair<int, Branch> entry in rc.orderedSplines[activeSpline].GetComponent<SplinePlus>().SPData.DictBranches)
         {
-            foreach (KeyValuePair<int, Branch> entry in spline.GetComponent<SplinePlus>().SPData.DictBranches)
+            for (int j = 0; j < entry.Value.Vertices.Count; j++)
             {
-                for (int j = 0; j < entry.Value.Vertices.Count; j++)
+                float distance = Vector3.Distance(entry.Value.Vertices[j], lastSafePos);
+                if (distance <= lastDistance)
                 {
-                    float distance = Vector3.Distance(entry.Value.Vertices[j], transform.position);
-                    if (distance <= lastDistance)
-                    {
-                        lastDistance = distance;
-                        vectorsBackAdjustment = Mathf.Clamp(j + vectorsBack, 1, entry.Value.Vertices.Count - 1);
-                        closestWorldPoint = entry.Value.Vertices[vectorsBackAdjustment];
-                    }
+                    lastDistance = distance;
+                    vectorsBackAdjustment = Mathf.Clamp(j + vectorsBack, 1, entry.Value.Vertices.Count - 1);
+                    closestWorldPoint = entry.Value.Vertices[vectorsBackAdjustment];
                 }
             }
         }
-        
-        return closestWorldPoint;
+
+
+    return closestWorldPoint;
     }
 }

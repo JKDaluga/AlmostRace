@@ -108,7 +108,10 @@ public class RaceManager : MonoBehaviour
             
         }
         eventPanel.SetActive(false);
-        aiMan.updateAI();
+        foreach(RaycastCar i in aiMan.aiCars)
+        {
+            aiMan.updateAI(i.GetComponent<AIBehaviour>());
+        }
     }
 
     public void SetCountDown()

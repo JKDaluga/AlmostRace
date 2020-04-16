@@ -11,9 +11,13 @@ public class SplineSwapTrigger : MonoBehaviour
 
     public bool arenaEntrance;
 
+    public List<GameObject> passed;
+
     private void Awake()
     {
         aiCars = new List<RaycastCar>();
+
+        passed = new List<GameObject>();
 
         rM = FindObjectOfType<RaceManager>();
 
@@ -34,18 +38,21 @@ public class SplineSwapTrigger : MonoBehaviour
     {
         if (other.GetComponent<RaycastCar>())
         {
-            rM.AISplineIndex++;
-            updateAI();
-
-            GetComponent<Collider>().enabled = false;
+            if (!passed.Contains(other.gameObject))
+            {
+                other.GetComponent<RaycastCar>().activeSpline++;
+                if (!other.GetComponent<VehicleInput>())
+                {
+                    updateAI(other.GetComponent<AIBehaviour>());
+                }
+                passed.Add(other.gameObject);
+            }
         }
     }
 
-    public void updateAI()
+    public void updateAI(AIBehaviour i)
     {
-        foreach (RaycastCar i in aiCars)
-        {
-            i.GetComponent<AIBehaviour>().SwapSpline(orderedSplines[rM.AISplineIndex].GetComponent<SplinePlus>(), arenaEntrance);
-        }
+        i.SwapSpline(orderedSplines[i.GetComponent<RaycastCar>().activeSpline].GetComponent<SplinePlus>(), arenaEntrance);
     }
+    
 }
