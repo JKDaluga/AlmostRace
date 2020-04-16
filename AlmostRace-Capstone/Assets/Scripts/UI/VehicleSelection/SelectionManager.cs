@@ -76,9 +76,13 @@ public class SelectionManager : MonoBehaviour
         else if (givenCommand == "BackButtonTriggered")
         {
             AudioManager.instance.Play("Menu Selection", this.transform);
-            if (inUse)
+            if (inUse && !selectedViewport.GetReady())
             {
                 selectedViewport.PlayerJoin(false, null);
+            }
+            else if (inUse && selectedViewport.GetReady())
+            {
+                selectedViewport.VehicleSelect(false);
             }
             else if (!inUse)
             {

@@ -69,13 +69,6 @@ public class ViewportController : MonoBehaviour
                     VehicleSelect(true);
                 }
             }
-            else
-            {
-                if (Input.GetButtonDown(_playerInput.backButton))
-                {
-                    VehicleSelect(false);
-                }
-            }
         }
     }
 
@@ -201,7 +194,7 @@ public class ViewportController : MonoBehaviour
         }
     }
 
-    private void VehicleSelect(bool status)
+    public void VehicleSelect(bool status)
     {
         if (status == true)
         {
