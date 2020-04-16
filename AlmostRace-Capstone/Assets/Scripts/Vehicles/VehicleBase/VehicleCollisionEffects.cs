@@ -53,20 +53,19 @@ public class VehicleCollisionEffects : MonoBehaviour
             CreateSparks(collision);
             if (!_audioSource.isPlaying)
             {
-                AudioManager.instance.Play("General collision", transform);
-                //_audioSource.Play();
+                _audioSource.Play();
             }
         }
         else
         {
-            //_audioSource.Stop();
+            _audioSource.Stop();
             _sparksPlaying = false;
         }
     }
 
     void OnCollisionExit(Collision other)
     {
-        //_audioSource.Stop();
+        _audioSource.Stop();
         _sparksPlaying = false;
     }
 
