@@ -53,11 +53,13 @@ public class VehicleCollisionEffects : MonoBehaviour
             CreateSparks(collision);
             if (!_audioSource.isPlaying)
             {
+                _audioSource.volume = AudioManager.instance.calcSpatialVolume(_audioSource.volume, transform);
                 _audioSource.Play();
             }
         }
         else
         {
+            _audioSource.volume = AudioManager.instance.calcSpatialVolume(_audioSource.volume, transform);
             _audioSource.Stop();
             _sparksPlaying = false;
         }
