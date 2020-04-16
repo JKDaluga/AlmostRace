@@ -991,7 +991,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 9109011079058402894}
-  scrollSpeed: 0.005
 --- !u!1 &781960192181818920
 GameObject:
   m_ObjectHideFlags: 0
@@ -3645,7 +3644,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 8407838489427975904}
-  scrollSpeed: 0.005
 --- !u!1 &3188197846182064781
 GameObject:
   m_ObjectHideFlags: 0
@@ -4162,7 +4160,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 7403956260334385542}
-  scrollSpeed: 0.005
 --- !u!1 &3468957746588340050
 GameObject:
   m_ObjectHideFlags: 0
@@ -5880,7 +5877,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   field: {fileID: 6800332177199718268}
-  scrollSpeed: 0.005
 --- !u!1 &4652718109571042890
 GameObject:
   m_ObjectHideFlags: 0
@@ -11645,7 +11641,10 @@ MonoBehaviour:
   threePlusPlayerUIScalingFactor: 0.5
   fourthPlayerPanel: {fileID: 5933453679458905824}
   cars: []
+  playerCars: []
   inArena: 0
+  aiMan: {fileID: 0}
+  AISplineIndex: 0
   time: 0
   timeText: 
 --- !u!114 &3461096293120017781
@@ -11663,6 +11662,8 @@ MonoBehaviour:
   smallHypeAward: 100
   mediumHypeAward: 200
   largeHypeAward: 300
+  scrollPause: 2.5
+  scrollSpeed: 0.0025
 --- !u!114 &1910426460571045737
 MonoBehaviour:
   m_ObjectHideFlags: 0
