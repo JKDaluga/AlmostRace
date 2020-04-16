@@ -82,6 +82,8 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Tooltip("Boolean that lets cars use their abilities")]
     public bool abilitiesActivated;
 
+    private bool isAI = false;
+
     private void Awake()
     {
         if (gameObject.GetComponent<VehicleInput>())
@@ -92,6 +94,10 @@ public class VehicleAbilityBehavior : MonoBehaviour
             defensiveAbilityDark.SetActive(false);
             boostAbilityDark.SetActive(false);
             tracker = GetComponent<VehicleAwardsTracker>();
+        }
+        else
+        {
+            isAI = true;
         }
     }
 
@@ -108,7 +114,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         getInput();
 
         // Basic Ability Call
-        if (offensiveAbility != null && offensiveTrigger && abilitiesActivated) //placed here just so that the BallCar prefab doesn't throw nulls
+        if (offensiveAbility != null && offensiveTrigger && abilitiesActivated) 
         {
             if(fireAbility(offensiveAbility, _canUseBasic, offensiveAbilityCooldown, offensiveAbilityDark, offensiveAbilityBG, 'o'))
             {
@@ -194,7 +200,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
     // Handles the ability call, on what input it is, if it can be used, and if it can be held down
     private bool fireAbility(Ability ability, bool canFire, Image abilityCooldown, GameObject abilityDark, GameObject abilityBG, char flagChar)
     {
-        if (canFire && ability != null)
+        if (canFire && ability != null && (!isAI || AIAbilityBehaviour.acquireToken()))
         {
             if (_vehicleInput != null)
             {
@@ -203,6 +209,10 @@ public class VehicleAbilityBehavior : MonoBehaviour
                 abilityBG.SetActive(true);
                 StartCoroutine(FillReset(abilityBG));
                 tracker.awardUpdate(flagChar, _vehicleInput.getPlayerNum());
+            }
+            else
+            {
+                Invoke("returnToken", RaceManager.tokenRefreshTime);
             }
             ability.ActivateAbility();
 
@@ -341,6 +351,10 @@ public class VehicleAbilityBehavior : MonoBehaviour
     public void Activation()
     {
         abilitiesActivated = true;
-        //print("Abilities on");
+    }
+
+    public void returnToken()
+    {
+        AIAbilityBehaviour.returnToken();
     }
 }
