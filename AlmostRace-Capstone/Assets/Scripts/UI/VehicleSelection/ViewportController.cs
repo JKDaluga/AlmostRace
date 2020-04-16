@@ -214,6 +214,7 @@ public class ViewportController : MonoBehaviour
             selectionManager.UpdateData(playerID, _ready, selectedCarID, _playerInput.GetPlayerNum());
             
         }
+        AudioManager.instance.PlayWithoutSpacial("Menu Selection");
     }
 
     public bool GetReady()
