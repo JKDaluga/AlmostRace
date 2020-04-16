@@ -29149,6 +29149,7 @@ MonoBehaviour:
   deceleration: 1
   turnBackMultiplier: 5
   boostAccelerationMulti: 1
+  inAirTurnMultiplier: 0
   isBoosting: 0
   cineCamera: {fileID: 0}
   minFOV: 40
@@ -29339,7 +29340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targets:
     serializedVersion: 2
-    m_Bits: 4194560
+    m_Bits: 256
   carTargets:
     serializedVersion: 2
     m_Bits: 256
@@ -29356,8 +29357,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd6f32c5403332c479b0a81dfc8ab814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: []
+  playersIn: 0
   arena: {fileID: 0}
+  cheating: 0
   killDist: 40
 --- !u!114 &4263317506323444682
 MonoBehaviour:
