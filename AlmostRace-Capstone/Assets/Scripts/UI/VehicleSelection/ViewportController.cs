@@ -15,6 +15,7 @@ public class ViewportController : MonoBehaviour
     [Space(20)]
     public GameObject playerNumDisplay;
     public GameObject cover;
+    public Camera viewportCamera;
     public RawImage inactiveImage;
     public RawImage readyImage;
     public GameObject infoPanelHolder;
@@ -48,6 +49,7 @@ public class ViewportController : MonoBehaviour
 
         cover.SetActive(true);
         vehicleRotationHolder.SetActive(false);
+        viewportCamera.enabled = false;
         inactiveImage.enabled = true;
         readyImage.enabled = false;
         infoPanelHolder.SetActive(false);
@@ -180,6 +182,7 @@ public class ViewportController : MonoBehaviour
             inactiveImage.enabled = false;
             infoPanelHolder.SetActive(true);
             AbilityInfoViewState();
+            viewportCamera.enabled = true;
             cover.SetActive(false);
 
         }
@@ -190,6 +193,7 @@ public class ViewportController : MonoBehaviour
             _text.text = "NO PLAYER";
             cover.SetActive(true);
             vehicleRotationHolder.SetActive(false);
+            viewportCamera.enabled = false;
             inactiveImage.enabled = true;
             infoPanelHolder.SetActive(false);
             _playerInput = null;
