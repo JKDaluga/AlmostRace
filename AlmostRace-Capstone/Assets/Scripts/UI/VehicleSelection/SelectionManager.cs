@@ -79,13 +79,13 @@ public class SelectionManager : MonoBehaviour
             if (inUse)
             {
                 selectedViewport.PlayerJoin(false, null);
-                AudioManager.instance.PlayWithoutSpacial("Menu Selection");
+                AudioManager.instance.PlayWithoutSpatial("Menu Selection");
             }
             else if (!inUse)
             {
                 _isLoading = true;
                 SceneManager.LoadSceneAsync(mainMenuIndex);
-                AudioManager.instance.PlayWithoutSpacial("Menu Selection");
+                AudioManager.instance.PlayWithoutSpatial("Menu Selection");
             }
         }
     }
@@ -97,7 +97,7 @@ public class SelectionManager : MonoBehaviour
             if (!viewports[i].GetJoined())
             {
                 viewports[i].PlayerJoin(true, givenController);
-                AudioManager.instance.PlayWithoutSpacial("Menu Selection");
+                AudioManager.instance.PlayWithoutSpatial("Menu Selection");
                 break;
             }
         }
