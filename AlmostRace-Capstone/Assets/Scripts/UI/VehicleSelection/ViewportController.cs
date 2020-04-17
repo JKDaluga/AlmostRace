@@ -63,11 +63,6 @@ public class ViewportController : MonoBehaviour
             {
                 VehicleScroll();
                 InfoScroll();
-
-                if (Input.GetButtonDown(_playerInput.selectButton))
-                {
-                    VehicleSelect(true);
-                }
             }
         }
     }
