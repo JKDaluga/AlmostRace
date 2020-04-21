@@ -10,9 +10,8 @@ public class SetSoundVolume : MonoBehaviour
     public void SetVolume(float SliderValue)
     {
         SoundVolume.SetSoundFXVoume(SliderValue);
-        if (Time.frameCount % 10 == 0)
-        {
-            AudioManager.instance.Play("Lux Shooting", transform);
-        }
+        
+            AudioManager.instance.Play("Menu Selection", transform);
+        
     }
 }
