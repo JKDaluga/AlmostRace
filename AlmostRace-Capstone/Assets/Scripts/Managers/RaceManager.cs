@@ -11,6 +11,12 @@ public class RaceManager : MonoBehaviour
     private DataManager dm;
     public GameObject[] orderedSplines;
     public bool spawnAI = false;
+
+    // TOKEN VARIABLES
+    public static int tokens = 3;
+    public static float tokenRefreshTime = 2.0f;
+    // TOKEN VARIABLES
+
     public GameObject[] carPool;
 
     public GameObject[] AICar;

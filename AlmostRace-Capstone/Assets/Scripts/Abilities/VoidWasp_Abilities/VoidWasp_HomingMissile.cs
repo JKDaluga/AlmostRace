@@ -8,7 +8,7 @@ using UnityEngine;
     The missile then moves forward and toward its given target.
     */
 
-public class VoiadWasp_HomingMissile : Projectile
+public class VoidWasp_HomingMissile : Projectile
 {
     public GameObject explodeVFX;
     public ProjectileNormalizer normalizerScript;

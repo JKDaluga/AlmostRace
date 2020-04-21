@@ -14,6 +14,8 @@ public class AIAbilityBehaviour : MonoBehaviour
     private VoidWasp_Attack _attackHolder;
     private bool isVoidWasp = false;
 
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,12 +43,10 @@ public class AIAbilityBehaviour : MonoBehaviour
                     obstacleAvoidance.avoiding = false;
                     obstacleAvoidance.turnL = false;
                     obstacleAvoidance.turnR = false;
-                    
                 }
                 else
                 {
                     fireButton.offensiveTrigger = false;
-                    
                 }
                 if (Physics.Raycast(transform.position, transform.forward, 100, carTargets))
                 {
@@ -83,5 +83,18 @@ public class AIAbilityBehaviour : MonoBehaviour
         }
     }
 
-    
+    public static bool acquireToken()
+    {
+        if (RaceManager.tokens > 0)
+        {
+            RaceManager.tokens--;
+            return true;
+        }
+        return false;
+    }
+
+    public static void returnToken()
+    {
+        RaceManager.tokens++;
+    }
 }

@@ -39849,9 +39849,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99695f7ccc24157498d798558bf864c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shieldHealth: 25
-  siphonAmount: 1
-  siphonFrequency: 0.1
+  shieldHealth: 40
+  siphonAmount: 0.1
+  siphonFrequency: 0.01
   minSimSpeed: 0.6
   maxSimSpeed: 1
   shields:
@@ -102640,6 +102640,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5006512734906361963}
     m_Modifications:
+    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
+        type: 3}
+      propertyPath: m_Name
+      value: FireCone
+      objectReference: {fileID: 0}
     - target: {fileID: 6289859980154895290, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -102695,11 +102700,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
-        type: 3}
-      propertyPath: m_Name
-      value: FireCone
-      objectReference: {fileID: 0}
     - target: {fileID: 3942450301680048752, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
@@ -102725,6 +102725,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1011136676}
     m_Modifications:
+    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
+        type: 3}
+      propertyPath: m_Name
+      value: FireCone (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 6289859980154895290, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -102795,11 +102800,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
-    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
-        type: 3}
-      propertyPath: m_Name
-      value: FireCone (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 3942450301680048752, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
@@ -102825,6 +102825,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1528141697}
     m_Modifications:
+    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
+        type: 3}
+      propertyPath: m_Name
+      value: FireCone (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 6289859980154895290, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -102889,11 +102894,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
-        type: 3}
-      propertyPath: m_Name
-      value: FireCone (1)
       objectReference: {fileID: 0}
     - target: {fileID: 3942450301680048752, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
@@ -102980,6 +102980,56 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.33
+      objectReference: {fileID: 0}
+    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 716463124009632865, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3240311213283490686, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: offensiveAbility
@@ -102993,12 +103043,12 @@ PrefabInstance:
     - target: {fileID: 3240311213283490686, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: defensiveAbilityRecharge
-      value: 12
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3240311213283490686, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: defensiveAbilityDuration
-      value: 7
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3240311213283490686, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
@@ -103008,12 +103058,52 @@ PrefabInstance:
     - target: {fileID: 3240311213283490686, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: boostAbilityRecharge
-      value: 10
+      value: 6.5
       objectReference: {fileID: 0}
     - target: {fileID: 3240311213283490686, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: boostAbilityDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3240311213283490686, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: offensiveAbilityRecharge
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2966783746165945108, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: healthCurrent
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2966783746165945108, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: healthMax
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 644788420753075452, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: far clip plane
+      value: 5000
+      objectReference: {fileID: 0}
+    - target: {fileID: 644788420753075452, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 644788420753075452, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: field of view
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 644788422693019624, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_Lens.FarClipPlane
+      value: 15000
+      objectReference: {fileID: 0}
+    - target: {fileID: 2229527416526567467, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: activeStatus
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7488727476820995678, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
@@ -103075,87 +103165,12 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 644788422693019624, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_Lens.FarClipPlane
-      value: 15000
-      objectReference: {fileID: 0}
-    - target: {fileID: 644788420753075452, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: far clip plane
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 644788420753075452, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: near clip plane
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 644788420753075452, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: field of view
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.33
-      objectReference: {fileID: 0}
-    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10.07
-      objectReference: {fileID: 0}
-    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 716463124009632865, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2229527416526567467, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: activeStatus
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7545891355312199482, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 2105720768070374503, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2105720768070374503, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 7545891355312199482, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -103199,6 +103214,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8628462139355903643}
     m_Modifications:
+    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
+        type: 3}
+      propertyPath: m_Name
+      value: FireCone (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 6289859980154895290, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -103254,11 +103274,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
-        type: 3}
-      propertyPath: m_Name
-      value: FireCone (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 3942450301680048752, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
@@ -103290,6 +103305,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2138646192240309250}
     m_Modifications:
+    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
+        type: 3}
+      propertyPath: m_Name
+      value: FireCone (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 6289859980154895290, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -103359,11 +103379,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
-        type: 3}
-      propertyPath: m_Name
-      value: FireCone (2)
       objectReference: {fileID: 0}
     - target: {fileID: 3942450301680048752, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
