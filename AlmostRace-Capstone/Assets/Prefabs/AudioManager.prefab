@@ -54,13 +54,13 @@ MonoBehaviour:
     volume: 0.42
   - name: Death
     clip: {fileID: 8300000, guid: cefdbfff7b9c8aa448808f6559270295, type: 3}
-    volume: 0.6
+    volume: 1
   - name: Turret
     clip: {fileID: 8300000, guid: c922c34f559ead440a273a13a924cfc7, type: 3}
     volume: 1
   - name: Engine
     clip: {fileID: 8300000, guid: 963383b1ff7e2dd489b6de695942ddc8, type: 3}
-    volume: 0.65
+    volume: 0.75
   - name: Teleport
     clip: {fileID: 8300000, guid: 5b3f7f9cb9a526d43aaa1d38b30f6dea, type: 3}
     volume: 1
@@ -77,14 +77,14 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 644818743ab36514aa3e4b19e35bcf48, type: 3}
     volume: 1
   - name: Victory Music
-    clip: {fileID: 8300000, guid: 1b0a47b1c0ffb49c7b33f40bcae7fbe8, type: 3}
-    volume: 0.91
+    clip: {fileID: 8300000, guid: a2dc91dcdbd8680468666321eb189ddc, type: 3}
+    volume: 0.8
   - name: Victory Voice
     clip: {fileID: 8300000, guid: 3a4f6b7fc45818a4293c85ecf771e1ac, type: 3}
     volume: 0.9
   - name: Ability Recharge
     clip: {fileID: 8300000, guid: aa6305697bd33ea4f9dcfcc757e0ce64, type: 3}
-    volume: 0.91
+    volume: 1
   - name: Shield Activated
     clip: {fileID: 8300000, guid: 08ee6af0dcbdef546869af9598c9d166, type: 3}
     volume: 1
@@ -96,7 +96,7 @@ MonoBehaviour:
     volume: 1
   - name: Respawn complete
     clip: {fileID: 8300000, guid: 315945d5b323cb74c91e1dcfada299ab, type: 3}
-    volume: 0.85
+    volume: 0.4
   - name: HotSpot Lost
     clip: {fileID: 8300000, guid: a64806f49342ba342a5ba92eb5106625, type: 3}
     volume: 1
@@ -117,7 +117,7 @@ MonoBehaviour:
     volume: 0
   - name: Boost
     clip: {fileID: 8300000, guid: 03ebd1411e5b27b46ab7c1624cdc5bdb, type: 3}
-    volume: 0.75
+    volume: 0.85
   - name: Teleport Start
     clip: {fileID: 8300000, guid: 92f4d0c3cbc4ec94e8205b2a31eaf712, type: 3}
     volume: 1
@@ -174,10 +174,10 @@ MonoBehaviour:
     volume: 0.8
   - name: VoidWasp Companion Death
     clip: {fileID: 8300000, guid: b1acecdf352627048b995eca86c0f8ec, type: 3}
-    volume: 0.6
+    volume: 0.2
   - name: WallSparks Effect
     clip: {fileID: 8300000, guid: 7ead55e58e57396459079a92431a0f03, type: 3}
-    volume: 0.3
+    volume: 0.2
   - name: LuxDrift
     clip: {fileID: 8300000, guid: 0302534e0b2d84581bae408991f709de, type: 3}
     volume: 1
@@ -202,6 +202,15 @@ MonoBehaviour:
   - name: Menu Selection
     clip: {fileID: 8300000, guid: 9e7961238941d794f8194cc8f6d6df8f, type: 3}
     volume: 0.7
+  - name: Solar Cycle Wins
+    clip: {fileID: 8300000, guid: b22140c8a23404143818d7c54e5d4d0d, type: 3}
+    volume: 0.7
+  - name: Pain Train Wins
+    clip: {fileID: 8300000, guid: e4141baa49de1ae4b81f3dc9351ee217, type: 3}
+    volume: 0.7
+  - name: LUX Wins
+    clip: {fileID: 8300000, guid: c6b99c44ff66d3c4a87162e2c1b6a6fd, type: 3}
+    volume: 0.7
   innerSoundDistance: 50
   maxSoundDistance: 150
 --- !u!82 &7923551450835292693
@@ -216,7 +225,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4abbc7254b799e3418b2eda92364bb73, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
