@@ -484,7 +484,10 @@ public class CarHealthBehavior : MonoBehaviour
 
             if (healthCurrent <= 0)
             { //kill player
-                healthFillBar.fillAmount = healthCurrent / healthMax;
+                if(_vehicleInput != null)
+                {
+                    healthFillBar.fillAmount = healthCurrent / healthMax;
+                }
                 //Debug.Log("Player: " + gameObject.transform.parent.name + " should be killed by car # : " + killerID);
                 if (killerID <= DataManager.instance.playerInfo.Length && killerID != raycastCarHolder.playerID && !isDead)
                 { //if someone killed you and you didn't cause your death.
