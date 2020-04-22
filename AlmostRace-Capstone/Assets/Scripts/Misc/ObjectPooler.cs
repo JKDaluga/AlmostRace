@@ -8,17 +8,17 @@ public class ObjectPooler : MonoBehaviour
     public class Pool
     {
         public string tag;
-        public GameObject preFab;
+        public GameObject prefab;
         public bool attachToManager;
         public int size;
     }
 
-    public static ObjectPooler Instance;
+    public static ObjectPooler instance;
     
 
     private void Awake()
     {
-        Instance = this;
+        instance = this;
     }
 
     public List<Pool> pools;
@@ -34,7 +34,7 @@ public class ObjectPooler : MonoBehaviour
             Queue<GameObject> objectPool = new Queue<GameObject>();
             for (int i = 0; i < pool.size; i++)
             {
-                GameObject currentObject = Instantiate(pool.preFab);
+                GameObject currentObject = Instantiate(pool.prefab);
                 if (pool.attachToManager)
                 {
                     currentObject.transform.SetParent(gameObject.transform);
@@ -82,16 +82,30 @@ public class ObjectPooler : MonoBehaviour
         return objectToActivate;
     }
 
-    public void Deactivate(string tag, GameObject objectToActivate)
+    public void Deactivate(string tag, GameObject objectToDeactivate)
     {
         if (!poolDictionary.ContainsKey(tag))
         {
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist");
         }
-        objectToActivate.SetActive(false);
-        objectToActivate.transform.position = transform.position;
-        objectToActivate.transform.rotation = transform.rotation;
-        poolDictionary[tag].Enqueue(objectToActivate);
+        objectToDeactivate.SetActive(false);
+        objectToDeactivate.transform.position = transform.position;
+        objectToDeactivate.transform.rotation = transform.rotation;
+        poolDictionary[tag].Enqueue(objectToDeactivate);
+    }
+
+    public IEnumerator DeactivateAfterTime(string tag, GameObject objectToDeactivate, float time)
+    {
+        yield return new WaitForSeconds(time);
+        if (!poolDictionary.ContainsKey(tag))
+        {
+            Debug.LogWarning("Pool with tag " + tag + " doesn't exist");
+        }
+        objectToDeactivate.SetActive(false);
+        objectToDeactivate.transform.position = transform.position;
+        objectToDeactivate.transform.rotation = transform.rotation;
+        poolDictionary[tag].Enqueue(objectToDeactivate);
+
     }
 
 
