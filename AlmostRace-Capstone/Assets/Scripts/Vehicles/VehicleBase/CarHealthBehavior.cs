@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 //using System.Diagnostics;
@@ -383,6 +384,15 @@ public class CarHealthBehavior : MonoBehaviour
     {
         if (_canTakeDamage)
         {
+
+            if (GetComponent<VehicleInput>())
+            {
+
+                GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 10 * (damage / (healthMax + _shieldTotal));
+                GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 10 * (damage / (healthMax + _shieldTotal));
+
+                GetComponent<CinemachineImpulseSource>().GenerateImpulse();
+            }
 
             if (_shieldTotal > 0)
             { //if you have shields

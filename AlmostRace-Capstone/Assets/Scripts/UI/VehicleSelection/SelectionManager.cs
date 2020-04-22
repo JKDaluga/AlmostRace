@@ -3,18 +3,23 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SelectionManager : MonoBehaviour
 {
     public int amountOfSelections = 2;
     public int nextSceneIndex = 2;
     public int mainMenuIndex = 0;
+    public GameObject loadingText;
+    public GameObject pressAText;
+    public Slider loadingBar;
     public ViewportController[] viewports;
     public VehicleInput[] playerInputs;
     public GameObject allReadyImage;
     private DataManager _data;
     private bool _readyToStart = false;
     private bool _isLoading = false;
+    private int secondsElapsedLoading = 0;
 
 
     // Start is called before the first frame update
@@ -24,32 +29,29 @@ public class SelectionManager : MonoBehaviour
         _isLoading = false;
         _data.resetData();
         allReadyImage.SetActive(false);
+        pressAText.SetActive(true);
+        loadingText.SetActive(false);
     }
 
     private void Update()
     {
-        if (!_readyToStart && !_isLoading)
+        if (!_isLoading)
         {
             for (int i = 0; i < playerInputs.Length; i++)
             {
                 if (Input.GetButtonDown(playerInputs[i].awakeButton))
-                {
-                    AudioManager.instance.Play("Menu Selection", this.transform);
+                {  
                     CheckController(playerInputs[i], "AwakeButtonTriggered");
                 }
                 if (Input.GetButtonDown(playerInputs[i].backButton))
                 {
-                    AudioManager.instance.Play("Menu Selection", this.transform);
                     CheckController(playerInputs[i], "BackButtonTriggered");
                 }
+                if(Input.GetButtonDown(playerInputs[i].selectButton))
+                {
+                    CheckController(playerInputs[i], "SelectButtonTriggered");
+                }
             }
-        }
-
-        if(_readyToStart && !_isLoading && Input.GetButtonDown("Submit"))
-        {
-            AudioManager.instance.Play("Menu Selection", this.transform);
-            _isLoading = true;
-            SceneManager.LoadSceneAsync(nextSceneIndex);
         }
     }
 
@@ -69,21 +71,41 @@ public class SelectionManager : MonoBehaviour
         }
 
         if (!inUse && givenCommand == "AwakeButtonTriggered")
-        {
-            AudioManager.instance.Play("Menu Selection", this.transform);
+        {  
             AssignPlayer(givenController);
+        }
+        else if (givenCommand == "SelectButtonTriggered")
+        {
+            if (inUse && !_readyToStart && !selectedViewport.GetReady())
+            {
+                selectedViewport.VehicleSelect(true);
+            }
+            else if (inUse && _readyToStart && !_isLoading && selectedViewport.GetReady())
+            {
+                _isLoading = true;
+                AudioManager.instance.Play("Menu Selection", this.transform);
+                pressAText.SetActive(false);
+                loadingText.SetActive(true);
+                StartCoroutine(LoadingMapScene(nextSceneIndex));
+            }
         }
         else if (givenCommand == "BackButtonTriggered")
         {
-            AudioManager.instance.Play("Menu Selection", this.transform);
-            if (inUse)
+            if (inUse && !selectedViewport.GetReady())
             {
                 selectedViewport.PlayerJoin(false, null);
+                AudioManager.instance.PlayWithoutSpatial("Menu Selection");
+            }
+            else if (inUse && selectedViewport.GetReady())
+            {
+                selectedViewport.VehicleSelect(false);
+                AudioManager.instance.PlayWithoutSpatial("Menu Selection");
             }
             else if (!inUse)
             {
                 _isLoading = true;
                 SceneManager.LoadSceneAsync(mainMenuIndex);
+                AudioManager.instance.PlayWithoutSpatial("Menu Selection");
             }
         }
     }
@@ -95,6 +117,7 @@ public class SelectionManager : MonoBehaviour
             if (!viewports[i].GetJoined())
             {
                 viewports[i].PlayerJoin(true, givenController);
+                AudioManager.instance.PlayWithoutSpatial("Menu Selection");
                 break;
             }
         }
@@ -110,6 +133,11 @@ public class SelectionManager : MonoBehaviour
         {
             _readyToStart = true;
             allReadyImage.SetActive(true);
+        }
+        else
+        {
+            _readyToStart = false;
+            allReadyImage.SetActive(false);
         }
     }
 
@@ -134,6 +162,20 @@ public class SelectionManager : MonoBehaviour
         else
         {
             return false;
+        }
+    }
+
+    private IEnumerator LoadingMapScene(int nextSceneIndex)
+    {
+        AsyncOperation operation = SceneManager.LoadSceneAsync(nextSceneIndex);
+
+        while(!operation.isDone)
+        {
+            float progress = Mathf.Clamp01(operation.progress / 0.9f);
+
+            loadingBar.value = progress;
+
+            yield return null;
         }
     }
 

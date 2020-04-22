@@ -63,25 +63,13 @@ public class ViewportController : MonoBehaviour
             {
                 VehicleScroll();
                 InfoScroll();
-
-                if (Input.GetButtonDown(_playerInput.selectButton))
-                {
-                    VehicleSelect(true);
-                }
-            }
-            else
-            {
-                if (Input.GetButtonDown(_playerInput.backButton))
-                {
-                    VehicleSelect(false);
-                }
             }
         }
     }
 
     private void VehicleScroll()
     {
-        if (Input.GetAxis(_playerInput.horizontal) > 0.3f)
+        if (Input.GetAxis(_playerInput.horizontal) > 0.3f || Input.GetAxis(_playerInput.horizontalDPad) > 0)
         {
             if(!_rotateSelection.GetSwitching())
             {
@@ -98,7 +86,7 @@ public class ViewportController : MonoBehaviour
                 AbilityInfoViewState();
             }
         }
-        else if (Input.GetAxis(_playerInput.horizontal) < -0.3f)
+        else if (Input.GetAxis(_playerInput.horizontal) < -0.3f || Input.GetAxis(_playerInput.horizontalDPad) < 0)
         {
             if(!_rotateSelection.GetSwitching())
             {
@@ -201,7 +189,7 @@ public class ViewportController : MonoBehaviour
         }
     }
 
-    private void VehicleSelect(bool status)
+    public void VehicleSelect(bool status)
     {
         if (status == true)
         {
@@ -218,6 +206,7 @@ public class ViewportController : MonoBehaviour
             selectionManager.UpdateData(playerID, _ready, selectedCarID, _playerInput.GetPlayerNum());
             
         }
+        AudioManager.instance.PlayWithoutSpatial("Menu Selection");
     }
 
     public bool GetReady()
