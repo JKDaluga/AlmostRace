@@ -96,6 +96,7 @@ public class ObjectPooler : MonoBehaviour
 
     public IEnumerator DeactivateAfterTime(string tag, GameObject objectToDeactivate, float time)
     {
+        poolDictionary[tag].Enqueue(objectToDeactivate);
         yield return new WaitForSeconds(time);
         if (!poolDictionary.ContainsKey(tag))
         {
@@ -104,7 +105,7 @@ public class ObjectPooler : MonoBehaviour
         objectToDeactivate.SetActive(false);
         objectToDeactivate.transform.position = transform.position;
         objectToDeactivate.transform.rotation = transform.rotation;
-        poolDictionary[tag].Enqueue(objectToDeactivate);
+       
 
     }
 
