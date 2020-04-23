@@ -5,29 +5,33 @@ using UnityEngine.EventSystems;
 
 public class FocusManager : MonoBehaviour
 {
-    EventSystem eventSystem;
     GameObject selectedGameObject;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Update()
     {
-        eventSystem = GetComponent<EventSystem>();
+        if (EventSystem.current != null && selectedGameObject != null && EventSystem.current.currentSelectedGameObject == null)
+        {
+            EventSystem.current.SetSelectedGameObject(selectedGameObject);
+        }
+        if (EventSystem.current != null)
+        {
+            print(EventSystem.current.currentSelectedGameObject);
+        }
     }
+
     void OnApplicationFocus(bool hasFocus)
     {
-        eventSystem = GetComponent<EventSystem>();
-        if(eventSystem != null)
+        if(EventSystem.current != null)
         {
-            selectedGameObject = eventSystem.currentSelectedGameObject;
+            selectedGameObject = EventSystem.current.currentSelectedGameObject;
         }
     }
 
     void OnApplicationPause(bool pauseStatus)
     {
-        eventSystem = GetComponent<EventSystem>();
-        if (eventSystem != null && selectedGameObject != null)
+        if (EventSystem.current != null && selectedGameObject != null)
         {
-            eventSystem.SetSelectedGameObject(selectedGameObject);
+            EventSystem.current.SetSelectedGameObject(selectedGameObject);
         }
     }
 }
