@@ -29,6 +29,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
     private Transform _nextNode;
     private bool _movingCar;
     private bool _spawnOnEnemy;
+    private Vector3 LocalUp = Vector3.up;
 
     public bool respawnOverride;
 
@@ -87,7 +88,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
         HypeGateTimeBehavior arena = FindObjectOfType<HypeGateTimeBehavior>();
         Transform randomSpawnPoint = arena.spawnPoints[Random.Range(0, arena.spawnPoints.Length)];
 
-        transform.position = new Vector3(randomSpawnPoint.position.x, randomSpawnPoint.position.y + spawnHeight, randomSpawnPoint.position.z);
+        transform.position = new Vector3(randomSpawnPoint.position.x, randomSpawnPoint.position.y, randomSpawnPoint.position.z) + (spawnHeight * LocalUp);
         transform.rotation = randomSpawnPoint.rotation;
     }
 
@@ -96,10 +97,10 @@ public class RespawnPlatformBehavior : MonoBehaviour
     {
         RaycastCar car = _playerObject.GetComponent<RaycastCar>();
         Vector3 nearestPointOnSpline = car.GetNearestPointOnSpline(0);
-        transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
+        transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y, nearestPointOnSpline.z) + (spawnHeight*LocalUp);
         
         Vector3 pointOnSplineForward = car.GetNearestPointOnSpline(lookDistanceForward);
-        Vector3 LocalUp = FindNormal(nearestPointOnSpline, _raceManager.orderedSplines[car.activeSpline]);
+        LocalUp = FindNormal(nearestPointOnSpline, _raceManager.orderedSplines[car.activeSpline]).normalized;
         transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
     }
 
@@ -131,7 +132,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
         {
             _carMesh.transform.rotation = transform.rotation;
             _playerObject.transform.position = new Vector3
-                (transform.position.x, transform.position.y + 2, transform.position.z);
+                (transform.position.x, transform.position.y, transform.position.z) + (2 * LocalUp);
             _playerObject.transform.rotation = transform.rotation;
             RaycastCar car = _playerObject.GetComponent<RaycastCar>();
             car.ignoreGravityDirection = true;
@@ -154,7 +155,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
         if (cheats != null)
         {
             Vector3 nearestPointOnSpline = cheats.getRearPlayer().GetNearestPointOnSpline(distanceBehind);
-            transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
+            transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y, nearestPointOnSpline.z) + (spawnHeight * LocalUp);
 
             Vector3 pointOnSplineForward = cheats.getRearPlayer().GetNearestPointOnSpline(lookDistanceForward);
             transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
