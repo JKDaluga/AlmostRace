@@ -26,10 +26,12 @@ public class SolarCycle_Attack : Ability
     [Tooltip("Wait time between each projectile fired in a sequence")] public float timeBetweenLaunch = 0.15f;
     [Tooltip("How long the projectile waits till it tracks")] public float hangTime;
     [Tooltip("How long the projectile lives max")] public float maxLifeTime = 7;
-    public Animator attackAnimator;
-    public Animator[] engineAnimators;
     public float hypeToGain;
     public Collider attackDetectionCollider;
+    
+    [Header("Effects Values")]
+    public Animator attackAnimator;
+    public Animator[] engineAnimators;
     private List<GameObject> _objectsInRange = new List<GameObject>();
     private Vector3 spawnOffset;
 
