@@ -16,6 +16,9 @@ public class SettingsMenuScript : MonoBehaviour
     public Slider soundFXSlider;
     public Image sSliderArrowLeft, sSliderArrowRight;
 
+    public Slider aISlider;
+    public Text onText, offText;
+
     private float mSliderPrevious, sSliderPrevious;
     private bool isStart = true;
 
@@ -24,16 +27,28 @@ public class SettingsMenuScript : MonoBehaviour
     {
         musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
         soundFXSlider.value = PlayerPrefs.GetFloat("SoundFXVolume", 1f);
+        aISlider.value = PlayerPrefs.GetFloat("AISpawning", 1f);
 
         mSliderPrevious = musicSlider.value;
         sSliderPrevious = soundFXSlider.value;
 
         volumeControl.updateSoundVolume(soundFXSlider.value);
 
-        activateColors();
+        if (aISlider.value == 1)
+        {
+            offText.color = new Color32(243, 238, 128, 255);
+            onText.color = new Color32(212, 212, 212, 255);
+        }
+        else
+        {
+            onText.color = new Color32(243, 238, 128, 255);
+            offText.color = new Color32(212, 212, 212, 255);
+        }
+
+        ActivateColors();
     }
 
-    private void activateColors()
+    private void ActivateColors()
     {
         isStart = false;
     }
@@ -87,6 +102,23 @@ public class SettingsMenuScript : MonoBehaviour
                 sSliderArrowLeft.color = new Color32(243, 238, 128, 255);
                 sSliderArrowRight.color = new Color32(12, 193, 184, 255);
             }
+        }
+    }
+
+    public void ToggleAI(float SliderValue)
+    {
+        aISlider.value = SliderValue;
+        PlayerPrefs.SetFloat("AISpawning", SliderValue);
+
+        if (aISlider.value == 1)
+        {
+            offText.color = new Color32(243, 238, 128, 255);
+            onText.color = new Color32(212, 212, 212, 255);
+        }
+        else
+        {
+            onText.color = new Color32(243, 238, 128, 255);
+            offText.color = new Color32(212, 212, 212, 255);
         }
     }
 
