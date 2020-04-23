@@ -97,7 +97,7 @@ public class Lux_Attack2 : Ability
     {
         if(shouldAnimate)
         {
-            Debug.Log("AbilityOffOfCooldown");
+            //Debug.Log("AbilityOffOfCooldown");
             leftGunAnimator.SetTrigger("LeftGunDown");
             rightGunAnimator.SetTrigger("RightGunDown");
             leftCap.SetTrigger("LeftCapClose");
@@ -112,7 +112,7 @@ public class Lux_Attack2 : Ability
     {
         if (shouldAnimate)
         {
-            Debug.Log("AbilityInUse");
+            //Debug.Log("AbilityInUse");
             leftGunAnimator.SetTrigger("LeftGunUp");
             rightGunAnimator.SetTrigger("RightGunUp");
             leftCap.SetTrigger("LeftCapOpen");

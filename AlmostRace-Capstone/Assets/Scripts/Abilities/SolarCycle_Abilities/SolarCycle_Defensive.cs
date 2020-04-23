@@ -12,13 +12,18 @@ using UnityEngine;
 
 public class SolarCycle_Defensive : CooldownAbility
 {
+    [Header("Ability Values")]
     public float shieldHealth;
     public float siphonAmount;
     public float siphonFrequency = 1;
     public float minSimSpeed = 0.6f;
     public float maxSimSpeed = 1;
+    public Collider defenseDetectionCollider;
+
+    [Header("Effects Values")]
     public List<GameObject> shields;
     public List<Animator> shieldGenerators;
+    public LineRenderer[] lineRender;
     public GameObject explodeVFX;
     private CarHealthBehavior _carHealthScript;
     private List<GameObject> _objectsInRange = new List<GameObject>();
@@ -60,7 +65,7 @@ public class SolarCycle_Defensive : CooldownAbility
             {
                 for (int i = 0; i < _objectsInRange.Count; i++)
                 {
-                    if (_objectsInRange[i] == null)
+                    if (_objectsInRange[i] == null || !defenseDetectionCollider.bounds.Contains(_objectsInRange[i].transform.position))
                     {
                         _objectsInRange.RemoveAt(i);
                     }
@@ -76,11 +81,14 @@ public class SolarCycle_Defensive : CooldownAbility
                                     _carHealthScript.AddPersonalShields(siphonAmount);
                                 }
                             }
-                    
                         }
                         else
                         {
                             _objectsInRange.RemoveAt(i);
+                        }
+                        for(int j = 0; j < lineRender.Length; j++)
+                        {
+                            //lineRender[j].
                         }
                     }
                 }
@@ -129,7 +137,6 @@ public class SolarCycle_Defensive : CooldownAbility
         for (int i = 0; i < shields.Count; i++)
         {
             var shieldsMain = shields[i].GetComponent<ParticleSystem>().main;
-            //shieldsMain.startLifetime = _startParticleLifetimes[i];
             ChangeSimSpeed(shields[i]);
         }
     }
