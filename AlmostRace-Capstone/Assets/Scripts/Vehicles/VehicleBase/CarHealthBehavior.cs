@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 //using System.Diagnostics;
@@ -35,6 +36,13 @@ public class CarHealthBehavior : MonoBehaviour
     public bool isDead;
     private VehicleInput _vehicleInput;
     private bool _canTeleport = true;
+
+    [Header("VFX")]
+    [Space(30)]
+    public List<Transform> sparkSpawn = new List<Transform>();
+    public float sparkLifeTime = 1f;
+    private ObjectPooler _objectPooler;
+    private GameObject _spawnedSparks;
 
     [Header("UI Variables")]
     [Space(30)]
@@ -90,6 +98,7 @@ public class CarHealthBehavior : MonoBehaviour
         _carBodyHolder = carObject.GetComponent<Rigidbody>();
         raycastCarHolder = GetComponent<RaycastCar>();
         _carCollider = raycastCarHolder.GetComponent<Collider>();
+        _objectPooler = ObjectPooler.instance;
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -383,6 +392,19 @@ public class CarHealthBehavior : MonoBehaviour
     {
         if (_canTakeDamage)
         {
+            foreach (Transform spawn in sparkSpawn)
+            {
+                GameObject _spawnedSparksNew = _objectPooler.SpawnFromPoolAndParent("DamageSparks", spawn.position, spawn.rotation, spawn);
+                _objectPooler.StartCoroutine(_objectPooler.DeactivateAfterTime("DamageSparks", _spawnedSparksNew, sparkLifeTime));
+            }
+            if (GetComponent<VehicleInput>())
+            {
+
+                GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_AmplitudeGain = 10 * (damage / (healthMax + _shieldTotal));
+                GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = 10 * (damage / (healthMax + _shieldTotal));
+
+                GetComponent<CinemachineImpulseSource>().GenerateImpulse();
+            }
 
             if (_shieldTotal > 0)
             { //if you have shields
@@ -448,6 +470,9 @@ public class CarHealthBehavior : MonoBehaviour
             { //if no shields
                 healthCurrent -= damage;
                 extra = -20;
+               
+             
+
                 if (healthCurrent > 0)
                 {
                     if (_vehicleInput)
@@ -459,6 +484,10 @@ public class CarHealthBehavior : MonoBehaviour
 
             if (healthCurrent <= 0)
             { //kill player
+                if(_vehicleInput != null)
+                {
+                    healthFillBar.fillAmount = healthCurrent / healthMax;
+                }
                 //Debug.Log("Player: " + gameObject.transform.parent.name + " should be killed by car # : " + killerID);
                 if (killerID <= DataManager.instance.playerInfo.Length && killerID != raycastCarHolder.playerID && !isDead)
                 { //if someone killed you and you didn't cause your death.

@@ -8,6 +8,7 @@ public class PainTrain_Shield : CooldownAbility
     public float shieldHealth;
     public GameObject shockShield;
     private PainTrain_ShieldShock _shockShieldScript;
+    public List<GameObject> shields;
     public float zapDamage;
     public float zapCoolDown = .75f;
     private CarHealthBehavior _carHealthScript;
@@ -24,6 +25,10 @@ public class PainTrain_Shield : CooldownAbility
         _shockShieldScript = shockShield.GetComponent<PainTrain_ShieldShock>();
         _shockShieldScript.GiveInfo(zapDamage, zapCoolDown, gameObject);
         AbilityOffOfCooldown();
+        foreach (GameObject shield in shields)
+        {
+            shield.GetComponent<ParticleSystem>().Stop();
+        }
     }
 
     public override void ActivateAbility()
@@ -33,10 +38,14 @@ public class PainTrain_Shield : CooldownAbility
         _carHealthScript.AddPersonalShields(shieldHealth);
         shockShield.SetActive(true);
         _shockShieldScript.TurnOnShieldShock();
+        foreach (GameObject shield in shields)
+        {
+            shield.GetComponent<ParticleSystem>().Play();
+        }
 
         //ribTipsSmall.SetActive(false);
-       // ribTipsMedium.SetActive(true);
-       // ribTipsLarge.SetActive(false);
+        // ribTipsMedium.SetActive(true);
+        // ribTipsLarge.SetActive(false);
 
 
     }
@@ -46,6 +55,11 @@ public class PainTrain_Shield : CooldownAbility
         _carHealthScript.SetPersonalShieldAmount(0);
         _shockShieldScript.TurnOffShieldShock();
         shockShield.SetActive(false);
+        foreach (GameObject shield in shields)
+        {
+            shield.GetComponent<ParticleSystem>().Stop();
+            shield.GetComponent<ParticleSystem>().Clear();
+        }
     }
 
     public override void AbilityOnCooldown()
