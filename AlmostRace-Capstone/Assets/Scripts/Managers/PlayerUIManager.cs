@@ -178,7 +178,7 @@ public class PlayerUIManager : MonoBehaviour
         {
             _attacksInRange.Clear();
         }
-        UpdateAttackIndicators();
+        //UpdateAttackIndicators();
     }
 
     // Keeps track of, updates the position, and shows attack indicators
