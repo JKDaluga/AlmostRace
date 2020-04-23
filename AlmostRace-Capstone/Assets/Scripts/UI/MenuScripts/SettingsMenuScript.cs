@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class SettingsMenuScript : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class SettingsMenuScript : MonoBehaviour
     public Image sSliderArrowLeft, sSliderArrowRight;
 
     private float mSliderPrevious, sSliderPrevious;
+    private bool isStart = true;
 
     // Start is called before the first frame update
     void Start()
@@ -27,11 +29,13 @@ public class SettingsMenuScript : MonoBehaviour
         sSliderPrevious = soundFXSlider.value;
 
         volumeControl.updateSoundVolume(soundFXSlider.value);
+
+        activateColors();
     }
 
-    public void ChangeMusicSource()
+    private void activateColors()
     {
-
+        isStart = false;
     }
 
     public void SetMusicVolume(float SliderValue)
@@ -41,16 +45,24 @@ public class SettingsMenuScript : MonoBehaviour
 
         if (musicSlider.value > mSliderPrevious)
         {
-            mSliderArrowRight.color = new Color32(243, 238, 128, 255);
             mSliderPrevious = musicSlider.value;
-            mSliderArrowLeft.color = new Color32(12, 193, 184, 255);
+            if (isStart == false)
+            {
+                mSliderArrowRight.color = new Color32(243, 238, 128, 255);
+                mSliderArrowLeft.color = new Color32(12, 193, 184, 255);
+            }
         }
         else if (musicSlider.value < mSliderPrevious)
         {
-            mSliderArrowLeft.color = new Color32(243, 238, 128, 255);
             mSliderPrevious = musicSlider.value;
+            if (isStart == false)
+            {
+            mSliderArrowLeft.color = new Color32(243, 238, 128, 255);
             mSliderArrowRight.color = new Color32(12, 193, 184,255);
+            }
         }
+
+
     }
 
     public void SetSoundFXVoume(float SliderValue)
@@ -60,15 +72,29 @@ public class SettingsMenuScript : MonoBehaviour
 
         if (soundFXSlider.value > sSliderPrevious)
         {
-            mSliderArrowRight.color = new Color32(243, 238, 128, 255);
-            mSliderPrevious = soundFXSlider.value;
-            mSliderArrowLeft.color = new Color32(12, 193, 184, 255);
+            sSliderPrevious = soundFXSlider.value;
+            if (isStart == false)
+            {
+                sSliderArrowRight.color = new Color32(243, 238, 128, 255);
+                sSliderArrowLeft.color = new Color32(12, 193, 184, 255);
+            }
         }
         else if (soundFXSlider.value < sSliderPrevious)
         {
-            sSliderArrowLeft.color = new Color32(243, 238, 128, 255);
             sSliderPrevious = soundFXSlider.value;
-            sSliderArrowRight.color = new Color32(12, 193, 184, 255);
+            if (isStart == false)
+            {
+                sSliderArrowLeft.color = new Color32(243, 238, 128, 255);
+                sSliderArrowRight.color = new Color32(12, 193, 184, 255);
+            }
         }
+    }
+
+    public void DeselectionEvent()
+    {
+        mSliderArrowLeft.color = new Color32(12, 193, 184, 255);
+        mSliderArrowRight.color = new Color32(12, 193, 184, 255);
+        sSliderArrowLeft.color = new Color32(12, 193, 184, 255);
+        sSliderArrowRight.color = new Color32(12, 193, 184, 255);
     }
 }
