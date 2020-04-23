@@ -11,6 +11,11 @@ public class SpinObject : MonoBehaviour
     {
         StartCoroutine(Spin());
     }
+    private void OnEnable()
+    {
+        StopAllCoroutines();
+        StartCoroutine(Spin());
+    }
 
     public IEnumerator Spin()
     {
