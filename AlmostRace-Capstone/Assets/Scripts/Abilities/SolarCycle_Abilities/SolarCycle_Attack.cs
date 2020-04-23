@@ -48,7 +48,7 @@ public class SolarCycle_Attack : Ability
                     _objectsInRange.RemoveAt(i);
                    testForTargetMatchCount = testForTargetMatchCount + 1;
                 }
-                else
+                else if (_objectsInRange[i] != null)
                 {
                     StartCoroutine(LaunchSequence(_objectsInRange[i]));
                 }

@@ -68,6 +68,11 @@ public class SolarCycle_Defensive : CooldownAbility
                     if (_objectsInRange[i] == null || !defenseDetectionCollider.bounds.Contains(_objectsInRange[i].transform.position))
                     {
                         _objectsInRange.RemoveAt(i);
+                        if (i < lineRender.Length)
+                        {
+                            lineRender[i].SetPosition(0, transform.position);
+                            lineRender[i].SetPosition(1, transform.position);
+                        }
                     }
                     else
                     {
@@ -75,22 +80,45 @@ public class SolarCycle_Defensive : CooldownAbility
                         {
                             if(!_objectsInRange[i].GetComponent<CarHealthBehavior>().isDead)
                             {
+                                if (i < lineRender.Length)
+                                {
+                                    lineRender[i].SetPosition(0, transform.position);
+                                    lineRender[i].SetPosition(1, _objectsInRange[i].transform.position);
+                                }
                                 _objectsInRange[i].GetComponent<CarHealthBehavior>().DamageCar(siphonAmount, _carHealthScript.raycastCarHolder.playerID);
                                 if (_carHealthScript.GetPersonalShieldAmount() < _carHealthScript.GetExtaHealthMax())
                                 {
                                     _carHealthScript.AddPersonalShields(siphonAmount);
                                 }
                             }
+                            else
+                            {
+                                if (i < lineRender.Length)
+                                {
+                                    lineRender[i].SetPosition(0, transform.position);
+                                    lineRender[i].SetPosition(1, transform.position);
+                                }
+                            }
                         }
                         else
                         {
                             _objectsInRange.RemoveAt(i);
-                        }
-                        for(int j = 0; j < lineRender.Length; j++)
-                        {
-                            //lineRender[j].
+                            if (i < lineRender.Length)
+                            {
+                                lineRender[i].SetPosition(0, transform.position);
+                                lineRender[i].SetPosition(1, transform.position);
+                            }
                         }
                     }
+                }
+
+            }
+            else
+            {
+                for(int j = 0; j < lineRender.Length; j++)
+                {
+                    lineRender[j].SetPosition(0, transform.position);
+                    lineRender[j].SetPosition(1, transform.position);
                 }
             }
             ActiveShieldParticleChanges();
@@ -102,6 +130,11 @@ public class SolarCycle_Defensive : CooldownAbility
     {
         _carHealthScript.SetPersonalShieldAmount(0);
         StopAllCoroutines();
+        for(int j = 0; j < lineRender.Length; j++)
+        {
+            lineRender[j].SetPosition(0, transform.position);
+            lineRender[j].SetPosition(1, transform.position);
+        }
         foreach (GameObject shield in shields)
         {
             shield.GetComponent<ParticleSystem>().Stop();
