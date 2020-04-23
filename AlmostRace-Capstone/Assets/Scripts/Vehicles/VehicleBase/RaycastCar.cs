@@ -105,6 +105,8 @@ public class RaycastCar : MonoBehaviour
     public int activeSpline = 0;
     RaceManager rc;
 
+    public bool ignoreGravityDirection = false;
+
     public Vector3 lastSafePos;
 
     [HideInInspector] public bool inArena = false, finished = false;
@@ -363,11 +365,19 @@ public class RaycastCar : MonoBehaviour
         if(isCarGrounded())
         {
             carRigidbody.AddForce(-carUp.normalized * gravity * carRigidbody.mass);
+            ignoreGravityDirection = false;
             gravityDirection = -carUp;
         }
         else
         {
-            carRigidbody.AddForce(Vector3.down * gravity * carRigidbody.mass);
+            if (ignoreGravityDirection)
+            {
+                carRigidbody.AddForce(-carUp.normalized * gravity * carRigidbody.mass);
+            }
+            else
+            {
+                carRigidbody.AddForce(Vector3.down * gravity * carRigidbody.mass);
+            }
         }
 
         float angleBetween = Mathf.Acos(Vector3.Dot(Vector3.up, transform.up)) * 180 / Mathf.PI;
