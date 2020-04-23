@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class SettingsMenuScript : MonoBehaviour
 {
-    public AudioSource VolumeMusic;
+    AudioSource VolumeMusic;
 
     public AudioManager volumeControl;
 
@@ -17,7 +17,7 @@ public class SettingsMenuScript : MonoBehaviour
     public Image sSliderArrowLeft, sSliderArrowRight;
 
     public Slider aISlider;
-    public Text onText, offText;
+    public Text onText, offText, backText;
 
     private float mSliderPrevious, sSliderPrevious;
     private bool isStart = true;
@@ -25,6 +25,8 @@ public class SettingsMenuScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        VolumeMusic = volumeControl.GetComponent<AudioSource>();
+
         musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
         soundFXSlider.value = PlayerPrefs.GetFloat("SoundFXVolume", 1f);
         aISlider.value = PlayerPrefs.GetFloat("AISpawning", 1f);
@@ -128,5 +130,11 @@ public class SettingsMenuScript : MonoBehaviour
         mSliderArrowRight.color = new Color32(12, 193, 184, 255);
         sSliderArrowLeft.color = new Color32(12, 193, 184, 255);
         sSliderArrowRight.color = new Color32(12, 193, 184, 255);
+        backText.color = new Color32(42, 63, 68, 255);
+    }
+
+    public void SelectionEvent()
+    {
+        backText.color = new Color32(243, 238, 128, 255);
     }
 }
