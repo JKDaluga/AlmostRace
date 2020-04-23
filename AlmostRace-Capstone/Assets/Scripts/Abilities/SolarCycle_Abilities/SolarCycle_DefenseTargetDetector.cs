@@ -8,7 +8,7 @@ public class SolarCycle_DefenseTargetDetector : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent("CarHealthBehavior") || other.gameObject.GetComponent("Interactable"))
+        if (other.gameObject.GetComponent("CarHealthBehavior"))
         {
            defenseScript.AddObjectInRange(other.gameObject);
         }
@@ -16,7 +16,7 @@ public class SolarCycle_DefenseTargetDetector : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.GetComponent("CarHealthBehavior") || other.gameObject.GetComponent("Interactable"))
+        if (other.gameObject.GetComponent("CarHealthBehavior"))
         {
             defenseScript.RemoveObjectInRange(other.gameObject);
         }
