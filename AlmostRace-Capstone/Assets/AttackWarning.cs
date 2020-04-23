@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class AttackWarning : MonoBehaviour
 {
     public GameObject thisCar;
-    public Image warning;
+    public List<Image> warning;
 
     public Color safe, incoming, danger;
 
@@ -15,7 +15,7 @@ public class AttackWarning : MonoBehaviour
 
     public List<GameObject> attacksInRange;
 
-    private float nearest;
+    public float nearest;
     public bool fading;
     public float currAlpha;
 
@@ -45,40 +45,50 @@ public class AttackWarning : MonoBehaviour
                 else
                 {
                     float temp = Vector3.Distance(thisCar.transform.position, attacksInRange[i].transform.position);
-                    if(temp < nearest)
+                    if (temp < nearest)
                     {
                         nearest = temp;
                     }
                 }
             }
-            if(warning.color == safe)
+            foreach (Image i in warning)
             {
-                Color holder = new Color(incoming.r, incoming.g, incoming.b, currAlpha);
-                warning.color = holder;
-                flashTime = .25f;
-            }
-
-            if(nearest <= dangerDist)
-            {
-                if(warning.color == safe || warning.color == incoming)
+                if (Mathf.Abs(nearest) <= dangerDist)
                 {
-                    warning.color = danger;
-                    flashTime = .1f;
+                    if (i.color.r != danger.r || i.color.g != danger.g || i.color.b != danger.b)
+                    {
+                        i.color = danger;
+                        flashTime = .1f;
+                    }
                 }
-            }
+                else 
+                {
+                    if(i.color.r != incoming.r || i.color.g != incoming.g || i.color.b != incoming.b)
+                    {
+                        Color holder = new Color(incoming.r, incoming.g, incoming.b, currAlpha);
+                        i.color = holder;
+                        flashTime = .25f;
+                    }
+                }
 
-            if (!fading)
-            {
-                StartCoroutine(Fade());
+
+                if (!fading)
+                {
+                    StartCoroutine(Fade());
+                }
+
             }
-            
         }
         else
         {
             nearest = Mathf.Infinity;
-            warning.color = safe;
+            foreach (Image i in warning)
+            {
+                i.color = safe;
+            }
             currAlpha = 1;
             fading = false;
+            StopAllCoroutines();
         }
     }
 
@@ -107,15 +117,18 @@ public class AttackWarning : MonoBehaviour
         fading = true;
         while (true)
         {
-            yield return null;
+            foreach (Image i in warning)
+            {
+                yield return null;
 
-            warning.CrossFadeAlpha(0, flashTime, false);
+                i.CrossFadeAlpha(0, flashTime, false);
 
-            yield return new WaitForSeconds(flashTime);
+                yield return new WaitForSeconds(flashTime);
 
-            warning.CrossFadeAlpha(1, flashTime, false);
+                i.CrossFadeAlpha(1, flashTime, false);
 
-            yield return new WaitForSeconds(flashTime);
+                yield return new WaitForSeconds(flashTime);
+            }
         }
     }
 
