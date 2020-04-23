@@ -93,6 +93,16 @@ public class AttackWarning : MonoBehaviour
     }
 
 
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.layer == LayerMask.NameToLayer("Abilities"))
+        {
+            if (attacksInRange.Contains(other.gameObject))
+            {
+                attacksInRange.Remove(other.gameObject);
+            }
+        }
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Abilities"))
@@ -110,6 +120,8 @@ public class AttackWarning : MonoBehaviour
             }
         }
     }
+
+    
 
 
     IEnumerator Fade()
