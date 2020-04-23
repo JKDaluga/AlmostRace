@@ -7,21 +7,29 @@ public class FocusManager : MonoBehaviour
 {
     GameObject selectedGameObject;
 
+    private void Start()
+    {
+        selectedGameObject = EventSystem.current.firstSelectedGameObject;
+    }
+
     private void Update()
     {
-        if (EventSystem.current != null && selectedGameObject != null && EventSystem.current.currentSelectedGameObject == null)
-        {
-            EventSystem.current.SetSelectedGameObject(selectedGameObject);
-        }
         if (EventSystem.current != null)
         {
-            print(EventSystem.current.currentSelectedGameObject);
+            if(selectedGameObject != null && EventSystem.current.currentSelectedGameObject == null)
+            {
+                EventSystem.current.SetSelectedGameObject(selectedGameObject);
+            }
+            else
+            {
+                selectedGameObject = EventSystem.current.currentSelectedGameObject;
+            }
         }
     }
 
     void OnApplicationFocus(bool hasFocus)
     {
-        if(EventSystem.current != null)
+        if(EventSystem.current != null && EventSystem.current.currentSelectedGameObject != null)
         {
             selectedGameObject = EventSystem.current.currentSelectedGameObject;
         }
