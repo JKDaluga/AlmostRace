@@ -13,17 +13,19 @@ public class AttackWarning : MonoBehaviour
     public float dangerDist = 15.0f;
     public float flashTime = 1.0f;
 
-    private List<GameObject> attacksInRange;
+    public List<GameObject> attacksInRange;
 
     private float nearest;
-    private bool flashing;
+    public bool fading;
+    private float currAlpha;
 
     private void Start()
     {
         attacksInRange = new List<GameObject>();
         thisCar = transform.parent.gameObject;
         nearest = Mathf.Infinity;
-        flashing = false;
+        fading = true;
+        currAlpha = 1;
     }
 
     private void FixedUpdate()
@@ -36,6 +38,10 @@ public class AttackWarning : MonoBehaviour
                 {
                     attacksInRange.RemoveAt(i);
                 }
+                else if (!attacksInRange[i].activeSelf)
+                {
+                    attacksInRange.RemoveAt(i);
+                }
                 else
                 {
                     float temp = Vector3.Distance(thisCar.transform.position, attacksInRange[i].transform.position);
@@ -45,66 +51,41 @@ public class AttackWarning : MonoBehaviour
                     }
                 }
             }
-
-            if(nearest < dangerDist)
+            if(warning.color == safe)
             {
-                warning.color = danger;
-                flashTime = .5f;
+                Color holder = new Color(incoming.r, incoming.g, incoming.b, currAlpha);
+                warning.color = holder;
+            }
+
+            if (fading)
+            {
+                warning.CrossFadeAlpha(0.001f, flashTime, false);
+                currAlpha = warning.color.a;
+                if(currAlpha <= 0.001f)
+                {
+                    fading = false;
+                }
             }
             else
             {
-                warning.color = incoming;
-                flashTime = 1;
+                warning.CrossFadeAlpha(1, flashTime, false);
+                currAlpha = warning.color.a;
+                if (currAlpha >= 1)
+                {
+                    fading = true;
+                }
             }
-
-            if (!flashing)
-            {
-                StartCoroutine(Flash());
-            }
-
+            
         }
         else
         {
             nearest = Mathf.Infinity;
             warning.color = safe;
-            flashing = false;
-            StopAllCoroutines();
+            currAlpha = 1;
+            fading = true;
         }
     }
 
-    private IEnumerator Flash()
-    {
-        flashing = true;
-        bool fadeOut = true;
-        Color currColor = warning.color;
-        float targetAlpha = 0;
-        while (true)
-        {
-            yield return null;
-            if (fadeOut)
-            {
-                currColor.a = Mathf.Lerp(currColor.a, targetAlpha, flashTime * Time.deltaTime);
-                warning.color = currColor;
-
-                if(warning.color.a == 0)
-                {
-                    fadeOut = false;
-                    targetAlpha = 1;
-                }
-            }
-            else
-            {
-                currColor.a = Mathf.Lerp(currColor.a, targetAlpha, flashTime * Time.deltaTime);
-                warning.color = currColor;
-
-                if (warning.color.a == 0)
-                {
-                    fadeOut = true;
-                    targetAlpha = 0;
-                }
-            }
-        }
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -123,5 +104,7 @@ public class AttackWarning : MonoBehaviour
             }
         }
     }
+
+
 
 }
