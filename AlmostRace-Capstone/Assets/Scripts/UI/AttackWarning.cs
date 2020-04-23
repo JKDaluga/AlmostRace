@@ -11,13 +11,14 @@ public class AttackWarning : MonoBehaviour
     public Color safe, incoming, danger;
 
     public float dangerDist = 15.0f;
-    public float flashTime = .25f;
+    private float flashTime;
+
+    public float incomingTime, dangerTime;
 
     public List<GameObject> attacksInRange;
 
     public float nearest;
     public bool fading;
-    public float currAlpha;
 
     private void Start()
     {
@@ -25,7 +26,6 @@ public class AttackWarning : MonoBehaviour
         thisCar = transform.parent.gameObject;
         nearest = Mathf.Infinity;
         fading = false;
-        currAlpha = 1;
     }
 
     private void Update()
@@ -58,16 +58,15 @@ public class AttackWarning : MonoBehaviour
                     if (i.color.r != danger.r || i.color.g != danger.g || i.color.b != danger.b)
                     {
                         i.color = danger;
-                        flashTime = .1f;
+                        flashTime = dangerTime;
                     }
                 }
                 else 
                 {
                     if(i.color.r != incoming.r || i.color.g != incoming.g || i.color.b != incoming.b)
                     {
-                        Color holder = new Color(incoming.r, incoming.g, incoming.b, currAlpha);
-                        i.color = holder;
-                        flashTime = .25f;
+                        i.color = incoming;
+                        flashTime = incomingTime;
                     }
                 }
 
@@ -86,7 +85,6 @@ public class AttackWarning : MonoBehaviour
             {
                 i.color = safe;
             }
-            currAlpha = 1;
             fading = false;
             StopAllCoroutines();
         }
