@@ -11,24 +11,24 @@ public class AttackWarning : MonoBehaviour
     public Color safe, incoming, danger;
 
     public float dangerDist = 15.0f;
-    public float flashTime = 1.0f;
+    public float flashTime = .25f;
 
     public List<GameObject> attacksInRange;
 
     private float nearest;
     public bool fading;
-    private float currAlpha;
+    public float currAlpha;
 
     private void Start()
     {
         attacksInRange = new List<GameObject>();
         thisCar = transform.parent.gameObject;
         nearest = Mathf.Infinity;
-        fading = true;
+        fading = false;
         currAlpha = 1;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (attacksInRange.Count > 0)
         {
@@ -55,25 +55,21 @@ public class AttackWarning : MonoBehaviour
             {
                 Color holder = new Color(incoming.r, incoming.g, incoming.b, currAlpha);
                 warning.color = holder;
+                flashTime = .25f;
             }
 
-            if (fading)
+            if(nearest <= dangerDist)
             {
-                warning.CrossFadeAlpha(0.001f, flashTime, false);
-                currAlpha = warning.color.a;
-                if(currAlpha <= 0.001f)
+                if(warning.color == safe || warning.color == incoming)
                 {
-                    fading = false;
+                    warning.color = danger;
+                    flashTime = .1f;
                 }
             }
-            else
+
+            if (!fading)
             {
-                warning.CrossFadeAlpha(1, flashTime, false);
-                currAlpha = warning.color.a;
-                if (currAlpha >= 1)
-                {
-                    fading = true;
-                }
+                StartCoroutine(Fade());
             }
             
         }
@@ -82,7 +78,7 @@ public class AttackWarning : MonoBehaviour
             nearest = Mathf.Infinity;
             warning.color = safe;
             currAlpha = 1;
-            fading = true;
+            fading = false;
         }
     }
 
@@ -105,6 +101,23 @@ public class AttackWarning : MonoBehaviour
         }
     }
 
+
+    IEnumerator Fade()
+    {
+        fading = true;
+        while (true)
+        {
+            yield return null;
+
+            warning.CrossFadeAlpha(0, flashTime, false);
+
+            yield return new WaitForSeconds(flashTime);
+
+            warning.CrossFadeAlpha(1, flashTime, false);
+
+            yield return new WaitForSeconds(flashTime);
+        }
+    }
 
 
 }
