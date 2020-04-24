@@ -27,12 +27,13 @@ public class SolarCycle_Boost : CooldownHeatAbility
     [Header("Combat Values")]
     public float healthLossActivateAmount = 25;
     private float currentBoostPercentage;
-    public GameObject[] companions;
-    public GameObject explodeVFX;
+
     private RaycastCar carInfo;
     private bool isBoosting = false;
 
-    [Header("ParticleValues")]
+    [Header("Effects Values")]
+    public GameObject[] companions;
+    public GameObject explodeVFX;
     public Animator[] frontJetParticles;
     public Animator[] backJetParticles;
     public Animator[] boostCones;
