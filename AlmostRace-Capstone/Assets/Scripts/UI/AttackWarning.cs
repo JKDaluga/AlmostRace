@@ -1,0 +1,146 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class AttackWarning : MonoBehaviour
+{
+    public GameObject thisCar;
+    public List<Image> warning;
+
+    public Color safe, incoming, danger;
+
+    public float dangerDist = 15.0f;
+    private float flashTime;
+
+    public float incomingTime, dangerTime;
+
+    public List<GameObject> attacksInRange;
+
+    public float nearest;
+    public bool fading;
+
+    private void Start()
+    {
+        attacksInRange = new List<GameObject>();
+        thisCar = transform.parent.gameObject;
+        nearest = Mathf.Infinity;
+        fading = false;
+    }
+
+    private void Update()
+    {
+        if (attacksInRange.Count > 0)
+        {
+            for (int i = attacksInRange.Count - 1; i >= 0; i--)
+            {
+                if (attacksInRange[i] == null)
+                {
+                    attacksInRange.RemoveAt(i);
+                }
+                else if (!attacksInRange[i].activeSelf)
+                {
+                    attacksInRange.RemoveAt(i);
+                }
+                else
+                {
+                    float temp = Vector3.Distance(thisCar.transform.position, attacksInRange[i].transform.position);
+                    if (temp < nearest)
+                    {
+                        nearest = temp;
+                    }
+                }
+            }
+            foreach (Image i in warning)
+            {
+                if (Mathf.Abs(nearest) <= dangerDist)
+                {
+                    if (i.color.r != danger.r || i.color.g != danger.g || i.color.b != danger.b)
+                    {
+                        i.color = danger;
+                        flashTime = dangerTime;
+                    }
+                }
+                else 
+                {
+                    if(i.color.r != incoming.r || i.color.g != incoming.g || i.color.b != incoming.b)
+                    {
+                        i.color = incoming;
+                        flashTime = incomingTime;
+                    }
+                }
+
+
+                if (!fading)
+                {
+                    StartCoroutine(Fade());
+                }
+
+            }
+        }
+        else
+        {
+            nearest = Mathf.Infinity;
+            foreach (Image i in warning)
+            {
+                i.color = safe;
+            }
+            fading = false;
+            StopAllCoroutines();
+        }
+    }
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.gameObject.layer == LayerMask.NameToLayer("Abilities"))
+        {
+            if (attacksInRange.Contains(other.gameObject))
+            {
+                attacksInRange.Remove(other.gameObject);
+            }
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Abilities"))
+        {
+            if (other.gameObject.transform.root.GetComponent<Projectile>() != null)
+            {
+                if (thisCar != other.gameObject.transform.root.GetComponent<Projectile>().getImmunePlayer())
+                {
+                    attacksInRange.Add(other.gameObject);
+                }
+            }
+            else
+            {
+                attacksInRange.Add(other.gameObject);
+            }
+        }
+    }
+
+    
+
+
+    IEnumerator Fade()
+    {
+        fading = true;
+        while (true)
+        {
+            foreach (Image i in warning)
+            {
+                yield return null;
+
+                i.CrossFadeAlpha(0, flashTime, false);
+
+                yield return new WaitForSeconds(flashTime);
+
+                i.CrossFadeAlpha(1, flashTime, false);
+
+                yield return new WaitForSeconds(flashTime);
+            }
+        }
+    }
+
+
+}

@@ -52,6 +52,7 @@ public class Lux_EnergyBlade : Projectile
             carHit = other.gameObject.GetComponent<CarHealthBehavior>();
             carHit.DamageCar(_projectileDamage, _immunePlayerScript.playerID);
             _immuneCars.Add(other.gameObject);
+            Destroy(gameObject);
         }
         if(other.CompareTag("Interactable"))
         {
