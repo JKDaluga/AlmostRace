@@ -4,15 +4,37 @@ using UnityEngine;
 
 public class SpeedRampBehaviour : MonoBehaviour
 {
+    public float speedBoostPercentage;
+    public float boostTime = 2f;
+    public bool isActive = false;
+    private List<RaycastCar> _boostedCars = new List<RaycastCar>();
+    private RaycastCar _carToAdd;
     // Start is called before the first frame update
-    void Start()
+    public void OnTriggerEnter(Collider other)
     {
+
+            if (other.gameObject.GetComponent<RaycastCar>() != null)
+            {
+
+            _carToAdd = other.gameObject.GetComponent<RaycastCar>();
+                if (!_boostedCars.Contains(_carToAdd))
+                {
+                    _boostedCars.Add(_carToAdd);
+                    other.gameObject.GetComponent<RaycastCar>().SetBoostPadSpeed(speedBoostPercentage / 100);
+                       StartCoroutine(ResetBoost(boostTime, _carToAdd));
+                }
+
+            }
         
+
     }
 
-    // Update is called once per frame
-    void Update()
+    public IEnumerator ResetBoost(float timeToReset, RaycastCar carToReset)
     {
-        
+     
+        yield return new WaitForSeconds(timeToReset);
+
+        carToReset.gameObject.GetComponent<RaycastCar>().ResetBoostPadSpeed();
+        _boostedCars.Remove(carToReset);
     }
 }

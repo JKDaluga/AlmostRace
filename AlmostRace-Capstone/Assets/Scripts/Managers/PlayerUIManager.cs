@@ -106,7 +106,9 @@ public class PlayerUIManager : MonoBehaviour
         _chb = vehicleInputScript.GetComponent<CarHealthBehavior>();
 
         _raycastCarHolder = vehicleInputScript.GetComponent<RaycastCar>();
-
+        
+        //Old Attack Indicator Setup
+        /*
         if (numPlayers > 1)
         {
             _heightOffset = 0.057f;
@@ -122,7 +124,7 @@ public class PlayerUIManager : MonoBehaviour
                 attackIndicators[i].transform.localScale = onePlayerScale;
             }
         }
-
+        */
         switch(playerNum)
         {
             case 1: //is player 1
@@ -178,7 +180,9 @@ public class PlayerUIManager : MonoBehaviour
         {
             _attacksInRange.Clear();
         }
-        UpdateAttackIndicators();
+
+        //Old Attack Indicator Call
+        //UpdateAttackIndicators();
     }
 
     // Keeps track of, updates the position, and shows attack indicators
