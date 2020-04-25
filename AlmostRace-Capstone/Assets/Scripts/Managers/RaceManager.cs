@@ -44,6 +44,8 @@ public class RaceManager : MonoBehaviour
 
     public int AISplineIndex;
 
+    public Collider[] ArenaColliders;
+
     private void Awake()
     {
 

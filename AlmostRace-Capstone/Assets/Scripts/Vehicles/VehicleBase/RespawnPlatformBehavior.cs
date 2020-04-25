@@ -165,6 +165,10 @@ public class RespawnPlatformBehavior : MonoBehaviour
     private Vector3 FindNormal(Vector3 position, GameObject roadMeshes)
     {
         Collider[] colliders = roadMeshes.GetComponentsInChildren<Collider>();
+        if(colliders == null || colliders.Length == 0)
+        {
+            colliders = _raceManager.ArenaColliders;
+        }
         Collider closestCollider = colliders[0];
         Vector3 closestPoint = closestCollider.ClosestPointOnBounds(position);
         float distanceB = Vector3.Distance(closestPoint, position);
