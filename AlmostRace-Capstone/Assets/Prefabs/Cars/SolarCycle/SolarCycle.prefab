@@ -64735,6 +64735,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defenseScript: {fileID: 5587899386160506097}
+  immunePlayer: {fileID: 5070740672341586862}
 --- !u!135 &3396514724531772780
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -127771,11 +127772,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5006512734906361963}
     m_Modifications:
-    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
-        type: 3}
-      propertyPath: m_Name
-      value: FireCone
-      objectReference: {fileID: 0}
     - target: {fileID: 6289859980154895290, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -127831,6 +127827,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
+        type: 3}
+      propertyPath: m_Name
+      value: FireCone
+      objectReference: {fileID: 0}
     - target: {fileID: 3942450301680048752, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
@@ -127856,11 +127857,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1011136676}
     m_Modifications:
-    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
-        type: 3}
-      propertyPath: m_Name
-      value: FireCone (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 6289859980154895290, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -127931,6 +127927,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
+        type: 3}
+      propertyPath: m_Name
+      value: FireCone (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 3942450301680048752, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
@@ -127956,11 +127957,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1528141697}
     m_Modifications:
-    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
-        type: 3}
-      propertyPath: m_Name
-      value: FireCone (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 6289859980154895290, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -128026,6 +128022,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
+        type: 3}
+      propertyPath: m_Name
+      value: FireCone (1)
+      objectReference: {fileID: 0}
     - target: {fileID: 3942450301680048752, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
@@ -128051,10 +128052,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 644788421544090394, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 5755640865563785010, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
-      propertyPath: m_Name
-      value: SolarCycle
+      propertyPath: m_LocalPosition.z
+      value: -6.222
+      objectReference: {fileID: 0}
+    - target: {fileID: 5755640865563785010, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.043
       objectReference: {fileID: 0}
     - target: {fileID: 7488727476820995678, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
@@ -128100,6 +128106,11 @@ PrefabInstance:
         type: 3}
       propertyPath: boostFOV
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 644788421544090394, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_Name
+      value: SolarCycle
       objectReference: {fileID: 0}
     - target: {fileID: 644788421544090389, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
@@ -128281,16 +128292,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 5755640865563785010, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -6.222
-      objectReference: {fileID: 0}
-    - target: {fileID: 5755640865563785010, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.043
-      objectReference: {fileID: 0}
     - target: {fileID: 644788420753075395, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_LocalRotation.x
@@ -128346,12 +128347,12 @@ PrefabInstance:
       propertyPath: activeStatus
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7545891355312199482, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 2105720768070374503, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 2105720768070374503, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+    - target: {fileID: 7545891355312199482, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -128407,11 +128408,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8628462139355903643}
     m_Modifications:
-    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
-        type: 3}
-      propertyPath: m_Name
-      value: FireCone (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 6289859980154895290, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -128467,6 +128463,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
+        type: 3}
+      propertyPath: m_Name
+      value: FireCone (2)
+      objectReference: {fileID: 0}
     - target: {fileID: 3942450301680048752, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
@@ -128498,11 +128499,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2138646192240309250}
     m_Modifications:
-    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
-        type: 3}
-      propertyPath: m_Name
-      value: FireCone (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 6289859980154895290, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -128572,6 +128568,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6288033556243738010, guid: daedef8a68316c04091f35a002b7167e,
+        type: 3}
+      propertyPath: m_Name
+      value: FireCone (2)
       objectReference: {fileID: 0}
     - target: {fileID: 3942450301680048752, guid: daedef8a68316c04091f35a002b7167e,
         type: 3}
