@@ -19,6 +19,7 @@ public class SolarCycle_Defensive : CooldownAbility
     public float minSimSpeed = 0.6f;
     public float maxSimSpeed = 1;
     public Collider defenseDetectionCollider;
+    private List<GameObject> _objectsInRange = new List<GameObject>();
 
     [Header("Effects Values")]
     public List<GameObject> shields;
@@ -26,7 +27,6 @@ public class SolarCycle_Defensive : CooldownAbility
     public LineRenderer[] lineRender;
     public GameObject explodeVFX;
     private CarHealthBehavior _carHealthScript;
-    private List<GameObject> _objectsInRange = new List<GameObject>();
     private float[] _startParticleLifetimes;
     private bool _isActive;
  
@@ -65,9 +65,19 @@ public class SolarCycle_Defensive : CooldownAbility
             {
                 for (int i = 0; i < _objectsInRange.Count; i++)
                 {
-                    if (_objectsInRange[i] == null || !defenseDetectionCollider.bounds.Contains(_objectsInRange[i].transform.position))
+                    if (_objectsInRange[i] == null)
                     {
                         _objectsInRange.RemoveAt(i);
+                        //Debug.Log("Removed Vehicle Via First Check: " + _objectsInRange[i].transform.parent);
+                        if (i < lineRender.Length)
+                        {
+                            lineRender[i].SetPosition(0, transform.position);
+                            lineRender[i].SetPosition(1, transform.position);
+                        }
+                    }
+                    else if (!defenseDetectionCollider.bounds.Contains(_objectsInRange[i].transform.position))
+                    {
+                       RemoveObjectInRange(_objectsInRange[i]);
                     }
                     else
                     {
@@ -75,22 +85,46 @@ public class SolarCycle_Defensive : CooldownAbility
                         {
                             if(!_objectsInRange[i].GetComponent<CarHealthBehavior>().isDead)
                             {
+                                if (i < lineRender.Length)
+                                {
+                                    lineRender[i].SetPosition(0, transform.position);
+                                    lineRender[i].SetPosition(1, _objectsInRange[i].transform.position);
+                                }
                                 _objectsInRange[i].GetComponent<CarHealthBehavior>().DamageCar(siphonAmount, _carHealthScript.raycastCarHolder.playerID);
                                 if (_carHealthScript.GetPersonalShieldAmount() < _carHealthScript.GetExtaHealthMax())
                                 {
                                     _carHealthScript.AddPersonalShields(siphonAmount);
                                 }
                             }
+                            else
+                            {
+                                if (i < lineRender.Length)
+                                {
+                                    lineRender[i].SetPosition(0, transform.position);
+                                    lineRender[i].SetPosition(1, transform.position);
+                                }
+                            }
                         }
                         else
                         {
                             _objectsInRange.RemoveAt(i);
-                        }
-                        for(int j = 0; j < lineRender.Length; j++)
-                        {
-                            //lineRender[j].
+                            //Debug.Log("Removed Vehicle Via Second Check: " + _objectsInRange[i].transform.parent);
+                            if (i < lineRender.Length)
+                            {
+                                lineRender[i].SetPosition(0, transform.position);
+                                lineRender[i].SetPosition(1, transform.position);
+                            }
                         }
                     }
+                }
+
+            }
+            else
+            {
+                for(int j = 0; j < lineRender.Length; j++)
+                {
+                    lineRender[j].SetPosition(0, transform.position);
+                    lineRender[j].SetPosition(1, transform.position);
                 }
             }
             ActiveShieldParticleChanges();
@@ -102,6 +136,11 @@ public class SolarCycle_Defensive : CooldownAbility
     {
         _carHealthScript.SetPersonalShieldAmount(0);
         StopAllCoroutines();
+        for(int j = 0; j < lineRender.Length; j++)
+        {
+            lineRender[j].SetPosition(0, transform.position);
+            lineRender[j].SetPosition(1, transform.position);
+        }
         foreach (GameObject shield in shields)
         {
             shield.GetComponent<ParticleSystem>().Stop();
@@ -118,7 +157,11 @@ public class SolarCycle_Defensive : CooldownAbility
 
     public void AddObjectInRange(GameObject objectToAdd)
     {
-        _objectsInRange.Add(objectToAdd);
+        if (!_objectsInRange.Contains(objectToAdd.gameObject))
+        {
+            //Debug.Log("Recieved Vehicle: " + objectToAdd.transform.parent);
+            _objectsInRange.Add(objectToAdd);
+        }
     }
 
     public void RemoveObjectInRange(GameObject objectToRemove)
@@ -127,6 +170,7 @@ public class SolarCycle_Defensive : CooldownAbility
         {
             if(_objectsInRange[i] == objectToRemove)
             {
+                //Debug.Log("Removed Vehicle Via Function: " + _objectsInRange[i].transform.parent);
                 _objectsInRange.RemoveAt(i);
             }
         }

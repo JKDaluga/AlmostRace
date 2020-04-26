@@ -5,10 +5,11 @@ using UnityEngine;
 public class SolarCycle_DefenseTargetDetector : MonoBehaviour
 {
     public SolarCycle_Defensive defenseScript;
+    public GameObject immunePlayer;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent("CarHealthBehavior"))
+        if (other.gameObject.GetComponent("CarHealthBehavior") && other.gameObject != immunePlayer)
         {
            defenseScript.AddObjectInRange(other.gameObject);
         }
