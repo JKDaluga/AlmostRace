@@ -71,6 +71,7 @@ public class RaceManager : MonoBehaviour
         }
         else
         {
+            AudioManager.instance.SetRaceManager(this);
             int playerCount = dm.getNumActivePlayers();
             if (spawnAI)
             {
