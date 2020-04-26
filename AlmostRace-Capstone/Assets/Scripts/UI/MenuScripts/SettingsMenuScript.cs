@@ -22,10 +22,15 @@ public class SettingsMenuScript : MonoBehaviour
     private float mSliderPrevious, sSliderPrevious;
     private bool isStart = true;
 
+    private DataManager AICase;
+
     // Start is called before the first frame update
     void Start()
     {
+        volumeControl = FindObjectOfType<AudioManager>();
         VolumeMusic = volumeControl.GetComponent<AudioSource>();
+
+        AICase = FindObjectOfType<DataManager>();
 
         musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
         soundFXSlider.value = PlayerPrefs.GetFloat("SoundFXVolume", 1f);
@@ -48,6 +53,8 @@ public class SettingsMenuScript : MonoBehaviour
         }
 
         ActivateColors();
+
+        gameObject.SetActive(false);
     }
 
     private void ActivateColors()
@@ -136,5 +143,11 @@ public class SettingsMenuScript : MonoBehaviour
     public void SelectionEvent()
     {
         backText.color = new Color32(243, 238, 128, 255);
+    }
+
+    public void StartUpdate()
+    {
+        SetSoundFXVoume(soundFXSlider.value);
+        SetMusicVolume(musicSlider.value);
     }
 }
