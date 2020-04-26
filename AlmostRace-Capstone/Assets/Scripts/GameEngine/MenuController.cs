@@ -106,6 +106,7 @@ public class MenuController : MonoBehaviour
         }
         Time.timeScale = 1f;
         pauseMenu.SetActive(false);
+        isGamePaused = false;
         UnpauseSoundHandle();
     }
 
