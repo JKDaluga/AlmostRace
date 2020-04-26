@@ -62,7 +62,7 @@ public class AICheats : MonoBehaviour
 
                 if (playersIn && !arena.carsInRange.Contains(gameObject))
                 {
-                    GetComponent<RaycastCar>().activeSpline++;
+                    GetComponent<RaycastCar>().activeSpline = _raceManager.playerCars[0].activeSpline;
                     _raceManager.aiMan.updateAI(GetComponent<AIBehaviour>());
                     GetComponent<CarHealthBehavior>().AICheatKill();
 
