@@ -118,7 +118,7 @@ public class SolarCycle_HomingMissile : Projectile
     private void Explode()
     {
         Instantiate(explodeVFX, transform.position, transform.rotation);
-        AudioManager.instance.PlayWithoutSpatial("VoidWasp Shot Hit");
+        AudioManager.instance.Play("VoidWasp Shot Hit", gameObject.transform);
         Destroy(gameObject);
     }
 

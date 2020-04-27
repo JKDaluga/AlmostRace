@@ -21,7 +21,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
     [Tooltip("Amount of distance forward to make the platform look at, used when spawning after holding the bot or if there is no bot in the scene")]
     public int lookDistanceForward;
     private HypeGateTimeBehavior arena;
-    private HypeManager _hypeManagerScript;
+    private RaceManager _raceManager;
     private GameObject _playerObject;
     private GameObject _carMesh;
     private GameObject _otherVehicle;
@@ -29,17 +29,19 @@ public class RespawnPlatformBehavior : MonoBehaviour
     private Transform _nextNode;
     private bool _movingCar;
     private bool _spawnOnEnemy;
+    private Vector3 LocalUp = Vector3.up;
 
     public bool respawnOverride;
 
     // Start is called before the first frame update
     void Start()
     {
-        _hypeManagerScript = FindObjectOfType<HypeManager>();
-        if (_hypeManagerScript == null)
+        _raceManager = FindObjectOfType<RaceManager>();
+        if (_raceManager == null)
         {
-            Debug.LogError("Hype Manager not found!");
+            Debug.LogError("Race Manager not found!");
         }
+
         if (arena != null)
         {
             arena = FindObjectOfType<HypeGateTimeBehavior>();
@@ -86,7 +88,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
         HypeGateTimeBehavior arena = FindObjectOfType<HypeGateTimeBehavior>();
         Transform randomSpawnPoint = arena.spawnPoints[Random.Range(0, arena.spawnPoints.Length)];
 
-        transform.position = new Vector3(randomSpawnPoint.position.x, randomSpawnPoint.position.y + spawnHeight, randomSpawnPoint.position.z);
+        transform.position = new Vector3(randomSpawnPoint.position.x, randomSpawnPoint.position.y, randomSpawnPoint.position.z) + (spawnHeight * LocalUp);
         transform.rotation = randomSpawnPoint.rotation;
     }
 
@@ -95,9 +97,10 @@ public class RespawnPlatformBehavior : MonoBehaviour
     {
         RaycastCar car = _playerObject.GetComponent<RaycastCar>();
         Vector3 nearestPointOnSpline = car.GetNearestPointOnSpline(0);
-        transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
+        transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y, nearestPointOnSpline.z) + (spawnHeight*LocalUp);
         
         Vector3 pointOnSplineForward = car.GetNearestPointOnSpline(lookDistanceForward);
+        LocalUp = FindNormal(nearestPointOnSpline, _raceManager.orderedSplines[car.activeSpline]).normalized;
         transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
     }
 
@@ -107,8 +110,6 @@ public class RespawnPlatformBehavior : MonoBehaviour
         transform.position = new Vector3(_playerObject.transform.position.x,
             _playerObject.transform.position.y + spawnHeight, _playerObject.transform.position.z);
     }
-
-
 
     // The time sequence for setting when to move the vehicle and when the vehicle runs its respawn function
     private IEnumerator RespawnSequence()
@@ -131,8 +132,10 @@ public class RespawnPlatformBehavior : MonoBehaviour
         {
             _carMesh.transform.rotation = transform.rotation;
             _playerObject.transform.position = new Vector3
-                (transform.position.x, transform.position.y + 2, transform.position.z);
+                (transform.position.x, transform.position.y, transform.position.z) + (2 * LocalUp);
             _playerObject.transform.rotation = transform.rotation;
+            RaycastCar car = _playerObject.GetComponent<RaycastCar>();
+            car.ignoreGravityDirection = true;
         }
     }
 
@@ -152,10 +155,37 @@ public class RespawnPlatformBehavior : MonoBehaviour
         if (cheats != null)
         {
             Vector3 nearestPointOnSpline = cheats.getRearPlayer().GetNearestPointOnSpline(distanceBehind);
-            transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y + spawnHeight, nearestPointOnSpline.z);
+            transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y, nearestPointOnSpline.z) + (spawnHeight * LocalUp);
 
             Vector3 pointOnSplineForward = cheats.getRearPlayer().GetNearestPointOnSpline(lookDistanceForward);
             transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
         }
+    }
+
+    private Vector3 FindNormal(Vector3 position, GameObject roadMeshes)
+    {
+        Collider[] colliders = roadMeshes.GetComponentsInChildren<Collider>();
+        if(colliders == null || colliders.Length == 0)
+        {
+            colliders = _raceManager.ArenaColliders;
+        }
+        Collider closestCollider = colliders[0];
+        Vector3 closestPoint = closestCollider.ClosestPointOnBounds(position);
+        float distanceB = Vector3.Distance(closestPoint, position);
+
+        foreach (Collider collider in colliders)
+        {
+            Vector3 closestPointA = collider.ClosestPointOnBounds(position);
+            float distanceA = Vector3.Distance(closestPointA, position);
+
+            if (distanceA < distanceB)
+            {
+                closestCollider = collider;
+                closestPoint = closestPointA;
+                distanceB = distanceA;
+            }
+        }
+
+        return position - closestPoint;
     }
 }
