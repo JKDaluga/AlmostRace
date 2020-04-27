@@ -8,10 +8,11 @@ using UnityEngine;
     The missile then moves forward and toward its given target.
     */
 
-public class SolarCycle_HomingMissile : Projectile
+public class SolarCycle_HomingMissile : Projectile, IPooledObject
 {
     public GameObject explodeVFX;
     public ProjectileNormalizer normalizerScript;
+    public string poolTag = "SCHomingMissile";
     private GameObject _target;
     private Quaternion _missileTargetRotation;
     private CarHealthBehavior _carHealthStatus;
@@ -21,7 +22,8 @@ public class SolarCycle_HomingMissile : Projectile
     private bool _canTrack;
 
     private CarHealthBehavior carHit;
-    private void Start()
+
+    public void OnObjectActivate()
     {
         GiveSpeed();
         if (_target != null)
@@ -35,13 +37,14 @@ public class SolarCycle_HomingMissile : Projectile
         {
             normalizerScript.enabled = true;
         }
-    }
+    }   
 
-    public void SetAdditionalInfo(GameObject giventTarget, float givenTurnRate, float givenHangTime)
+    public void SetAdditionalInfo(GameObject giventTarget, float givenTurnRate, float givenHangTime, float maxLifeTime)
     {
         _target = giventTarget;
         _turnRate = givenTurnRate;
         _hangTime = givenHangTime;
+        //StartCoroutine(ObjectPooler.instance.DeactivateAfterTime(poolTag, gameObject, maxLifeTime));
     }
 
     public void AttackTriggered(GameObject givenCollision)
@@ -119,7 +122,7 @@ public class SolarCycle_HomingMissile : Projectile
     {
         Instantiate(explodeVFX, transform.position, transform.rotation);
         AudioManager.instance.Play("VoidWasp Shot Hit", gameObject.transform);
-        Destroy(gameObject);
+        ObjectPooler.instance.Deactivate(poolTag, gameObject);
     }
 
     public GameObject GetImmunePlayer()
