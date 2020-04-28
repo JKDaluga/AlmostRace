@@ -14,8 +14,12 @@ using Cinemachine;
 public class VehicleAbilityBehavior : MonoBehaviour
 {
     public RaycastCar rayCastCar;
+    [Header("Border Object UI.................................................................................")]
+    [Space(30)]
+    public List<Image> borderImages = new List<Image>();
 
     [Header ("Offensive Ability.................................................................................")]
+    [Space (30)]
     [Tooltip("Offensive Ability Script Slot")]
     public Ability offensiveAbility;
     [Tooltip("Length of ability cooldown in seconds.")]
@@ -50,6 +54,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Tooltip("Place Background Fill of UI element here.")] public GameObject DefensiveAbilityBG;
 
     [Header ("Boost Ability.................................................................................")]
+    [Space(30)]
 
     [Tooltip("Boost Ability Script Slot")] public Ability boostAbility;
 
@@ -79,6 +84,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
     private VehicleAwardsTracker tracker;
 
     [Header ("Ability Activator.................................................................................")]
+    [Space(30)]
     [Tooltip("Boolean that lets cars use their abilities")]
     public bool abilitiesActivated;
 
@@ -90,11 +96,88 @@ public class VehicleAbilityBehavior : MonoBehaviour
         {
             _vehicleInput = GetComponent<VehicleInput>();
             tracker = GetComponent<VehicleAwardsTracker>();
+
+            /*switch(_vehicleInput.GetPlayerNum())
+            {
+                case 1:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(193, 62, 62, 255);
+                    }
+                    break;
+
+                case 2:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(209, 154, 62, 255);
+                    }
+                    break;
+
+                case 3:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(50, 145, 191, 255);
+                    }
+                    break;
+
+                case 4:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(43, 142, 43, 255);
+                    }
+                    break;
+            }*/
+
         }
         else
         {
             isAI = true;
         }
+    }
+    private void Start()
+    {
+        if(_vehicleInput != null)
+        {
+            switch (_vehicleInput.GetPlayerNum())
+            {
+                case 1:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(193, 62, 62, 255);
+                    }
+                    break;
+
+                case 2:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(209, 154, 62, 255);
+                    }
+                    break;
+
+                case 3:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(50, 145, 191, 255);
+                    }
+                    break;
+
+                case 4:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(43, 142, 43, 255);
+                    }
+                    break;
+            }
+        }
+      
     }
 
     // Update is called once per frame
