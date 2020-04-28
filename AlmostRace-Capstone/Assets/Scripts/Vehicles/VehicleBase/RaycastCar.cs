@@ -440,16 +440,17 @@ public class RaycastCar : MonoBehaviour
         // apply forces to our rigidbody for grip
         carRigidbody.AddForce(imp * Time.deltaTime);
 
-
-        if (onCorkscrew)
+        if (GetComponent<VehicleInput>())
         {
-            if(cineCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XDamping != .5f)
+            if (onCorkscrew)
             {
-                cineCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XDamping = 
-                    Mathf.Lerp(cineCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XDamping, .5f, Time.deltaTime);
+                if (cineCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XDamping != .5f)
+                {
+                    cineCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XDamping =
+                        Mathf.Lerp(cineCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XDamping, .5f, Time.deltaTime);
+                }
             }
         }
-
  
         if (Physics.Raycast(transform.position, carUp, out hit, 5f, LayerMask.GetMask("Ground")))
         {
