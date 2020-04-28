@@ -395,7 +395,7 @@ RectTransform:
   m_GameObject: {fileID: 55013703}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.19, y: 0.55, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.55, z: 1}
   m_Children: []
   m_Father: {fileID: 2119828337}
   m_RootOrder: 0
@@ -418,7 +418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.47843137}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -795,6 +795,17 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1853509628}
           m_MethodName: DeselectionEvent
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1853509628}
+          m_MethodName: SelectionEventMSlider
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2749,7 +2760,7 @@ RectTransform:
   m_GameObject: {fileID: 575055205}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.19, y: 0.55, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.55, z: 1}
   m_Children: []
   m_Father: {fileID: 1329282497}
   m_RootOrder: 0
@@ -2772,7 +2783,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.47843137}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -3647,7 +3658,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.047058824, g: 0.75686276, b: 0.72156864, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 0, b: 0, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -9318,9 +9329,9 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 0.047058824, g: 0.75686276, b: 0.72156864, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 1, g: 1, b: 1, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 1, g: 1, b: 1, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -10956,7 +10967,7 @@ RectTransform:
   m_GameObject: {fileID: 1792126013}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.19, y: 0.55, z: 1}
+  m_LocalScale: {x: 0.2, y: 0.55, z: 1}
   m_Children: []
   m_Father: {fileID: 319786680}
   m_RootOrder: 0
@@ -10979,7 +10990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.47843137}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -12627,7 +12638,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 790ab0a7c72888140b269fefd92cde0c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6cd55ca27cfba5d478ccd7c6e616f92c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12661,13 +12672,16 @@ MonoBehaviour:
   musicSlider: {fileID: 140519084}
   mSliderArrowLeft: {fileID: 1666740557}
   mSliderArrowRight: {fileID: 112875691}
+  mSliderDiamond: {fileID: 575055207}
   soundFXSlider: {fileID: 1495569856}
   sSliderArrowLeft: {fileID: 1105514527}
   sSliderArrowRight: {fileID: 1012166460}
+  sSliderDiamond: {fileID: 1792126015}
   aISlider: {fileID: 736131172}
   onText: {fileID: 1017860895}
   offText: {fileID: 181385848}
   backText: {fileID: 1854326983}
+  aISliderDiamond: {fileID: 55013705}
 --- !u!1 &1854326981
 GameObject:
   m_ObjectHideFlags: 0
