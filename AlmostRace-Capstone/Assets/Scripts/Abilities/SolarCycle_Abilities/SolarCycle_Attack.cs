@@ -85,9 +85,8 @@ public class SolarCycle_Attack : Ability
             // Spawn the missile at the spawn position and set its values
             GameObject currentProjectile = ObjectPooler.instance.SpawnFromPool(projectile, targetRocketSpawnPositions[currentSpawnLocation].position, targetRocketSpawnPositions[currentSpawnLocation].rotation);
             currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
-            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime, maxLifeTime);
             currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetImmunePlayer(gameObject);
-            currentProjectile.GetComponent<SolarCycle_HomingMissile>().ActivateMissile();
+            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime, maxLifeTime);
 
             AudioManager.instance.Play("VoidWasp Shot", this.transform);
             yield return new WaitForSeconds(timeBetweenLaunch);
@@ -117,9 +116,8 @@ public class SolarCycle_Attack : Ability
             // Spawn the missile at the spawn position and set its values
             GameObject currentProjectile = ObjectPooler.instance.SpawnFromPool(projectile, staticRocketSpawnPositions[currentSpawnLocation].position, staticRocketSpawnPositions[currentSpawnLocation].rotation);
             currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
-            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetAdditionalInfo(null, turnRate, 0, maxLifeTime);
             currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetImmunePlayer(gameObject);
-            currentProjectile.GetComponent<SolarCycle_HomingMissile>().ActivateMissile();
+            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetAdditionalInfo(null, turnRate, 0, maxLifeTime);
 
             AudioManager.instance.Play("VoidWasp Shot", this.transform);
             yield return new WaitForSeconds(timeBetweenLaunch);

@@ -28,10 +28,11 @@ public class SolarCycle_HomingMissile : Projectile
         _target = giventTarget;
         _turnRate = givenTurnRate;
         _hangTime = givenHangTime;
+        OnMissileActivation();
         StartCoroutine(ObjectPooler.instance.DeactivateAfterTime(poolTag, gameObject, maxLifeTime));
     }
 
-    public void ActivateMissile()
+    private void OnMissileActivation()
     {
         GiveSpeed();
         if (_target != null)
