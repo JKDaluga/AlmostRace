@@ -35,6 +35,8 @@ public class DataManager : MonoBehaviour
     public static DataManager instance;
     public PlayerInfo[] playerInfo;
 
+    private bool spawnAI;
+
     private void Awake()
     {
         if(instance != null && this != instance)
@@ -79,6 +81,15 @@ public class DataManager : MonoBehaviour
         string timeText = minutes.ToString("00") + ":" + seconds.ToString("00");
 
         return timeText;
+    }
+
+    public bool CheckAISpawning()
+    {
+        return spawnAI;
+    }
+    public void ChangeAISpawn(bool value)
+    {
+        spawnAI = value;
     }
 
     public void resetData()

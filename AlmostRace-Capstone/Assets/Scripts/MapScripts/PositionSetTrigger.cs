@@ -45,7 +45,6 @@ public class PositionSetTrigger : MonoBehaviour
                 if ((DataManager.instance.playerInfo[temp.playerID - 1].placeRace1 > previousPlace))
                 {
                     DataManager.instance.playerInfo[temp.playerID - 1].placeRace1 = place;
-                    print("Player " + DataManager.instance.playerInfo[temp.playerID - 1].placeRace1);
                     previousPlace++;
                     place++;
                 }
