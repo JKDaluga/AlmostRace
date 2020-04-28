@@ -76,7 +76,7 @@ public class SettingsMenuScript : MonoBehaviour
             mSliderPrevious = musicSlider.value;
             if (isStart == false)
             {
-                mSliderArrowRight.color = new Color32(243, 238, 128, 255);
+                StartCoroutine(SelectionEvent(mSliderArrowRight));
                 mSliderArrowLeft.color = new Color32(12, 193, 184, 255);
             }
         }
@@ -85,7 +85,7 @@ public class SettingsMenuScript : MonoBehaviour
             mSliderPrevious = musicSlider.value;
             if (isStart == false)
             {
-            mSliderArrowLeft.color = new Color32(243, 238, 128, 255);
+                StartCoroutine(SelectionEvent(mSliderArrowLeft));
             mSliderArrowRight.color = new Color32(12, 193, 184,255);
             }
         }
@@ -103,7 +103,7 @@ public class SettingsMenuScript : MonoBehaviour
             sSliderPrevious = soundFXSlider.value;
             if (isStart == false)
             {
-                sSliderArrowRight.color = new Color32(243, 238, 128, 255);
+                StartCoroutine(SelectionEvent(sSliderArrowRight));
                 sSliderArrowLeft.color = new Color32(12, 193, 184, 255);
             }
         }
@@ -112,7 +112,7 @@ public class SettingsMenuScript : MonoBehaviour
             sSliderPrevious = soundFXSlider.value;
             if (isStart == false)
             {
-                sSliderArrowLeft.color = new Color32(243, 238, 128, 255);
+                StartCoroutine(SelectionEvent(sSliderArrowLeft));
                 sSliderArrowRight.color = new Color32(12, 193, 184, 255);
             }
         }
@@ -155,5 +155,23 @@ public class SettingsMenuScript : MonoBehaviour
     {
         SetSoundFXVoume(soundFXSlider.value);
         SetMusicVolume(musicSlider.value);
+    }
+
+    IEnumerator SelectionEvent(Image litUpImage)
+    {
+        bool colorTimer = true;
+
+        while (colorTimer)
+        {
+            litUpImage.color = new Color32(243, 238, 128, 255);
+
+            yield return new WaitForSeconds(.5f);
+
+            litUpImage.color = new Color32(12, 193, 184, 255);
+
+            colorTimer = false;
+        }
+
+        
     }
 }
