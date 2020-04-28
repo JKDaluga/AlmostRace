@@ -51,40 +51,37 @@ public class AttackWarning : MonoBehaviour
                     }
                 }
             }
-            foreach (Image i in warning)
+            if (Mathf.Abs(nearest) <= dangerDist)
             {
-                if (Mathf.Abs(nearest) <= dangerDist)
+                if (warning[0].color.r != danger.r || warning[0].color.g != danger.g || warning[0].color.b != danger.b)
                 {
-                    if (i.color.r != danger.r || i.color.g != danger.g || i.color.b != danger.b)
-                    {
-                        i.color = danger;
-                        flashTime = dangerTime;
-                    }
+                    warning[0].color = danger; ;
+                    warning[1].color = danger;
+                    flashTime = dangerTime;
                 }
-                else 
-                {
-                    if(i.color.r != incoming.r || i.color.g != incoming.g || i.color.b != incoming.b)
-                    {
-                        i.color = incoming;
-                        flashTime = incomingTime;
-                    }
-                }
-
-
-                if (!fading)
-                {
-                    StartCoroutine(Fade());
-                }
-
             }
+            else 
+            {
+                if(warning[0].color.r != incoming.r || warning[0].color.g != incoming.g || warning[0].color.b != incoming.b)
+                {
+                    warning[0].color = incoming;
+                    warning[1].color = incoming;
+                    flashTime = incomingTime;
+                }
+            }
+
+
+            if (!fading)
+            {
+                StartCoroutine(Fade());
+            }
+
         }
         else
         {
             nearest = Mathf.Infinity;
-            foreach (Image i in warning)
-            {
-                i.color = safe;
-            }
+            warning[0].color = safe;
+            warning[1].color = safe;
             fading = false;
             StopAllCoroutines();
         }
@@ -127,18 +124,17 @@ public class AttackWarning : MonoBehaviour
         fading = true;
         while (true)
         {
-            foreach (Image i in warning)
-            {
-                yield return null;
+            yield return null;
 
-                i.CrossFadeAlpha(0, flashTime, false);
+            warning[0].CrossFadeAlpha(0, flashTime, false);
+            warning[1].CrossFadeAlpha(0, flashTime, false);
 
-                yield return new WaitForSeconds(flashTime);
+            yield return new WaitForSeconds(flashTime);
 
-                i.CrossFadeAlpha(1, flashTime, false);
+            warning[0].CrossFadeAlpha(1, flashTime, false);
+            warning[1].CrossFadeAlpha(1, flashTime, false);
 
-                yield return new WaitForSeconds(flashTime);
-            }
+            yield return new WaitForSeconds(flashTime);
         }
     }
 
