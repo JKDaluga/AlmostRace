@@ -8,7 +8,7 @@ using UnityEngine;
     The missile then moves forward and toward its given target.
     */
 
-public class SolarCycle_HomingMissile : Projectile, IPooledObject
+public class SolarCycle_HomingMissile : Projectile
 {
     public GameObject explodeVFX;
     public ProjectileNormalizer normalizerScript;
@@ -23,7 +23,15 @@ public class SolarCycle_HomingMissile : Projectile, IPooledObject
 
     private CarHealthBehavior carHit;
 
-    public void OnObjectActivate()
+    public void SetAdditionalInfo(GameObject giventTarget, float givenTurnRate, float givenHangTime, float maxLifeTime)
+    {
+        _target = giventTarget;
+        _turnRate = givenTurnRate;
+        _hangTime = givenHangTime;
+        StartCoroutine(ObjectPooler.instance.DeactivateAfterTime(poolTag, gameObject, maxLifeTime));
+    }
+
+    public void ActivateMissile()
     {
         GiveSpeed();
         if (_target != null)
@@ -37,14 +45,6 @@ public class SolarCycle_HomingMissile : Projectile, IPooledObject
         {
             normalizerScript.enabled = true;
         }
-    }   
-
-    public void SetAdditionalInfo(GameObject giventTarget, float givenTurnRate, float givenHangTime, float maxLifeTime)
-    {
-        _target = giventTarget;
-        _turnRate = givenTurnRate;
-        _hangTime = givenHangTime;
-        StartCoroutine(ObjectPooler.instance.DeactivateAfterTime(poolTag, gameObject, maxLifeTime));
     }
 
     public void AttackTriggered(GameObject givenCollision)
