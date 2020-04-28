@@ -13,13 +13,14 @@ public class SettingsMenuScript : MonoBehaviour
     private DataManager AISwitch;
 
     public Slider musicSlider;
-    public Image mSliderArrowLeft, mSliderArrowRight;
+    public Image mSliderArrowLeft, mSliderArrowRight, mSliderDiamond;
 
     public Slider soundFXSlider;
-    public Image sSliderArrowLeft, sSliderArrowRight;
+    public Image sSliderArrowLeft, sSliderArrowRight, sSliderDiamond;
 
     public Slider aISlider;
     public Text onText, offText, backText;
+    public Image aISliderDiamond;
 
     private float mSliderPrevious, sSliderPrevious;
     private bool isStart = true;

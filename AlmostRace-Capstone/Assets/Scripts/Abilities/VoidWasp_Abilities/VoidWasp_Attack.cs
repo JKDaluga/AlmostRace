@@ -69,9 +69,9 @@ public class VoidWasp_Attack : Ability
             // Spawn the missile at the spawn position and set its values
             //spawnOffset = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), Random.Range(-.5f, .5f));
             GameObject currentProjectile = Instantiate(voidwaspProjectile, targetRocketSpawnPositions[currentSpawnLocation].position /*+ spawnOffset*/, targetRocketSpawnPositions[currentSpawnLocation].rotation);
-            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
-            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime);
-            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetImmunePlayer(gameObject);
+            currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
+            currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime);
+            currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetImmunePlayer(gameObject);
 
             AudioManager.instance.Play("VoidWasp Shot", this.transform);
             Destroy(currentProjectile, maxLifeTime);
@@ -96,9 +96,9 @@ public class VoidWasp_Attack : Ability
         {
             // Spawn the missile at the spawn position and set its values
             GameObject currentProjectile = Instantiate(voidwaspProjectile, staticRocketSpawnPositions[currentSpawnLocation].position, staticRocketSpawnPositions[currentSpawnLocation].rotation);
-            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
-            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetAdditionalInfo(null, turnRate, 0);
-            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetImmunePlayer(gameObject);
+            currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
+            currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetAdditionalInfo(null, turnRate, 0);
+            currentProjectile.GetComponent<VoidWasp_HomingMissile>().SetImmunePlayer(gameObject);
 
             AudioManager.instance.Play("VoidWasp Shot", this.transform);
             Destroy(currentProjectile, maxLifeTime);

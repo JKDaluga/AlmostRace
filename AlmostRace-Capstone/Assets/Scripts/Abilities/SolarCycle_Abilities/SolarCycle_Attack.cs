@@ -16,7 +16,7 @@ public class SolarCycle_Attack : Ability
 
     [Header("Projectile Values")]
     [Space(5)]
-    public GameObject projectile;
+    public string projectile = "SCHomingMissile";
     public Transform[] targetRocketSpawnPositions;
     public Transform[] staticRocketSpawnPositions;
     [Tooltip("How much damage the missile does on impact.")] public float missileDamage;
@@ -39,6 +39,10 @@ public class SolarCycle_Attack : Ability
     {
         int curentTargetCount = _objectsInRange.Count;
         int testForTargetMatchCount = 0;
+        if (ObjectPooler.instance == null)
+        {
+            Debug.LogError("You are missing an object pooler in your scene");
+        }
         if (_objectsInRange.Count > 0)
         {
             for (int i = 0; i < _objectsInRange.Count; i++)
@@ -79,14 +83,12 @@ public class SolarCycle_Attack : Ability
             */
             
             // Spawn the missile at the spawn position and set its values
-            //spawnOffset = new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), Random.Range(-.5f, .5f));
-            GameObject currentProjectile = Instantiate(projectile, targetRocketSpawnPositions[currentSpawnLocation].position /*+ spawnOffset*/, targetRocketSpawnPositions[currentSpawnLocation].rotation);
+            GameObject currentProjectile = ObjectPooler.instance.SpawnFromPool(projectile, targetRocketSpawnPositions[currentSpawnLocation].position, targetRocketSpawnPositions[currentSpawnLocation].rotation);
             currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
-            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime);
             currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetImmunePlayer(gameObject);
+            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetAdditionalInfo(target, turnRate, hangTime, maxLifeTime);
 
             AudioManager.instance.Play("VoidWasp Shot", this.transform);
-            Destroy(currentProjectile, maxLifeTime);
             yield return new WaitForSeconds(timeBetweenLaunch);
             if((currentSpawnLocation + 1) < (targetRocketSpawnPositions.Length - 1))
             {
@@ -112,13 +114,12 @@ public class SolarCycle_Attack : Ability
         for (int j = 0; j < projectileCount; j++)
         {
             // Spawn the missile at the spawn position and set its values
-            GameObject currentProjectile = Instantiate(projectile, staticRocketSpawnPositions[currentSpawnLocation].position, staticRocketSpawnPositions[currentSpawnLocation].rotation);
+            GameObject currentProjectile = ObjectPooler.instance.SpawnFromPool(projectile, staticRocketSpawnPositions[currentSpawnLocation].position, staticRocketSpawnPositions[currentSpawnLocation].rotation);
             currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
-            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetAdditionalInfo(null, turnRate, 0);
             currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetImmunePlayer(gameObject);
+            currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetAdditionalInfo(null, turnRate, 0, maxLifeTime);
 
             AudioManager.instance.Play("VoidWasp Shot", this.transform);
-            Destroy(currentProjectile, maxLifeTime);
             yield return new WaitForSeconds(timeBetweenLaunch);
             if((currentSpawnLocation + 1) < (staticRocketSpawnPositions.Length - 1))
             {

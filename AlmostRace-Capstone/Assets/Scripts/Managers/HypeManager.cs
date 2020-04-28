@@ -28,6 +28,7 @@ public class WinScreenBox
 {
     public Image background;
     public TextMeshProUGUI playerTag;
+    public GameObject ScoreHeader;
     public TextMeshProUGUI hypeAmount;
     public TextMeshProUGUI finishTime;
     public TextMeshProUGUI finishHype;
@@ -109,7 +110,10 @@ public class HypeManager : MonoBehaviour
     {
         foreach(PlayerInfo player in dm.playerInfo)
         {
-            vehicleList.Add(player);
+            if(player.isActive || DataManager.instance.CheckAISpawning())
+            {
+                vehicleList.Add(player);
+            }
         }
     }
 
@@ -126,7 +130,7 @@ public class HypeManager : MonoBehaviour
         winScreen.SetActive(true);
 
         Invoke("DisableEvents", 3);
-
+        
         AudioManager.instance.PlayWithoutSpatial("Victory Music");
     }
 
@@ -185,17 +189,14 @@ public class HypeManager : MonoBehaviour
                 {
                     winScreenBoxes[i].playerTag.text = "BOT";
                 }
+                winScreenBoxes[i].ScoreHeader.SetActive(true);
                 winScreenBoxes[i].hypeAmount.text = vehicleList[i].hypeAmount.ToString();
-                winScreenBoxes[i].finishTime.text += DataManager.instance.convertTimeSeconds(vehicleList[i].timerRace1);
+                winScreenBoxes[i].finishTime.text = "Area 1 - " + DataManager.instance.convertTimeSeconds(vehicleList[i].timerRace1);
                 winScreenBoxes[i].finishHype.text = hypeForRacePosition[vehicleList[i].placeRace1].ToString();
-                winScreenBoxes[i].numKills.text += vehicleList[i].numKills.ToString();
+                winScreenBoxes[i].numKills.text = "Kills - " + vehicleList[i].numKills.ToString();
                 winScreenBoxes[i].killHype.text = (vehicleList[i].numKills * hypePerKill).ToString();
-                winScreenBoxes[i].finishTime2.text += DataManager.instance.convertTimeSeconds(vehicleList[i].timerRace2);
+                winScreenBoxes[i].finishTime2.text = "Area 2 - " + DataManager.instance.convertTimeSeconds(vehicleList[i].timerRace2);
                 winScreenBoxes[i].finishHype2.text = hypeForRacePosition[vehicleList[i].placeRace2].ToString();
-            }
-            else
-            {
-                winScreenBoxes[i].background.gameObject.SetActive(false);
             }
         }
     }
