@@ -64,7 +64,9 @@ public class RaceManager : MonoBehaviour
         rt.offsetMax = new Vector2(0, 0);
         time = 0;
         playerCars = new List<RaycastCar>();
-        
+
+        spawnAI = DataManager.instance.CheckAISpawning();
+
         dm = DataManager.instance;
         if(dm == null)
         {
