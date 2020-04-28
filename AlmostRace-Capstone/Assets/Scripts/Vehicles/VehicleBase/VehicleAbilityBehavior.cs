@@ -89,10 +89,6 @@ public class VehicleAbilityBehavior : MonoBehaviour
         if (gameObject.GetComponent<VehicleInput>())
         {
             _vehicleInput = GetComponent<VehicleInput>();
-
-            offensiveBrightIcon.SetActive(false);
-            defensiveBrightIcon.SetActive(false);
-            boostBrightIcon.SetActive(false);
             tracker = GetComponent<VehicleAwardsTracker>();
         }
         else
