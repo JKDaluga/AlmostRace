@@ -55,6 +55,7 @@ public class RaceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        RaceManager.tokens = 3;
         fourthPlayerPanel.SetActive(false);
         eventPanel = GameObject.FindGameObjectWithTag("EventPanel");
         AIindex = Random.Range(0, AICar.Length);

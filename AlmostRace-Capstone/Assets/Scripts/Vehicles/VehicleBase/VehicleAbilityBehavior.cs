@@ -14,8 +14,12 @@ using Cinemachine;
 public class VehicleAbilityBehavior : MonoBehaviour
 {
     public RaycastCar rayCastCar;
+    [Header("Border Object UI.................................................................................")]
+    [Space(30)]
+    public List<Image> borderImages = new List<Image>();
 
     [Header ("Offensive Ability.................................................................................")]
+    [Space (30)]
     [Tooltip("Offensive Ability Script Slot")]
     public Ability offensiveAbility;
     [Tooltip("Length of ability cooldown in seconds.")]
@@ -23,51 +27,52 @@ public class VehicleAbilityBehavior : MonoBehaviour
     [Tooltip("Determines if the Offensive ability input can be held down")]
     private bool _canUseBasic = true;
 
-    [Tooltip("Place UI element here.")]
-    public Image offensiveAbilityCooldown;
-    [Tooltip("Place dark version of UI element here.")]
-    public GameObject offensiveAbilityDark;
-    [Tooltip("Place Background Fill of UI element here.")]
-    public GameObject offensiveAbilityBG;
+    [Tooltip("Place UI element here.")] public Image offensiveFillBar;
+
+    [Tooltip("Place dark version of UI element here.")] public GameObject offensiveBrightIcon;
+
+    [Tooltip("Place dark version of UI element here.")] public GameObject offensiveBrightHex;
+
+    [Tooltip("Place Background Fill of UI element here.")] public GameObject offensiveAbilityBG;
 
     [Header ("Defensive Ability.................................................................................")]
-    [Tooltip("Defensive Ability Script Slot")]
-    public Ability defensiveAbility;
-    [Tooltip("Length of ability cooldown in seconds.")]
-    public float defensiveAbilityRecharge = 5f;
-    [Tooltip("Length of ability duration in seconds.")]
-    public float defensiveAbilityDuration = 3f;
+
+    [Tooltip("Defensive Ability Script Slot")] public Ability defensiveAbility;
+
+    [Tooltip("Length of ability cooldown in seconds.")] public float defensiveAbilityRecharge = 5f;
+
+    [Tooltip("Length of ability duration in seconds.")] public float defensiveAbilityDuration = 3f;
 
     private bool _canUseDefensiveAbility = true;
 
-    [Tooltip("Place UI element here.")]
-    public Image defensiveAbilityCooldown;
+    [Tooltip("Place UI element here.")] public Image defensiveAbilityFillAmount;
 
-    [Tooltip("Place dark version of UI element here.")]
-    public GameObject defensiveAbilityDark;
+    [Tooltip("Place bright icon here.")] public GameObject defensiveBrightIcon;
 
+    [Tooltip("Place bright hex here.")] public GameObject defensiveBrightHex;
 
-    [Tooltip("Place Background Fill of UI element here.")]
-    public GameObject DefensiveAbilityBG;
+    [Tooltip("Place Background Fill of UI element here.")] public GameObject DefensiveAbilityBG;
 
     [Header ("Boost Ability.................................................................................")]
-    [Tooltip("Boost Ability Script Slot")]
-    public Ability boostAbility;
-    [Tooltip("Length of ability cooldown in seconds.")]
-    public float boostAbilityRecharge = 5f;
-    [Tooltip("Length of ability duration in seconds.")]
-    public float boostAbilityDuration = 3f;
+    [Space(30)]
+
+    [Tooltip("Boost Ability Script Slot")] public Ability boostAbility;
+
+    [Tooltip("Length of ability cooldown in seconds.")] public float boostAbilityRecharge = 5f;
+
+    [Tooltip("Length of ability duration in seconds.")]public float boostAbilityDuration = 3f;
+
     private bool _canBoost = true;
     //public CinemachineVirtualCamera cineCamera;
    // public float carFovStandard = 50f;
    // public float carFovBoost = 80f;
    // public float carFovChangeAmount = .1f;
    // public float carFovChangeRate = .1f;
-    [Tooltip("Place UI element here.")]
-    public Image boostAbilityCooldown;
+    [Tooltip("Place UI element here.")] public Image boostFillBar;
 
-    [Tooltip("Place dark version of UI element here.")]
-    public GameObject boostAbilityDark;
+    [Tooltip("Place bright icon here.")] public GameObject boostBrightIcon;
+
+    [Tooltip("Place bright hex here.")] public GameObject boostBrightHex;
 
     [Tooltip("Place Background Fill of UI element here.")]
     public GameObject BoostAbilityBG;
@@ -79,6 +84,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
     private VehicleAwardsTracker tracker;
 
     [Header ("Ability Activator.................................................................................")]
+    [Space(30)]
     [Tooltip("Boolean that lets cars use their abilities")]
     public bool abilitiesActivated;
 
@@ -89,16 +95,89 @@ public class VehicleAbilityBehavior : MonoBehaviour
         if (gameObject.GetComponent<VehicleInput>())
         {
             _vehicleInput = GetComponent<VehicleInput>();
-
-            offensiveAbilityDark.SetActive(false);
-            defensiveAbilityDark.SetActive(false);
-            boostAbilityDark.SetActive(false);
             tracker = GetComponent<VehicleAwardsTracker>();
+
+            /*switch(_vehicleInput.GetPlayerNum())
+            {
+                case 1:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(193, 62, 62, 255);
+                    }
+                    break;
+
+                case 2:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(209, 154, 62, 255);
+                    }
+                    break;
+
+                case 3:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(50, 145, 191, 255);
+                    }
+                    break;
+
+                case 4:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(43, 142, 43, 255);
+                    }
+                    break;
+            }*/
+
         }
         else
         {
             isAI = true;
         }
+    }
+    private void Start()
+    {
+        if(_vehicleInput != null)
+        {
+            switch (_vehicleInput.GetPlayerNum())
+            {
+                case 1:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(193, 62, 62, 255);
+                    }
+                    break;
+
+                case 2:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(209, 154, 62, 255);
+                    }
+                    break;
+
+                case 3:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(50, 145, 191, 255);
+                    }
+                    break;
+
+                case 4:
+
+                    foreach (Image borderImage in borderImages)
+                    {
+                        borderImage.color = new Color32(43, 142, 43, 255);
+                    }
+                    break;
+            }
+        }
+      
     }
 
     // Update is called once per frame
@@ -116,7 +195,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         // Basic Ability Call
         if (offensiveAbility != null && offensiveTrigger && abilitiesActivated) 
         {
-            if(fireAbility(offensiveAbility, _canUseBasic, offensiveAbilityCooldown, offensiveAbilityDark, offensiveAbilityBG, 'o'))
+            if(fireAbility(offensiveAbility, _canUseBasic, offensiveFillBar, offensiveBrightIcon, offensiveAbilityBG, 'o'))
             {
                 _canUseBasic = false;
                 offensiveAbility.AbilityInUse();
@@ -127,7 +206,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         // Signature Ability Call
         if (defensiveAbility != null && defensiveTrigger && abilitiesActivated)
         {
-            if (fireAbility(defensiveAbility, _canUseDefensiveAbility, defensiveAbilityCooldown, defensiveAbilityDark, DefensiveAbilityBG, 'd'))
+            if (fireAbility(defensiveAbility, _canUseDefensiveAbility, defensiveAbilityFillAmount, defensiveBrightIcon, DefensiveAbilityBG, 'd'))
             {
                 _canUseDefensiveAbility = false;
                 defensiveAbility.AbilityInUse();
@@ -139,7 +218,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
         // Boost Ability Call
         if (boostAbility != null && boostTrigger && abilitiesActivated)
         {
-            if (fireAbility(boostAbility, _canBoost, boostAbilityCooldown, boostAbilityDark, BoostAbilityBG, 'b'))
+            if (fireAbility(boostAbility, _canBoost, boostFillBar, boostBrightIcon, BoostAbilityBG, 'b'))
             {
                 _canBoost = false;
                 boostAbility.AbilityInUse(); 
@@ -225,19 +304,26 @@ public class VehicleAbilityBehavior : MonoBehaviour
     // Countdown timer until reuse allowed for abilites that need a cooldown
     private IEnumerator OffensiveAbilityCooldown()
     {
+        if (_vehicleInput != null)
+        {//ability is back on cooldown
+            offensiveBrightIcon.SetActive(false);
+            offensiveBrightHex.SetActive(false);
+        }
         float tempTime = 0;
         while (tempTime < offensiveAbilityRecharge)
         {
             tempTime += Time.deltaTime;
             if (_vehicleInput != null)
             {
-                offensiveAbilityCooldown.fillAmount = tempTime / offensiveAbilityRecharge;
+                offensiveFillBar.fillAmount = tempTime / offensiveAbilityRecharge;
             }
             yield return null;
         }
+
         if (_vehicleInput != null)
-        {
-            offensiveAbilityDark.SetActive(false);
+        {//ability is back online
+            offensiveBrightIcon.SetActive(true);
+            offensiveBrightHex.SetActive(true);
             AudioManager.instance.PlayWithoutSpatial("Ability Recharge");
         }
         _canUseBasic = true;
@@ -247,19 +333,27 @@ public class VehicleAbilityBehavior : MonoBehaviour
     // Countdown timer until reuse allowed for abilites that need a cooldown
     private IEnumerator DefensiveAbilityCooldown()
     {
+        if (_vehicleInput != null)
+        {//ability is back on cooldown, update UI
+            defensiveBrightIcon.SetActive(false);
+            defensiveBrightHex.SetActive(false);
+        }
+
         float tempTime = 0;
         while (tempTime < defensiveAbilityRecharge)
         {        
             tempTime += Time.deltaTime;
             if (_vehicleInput != null)
             {
-                defensiveAbilityCooldown.fillAmount = tempTime / defensiveAbilityRecharge;
+                defensiveAbilityFillAmount.fillAmount = tempTime / defensiveAbilityRecharge;
             }
             yield return null;
         }
+
         if (_vehicleInput != null)
-        {
-            defensiveAbilityDark.SetActive(false);
+        {//ability is back online, update UI
+            defensiveBrightIcon.SetActive(true);
+            defensiveBrightHex.SetActive(true);
             AudioManager.instance.PlayWithoutSpatial("Ability Recharge");
         }
         _canUseDefensiveAbility = true;
@@ -280,19 +374,27 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
     private IEnumerator BoostAbilityCooldown()
     {
+        if (_vehicleInput != null)
+        {//ability is on cooldown, update UI
+            boostBrightIcon.SetActive(false);
+            boostBrightHex.SetActive(false);
+        }
+
         float tempTime = 0;
         while (tempTime < boostAbilityRecharge)
         {
             tempTime += Time.deltaTime;
             if (_vehicleInput != null)
             {
-                boostAbilityCooldown.fillAmount = tempTime / boostAbilityRecharge;
+                boostFillBar.fillAmount = tempTime / boostAbilityRecharge;
             }
             yield return null;
         }
+
         if (_vehicleInput != null)
-        {
-            boostAbilityDark.SetActive(false);
+        {//ability is back online, update UI
+            boostBrightIcon.SetActive(true);
+            boostBrightHex.SetActive(true);
             AudioManager.instance.PlayWithoutSpatial("Ability Recharge");
         }
         _canBoost = true;
