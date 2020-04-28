@@ -105,6 +105,11 @@ public class AudioManager : MonoBehaviour
         audioMultiplier = soundMultiplier;
     }
 
+    public void SetRaceManager(RaceManager givenManager)
+    {
+        _raceManager = givenManager;
+    }
+
     public float calcSpatialVolume(float defaultVolume, Transform soundTransform)
     {
         float spatialVolume = defaultVolume;

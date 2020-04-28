@@ -44,6 +44,8 @@ public class RaceManager : MonoBehaviour
 
     public int AISplineIndex;
 
+    public Collider[] ArenaColliders;
+
     private void Awake()
     {
 
@@ -53,6 +55,7 @@ public class RaceManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        RaceManager.tokens = 3;
         fourthPlayerPanel.SetActive(false);
         eventPanel = GameObject.FindGameObjectWithTag("EventPanel");
         AIindex = Random.Range(0, AICar.Length);
@@ -69,6 +72,7 @@ public class RaceManager : MonoBehaviour
         }
         else
         {
+            AudioManager.instance.SetRaceManager(this);
             int playerCount = dm.getNumActivePlayers();
             if (spawnAI)
             {
@@ -108,7 +112,10 @@ public class RaceManager : MonoBehaviour
             
         }
         eventPanel.SetActive(false);
-        aiMan.updateAI();
+        foreach(RaycastCar i in aiMan.aiCars)
+        {
+            aiMan.updateAI(i.GetComponent<AIBehaviour>());
+        }
     }
 
     public void SetCountDown()
