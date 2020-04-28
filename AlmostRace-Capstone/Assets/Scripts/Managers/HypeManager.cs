@@ -35,9 +35,6 @@ public class WinScreenBox
     public TextMeshProUGUI finishHype2;
     public TextMeshProUGUI numKills;
     public TextMeshProUGUI killHype;
-    public TextMeshProUGUI Awards;
-    public TextMeshProUGUI AwardsList;
-    public TextMeshProUGUI AwardsListPoints;
 }
 
 public class HypeManager : MonoBehaviour
@@ -122,7 +119,7 @@ public class HypeManager : MonoBehaviour
         MenuController.setIsGamePaused(true);
         eventPanel.SetActive(true);
         calculateHype();
-        FindObjectOfType<WinScreen>().chooseWinners();
+        //FindObjectOfType<WinScreen>().chooseWinners();
         HypeListAssign();
         HypeListSort();
         populateWinScreen();
@@ -195,9 +192,6 @@ public class HypeManager : MonoBehaviour
                 winScreenBoxes[i].killHype.text = (vehicleList[i].numKills * hypePerKill).ToString();
                 winScreenBoxes[i].finishTime2.text += DataManager.instance.convertTimeSeconds(vehicleList[i].timerRace2);
                 winScreenBoxes[i].finishHype2.text = hypeForRacePosition[vehicleList[i].placeRace2].ToString();
-                winScreenBoxes[i].Awards.text = (vehicleList[i].hypeAmount - ((vehicleList[i].numKills * hypePerKill) + hypeForRacePosition[vehicleList[i].placeRace1] + hypeForRacePosition[vehicleList[i].placeRace2] - (vehicleList[i].numDeaths * hypeLosePerDeath))).ToString() ;
-                winScreenBoxes[i].AwardsList.text = awards[vehicleList[i].playerID - 1];
-                winScreenBoxes[i].AwardsListPoints.text = awardsNumbers[vehicleList[i].playerID - 1];
             }
             else
             {
