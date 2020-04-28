@@ -148,7 +148,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
                     foreach (Image borderImage in borderImages)
                     {
-                        borderImage.color = new Color32(193, 62, 62, 255);
+                        borderImage.color = new Color32(193, 62, 62, 255); //red
                     }
                     break;
 
@@ -156,7 +156,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
                     foreach (Image borderImage in borderImages)
                     {
-                        borderImage.color = new Color32(209, 154, 62, 255);
+                        borderImage.color = new Color32(43, 142, 43, 255);
                     }
                     break;
 
@@ -164,7 +164,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
                     foreach (Image borderImage in borderImages)
                     {
-                        borderImage.color = new Color32(50, 145, 191, 255);
+                        borderImage.color = new Color32(119, 68, 178, 255);
                     }
                     break;
 
@@ -172,7 +172,7 @@ public class VehicleAbilityBehavior : MonoBehaviour
 
                     foreach (Image borderImage in borderImages)
                     {
-                        borderImage.color = new Color32(43, 142, 43, 255);
+                        borderImage.color = new Color32(209, 154, 62, 255);
                     }
                     break;
             }
