@@ -44,7 +44,7 @@ public class SolarCycle_HomingMissile : Projectile, IPooledObject
         _target = giventTarget;
         _turnRate = givenTurnRate;
         _hangTime = givenHangTime;
-        //StartCoroutine(ObjectPooler.instance.DeactivateAfterTime(poolTag, gameObject, maxLifeTime));
+        StartCoroutine(ObjectPooler.instance.DeactivateAfterTime(poolTag, gameObject, maxLifeTime));
     }
 
     public void AttackTriggered(GameObject givenCollision)
