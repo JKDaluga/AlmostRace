@@ -10,6 +10,8 @@ public class SettingsMenuScript : MonoBehaviour
 
     public AudioManager volumeControl;
 
+    private DataManager AISwitch;
+
     public Slider musicSlider;
     public Image mSliderArrowLeft, mSliderArrowRight;
 
@@ -22,15 +24,13 @@ public class SettingsMenuScript : MonoBehaviour
     private float mSliderPrevious, sSliderPrevious;
     private bool isStart = true;
 
-    private DataManager AICase;
-
     // Start is called before the first frame update
     void Start()
     {
         volumeControl = FindObjectOfType<AudioManager>();
         VolumeMusic = volumeControl.GetComponent<AudioSource>();
 
-        AICase = FindObjectOfType<DataManager>();
+        AISwitch = FindObjectOfType<DataManager>();
 
         musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
         soundFXSlider.value = PlayerPrefs.GetFloat("SoundFXVolume", 1f);
@@ -43,14 +43,17 @@ public class SettingsMenuScript : MonoBehaviour
 
         if (aISlider.value == 1)
         {
-            offText.color = new Color32(243, 238, 128, 255);
-            onText.color = new Color32(212, 212, 212, 255);
+            onText.color = new Color32(243, 238, 128, 255);
+            offText.color = new Color32(212, 212, 212, 255);
+            AISwitch.ChangeAISpawn(true);
         }
         else
         {
-            onText.color = new Color32(243, 238, 128, 255);
-            offText.color = new Color32(212, 212, 212, 255);
+            offText.color = new Color32(243, 238, 128, 255);
+            onText.color = new Color32(212, 212, 212, 255);
+            AISwitch.ChangeAISpawn(false);
         }
+        
 
         ActivateColors();
 
@@ -121,13 +124,15 @@ public class SettingsMenuScript : MonoBehaviour
 
         if (aISlider.value == 1)
         {
-            offText.color = new Color32(243, 238, 128, 255);
-            onText.color = new Color32(212, 212, 212, 255);
+            onText.color = new Color32(243, 238, 128, 255);
+            offText.color = new Color32(212, 212, 212, 255);
+            AISwitch.ChangeAISpawn(true);
         }
         else
         {
-            onText.color = new Color32(243, 238, 128, 255);
-            offText.color = new Color32(212, 212, 212, 255);
+            offText.color = new Color32(243, 238, 128, 255);
+            onText.color = new Color32(212, 212, 212, 255);
+            AISwitch.ChangeAISpawn(false);
         }
     }
 
