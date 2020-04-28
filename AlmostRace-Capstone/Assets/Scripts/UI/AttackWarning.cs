@@ -34,11 +34,7 @@ public class AttackWarning : MonoBehaviour
         {
             for (int i = attacksInRange.Count - 1; i >= 0; i--)
             {
-                if (attacksInRange[i] == null)
-                {
-                    attacksInRange.RemoveAt(i);
-                }
-                else if (!attacksInRange[i].activeSelf)
+                if (attacksInRange[i] == null || !attacksInRange[i].activeInHierarchy || !attacksInRange[i].activeSelf)
                 {
                     attacksInRange.RemoveAt(i);
                 }
