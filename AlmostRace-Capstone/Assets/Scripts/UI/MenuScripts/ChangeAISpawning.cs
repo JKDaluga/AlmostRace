@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class ChangeAISpawning : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    
 
-    // Update is called once per frame
-    void Update()
+    public SettingsMenuScript settings;
+
+
+    public void SwitchAI(float sliderValue)
     {
         
     }

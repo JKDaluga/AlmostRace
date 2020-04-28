@@ -69,14 +69,14 @@ public class PainTrain_BoostShock : MonoBehaviour
     {
         if (_carsToDamage.Count != 0)
         {
-            foreach (CarHealthBehavior car in _carsToDamage)
+            for(int i = _carsToDamage.Count - 1; i >= 0; i--)
             {
-                if (!car.isDead)
+                if (!_carsToDamage[i].isDead)
                 {
-                    car.DamageCar(_shockDamage, _carHealthScript.raycastCarHolder.playerID);
-                    if (car.healthCurrent <= 0)
+                    _carsToDamage[i].DamageCar(_shockDamage, _carHealthScript.raycastCarHolder.playerID);
+                    if (_carsToDamage[i].healthCurrent <= 0)
                     {
-                        _carsToDamage.Remove(car);
+                        _carsToDamage.Remove(_carsToDamage[i]);
                     }
                 }
             }
