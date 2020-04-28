@@ -109,6 +109,8 @@ public class RaycastCar : MonoBehaviour
 
     public Vector3 lastSafePos;
 
+    [HideInInspector] public bool onCorkscrew = false;
+
     [HideInInspector] public bool inArena = false, finished = false;
 
     void Start()
@@ -438,6 +440,15 @@ public class RaycastCar : MonoBehaviour
         // apply forces to our rigidbody for grip
         carRigidbody.AddForce(imp * Time.deltaTime);
 
+
+        if (onCorkscrew)
+        {
+            if(cineCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XDamping != .5f)
+            {
+                cineCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XDamping = 
+                    Mathf.Lerp(cineCamera.GetCinemachineComponent<CinemachineOrbitalTransposer>().m_XDamping, .5f, Time.deltaTime);
+            }
+        }
 
  
         if (Physics.Raycast(transform.position, carUp, out hit, 5f, LayerMask.GetMask("Ground")))

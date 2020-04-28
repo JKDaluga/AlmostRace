@@ -89,6 +89,10 @@ public class RaycastWheel : MonoBehaviour
             if(hit.collider.gameObject.tag.Equals("Corkscrew") && car.gravity < 500)
             {
                 car.gravity += 10;
+                if (!car.onCorkscrew)
+                {
+                    car.onCorkscrew = true;
+                }
             }
         }
 
