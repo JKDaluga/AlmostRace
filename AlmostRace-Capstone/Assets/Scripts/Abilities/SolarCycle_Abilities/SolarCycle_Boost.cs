@@ -44,7 +44,10 @@ public class SolarCycle_Boost : CooldownHeatAbility
     {
         carInfo = gameObject.GetComponent<RaycastCar>();
         carHeatInfo = gameObject.GetComponent<CarHealthBehavior>();
-        originalMaxTurnAngle = carInfo.maxTurnAngle;
+        if (carInfo != null)
+        {
+            originalMaxTurnAngle = carInfo.maxTurnAngle;
+        }
     }
 
     public override void ActivateAbility()
@@ -53,8 +56,11 @@ public class SolarCycle_Boost : CooldownHeatAbility
         {
             isBoosting = true;
             currentBoostPercentage = (boostSpeedPercentage / 100);
-            carInfo.setBoostSpeed(currentBoostPercentage);
-            carInfo.maxTurnAngle = originalMaxTurnAngle * (maxBoostTurnAngle / 100);
+            if (carInfo != null)
+            {
+                carInfo.setBoostSpeed(currentBoostPercentage);
+                carInfo.maxTurnAngle = originalMaxTurnAngle * (maxBoostTurnAngle / 100);
+            }
             for (int i = 0; i < companions.Length; i++)
             {
                 companions[i].SetActive(true);
@@ -75,7 +81,10 @@ public class SolarCycle_Boost : CooldownHeatAbility
                     scDefensiveScript.ChangeSimSpeed(shield);
                 }
             }
-            StartCoroutine(CompanionBehavior());
+            if (carInfo != null)
+            {
+                StartCoroutine(CompanionBehavior());
+            }
         }
     }
 
@@ -95,7 +104,10 @@ public class SolarCycle_Boost : CooldownHeatAbility
             if (difference > healthLossActivateAmount)
             {
                 currentBoostPercentage = currentBoostPercentage * 0.75f;
-                carInfo.setBoostSpeed(currentBoostPercentage);
+                if (carInfo != null)
+                {
+                    carInfo.setBoostSpeed(currentBoostPercentage);
+                }
                 difference = 0;
 
                 for (int i = companions.Length - 1; i > 0; i--)
@@ -120,7 +132,11 @@ public class SolarCycle_Boost : CooldownHeatAbility
     public override void DeactivateAbility()
     {
         StopAllCoroutines();
-        carInfo.ResetBoostSpeed();
+        if (carInfo != null)
+        {
+            carInfo.ResetBoostSpeed();
+            carInfo.maxTurnAngle = originalMaxTurnAngle;
+        }
         for (int i = 0; i < companions.Length; i++)
         {
             companions[i].SetActive(false);
@@ -136,7 +152,6 @@ public class SolarCycle_Boost : CooldownHeatAbility
         {
             boostCones[i].Play("GlowConeCoolingDown");
         }
-        carInfo.maxTurnAngle = originalMaxTurnAngle;
         isBoosting = false;
     }
 

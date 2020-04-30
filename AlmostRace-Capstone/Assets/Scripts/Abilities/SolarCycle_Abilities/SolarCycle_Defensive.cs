@@ -43,18 +43,27 @@ public class SolarCycle_Defensive : CooldownAbility
     public override void ActivateAbility()
     {
         AudioManager.instance.Play("Shield Activated", transform);
-        _carHealthScript.SetPersonalShieldAmount(shieldHealth);
         _isActive = true;
+        if (_carHealthScript != null)
+        {
+            _carHealthScript.SetPersonalShieldAmount(shieldHealth);
+        }
         foreach (GameObject shield in shields)
         {
             shield.GetComponent<ParticleSystem>().Play();
-            ChangeSimSpeed(shield);
+            if (_carHealthScript != null)
+            {
+                ChangeSimSpeed(shield);
+            }
         }
         foreach (Animator shieldGen in shieldGenerators)
         {
             shieldGen.Play("SCShieldGenActive");
         }
-        StartCoroutine(ShieldEvent());
+        if (_carHealthScript != null)
+        {
+            StartCoroutine(ShieldEvent());
+        }
     }
 
     private IEnumerator ShieldEvent()
@@ -134,7 +143,10 @@ public class SolarCycle_Defensive : CooldownAbility
 
     public override void DeactivateAbility()
     {
-        _carHealthScript.SetPersonalShieldAmount(0);
+        if (_carHealthScript != null)
+        {
+            _carHealthScript.SetPersonalShieldAmount(0);
+        }
         StopAllCoroutines();
         for(int j = 0; j < lineRender.Length; j++)
         {
