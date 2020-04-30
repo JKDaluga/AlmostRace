@@ -25,6 +25,8 @@ public class SettingsMenuScript : MonoBehaviour
     private float mSliderPrevious, sSliderPrevious;
     private bool isStart = true;
 
+    public bool isMain;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,8 @@ public class SettingsMenuScript : MonoBehaviour
 
         musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
         soundFXSlider.value = PlayerPrefs.GetFloat("SoundFXVolume", 1f);
+        
+        if (isMain == true)
         aISlider.value = PlayerPrefs.GetFloat("AISpawning", 1f);
 
         mSliderPrevious = musicSlider.value;
@@ -42,22 +46,26 @@ public class SettingsMenuScript : MonoBehaviour
 
         volumeControl.updateSoundVolume(soundFXSlider.value);
 
-        if (aISlider.value == 1)
+        if (isMain == true)
         {
-            onText.color = new Color32(243, 238, 128, 255);
-            offText.color = new Color32(212, 212, 212, 255);
-            AISwitch.ChangeAISpawn(true);
-        }
-        else
-        {
-            offText.color = new Color32(243, 238, 128, 255);
-            onText.color = new Color32(212, 212, 212, 255);
-            AISwitch.ChangeAISpawn(false);
+            if (aISlider.value == 1)
+            {
+                onText.color = new Color32(243, 238, 128, 255);
+                offText.color = new Color32(212, 212, 212, 255);
+                AISwitch.ChangeAISpawn(true);
+            }
+            else
+            {
+                offText.color = new Color32(243, 238, 128, 255);
+                onText.color = new Color32(212, 212, 212, 255);
+                AISwitch.ChangeAISpawn(false);
+            }
         }
         
 
         ActivateColors();
 
+        if(isMain==true)
         gameObject.SetActive(false);
     }
 
@@ -135,6 +143,11 @@ public class SettingsMenuScript : MonoBehaviour
             onText.color = new Color32(212, 212, 212, 255);
             AISwitch.ChangeAISpawn(false);
         }
+    }
+
+    public void ChangeSelection(GameObject target)
+    {
+        EventSystem.current.SetSelectedGameObject(target);
     }
 
     public void DeselectionEvent()
