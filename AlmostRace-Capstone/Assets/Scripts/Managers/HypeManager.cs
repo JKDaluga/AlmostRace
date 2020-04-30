@@ -138,7 +138,7 @@ public class HypeManager : MonoBehaviour
     {
         if(isGameEnded)
         {
-            if(inputDelay <= inputDelayMax)
+            if(inputDelay >= inputDelayMax)
             {
                 if (Input.anyKeyDown) ReturnToMainMenu();
             }
