@@ -54,7 +54,6 @@ public class SettingsMenuScript : MonoBehaviour
             onText.color = new Color32(212, 212, 212, 255);
             AISwitch.ChangeAISpawn(false);
         }
-        
 
         ActivateColors();
 
@@ -89,7 +88,6 @@ public class SettingsMenuScript : MonoBehaviour
             mSliderArrowRight.color = new Color32(12, 193, 184,255);
             }
         }
-
 
     }
 
@@ -159,19 +157,10 @@ public class SettingsMenuScript : MonoBehaviour
 
     IEnumerator SelectionEvent(Image litUpImage)
     {
-        bool colorTimer = true;
+        litUpImage.color = new Color32(243, 238, 128, 255);
 
-        while (colorTimer)
-        {
-            litUpImage.color = new Color32(243, 238, 128, 255);
+        yield return new WaitForSeconds(.1f);
 
-            yield return new WaitForSeconds(.5f);
-
-            litUpImage.color = new Color32(12, 193, 184, 255);
-
-            colorTimer = false;
-        }
-
-        
+        litUpImage.color = new Color32(12, 193, 184, 255);
     }
 }
