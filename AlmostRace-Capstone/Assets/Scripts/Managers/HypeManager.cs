@@ -119,26 +119,28 @@ public class HypeManager : MonoBehaviour
 
     public void EndGame()
     {
-        isGameEnded = true;
-        MenuController.setIsGamePaused(true);
-        eventPanel.SetActive(true);
-        calculateHype();
-        //FindObjectOfType<WinScreen>().chooseWinners();
-        HypeListAssign();
-        HypeListSort();
-        populateWinScreen();
-        winScreen.SetActive(true);
+        if(!isGameEnded)
+        {
+            isGameEnded = true;
+            MenuController.setIsGamePaused(true);
+            eventPanel.SetActive(true);
+            calculateHype();
+            HypeListAssign();
+            HypeListSort();
+            populateWinScreen();
+            winScreen.SetActive(true);
 
-        Invoke("DisableEvents", 3);
-        
-        AudioManager.instance.PlayWithoutSpatial("Victory Music");
+            Invoke("DisableEvents", 3);
+
+            AudioManager.instance.PlayWithoutSpatial("Victory Music");
+        }
     }
 
     private void Update()
     {
         if(isGameEnded)
         {
-            if(inputDelay <= inputDelayMax)
+            if(inputDelay >= inputDelayMax)
             {
                 if (Input.anyKeyDown) ReturnToMainMenu();
             }
