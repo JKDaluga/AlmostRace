@@ -29,10 +29,7 @@ public class Lux_DefensiveAbility : CooldownAbility
 
     public override void ActivateAbility()
     {
-        if (AudioManager.instance != null)
-        {
-            AudioManager.instance.Play("Shield Activated", transform);
-        }
+        AudioManager.instance.Play("Shield Activated", transform);
         if (_carHealthScript != null)
         {
             _carHealthScript.AddPersonalShields(shieldHealth);

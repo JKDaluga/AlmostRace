@@ -67,10 +67,7 @@ public class Lux_Attack2 : Ability
 
             _energyBladeScript.SetImmunePlayer(gameObject);
 
-            if (AudioManager.instance != null)
-            {
-                AudioManager.instance.Play("Lux Shooting", transform);                
-            }
+            AudioManager.instance.Play("Lux Shooting", transform);
         }
         else
         {

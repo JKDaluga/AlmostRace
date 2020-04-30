@@ -52,10 +52,7 @@ public class PainTrain_Attack : Ability
 
         spawnedLightningBall.GetComponent<PainTrain_LightningBall>().GiveInfo(lightningBallDamage, lightningBallDuration, lightningBallFrequency);
         Destroy(spawnedLightningBall, 10);
-
-     
-       
-       
+        
     }
 
     public override void DeactivateAbility()

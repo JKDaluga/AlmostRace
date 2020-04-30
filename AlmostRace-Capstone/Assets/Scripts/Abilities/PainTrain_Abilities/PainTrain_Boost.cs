@@ -48,7 +48,10 @@ public class PainTrain_Boost : CooldownHeatAbility
 
         carInfo = gameObject.GetComponent<RaycastCar>();
         AbilityOffOfCooldown();
-        originalMaxTurnAngle = carInfo.maxTurnAngle;
+        if (carInfo != null)
+        {
+            originalMaxTurnAngle = carInfo.maxTurnAngle;
+        }
     }
 
     public override void ActivateAbility()
@@ -57,10 +60,12 @@ public class PainTrain_Boost : CooldownHeatAbility
         if (!isBoosting)
         {
             isBoosting = true;
-            carInfo.setBoostSpeed(boostSpeedPercentage / 100);
-
+            if (carInfo != null)
+            {
+                carInfo.setBoostSpeed(boostSpeedPercentage / 100);
+                carInfo.maxTurnAngle = originalMaxTurnAngle * (maxBoostTurnAngle / 100);
+            }
             boostField.SetActive(true);
-            carInfo.maxTurnAngle = originalMaxTurnAngle * (maxBoostTurnAngle / 100);
         }
 
         foreach(GameObject vfxObj in vfxToActivate)
@@ -71,13 +76,14 @@ public class PainTrain_Boost : CooldownHeatAbility
 
     public override void DeactivateAbility()
     {
-        carInfo.ResetBoostSpeed();
+        if (carInfo != null)
+        {
+            carInfo.ResetBoostSpeed();
+            carInfo.maxTurnAngle = originalMaxTurnAngle;
+        }   
         boostField.GetComponent<PainTrain_BoostShock>().ClearCarList();
         boostField.SetActive(false);
-
         isBoosting = false;
-        carInfo.maxTurnAngle = originalMaxTurnAngle;
-
 
         foreach (GameObject vfxObj in vfxToActivate)
         {
