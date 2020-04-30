@@ -47,7 +47,7 @@ public class Lux_EnergyBlade : Projectile
 
     public void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Vehicle") && other.gameObject != _immunePlayer && !_immuneCars.Contains(other.gameObject))
+        if(other.CompareTag("Vehicle") && _immunePlayer != null && other.gameObject != _immunePlayer && !_immuneCars.Contains(other.gameObject))
         {
             carHit = other.gameObject.GetComponent<CarHealthBehavior>();
             carHit.DamageCar(_projectileDamage, _immunePlayerScript.playerID);

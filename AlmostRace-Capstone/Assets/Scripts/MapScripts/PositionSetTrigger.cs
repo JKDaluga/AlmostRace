@@ -26,10 +26,12 @@ public class PositionSetTrigger : MonoBehaviour
     }
 
 
-    private float supplyTime(int index, float previousTime)
+    private float supplyTime(int index, float previousTime, bool isFirstSection)
     {
+        
         float fin = previousTime + Random.Range(1f, 7.5f);
-        DataManager.instance.playerInfo[index].timerRace2 = fin;
+        if (isFirstSection) DataManager.instance.playerInfo[index].timerRace1 = fin;
+        else DataManager.instance.playerInfo[index].timerRace2 = fin;
         return fin;
     }
 
@@ -47,6 +49,24 @@ public class PositionSetTrigger : MonoBehaviour
                     DataManager.instance.playerInfo[temp.playerID - 1].placeRace1 = place;
                     previousPlace++;
                     place++;
+                }
+                if (DataManager.instance.playerInfo[temp.playerID - 1].isActive)
+                {
+                    humansFinish++;
+                }
+                if (humansFinish >= numHumans)
+                {
+                    // give all AI that havent finshed yet a time
+                    float previousTime = rm.time;
+                    for (int i = 0; i < DataManager.instance.playerInfo.Length; i++)
+                    {
+                        //If they haven't finished the race yet
+                        if (DataManager.instance.playerInfo[i].placeRace1 == 3 && DataManager.instance.playerInfo[i].timerRace1 == 0f)
+                        {
+                            previousTime = supplyTime(i, previousTime, true);
+                            place++;
+                        }
+                    }
                 }
             }
         }
@@ -74,7 +94,7 @@ public class PositionSetTrigger : MonoBehaviour
                             //If they haven't finished the race yet
                             if(DataManager.instance.playerInfo[i].placeRace2 == 3 && DataManager.instance.playerInfo[i].timerRace2 == 0f)
                             {
-                                previousTime = supplyTime(i, previousTime);
+                                previousTime = supplyTime(i, previousTime, false);
                                 place++;
                             }
                         }
@@ -84,5 +104,4 @@ public class PositionSetTrigger : MonoBehaviour
             }
         }
     }
-
 }
