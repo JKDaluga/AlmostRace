@@ -34,12 +34,12 @@ public class PainTrain_Shield : CooldownAbility
     public override void ActivateAbility()
     {
         AudioManager.instance.Play("Pain Train Shield", transform);
+        shockShield.SetActive(true);
         if (_carHealthScript != null)
         {
             _carHealthScript.AddPersonalShields(shieldHealth);
             _shockShieldScript.TurnOnShieldShock();
         }
-        shockShield.SetActive(true);
         foreach (GameObject shield in shields)
         {
             shield.GetComponent<ParticleSystem>().Play();
