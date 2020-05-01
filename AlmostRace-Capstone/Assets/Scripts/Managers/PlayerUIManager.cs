@@ -21,6 +21,19 @@ public class PlayerUIManager : MonoBehaviour
     private List<Transform> _attacksInRange = new List<Transform>();
     public GameObject weaponsActivatedText;
 
+    [Header("Popup Variables")]
+    [Space(30)]
+
+    public RectTransform killPopup;
+    public Image killPopupImage;
+    public TextMeshProUGUI killPopupText;
+    private int _killPopupAmount = 0;
+    private bool _usingKillPopup = false;
+
+    public RectTransform killPopupSpawn;
+    public RectTransform killPopupTarget;
+
+
     [Header("HypeDisplay Variables")]
     [Space(30)]
     public List<Sprite> hypeDisplayColors;
@@ -96,6 +109,7 @@ public class PlayerUIManager : MonoBehaviour
         {
            numPlayers = DataManager.instance.getNumActivePlayers();
             _dm = DataManager.instance;
+     
         }
         else
         {
@@ -106,7 +120,8 @@ public class PlayerUIManager : MonoBehaviour
         _chb = vehicleInputScript.GetComponent<CarHealthBehavior>();
 
         _raycastCarHolder = vehicleInputScript.GetComponent<RaycastCar>();
-        
+        _dm.playerUIDictionary.Add(_raycastCarHolder.playerID, this);
+
         //Old Attack Indicator Setup
         /*
         if (numPlayers > 1)
@@ -125,7 +140,7 @@ public class PlayerUIManager : MonoBehaviour
             }
         }
         */
-        switch(playerNum)
+        switch (playerNum)
         {
             case 1: //is player 1
                 if (numPlayers == 2)
@@ -183,6 +198,8 @@ public class PlayerUIManager : MonoBehaviour
 
         //Old Attack Indicator Call
         //UpdateAttackIndicators();
+
+        //TestKillPopup();
     }
 
     // Keeps track of, updates the position, and shows attack indicators
@@ -248,6 +265,73 @@ public class PlayerUIManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void TriggerKillPopup()
+    {
+     
+        StopAllCoroutines();
+        killPopupText.color = new Color32(255, 255, 255, 255);
+        killPopupImage.color = new Color32(255, 255, 255, 255);
+        if (_usingKillPopup == false)
+        {
+            _usingKillPopup = true;
+            killPopup.position = killPopupSpawn.position;
+        }
+        _killPopupAmount += 1;
+        killPopupText.text = "+" + _killPopupAmount + "\nKills";
+
+
+
+        StartCoroutine(MoveKillPopup());
+    }
+
+    public void TestKillPopup()
+    {
+     
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+
+            StopAllCoroutines();
+            killPopupText.color = new Color32(255, 255, 255, 255);
+            killPopupImage.color = new Color32(255, 255, 255, 255);
+            if (_usingKillPopup == false)
+            {
+                _usingKillPopup = true;
+                killPopup.position = killPopupSpawn.position;
+            }
+            _killPopupAmount += 1;
+            killPopupText.text = "+" + _killPopupAmount + "\nKills";
+
+         
+            StartCoroutine(MoveKillPopup());
+        }
+    }
+
+    public IEnumerator MoveKillPopup()
+    {
+      
+        while (killPopup.position.y < killPopupTarget.position.y)
+        {
+            killPopup.position += new Vector3(0, 10f, 0);
+            yield return new WaitForSeconds(.025f);
+        }
+
+        StartCoroutine(FadeKillPopup());
+    }
+
+    public IEnumerator FadeKillPopup()
+    {
+        while(killPopupImage.color.a > 0)
+        {
+            killPopupImage.color -= new Color32(0,0,0,5);
+            killPopupText.color -= new Color32(0, 0, 0, 5);
+            yield return new WaitForSeconds(.01f);
+        }
+        _usingKillPopup = false;
+        _killPopupAmount = 0;
+
+
     }
 
     // Adds an attack to the list of incoming attacks
