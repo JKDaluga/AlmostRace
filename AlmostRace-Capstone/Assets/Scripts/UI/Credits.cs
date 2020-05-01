@@ -33,7 +33,10 @@ public class Credits : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetButtonDown("ExitUI"))
+        {
+            Close();
+        }
     }
 
     public void Open()
