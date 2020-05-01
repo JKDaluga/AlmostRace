@@ -43,7 +43,6 @@ public class PainTrain_Boost : CooldownHeatAbility
     void Start()
     {
         _boostFieldScript = boostField.GetComponent<PainTrain_BoostShock>();
-
         _boostFieldScript.GiveInfo(gameObject, boostDamage, boostDamageRate);
 
         carInfo = gameObject.GetComponent<RaycastCar>();
@@ -80,8 +79,8 @@ public class PainTrain_Boost : CooldownHeatAbility
         {
             carInfo.ResetBoostSpeed();
             carInfo.maxTurnAngle = originalMaxTurnAngle;
-        }   
-        boostField.GetComponent<PainTrain_BoostShock>().ClearCarList();
+            boostField.GetComponent<PainTrain_BoostShock>().ClearCarList();
+        }
         boostField.SetActive(false);
         isBoosting = false;
 

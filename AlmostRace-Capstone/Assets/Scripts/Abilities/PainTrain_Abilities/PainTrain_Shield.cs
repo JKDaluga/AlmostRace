@@ -37,9 +37,9 @@ public class PainTrain_Shield : CooldownAbility
         if (_carHealthScript != null)
         {
             _carHealthScript.AddPersonalShields(shieldHealth);
+            _shockShieldScript.TurnOnShieldShock();
         }
         shockShield.SetActive(true);
-        _shockShieldScript.TurnOnShieldShock();
         foreach (GameObject shield in shields)
         {
             shield.GetComponent<ParticleSystem>().Play();
@@ -55,8 +55,8 @@ public class PainTrain_Shield : CooldownAbility
         if (_carHealthScript != null)
         {
             _carHealthScript.SetPersonalShieldAmount(0);
+            _shockShieldScript.TurnOffShieldShock();
         }
-        _shockShieldScript.TurnOffShieldShock();
         shockShield.SetActive(false);
         foreach (GameObject shield in shields)
         {

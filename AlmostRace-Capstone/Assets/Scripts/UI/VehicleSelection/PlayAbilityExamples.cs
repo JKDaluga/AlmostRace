@@ -12,15 +12,14 @@ public class PlayAbilityExamples : MonoBehaviour
     public Ability boostAbility;
     public float boostAbilityRecharge = 5f;
     public float boostAbilityDuration = 3f;
-    public bool _canUseBasic;
-    public bool _canUseDefensiveAbility;
-    public bool _canBoost;
+    public bool[] currentAbilityExample = new bool[4];
+    private bool _canUseBasic = true;
+    private bool _canUseDefensiveAbility = true;
+    private bool _canBoost = true;
     
-    void Update()
+    private void Update()
     {
-
-        // Basic Ability Call
-        if (offensiveAbility != null && _canUseBasic) 
+        if (offensiveAbility != null && _canUseBasic && currentAbilityExample[1]) 
         {
             if(fireAbility(offensiveAbility, _canUseBasic))
             {
@@ -29,9 +28,7 @@ public class PlayAbilityExamples : MonoBehaviour
                 StartCoroutine(OffensiveAbilityCooldown());
             }
         }
-
-        // Signature Ability Call
-        if (defensiveAbility != null && _canUseDefensiveAbility)
+        else if (defensiveAbility != null && _canUseDefensiveAbility && currentAbilityExample[2])
         {
             if (fireAbility(defensiveAbility, _canUseDefensiveAbility))
             {
@@ -41,9 +38,7 @@ public class PlayAbilityExamples : MonoBehaviour
                 StartCoroutine(DefensiveAbilityDuration());
             }
         }
-
-        // Boost Ability Call
-        if (boostAbility != null && _canBoost)
+        else if (boostAbility != null && _canBoost && currentAbilityExample[3])
         {
             if (fireAbility(boostAbility, _canBoost))
             {
@@ -146,5 +141,47 @@ public class PlayAbilityExamples : MonoBehaviour
         }
         boostAbility.DeactivateAbility();
         boostAbility.AbilityOnCooldown();
+    }
+
+    public void DeactivateCurrentAbility()
+    {
+        for (int i = 0; i < currentAbilityExample.Length; i++)
+        {
+            if (currentAbilityExample[i] == true)
+            {
+                if (i == 1)
+                {
+                    offensiveAbility.DeactivateAbility();
+                }
+                else if (i == 2)
+                {
+                    defensiveAbility.DeactivateAbility();                    
+                }
+                else if (i == 3)
+                {
+                    boostAbility.DeactivateAbility();
+                }
+            }
+        }
+    }
+
+    public void DeactivateAllAbilites()
+    {
+        for (int i = 0; i < currentAbilityExample.Length; i++)
+        {
+            currentAbilityExample[i] = false;
+            if (i == 1)
+            {
+                offensiveAbility.DeactivateAbility();
+            }
+            else if (i == 2)
+            {
+                defensiveAbility.DeactivateAbility();                    
+            }
+            else if (i == 3)
+            {
+                boostAbility.DeactivateAbility();
+            }
+        }
     }
 }

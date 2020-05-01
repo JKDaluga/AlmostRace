@@ -199,8 +199,11 @@ public class SolarCycle_Defensive : CooldownAbility
 
     public void ChangeSimSpeed(GameObject givenShield)
     {
-        var em = givenShield.GetComponent<ParticleSystem>().main;
-        em.simulationSpeed = Mathf.Lerp(minSimSpeed, maxSimSpeed, (Mathf.Clamp(_carHealthScript.GetPersonalShieldAmount(), 0, 100)) / 100);
+        if (_carHealthScript != null)
+        {
+            var em = givenShield.GetComponent<ParticleSystem>().main;
+            em.simulationSpeed = Mathf.Lerp(minSimSpeed, maxSimSpeed, (Mathf.Clamp(_carHealthScript.GetPersonalShieldAmount(), 0, 100)) / 100);            
+        }
     }
 
     public override void AbilityOnCooldown()

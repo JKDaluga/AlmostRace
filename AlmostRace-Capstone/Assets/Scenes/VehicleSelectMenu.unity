@@ -3946,9 +3946,7 @@ MonoBehaviour:
   boostAbility: {fileID: 386945640}
   boostAbilityRecharge: 5
   boostAbilityDuration: 3
-  _canUseBasic: 0
-  _canUseDefensiveAbility: 0
-  _canBoost: 0
+  currentAbilityExample: 00000000
 --- !u!114 &386945638 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5270200193361076767, guid: 5deae610352248f498f823494b10d7b9,
@@ -4047,9 +4045,7 @@ MonoBehaviour:
   boostAbility: {fileID: 389225241}
   boostAbilityRecharge: 5
   boostAbilityDuration: 3
-  _canUseBasic: 0
-  _canUseDefensiveAbility: 0
-  _canBoost: 0
+  currentAbilityExample: 00000000
 --- !u!224 &397549768 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6855565330540632012, guid: 9f177ef86185dd640ad7f74be1bbada7,
@@ -11427,9 +11423,7 @@ MonoBehaviour:
   boostAbility: {fileID: 1874413169}
   boostAbilityRecharge: 5
   boostAbilityDuration: 3
-  _canUseBasic: 0
-  _canUseDefensiveAbility: 0
-  _canBoost: 0
+  currentAbilityExample: 00000000
 --- !u!1 &1905692061
 GameObject:
   m_ObjectHideFlags: 0
@@ -12994,6 +12988,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6855565330540632015, guid: 9f177ef86185dd640ad7f74be1bbada7,
         type: 3}
+      propertyPath: abilityExampleScript.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855565330540632015, guid: 9f177ef86185dd640ad7f74be1bbada7,
+        type: 3}
       propertyPath: selectionManager
       value: 
       objectReference: {fileID: 1238757000}
@@ -13012,6 +13011,21 @@ PrefabInstance:
       propertyPath: viewportCamera
       value: 
       objectReference: {fileID: 1988174474}
+    - target: {fileID: 6855565330540632015, guid: 9f177ef86185dd640ad7f74be1bbada7,
+        type: 3}
+      propertyPath: abilityExampleScript.Array.data[0]
+      value: 
+      objectReference: {fileID: 389225247}
+    - target: {fileID: 6855565330540632015, guid: 9f177ef86185dd640ad7f74be1bbada7,
+        type: 3}
+      propertyPath: abilityExampleScript.Array.data[1]
+      value: 
+      objectReference: {fileID: 386945637}
+    - target: {fileID: 6855565330540632015, guid: 9f177ef86185dd640ad7f74be1bbada7,
+        type: 3}
+      propertyPath: abilityExampleScript.Array.data[2]
+      value: 
+      objectReference: {fileID: 1874413173}
     - target: {fileID: 6855565332355165079, guid: 9f177ef86185dd640ad7f74be1bbada7,
         type: 3}
       propertyPath: m_textInfo.characterCount
