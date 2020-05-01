@@ -11,9 +11,9 @@ public class Credits : MonoBehaviour
 
     public Vector3 barEnd, credEnd;
 
-    EventSystem main;
+    public EventSystem main;
 
-    GameObject selected;
+    public GameObject selected;
 
     Vector3 credStart = new Vector3(0, -850, 0);
     private void OnEnable()
@@ -38,14 +38,8 @@ public class Credits : MonoBehaviour
 
     public void Open()
     {
-        if (main == null)
-        {
-            main = FindObjectOfType<EventSystem>();
-        }
-
-        selected = main.currentSelectedGameObject;
+        main.SetSelectedGameObject(this.gameObject);
         menu.SetActive(false);
-        main.SetSelectedGameObject(null);
         this.gameObject.SetActive(true);
     }
 
@@ -53,9 +47,9 @@ public class Credits : MonoBehaviour
     {
         menu.SetActive(true);
 
-        main.SetSelectedGameObject(selected);
-
         this.gameObject.SetActive(false);
+
+        main.SetSelectedGameObject(selected);
     }
 
     IEnumerator scroll()
