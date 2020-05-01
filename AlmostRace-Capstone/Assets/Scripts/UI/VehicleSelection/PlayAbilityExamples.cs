@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayAbilityExamples : MonoBehaviour
 {
+    public float durationAfterCooldown = 2;
     public Ability offensiveAbility;
     public float offensiveAbilityRecharge = 5f;
     public Ability defensiveAbility;
@@ -73,11 +74,11 @@ public class PlayAbilityExamples : MonoBehaviour
         }
         offensiveAbility.AbilityOffOfCooldown();
         tempTime = 0;
-        while (tempTime < offensiveAbilityRecharge / 2)
+        while (tempTime < durationAfterCooldown)
         {
             tempTime += Time.deltaTime;
             yield return null;
-        }        
+        }       
         _canUseBasic = true;
     }
 
@@ -92,8 +93,8 @@ public class PlayAbilityExamples : MonoBehaviour
         }
         defensiveAbility.AbilityOffOfCooldown();
         tempTime = 0;
-        while (tempTime < defensiveAbilityRecharge / 2)
-        {        
+        while (tempTime < durationAfterCooldown)
+        {
             tempTime += Time.deltaTime;
             yield return null;
         }
@@ -122,7 +123,7 @@ public class PlayAbilityExamples : MonoBehaviour
         }
         boostAbility.AbilityOffOfCooldown();
         tempTime = 0;
-        while (tempTime < boostAbilityRecharge / 2)
+        while (tempTime < durationAfterCooldown)
         {
             tempTime += Time.deltaTime;
             yield return null;
