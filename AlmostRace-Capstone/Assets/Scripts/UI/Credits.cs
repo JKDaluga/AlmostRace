@@ -11,11 +11,14 @@ public class Credits : MonoBehaviour
 
     public Vector3 barEnd, credEnd;
 
-    EventSystem main;
+    public EventSystem main;
 
-    GameObject selected;
+    public GameObject selected;
 
     Vector3 credStart = new Vector3(0, -850, 0);
+
+    public AudioClip menuSong, creditsSong;
+
     private void OnEnable()
     {
         bars.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
@@ -33,19 +36,19 @@ public class Credits : MonoBehaviour
 
     private void Update()
     {
-        
+        if (Input.GetButtonDown("ExitUI"))
+        {
+            Close();
+        }
     }
 
     public void Open()
     {
-        if (main == null)
-        {
-            main = FindObjectOfType<EventSystem>();
-        }
-
-        selected = main.currentSelectedGameObject;
+        main.SetSelectedGameObject(this.gameObject);
         menu.SetActive(false);
-        main.SetSelectedGameObject(null);
+
+        AudioManager.instance.ChangeBGM(creditsSong);
+        
         this.gameObject.SetActive(true);
     }
 
@@ -53,9 +56,11 @@ public class Credits : MonoBehaviour
     {
         menu.SetActive(true);
 
-        main.SetSelectedGameObject(selected);
-
         this.gameObject.SetActive(false);
+
+        AudioManager.instance.ChangeBGM(menuSong);
+
+        main.SetSelectedGameObject(selected);
     }
 
     IEnumerator scroll()
