@@ -16,6 +16,9 @@ public class Credits : MonoBehaviour
     public GameObject selected;
 
     Vector3 credStart = new Vector3(0, -850, 0);
+
+    public AudioClip menuSong, creditsSong;
+
     private void OnEnable()
     {
         bars.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
@@ -43,6 +46,9 @@ public class Credits : MonoBehaviour
     {
         main.SetSelectedGameObject(this.gameObject);
         menu.SetActive(false);
+
+        AudioManager.instance.ChangeBGM(creditsSong);
+        
         this.gameObject.SetActive(true);
     }
 
@@ -51,6 +57,8 @@ public class Credits : MonoBehaviour
         menu.SetActive(true);
 
         this.gameObject.SetActive(false);
+
+        AudioManager.instance.ChangeBGM(menuSong);
 
         main.SetSelectedGameObject(selected);
     }

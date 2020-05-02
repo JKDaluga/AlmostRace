@@ -16,7 +16,7 @@ public class PlayCredits : MonoBehaviour
 
     public void ChangeAudio(string C)
     {
-       creditsAudio.PlayWithoutSpacial()
+        //creditsAudio.PlayWithoutSpacial()
         
     }
 

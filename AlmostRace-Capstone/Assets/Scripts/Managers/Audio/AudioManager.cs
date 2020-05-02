@@ -100,6 +100,15 @@ public class AudioManager : MonoBehaviour
         return s;
     }
 
+    public void ChangeBGM(AudioClip bgm)
+    {
+        instance.source.clip = bgm;
+
+        instance.source.Stop();
+
+        instance.source.Play();
+    }
+
     public void updateSoundVolume(float soundMultiplier)
     {
         audioMultiplier = soundMultiplier;
