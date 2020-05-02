@@ -353,7 +353,7 @@ public class PlayerUIManager : MonoBehaviour
             timePopupText.text = LapTimer.text.ToString();
             timePopupText.color = new Color32(255, 255, 255, 255);
             timePopupImage.color = new Color32(0, 0, 0, 255);
-            InvokeRepeating("MoveTimePopup", 0, .25f);
+            InvokeRepeating("MoveTimePopup", 0, .01f);
         }
   
     }

@@ -9,10 +9,14 @@ public class SpeedRampBehaviour : MonoBehaviour
     public bool isActive = false;
     private List<RaycastCar> _boostedCars = new List<RaycastCar>();
     private RaycastCar _carToAdd;
+    public List<ParticleSystem> vfxToActivate = new List<ParticleSystem>();
     // Start is called before the first frame update
     public void OnTriggerEnter(Collider other)
     {
-
+        foreach(ParticleSystem vfx in vfxToActivate)
+        {
+            vfx.Play();
+        }
             if (other.gameObject.GetComponent<RaycastCar>() != null)
             {
 
