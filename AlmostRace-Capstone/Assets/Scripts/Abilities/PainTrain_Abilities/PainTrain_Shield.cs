@@ -34,10 +34,12 @@ public class PainTrain_Shield : CooldownAbility
     public override void ActivateAbility()
     {
         AudioManager.instance.Play("Pain Train Shield", transform);
-
-        _carHealthScript.AddPersonalShields(shieldHealth);
         shockShield.SetActive(true);
-        _shockShieldScript.TurnOnShieldShock();
+        if (_carHealthScript != null)
+        {
+            _carHealthScript.AddPersonalShields(shieldHealth);
+            _shockShieldScript.TurnOnShieldShock();
+        }
         foreach (GameObject shield in shields)
         {
             shield.GetComponent<ParticleSystem>().Play();
@@ -46,14 +48,15 @@ public class PainTrain_Shield : CooldownAbility
         //ribTipsSmall.SetActive(false);
         // ribTipsMedium.SetActive(true);
         // ribTipsLarge.SetActive(false);
-
-
     }
 
     public override void DeactivateAbility()
     {
-        _carHealthScript.SetPersonalShieldAmount(0);
-        _shockShieldScript.TurnOffShieldShock();
+        if (_carHealthScript != null)
+        {
+            _carHealthScript.SetPersonalShieldAmount(0);
+            _shockShieldScript.TurnOffShieldShock();
+        }
         shockShield.SetActive(false);
         foreach (GameObject shield in shields)
         {
