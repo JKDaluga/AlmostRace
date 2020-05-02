@@ -32,13 +32,15 @@ public class PainTrain_ShieldShock : MonoBehaviour
     public void TurnOnShieldShock()
     {
         _playerPainTrainScript = _immunePlayer.GetComponent<CarHealthBehavior>();
-        StartCoroutine(TrackHealth());
+        if (_playerPainTrainScript != null)
+        {
+            StartCoroutine(TrackHealth());            
+        }
     }
 
     public void TurnOffShieldShock()
     {
         _carsToDamage.Clear();
-
         StopAllCoroutines();
     }
 

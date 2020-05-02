@@ -27,7 +27,7 @@ public class SelectionManager : MonoBehaviour
     {
         _data = DataManager.instance;
         _isLoading = false;
-        _data.resetData();
+        _data.ResetData();
         allReadyImage.SetActive(false);
         pressAText.SetActive(true);
         loadingText.SetActive(false);

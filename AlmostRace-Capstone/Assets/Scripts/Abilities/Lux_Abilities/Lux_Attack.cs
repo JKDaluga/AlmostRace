@@ -52,7 +52,6 @@ public class Lux_Attack : Ability
     public override void ActivateAbility()
     {
         AudioManager.instance.Play("Lux Shooting", transform);
-
         GameObject spawnedDart = Instantiate(trackingDart, muzzle.position, muzzle.rotation);
         spawnedDart.GetComponent<Lux_TrackingDart>().SetProjectileInfo(0, dartSpeed, 0);
         spawnedDart.GetComponent<Lux_TrackingDart>().SetImmunePlayer(gameObject);

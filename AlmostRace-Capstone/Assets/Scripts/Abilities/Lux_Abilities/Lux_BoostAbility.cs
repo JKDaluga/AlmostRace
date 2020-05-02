@@ -52,8 +52,10 @@ public class Lux_BoostAbility : CooldownHeatAbility
     {
         carInfo = gameObject.GetComponent<RaycastCar>();
         carHeatInfo = gameObject.GetComponent<CarHealthBehavior>();
-        originalMaxTurnAngle = carInfo.maxTurnAngle;
-
+        if (carInfo != null)
+        {
+            originalMaxTurnAngle = carInfo.maxTurnAngle;
+        }
     }
 
     public override void ActivateAbility()
@@ -61,7 +63,11 @@ public class Lux_BoostAbility : CooldownHeatAbility
        if(!isBoosting)
         {
             isBoosting = true;
-            carInfo.setBoostSpeed(boostSpeedPercentage / 100);
+            if (carInfo != null)
+            {
+                carInfo.setBoostSpeed(boostSpeedPercentage / 100);
+                carInfo.maxTurnAngle = originalMaxTurnAngle * (maxBoostTurnAngle / 100);                
+            }
             // Set the new jet particle speed
             var jpMain = jetParticles.main;
             var jpMain2 = jetParticles2.main;
@@ -73,17 +79,15 @@ public class Lux_BoostAbility : CooldownHeatAbility
             jpMain.startSpeed = jetIncrease;
             jpMain2.startSpeed = jetIncrease;
             jpMain3.startSpeed = jetIncrease;
-            carInfo.maxTurnAngle = originalMaxTurnAngle * (maxBoostTurnAngle / 100);
+
             //AddHeat();
         }
        
-       //carInfo.SetBoostInfo(boostSpeedPercentage);              
+       //carInfo.SetBoostInfo(boostSpeedPercentage);
     }
 
     public override void DeactivateAbility()
     {
-        // Reset the jet speed when you stop boosting
-        carInfo.ResetBoostSpeed();
         var jpMain = jetParticles.main;
         var jpMain2 = jetParticles2.main;
         var jpMain3 = jetParticles3.main;
@@ -92,8 +96,13 @@ public class Lux_BoostAbility : CooldownHeatAbility
         jpMain2.startSpeed = _originalJetSpeed2;
         jpMain3.startSpeed = _originalJetSpeed2;
 
+        // Reset the jet speed when you stop boosting
+        if (carInfo != null)
+        {
+            carInfo.ResetBoostSpeed();
+            carInfo.maxTurnAngle = originalMaxTurnAngle;
+        }
         isBoosting = false;
-        carInfo.maxTurnAngle = originalMaxTurnAngle;
     }
 
     protected override void AddHeat()

@@ -29,6 +29,7 @@ public class ViewportController : MonoBehaviour
     [Space(20)]
     public GameObject vehicleRotationHolder;
     private RotateSelection _rotateSelection;
+    public PlayAbilityExamples[] abilityExampleScript;
 
     private VehicleInput _playerInput;
     private bool _ready;
@@ -73,6 +74,7 @@ public class ViewportController : MonoBehaviour
         {
             if(!_rotateSelection.GetSwitching())
             {
+                abilityExampleScript[selectedCarID].DeactivateAllAbilites();
                 _rotateSelection.SetRightOrLeft(true);
                 _rotateSelection.SetSwitching(true);
                 if (selectedCarID >= _vehicleCount - 1)
@@ -90,6 +92,7 @@ public class ViewportController : MonoBehaviour
         {
             if(!_rotateSelection.GetSwitching())
             {
+                abilityExampleScript[selectedCarID].DeactivateAllAbilites();
                 _rotateSelection.SetRightOrLeft(false);
                 _rotateSelection.SetSwitching(true);
                 if (selectedCarID <= 0)
@@ -135,15 +138,18 @@ public class ViewportController : MonoBehaviour
 
     private void PanelViewState()
     {
+        abilityExampleScript[selectedCarID].DeactivateCurrentAbility();
         for (int i = 0; i < infoPanels.Length; i++)
         {
             if (i == _selectedInfoPanel)
             {
                 infoPanels[i].SetActive(true);
+                abilityExampleScript[selectedCarID].currentAbilityExample[i] = true;
             }
             else
             {
                 infoPanels[i].SetActive(false);
+                abilityExampleScript[selectedCarID].currentAbilityExample[i] = false;
             }
         }
     }
@@ -180,7 +186,8 @@ public class ViewportController : MonoBehaviour
             _ready = false;
             _text.text = "NO PLAYER";
             cover.SetActive(true);
-            vehicleRotationHolder.SetActive(false);
+            abilityExampleScript[selectedCarID].DeactivateAllAbilites();
+            //vehicleRotationHolder.SetActive(false);
             viewportCamera.enabled = false;
             inactiveImage.enabled = true;
             infoPanelHolder.SetActive(false);
@@ -196,6 +203,7 @@ public class ViewportController : MonoBehaviour
             _ready = true;
             readyImage.enabled = true;
             infoPanelHolder.SetActive(false);
+            abilityExampleScript[selectedCarID].DeactivateAllAbilites();
             selectionManager.UpdateData(playerID, _ready, selectedCarID, _playerInput.GetPlayerNum());
         }
         else

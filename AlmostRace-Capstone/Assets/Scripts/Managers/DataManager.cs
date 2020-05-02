@@ -34,11 +34,13 @@ public class DataManager : MonoBehaviour
 {
     public static DataManager instance;
     public PlayerInfo[] playerInfo;
+    public Dictionary<int, PlayerUIManager> playerUIDictionary = new Dictionary<int, PlayerUIManager>();
 
     private bool spawnAI;
 
     private void Awake()
     {
+       
         if(instance != null && this != instance)
         {
             Destroy(this.gameObject);
@@ -92,8 +94,9 @@ public class DataManager : MonoBehaviour
         spawnAI = value;
     }
 
-    public void resetData()
+    public void ResetData()
     {
+        playerUIDictionary.Clear();
         for (int i = 0; i < playerInfo.Length; i++)
         {
             playerInfo[i].isActive = false;
@@ -107,6 +110,19 @@ public class DataManager : MonoBehaviour
             playerInfo[i].defenseAbilityUsed = 0;
             playerInfo[i].numKills = 0f;
             playerInfo[i].numDeaths = 0f;
+        }
+    }
+
+    public void TriggerKillUI(int playerID)
+    {
+      
+        if(playerUIDictionary.ContainsKey(playerID))
+        {
+            playerUIDictionary[playerID].TriggerKillPopup();
+        }
+        else
+        {
+            Debug.Log("playerNumber @: " + playerID + " was not found!!");
         }
     }
 }

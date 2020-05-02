@@ -493,6 +493,7 @@ public class CarHealthBehavior : MonoBehaviour
                 { //if someone killed you and you didn't cause your death.
                   //    Debug.Log("Kill was properly awareded!");
                     DataManager.instance.playerInfo[killerID - 1].numKills++;
+                    DataManager.instance.TriggerKillUI(killerID);
                 }
 
                 Kill();

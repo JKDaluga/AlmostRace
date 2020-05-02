@@ -31,7 +31,7 @@ public class PlayerManagement : MonoBehaviour
         }
         _isLoading = false;
         data = DataManager.instance;
-        data.resetData();
+        data.ResetData();
     }
 
     private void FixedUpdate()
