@@ -375,7 +375,7 @@ public class PlayerUIManager : MonoBehaviour
         if (timePopup.position.y >= timePopupTarget.position.y)
         {
             CancelInvoke("MoveTimePopup");
-            InvokeRepeating("FadeTimePopup", 0, .01f);
+            InvokeRepeating("FadeTimePopup", 1, .01f);
             return;
         }
         timePopup.position += new Vector3(0, 2f, 0);
