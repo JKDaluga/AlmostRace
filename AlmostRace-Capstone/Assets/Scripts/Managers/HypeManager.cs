@@ -45,10 +45,13 @@ public class HypeManager : MonoBehaviour
     public Text winnerText;
     private float tempTotal;
     public GameObject countdownObj;
+    public float countdownLength = 45.0f;
     public GameObject eventPanel;
     public GameObject winScreen;
     public Image bottomLineLogo;
     public bool isGameEnded = false;
+
+    float humansFinished;
 
     public WinScreenBox[] winScreenBoxes;
     public string[] awards;
@@ -63,6 +66,8 @@ public class HypeManager : MonoBehaviour
     public float hypePerKill;
     public float[] hypeForRacePosition;
     public float hypeLosePerDeath;
+
+
 
     // Start is called before the first frame update
     void Start()
@@ -79,7 +84,6 @@ public class HypeManager : MonoBehaviour
 
     public IEnumerator EndGameCountDown(float timerTime)
     {
-
         float tempTime = timerTime;
         countdownObj.SetActive(true);
         TextMeshProUGUI countdownText = countdownObj.GetComponent<TextMeshProUGUI>();
@@ -87,10 +91,15 @@ public class HypeManager : MonoBehaviour
         {
             countdownText.text = "" + tempTime.ToString("F0");
             tempTime -= Time.deltaTime;
+
+            if(humansFinished >= DataManager.instance.getNumActivePlayers())
+            {
+                tempTime = 0;
+            }
+
             yield return null;
         }
         countdownObj.SetActive(false);
-        EndGame();
     }
 
     // Sorts the list based upon which game object has the most hype in their VehicleHypeBehavior script
@@ -169,6 +178,11 @@ public class HypeManager : MonoBehaviour
         {
             player.hypeAmount = (player.numKills * hypePerKill) + hypeForRacePosition[player.placeRace1] + hypeForRacePosition[player.placeRace2] - (player.numDeaths * hypeLosePerDeath);
         }
+    }
+
+    public void incrementHumansFinished()
+    {
+        humansFinished++;
     }
 
     public void populateWinScreen()

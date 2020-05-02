@@ -33,7 +33,15 @@ public class SettingsMenuScript : MonoBehaviour
         volumeControl = FindObjectOfType<AudioManager>();
         VolumeMusic = volumeControl.GetComponent<AudioSource>();
 
-        AISwitch = FindObjectOfType<DataManager>();
+        
+        if(DataManager.instance == null)
+        {
+            AISwitch = FindObjectOfType<DataManager>();
+        }
+        else
+        {
+            AISwitch = DataManager.instance;
+        }
 
         musicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1f);
         soundFXSlider.value = PlayerPrefs.GetFloat("SoundFXVolume", 1f);

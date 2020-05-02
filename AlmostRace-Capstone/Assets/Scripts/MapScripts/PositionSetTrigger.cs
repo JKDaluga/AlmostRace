@@ -26,6 +26,7 @@ public class PositionSetTrigger : MonoBehaviour
     }
 
 
+
     private float supplyTime(int index, float previousTime, bool isFirstSection)
     {
         
@@ -75,15 +76,33 @@ public class PositionSetTrigger : MonoBehaviour
             if (temp != null)
             {
                 temp.finished = true;
+                if (place == 0)
+                {
+                    if (temp.GetComponent<VehicleInput>())
+                    {
+                        if (numHumans > 1)
+                        {
+                            StartCoroutine(hm.EndGameCountDown(hm.countdownLength));
+                        }
+                    }
+                    else
+                    {
+                        StartCoroutine(hm.EndGameCountDown(hm.countdownLength));
+                    }
+                }
                 if ((DataManager.instance.playerInfo[temp.playerID - 1].placeRace2 > previousPlace))
                 {
                     DataManager.instance.playerInfo[temp.playerID - 1].placeRace2 = place;
                     DataManager.instance.playerInfo[temp.playerID - 1].timerRace2 = rm.time;
                     previousPlace++;
                     place++;
+
+
                     if(DataManager.instance.playerInfo[temp.playerID - 1].isActive)
                     {
                         humansFinish++;
+                        hm.incrementHumansFinished();
+                        
                     }
                     if(humansFinish >= numHumans)
                     {

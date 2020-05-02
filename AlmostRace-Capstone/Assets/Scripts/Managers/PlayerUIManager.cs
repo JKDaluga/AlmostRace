@@ -21,7 +21,7 @@ public class PlayerUIManager : MonoBehaviour
     private List<Transform> _attacksInRange = new List<Transform>();
     public GameObject weaponsActivatedText;
 
-    [Header("Popup Variables")]
+    [Header("Kill Popup Variables")]
     [Space(30)]
 
     public RectTransform killPopup;
@@ -32,6 +32,15 @@ public class PlayerUIManager : MonoBehaviour
 
     public RectTransform killPopupSpawn;
     public RectTransform killPopupTarget;
+
+    [Header("Time Popup Variables")]
+    [Space(30)]
+    public RectTransform timePopup;
+    public Image timePopupImage;
+    public TextMeshProUGUI timePopupText;
+    public RectTransform timePopupSpawn;
+    public RectTransform timePopupTarget;
+    private bool _usedTimePopup = false;
 
 
     [Header("HypeDisplay Variables")]
@@ -200,6 +209,7 @@ public class PlayerUIManager : MonoBehaviour
         //UpdateAttackIndicators();
 
         //TestKillPopup();
+        TestTriggerTimePopup();
     }
 
     // Keeps track of, updates the position, and shows attack indicators
@@ -286,6 +296,8 @@ public class PlayerUIManager : MonoBehaviour
         StartCoroutine(MoveKillPopup());
     }
 
+
+
     public void TestKillPopup()
     {
      
@@ -330,8 +342,56 @@ public class PlayerUIManager : MonoBehaviour
         }
         _usingKillPopup = false;
         _killPopupAmount = 0;
+    }
 
+    public void TriggerTimePopup()
+    {
+        if(!_usedTimePopup)
+        {
+            timePopup.position = timePopupSpawn.position;
+            _usedTimePopup = true;
+            timePopupText.text = LapTimer.text.ToString();
+            timePopupText.color = new Color32(255, 255, 255, 255);
+            timePopupImage.color = new Color32(0, 0, 0, 255);
+            InvokeRepeating("MoveTimePopup", 0, .01f);
+        }
+  
+    }
 
+    public void TestTriggerTimePopup()
+    {
+        if(Input.GetKeyDown(KeyCode.Y))
+        {
+            timePopup.position = timePopupSpawn.position;
+            timePopupText.text = LapTimer.text;
+            timePopupText.color = new Color32(255, 255, 255, 255);
+            timePopupImage.color = new Color32(0, 0, 0, 255);
+            InvokeRepeating("MoveTimePopup", 0, .01f);
+        }
+    }
+
+    public void MoveTimePopup()
+    {
+        if (timePopup.position.y >= timePopupTarget.position.y)
+        {
+            CancelInvoke("MoveTimePopup");
+            InvokeRepeating("FadeTimePopup", 1, .01f);
+            return;
+        }
+        timePopup.position += new Vector3(0, 2f, 0);
+       
+    }
+
+    public void FadeTimePopup()
+    {
+        if (timePopupImage.color.a <= 0)
+        {
+            CancelInvoke("FadeTimePopup");
+            return;
+        }
+        timePopupImage.color -= new Color32(0, 0, 0, 5);
+        timePopupText.color -= new Color32(0, 0, 0, 5);
+       
     }
 
     // Adds an attack to the list of incoming attacks
