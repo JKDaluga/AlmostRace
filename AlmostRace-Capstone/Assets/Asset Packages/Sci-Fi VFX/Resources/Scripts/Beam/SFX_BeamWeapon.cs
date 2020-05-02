@@ -87,8 +87,18 @@ namespace QFX.SFX
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, MaxDistance, ignore))
+            {
+                //_impactPs.gameObject.SetActive(true);
                 EndPosition = hit.point;
-            else EndPosition = transform.position + transform.forward * MaxDistance;
+                _impactPs.transform.position = EndPosition;
+
+            }
+            else
+            {
+                //_impactPs.gameObject.SetActive(false);
+                EndPosition = transform.position + transform.forward * MaxDistance;
+                _impactPs.transform.position = LineRenderer.GetPosition(0);
+            }
 
             //            if (_appearProgress >= 0.2f)
             //            {
@@ -102,7 +112,7 @@ namespace QFX.SFX
             var directionToEmitter = (hitPosition - startPosition).normalized;
             hitPosition += directionToEmitter * ImpactOffset;
 
-            _impactPs.transform.position = hitPosition;
+           
             _impactPs.transform.LookAt(startPosition);
 
             //            }
