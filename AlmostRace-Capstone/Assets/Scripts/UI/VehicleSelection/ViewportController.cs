@@ -32,6 +32,7 @@ public class ViewportController : MonoBehaviour
     public PlayAbilityExamples[] abilityExampleScript;
 
     private VehicleInput _playerInput;
+    private Animator _camAnimator;
     private bool _ready;
     private bool _joined;
     private int _vehicleCount;
@@ -43,6 +44,7 @@ public class ViewportController : MonoBehaviour
         _vehicleCount = selectionManager.amountOfSelections;
         _rotateSelection = vehicleRotationHolder.GetComponent<RotateSelection>();
         _infoText = new TextMeshProUGUI[infoPanels.Length];
+        _camAnimator = viewportCamera.GetComponent<Animator>();
         for(int i = 0; i < _infoText.Length; i++)
         {
             _infoText[i] = infoPanels[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
@@ -203,6 +205,7 @@ public class ViewportController : MonoBehaviour
             _ready = true;
             readyImage.enabled = true;
             infoPanelHolder.SetActive(false);
+            _camAnimator.Play("VehicleSelectCameraZoomIn");
             abilityExampleScript[selectedCarID].DeactivateAllAbilites();
             selectionManager.UpdateData(playerID, _ready, selectedCarID, _playerInput.GetPlayerNum());
         }
@@ -211,6 +214,7 @@ public class ViewportController : MonoBehaviour
             _ready = false;
             readyImage.enabled = false;
             infoPanelHolder.SetActive(true);
+            _camAnimator.Play("VehicleSelectCameraZoomOut");
             selectionManager.UpdateData(playerID, _ready, selectedCarID, _playerInput.GetPlayerNum());
             
         }

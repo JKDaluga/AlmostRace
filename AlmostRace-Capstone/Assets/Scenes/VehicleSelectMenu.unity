@@ -941,6 +941,7 @@ GameObject:
   - component: {fileID: 101930565}
   - component: {fileID: 101930564}
   - component: {fileID: 101930566}
+  - component: {fileID: 101930567}
   m_Layer: 0
   m_Name: VehicleViewportP3
   m_TagString: Untagged
@@ -972,7 +973,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 200
+  far clip plane: 220
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -999,7 +1000,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 101930563}
   m_LocalRotation: {x: 0.1449362, y: -0, z: -0, w: 0.989441}
-  m_LocalPosition: {x: 8.2, y: 8.2, z: -53.6}
+  m_LocalPosition: {x: 10.5, y: 10, z: -59.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1268716114}
@@ -1065,6 +1066,25 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!95 &101930567
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 101930563}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0698d6245177e994285241821bd1e3ef, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &159391580
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1773,7 +1793,7 @@ Transform:
   m_GameObject: {fileID: 168963053}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -300, y: 800, z: 59}
-  m_LocalScale: {x: 300, y: 1, z: 300}
+  m_LocalScale: {x: 400, y: 1, z: 300}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 13
@@ -5422,7 +5442,7 @@ Transform:
   m_GameObject: {fileID: 515896878}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -5, z: 14}
-  m_LocalScale: {x: 300, y: 1, z: 300}
+  m_LocalScale: {x: 400, y: 1, z: 300}
   m_Children: []
   m_Father: {fileID: 1268716114}
   m_RootOrder: 3
@@ -5894,7 +5914,7 @@ Transform:
   m_GameObject: {fileID: 778852455}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -5, z: 14}
-  m_LocalScale: {x: 300, y: 1, z: 300}
+  m_LocalScale: {x: 400, y: 1, z: 300}
   m_Children: []
   m_Father: {fileID: 959082459}
   m_RootOrder: 3
@@ -10143,7 +10163,7 @@ Transform:
   m_GameObject: {fileID: 1671640543}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -5, z: 14}
-  m_LocalScale: {x: 300, y: 1, z: 300}
+  m_LocalScale: {x: 400, y: 1, z: 300}
   m_Children: []
   m_Father: {fileID: 369982469}
   m_RootOrder: 3
@@ -11410,6 +11430,7 @@ GameObject:
   - component: {fileID: 1741853876}
   - component: {fileID: 1741853875}
   - component: {fileID: 1741853877}
+  - component: {fileID: 1741853878}
   m_Layer: 0
   m_Name: VehicleViewportP4
   m_TagString: Untagged
@@ -11441,7 +11462,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 200
+  far clip plane: 220
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -11468,7 +11489,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1741853874}
   m_LocalRotation: {x: 0.1449362, y: -0, z: -0, w: 0.989441}
-  m_LocalPosition: {x: 8.2, y: 8.2, z: -53.6}
+  m_LocalPosition: {x: 10.5, y: 10, z: -59.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 369982469}
@@ -11534,6 +11555,25 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!95 &1741853878
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1741853874}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0698d6245177e994285241821bd1e3ef, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1753377910
 GameObject:
   m_ObjectHideFlags: 0
@@ -11562,7 +11602,7 @@ Transform:
   m_GameObject: {fileID: 1753377910}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -5, z: 14}
-  m_LocalScale: {x: 300, y: 1, z: 300}
+  m_LocalScale: {x: 400, y: 1, z: 300}
   m_Children: []
   m_Father: {fileID: 1495183073}
   m_RootOrder: 3
@@ -12598,8 +12638,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1980348568}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -300, y: 397, z: 207}
-  m_LocalScale: {x: 300, y: 810, z: 0}
+  m_LocalPosition: {x: -300, y: 397, z: 183}
+  m_LocalScale: {x: 400, y: 810, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 14
@@ -12706,6 +12746,7 @@ GameObject:
   - component: {fileID: 1988174475}
   - component: {fileID: 1988174474}
   - component: {fileID: 1988174476}
+  - component: {fileID: 1988174477}
   m_Layer: 0
   m_Name: VehicleViewportP1
   m_TagString: Untagged
@@ -12737,7 +12778,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 200
+  far clip plane: 220
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -12764,7 +12805,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988174473}
   m_LocalRotation: {x: 0.1449362, y: -0, z: -0, w: 0.989441}
-  m_LocalPosition: {x: 8.2, y: 8.2, z: -53.6}
+  m_LocalPosition: {x: 10.5, y: 10, z: -59.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 959082459}
@@ -12830,6 +12871,25 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!95 &1988174477
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988174473}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0698d6245177e994285241821bd1e3ef, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2006060993
 GameObject:
   m_ObjectHideFlags: 0
@@ -13014,6 +13074,7 @@ GameObject:
   - component: {fileID: 2048968797}
   - component: {fileID: 2048968796}
   - component: {fileID: 2048968798}
+  - component: {fileID: 2048968799}
   m_Layer: 0
   m_Name: VehicleViewportP2
   m_TagString: Untagged
@@ -13045,7 +13106,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 200
+  far clip plane: 220
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -13072,7 +13133,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2048968795}
   m_LocalRotation: {x: 0.1449362, y: -0, z: -0, w: 0.989441}
-  m_LocalPosition: {x: 8.2, y: 8.2, z: -53.6}
+  m_LocalPosition: {x: 10.5, y: 10, z: -59.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1495183073}
@@ -13138,6 +13199,25 @@ MonoBehaviour:
   m_BeforeTransparentBundles: []
   m_BeforeStackBundles: []
   m_AfterStackBundles: []
+--- !u!95 &2048968799
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048968795}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0698d6245177e994285241821bd1e3ef, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &2053568719
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14572,6 +14652,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6855565330481074331, guid: 9f177ef86185dd640ad7f74be1bbada7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f177ef86185dd640ad7f74be1bbada7, type: 3}

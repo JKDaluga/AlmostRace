@@ -70,7 +70,7 @@ public class SelectionManager : MonoBehaviour
             }
         }
 
-        if (!inUse && givenCommand == "AwakeButtonTriggered")
+        if (!inUse && !_readyToStart && givenCommand == "AwakeButtonTriggered")
         {  
             AssignPlayer(givenController);
         }
@@ -101,7 +101,7 @@ public class SelectionManager : MonoBehaviour
                 selectedViewport.VehicleSelect(false);
                 AudioManager.instance.PlayWithoutSpatial("Menu Selection");
             }
-            else if (!inUse)
+            else if (!inUse && !_readyToStart)
             {
                 _isLoading = true;
                 SceneManager.LoadSceneAsync(mainMenuIndex);
