@@ -219,12 +219,15 @@ public class RaycastCar : MonoBehaviour
         // call the function to start processing all vehicle physics
         carPhysicsUpdate();
 
-
         if (finished)
         {
-            if(!finishedPanel.activeSelf || !finishedPanel.activeInHierarchy)
+
+            if (GetComponent<VehicleInput>())
             {
-                finishedPanel.SetActive(true);
+                if (!finishedPanel.activeSelf || !finishedPanel.activeInHierarchy)
+                {
+                    finishedPanel.SetActive(true);
+                }
             }
         }
     }
