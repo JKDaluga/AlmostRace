@@ -61,13 +61,14 @@ public class HypeManager : MonoBehaviour
     public float inputDelayMax = 3f;
     private float inputDelay;
     private DataManager dm;
+    private RaceManager rm;
 
     [Header("Hype Value Variables")]
     public float hypePerKill;
     public float[] hypeForRacePosition;
     public float hypeLosePerDeath;
 
-
+    int numNodes;
 
     // Start is called before the first frame update
     void Start()
@@ -75,11 +76,17 @@ public class HypeManager : MonoBehaviour
         inputDelay = 0;
         awards = new string[4];
         awardsNumbers = new string[4];
+        rm = GetComponent<RaceManager>();
         dm = DataManager.instance;
         if (dm == null)
         {
             Debug.LogError("Cannot find DataManager");
         }
+    }
+
+    public void setNumNodes(int n)
+    {
+        numNodes = n;
     }
 
     public IEnumerator EndGameCountDown(float timerTime)
@@ -92,7 +99,7 @@ public class HypeManager : MonoBehaviour
             countdownText.text = "" + tempTime.ToString("F0");
             tempTime -= Time.deltaTime;
 
-            if(humansFinished >= DataManager.instance.getNumActivePlayers())
+            if(humansFinished >= dm.getNumActivePlayers())
             {
                 tempTime = 0;
             }
@@ -100,6 +107,31 @@ public class HypeManager : MonoBehaviour
             yield return null;
         }
         countdownObj.SetActive(false);
+        if (humansFinished < dm.getNumActivePlayers())
+        {
+            List<int> places = new List<int>();
+
+            foreach(RaycastCar i in rm.cars)
+            {
+                if (!i.finished)
+                {
+                    dm.playerInfo[i.playerID - 1].timerRace2 = rm.time;
+                }
+
+                places.Add(numNodes - i.closestIndex);
+            }
+            places.Sort();
+            
+            for(int i = 0; i < places.Count; i++)
+            {
+                if (!rm.cars[i].finished)
+                {
+                    dm.playerInfo[rm.cars[i].playerID - 1].placeRace2 = i;
+                }
+            }
+
+            EndGame();
+        }
     }
 
     // Sorts the list based upon which game object has the most hype in their VehicleHypeBehavior script

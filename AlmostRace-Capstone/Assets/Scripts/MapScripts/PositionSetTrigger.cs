@@ -82,6 +82,7 @@ public class PositionSetTrigger : MonoBehaviour
                     {
                         if (numHumans > 1)
                         {
+                            hm.setNumNodes(temp.GetComponent<RaycastCar>().closestIndex);
                             StartCoroutine(hm.EndGameCountDown(hm.countdownLength));
                         }
                     }
