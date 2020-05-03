@@ -20,9 +20,9 @@ public class ViewportController : MonoBehaviour
     public RawImage readyImage;
     public GameObject infoPanelHolder;
     public GameObject[] infoPanels = new GameObject[4];
-    public GameObject[] vehicleDescriptionText;
+    public GameObject[] vehicleDescriptionImages;
+    private Image[] _infoImage;
     public TextMeshProUGUI selectedVehicleText;
-    private TextMeshProUGUI[] _infoText;
     private TextMeshProUGUI _text;
 
     [Header("Display Vehicle Values")]
@@ -43,11 +43,11 @@ public class ViewportController : MonoBehaviour
         _text = playerNumDisplay.GetComponent<TextMeshProUGUI>();
         _vehicleCount = selectionManager.amountOfSelections;
         _rotateSelection = vehicleRotationHolder.GetComponent<RotateSelection>();
-        _infoText = new TextMeshProUGUI[infoPanels.Length];
+        _infoImage = new Image[infoPanels.Length];
         _camAnimator = viewportCamera.GetComponent<Animator>();
-        for(int i = 0; i < _infoText.Length; i++)
+        for(int i = 0; i < _infoImage.Length; i++)
         {
-            _infoText[i] = infoPanels[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            _infoImage[i] = infoPanels[i].transform.GetChild(0).GetComponent<Image>();
         }
 
         cover.SetActive(true);
@@ -160,10 +160,9 @@ public class ViewportController : MonoBehaviour
     {
         _selectedInfoPanel = 0;
         PanelViewState();
-        selectedVehicleText.text = vehicleDescriptionText[selectedCarID].GetComponent<VehicleAbilityDescriptions>().GetVehicleName();
-        for (int i = 0; i < _infoText.Length; i++)
+        for (int i = 0; i < _infoImage.Length; i++)
         {
-            _infoText[i].text = vehicleDescriptionText[selectedCarID].GetComponent<VehicleAbilityDescriptions>().GetSelectecAbilityText(i).text;
+            _infoImage[i].sprite = vehicleDescriptionImages[selectedCarID].GetComponent<VehicleAbilityDescriptions>().GetSelectecAbilityText(i).sprite;
         }
     }
     
