@@ -42,7 +42,7 @@ public class HypeManager : MonoBehaviour
 {
     public List<PlayerInfo> vehicleList = new List<PlayerInfo>();
     public float totalHype;
-    public Text winnerText;
+    public GameObject winnerText;
     private float tempTotal;
     public GameObject countdownObj;
     public float countdownLength = 45.0f;
@@ -183,6 +183,7 @@ public class HypeManager : MonoBehaviour
         {
             if(inputDelay >= inputDelayMax)
             {
+                winnerText.SetActive(true);
                 if (Input.anyKeyDown) ReturnToMainMenu();
             }
             else
