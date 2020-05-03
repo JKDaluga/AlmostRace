@@ -47,6 +47,7 @@ public class RaycastCar : MonoBehaviour
     [Header("Car UI")]
     public RectTransform UIPanel;
     public RectTransform secondaryUIPanel;
+    public GameObject finishedPanel;
 
     // the physical transforms for the car's wheels
     [Header("Wheels")]
@@ -217,6 +218,15 @@ public class RaycastCar : MonoBehaviour
 
         // call the function to start processing all vehicle physics
         carPhysicsUpdate();
+
+
+        if (finished)
+        {
+            if(!finishedPanel.activeSelf || !finishedPanel.activeInHierarchy)
+            {
+                finishedPanel.SetActive(true);
+            }
+        }
     }
 
     void setUpWheels()
