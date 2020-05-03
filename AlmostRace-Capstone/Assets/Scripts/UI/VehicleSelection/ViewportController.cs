@@ -140,7 +140,7 @@ public class ViewportController : MonoBehaviour
 
     private void PanelViewState()
     {
-        abilityExampleScript[selectedCarID].DeactivateCurrentAbility();
+        //abilityExampleScript[selectedCarID].DeactivateCurrentAbility();
         for (int i = 0; i < infoPanels.Length; i++)
         {
             if (i == _selectedInfoPanel)

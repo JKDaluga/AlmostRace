@@ -171,6 +171,7 @@ public class PlayAbilityExamples : MonoBehaviour
         for (int i = 0; i < currentAbilityExample.Length; i++)
         {
             currentAbilityExample[i] = false;
+            /*
             if (i == 1)
             {
                 offensiveAbility.DeactivateAbility();
@@ -183,6 +184,7 @@ public class PlayAbilityExamples : MonoBehaviour
             {
                 boostAbility.DeactivateAbility();
             }
+            */
         }
     }
 }
