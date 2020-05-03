@@ -13,12 +13,13 @@ public class SpeedRampBehaviour : MonoBehaviour
     // Start is called before the first frame update
     public void OnTriggerEnter(Collider other)
     {
-        foreach(ParticleSystem vfx in vfxToActivate)
-        {
-            vfx.Play();
-        }
+     
             if (other.gameObject.GetComponent<RaycastCar>() != null)
             {
+            foreach (ParticleSystem vfx in vfxToActivate)
+            {
+                vfx.Play();
+            }
 
             _carToAdd = other.gameObject.GetComponent<RaycastCar>();
                 if (!_boostedCars.Contains(_carToAdd))
