@@ -97,11 +97,11 @@ public class RespawnPlatformBehavior : MonoBehaviour
     {
         RaycastCar car = _playerObject.GetComponent<RaycastCar>();
         Vector3 nearestPointOnSpline = car.GetNearestPointOnSpline(0);
-        transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y, nearestPointOnSpline.z) + (spawnHeight*LocalUp);
         
         Vector3 pointOnSplineForward = car.GetNearestPointOnSpline(lookDistanceForward);
         LocalUp = FindNormal(nearestPointOnSpline, _raceManager.orderedSplines[car.activeSpline]).normalized;
-        transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
+        transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y, nearestPointOnSpline.z) + (spawnHeight * LocalUp);
+        transform.LookAt(pointOnSplineForward, LocalUp);
     }
 
     // If there is no HotSpotBot, and there is not HotSpotBotSpline, spawn the vehicle at its death location
@@ -117,11 +117,22 @@ public class RespawnPlatformBehavior : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
        // _carMesh.SetActive(false);
         yield return new WaitForSeconds(respawnSeconds / 2f);
+        VehicleInput vi = _playerObject.GetComponent<VehicleInput>();
+        if(vi != null)
+        {
+            vi.setStatus(false);
+        }
         _movingCar = true;
        // _carMesh.SetActive(true);
         yield return new WaitForSeconds(respawnSeconds / 5f);
         _playerObject.GetComponent<CarHealthBehavior>().Respawn();
+        RaycastCar car = _playerObject.GetComponent<RaycastCar>();
+        car.ignoreGravityDirection = true;
         _movingCar = false;
+        if (vi != null)
+        {
+            vi.setStatus(true);
+        }
     }
 
     // Update is called once per frame
@@ -136,6 +147,7 @@ public class RespawnPlatformBehavior : MonoBehaviour
             _playerObject.transform.rotation = transform.rotation;
             RaycastCar car = _playerObject.GetComponent<RaycastCar>();
             car.ignoreGravityDirection = true;
+            car.setGravityFlag(true);
         }
     }
 
@@ -158,34 +170,53 @@ public class RespawnPlatformBehavior : MonoBehaviour
             transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y, nearestPointOnSpline.z) + (spawnHeight * LocalUp);
 
             Vector3 pointOnSplineForward = cheats.getRearPlayer().GetNearestPointOnSpline(lookDistanceForward);
-            transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z));
+            LocalUp = FindNormal(nearestPointOnSpline, _raceManager.orderedSplines[cheats.getRearPlayer().activeSpline]).normalized;
+            transform.position = new Vector3(nearestPointOnSpline.x, nearestPointOnSpline.y, nearestPointOnSpline.z) + (spawnHeight * LocalUp);
+            transform.LookAt(new Vector3(pointOnSplineForward.x, transform.position.y, pointOnSplineForward.z), LocalUp);
         }
     }
 
     private Vector3 FindNormal(Vector3 position, GameObject roadMeshes)
     {
-        Collider[] colliders = roadMeshes.GetComponentsInChildren<Collider>();
+        MeshCollider[] colliders = roadMeshes.GetComponentsInChildren<MeshCollider>();
         if(colliders == null || colliders.Length == 0)
         {
             colliders = _raceManager.ArenaColliders;
         }
-        Collider closestCollider = colliders[0];
-        Vector3 closestPoint = closestCollider.ClosestPointOnBounds(position);
+        MeshCollider closestCollider = colliders[0];
+        Vector3 closestPoint = closestCollider.bounds.ClosestPoint(position);
         float distanceB = Vector3.Distance(closestPoint, position);
 
-        foreach (Collider collider in colliders)
+        foreach (MeshCollider col in colliders)
         {
-            Vector3 closestPointA = collider.ClosestPointOnBounds(position);
+            /*Vector3 closestPointA = col.ClosestPointOnBounds(position);
             float distanceA = Vector3.Distance(closestPointA, position);
 
-            if (distanceA < distanceB)
+            if (distanceA < distanceB && distanceA > 0)
             {
-                closestCollider = collider;
+                closestCollider = col;
                 closestPoint = closestPointA;
                 distanceB = distanceA;
+            }*/
+            
+            foreach(Vector3 pos in col.sharedMesh.vertices)
+            {
+                float distanceA = Vector3.Distance(pos, position);
+                if (distanceA < distanceB)
+                {
+
+                    closestCollider = col;
+                    closestPoint = pos;
+                    distanceB = distanceA;
+                }
             }
         }
 
-        return position - closestPoint;
+        RaycastHit hit;
+
+        if (Physics.Raycast(position, closestPoint-position, out hit, Mathf.Infinity, LayerMask.GetMask("Ground")))
+            return hit.normal.normalized;
+        else
+            return Vector3.up;
     }
 }

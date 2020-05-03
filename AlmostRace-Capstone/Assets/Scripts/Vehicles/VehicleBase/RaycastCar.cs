@@ -102,6 +102,7 @@ public class RaycastCar : MonoBehaviour
     public Vector3 closestVertex = Vector3.zero;
     public int closestIndex = 0;
     private Vector3 vertexAim = Vector3.zero;
+    private bool gravityFlag = false;
 
     public int activeSpline = 0;
     RaceManager rc;
@@ -379,15 +380,23 @@ public class RaycastCar : MonoBehaviour
         //gravity
         if(isCarGrounded())
         {
-            carRigidbody.AddForce(-carUp.normalized * gravity * carRigidbody.mass);
-            ignoreGravityDirection = false;
+            if (gravityFlag)
+                StartCoroutine("AdjustGravity");
+            if(ignoreGravityDirection)
+            {
+                carRigidbody.AddForce(-carUp.normalized * gravity * carRigidbody.mass / 2.5f);
+            }
+            else
+            {
+                carRigidbody.AddForce(-carUp.normalized * gravity * carRigidbody.mass);
+            }
             gravityDirection = -carUp;
         }
         else
         {
             if (ignoreGravityDirection)
             {
-                carRigidbody.AddForce(-carUp.normalized * gravity * carRigidbody.mass);
+                carRigidbody.AddForce(-carUp.normalized * gravity * carRigidbody.mass / 2.5f);
             }
             else
             {
@@ -503,7 +512,7 @@ public class RaycastCar : MonoBehaviour
 
     public void cheatPhysics()
     {
-        if (currentSpeed > maxSpeed + boostSpeed + boostPadSpeed)
+        if (currentSpeed > maxSpeed + boostSpeed + boostPadSpeed && !ignoreGravityDirection)
         {
             //Debug.Log("but why");
             //get relative down velocity vector
@@ -571,5 +580,20 @@ public class RaycastCar : MonoBehaviour
 
 
     return closestWorldPoint;
+    }
+
+    IEnumerator AdjustGravity()
+    {
+        gravityFlag = false;
+        for(int i = 0; i < 20; i++)
+        {
+            yield return null;
+        }
+        ignoreGravityDirection = false;
+    }
+
+    public void setGravityFlag(bool b)
+    {
+        gravityFlag = b;
     }
 }

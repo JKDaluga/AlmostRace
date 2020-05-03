@@ -95,11 +95,20 @@ public class CarHealthBehavior : MonoBehaviour
 
         gradient.SetKeys(colorKey, alphaKey);
 
-        _carBodyHolder = carObject.GetComponent<Rigidbody>();
+        _carBodyHolder = GetComponent<Rigidbody>();
         raycastCarHolder = GetComponent<RaycastCar>();
         _carCollider = raycastCarHolder.GetComponent<Collider>();
         _objectPooler = ObjectPooler.instance;
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Kill();
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
