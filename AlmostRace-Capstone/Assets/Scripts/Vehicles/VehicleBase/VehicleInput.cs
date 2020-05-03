@@ -68,6 +68,8 @@ public class VehicleInput : MonoBehaviour
 
     public string bumperLeft { get { return _bumperLeftName; } }
     private string _bumperLeftName;
+    public string triggersRightLeft { get { return _triggers; } }
+    private string _triggers;
 
 
     private string[] _inputNum = new string[4] { "P1", "P2", "P3", "P4"};
@@ -118,6 +120,7 @@ public class VehicleInput : MonoBehaviour
                 _verticalName = "VerticalUI" + _inputNum[playerNumber - 1];
                 _bumperRightName = "BumperRight" + _inputNum[playerNumber - 1];
                 _bumperLeftName = "BumperLeft" + _inputNum[playerNumber - 1];
+                _triggers = "Triggers" + _inputNum[playerNumber - 1];
         #endif
 
         #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX

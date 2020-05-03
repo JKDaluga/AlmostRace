@@ -16,8 +16,8 @@ public class ViewportController : MonoBehaviour
     public GameObject playerNumDisplay;
     public GameObject cover;
     public Camera viewportCamera;
-    public RawImage inactiveImage;
-    public RawImage readyImage;
+    public Image inactiveImage;
+    public Image readyImage;
     public GameObject infoPanelHolder;
     public GameObject[] infoPanels = new GameObject[4];
     public GameObject[] vehicleDescriptionImages;
@@ -37,6 +37,7 @@ public class ViewportController : MonoBehaviour
     private bool _joined;
     private int _vehicleCount;
     private int _selectedInfoPanel;
+    private bool _switchingPanel;
 
     private void Start()
     {
@@ -72,7 +73,7 @@ public class ViewportController : MonoBehaviour
 
     private void VehicleScroll()
     {
-        if (Input.GetAxis(_playerInput.horizontal) > 0.3f || Input.GetAxis(_playerInput.horizontalDPad) > 0)
+        if (Input.GetAxis(_playerInput.horizontal) > 0.3f || Input.GetAxis(_playerInput.triggersRightLeft) > 0)
         {
             if(!_rotateSelection.GetSwitching())
             {
@@ -90,7 +91,7 @@ public class ViewportController : MonoBehaviour
                 AbilityInfoViewState();
             }
         }
-        else if (Input.GetAxis(_playerInput.horizontal) < -0.3f || Input.GetAxis(_playerInput.horizontalDPad) < 0)
+        else if (Input.GetAxis(_playerInput.horizontal) < -0.3f || Input.GetAxis(_playerInput.triggersRightLeft) < 0)
         {
             if(!_rotateSelection.GetSwitching())
             {
@@ -112,29 +113,41 @@ public class ViewportController : MonoBehaviour
 
     private void InfoScroll()
     {
-        if(Input.GetButtonDown(_playerInput.bumperRight))
+        if (!_switchingPanel)
         {
-            if (_selectedInfoPanel >= infoPanels.Length - 1)
+            if(Input.GetButtonDown(_playerInput.bumperRight) || Input.GetAxis(_playerInput.horizontalDPad) > 0)
             {
-                _selectedInfoPanel = 0;
+                _switchingPanel = true;
+                if (_selectedInfoPanel >= infoPanels.Length - 1)
+                {
+                    _selectedInfoPanel = 0;
+                }
+                else
+                {
+                    _selectedInfoPanel = _selectedInfoPanel + 1;
+                }
+                PanelViewState();
             }
-            else
+            else if (Input.GetButtonDown(_playerInput.bumperLeft) || Input.GetAxis(_playerInput.horizontalDPad) < 0)
             {
-                _selectedInfoPanel = _selectedInfoPanel + 1;
+                _switchingPanel = true;
+                if (_selectedInfoPanel <= 0)
+                {
+                    _selectedInfoPanel = infoPanels.Length - 1;
+                }
+                else
+                {
+                    _selectedInfoPanel = _selectedInfoPanel - 1;
+                }
+                PanelViewState();
             }
-            PanelViewState();
         }
-        else if (Input.GetButtonDown(_playerInput.bumperLeft))
-        {
-            if (_selectedInfoPanel <= 0)
+        else 
+        {   
+            if (Input.GetButtonUp(_playerInput.bumperRight) || Input.GetAxis(_playerInput.horizontalDPad) == 0)
             {
-                _selectedInfoPanel = infoPanels.Length - 1;
+                _switchingPanel = false;
             }
-            else
-            {
-                _selectedInfoPanel = _selectedInfoPanel - 1;
-            }
-            PanelViewState();
         }
     }
 

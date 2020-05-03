@@ -236,7 +236,7 @@ public class CarHealthBehavior : MonoBehaviour
         raycastCarHolder.frontRightRayCast.gameObject.SetActive(false);
         raycastCarHolder.rearLeftRayCast.gameObject.SetActive(false);
         raycastCarHolder.rearRightRayCast.gameObject.SetActive(false);
-       raycastCarHolder.enabled = false;
+        raycastCarHolder.enabled = false;
         //GetComponent<VehicleAbilityBehavior>().enabled = false;
         GetComponent<VehicleAbilityBehavior>().abilitiesActivated = false;
 
