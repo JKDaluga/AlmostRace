@@ -28,6 +28,11 @@ public class HypeGateAggro : MonoBehaviour
                 int id_num = other.gameObject.GetComponent<RaycastCar>().playerID - 1;
                 FindObjectOfType<DataManager>().playerInfo[id_num].timerRace1 = FindObjectOfType<RaceManager>().time;
                 other.gameObject.GetComponent<RaycastCar>().inArena = true;
+
+                if(other.gameObject.GetComponent<VehicleInput>() != null)
+                {
+                    other.gameObject.GetComponent<RaycastCar>().secondaryUIPanel.gameObject.GetComponent<PlayerUIManager>().TriggerTimePopup();
+                }
             }
         }
     }

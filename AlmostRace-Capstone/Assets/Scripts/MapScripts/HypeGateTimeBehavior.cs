@@ -79,7 +79,6 @@ public class HypeGateTimeBehavior : MonoBehaviour
                         car.gameObject.GetComponent<RaycastCar>().playerUIManagerScript.ActivateArenaHypeDisplay();
                         car.gameObject.GetComponent<RaycastCar>().playerUIManagerScript.arenaHypeText.text = "Arena Locked";
                         car.gameObject.GetComponent<RaycastCar>().playerUIManagerScript.lockBottomFill.fillAmount = playerPercentage;
-                        car.gameObject.GetComponent<RaycastCar>().playerUIManagerScript.TriggerTimePopup();
                     }
 
                 }
