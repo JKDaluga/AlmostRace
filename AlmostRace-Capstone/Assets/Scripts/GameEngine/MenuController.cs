@@ -21,10 +21,12 @@ public class MenuController : MonoBehaviour
     private SphereCarController[] _sphereCarController;
     private VehicleInput[] _vehicleInput;
     private static bool isGamePaused = true;
+    private static bool isGameEnded = false;
 
     private void Start()
     {
         isGamePaused = false;
+        isGameEnded = false;
         arrV = FindObjectsOfType<VehicleInput>();
         _eventSystem = FindObjectOfType<EventSystem>();
         _engineSoundsToControl = FindObjectsOfType<EngineAudio>();
@@ -35,7 +37,7 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetButtonDown("Pause"))
+        if(Input.GetButtonDown("Pause") && isGameEnded==false)
         {
             if (pauseMenu.activeSelf == true)
             {
@@ -138,5 +140,10 @@ public class MenuController : MonoBehaviour
     public static void setIsGamePaused(bool isPaused)
     {
         isGamePaused = isPaused;
+    }
+
+    public static void GameEnds(bool isEnded)
+    {
+        isGameEnded = isEnded;
     }
 }
