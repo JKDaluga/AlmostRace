@@ -164,6 +164,7 @@ public class HypeManager : MonoBehaviour
         {
             isGameEnded = true;
             MenuController.setIsGamePaused(true);
+            MenuController.GameEnds(true);
             eventPanel.SetActive(true);
             calculateHype();
             HypeListAssign();
