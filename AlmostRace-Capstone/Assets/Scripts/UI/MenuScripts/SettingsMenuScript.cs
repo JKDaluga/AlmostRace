@@ -101,7 +101,7 @@ public class SettingsMenuScript : MonoBehaviour
             if (isStart == false)
             {
                 StartCoroutine(SelectionEvent(mSliderArrowLeft));
-            mSliderArrowRight.color = new Color32(12, 193, 184,255);
+                mSliderArrowRight.color = new Color32(12, 193, 184,255);
             }
         }
 
@@ -180,7 +180,11 @@ public class SettingsMenuScript : MonoBehaviour
     {
         litUpImage.color = new Color32(243, 238, 128, 255);
 
-        yield return new WaitForSeconds(.1f);
+        float waitTime = Time.realtimeSinceStartup + 0.1f;
+        while (Time.realtimeSinceStartup < waitTime)
+        {
+            yield return null;
+        }
 
         litUpImage.color = new Color32(12, 193, 184, 255);
     }
