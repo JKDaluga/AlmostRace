@@ -37,7 +37,7 @@ public class MenuController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetButtonDown("Pause") && isGameEnded==false)
+        if(Input.GetButtonDown("Pause") && !Countdown.activeSelf)
         {
             if (pauseMenu.activeSelf == true)
             {
