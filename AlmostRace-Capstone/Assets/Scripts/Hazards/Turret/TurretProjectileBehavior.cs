@@ -41,17 +41,15 @@ public class TurretProjectileBehavior : Projectile
                 {
                     // Debug.Log("object hit:" + other.gameObject.name);
                     other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
-
-                    GameObject spawnedImpactVFX = _objectPooler.SpawnFromPool("LaserImpactSparks", transform.position, transform.rotation);
-                    _objectPooler.DeactivateAfterTime("LaserImpactSparks", spawnedImpactVFX, 1);
-
+                    GameObject spawnedImpactVFX1 = _objectPooler.SpawnFromPool("LaserImpactSparks", transform.position, transform.rotation);
+                    _objectPooler.StartCoroutine(_objectPooler.DeactivateAfterTime("LaserImpactSparks", spawnedImpactVFX1, 1));
                     Destroy(gameObject);
                     // StartCoroutine(ExplosionEffect());
                 }
             }
 
             GameObject spawnedImpactVFX2 = _objectPooler.SpawnFromPool("LaserImpactSparks", transform.position, transform.rotation);
-            _objectPooler.DeactivateAfterTime("LaserImpactSparks", spawnedImpactVFX2, 1);
+            _objectPooler.StartCoroutine(_objectPooler.DeactivateAfterTime("LaserImpactSparks", spawnedImpactVFX2, 1));
             StartCoroutine(ExplosionEffect());
         }
         else if (other.gameObject.GetComponent<CarHealthBehavior>() != null)
@@ -70,7 +68,7 @@ public class TurretProjectileBehavior : Projectile
 
 
             GameObject spawnedImpactVFX = _objectPooler.SpawnFromPool("LaserImpactSparks", transform.position, transform.rotation);
-            _objectPooler.DeactivateAfterTime("LaserImpactSparks", spawnedImpactVFX, 1);
+            _objectPooler.StartCoroutine(_objectPooler.DeactivateAfterTime("LaserImpactSparks", spawnedImpactVFX, 1));
 
             StartCoroutine(ExplosionEffect());
         }
@@ -78,7 +76,7 @@ public class TurretProjectileBehavior : Projectile
         {
 
             GameObject spawnedImpactVFX = _objectPooler.SpawnFromPool("LaserImpactSparks", transform.position, transform.rotation);
-            _objectPooler.DeactivateAfterTime("LaserImpactSparks", spawnedImpactVFX, 1);
+            _objectPooler.StartCoroutine(_objectPooler.DeactivateAfterTime("LaserImpactSparks", spawnedImpactVFX, 1));
 
             StartCoroutine(ExplosionEffect());
         }
