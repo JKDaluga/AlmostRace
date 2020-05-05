@@ -59,6 +59,7 @@ public class TurretBehavior : Interactable
    private Vector3 m_lastKnownPosition = Vector3.zero;
    private Quaternion m_lookAtRotation;
 
+    private ObjectPooler _objectPooler;
     // Start is called before the first frame update
     void Start()
     {
@@ -66,6 +67,7 @@ public class TurretBehavior : Interactable
         _originalHealth = interactableHealth;
         canBeDamaged = true;
         _turretSound = gameObject.GetComponent<AudioSource>();
+        _objectPooler = ObjectPooler.instance;
     }
 
     public override void DamageInteractable(float damageNumber)
@@ -191,7 +193,7 @@ public class TurretBehavior : Interactable
         GameObject spawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
         if(!shootsBoulders)
         {
-            spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject, aggroObject);
+            spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject, aggroObject, _objectPooler);
            // Debug.Log("Turret fired a laser!");
 
         }
@@ -207,7 +209,7 @@ public class TurretBehavior : Interactable
             for(int i = 0; i < extraBulletsToSpray; i++)
             {
                 GameObject extraSpawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
-                extraSpawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject, aggroObject);
+                extraSpawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject, aggroObject, _objectPooler);
                 extraSpawnedProjectile.transform.Rotate(Random.Range(-.5f, .5f), Random.Range(-2,2), Random.Range(-.5f, .5f));
             }
            
