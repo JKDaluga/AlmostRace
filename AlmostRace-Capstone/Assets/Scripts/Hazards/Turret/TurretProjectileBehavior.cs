@@ -12,17 +12,19 @@ using Cinemachine;
 public class TurretProjectileBehavior : Projectile
 {
     private GameObject _aggroObject;
+    private ObjectPooler _objectPooler;
     public void Start()
     {
         GiveSpeed();
     }
 
-    public void SetProjectileInfo(float projectileDamage, float projectileSpeed, GameObject immunePlayer, GameObject aggroObject)
+    public void SetProjectileInfo(float projectileDamage, float projectileSpeed, GameObject immunePlayer, GameObject aggroObject, ObjectPooler objPooler)
     {
         _projectileDamage = projectileDamage;
         _projectileSpeed = projectileSpeed;
         _immunePlayer = immunePlayer;
         _aggroObject = aggroObject;
+        _objectPooler = objPooler;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,10 +41,17 @@ public class TurretProjectileBehavior : Projectile
                 {
                     // Debug.Log("object hit:" + other.gameObject.name);
                     other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
+
+                    GameObject spawnedImpactVFX = _objectPooler.SpawnFromPool("LaserImpactSparks", transform.position, transform.rotation);
+                    _objectPooler.DeactivateAfterTime("LaserImpactSparks", spawnedImpactVFX, 1);
+
                     Destroy(gameObject);
                     // StartCoroutine(ExplosionEffect());
                 }
             }
+
+            GameObject spawnedImpactVFX2 = _objectPooler.SpawnFromPool("LaserImpactSparks", transform.position, transform.rotation);
+            _objectPooler.DeactivateAfterTime("LaserImpactSparks", spawnedImpactVFX2, 1);
             StartCoroutine(ExplosionEffect());
         }
         else if (other.gameObject.GetComponent<CarHealthBehavior>() != null)
@@ -55,13 +64,22 @@ public class TurretProjectileBehavior : Projectile
                 other.gameObject.GetComponent<CinemachineImpulseSource>().m_ImpulseDefinition.m_FrequencyGain = .4f;
                 other.gameObject.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
             }
-            
+
 
             //Debug.Log("Damage done to player: " + _projectileDamage);
+
+
+            GameObject spawnedImpactVFX = _objectPooler.SpawnFromPool("LaserImpactSparks", transform.position, transform.rotation);
+            _objectPooler.DeactivateAfterTime("LaserImpactSparks", spawnedImpactVFX, 1);
+
             StartCoroutine(ExplosionEffect());
         }
         else if (other.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
+
+            GameObject spawnedImpactVFX = _objectPooler.SpawnFromPool("LaserImpactSparks", transform.position, transform.rotation);
+            _objectPooler.DeactivateAfterTime("LaserImpactSparks", spawnedImpactVFX, 1);
+
             StartCoroutine(ExplosionEffect());
         }
         else
