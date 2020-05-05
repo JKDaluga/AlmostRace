@@ -12,6 +12,8 @@ public class MenuController : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject resumeButton;
+    public GameObject settingsMenu;
+    public GameObject buttonPanel;
     public Text winText;
     public GameObject Countdown;
     private VehicleInput[] arrV;
@@ -50,6 +52,8 @@ public class MenuController : MonoBehaviour
                     car.setStatus(true);
                 }
                 Time.timeScale = 1f;
+                settingsMenu.SetActive(false);
+                buttonPanel.SetActive(true);
                 pauseMenu.SetActive(false);
                 isGamePaused = false;
                 UnpauseSoundHandle();
