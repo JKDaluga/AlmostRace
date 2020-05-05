@@ -179,14 +179,14 @@ public class TurretBehavior3 : Interactable
             else
             {
                 GameObject spawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
-                spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject, aggroObject);
+                //spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject, aggroObject);
                 if (spraysBullets)
                 {
 
                     for (int i = 0; i < extraBulletsToSpray; i++)
                     {
                         GameObject extraSpawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
-                        extraSpawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject, aggroObject);
+                    //    extraSpawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject, aggroObject);
                         extraSpawnedProjectile.transform.Rotate(Random.Range(-.5f, .5f), Random.Range(-2, 2), Random.Range(-.5f, .5f));
                     }
                 }
