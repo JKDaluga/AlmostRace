@@ -103,6 +103,8 @@ public class RaycastCar : MonoBehaviour
     public int closestIndex = 0;
     private Vector3 vertexAim = Vector3.zero;
     private bool gravityFlag = false;
+    private float maxAirTime = 4f;
+    private float currentAirTime = 0f;
 
     public int activeSpline = 0;
     RaceManager rc;
@@ -212,6 +214,16 @@ public class RaycastCar : MonoBehaviour
         if (isCarGrounded())
         {
             lastSafePos = carTransform.position;
+            currentAirTime = 0f;
+        }
+        else
+        {
+            currentAirTime += Time.deltaTime;
+            if(currentAirTime >= maxAirTime)
+            {
+                currentAirTime = 0f;
+                GetComponent<CarHealthBehavior>().Kill();
+            }
         }
 
         //call the function to see what input we are using and apply it
