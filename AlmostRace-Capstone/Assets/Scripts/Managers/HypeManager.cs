@@ -66,7 +66,12 @@ public class HypeManager : MonoBehaviour
     [Header("Hype Value Variables")]
     public float hypePerKill;
     public float[] hypeForRacePosition;
-    public float hypeLosePerDeath;
+    public float maxHypePerRace = 200f;
+    public float timeBufferRace1 = 95f;
+    public float maxTimeRace1 = 240f;
+    public float timeBufferRace2 = 70f;
+    public float maxTimeRace2 = 210f;
+
 
     int numNodes;
 
@@ -174,7 +179,7 @@ public class HypeManager : MonoBehaviour
 
             Invoke("DisableEvents", 3);
 
-            AudioManager.instance.PlayWithoutSpatial("Victory Music");
+            //AudioManager.instance.PlayWithoutSpatial("Victory Music");
         }
     }
 
@@ -210,7 +215,12 @@ public class HypeManager : MonoBehaviour
     {
         foreach(PlayerInfo player in DataManager.instance.playerInfo)
         {
-            player.hypeAmount = (player.numKills * hypePerKill) + hypeForRacePosition[player.placeRace1] + hypeForRacePosition[player.placeRace2] - (player.numDeaths * hypeLosePerDeath);
+            //Kills
+            player.hypeAmount = (player.numKills * hypePerKill);
+            //Race1
+            player.hypeAmount += hypeForRacePosition[player.placeRace1] + (int) (Mathf.Clamp(1f-((player.timerRace1 - timeBufferRace1)/maxTimeRace1), 0, maxHypePerRace) * maxHypePerRace);
+            //Race2
+            player.hypeAmount += hypeForRacePosition[player.placeRace2] + (int) (Mathf.Clamp(1f - ((player.timerRace2 - timeBufferRace2) / maxTimeRace2), 0, maxHypePerRace) * maxHypePerRace);
         }
     }
 
@@ -242,11 +252,11 @@ public class HypeManager : MonoBehaviour
                 winScreenBoxes[i].ScoreHeader.SetActive(true);
                 winScreenBoxes[i].hypeAmount.text = vehicleList[i].hypeAmount.ToString();
                 winScreenBoxes[i].finishTime.text = "Area 1 - " + DataManager.instance.convertTimeSeconds(vehicleList[i].timerRace1);
-                winScreenBoxes[i].finishHype.text = hypeForRacePosition[vehicleList[i].placeRace1].ToString();
+                winScreenBoxes[i].finishHype.text = (hypeForRacePosition[vehicleList[i].placeRace1] + (int) (Mathf.Clamp(1f - ((vehicleList[i].timerRace1 - timeBufferRace1) / maxTimeRace1), 0, maxHypePerRace) * maxHypePerRace)).ToString();
                 winScreenBoxes[i].numKills.text = "Kills - " + vehicleList[i].numKills.ToString();
                 winScreenBoxes[i].killHype.text = (vehicleList[i].numKills * hypePerKill).ToString();
                 winScreenBoxes[i].finishTime2.text = "Area 2 - " + DataManager.instance.convertTimeSeconds(vehicleList[i].timerRace2);
-                winScreenBoxes[i].finishHype2.text = hypeForRacePosition[vehicleList[i].placeRace2].ToString();
+                winScreenBoxes[i].finishHype2.text = (hypeForRacePosition[vehicleList[i].placeRace2] + (int)(Mathf.Clamp(1f - ((vehicleList[i].timerRace2 - timeBufferRace2) / maxTimeRace2), 0, maxHypePerRace) * maxHypePerRace)).ToString();
             }
         }
     }
