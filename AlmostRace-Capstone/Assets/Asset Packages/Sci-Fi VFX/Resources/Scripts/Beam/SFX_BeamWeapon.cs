@@ -36,7 +36,7 @@ namespace QFX.SFX
         public override void Setup()
         {
             base.Setup();
-            ignore = ~LayerMask.GetMask("AISight", "Detector", "Ignore Abilities");
+            ignore = ~LayerMask.GetMask("AISight", "Detector", "Ignore Abilities", "HotSpotBot");
 
             _lineRenderer = Instantiate(LineRenderer, transform, true);
 
