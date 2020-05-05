@@ -101,7 +101,7 @@ public class SolarCycle_Attack : Ability
                 currentSpawnLocation = 0;
             }
         }
-        attackAnimator.SetTrigger("CoolDownStart");
+        attackAnimator.Play("CoolDownStart");
         foreach (Animator engineAnimation in engineAnimators)
         {
             engineAnimation.Play("EngineDown");
@@ -132,7 +132,7 @@ public class SolarCycle_Attack : Ability
                 currentSpawnLocation = 0;
             }
         }
-        attackAnimator.SetTrigger("CoolDownStart");
+        attackAnimator.Play("CoolDownStart");
         foreach (Animator engineAnimation in engineAnimators)
         {
             engineAnimation.Play("EngineDown");
@@ -182,12 +182,12 @@ public class SolarCycle_Attack : Ability
 
     public override void AbilityOffOfCooldown()
     {
-        attackAnimator.SetTrigger("CoolDownEnd");
+        attackAnimator.Play("CoolDownEnd");
     }
 
     public override void AbilityInUse()
     {
-        attackAnimator.SetTrigger("AttackStart");
+        attackAnimator.Play("AttackStart");
         foreach (Animator engineAnimation in engineAnimators)
         {
             engineAnimation.Play("EngineUp");
