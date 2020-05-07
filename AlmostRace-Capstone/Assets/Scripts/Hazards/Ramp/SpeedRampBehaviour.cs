@@ -19,6 +19,7 @@ public class SpeedRampBehaviour : MonoBehaviour
             foreach (ParticleSystem vfx in vfxToActivate)
             {
                 vfx.Play();
+                AudioManager.instance.PlayWithoutSpatial("BoostPad");
             }
 
             _carToAdd = other.gameObject.GetComponent<RaycastCar>();
