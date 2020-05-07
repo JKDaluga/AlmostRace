@@ -38,26 +38,26 @@ public class SolarCycle_Attack : Ability
     public override void ActivateAbility()
     {
         int curentTargetCount = _objectsInRange.Count;
-        int testForTargetMatchCount = 0;
+        int failedTargetMatches = 0;
         if (ObjectPooler.instance == null)
         {
             Debug.LogError("You are missing an object pooler in your scene");
         }
         if (_objectsInRange.Count > 0)
         {
-            for (int i = 0; i < _objectsInRange.Count; i++)
+            for (int i = _objectsInRange.Count - 1; i >= 0; i--)
             {
                 if (_objectsInRange[i] == null || !attackDetectionCollider.bounds.Contains(_objectsInRange[i].transform.position))
                 {
                     _objectsInRange.RemoveAt(i);
-                   testForTargetMatchCount = testForTargetMatchCount + 1;
+                   failedTargetMatches = failedTargetMatches + 1;
                 }
                 else if (_objectsInRange[i] != null)
                 {
                     StartCoroutine(LaunchSequence(_objectsInRange[i]));
                 }
             }
-            if (curentTargetCount <= testForTargetMatchCount)
+            if (curentTargetCount <= failedTargetMatches)
             {
                 StartCoroutine(LaunchSequence());
             }
@@ -72,6 +72,7 @@ public class SolarCycle_Attack : Ability
     {
         // Equally distribute the projectile count among the current targets
         int missileDistributionCount = projectileCount / _objectsInRange.Count;
+        missileDistributionCount = Mathf.Clamp(missileDistributionCount, 1, projectileCount);
         int currentSpawnLocation = 0;
         for (int j = 0; j < missileDistributionCount; j++)
         {
