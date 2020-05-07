@@ -119,6 +119,7 @@ public class DataManager : MonoBehaviour
         if(playerUIDictionary.ContainsKey(playerID))
         {
             playerUIDictionary[playerID].TriggerKillPopup();
+            AudioManager.instance.PlayWithoutSpatial("KillConfirmed");
         }
         else
         {

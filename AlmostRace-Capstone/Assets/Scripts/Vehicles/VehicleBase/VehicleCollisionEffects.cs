@@ -8,6 +8,7 @@ public class VehicleCollisionEffects : MonoBehaviour
 
     public float velocityRequirement;
     public GameObject sparks;
+    private ObjectPooler _objectPooler;
     public Rigidbody colliderRigidbody;
     public GameObject sparkSoundObject;
     private AudioManager _audioManager;
@@ -34,6 +35,7 @@ public class VehicleCollisionEffects : MonoBehaviour
             sparkSoundObject.transform.position = _audioManager.gameObject.transform.position;
         }
         _audioSource = sparkSoundObject.GetComponent<AudioSource>();
+        _objectPooler = ObjectPooler.instance;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -75,7 +77,9 @@ public class VehicleCollisionEffects : MonoBehaviour
     {
         foreach (ContactPoint contact in givenCollision.contacts)
         {
-            Instantiate(sparks, contact.point, Quaternion.identity);
+            GameObject spawnedCollisionVFX1 = _objectPooler.SpawnFromPool("CarCollisionSparks", contact.point, Quaternion.identity);
+            _objectPooler.StartCoroutine(_objectPooler.DeactivateAfterTime("CarCollisionSparks", spawnedCollisionVFX1, 1));
+           // Instantiate(sparks, contact.point, Quaternion.identity);
         }  
     }
 

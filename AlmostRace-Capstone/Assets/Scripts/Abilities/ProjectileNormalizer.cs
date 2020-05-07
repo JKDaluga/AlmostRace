@@ -10,6 +10,7 @@ public class ProjectileNormalizer : MonoBehaviour
 {
     private Rigidbody rb;
     public LayerMask layerMask;
+    public float raycastMaxDistance = 10f;
 
     private void Start()
     {
@@ -20,7 +21,7 @@ public class ProjectileNormalizer : MonoBehaviour
     void FixedUpdate()
     {
         RaycastHit hitNear;
-        Physics.Raycast(transform.position, Vector3.down, out hitNear, 5.0f, layerMask);
+        Physics.Raycast(transform.position, -transform.up, out hitNear, raycastMaxDistance, layerMask);
 
         if (hitNear.collider != null)
         {
