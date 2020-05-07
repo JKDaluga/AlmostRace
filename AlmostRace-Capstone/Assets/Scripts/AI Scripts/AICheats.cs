@@ -13,7 +13,7 @@ public class AICheats : MonoBehaviour
     public bool cheating;
 
     [Tooltip("Number of Vertices away the AI can be before being warped")]
-    public float killDist = 40;
+    public float killDist = 70;
     private void Start()
     {
         arena = FindObjectOfType<HypeGateTimeBehavior>();
@@ -97,14 +97,14 @@ public class AICheats : MonoBehaviour
 
                 if (rearPlayer.activeSpline == GetComponent<RaycastCar>().activeSpline)
                 {
-                    if (rearPlayer.closestIndex - GetComponent<AIBehaviour>().closestIndex > 70)
+                    if (rearPlayer.closestIndex - GetComponent<AIBehaviour>().closestIndex > killDist)
                     {
                         GetComponent<CarHealthBehavior>().AICheatKill();
                     }
                 }
                 else if (rearPlayer.activeSpline > GetComponent<RaycastCar>().activeSpline)
                 {
-                    if(rearPlayer.closestIndex > 60)
+                    if(rearPlayer.closestIndex > killDist-20)
                     {
                         GetComponent<RaycastCar>().activeSpline++;
                         _raceManager.aiMan.updateAI(GetComponent<AIBehaviour>());
