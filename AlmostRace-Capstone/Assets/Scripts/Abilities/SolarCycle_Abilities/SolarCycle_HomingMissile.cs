@@ -37,8 +37,8 @@ public class SolarCycle_HomingMissile : Projectile
         GiveSpeed();
         if (_target != null)
         {
-            StartCoroutine(hangTimeSequence());
             normalizerScript.enabled = false;
+            StartCoroutine(hangTimeSequence());
             _carHealthStatus = _target.GetComponent<CarHealthBehavior>();
             _interactableStatus = _target.GetComponent<Interactable>();
         }
@@ -123,6 +123,7 @@ public class SolarCycle_HomingMissile : Projectile
     {
         Instantiate(explodeVFX, transform.position, transform.rotation);
         AudioManager.instance.Play("VoidWasp Shot Hit", gameObject.transform);
+        normalizerScript.enabled = true;
         ObjectPooler.instance.Deactivate(poolTag, gameObject);
     }
 
