@@ -22,6 +22,8 @@ public class SettingsMenuScript : MonoBehaviour
     public Text onText, offText, backText;
     public Image aISliderDiamond;
 
+    public GameObject musicHighlight, volumeHighlight, aIHighlight;
+
     private float mSliderPrevious, sSliderPrevious;
     private bool isStart = true;
 
@@ -154,6 +156,7 @@ public class SettingsMenuScript : MonoBehaviour
     public void ChangeSelection(GameObject target)
     {
         EventSystem.current.SetSelectedGameObject(target);
+        target.SetActive(true);
     }
 
     public void DeselectionEvent()
@@ -163,6 +166,10 @@ public class SettingsMenuScript : MonoBehaviour
         sSliderArrowLeft.color = new Color32(12, 193, 184, 255);
         sSliderArrowRight.color = new Color32(12, 193, 184, 255);
         backText.color = new Color32(42, 63, 68, 255);
+        musicHighlight.SetActive(false);
+        volumeHighlight.SetActive(false);
+        if(aIHighlight!=null)
+            aIHighlight.SetActive(false);
     }
 
     public void SelectionEvent()
