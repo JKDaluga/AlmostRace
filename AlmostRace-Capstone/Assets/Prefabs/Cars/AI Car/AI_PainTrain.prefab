@@ -102752,6 +102752,7 @@ MonoBehaviour:
   playerID: 0
   UIPanel: {fileID: 0}
   secondaryUIPanel: {fileID: 0}
+  finishedPanel: {fileID: 0}
   frontLeftWheel: {fileID: 7946266416553576926}
   frontRightWheel: {fileID: 7946266416520774745}
   rearLeftWheel: {fileID: 7946266414862507883}
@@ -102760,12 +102761,12 @@ MonoBehaviour:
   frontRightRayCast: {fileID: 0}
   rearLeftRayCast: {fileID: 0}
   rearRightRayCast: {fileID: 0}
-  gravity: 300
+  gravity: 190
   power: 3000
-  maxSpeed: 235
-  maxTurnAngle: 1
+  maxSpeed: 255
+  maxTurnAngle: 0.75
   carGrip: 100
-  turnSpeed: 1.125
+  turnSpeed: 0.875
   driftStrength: 1
   springFallDisengangeSpeed: 50
   spring: 1250
@@ -102779,7 +102780,12 @@ MonoBehaviour:
   maxFOV: 45
   boostFOV: 5
   currentFOV: 35
+  closestVertex: {x: 0, y: 0, z: 0}
   closestIndex: 0
+  activeSpline: 0
+  ignoreGravityDirection: 0
+  lastSafePos: {x: 0, y: 0, z: 0}
+  onCorkscrew: 0
   inArena: 0
   finished: 0
 --- !u!114 &1568452849965266480
@@ -102867,22 +102873,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayCastCar: {fileID: 97176374644546635}
+  borderImages: []
   offensiveAbility: {fileID: 3029768150828238237}
   offensiveAbilityRecharge: 5
-  offensiveAbilityCooldown: {fileID: 0}
-  offensiveAbilityDark: {fileID: 0}
+  offensiveFillBar: {fileID: 0}
+  offensiveBrightIcon: {fileID: 0}
+  offensiveBrightHex: {fileID: 0}
   offensiveAbilityBG: {fileID: 0}
   defensiveAbility: {fileID: 8335068111711831765}
   defensiveAbilityRecharge: 5
   defensiveAbilityDuration: 3
-  defensiveAbilityCooldown: {fileID: 0}
-  defensiveAbilityDark: {fileID: 0}
+  defensiveAbilityFillAmount: {fileID: 0}
+  defensiveBrightIcon: {fileID: 0}
+  defensiveBrightHex: {fileID: 0}
   DefensiveAbilityBG: {fileID: 0}
   boostAbility: {fileID: 5254767262228300548}
   boostAbilityRecharge: 5
   boostAbilityDuration: 3
-  boostAbilityCooldown: {fileID: 0}
-  boostAbilityDark: {fileID: 0}
+  boostFillBar: {fileID: 0}
+  boostBrightIcon: {fileID: 0}
+  boostBrightHex: {fileID: 0}
   BoostAbilityBG: {fileID: 0}
   offensiveTrigger: 0
   defensiveTrigger: 0
