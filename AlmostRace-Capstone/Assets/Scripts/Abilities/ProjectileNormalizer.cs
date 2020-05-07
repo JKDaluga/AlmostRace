@@ -21,7 +21,7 @@ public class ProjectileNormalizer : MonoBehaviour
     void FixedUpdate()
     {
         RaycastHit hitNear;
-        Physics.Raycast(transform.position, Vector3.down, out hitNear, raycastMaxDistance, layerMask);
+        Physics.Raycast(transform.position, -transform.up, out hitNear, raycastMaxDistance, layerMask);
 
         if (hitNear.collider != null)
         {
