@@ -23,6 +23,7 @@ public class Lux_EnergyBlade : Projectile, IPooledObject
 
     public void OnObjectDeactivate()
     {
+        CancelInvoke("Grow");
         transform.localScale = startingScale;
     }
 
@@ -31,7 +32,6 @@ public class Lux_EnergyBlade : Projectile, IPooledObject
         _growthRate = growthRate;
         _growthAmount = growthAmount;
         _growthLimit = transform.localScale.x + growthLimit;
-
         startingScale = transform.localScale;
         _immuneCars = new List<GameObject>();
         GiveSpeed();

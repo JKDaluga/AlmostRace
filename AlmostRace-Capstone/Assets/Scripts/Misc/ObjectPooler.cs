@@ -96,7 +96,7 @@ public class ObjectPooler : MonoBehaviour
 
         if (pooledObj != null)
         {
-            pooledObj.OnObjectActivate();
+            pooledObj.OnObjectDeactivate();
         }
         objectToDeactivate.SetActive(false);
         objectToDeactivate.transform.position = transform.position;
@@ -106,16 +106,24 @@ public class ObjectPooler : MonoBehaviour
 
     public IEnumerator DeactivateAfterTime(string tag, GameObject objectToDeactivate, float time)
     {
-        poolDictionary[tag].Enqueue(objectToDeactivate);
+        
         yield return new WaitForSeconds(time);
         if (!poolDictionary.ContainsKey(tag))
         {
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist");
         }
+
+        IPooledObject pooledObj = objectToDeactivate.GetComponent<IPooledObject>();
+
+        if (pooledObj != null)
+        {
+            pooledObj.OnObjectDeactivate();
+        }
+
         objectToDeactivate.SetActive(false);
         objectToDeactivate.transform.position = transform.position;
         objectToDeactivate.transform.rotation = transform.rotation;
-       
+        poolDictionary[tag].Enqueue(objectToDeactivate);
 
     }
 
