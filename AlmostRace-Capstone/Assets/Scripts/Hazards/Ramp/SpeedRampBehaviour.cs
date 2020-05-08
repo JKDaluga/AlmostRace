@@ -16,18 +16,18 @@ public class SpeedRampBehaviour : MonoBehaviour
      
             if (other.gameObject.GetComponent<RaycastCar>() != null)
             {
-            foreach (ParticleSystem vfx in vfxToActivate)
-            {
-                vfx.Play();
-                AudioManager.instance.PlayWithoutSpatial("BoostPad");
-            }
+                foreach (ParticleSystem vfx in vfxToActivate)
+                {
+                    vfx.Play();
+                }
 
-            _carToAdd = other.gameObject.GetComponent<RaycastCar>();
+                _carToAdd = other.gameObject.GetComponent<RaycastCar>();
                 if (!_boostedCars.Contains(_carToAdd))
                 {
                     _boostedCars.Add(_carToAdd);
                     other.gameObject.GetComponent<RaycastCar>().SetBoostPadSpeed(speedBoostPercentage / 100);
-                       StartCoroutine(ResetBoost(boostTime, _carToAdd));
+                    StartCoroutine(ResetBoost(boostTime, _carToAdd));
+                    AudioManager.instance.Play("BoostPad", other.gameObject.transform);
                 }
 
             }
