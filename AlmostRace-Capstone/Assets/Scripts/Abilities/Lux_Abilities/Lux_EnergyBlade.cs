@@ -13,7 +13,7 @@ public class Lux_EnergyBlade : Projectile, IPooledObject
     private float _growthAmount;
     private float _growthLimit;
     private CarHealthBehavior carHit;
-    public string poolTag = "LuxAttack";
+    private string poolTag = "LuxAttack";
     private Vector3 startingScale;
 
     public void OnObjectActivate()

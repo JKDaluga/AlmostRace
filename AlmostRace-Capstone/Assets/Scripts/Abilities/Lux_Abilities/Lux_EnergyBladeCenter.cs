@@ -8,7 +8,7 @@ public class Lux_EnergyBladeCenter : MonoBehaviour
     {
         if(other.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
-            Destroy(gameObject.transform.parent.gameObject);
+            ObjectPooler.instance.Deactivate("LuxAttack", gameObject.transform.parent.gameObject);
         }
     }
 }

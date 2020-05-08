@@ -63,6 +63,10 @@ public class ObjectPooler : MonoBehaviour
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist");
             return null;
         }
+        if(poolDictionary[tag].Count == 0)
+        {
+            print(tag);
+        }
         GameObject objectToActivate = poolDictionary[tag].Dequeue();
         if (setParent)
         {

@@ -16,7 +16,7 @@ public class SolarCycle_Attack : Ability
 
     [Header("Projectile Values")]
     [Space(5)]
-    public string projectile = "SCHomingMissile";
+    private string projectile = "SCHomingMissile";
     public Transform[] targetRocketSpawnPositions;
     public Transform[] staticRocketSpawnPositions;
     [Tooltip("How much damage the missile does on impact.")] public float missileDamage;
