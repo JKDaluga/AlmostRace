@@ -33,17 +33,19 @@ public class SolarCycle_Boost : CooldownHeatAbility
 
     [Header("Effects Values")]
     public GameObject[] companions;
-    public GameObject explodeVFX;
+    public string explodeVFXTag = "SCExplodeVFX";
     public Animator[] frontJetParticles;
     public Animator[] backJetParticles;
     public Animator[] boostCones;
     public List<GameObject> shieldsDuringBoost;
     public SolarCycle_Defensive scDefensiveScript;
+    private ObjectPooler _objectPooler;
 
     private void Start()
     {
         carInfo = gameObject.GetComponent<RaycastCar>();
         carHeatInfo = gameObject.GetComponent<CarHealthBehavior>();
+        _objectPooler = ObjectPooler.instance;
         if (carInfo != null)
         {
             originalMaxTurnAngle = carInfo.maxTurnAngle;
@@ -115,7 +117,8 @@ public class SolarCycle_Boost : CooldownHeatAbility
                     if(companions[i].activeSelf)
                     {
                         companions[i].SetActive(false);
-                        Instantiate(explodeVFX, companions[i].transform.position, companions[i].transform.rotation);
+                        GameObject explodeVFXObject = _objectPooler.SpawnFromPool(explodeVFXTag, companions[i].transform.position, companions[i].transform.rotation);
+                        _objectPooler.StartCoroutine(_objectPooler.DeactivateAfterTime(explodeVFXTag, explodeVFXObject, 1));
                         AudioManager.instance.Play("VoidWasp Companion Death", transform);
                         break;
                     }
@@ -140,7 +143,8 @@ public class SolarCycle_Boost : CooldownHeatAbility
         for (int i = 0; i < companions.Length; i++)
         {
             companions[i].SetActive(false);
-            Instantiate(explodeVFX, companions[i].transform.position, companions[i].transform.rotation);
+            GameObject explodeVFXObject = _objectPooler.SpawnFromPool(explodeVFXTag, companions[i].transform.position, companions[i].transform.rotation);
+            _objectPooler.StartCoroutine(_objectPooler.DeactivateAfterTime(explodeVFXTag, explodeVFXObject, 1));
             AudioManager.instance.Play("VoidWasp Companion Death", transform);
         }
         for (int i = 0; i < backJetParticles.Length; i++)

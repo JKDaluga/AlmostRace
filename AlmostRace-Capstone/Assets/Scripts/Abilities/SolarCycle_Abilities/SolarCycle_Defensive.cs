@@ -25,14 +25,16 @@ public class SolarCycle_Defensive : CooldownAbility
     public List<GameObject> shields;
     public List<Animator> shieldGenerators;
     public LineRenderer[] lineRender;
-    public GameObject explodeVFX;
+    public string explodeVFXTag = "SCExplodeVFX";
     private CarHealthBehavior _carHealthScript;
+    private ObjectPooler _objectPooler;
     private float[] _startParticleLifetimes;
     private bool _isActive;
  
     void Start()
     {
         _carHealthScript = gameObject.GetComponent<CarHealthBehavior>();
+        _objectPooler = ObjectPooler.instance;
         _startParticleLifetimes = new float[shields.Count];
         for (int i = 0; i < shields.Count; i++)
         {
@@ -161,7 +163,8 @@ public class SolarCycle_Defensive : CooldownAbility
         foreach (Animator shieldGen in shieldGenerators)
         {
             shieldGen.Play("SCShieldGenCooldown");
-            Instantiate(explodeVFX, shieldGen.transform.position, shieldGen.transform.rotation);
+            GameObject explodeVFXObject = _objectPooler.SpawnFromPool(explodeVFXTag, shieldGen.transform.position, shieldGen.transform.rotation);
+            _objectPooler.StartCoroutine(_objectPooler.DeactivateAfterTime(explodeVFXTag, explodeVFXObject, 1));
             AudioManager.instance.Play("VoidWasp Companion Death", transform);
         }
         _isActive = false;

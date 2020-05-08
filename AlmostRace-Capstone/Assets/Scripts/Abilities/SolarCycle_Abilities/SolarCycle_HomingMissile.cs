@@ -10,9 +10,9 @@ using UnityEngine;
 
 public class SolarCycle_HomingMissile : Projectile
 {
-    public GameObject explodeVFX;
     public ProjectileNormalizer normalizerScript;
     public string poolTag = "SCHomingMissile";
+    public string explodeVFXTag = "SCExplodeVFX";
     private GameObject _target;
     private Quaternion _missileTargetRotation;
     private CarHealthBehavior _carHealthStatus;
@@ -20,16 +20,18 @@ public class SolarCycle_HomingMissile : Projectile
     private float _turnRate;
     private float _hangTime;
     private bool _canTrack;
+    private ObjectPooler _objectPooler;
 
     private CarHealthBehavior carHit;
 
     public void SetAdditionalInfo(GameObject giventTarget, float givenTurnRate, float givenHangTime, float maxLifeTime)
     {
+        _objectPooler = ObjectPooler.instance;
         _target = giventTarget;
         _turnRate = givenTurnRate;
         _hangTime = givenHangTime;
         OnMissileActivation();
-        StartCoroutine(ObjectPooler.instance.DeactivateAfterTime(poolTag, gameObject, maxLifeTime));
+        StartCoroutine(_objectPooler.DeactivateAfterTime(poolTag, gameObject, maxLifeTime));
     }
 
     private void OnMissileActivation()
@@ -121,10 +123,11 @@ public class SolarCycle_HomingMissile : Projectile
 
     private void Explode()
     {
-        Instantiate(explodeVFX, transform.position, transform.rotation);
+        GameObject explodeVFXObject = _objectPooler.SpawnFromPool(explodeVFXTag, transform.position, transform.rotation);
+        _objectPooler.StartCoroutine(_objectPooler.DeactivateAfterTime(explodeVFXTag, explodeVFXObject, 1));
         AudioManager.instance.Play("VoidWasp Shot Hit", gameObject.transform);
         normalizerScript.enabled = true;
-        ObjectPooler.instance.Deactivate(poolTag, gameObject);
+        _objectPooler.Deactivate(poolTag, gameObject);
     }
 
     public GameObject GetImmunePlayer()
