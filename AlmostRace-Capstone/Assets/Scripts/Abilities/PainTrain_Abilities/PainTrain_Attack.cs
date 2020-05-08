@@ -33,7 +33,7 @@ public class PainTrain_Attack : Ability
     /// How fast the Ball travels
     /// </summary>
     public float lightningBallSpeed;
-
+    private string projectile = "PainTrainLightningBall";
 
     [Header("Skull Variables")]
 
@@ -45,14 +45,14 @@ public class PainTrain_Attack : Ability
     {
         AudioManager.instance.Play("Pain Train Attack", transform);
         //Debug.Log("Ability should be activated!");
-        GameObject spawnedLightningBall = Instantiate(lightningBall, muzzle.position, muzzle.rotation);
+        GameObject spawnedLightningBall = ObjectPooler.instance.SpawnFromPool(projectile, muzzle.position, muzzle.rotation); //Instantiate(lightningBall, muzzle.position, muzzle.rotation);
 
-        spawnedLightningBall.GetComponent<PainTrain_LightningBall>().SetProjectileInfo(0, lightningBallSpeed, 0);
         spawnedLightningBall.GetComponent<PainTrain_LightningBall>().SetImmunePlayer(gameObject);
-
-        spawnedLightningBall.GetComponent<PainTrain_LightningBall>().GiveInfo(lightningBallDamage, lightningBallDuration, lightningBallFrequency);
-        Destroy(spawnedLightningBall, 10);
+        spawnedLightningBall.GetComponent<PainTrain_LightningBall>().SetProjectileInfo(0, lightningBallSpeed, 0);
         
+        spawnedLightningBall.GetComponent<PainTrain_LightningBall>().GiveInfo(lightningBallDamage, lightningBallDuration, lightningBallFrequency);
+
+        StartCoroutine(ObjectPooler.instance.DeactivateAfterTime(projectile, spawnedLightningBall, 10));
     }
 
     public override void DeactivateAbility()

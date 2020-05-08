@@ -93,6 +93,7 @@ public abstract class Projectile : MonoBehaviour
        // _rigidBody.isKinematic = true;
          meshRenderer.enabled = false;     
             yield return null;
-        Destroy(gameObject);
+        ObjectPooler.instance.Deactivate("TurretBullet", gameObject);
+        //Destroy(gameObject);
     }
 }

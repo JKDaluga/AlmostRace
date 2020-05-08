@@ -29,7 +29,7 @@ public class TurretBehavior : Interactable
     [Header("Projectile Variables............................................................")]
     [Space(30)]
     public bool shootsBoulders = false;
-    public GameObject turretProjectile;
+    private string turretProjectile = "TurretBullet";
     public float turretProjectileDamage;
     public float turretProjectileSpeed;
    
@@ -190,8 +190,10 @@ public class TurretBehavior : Interactable
     {
        // Debug.Log("Turret should be firing!");
         AudioManager.instance.Play("Turret Shot", transform);//play firing sound
-        GameObject spawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
-        if(!shootsBoulders)
+       
+        GameObject spawnedProjectile = ObjectPooler.instance.SpawnFromPool(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
+        StartCoroutine(ObjectPooler.instance.DeactivateAfterTime("TurretBullet", spawnedProjectile, 7));
+        if (!shootsBoulders)
         {
             spawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject, aggroObject, _objectPooler);
            // Debug.Log("Turret fired a laser!");
@@ -208,7 +210,8 @@ public class TurretBehavior : Interactable
 
             for(int i = 0; i < extraBulletsToSpray; i++)
             {
-                GameObject extraSpawnedProjectile = Instantiate(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
+                GameObject extraSpawnedProjectile = ObjectPooler.instance.SpawnFromPool(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
+                StartCoroutine(ObjectPooler.instance.DeactivateAfterTime("TurretBullet", extraSpawnedProjectile, 7));
                 extraSpawnedProjectile.GetComponent<TurretProjectileBehavior>().SetProjectileInfo(turretProjectileDamage, turretProjectileSpeed, gameObject, aggroObject, _objectPooler);
                 extraSpawnedProjectile.transform.Rotate(Random.Range(-.5f, .5f), Random.Range(-2,2), Random.Range(-.5f, .5f));
             }

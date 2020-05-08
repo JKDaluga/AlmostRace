@@ -209,7 +209,7 @@ public class PlayerUIManager : MonoBehaviour
         //UpdateAttackIndicators();
 
         //TestKillPopup();
-        TestTriggerTimePopup();
+        //TestTriggerTimePopup();
     }
 
     // Keeps track of, updates the position, and shows attack indicators

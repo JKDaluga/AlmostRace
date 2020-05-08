@@ -101,14 +101,6 @@ public class CarHealthBehavior : MonoBehaviour
         _objectPooler = ObjectPooler.instance;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            Kill();
-        }
-    }
-
     // Update is called once per frame
     void FixedUpdate()
     {

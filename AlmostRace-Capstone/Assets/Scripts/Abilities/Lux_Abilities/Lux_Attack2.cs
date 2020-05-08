@@ -56,16 +56,17 @@ public class Lux_Attack2 : Ability
         {
             bladesToSpawn--;
 
-            GameObject spawnedBlade = Instantiate(energyBlade, muzzle.position, muzzle.rotation);
+            GameObject spawnedBlade = ObjectPooler.instance.SpawnFromPool("LuxAttack", muzzle.position, muzzle.rotation); //Instantiate(energyBlade, muzzle.position, muzzle.rotation);
             laserBlastLeft.Play();
             laserBlastRight.Play();
             _energyBladeScript = spawnedBlade.GetComponent<Lux_EnergyBlade>();
+            _energyBladeScript.SetImmunePlayer(gameObject);
 
             _energyBladeScript.SetProjectileInfo(bladeDamage, bladeSpeed, 0);
 
             _energyBladeScript.GiveInfo(growthRate, growthAmount, growthLimit);
 
-            _energyBladeScript.SetImmunePlayer(gameObject);
+            
 
             AudioManager.instance.Play("Lux Shooting", transform);
         }

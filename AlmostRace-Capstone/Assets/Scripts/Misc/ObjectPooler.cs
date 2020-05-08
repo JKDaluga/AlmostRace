@@ -88,6 +88,12 @@ public class ObjectPooler : MonoBehaviour
         {
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist");
         }
+        IPooledObject pooledObj = objectToDeactivate.GetComponent<IPooledObject>();
+
+        if (pooledObj != null)
+        {
+            pooledObj.OnObjectActivate();
+        }
         objectToDeactivate.SetActive(false);
         objectToDeactivate.transform.position = transform.position;
         objectToDeactivate.transform.rotation = transform.rotation;

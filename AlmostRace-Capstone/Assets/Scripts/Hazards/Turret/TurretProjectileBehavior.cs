@@ -13,10 +13,6 @@ public class TurretProjectileBehavior : Projectile
 {
     private GameObject _aggroObject;
     private ObjectPooler _objectPooler;
-    public void Start()
-    {
-        GiveSpeed();
-    }
 
     public void SetProjectileInfo(float projectileDamage, float projectileSpeed, GameObject immunePlayer, GameObject aggroObject, ObjectPooler objPooler)
     {
@@ -25,6 +21,7 @@ public class TurretProjectileBehavior : Projectile
         _immunePlayer = immunePlayer;
         _aggroObject = aggroObject;
         _objectPooler = objPooler;
+        GiveSpeed();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -43,7 +40,7 @@ public class TurretProjectileBehavior : Projectile
                     other.gameObject.GetComponent<Interactable>().DamageInteractable(_projectileDamage);
                     GameObject spawnedImpactVFX1 = _objectPooler.SpawnFromPool("LaserImpactSparks", transform.position, transform.rotation);
                     _objectPooler.StartCoroutine(_objectPooler.DeactivateAfterTime("LaserImpactSparks", spawnedImpactVFX1, 1));
-                    Destroy(gameObject);
+                    ObjectPooler.instance.Deactivate("TurretBullet", gameObject);
                     // StartCoroutine(ExplosionEffect());
                 }
             }
@@ -80,12 +77,6 @@ public class TurretProjectileBehavior : Projectile
 
             StartCoroutine(ExplosionEffect());
         }
-        else
-        {
-            Destroy(gameObject, 10);
-        }
-
-
     }
 
 }

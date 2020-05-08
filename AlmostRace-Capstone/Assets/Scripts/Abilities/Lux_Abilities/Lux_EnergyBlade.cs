@@ -4,7 +4,7 @@ using UnityEngine;
 
 //eddie
 
-public class Lux_EnergyBlade : Projectile
+public class Lux_EnergyBlade : Projectile, IPooledObject
 {
     public int lifeTime = 7;
     private List<GameObject> _immuneCars;
@@ -12,15 +12,18 @@ public class Lux_EnergyBlade : Projectile
     private float _growthRate;
     private float _growthAmount;
     private float _growthLimit;
-    private int _debugInt;
     private CarHealthBehavior carHit;
+    public string poolTag = "LuxAttack";
+    private Vector3 startingScale;
 
-    void Start()
+    public void OnObjectActivate()
     {
-        _immuneCars = new List<GameObject>();
-        GiveSpeed();
-        InvokeRepeating("Grow", 0, _growthRate);
-        Destroy(gameObject, lifeTime);
+        
+    }
+
+    public void OnObjectDeactivate()
+    {
+        transform.localScale = startingScale;
     }
 
     public void GiveInfo(float growthRate, float growthAmount, float growthLimit)
@@ -28,12 +31,16 @@ public class Lux_EnergyBlade : Projectile
         _growthRate = growthRate;
         _growthAmount = growthAmount;
         _growthLimit = transform.localScale.x + growthLimit;
+
+        startingScale = transform.localScale;
+        _immuneCars = new List<GameObject>();
+        GiveSpeed();
+        InvokeRepeating("Grow", 0, _growthRate);
+        StartCoroutine(ObjectPooler.instance.DeactivateAfterTime(poolTag, gameObject, lifeTime));
     }
 
     public void Grow()
     {
-        _debugInt++;
-       // Debug.Log("Grow has been called: " + _debugInt + " times!");
         if(transform.localScale.x < _growthLimit)
         {
             transform.localScale += new Vector3(_growthAmount, 0, _growthAmount);
@@ -52,7 +59,7 @@ public class Lux_EnergyBlade : Projectile
             carHit = other.gameObject.GetComponent<CarHealthBehavior>();
             carHit.DamageCar(_projectileDamage, _immunePlayerScript.playerID);
             _immuneCars.Add(other.gameObject);
-            Destroy(gameObject);
+            ObjectPooler.instance.Deactivate(poolTag, gameObject);
         }
         if(other.CompareTag("Interactable"))
         {

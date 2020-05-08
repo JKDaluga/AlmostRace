@@ -18,17 +18,14 @@ public class PainTrain_LightningBall : Projectile
     private bool hasStuckCar;
 
     public GameObject lightningBoom;
+    private string poolTag = "PainTrainLightningBall";
 
-    // Start is called before the first frame update
-    void Start()
+    public void GiveInfo(float lightningBallDamage, float lightningBallDuration, float lightningBallFrequency)
     {
         objCollider = gameObject.GetComponent<Collider>();
         _carsToDamage = new List<CarHealthBehavior>();
         GiveSpeed();
-    }
 
-    public void GiveInfo(float lightningBallDamage, float lightningBallDuration, float lightningBallFrequency)
-    {
         _lightningBallDamage = lightningBallDamage;
         _lightningBallDuration = lightningBallDuration;
         _lightningBallFrequency = lightningBallFrequency;
@@ -150,7 +147,7 @@ public class PainTrain_LightningBall : Projectile
             StartCoroutine(FollowTargetCar());
 
             _rigidBody.velocity = new Vector3(0, 0, 0);
-            Destroy(gameObject, _lightningBallDuration);
+            StartCoroutine(ObjectPooler.instance.DeactivateAfterTime(poolTag, gameObject, _lightningBallDuration));
         }
 
         if (collision.gameObject.CompareTag("Interactable"))
@@ -162,14 +159,14 @@ public class PainTrain_LightningBall : Projectile
             StopCoroutine(TrackTargetCar());
             StartCoroutine(FollowTargetCar());
             _rigidBody.velocity = new Vector3(0, 0, 0);
-            Destroy(gameObject, _lightningBallDuration);
+            StartCoroutine(ObjectPooler.instance.DeactivateAfterTime(poolTag, gameObject, _lightningBallDuration));
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("Wall"))
         {
             _rigidBody.velocity = new Vector3(0, 0, 0);
             targetCar = collision.gameObject.transform;
-            Destroy(gameObject, _lightningBallDuration);
+            StartCoroutine(ObjectPooler.instance.DeactivateAfterTime(poolTag, gameObject, _lightningBallDuration));
         }
     }
 
