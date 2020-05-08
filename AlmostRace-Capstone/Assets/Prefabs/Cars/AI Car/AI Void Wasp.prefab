@@ -109789,7 +109789,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9063c203b4489422ea0ea239e30c0030, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -114833,6 +114833,7 @@ MonoBehaviour:
   playerID: 0
   UIPanel: {fileID: 0}
   secondaryUIPanel: {fileID: 0}
+  finishedPanel: {fileID: 0}
   frontLeftWheel: {fileID: 9148350972848203864}
   frontRightWheel: {fileID: 9148350973082330591}
   rearLeftWheel: {fileID: 9148350971418689261}
@@ -114853,13 +114854,21 @@ MonoBehaviour:
   deceleration: 1
   turnBackMultiplier: 5
   boostAccelerationMulti: 1
+  inAirTurnMultiplier: 0
   isBoosting: 0
   cineCamera: {fileID: 0}
   minFOV: 40
   maxFOV: 70
   boostFOV: 10
   currentFOV: 40
+  closestVertex: {x: 0, y: 0, z: 0}
   closestIndex: 0
+  activeSpline: 0
+  ignoreGravityDirection: 0
+  lastSafePos: {x: 0, y: 0, z: 0}
+  onCorkscrew: 0
+  inArena: 0
+  finished: 0
 --- !u!114 &394051805758969782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114890,7 +114899,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnPlatform: {fileID: 6421155629415652471, guid: 2e9cdd11d776b456abab6ffde9561b65,
     type: 3}
-  cheatRespawnPlatform: {fileID: 9222223360874386715, guid: 67df7dfac5adaf940888c0a5d1fc1128,
+  cheatRespawnPlatform: {fileID: 2803328380608171689, guid: 67df7dfac5adaf940888c0a5d1fc1128,
     type: 3}
   modelHolder: {fileID: 2865192296141756276}
   carObject: {fileID: 9065056328527567041}
@@ -114910,6 +114919,8 @@ MonoBehaviour:
   teleportCooldown: 5
   healFreq: 0.01
   isDead: 0
+  sparkSpawn: []
+  sparkLifeTime: 1
   teleportCDImage: {fileID: 0}
   teleDark: {fileID: 0}
   extraHealthFillBar: {fileID: 0}
@@ -114936,22 +114947,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rayCastCar: {fileID: 1290996992956317133}
+  borderImages: []
   offensiveAbility: {fileID: 3878126120493501770}
   offensiveAbilityRecharge: 5
-  offensiveAbilityCooldown: {fileID: 0}
-  offensiveAbilityDark: {fileID: 0}
+  offensiveFillBar: {fileID: 0}
+  offensiveBrightIcon: {fileID: 0}
+  offensiveBrightHex: {fileID: 0}
   offensiveAbilityBG: {fileID: 0}
   defensiveAbility: {fileID: 4234697827650344948}
   defensiveAbilityRecharge: 15
   defensiveAbilityDuration: 3
-  defensiveAbilityCooldown: {fileID: 0}
-  defensiveAbilityDark: {fileID: 0}
+  defensiveAbilityFillAmount: {fileID: 0}
+  defensiveBrightIcon: {fileID: 0}
+  defensiveBrightHex: {fileID: 0}
   DefensiveAbilityBG: {fileID: 0}
   boostAbility: {fileID: 4354155813366580808}
   boostAbilityRecharge: 5
   boostAbilityDuration: 3
-  boostAbilityCooldown: {fileID: 0}
-  boostAbilityDark: {fileID: 0}
+  boostFillBar: {fileID: 0}
+  boostBrightIcon: {fileID: 0}
+  boostBrightHex: {fileID: 0}
   BoostAbilityBG: {fileID: 0}
   offensiveTrigger: 0
   defensiveTrigger: 0
@@ -115055,7 +115070,6 @@ MonoBehaviour:
   Interstellar: 4
   thisCar: {fileID: 0}
   closestIndex: 0
-  orderedSplines: []
 --- !u!114 &9065056328527567055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115087,8 +115101,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd6f32c5403332c479b0a81dfc8ab814, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players: []
+  playersIn: 0
   arena: {fileID: 0}
+  cheating: 0
   killDist: 40
 --- !u!1 &9148350971418689260
 GameObject:
