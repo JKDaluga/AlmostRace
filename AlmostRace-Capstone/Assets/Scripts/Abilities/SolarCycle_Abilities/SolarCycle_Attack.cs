@@ -116,6 +116,11 @@ public class SolarCycle_Attack : Ability
         {
             // Spawn the missile at the spawn position and set its values
             GameObject currentProjectile = ObjectPooler.instance.SpawnFromPool(projectile, staticRocketSpawnPositions[currentSpawnLocation].position, staticRocketSpawnPositions[currentSpawnLocation].rotation);
+            if(currentProjectile == null)
+            {
+                yield break;
+            }
+            
             currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetProjectileInfo(missileDamage, missileSpeed, hypeToGain);
             currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetImmunePlayer(gameObject);
             currentProjectile.GetComponent<SolarCycle_HomingMissile>().SetAdditionalInfo(null, turnRate, 0, maxLifeTime);

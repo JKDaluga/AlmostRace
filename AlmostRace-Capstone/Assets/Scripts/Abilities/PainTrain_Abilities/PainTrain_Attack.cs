@@ -47,6 +47,11 @@ public class PainTrain_Attack : Ability
         //Debug.Log("Ability should be activated!");
         GameObject spawnedLightningBall = ObjectPooler.instance.SpawnFromPool(projectile, muzzle.position, muzzle.rotation); //Instantiate(lightningBall, muzzle.position, muzzle.rotation);
 
+        if(spawnedLightningBall == null)
+        {
+            return;
+        }
+
         spawnedLightningBall.GetComponent<PainTrain_LightningBall>().SetImmunePlayer(gameObject);
         spawnedLightningBall.GetComponent<PainTrain_LightningBall>().SetProjectileInfo(0, lightningBallSpeed, 0);
         

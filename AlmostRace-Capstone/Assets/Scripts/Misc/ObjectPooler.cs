@@ -58,6 +58,12 @@ public class ObjectPooler : MonoBehaviour
 
     private GameObject Activate(string tag, Vector3 position, Quaternion rotation, bool setParent, Transform givenParent)
     {
+        if(poolDictionary == null)
+        {
+            Debug.LogWarning("Pool Dictionary doesn't exist");
+            return null;
+        }
+
         if (!poolDictionary.ContainsKey(tag))
         {
             Debug.LogWarning("Pool with tag " + tag + " doesn't exist");
@@ -106,7 +112,12 @@ public class ObjectPooler : MonoBehaviour
 
     public IEnumerator DeactivateAfterTime(string tag, GameObject objectToDeactivate, float time)
     {
-        
+        if (poolDictionary == null)
+        {
+            Debug.LogWarning("Pool Dictionary doesn't exist");
+            yield break;
+        }
+
         yield return new WaitForSeconds(time);
         if (!poolDictionary.ContainsKey(tag))
         {

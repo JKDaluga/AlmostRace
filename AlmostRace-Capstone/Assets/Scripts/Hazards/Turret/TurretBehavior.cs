@@ -192,6 +192,11 @@ public class TurretBehavior : Interactable
         AudioManager.instance.Play("Turret Shot", transform);//play firing sound
        
         GameObject spawnedProjectile = ObjectPooler.instance.SpawnFromPool(turretProjectile, turretMuzzle.position, turretMuzzle.rotation);//fire projectile at current target
+        if(spawnedProjectile == null)
+        {
+            return;
+        }
+        
         StartCoroutine(ObjectPooler.instance.DeactivateAfterTime("TurretBullet", spawnedProjectile, 7));
         if (!shootsBoulders)
         {
