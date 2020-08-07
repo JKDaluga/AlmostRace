@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class WindmillLaserBehaviour : MonoBehaviour
 {
-
-
     private float _laserDamage,_laserDamageRate;
 
     private GameObject _interactingPlayer;

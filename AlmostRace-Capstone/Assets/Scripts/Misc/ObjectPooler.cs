@@ -60,7 +60,7 @@ public class ObjectPooler : MonoBehaviour
     {
         if(poolDictionary == null)
         {
-            Debug.LogWarning("Pool Dictionary doesn't exist");
+            Debug.LogWarning("Pool Dictionary doesn't exist. tag: " + tag);
             return null;
         }
 
@@ -114,7 +114,7 @@ public class ObjectPooler : MonoBehaviour
     {
         if (poolDictionary == null)
         {
-            Debug.LogWarning("Pool Dictionary doesn't exist");
+            ///Debug.LogWarning("Pool Dictionary doesn't exist");
             yield break;
         }
 
