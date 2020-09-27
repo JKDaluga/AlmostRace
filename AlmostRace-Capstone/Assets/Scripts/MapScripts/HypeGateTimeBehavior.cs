@@ -189,10 +189,12 @@ public class HypeGateTimeBehavior : MonoBehaviour
         float minutes = Mathf.Floor(_currentTime / 60);
         float seconds = (_currentTime % 60);
 
+        /*
         foreach (TextMeshProUGUI displayText in displayTexts)
         {
             displayText.text = string.Format("{0}:{1}", minutes.ToString("0"), seconds.ToString("00"));
         }
+        */
 
         foreach (RaycastCar car in _raceManager.cars)
         {
@@ -206,10 +208,13 @@ public class HypeGateTimeBehavior : MonoBehaviour
 
     public void FinishDisplays()
     {
+        /*
         foreach (TextMeshProUGUI displayText in displayTexts)
         {
             displayText.text = "0:00";
         }
+        */
+        
         foreach (RaycastCar car in _raceManager.cars)
         {
             if (car.gameObject.GetComponent<VehicleInput>() != null)
