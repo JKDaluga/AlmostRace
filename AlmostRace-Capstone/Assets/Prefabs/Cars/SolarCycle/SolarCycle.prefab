@@ -64792,7 +64792,7 @@ MonoBehaviour:
   - {fileID: 5019994707538037772}
   - {fileID: 9027446281253590169}
   - {fileID: 2529764936274076491}
-  explodeVFX: {fileID: 132352, guid: 697d3f7b824fee44b8616e97dfebfc11, type: 3}
+  explodeVFXTag: SCExplodeVFX
 --- !u!114 &5718597379496979744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64813,7 +64813,7 @@ MonoBehaviour:
   - {fileID: 1810017010153335397}
   - {fileID: 3644919581834046109}
   - {fileID: 290926945223326802}
-  explodeVFX: {fileID: 132352, guid: 697d3f7b824fee44b8616e97dfebfc11, type: 3}
+  explodeVFXTag: SCExplodeVFX
   frontJetParticles:
   - {fileID: 213269254427643415}
   - {fileID: 3074037412135532511}
@@ -64841,7 +64841,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7446e2ee9ae6994e8bba1c4f1e7eb36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: SCHomingMissile
   targetRocketSpawnPositions:
   - {fileID: 7477111890032443013}
   - {fileID: 110497244144783910}
@@ -128652,11 +128651,6 @@ PrefabInstance:
       propertyPath: field of view
       value: 40
       objectReference: {fileID: 0}
-    - target: {fileID: 644788422693019624, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
-        type: 3}
-      propertyPath: m_Lens.FarClipPlane
-      value: 15000
-      objectReference: {fileID: 0}
     - target: {fileID: 2229527416526567467, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: activeStatus
@@ -128825,6 +128819,16 @@ PrefabInstance:
     - target: {fileID: 493806261512401610, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1758689317247489128, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1758689317247489128, guid: 28eb1ec0d234c8d49b746c202b4fabd8,
+        type: 3}
+      propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7011202974065015024, guid: 28eb1ec0d234c8d49b746c202b4fabd8,

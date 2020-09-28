@@ -22,6 +22,8 @@ public class HypeGateTimeBehavior : MonoBehaviour
     [Tooltip("The gameobject to remove once time is counted down")]
     public GameObject[] gateToOpen;
     public GameObject[] gateToClose;
+    public GameObject[] areasToActivate;
+    public GameObject[] areasToDeactivate;
     public Transform[] spawnPoints;
     public List<TextMeshProUGUI> displayTexts;
     private int _carsInGame;
@@ -101,8 +103,9 @@ public class HypeGateTimeBehavior : MonoBehaviour
                 }
 
                 Invoke("CloseArena", 1);
-
                 StopAllCoroutines();
+                Invoke("DeactivateAreas", 2);
+                Invoke("ActivateAreas", 5);
 
                 _raceManager.inArena = true;
                 StartCoroutine(TrackHype());
@@ -127,6 +130,22 @@ public class HypeGateTimeBehavior : MonoBehaviour
         foreach (GameObject gate in gateToOpen)
         {
             gate.GetComponent<Animator>().Play("Open");
+        }
+    }
+
+    public void DeactivateAreas()
+    {
+        foreach (GameObject area in areasToDeactivate)
+        {
+            area.SetActive(false);
+        }
+    }
+
+    public void ActivateAreas()
+    {
+        foreach (GameObject area in areasToActivate)
+        {
+            area.SetActive(true);
         }
     }
 
