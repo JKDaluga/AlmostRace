@@ -36,7 +36,7 @@ public class Credits : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetButtonDown("ExitUI"))
+        if (Input.GetButtonDown("ExitUI") || Input.GetButtonDown("Submit"))
         {
             Close();
         }
