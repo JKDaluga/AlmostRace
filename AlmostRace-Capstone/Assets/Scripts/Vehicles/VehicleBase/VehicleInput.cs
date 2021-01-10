@@ -75,6 +75,12 @@ public class VehicleInput : MonoBehaviour
     public string triggerLeft { get { return _triggerLeft; } }
     private string _triggerLeft;
 
+    public string leftArrow { get { return _leftArrow; } }
+    private string _leftArrow;
+
+    public string rightArrow { get { return _rightArrow; } }
+    private string _rightArrow;
+
 
     private string[] _inputNum = new string[4] { "P1", "P2", "P3", "P4"};
 
@@ -126,6 +132,8 @@ public class VehicleInput : MonoBehaviour
                 _bumperLeftName = "BumperLeft" + _inputNum[playerNumber - 1];
                 _triggerRight = "TriggerRight" + _inputNum[playerNumber - 1];
                 _triggerLeft = "TriggerLeft" + _inputNum[playerNumber - 1];
+                _leftArrow = "LeftArrow" + _inputNum[playerNumber - 1];
+                _rightArrow = "RightArrow" + _inputNum[playerNumber - 1];
         #endif
 
         #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
@@ -149,6 +157,8 @@ public class VehicleInput : MonoBehaviour
                 _bumperLeftName = "BumperLeft" + _inputNum[playerNumber - 1] + "Mac";                
                 _triggerRight = "TriggerRight" + _inputNum[playerNumber - 1] + "Mac";
                 _triggerLeft = "TriggerLeft" + _inputNum[playerNumber - 1] + "Mac";
+                _leftArrow = "LeftArrow" + _inputNum[playerNumber - 1];
+                _rightArrow = "RightArrow" + _inputNum[playerNumber - 1];
         #endif
     }
 

@@ -115,7 +115,7 @@ public class ViewportController : MonoBehaviour
     {
         if (!_switchingPanel)
         {
-            if(Input.GetButtonDown(_playerInput.bumperRight) || Input.GetAxis(_playerInput.horizontalDPad) > 0)
+            if(Input.GetButtonDown(_playerInput.bumperRight) || Input.GetAxis(_playerInput.horizontalDPad) > 0 || Input.GetButtonDown(_playerInput.rightArrow))
             {
                 _switchingPanel = true;
                 if (_selectedInfoPanel >= infoPanels.Length - 1)
@@ -128,7 +128,7 @@ public class ViewportController : MonoBehaviour
                 }
                 PanelViewState();
             }
-            else if (Input.GetButtonDown(_playerInput.bumperLeft) || Input.GetAxis(_playerInput.horizontalDPad) < 0)
+            else if (Input.GetButtonDown(_playerInput.bumperLeft) || Input.GetAxis(_playerInput.horizontalDPad) < 0 || Input.GetButtonDown(_playerInput.leftArrow))
             {
                 _switchingPanel = true;
                 if (_selectedInfoPanel <= 0)
