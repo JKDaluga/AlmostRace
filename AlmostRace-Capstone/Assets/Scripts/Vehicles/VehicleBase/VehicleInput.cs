@@ -68,8 +68,12 @@ public class VehicleInput : MonoBehaviour
 
     public string bumperLeft { get { return _bumperLeftName; } }
     private string _bumperLeftName;
-    public string triggersRightLeft { get { return _triggers; } }
-    private string _triggers;
+    
+    public string triggerRight { get { return _triggerRight; } }
+    private string _triggerRight;
+
+    public string triggerLeft { get { return _triggerLeft; } }
+    private string _triggerLeft;
 
 
     private string[] _inputNum = new string[4] { "P1", "P2", "P3", "P4"};
@@ -120,7 +124,8 @@ public class VehicleInput : MonoBehaviour
                 _verticalName = "VerticalUI" + _inputNum[playerNumber - 1];
                 _bumperRightName = "BumperRight" + _inputNum[playerNumber - 1];
                 _bumperLeftName = "BumperLeft" + _inputNum[playerNumber - 1];
-                _triggers = "Triggers" + _inputNum[playerNumber - 1];
+                _triggerRight = "TriggerRight" + _inputNum[playerNumber - 1];
+                _triggerLeft = "TriggerLeft" + _inputNum[playerNumber - 1];
         #endif
 
         #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
@@ -135,6 +140,14 @@ public class VehicleInput : MonoBehaviour
                 _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1] + "Mac";
                 _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1] + "Mac";
                 _rightStickButtonName = "RightStickButton" + _inputNum[playerNumber - 1] + "Mac";
+                _selectButton = "Brake" + _inputNum[playerNumber - 1] + "Mac";
+                _awakeButton = "SignatureAbility" + _inputNum[playerNumber - 1] + "Mac";
+                _backButton = "Pickup" + _inputNum[playerNumber - 1] + "Mac";
+                _verticalName = "VerticalUI" + _inputNum[playerNumber - 1];
+                _bumperRightName = "BumperRight" + _inputNum[playerNumber - 1] + "Mac";
+                _bumperLeftName = "BumperLeft" + _inputNum[playerNumber - 1] + "Mac";                
+                _triggerRight = "TriggerRight" + _inputNum[playerNumber - 1] + "Mac";
+                _triggerLeft = "TriggerLeft" + _inputNum[playerNumber - 1] + "Mac";
         #endif
     }
 

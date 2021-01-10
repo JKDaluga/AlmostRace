@@ -73,7 +73,7 @@ public class ViewportController : MonoBehaviour
 
     private void VehicleScroll()
     {
-        if (Input.GetAxis(_playerInput.horizontal) > 0.3f || Input.GetAxis(_playerInput.triggersRightLeft) > 0)
+        if (Input.GetAxis(_playerInput.horizontal) > 0.3f || Input.GetAxis(_playerInput.triggerRight) > 0)
         {
             if(!_rotateSelection.GetSwitching())
             {
@@ -91,7 +91,7 @@ public class ViewportController : MonoBehaviour
                 AbilityInfoViewState();
             }
         }
-        else if (Input.GetAxis(_playerInput.horizontal) < -0.3f || Input.GetAxis(_playerInput.triggersRightLeft) < 0)
+        else if (Input.GetAxis(_playerInput.horizontal) < -0.3f || Input.GetAxis(_playerInput.triggerLeft) > 0)
         {
             if(!_rotateSelection.GetSwitching())
             {
