@@ -130,6 +130,7 @@ public class VehicleInput : MonoBehaviour
 
         #if UNITY_EDITOR_OSX || UNITY_STANDALONE_OSX
                 _horizontalName = "Horizontal" + _inputNum[playerNumber - 1];
+                _horizontalDPad = "HorizontalDPad" + _inputNum[playerNumber - 1] + "Mac";
                 _vertForwardName = "VerticalForwards" + _inputNum[playerNumber - 1] + "Mac";
                 _vertBackwardName = "VerticalBackwards" + _inputNum[playerNumber - 1] + "Mac";
                 _brakeName = "Brake" + _inputNum[playerNumber - 1] + "Mac";
