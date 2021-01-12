@@ -66,7 +66,7 @@ public class SelectionManager : MonoBehaviour
                 else
                 {
                     continueText.text = "Press ENTER To Continue";
-                    backText.text = "Press Q To<br>Go Back";
+                    backText.text = "Press K To<br>Go Back";
                 }
             }
 
@@ -82,6 +82,11 @@ public class SelectionManager : MonoBehaviour
                 {
                     controllersBeingUsed = false;
                 }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape) && !_readyToStart)
+            {
+                LoadMainMenu();
             }
 
         }
@@ -137,11 +142,16 @@ public class SelectionManager : MonoBehaviour
             }
             else if (!inUse && !_readyToStart)
             {
-                _isLoading = true;
-                SceneManager.LoadSceneAsync(mainMenuIndex);
-                AudioManager.instance.PlayWithoutSpatial("Menu Selection");
+                LoadMainMenu();
             }
         }
+    }
+
+    private void LoadMainMenu()
+    {
+        _isLoading = true;
+        SceneManager.LoadSceneAsync(mainMenuIndex);
+        AudioManager.instance.PlayWithoutSpatial("Menu Selection");        
     }
 
     private void AssignPlayer(VehicleInput givenController)

@@ -98,7 +98,7 @@ public class ViewportController : MonoBehaviour
             }
             else
             {
-                _pressToJoinText.text = "PRESS F TO JOIN";
+                _pressToJoinText.text = "PRESS L TO JOIN";
             }
         }
     }
