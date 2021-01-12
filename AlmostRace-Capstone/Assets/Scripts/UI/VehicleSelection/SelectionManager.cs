@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class SelectionManager : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class SelectionManager : MonoBehaviour
     public int nextSceneIndex = 2;
     public int mainMenuIndex = 0;
     public GameObject loadingText;
-    public GameObject pressAText;
+    public TextMeshProUGUI continueText;
+    public TextMeshProUGUI backText;
     public Slider loadingBar;
     public ViewportController[] viewports;
     public VehicleInput[] playerInputs;
@@ -20,6 +22,7 @@ public class SelectionManager : MonoBehaviour
     private bool _readyToStart = false;
     private bool _isLoading = false;
     private int secondsElapsedLoading = 0;
+    [HideInInspector] public bool controllersBeingUsed;
 
 
     // Start is called before the first frame update
@@ -29,7 +32,7 @@ public class SelectionManager : MonoBehaviour
         _isLoading = false;
         _data.ResetData();
         allReadyImage.SetActive(false);
-        pressAText.SetActive(true);
+        continueText.enabled = true;
         loadingText.SetActive(false);
     }
 
@@ -52,7 +55,37 @@ public class SelectionManager : MonoBehaviour
                     CheckController(playerInputs[i], "SelectButtonTriggered");
                 }
             }
+            
+            if (_readyToStart)
+            {
+                if (controllersBeingUsed)
+                {
+                    continueText.text = "Press A To Continue";
+                    backText.text = "Press B To<br>Go Back";
+                }
+                else
+                {
+                    continueText.text = "Press ENTER To Continue";
+                    backText.text = "Press Q To<br>Go Back";
+                }
+            }
+
+            for (int i = 0; i < Input.GetJoystickNames().Length; i++)
+            {
+                string controller = Input.GetJoystickNames()[i].ToString();
+                if (controller != "")
+                {
+                    controllersBeingUsed = true;
+                    break;
+                }
+                else
+                {
+                    controllersBeingUsed = false;
+                }
+            }
+
         }
+
     }
 
     private void CheckController(VehicleInput givenController, string givenCommand)
@@ -84,7 +117,8 @@ public class SelectionManager : MonoBehaviour
             {
                 _isLoading = true;
                 AudioManager.instance.Play("Menu Selection", this.transform);
-                pressAText.SetActive(false);
+                continueText.enabled = false;
+                backText.enabled = false;
                 loadingText.SetActive(true);
                 StartCoroutine(LoadingMapScene(nextSceneIndex));
             }

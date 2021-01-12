@@ -18,12 +18,17 @@ public class ViewportController : MonoBehaviour
     public Camera viewportCamera;
     public Image inactiveImage;
     public Image readyImage;
+    public Image[] infoBumpers;
+    public Sprite[] infoBumpersController;
+    public Sprite[] infoBumpersKeyboard;
     public GameObject infoPanelHolder;
     public GameObject[] infoPanels = new GameObject[4];
     public GameObject[] vehicleDescriptionImages;
     private Image[] _infoImage;
     public TextMeshProUGUI selectedVehicleText;
-    private TextMeshProUGUI _text;
+    private TextMeshProUGUI _playerNumberText;
+    [SerializeField] private TextMeshProUGUI _pressToJoinText;
+    [SerializeField] private TextMeshProUGUI _readyText;
 
     [Header("Display Vehicle Values")]
     [Space(20)]
@@ -41,7 +46,7 @@ public class ViewportController : MonoBehaviour
 
     private void Start()
     {
-        _text = playerNumDisplay.GetComponent<TextMeshProUGUI>();
+        _playerNumberText = playerNumDisplay.GetComponent<TextMeshProUGUI>();
         _vehicleCount = selectionManager.amountOfSelections;
         _rotateSelection = vehicleRotationHolder.GetComponent<RotateSelection>();
         _infoImage = new Image[infoPanels.Length];
@@ -67,6 +72,33 @@ public class ViewportController : MonoBehaviour
             {
                 VehicleScroll();
                 InfoScroll();
+                if (selectionManager.controllersBeingUsed && playerID == 1)
+                {
+                    _readyText.text = "PRESS A TO SELECT";
+                    for (int i = 0; i < infoBumpers.Length; i++)
+                    {
+                        infoBumpers[i].sprite = infoBumpersController[i];
+                    }
+                }
+                else if (!selectionManager.controllersBeingUsed && playerID == 1)
+                {
+                    _readyText.text = "PRESS ENTER TO SELECT";
+                    for (int i = 0; i < infoBumpers.Length; i++)
+                    {
+                        infoBumpers[i].sprite = infoBumpersKeyboard[i];
+                    }
+                }
+            }
+        }
+        else if (!_joined && playerID == 1)
+        {
+            if (selectionManager.controllersBeingUsed)
+            {
+                _pressToJoinText.text = "PRESS Y TO JOIN";
+            }
+            else
+            {
+                _pressToJoinText.text = "PRESS F TO JOIN";
             }
         }
     }
@@ -115,7 +147,8 @@ public class ViewportController : MonoBehaviour
     {
         if (!_switchingPanel)
         {
-            if(Input.GetButtonDown(_playerInput.bumperRight) || Input.GetAxis(_playerInput.horizontalDPad) > 0 || Input.GetButtonDown(_playerInput.rightArrow))
+            if(Input.GetButtonDown(_playerInput.bumperRight) || Input.GetAxis(_playerInput.horizontalDPad) > 0
+            || (Input.GetButtonDown(_playerInput.rightArrow) && playerID == 1))
             {
                 _switchingPanel = true;
                 if (_selectedInfoPanel >= infoPanels.Length - 1)
@@ -128,7 +161,8 @@ public class ViewportController : MonoBehaviour
                 }
                 PanelViewState();
             }
-            else if (Input.GetButtonDown(_playerInput.bumperLeft) || Input.GetAxis(_playerInput.horizontalDPad) < 0 || Input.GetButtonDown(_playerInput.leftArrow))
+            else if (Input.GetButtonDown(_playerInput.bumperLeft) || Input.GetAxis(_playerInput.horizontalDPad) < 0
+            || (Input.GetButtonDown(_playerInput.leftArrow) && playerID == 1))
             {
                 _switchingPanel = true;
                 if (_selectedInfoPanel <= 0)
@@ -185,7 +219,7 @@ public class ViewportController : MonoBehaviour
         {
             _playerInput = controllerNumber;
             _joined = true;
-            _text.text = "PLAYER " + playerID;
+            _playerNumberText.text = "PLAYER " + playerID;
             vehicleRotationHolder.SetActive(true);
             inactiveImage.enabled = false;
             infoPanelHolder.SetActive(true);
@@ -198,7 +232,7 @@ public class ViewportController : MonoBehaviour
         {
             _joined = false;
             _ready = false;
-            _text.text = "NO PLAYER";
+            _playerNumberText.text = "NO PLAYER";
             cover.SetActive(true);
             abilityExampleScript[selectedCarID].DeactivateAllAbilites();
             //vehicleRotationHolder.SetActive(false);
