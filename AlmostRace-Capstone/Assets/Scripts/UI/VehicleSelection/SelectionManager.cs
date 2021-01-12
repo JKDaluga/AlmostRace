@@ -66,7 +66,7 @@ public class SelectionManager : MonoBehaviour
                 else
                 {
                     continueText.text = "Press ENTER To Continue";
-                    backText.text = "Press K To<br>Go Back";
+                    backText.text = "Press L To<br>Go Back";
                 }
             }
 
