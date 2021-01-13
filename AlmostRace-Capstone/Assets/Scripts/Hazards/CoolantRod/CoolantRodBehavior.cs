@@ -99,6 +99,7 @@ public void SlideRod()
 
     public override void TriggerInteractable()
     {
+        /*
         if(interactingPlayer != null)
         {
             if (interactingPlayer.GetComponent<AimAssistant>().target == gameObject)
@@ -106,6 +107,7 @@ public void SlideRod()
                 interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
             }
         }
+        */
 
         AimCollider[] allPlayers = FindObjectsOfType<AimCollider>();
 

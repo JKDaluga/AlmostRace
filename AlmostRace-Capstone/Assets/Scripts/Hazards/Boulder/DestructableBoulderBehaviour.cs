@@ -56,6 +56,7 @@ public class DestructableBoulderBehaviour : Interactable
 
             interactingPlayer = collision.gameObject; // sets the person crashing with the boulder as the interacting player
             TriggerInteractable();
+            /*
             if (collision.gameObject.GetComponent<VehicleInput>())
             {
                 if (collision.gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Contains(gameObject))
@@ -63,6 +64,7 @@ public class DestructableBoulderBehaviour : Interactable
                     collision.gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
                 }
             }
+            */
             if (collision.gameObject.GetComponent<AIBehaviour>())
             {
                 collision.gameObject.GetComponentInChildren<AIObstacleAvoidance>().turnR = false;
@@ -85,11 +87,13 @@ public class DestructableBoulderBehaviour : Interactable
         {
             if (interactingPlayer.GetComponent<VehicleInput>())
             {
+                /*
                 if (interactingPlayer.GetComponent<AimAssistant>().target == gameObject)
                 {
                     interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
                     interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().interactables.Remove(GetComponent<Collider>());
                 }
+                */
             }
 
             if (interactingPlayer.GetComponent<AIBehaviour>())

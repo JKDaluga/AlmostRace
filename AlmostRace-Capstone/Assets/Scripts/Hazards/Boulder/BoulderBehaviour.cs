@@ -39,6 +39,7 @@ public class BoulderBehaviour : Interactable
 
             interactingPlayer = collision.gameObject; // sets the person crashing with the boulder as the interacting player
             TriggerInteractable();
+            /*
             if (collision.gameObject.GetComponent<VehicleInput>())
             {
                 if (collision.gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Contains(gameObject))
@@ -46,6 +47,7 @@ public class BoulderBehaviour : Interactable
                     collision.gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
                 }
             }
+            */
             if (collision.gameObject.GetComponent<AIBehaviour>())
             {
                 collision.gameObject.GetComponentInChildren<AIObstacleAvoidance>().turnR = false;
@@ -66,6 +68,7 @@ public class BoulderBehaviour : Interactable
     {
         if (interactingPlayer != null)
         {
+            /*
             if (interactingPlayer.GetComponent<VehicleInput>())
             {
                 if (interactingPlayer.GetComponent<AimAssistant>().target == gameObject)
@@ -74,6 +77,7 @@ public class BoulderBehaviour : Interactable
                     interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().interactables.Remove(GetComponent<Collider>());
                 }
             }
+            */
 
             if (interactingPlayer.GetComponent<AIBehaviour>())
             {

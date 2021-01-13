@@ -101,6 +101,7 @@ public class TurretBehavior : Interactable
         _turretSound.PlayOneShot(turretExplosionSound); //play explosion sound
         currentTarget = null;//reset target
         //turretFirePillar.Activate(); //activate fire pillar
+        /*
         if (interactingPlayer != null)
         {
             if (interactingPlayer.GetComponent<AimAssistant>().target == gameObject)
@@ -108,6 +109,7 @@ public class TurretBehavior : Interactable
                 interactingPlayer.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Remove(gameObject);
             }
         }
+        */
         Invoke("ResetInteractable", turretRespawnTime);
     }
 

@@ -249,11 +249,12 @@ public class CarHealthBehavior : MonoBehaviour
         _carBodyHolder.velocity = Vector3.zero;
         _carBodyHolder.angularVelocity = Vector3.zero;
         
-
+        /*
         if (_vehicleInput)
         {
             gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
         }
+        */
     }
 
     public void AICheatKill()
@@ -280,10 +281,12 @@ public class CarHealthBehavior : MonoBehaviour
         respawnInstance.GetComponent<RespawnPlatformBehavior>().SetPlayer(this.gameObject, modelHolder);
         //_carBodyHolder.isKinematic = true;
 
+        /*
         if (_vehicleInput)
         {
             gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
         }
+        */
     }
 
     public void Respawn()
@@ -327,10 +330,12 @@ public class CarHealthBehavior : MonoBehaviour
         {
             bAbility.DeactivateAbility();
         }
+        /*
         if (_vehicleInput)
         {
             gameObject.GetComponent<AimAssistant>().aimCircle.GetComponent<AimCollider>().colliding.Clear();
         }
+        */
         //GetComponent<RaycastCar>().setDrifting(false);
         // GetComponent<RaycastCar>().SetIsBoosting(false);
 
