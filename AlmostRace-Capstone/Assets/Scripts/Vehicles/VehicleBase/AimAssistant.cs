@@ -31,6 +31,8 @@ public class AimAssistant : MonoBehaviour
         aimCircle.GetComponent<AimCollider>().layer = ground;
         aimCircle.GetComponent<AimCollider>().maxDist = visibleDistance;
     }
+
+    
     private void FixedUpdate()
     {
 
@@ -44,13 +46,15 @@ public class AimAssistant : MonoBehaviour
             aimPos.transform.localPosition = aimObject.transform.localPosition;
         }
 
-
         if (GetComponent<VehicleInput>())
         {
+            /*
             if (Input.GetButtonDown(GetComponent<VehicleInput>().rightStickButton))
             {
                 aimOn = !aimOn;
             }
+            */
         }
     }
+    
 }
