@@ -123,7 +123,6 @@ public class VehicleInput : MonoBehaviour
                 _respawn = "Respawn" + _inputNum[playerNumber - 1];
                 _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1];
                 _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1];
-                _rightStickButtonName = "RightStickButton" + _inputNum[playerNumber - 1];
                 _selectButton = "Select" + _inputNum[playerNumber - 1];
                 _awakeButton = "SignatureAbility" + _inputNum[playerNumber - 1];
                 _backButton = "Pickup" + _inputNum[playerNumber - 1];
@@ -148,7 +147,6 @@ public class VehicleInput : MonoBehaviour
                 _respawn = "Respawn" +  _inputNum[playerNumber - 1] + "Mac";
                 _rightVerticalName = "RightVertical" + _inputNum[playerNumber - 1] + "Mac";
                 _rightHorizontalName = "RightHorizontal" + _inputNum[playerNumber - 1] + "Mac";
-                _rightStickButtonName = "RightStickButton" + _inputNum[playerNumber - 1] + "Mac";
                 _selectButton = "Select" + _inputNum[playerNumber - 1] + "Mac";
                 _awakeButton = "SignatureAbility" + _inputNum[playerNumber - 1] + "Mac";
                 _backButton = "Pickup" + _inputNum[playerNumber - 1] + "Mac";

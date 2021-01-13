@@ -23,8 +23,6 @@ public class MenuController : MonoBehaviour
     private VehicleInput[] _vehicleInput;
     private static bool isGamePaused = true;
     private static bool isGameEnded = false;
-    private bool runningPC;
-    private bool runningMac;
 
     private void Start()
     {
@@ -36,20 +34,11 @@ public class MenuController : MonoBehaviour
         _sparkSoundsToControl = FindObjectsOfType<VehicleCollisionEffects>();
         _sphereCarController = FindObjectsOfType<SphereCarController>();
         _vehicleInput = FindObjectsOfType<VehicleInput>();
-        if (Application.platform == RuntimePlatform.OSXPlayer || Application.platform == RuntimePlatform.OSXEditor)
-        {
-            runningMac = true;
-        }
-        else
-        {
-            runningPC = true;
-            runningMac = false;
-        }
     }
 
     void Update()
     {
-        if(((runningPC && Input.GetButtonDown("Pause")) || (runningMac && Input.GetButtonDown("PauseMac"))) && !Countdown.activeSelf)
+        if(Input.GetButtonDown("Pause") && !Countdown.activeSelf)
         {
             if (pauseMenu.activeSelf == true)
             {
