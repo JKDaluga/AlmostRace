@@ -8,6 +8,8 @@ public class SettingsMenuScript : MonoBehaviour
 {
     AudioSource VolumeMusic;
 
+    private StandaloneInputModule standaloneInputModule;
+
     public AudioManager volumeControl;
 
     private DataManager AISwitch;
@@ -28,6 +30,19 @@ public class SettingsMenuScript : MonoBehaviour
     private bool isStart = true;
 
     public bool isMain;
+
+    private void Awake()
+    {
+        standaloneInputModule = FindObjectOfType<StandaloneInputModule>();
+        if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.OSXPlayer)
+        {
+            standaloneInputModule.horizontalAxis = "HorizontalUIMac";
+        }
+        else
+        {
+            standaloneInputModule.horizontalAxis = "HorizontalUI";
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
