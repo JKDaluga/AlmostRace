@@ -140,9 +140,9 @@ public class VehicleAbilityBehavior : MonoBehaviour
     }
     private void Start()
     {
-        if(_vehicleInput != null)
+        if(rayCastCar != null)
         {
-            switch (_vehicleInput.GetPlayerNum())
+            switch (rayCastCar.playerID)
             {
                 case 1:
 
